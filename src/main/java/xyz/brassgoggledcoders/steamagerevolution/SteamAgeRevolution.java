@@ -24,8 +24,8 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	public static final String MODID = "steamagerevolution";
 	public static final String MODNAME = "Steam Age Revolution";
 	public static final String MODVERSION = "@VERSION@";
-	
-	public CreativeTabs TAB = this.new SARTab();
+
+	public CreativeTabs tab = new SARTab();
 
 	public static ModLogger logger;
 
@@ -60,7 +60,7 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	@Override
 	public CreativeTabs getCreativeTab()
 	{
-		return TAB;
+		return tab;
 	}
 
 	@Override
@@ -110,22 +110,23 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	{
 		return null;
 	}
-	
-	public class SARTab extends BaseCreativeTab {
 
-		public SARTab() {
-			super(SteamAgeRevolution.MODID+"_tab");
+	public class SARTab extends BaseCreativeTab
+	{
+
+		public SARTab()
+		{
+			super(SteamAgeRevolution.MODID + "_tab");
 		}
-		
-		@Override
-	    public boolean hasSearchBar()
-	    {
-	        return true;
-	    }
 
-		@Override
-		public Item getTabIconItem() {
-			return InitItems.plates;
+		public boolean hasSearchBar()
+		{
+			return true;
+		}
+
+		public Item getTabIconItem()
+		{
+			return InitItems.ITEM_PLATES;
 		}
 
 	}

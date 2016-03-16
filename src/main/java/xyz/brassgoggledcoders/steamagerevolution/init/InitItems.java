@@ -5,18 +5,20 @@ import xyz.brassgoggledcoders.boilerplate.lib.common.registries.ItemRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.item.ItemMaterial;
 import xyz.brassgoggledcoders.steamagerevolution.lib.MetalTypes;
 
-public class InitItems {
-	public static Item ingots;
-	public static Item nuggets;
-	public static Item plates;
-	
-	public static void init(){
-		ingots=new ItemMaterial(MetalTypes.metalsIngot, "ingot");
-		nuggets=new ItemMaterial(MetalTypes.metalsNugget, "nugget");
-		plates=new ItemMaterial(MetalTypes.metalsAll, "plate");
-		
-		ItemRegistry.registerItem(ingots);
-		ItemRegistry.registerItem(nuggets);
-		ItemRegistry.registerItem(plates);
+public class InitItems
+{
+	public static Item ITEM_INGOTS;
+	public static Item ITEM_NUGGETS;
+	public static Item ITEM_PLATES;
+
+	public static void init()
+	{
+		ITEM_INGOTS = new ItemMaterial(MetalTypes.metalsIngot, "ingot");
+		ITEM_NUGGETS = new ItemMaterial(MetalTypes.metalsNugget, "nugget");
+		ITEM_PLATES = new ItemMaterial(MetalTypes.metalsAll, "plate");
+
+		ItemRegistry.registerItem(ITEM_INGOTS);
+		ItemRegistry.registerItem(ITEM_NUGGETS);
+		ItemRegistry.registerItem(ITEM_PLATES);
 	}
 }
