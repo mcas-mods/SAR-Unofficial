@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -8,8 +9,10 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.boilerplate.lib.BoilerplateLib;
+import xyz.brassgoggledcoders.boilerplate.lib.common.BaseCreativeTab;
 import xyz.brassgoggledcoders.boilerplate.lib.common.IBoilerplateMod;
 import xyz.brassgoggledcoders.boilerplate.lib.common.utils.ModLogger;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution.SARTab;
 import xyz.brassgoggledcoders.steamagerevolution.init.InitItems;
 
 @Mod(modid = SteamAgeRevolution.MODID, name = SteamAgeRevolution.MODNAME, version = SteamAgeRevolution.MODVERSION)
@@ -21,6 +24,8 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	public static final String MODID = "steamagerevolution";
 	public static final String MODNAME = "Steam Age Revolution";
 	public static final String MODVERSION = "@VERSION@";
+	
+	public CreativeTabs TAB = this.new SARTab();
 
 	public static ModLogger logger;
 
@@ -55,7 +60,7 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	@Override
 	public CreativeTabs getCreativeTab()
 	{
-		return null;
+		return TAB;
 	}
 
 	@Override
@@ -105,4 +110,24 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	{
 		return null;
 	}
+	
+	public class SARTab extends BaseCreativeTab {
+
+		public SARTab() {
+			super(SteamAgeRevolution.MODID+"_tab");
+		}
+		
+		@Override
+	    public boolean hasSearchBar()
+	    {
+	        return true;
+	    }
+
+		@Override
+		public Item getTabIconItem() {
+			return InitItems.plates;
+		}
+
+	}
+
 }

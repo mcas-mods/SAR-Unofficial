@@ -31,7 +31,6 @@ public class ItemMaterial extends BaseItem {
     public ItemMaterial(String[] typesList, String name) {
     	super(name);
     	this.types=typesList;
-        setCreativeTab(CreativeTabs.tabMaterials);
         setHasSubtypes(true);
     }
 
