@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders;
+package xyz.brassgoggledcoders.steamagerevolution;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.config.Configuration;
@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.boilerplate.lib.BoilerplateLib;
 import xyz.brassgoggledcoders.boilerplate.lib.common.IBoilerplateMod;
 import xyz.brassgoggledcoders.boilerplate.lib.common.utils.ModLogger;
+import xyz.brassgoggledcoders.steamagerevolution.init.InitItems;
 
 @Mod(modid = SteamAgeRevolution.MODID, name = SteamAgeRevolution.MODNAME, version = SteamAgeRevolution.MODVERSION)
 public class SteamAgeRevolution implements IBoilerplateMod
@@ -26,6 +27,7 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
+		logger = new ModLogger(MODID);
 		BoilerplateLib.getInstance().preInitStart(event);
 		logger = BoilerplateLib.getLogger();
 		BoilerplateLib.getInstance().preInitEnd(event);
@@ -35,6 +37,7 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	public void init(FMLInitializationEvent event)
 	{
 		BoilerplateLib.getInstance().init(event);
+		InitItems.init();
 	}
 
 	@Mod.EventHandler
