@@ -7,6 +7,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import xyz.brassgoggledcoders.boilerplate.lib.common.items.BaseItem;
+import xyz.brassgoggledcoders.boilerplate.lib.common.registries.ItemRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.init.InitItems;
 import xyz.brassgoggledcoders.steamagerevolution.lib.MetalTypes;
 
@@ -21,7 +22,7 @@ public class ItemMaterial extends BaseItem
 		{
 			if(types[i].equalsIgnoreCase(name))
 			{
-				return new ItemStack(InitItems.ITEM_INGOTS, i);
+				return new ItemStack(ItemRegistry.getItem(this.getUnlocalizedName()), i);
 			}
 		}
 		throw new InvalidParameterException(name + " could not be found.");
