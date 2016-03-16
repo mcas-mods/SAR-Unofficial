@@ -9,7 +9,7 @@ Steam Age Revolution is the rewrite of Steamcraft2 for Minecraft 1.8.9+. It is c
 * Anyone else who has/will submit pull requests.
 
 # Issues
-[![Stories in Ready](https://badge.waffle.io/BrassGoggledCoders/Boilerplate.svg?label=ready&title=Ready)](http://waffle.io/BrassGoggledCoders/Boilerplate)
+[![Stories in Ready](https://badge.waffle.io/BrassGoggledCoders/SteamAgeRevolution.svg?label=ready&title=Ready)](http://waffle.io/BrassGoggledCoders/SteamAgeRevolution)
 
 Our issues are neatly organised on waffle.io. Please remember to attach crash reports to your issues if you run into a crash! We can't fix the issue without it and we probably will just close it and ignore it.
 
