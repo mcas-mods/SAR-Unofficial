@@ -2,9 +2,8 @@ package xyz.brassgoggledcoders.steamagerevolution.init;
 
 import net.minecraft.item.Item;
 import xyz.brassgoggledcoders.boilerplate.lib.common.registries.ItemRegistry;
-import xyz.brassgoggledcoders.steamagerevolution.item.ItemIngots;
-import xyz.brassgoggledcoders.steamagerevolution.item.ItemNuggets;
-import xyz.brassgoggledcoders.steamagerevolution.item.ItemPlates;
+import xyz.brassgoggledcoders.steamagerevolution.item.ItemMaterial;
+import xyz.brassgoggledcoders.steamagerevolution.lib.MetalTypes;
 
 public class InitItems {
 	public static Item ingots;
@@ -12,9 +11,9 @@ public class InitItems {
 	public static Item plates;
 	
 	public static void init(){
-		ingots=new ItemIngots();
-		nuggets=new ItemNuggets();
-		plates=new ItemPlates();
+		ingots=new ItemMaterial(MetalTypes.metalsIngot, "ingot");
+		nuggets=new ItemMaterial(MetalTypes.metalsNugget, "nugget");
+		plates=new ItemMaterial(MetalTypes.metalsAll, "plate");
 		
 		ItemRegistry.registerItem(ingots);
 		ItemRegistry.registerItem(nuggets);

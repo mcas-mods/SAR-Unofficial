@@ -30,6 +30,7 @@ public class SteamAgeRevolution implements IBoilerplateMod
 		logger = new ModLogger(MODID);
 		BoilerplateLib.getInstance().preInitStart(event);
 		logger = BoilerplateLib.getLogger();
+		InitItems.init();
 		BoilerplateLib.getInstance().preInitEnd(event);
 	}
 
@@ -37,7 +38,6 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	public void init(FMLInitializationEvent event)
 	{
 		BoilerplateLib.getInstance().init(event);
-		InitItems.init();
 	}
 
 	@Mod.EventHandler
