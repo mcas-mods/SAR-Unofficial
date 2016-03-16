@@ -1,0 +1,164 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+project.ext {
+    buildNum = System.getenv("BUILD_NUMBER")
+    mcVersion = "${project.minecraft.version}"
+    sarVersion = "${steamagerevolutionversion}-${project.ext.buildNum}"
+}
+
+version = "${minecraftversion}-" + project.ext.sarVersion
+group = "brassgoggledcoders"
+archivesBaseName = "steamagerevolution"
+
+minecraft {
+    version = "${minecraftversion}-${forgeversion}"
+    mappings = "${mappingsversion}"
+    useDepAts = true
+    runDir = "run/"
+    useDepAts = true
+
+    replace "@VERSION@", project.ext.sarVersion
+    replaceIn "SteamAgeRevolution.java"
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        name "K4Repo"
+        url "http://maven.k-4u.nl"
+    }
+    maven {
+        name "JEI"
+        url "http://dvs1.progwml6.com/files/maven"
+    }
+}
+
+configurations {
+    shade
+    compile.extendsFrom shade
+}
+
+dependencies {
+    shade "brassgoggledcoders:boilerplate:${minecraftversion}-${boilerplateversion}:lib"
+}
+
+runClient {
+    if(project.hasProperty('mcUsername') && project.hasProperty('mcPassword') ) {
+        args += "--username=${project.mcUsername}"
+        args += "--password=${project.mcPassword}"
+    }
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+        
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+idea {
+    module {
+        inheritOutputDirs = true
+    }
+}
+
+reobfJar {
+    addExtraSrgLine "PK: xyz/brassgoggledcoders/boilerplate xyz/brassgoggledcoders/steamagerevolution/boilerplate"
+}
+
+jar {
+    configurations.shade.each { dep ->
+        from(project.zipTree(dep)){
+            exclude 'META-INF', 'META-INF/**', 'mcmod.info'
+        }
+    }
+    classifier = ""
+}
+
+task deobfJar(type: Jar) {
+    configurations.shade.each { dep ->
+        from(project.zipTree(dep)){
+            exclude 'META-INF', 'META-INF/**'
+        }
+    }
+    from(sourceSets.main.output) {
+        classifier = "deobf"
+    }
+}
+
+artifacts {
+    archives deobfJar
+}
+
+task("uploadJars", dependsOn: "reobf") {
+    description = "uploads JARs"
+    if (System.getenv("local_maven") != null) {
+        apply plugin: 'maven'
+        uploadArchives {
+            repositories {
+                mavenDeployer {
+                    repository(url: "file://" + System.getenv("local_maven"))
+                    pom {
+                        groupId = project.group
+                        version
+                        artifactId = project.archivesBaseName
+                        project {
+                            name project.archivesBaseName
+                            packaging 'jar'
+                            description 'SteamAgeRevolution'
+                            url 'http://BrassGoggledCoders.xyz'
+                            scm {
+                                url 'https://github.com/BrassGoggledCoders/SteamAgeRevolution.git'
+                                connection 'scm:git:git@github.com:BrassGoggledCoders/SteamAGeRevolution.git'
+                                developerConnection 'scm:git:git@github.com:BrassGoggledCoders/SteamAgeRevolution.git'
+                            }
+                            issueManagement {
+                                system 'github'
+                                url 'https://github.com/BrassGoggledCoders/SteamAgeRevolution/issues'
+                            }
+                            licenses {
+                                license {
+                                    name 'MIT'
+                                    url 'https://github.com/BrassGoggledCoders/SteamAgeRevolution/blob/master/LICENSE'
+                                    distribution 'repo'
+                                }
+                            }
+                            developers {
+                                developer {
+                                    id 'SkySom'
+                                    name 'SkySom'
+                                    roles { role 'developer' }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
