@@ -1,3 +1,15 @@
+#Forge Related
+build/
+run/
+libs/
+saves/
+/config/
+logs/
+crash-reports/
+asm/
+options.txt
+usernamecache.json
+
 *.class
 
 # Mobile Tools for Java (J2ME)
