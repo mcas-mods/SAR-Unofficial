@@ -9,6 +9,8 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.boilerplate.lib.common.items.BaseItem;
 import xyz.brassgoggledcoders.boilerplate.lib.common.registries.ItemRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
@@ -44,6 +46,7 @@ public class ItemMaterial extends BaseItem implements ITexturedItem
 		SteamAgeRevolution.jsonDestroyer.registerObject(this);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining)
 	{
@@ -75,7 +78,7 @@ public class ItemMaterial extends BaseItem implements ITexturedItem
 	@Override
 	public String getTextureName(int damage)
 	{
-		return SteamAgeRevolution.MODID + ":items/metals/" + getUnlocalizedName().substring(5) + types[damage];
+		return SteamAgeRevolution.MODID + ":items/metals/" + types[damage] + "_" + getUnlocalizedName().substring(5);
 	}
 
 	@Override
