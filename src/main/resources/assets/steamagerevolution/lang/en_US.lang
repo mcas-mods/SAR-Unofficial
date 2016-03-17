@@ -1,0 +1,30 @@
+itemGroup.steamagerevolution_tab=Steam Age Revolution
+item.ingot.Aluminum.name=Aluminum Ingot
+item.ingot.Brass.name=Brass Ingot
+item.ingot.Bronze.name=Bronze Ingot
+item.ingot.CastIron.name=Cast Iron Ingot
+item.ingot.Copper.name=Copper Ingot
+item.ingot.Steel.name=Steel Ingot
+item.ingot.Tin.name=Tin Ingot
+item.ingot.Zinc.name=Zinc Ingot
+
+item.plate.Iron.name=Iron Plate
+item.plate.Gold.name=Gold Plate
+item.plate.Aluminum.name=Aluminum Plate
+item.plate.Brass.name=Brass Plate
+item.plate.Bronze.name=Bronze Plate
+item.plate.CastIron.name=Cast Iron Plate
+item.plate.Copper.name=Copper Plate
+item.plate.Steel.name=Steel Plate
+item.plate.Tin.name=Tin Plate
+item.plate.Zinc.name=Zinc Plate
+
+item.nugget.Iron.name=Iron Nugget
+item.nugget.Aluminum.name=Aluminum Nugget
+item.nugget.Brass.name=Brass Nugget
+item.nugget.Bronze.name=Bronze Nugget
+item.nugget.CastIron.name=Cast Iron Nugget
+item.nugget.Copper.name=Copper Nugget
+item.nugget.Steel.name=Steel Nugget
+item.nugget.Tin.name=Tin Nugget
+item.nugget.Zinc.name=Zinc Nugget
