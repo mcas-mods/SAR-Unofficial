@@ -4,7 +4,9 @@ import java.security.InvalidParameterException;
 import java.util.List;
 
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import xyz.brassgoggledcoders.boilerplate.lib.common.items.BaseItem;
@@ -54,6 +56,7 @@ public class ItemMaterial extends BaseItem implements ITexturedItem
 		return super.getUnlocalizedName() + "." + types[meta];
 	}
 
+	@Override
 	public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> list)
 	{
 		for(int meta = 0; meta < types.length; ++meta)
@@ -63,9 +66,17 @@ public class ItemMaterial extends BaseItem implements ITexturedItem
 	}
 
 	@Override
+	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining)
+	{
+		return new ModelResourceLocation(SteamAgeRevolution.MODID + ":" + getUnlocalizedName(stack).substring(5),
+				"inventory");
+	}
+
+	@Override
 	public String getTextureName(int damage)
 	{
-		SteamAgeRevolution.logger.devInfo(SteamAgeRevolution.MODID + ":items/metals/" + getUnlocalizedName().substring(5) + types[damage]);
+		SteamAgeRevolution.logger.devInfo(
+				SteamAgeRevolution.MODID + ":items/metals/" + getUnlocalizedName().substring(5) + types[damage]);
 		return SteamAgeRevolution.MODID + ":items/metals/" + getUnlocalizedName().substring(5) + types[damage];
 	}
 

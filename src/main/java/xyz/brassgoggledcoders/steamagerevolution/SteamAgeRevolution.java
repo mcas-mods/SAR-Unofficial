@@ -25,8 +25,8 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	public static final String MODNAME = "Steam Age Revolution";
 	public static final String MODVERSION = "@VERSION@";
 
-    public static JsonDestroyer jsonDestroyer = new JsonDestroyer();
-    
+	public static JsonDestroyer jsonDestroyer = new JsonDestroyer();
+
 	public CreativeTabs tab = new SARTab();
 
 	public static ModLogger logger;
@@ -45,7 +45,7 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	public void init(FMLInitializationEvent event)
 	{
 		BoilerplateLib.getInstance().init(event);
-        jsonDestroyer.load();
+		jsonDestroyer.load();
 	}
 
 	@Mod.EventHandler
@@ -122,11 +122,13 @@ public class SteamAgeRevolution implements IBoilerplateMod
 			super(SteamAgeRevolution.MODID + "_tab");
 		}
 
+		@Override
 		public boolean hasSearchBar()
 		{
 			return true;
 		}
 
+		@Override
 		public Item getTabIconItem()
 		{
 			return InitItems.ITEM_PLATES;
