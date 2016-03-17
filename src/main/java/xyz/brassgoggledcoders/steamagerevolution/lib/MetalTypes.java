@@ -3,9 +3,9 @@ package xyz.brassgoggledcoders.steamagerevolution.lib;
 public class MetalTypes
 {
 	public static String[] metalsIngot =
-			new String[] {"Aluminum", "Brass", "Bronze", "Cast Iron", "Copper", "Steel", "Tin", "Zinc"};
+			new String[] {"aluminum", "brass", "bronze", "cast_iron", "copper", "steel", "tin", "zinc"};
 	public static String[] metalsNugget =
-			new String[] {"Iron", "Aluminum", "Brass", "Bronze", "Cast Iron", "Copper", "Steel", "Tin", "Zinc"};
+			new String[] {"iron", "aluminum", "brass", "bronze", "cast_iron", "copper", "steel", "tin", "zinc"};
 	public static String[] metalsAll =
-			new String[] {"Aluminum", "Brass", "Bronze", "Cast Iron", "Copper", "Steel", "Tin", "Zinc", "Iron", "Gold"};
+			new String[] {"iron", "gold", "aluminum", "brass", "bronze", "cast_iron", "copper", "steel", "tin", "zinc"};
 }

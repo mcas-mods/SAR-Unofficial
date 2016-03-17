@@ -1,5 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution;
 
+import me.modmuss50.jsonDestroyer.JsonDestroyer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Configuration;
@@ -12,7 +13,6 @@ import xyz.brassgoggledcoders.boilerplate.lib.BoilerplateLib;
 import xyz.brassgoggledcoders.boilerplate.lib.common.BaseCreativeTab;
 import xyz.brassgoggledcoders.boilerplate.lib.common.IBoilerplateMod;
 import xyz.brassgoggledcoders.boilerplate.lib.common.utils.ModLogger;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution.SARTab;
 import xyz.brassgoggledcoders.steamagerevolution.init.InitItems;
 
 @Mod(modid = SteamAgeRevolution.MODID, name = SteamAgeRevolution.MODNAME, version = SteamAgeRevolution.MODVERSION)
@@ -25,6 +25,8 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	public static final String MODNAME = "Steam Age Revolution";
 	public static final String MODVERSION = "@VERSION@";
 
+    public static JsonDestroyer jsonDestroyer = new JsonDestroyer();
+    
 	public CreativeTabs tab = new SARTab();
 
 	public static ModLogger logger;
@@ -43,6 +45,7 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	public void init(FMLInitializationEvent event)
 	{
 		BoilerplateLib.getInstance().init(event);
+        jsonDestroyer.load();
 	}
 
 	@Mod.EventHandler

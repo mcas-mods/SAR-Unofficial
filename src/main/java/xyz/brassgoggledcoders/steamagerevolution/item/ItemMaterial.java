@@ -3,15 +3,16 @@ package xyz.brassgoggledcoders.steamagerevolution.item;
 import java.security.InvalidParameterException;
 import java.util.List;
 
+import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import xyz.brassgoggledcoders.boilerplate.lib.common.items.BaseItem;
 import xyz.brassgoggledcoders.boilerplate.lib.common.registries.ItemRegistry;
-import xyz.brassgoggledcoders.steamagerevolution.init.InitItems;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.lib.MetalTypes;
 
-public class ItemMaterial extends BaseItem
+public class ItemMaterial extends BaseItem implements ITexturedItem
 {
 
 	public String[] types = MetalTypes.metalsAll;
@@ -38,6 +39,7 @@ public class ItemMaterial extends BaseItem
 		super(name);
 		this.types = typesList;
 		setHasSubtypes(true);
+		SteamAgeRevolution.jsonDestroyer.registerObject(this);
 	}
 
 	@Override
@@ -58,5 +60,18 @@ public class ItemMaterial extends BaseItem
 		{
 			list.add(new ItemStack(item, 1, meta));
 		}
+	}
+
+	@Override
+	public String getTextureName(int damage)
+	{
+		System.out.println(SteamAgeRevolution.MODID + ":items/metals/" + types[damage] + "_" + getUnlocalizedName().substring(5));
+		return SteamAgeRevolution.MODID + ":items/metals/" + types[damage] + "_" + getUnlocalizedName().substring(5);
+	}
+
+	@Override
+	public int getMaxMeta()
+	{
+		return types.length;
 	}
 }

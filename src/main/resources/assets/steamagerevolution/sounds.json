@@ -1,0 +1,97 @@
+{
+    "drill.steam": {
+        "category": "block",
+        "sounds": [
+			"drill"
+        ]
+    },
+
+    "raygun": {
+        "category": "block",
+        "sounds": [
+			"raygun"
+        ]
+    },
+
+    "musket": {
+        "category": "block",
+        "sounds": [
+			"musket"
+        ]
+    },
+
+    "rifle": {
+        "category": "block",
+        "sounds": [
+			"rifle"
+        ]
+    },
+
+    "reload": {
+        "category": "block",
+        "sounds": [
+			"reload"
+        ]
+    },
+
+    "rocket": {
+        "category": "block",
+        "sounds": [
+      "rocket"
+        ]
+    },
+
+    "hitflesh": {
+        "category": "block",
+        "sounds": [
+			"hitflesh"
+        ]
+    },
+
+    "hitblock": {
+        "category": "block",
+        "sounds": [
+			"hitblock"
+        ]
+    },
+    "warp": {
+        "category": "block",
+        "sounds": [
+			"warp"
+        ]
+    },
+    "allclear": {
+        "category": "block",
+        "sounds": [
+			"allclear"
+        ]
+    },
+
+    "intruderalert": {
+        "category": "block",
+        "sounds": [
+			"intruderalert"
+        ]
+    },
+
+    "nuclearalarm": {
+        "category": "block",
+        "sounds": [
+			"nuclearalarm"
+        ]
+    },
+
+    "standard": {
+        "category": "block",
+        "sounds": [
+			"standard"
+        ]
+    },
+
+    "intake": {
+        "category": "block",
+        "sounds": [
+			"intake"
+        ]
+    }
+}
