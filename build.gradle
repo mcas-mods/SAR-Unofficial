@@ -46,12 +46,16 @@ repositories {
         url "http://maven.k-4u.nl"
     }
     maven {
+        name = "Modmuss50"
+        url = "http://maven.modmuss50.me/"
+    }
+    maven {
         name "JEI"
         url "http://dvs1.progwml6.com/files/maven"
     }
     maven {
-        name = "Modmuss50"
-        url = "http://maven.modmuss50.me/"
+        name "MCMultiPart"
+        url "http://maven.amadornes.com/"
     }
 }
 
@@ -63,6 +67,8 @@ configurations {
 dependencies {
     shade "brassgoggledcoders:boilerplate:${minecraftversion}-${boilerplateversion}:lib"
     shade 'JSON-Destroyer:JSON-Destroyer:0.4.15+:dev'
+    deobfCompile "mezz.jei:jei_${minecraftversion}:${jeiversion}"
+    deobfCompile "MCMultiPart:MCMultiPart:${mcmultipartversion}:universal"
 }
 
 runClient {
