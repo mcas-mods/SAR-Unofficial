@@ -45,6 +45,13 @@ public class ItemMaterial extends BaseItem implements ITexturedItem
 	}
 
 	@Override
+	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining)
+	{
+		return new ModelResourceLocation(SteamAgeRevolution.MODID + ":" + getUnlocalizedName(stack).substring(5),
+				"inventory");
+	}
+
+	@Override
 	public String getUnlocalizedName(ItemStack itemStack)
 	{
 		int meta = itemStack.getItemDamage();
@@ -66,17 +73,8 @@ public class ItemMaterial extends BaseItem implements ITexturedItem
 	}
 
 	@Override
-	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining)
-	{
-		return new ModelResourceLocation(SteamAgeRevolution.MODID + ":" + getUnlocalizedName(stack).substring(5),
-				"inventory");
-	}
-
-	@Override
 	public String getTextureName(int damage)
 	{
-		SteamAgeRevolution.logger.devInfo(
-				SteamAgeRevolution.MODID + ":items/metals/" + getUnlocalizedName().substring(5) + types[damage]);
 		return SteamAgeRevolution.MODID + ":items/metals/" + getUnlocalizedName().substring(5) + types[damage];
 	}
 
