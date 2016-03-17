@@ -65,7 +65,7 @@ public class ItemMaterial extends BaseItem implements ITexturedItem
 	@Override
 	public String getTextureName(int damage)
 	{
-		System.out.println(SteamAgeRevolution.MODID + ":items/metals/" + types[damage] + "_" + getUnlocalizedName().substring(5));
+		SteamAgeRevolution.logger.devInfo(SteamAgeRevolution.MODID + ":items/metals/" + getUnlocalizedName().substring(5) + types[damage]);
 		return SteamAgeRevolution.MODID + ":items/metals/" + getUnlocalizedName().substring(5) + types[damage];
 	}
 
