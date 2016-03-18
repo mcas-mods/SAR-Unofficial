@@ -1,6 +1,6 @@
 {
     "parent":"steamagerevolution/base_item",
     "textures":{
-        "layer0":"steamagerevolution:items/armor//boots_whalebone"
+        "layer0":"steamagerevolution:items/armor/boots_whalebone"
     }
 }

@@ -1,6 +1,6 @@
 {
     "parent":"steamagerevolution/base_item",
     "textures":{
-        "layer0":"steamagerevolution:items/metals////////////////////////iron_nugget"
+        "layer0":"steamagerevolution:items/metals/iron_nugget"
     }
 }

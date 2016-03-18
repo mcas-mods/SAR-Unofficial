@@ -251,7 +251,7 @@ def createJSONsForTextures(File directory, String directoryPath) {
             newFileName = newFileName.replace(".png", "")
             newFileName = newFileName.replace(".mcmeta", "")
 
-            if (!directoryPath.isEmpty()) {
+            if (!directoryPath.isEmpty() && !(directoryPath.endsWith("\\") || directoryPath.endsWith("/"))) {
                 directoryPath += "\\";
             }
             String fileLocation = ".\\src\\main\\resources\\assets\\steamagerevolution\\models\\item\\" + directoryPath +

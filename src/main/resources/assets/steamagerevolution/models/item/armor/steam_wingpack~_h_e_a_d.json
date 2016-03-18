@@ -1,0 +1,6 @@
+{
+    "parent":"steamagerevolution/base_item",
+    "textures":{
+        "layer0":"steamagerevolution:items/armor/steam_wingpack~_h_e_a_d"
+    }
+}
