@@ -14,12 +14,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.boilerplate.lib.common.items.BaseItem;
 import xyz.brassgoggledcoders.boilerplate.lib.common.registries.ItemRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.lib.MetalTypes;
+import xyz.brassgoggledcoders.steamagerevolution.lib.ItemTypes;
 
 public class ItemMaterial extends BaseItem implements ITexturedItem
 {
 
-	public String[] types = MetalTypes.metalsAll;
+	public String[] types = ItemTypes.metalsAll;
 
 	public ItemStack getStackByName(String name, int count)
 	{

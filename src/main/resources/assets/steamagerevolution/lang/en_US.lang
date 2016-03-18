@@ -30,3 +30,20 @@ item.nugget.tin.name=Tin Nugget
 item.nugget.zinc.name=Zinc Nugget
 
 item.watch.name=Watch
+item.teacup.empty.name=Empty Teacup
+item.teacup.quarter.name=Teacup
+item.teacup.half.name=Teacup
+item.teacup.threequarter.name=Teacup
+item.teacup.full.name=Teacup
+
+desc.item.teacup.empty=Empty
+desc.item.teacup.quarter=A Quarter Filled
+desc.item.teacup.half=Half Filled
+desc.item.teacup.threequarter=Three Quarters Filled
+desc.item.teacup.full=Full
+
+desc.item.teacup.0sips=No Sips Left
+desc.item.teacup.1sips=1 Sip Left
+desc.item.teacup.2sips=2 Sips Left
+desc.item.teacup.3sips=3 Sips Left
+desc.item.teacup.4sips=4 Sips Left

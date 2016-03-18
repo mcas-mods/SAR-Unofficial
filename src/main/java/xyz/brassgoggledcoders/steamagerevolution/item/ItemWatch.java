@@ -16,9 +16,8 @@ public class ItemWatch extends BaseItem implements ITexturedItem
 {
 	public ItemWatch()
 	{
-		super();
+		super("watch");
 		this.setMaxStackSize(1);
-		this.setUnlocalizedName("watch");
 		SteamAgeRevolution.jsonDestroyer.registerObject(this);
 	}
 
