@@ -1,0 +1,6 @@
+{
+    "parent":"steamagerevolution/base_item",
+    "textures":{
+        "layer0":"steamagerevolution:items/parts////////////copper_bolt"
+    }
+}
