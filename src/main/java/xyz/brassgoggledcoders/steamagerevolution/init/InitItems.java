@@ -9,9 +9,7 @@ import xyz.brassgoggledcoders.steamagerevolution.lib.ItemTypes;
 
 public class InitItems
 {
-	public static Item ITEM_INGOTS;
-	public static Item ITEM_NUGGETS;
-	public static Item ITEM_PLATES;
+	public static Item ITEM_INGOTS, ITEM_NUGGETS, ITEM_POWDERS, ITEM_PLATES;
 
 	public static Item ITEM_TEACUP;
 	public static Item ITEM_WATCH;
@@ -20,6 +18,7 @@ public class InitItems
 	{
 		ITEM_INGOTS = new ItemMaterial(ItemTypes.metalsIngot, "ingot");
 		ITEM_NUGGETS = new ItemMaterial(ItemTypes.metalsNugget, "nugget");
+		ITEM_POWDERS = new ItemMaterial(ItemTypes.metalsAll, "powder");
 		ITEM_PLATES = new ItemMaterial(ItemTypes.metalsAll, "plate");
 
 		ITEM_TEACUP = new ItemTeacup();
@@ -28,6 +27,7 @@ public class InitItems
 		ItemRegistry.registerItem(ITEM_INGOTS);
 		ItemRegistry.registerItem(ITEM_NUGGETS);
 		ItemRegistry.registerItem(ITEM_PLATES);
+		ItemRegistry.registerItem(ITEM_POWDERS);
 
 		ItemRegistry.registerItem(ITEM_TEACUP);
 		ItemRegistry.registerItem(ITEM_WATCH);
