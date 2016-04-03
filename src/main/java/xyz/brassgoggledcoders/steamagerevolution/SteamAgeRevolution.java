@@ -97,12 +97,6 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	}
 
 	@Override
-	public Configuration getConfig()
-	{
-		return null;
-	}
-
-	@Override
 	public String getClientProxyPath()
 	{
 		return null;
@@ -120,12 +114,6 @@ public class SteamAgeRevolution implements IBoilerplateMod
 		public SARTab()
 		{
 			super(SteamAgeRevolution.MODID + "_tab");
-		}
-
-		@Override
-		public boolean hasSearchBar()
-		{
-			return true;
 		}
 
 		@Override
