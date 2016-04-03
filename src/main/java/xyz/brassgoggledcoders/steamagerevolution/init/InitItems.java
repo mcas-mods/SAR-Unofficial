@@ -9,27 +9,27 @@ import xyz.brassgoggledcoders.steamagerevolution.lib.ItemTypes;
 
 public class InitItems
 {
-	public static Item ITEM_INGOTS, ITEM_NUGGETS, ITEM_POWDERS, ITEM_PLATES;
+	public static Item item_ingots, item_nuggets, item_dusts, item_plates;
 
-	public static Item ITEM_TEACUP;
-	public static Item ITEM_WATCH;
+	public static Item item_teacup;
+	public static Item item_watch;
 
 	public static void init()
 	{
-		ITEM_INGOTS = new ItemMaterial(ItemTypes.metalsIngot, "ingot");
-		ITEM_NUGGETS = new ItemMaterial(ItemTypes.metalsNugget, "nugget");
-		ITEM_POWDERS = new ItemMaterial(ItemTypes.metalsAll, "powder");
-		ITEM_PLATES = new ItemMaterial(ItemTypes.metalsAll, "plate");
+		item_ingots = new ItemMaterial(ItemTypes.metalsIngot, "ingot");
+		item_nuggets = new ItemMaterial(ItemTypes.metalsNugget, "nugget");
+		item_dusts = new ItemMaterial(ItemTypes.metalsAll, "dust");
+		item_plates = new ItemMaterial(ItemTypes.metalsAll, "plate");
 
-		ITEM_TEACUP = new ItemTeacup();
-		ITEM_WATCH = new ItemWatch();
+		item_teacup = new ItemTeacup();
+		item_watch = new ItemWatch();
 
-		ItemRegistry.registerItem(ITEM_INGOTS);
-		ItemRegistry.registerItem(ITEM_NUGGETS);
-		ItemRegistry.registerItem(ITEM_PLATES);
-		ItemRegistry.registerItem(ITEM_POWDERS);
+		ItemRegistry.registerItem(item_ingots);
+		ItemRegistry.registerItem(item_nuggets);
+		ItemRegistry.registerItem(item_plates);
+		ItemRegistry.registerItem(item_dusts);
 
-		ItemRegistry.registerItem(ITEM_TEACUP);
-		ItemRegistry.registerItem(ITEM_WATCH);
+		ItemRegistry.registerItem(item_teacup);
+		ItemRegistry.registerItem(item_watch);
 	}
 }

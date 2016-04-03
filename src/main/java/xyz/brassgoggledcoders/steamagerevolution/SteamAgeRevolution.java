@@ -131,7 +131,7 @@ public class SteamAgeRevolution implements IBoilerplateMod
 		@Override
 		public Item getTabIconItem()
 		{
-			return InitItems.ITEM_PLATES;
+			return InitItems.item_plates;
 		}
 
 	}

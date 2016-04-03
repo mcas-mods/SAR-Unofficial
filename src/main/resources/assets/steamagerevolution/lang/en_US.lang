@@ -19,16 +19,16 @@ item.plate.steel.name=Steel Plate
 item.plate.tin.name=Tin Plate
 item.plate.zinc.name=Zinc Plate
 
-item.powder.iron.name=Iron Dust
-item.powder.gold.name=Gold Dust
-item.powder.aluminum.name=Aluminum Dust
-item.powder.brass.name=Brass Dust
-item.powder.bronze.name=Bronze Dust
-item.powder.cast_iron.name=Cast Iron Dust
-item.powder.copper.name=Copper Dust
-item.powder.steel.name=Steel Dust
-item.powder.tin.name=Tin Dust
-item.powder.zinc.name=Zinc Dust
+item.dust.iron.name=Iron Dust
+item.dust.gold.name=Gold Dust
+item.dust.aluminum.name=Aluminum Dust
+item.dust.brass.name=Brass Dust
+item.dust.bronze.name=Bronze Dust
+item.dust.cast_iron.name=Cast Iron Dust
+item.dust.copper.name=Copper Dust
+item.dust.steel.name=Steel Dust
+item.dust.tin.name=Tin Dust
+item.dust.zinc.name=Zinc Dust
 
 item.nugget.iron.name=Iron Nugget
 item.nugget.aluminum.name=Aluminum Nugget
