@@ -170,4 +170,12 @@ public class ItemTeacup extends BaseItem implements ITexturedItem
 	{
 		return types.length;
 	}
+	@Override
+	public int getItemStackLimit(ItemStack stack)
+	{
+		if(stack.getMetadata() != getMetaByName("empty"))
+			return 1;
+		else
+		return this.getItemStackLimit();
+	}
 }
