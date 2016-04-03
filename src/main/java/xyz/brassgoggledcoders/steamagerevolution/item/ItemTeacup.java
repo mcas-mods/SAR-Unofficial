@@ -100,19 +100,11 @@ public class ItemTeacup extends BaseItem implements ITexturedItem
 	{
 		if(stack.getItemDamage() > getMetaByName("empty") && !player.capabilities.isCreativeMode)
 		{
-			if(stack.stackSize != 1)
-			{
 				int damage = stack.getItemDamage();
-				--stack.stackSize;
-				player.inventory.addItemStackToInventory(new ItemStack(this, 1, damage - 1));
-				player.addPotionEffect(new PotionEffect(Potion.digSpeed.id, 50, 10));
-				player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 50, 10));
-			}
-			else
-			{
-				stack.setItemDamage(stack.getItemDamage() - 1);
-			}
+				stack.setItemDamage(damage - 1);
+				player.addPotionEffect(new PotionEffect(Potion.digSpeed.id, 200, 2));
 		}
+		//TODO
 		player.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
 		return stack;
 	}
@@ -173,9 +165,6 @@ public class ItemTeacup extends BaseItem implements ITexturedItem
 	@Override
 	public int getItemStackLimit(ItemStack stack)
 	{
-		if(stack.getMetadata() != getMetaByName("empty"))
-			return 1;
-		else
-		return this.getItemStackLimit();
+		return stack.getMetadata() != getMetaByName("empty") ? 1 : this.getItemStackLimit();
 	}
 }
