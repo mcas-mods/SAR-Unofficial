@@ -125,7 +125,8 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	}
 
 	@Override
-	public Configuration getConfig() {
+	public Configuration getConfig()
+	{
 		return null;
 	}
 

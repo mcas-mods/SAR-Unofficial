@@ -9,9 +9,9 @@ import xyz.brassgoggledcoders.steamagerevolution.lib.ItemTypes;
 
 public class InitItems
 {
-	public static Item item_ingots, item_nuggets, item_dusts, item_plates;
+	public static ItemMaterial item_ingots, item_nuggets, item_dusts, item_plates;
 
-	public static Item item_teacup;
+	public static ItemTeacup item_teacup;
 	public static Item item_watch;
 
 	public static void init()
