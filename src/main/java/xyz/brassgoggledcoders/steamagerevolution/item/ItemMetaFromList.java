@@ -14,12 +14,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.boilerplate.lib.common.items.BaseItem;
 import xyz.brassgoggledcoders.boilerplate.lib.common.registries.ItemRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.lib.ItemTypes;
 
-public class ItemMaterial extends BaseItem implements ITexturedItem
+public class ItemMetaFromList extends BaseItem implements ITexturedItem
 {
 
-	public String[] types = ItemTypes.metalsAll;
+	public String[] types = null;
+	public String type = "";
 
 	public ItemStack getStackByName(String name, int count)
 	{
@@ -38,10 +38,11 @@ public class ItemMaterial extends BaseItem implements ITexturedItem
 		return getStackByName(name, 1);
 	}
 
-	public ItemMaterial(String[] typesList, String name)
+	public ItemMetaFromList(String[] typesList, String name, String type)
 	{
 		super(name);
 		this.types = typesList;
+		this.type = type;
 		setHasSubtypes(true);
 		SteamAgeRevolution.jsonDestroyer.registerObject(this);
 	}
@@ -78,7 +79,8 @@ public class ItemMaterial extends BaseItem implements ITexturedItem
 	@Override
 	public String getTextureName(int damage)
 	{
-		return SteamAgeRevolution.MODID + ":items/metals/" + types[damage] + "_" + getUnlocalizedName().substring(5);
+		return SteamAgeRevolution.MODID + ":items/" + type + "/" + types[damage] + "_"
+				+ getUnlocalizedName().substring(5);
 	}
 
 	@Override

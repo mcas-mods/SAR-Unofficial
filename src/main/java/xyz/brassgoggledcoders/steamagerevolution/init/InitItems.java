@@ -2,24 +2,24 @@ package xyz.brassgoggledcoders.steamagerevolution.init;
 
 import net.minecraft.item.Item;
 import xyz.brassgoggledcoders.boilerplate.lib.common.registries.ItemRegistry;
-import xyz.brassgoggledcoders.steamagerevolution.item.ItemMaterial;
+import xyz.brassgoggledcoders.steamagerevolution.item.ItemMetaFromList;
 import xyz.brassgoggledcoders.steamagerevolution.item.ItemTeacup;
 import xyz.brassgoggledcoders.steamagerevolution.item.ItemWatch;
 import xyz.brassgoggledcoders.steamagerevolution.lib.ItemTypes;
 
 public class InitItems
 {
-	public static ItemMaterial item_ingots, item_nuggets, item_dusts, item_plates;
+	public static ItemMetaFromList item_ingots, item_nuggets, item_dusts, item_plates;
 
 	public static ItemTeacup item_teacup;
 	public static Item item_watch;
 
 	public static void init()
 	{
-		item_ingots = new ItemMaterial(ItemTypes.metalsIngot, "ingot");
-		item_nuggets = new ItemMaterial(ItemTypes.metalsNugget, "nugget");
-		item_dusts = new ItemMaterial(ItemTypes.metalsAll, "dust");
-		item_plates = new ItemMaterial(ItemTypes.metalsAll, "plate");
+		item_ingots = new ItemMetaFromList(ItemTypes.metalsIngot, "ingot", "metals");
+		item_nuggets = new ItemMetaFromList(ItemTypes.metalsNugget, "nugget", "metals");
+		item_dusts = new ItemMetaFromList(ItemTypes.metalsAll, "dust", "metals");
+		item_plates = new ItemMetaFromList(ItemTypes.metalsAll, "plate", "metals");
 
 		item_teacup = new ItemTeacup();
 		item_watch = new ItemWatch();
