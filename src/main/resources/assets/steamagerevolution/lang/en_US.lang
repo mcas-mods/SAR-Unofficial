@@ -58,3 +58,6 @@ desc.item.teacup.1sips=1 Sip Left
 desc.item.teacup.2sips=2 Sips Left
 desc.item.teacup.3sips=3 Sips Left
 desc.item.teacup.4sips=4 Sips Left
+
+desc.item.watch.mcTime=Minecraft Time: 
+desc.item.watch.rwTime=Real-World Time: 
