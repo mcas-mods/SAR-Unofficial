@@ -1,8 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.item;
 
-import java.security.InvalidParameterException;
-import java.util.List;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -11,11 +8,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.boilerplate.lib.common.items.BaseItem;
+import xyz.brassgoggledcoders.boilerplate.lib.common.items.ItemBase;
 import xyz.brassgoggledcoders.boilerplate.lib.common.registries.ItemRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
-public class ItemSubBase extends BaseItem implements ITexturedItem
+import java.security.InvalidParameterException;
+import java.util.List;
+
+public class ItemSubBase extends ItemBase implements ITexturedItem
 {
 
 	public String[] types = null;

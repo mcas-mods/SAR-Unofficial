@@ -1,18 +1,18 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.vanity.items;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.boilerplate.lib.common.items.BaseItem;
+import xyz.brassgoggledcoders.boilerplate.lib.common.items.ItemBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
-public class ItemWatch extends BaseItem implements ITexturedItem
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+public class ItemWatch extends ItemBase implements ITexturedItem
 {
 	public ItemWatch()
 	{
