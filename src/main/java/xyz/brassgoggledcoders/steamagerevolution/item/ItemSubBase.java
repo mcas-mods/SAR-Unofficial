@@ -15,7 +15,7 @@ import xyz.brassgoggledcoders.boilerplate.lib.common.items.BaseItem;
 import xyz.brassgoggledcoders.boilerplate.lib.common.registries.ItemRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
-public class ItemMetaFromList extends BaseItem implements ITexturedItem
+public class ItemSubBase extends BaseItem implements ITexturedItem
 {
 
 	public String[] types = null;
@@ -27,7 +27,7 @@ public class ItemMetaFromList extends BaseItem implements ITexturedItem
 		{
 			if(types[i].equalsIgnoreCase(name))
 			{
-				return new ItemStack(ItemRegistry.getItem(this.getUnlocalizedName()), i);
+				return new ItemStack(ItemRegistry.getItem(this.getUnlocalizedName()), count);
 			}
 		}
 		throw new InvalidParameterException(name + " could not be found.");
@@ -38,7 +38,7 @@ public class ItemMetaFromList extends BaseItem implements ITexturedItem
 		return getStackByName(name, 1);
 	}
 
-	public ItemMetaFromList(String[] typesList, String name, String type)
+	public ItemSubBase(String[] typesList, String name, String type)
 	{
 		super(name);
 		this.types = typesList;

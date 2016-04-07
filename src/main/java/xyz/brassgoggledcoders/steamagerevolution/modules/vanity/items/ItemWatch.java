@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.item;
+package xyz.brassgoggledcoders.steamagerevolution.modules.vanity.items;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

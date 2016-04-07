@@ -3,7 +3,6 @@ package xyz.brassgoggledcoders.steamagerevolution;
 import me.modmuss50.jsonDestroyer.JsonDestroyer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -13,7 +12,9 @@ import xyz.brassgoggledcoders.boilerplate.lib.BoilerplateLib;
 import xyz.brassgoggledcoders.boilerplate.lib.common.BaseCreativeTab;
 import xyz.brassgoggledcoders.boilerplate.lib.common.IBoilerplateMod;
 import xyz.brassgoggledcoders.boilerplate.lib.common.utils.ModLogger;
-import xyz.brassgoggledcoders.steamagerevolution.init.InitItems;
+import xyz.brassgoggledcoders.steamagerevolution.modules.rawmaterials.RawMaterialsModule;
+import xyz.brassgoggledcoders.steamagerevolution.modules.tea.TeaModule;
+import xyz.brassgoggledcoders.steamagerevolution.modules.vanity.VanityModule;
 
 @Mod(modid = SteamAgeRevolution.MODID, name = SteamAgeRevolution.MODNAME, version = SteamAgeRevolution.MODVERSION)
 public class SteamAgeRevolution implements IBoilerplateMod
@@ -35,9 +36,9 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		logger = new ModLogger(MODID);
+		addModules();
 		BoilerplateLib.getInstance().preInitStart(event);
 		logger = BoilerplateLib.getLogger();
-		InitItems.init();
 		BoilerplateLib.getInstance().preInitEnd(event);
 	}
 
@@ -90,24 +91,6 @@ public class SteamAgeRevolution implements IBoilerplateMod
 		return MODID + ":";
 	}
 
-	@Override
-	public ModLogger getLogger()
-	{
-		return logger;
-	}
-
-	@Override
-	public String getClientProxyPath()
-	{
-		return null;
-	}
-
-	@Override
-	public String getCommonProxyPath()
-	{
-		return null;
-	}
-
 	public class SARTab extends BaseCreativeTab
 	{
 
@@ -119,15 +102,16 @@ public class SteamAgeRevolution implements IBoilerplateMod
 		@Override
 		public Item getTabIconItem()
 		{
-			return InitItems.item_plates;
+			return RawMaterialsModule.plates;
 		}
 
 	}
 
-	@Override
-	public Configuration getConfig()
+	private static void addModules()
 	{
-		return null;
+		BoilerplateLib.getInstance().getModuleHandler().addModule(new RawMaterialsModule());
+		BoilerplateLib.getInstance().getModuleHandler().addModule(new TeaModule());
+		BoilerplateLib.getInstance().getModuleHandler().addModule(new VanityModule());
 	}
 
 }

@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.item;
+package xyz.brassgoggledcoders.steamagerevolution.modules.tea.items;
 
 import java.security.InvalidParameterException;
 import java.util.List;
