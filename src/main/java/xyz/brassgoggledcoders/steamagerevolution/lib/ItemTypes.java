@@ -7,7 +7,5 @@ public class ItemTypes
 	public static String[] metalsAll =
 			new String[] {"iron", "gold", "aluminum", "brass", "cast_iron", "copper", "zinc"};
 	public static String[] metalsParts = new String[] {"brass", "copper", "iron"};
-	public static String[] parts =
-			new String[] {"bearing", "bolt", "gear", "nail", "nut", "screw", "spring", "sprocket", "thread", "washer"};
 	public static String[] teacup = new String[] {"empty", "quarter", "half", "threequarter", "full"};
 }
