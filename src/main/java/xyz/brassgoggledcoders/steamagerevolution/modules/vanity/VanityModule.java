@@ -8,14 +8,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.vanity.items.ItemWatch;
 
 public class VanityModule extends Module
 {
-
 	public static Item watch;
-
-	@Override
-	public void preInit(FMLPreInitializationEvent event)
-	{
-		this.registerItems();
-	}
 
 	@Override
 	public String getName()
@@ -23,6 +16,12 @@ public class VanityModule extends Module
 		return "Vanity";
 	}
 
+	@Override
+	public void preInit(FMLPreInitializationEvent event)
+	{
+		this.registerItems();
+	}
+	
 	public void registerItems()
 	{
 		watch = new ItemWatch();

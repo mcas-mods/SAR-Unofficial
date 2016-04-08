@@ -178,34 +178,11 @@ task("uploadJars", dependsOn: "reobf") {
     }
 }
 
-task createItemJSON() {
+createItemJSON() {
     File modelDirectory = new File("./src/main/resources/assets/steamagerevolution/models")
     File itemModelDirectory = new File("./src/main/resources/assets/steamagerevolution/models/item")
     if(!modelDirectory.exists()) modelDirectory.mkdir()
     if(!itemModelDirectory.exists()) itemModelDirectory.mkdir()
-
-    File baseItem =  new File("./src/main/resources/assets/steamagerevolution/models/item/base_item.json")
-    if(!baseItem.exists()) {
-        String baseItemJsonString = '''{
-    "parent": "builtin/generated",
-    "display": {
-        "thirdperson": {
-            "rotation": [ -90, 0, 0 ],
-            "translation": [ 0, 1, -3 ],
-            "scale": [ 0.55, 0.55, 0.55 ]
-        },
-        "firstperson": {
-            "rotation": [ 0, -135, 25 ],
-            "translation": [ 0, 4, 2 ],
-            "scale": [ 1.7, 1.7, 1.7 ]
-        }
-    }
-}
-        '''
-
-        baseItem.createNewFile()
-        baseItem << (baseItemJsonString)
-    }
 
     File textureDirectory = new File("./src/main/resources/assets/steamagerevolution/textures/items")
 
@@ -262,9 +239,21 @@ def createJSONsForTextures(File directory, String directoryPath) {
                 directoryPath = directoryPath.replace("\\", "/")
                 jsonFile.createNewFile();
                 String jsonString = '''{
-    "parent":"''' + archivesBaseName + '''/base_item",
+    "parent":"builtin/generated",
     "textures":{
         "layer0":"''' + archivesBaseName + ":items/" + directoryPath + newFileName + '''"
+    },
+    "display": {
+        "thirdperson": {
+            "rotation": [ -90, 0, 0 ],
+            "translation": [ 0, 1, -3 ],
+            "scale": [ 0.55, 0.55, 0.55 ]
+        },
+        "firstperson": {
+            "rotation": [ 0, -135, 25 ],
+            "translation": [ 0, 4, 2 ],
+            "scale": [ 1.7, 1.7, 1.7 ]
+        }
     }
 }
 '''

@@ -13,15 +13,15 @@ public class RawMaterialsModule extends Module
 	public static ItemSubBase ingots, nuggets, dusts, plates;
 
 	@Override
-	public void preInit(FMLPreInitializationEvent event)
-	{
-		this.registerItems();
-	}
-
-	@Override
 	public String getName()
 	{
 		return "Raw Materials";
+	}
+
+	@Override
+	public void preInit(FMLPreInitializationEvent event)
+	{
+		this.registerItems();
 	}
 
 	public void registerItems()
