@@ -178,7 +178,7 @@ task("uploadJars", dependsOn: "reobf") {
     }
 }
 
-createItemJSON() {
+def createItemJSON() {
     File modelDirectory = new File("./src/main/resources/assets/steamagerevolution/models")
     File itemModelDirectory = new File("./src/main/resources/assets/steamagerevolution/models/item")
     if(!modelDirectory.exists()) modelDirectory.mkdir()
@@ -216,6 +216,7 @@ def createJSONsForTextures(File directory, String directoryPath) {
                     newFileName += aChar
                 }
             }
+
             if (newFileName.startsWith("item")) {
                 newFileName = newFileName.replaceFirst("item", "")
             }

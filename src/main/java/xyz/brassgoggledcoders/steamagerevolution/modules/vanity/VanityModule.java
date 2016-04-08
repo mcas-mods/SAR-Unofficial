@@ -21,7 +21,7 @@ public class VanityModule extends Module
 	{
 		this.registerItems();
 	}
-	
+
 	public void registerItems()
 	{
 		watch = new ItemWatch();
