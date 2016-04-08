@@ -6,8 +6,6 @@ import xyz.brassgoggledcoders.boilerplate.lib.common.modules.Module;
 import xyz.brassgoggledcoders.boilerplate.lib.common.registries.ItemRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.lib.ItemTypes;
 
-import java.util.Arrays;
-
 public class RawMaterialsModule extends Module
 {
 	public static ItemSubBase ingots, nuggets, dusts, plates;
@@ -26,13 +24,13 @@ public class RawMaterialsModule extends Module
 
 	public void registerItems()
 	{
-		ingots = new ItemSubBase("ingot", "metals", Arrays.asList(ItemTypes.metalsIngot));
+		ingots = new ItemSubBase("ingot", "metals", ItemTypes.metalsIngot);
 		ItemRegistry.registerItem(ingots);
-		nuggets = new ItemSubBase("nugget", "metals", Arrays.asList(ItemTypes.metalsNugget));
+		nuggets = new ItemSubBase("nugget", "metals", ItemTypes.metalsNugget);
 		ItemRegistry.registerItem(nuggets);
-		dusts = new ItemSubBase("dust", "metals", Arrays.asList(ItemTypes.metalsAll));
+		dusts = new ItemSubBase("dust", "metals", ItemTypes.metalsAll);
 		ItemRegistry.registerItem(dusts);
-		plates = new ItemSubBase("plate", "metals", Arrays.asList(ItemTypes.metalsAll));
+		plates = new ItemSubBase("plate", "metals", ItemTypes.metalsAll);
 		ItemRegistry.registerItem(plates);
 	}
 
