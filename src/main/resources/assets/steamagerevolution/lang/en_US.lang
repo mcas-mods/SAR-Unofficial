@@ -1,4 +1,47 @@
-itemGroup.steamagerevolution_tab=Steam Age Revolution
+itemGroup.steamagerevolution=Steam Age Revolution
+
+## Parts
+item.nail.brass.name=Brass Nail
+item.nail.copper.name=Copper Nail
+item.nail.iron.name=Iron Nail
+
+item.bolt.brass.name=Brass Bolt
+item.bolt.copper.name=Copper Bolt
+item.bolt.iron.name=Iron Bolt
+
+item.screw.brass.name=Brass Screw
+item.screw.copper.name=Copper Screw
+item.screw.iron.name=Iron Screw
+
+item.washer.brass.name=Brass Washer
+item.washer.copper.name=Copper Washer
+item.washer.iron.name=Iron Washer
+
+item.sprocket.brass.name=Brass Sprocket
+item.sprocket.copper.name=Copper Sprocket
+item.sprocket.iron.name=Iron Sprocket
+
+item.spring.brass.name=Brass Spring
+item.spring.copper.name=Copper Spring
+item.spring.iron.name=Iron Spring
+
+item.gear.brass.name=Brass Gear
+item.gear.copper.name=Copper Gear
+item.gear.iron.name=Iron Gear
+
+item.thread.brass.name=Brass Thread
+item.thread.copper.name=Copper Thread
+item.thread.iron.name=Iron Thread
+
+item.bearing.brass.name=Brass Bearing
+item.bearing.copper.name=Copper Bearing
+item.bearing.iron.name=Iron Bearing
+
+item.nut.brass.name=Brass Nut
+item.nut.copper.name=Copper Nut
+item.nut.iron.name=Iron Nut
+
+## Raw Materials
 item.ingot.aluminum.name=Aluminum Ingot
 item.ingot.brass.name=Brass Ingot
 item.ingot.bronze.name=Bronze Ingot
@@ -40,7 +83,7 @@ item.nugget.steel.name=Steel Nugget
 item.nugget.tin.name=Tin Nugget
 item.nugget.zinc.name=Zinc Nugget
 
-item.watch.name=Watch
+##Tea
 item.teacup.empty.name=Empty Teacup
 item.teacup.quarter.name=Teacup
 item.teacup.half.name=Teacup
@@ -58,3 +101,6 @@ desc.item.teacup.1sips=1 Sip Left
 desc.item.teacup.2sips=2 Sips Left
 desc.item.teacup.3sips=3 Sips Left
 desc.item.teacup.4sips=4 Sips Left
+
+##Vanity
+item.watch.name=Watch

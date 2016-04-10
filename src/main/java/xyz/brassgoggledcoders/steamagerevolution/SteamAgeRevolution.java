@@ -92,7 +92,7 @@ public class SteamAgeRevolution implements IBoilerplateMod
 
 		public SARTab()
 		{
-			super(SteamAgeRevolution.MODID + "_tab");
+			super(MODID);
 		}
 
 		@Override
