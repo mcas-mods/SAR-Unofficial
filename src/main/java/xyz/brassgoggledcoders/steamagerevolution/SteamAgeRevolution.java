@@ -11,6 +11,7 @@ import xyz.brassgoggledcoders.boilerplate.lib.BoilerplateLib;
 import xyz.brassgoggledcoders.boilerplate.lib.common.BaseCreativeTab;
 import xyz.brassgoggledcoders.boilerplate.lib.common.IBoilerplateMod;
 import xyz.brassgoggledcoders.boilerplate.lib.common.utils.ModLogger;
+import xyz.brassgoggledcoders.steamagerevolution.modules.guide.GuideModule;
 import xyz.brassgoggledcoders.steamagerevolution.modules.parts.PartsModule;
 import xyz.brassgoggledcoders.steamagerevolution.modules.rawmaterials.RawMaterialsModule;
 import xyz.brassgoggledcoders.steamagerevolution.modules.tea.TeaModule;
@@ -109,6 +110,7 @@ public class SteamAgeRevolution implements IBoilerplateMod
 		BoilerplateLib.getModuleHandler().addModule(new PartsModule());
 		BoilerplateLib.getModuleHandler().addModule(new TeaModule());
 		BoilerplateLib.getModuleHandler().addModule(new VanityModule());
+		BoilerplateLib.getModuleHandler().addModule(new GuideModule());
 	}
 
 }
