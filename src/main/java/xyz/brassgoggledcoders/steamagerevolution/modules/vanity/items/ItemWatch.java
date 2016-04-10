@@ -5,16 +5,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.boilerplate.lib.common.items.ItemBase;
+import xyz.brassgoggledcoders.steamagerevolution.items.ItemBaseTest;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class ItemWatch extends ItemBase
+public class ItemWatch extends ItemBaseTest
 {
 	public ItemWatch()
 	{
-		super("watch", "vanity");
+		super("vanity", "watch");
 		this.setMaxStackSize(1);
 	}
 

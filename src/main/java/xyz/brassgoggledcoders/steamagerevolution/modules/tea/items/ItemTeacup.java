@@ -10,23 +10,16 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.boilerplate.lib.common.items.ItemSubBase;
+import xyz.brassgoggledcoders.steamagerevolution.items.ItemSubBaseTest;
 import xyz.brassgoggledcoders.steamagerevolution.lib.ItemTypes;
 
 import java.util.List;
 
-public class ItemTeacup extends ItemSubBase
+public class ItemTeacup extends ItemSubBaseTest
 {
-	@Override
-	public EnumAction getItemUseAction(ItemStack stack)
-	{
-		return EnumAction.DRINK;
-	}
-
 	public ItemTeacup()
 	{
-		super("teacup", "tea", ItemTypes.teacup);
-		setHasSubtypes(true);
+		super("tea", "teacup", ItemTypes.teacup);
 	}
 
 	@Override
@@ -36,9 +29,15 @@ public class ItemTeacup extends ItemSubBase
 	}
 
 	@Override
+	public EnumAction getItemUseAction(ItemStack stack)
+	{
+		return EnumAction.DRINK;
+	}
+
+	@Override
 	public ItemStack onItemUseFinish(ItemStack stack, World world, EntityPlayer player)
 	{
-		if(stack.getItemDamage() > getMetaFromName("empty") && !player.capabilities.isCreativeMode)
+		if(stack.getItemDamage() > 0 && !player.capabilities.isCreativeMode)
 		{
 				int damage = stack.getItemDamage();
 				stack.setItemDamage(damage - 1);
@@ -52,7 +51,7 @@ public class ItemTeacup extends ItemSubBase
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 	{
-		if(stack.getItemDamage() != getMetaFromName("empty"))
+		if(stack.getItemDamage() != 0)
 		{
 			player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
 		}
@@ -61,23 +60,29 @@ public class ItemTeacup extends ItemSubBase
 	}
 
 	@Override
+	public int getNumberOfSubItems()
+	{
+		return 5;
+	}
+
+	@Override
 	public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> list)
 	{
-		list.add(new ItemStack(item, 1, getMetaFromName("empty")));
-		list.add(new ItemStack(item, 1, getMetaFromName("full")));
+		list.add(new ItemStack(item, 1, 0));
+		list.add(new ItemStack(item, 1, getNumberOfSubItems() - 1));
 	}
 
 	@SuppressWarnings("all")
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List l, boolean flag)
 	{
-		l.add(StatCollector.translateToLocal("desc." + getUnlocalizedName() + "." + getNameFromMeta(stack.getItemDamage())));
+		l.add(StatCollector.translateToLocal("desc." + getUnlocalizedName() + "." + getMetaName(1)));
 		l.add(getSipsLeft(stack));
 	}
 
 	public String getSipsLeft(ItemStack stack)
 	{
-		if(stack.getItemDamage() < getMaxMeta())
+		if(stack.getItemDamage() < getNumberOfSubItems())
 		{
 			return StatCollector.translateToLocal("desc." + getUnlocalizedName() + "." + stack.getItemDamage() + "sips");
 		}

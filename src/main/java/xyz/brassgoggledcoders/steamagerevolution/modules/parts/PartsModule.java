@@ -1,14 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.parts;
 
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import xyz.brassgoggledcoders.boilerplate.lib.common.items.ItemSubBase;
 import xyz.brassgoggledcoders.boilerplate.lib.common.modules.Module;
 import xyz.brassgoggledcoders.boilerplate.lib.common.registries.ItemRegistry;
+import xyz.brassgoggledcoders.steamagerevolution.items.ItemSubBaseTest;
 import xyz.brassgoggledcoders.steamagerevolution.lib.ItemTypes;
 
 public class PartsModule extends Module
 {
-	public static ItemSubBase bearing, bolt, gear, nail, nut, screw, spring, sprocket, thread, washer;
+	public static ItemSubBaseTest bearing, bolt, gear, nail, nut, screw, spring, sprocket, thread, washer;
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event)
@@ -24,25 +24,25 @@ public class PartsModule extends Module
 
 	public void registerItems()
 	{
-		bearing = new ItemSubBase("bearing", "parts", ItemTypes.metalsParts);
+		bearing = new ItemSubBaseTest("parts", "bearing", ItemTypes.metalsParts);
 		ItemRegistry.registerItem(bearing);
-		bolt = new ItemSubBase("bolt", "parts", ItemTypes.metalsParts);
+		bolt = new ItemSubBaseTest("parts", "bolt", ItemTypes.metalsParts);
 		ItemRegistry.registerItem(bolt);
-		gear = new ItemSubBase("gear", "parts", ItemTypes.metalsParts);
+		gear = new ItemSubBaseTest("parts", "gear", ItemTypes.metalsParts);
 		ItemRegistry.registerItem(gear);
-		nail = new ItemSubBase("nail", "parts", ItemTypes.metalsParts);
+		nail = new ItemSubBaseTest("parts", "nail", ItemTypes.metalsParts);
 		ItemRegistry.registerItem(nail);
-		nut = new ItemSubBase("nut", "parts", ItemTypes.metalsParts);
+		nut = new ItemSubBaseTest("parts", "nut", ItemTypes.metalsParts);
 		ItemRegistry.registerItem(nut);
-		screw = new ItemSubBase("screw", "parts", ItemTypes.metalsParts);
+		screw = new ItemSubBaseTest("parts", "screw", ItemTypes.metalsParts);
 		ItemRegistry.registerItem(screw);
-		spring = new ItemSubBase("spring", "parts", ItemTypes.metalsParts);
+		spring = new ItemSubBaseTest("parts", "spring", ItemTypes.metalsParts);
 		ItemRegistry.registerItem(spring);
-		sprocket = new ItemSubBase("sprocket", "parts", ItemTypes.metalsParts);
+		sprocket = new ItemSubBaseTest("parts", "sprocket", ItemTypes.metalsParts);
 		ItemRegistry.registerItem(sprocket);
-		thread = new ItemSubBase("thread", "parts", ItemTypes.metalsParts);
+		thread = new ItemSubBaseTest("parts", "thread", ItemTypes.metalsParts);
 		ItemRegistry.registerItem(thread);
-		washer = new ItemSubBase("washer", "parts", ItemTypes.metalsParts);
+		washer = new ItemSubBaseTest("parts",  "washer", ItemTypes.metalsParts);
 		ItemRegistry.registerItem(washer);
 	}
 }

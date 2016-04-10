@@ -68,7 +68,6 @@ configurations {
 
 dependencies {
     shade "brassgoggledcoders:boilerplate:${minecraftversion}-${boilerplateversion}:lib"
-    shade 'JSON-Destroyer:JSON-Destroyer:0.4.15+:dev'
     deobfCompile "mezz.jei:jei_${minecraftversion}:${jeiversion}"
     deobfCompile "MCMultiPart:MCMultiPart:${mcmultipartversion}:universal"
 }
@@ -102,13 +101,11 @@ idea {
 
 reobfJar {
     addExtraSrgLine "PK: xyz/brassgoggledcoders/boilerplate xyz/brassgoggledcoders/steamagerevolution/boilerplate"
-	addExtraSrgLine "PK: me/modmuss50/jsonDestroyer steamcraft/client/jsonDestroyer"
 }
 
 jar {
     configurations.shade.each { dep ->
         from(project.zipTree(dep)){
-			include 'me/modmuss50/jsonDestroyer/'
             exclude 'META-INF', 'META-INF/**', 'mcmod.info'
         }
     }
