@@ -5,12 +5,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.items.ItemBaseTest;
+import xyz.brassgoggledcoders.boilerplate.lib.common.items.ItemBase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class ItemWatch extends ItemBaseTest
+public class ItemWatch extends ItemBase
 {
 	public ItemWatch()
 	{

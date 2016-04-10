@@ -1,14 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.rawmaterials;
 
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import xyz.brassgoggledcoders.boilerplate.lib.common.items.ItemSubBase;
 import xyz.brassgoggledcoders.boilerplate.lib.common.modules.Module;
 import xyz.brassgoggledcoders.boilerplate.lib.common.registries.ItemRegistry;
-import xyz.brassgoggledcoders.steamagerevolution.items.ItemSubBaseTest;
 import xyz.brassgoggledcoders.steamagerevolution.lib.ItemTypes;
 
 public class RawMaterialsModule extends Module
 {
-	public static ItemSubBaseTest ingots, nuggets, dusts, plates;
+	public static ItemSubBase ingots, nuggets, dusts, plates;
 
 	@Override
 	public String getName()
@@ -24,13 +24,13 @@ public class RawMaterialsModule extends Module
 
 	public void registerItems()
 	{
-		ingots = new ItemSubBaseTest("metals", "ingot", ItemTypes.metalsIngot);
+		ingots = new ItemSubBase("metals", "ingot", ItemTypes.metalsIngot);
 		ItemRegistry.registerItem(ingots);
-		nuggets = new ItemSubBaseTest("metals", "nugget", ItemTypes.metalsNugget);
+		nuggets = new ItemSubBase("metals", "nugget", ItemTypes.metalsNugget);
 		ItemRegistry.registerItem(nuggets);
-		dusts = new ItemSubBaseTest("metals", "dust", ItemTypes.metalsAll);
+		dusts = new ItemSubBase("metals", "dust", ItemTypes.metalsAll);
 		ItemRegistry.registerItem(dusts);
-		plates = new ItemSubBaseTest("metals", "plate", ItemTypes.metalsAll);
+		plates = new ItemSubBase("metals", "plate", ItemTypes.metalsAll);
 		ItemRegistry.registerItem(plates);
 	}
 

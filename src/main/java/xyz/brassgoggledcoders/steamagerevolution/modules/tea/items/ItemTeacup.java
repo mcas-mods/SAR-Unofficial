@@ -10,12 +10,12 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.items.ItemSubBaseTest;
+import xyz.brassgoggledcoders.boilerplate.lib.common.items.ItemSubBase;
 import xyz.brassgoggledcoders.steamagerevolution.lib.ItemTypes;
 
 import java.util.List;
 
-public class ItemTeacup extends ItemSubBaseTest
+public class ItemTeacup extends ItemSubBase
 {
 	public ItemTeacup()
 	{
@@ -60,24 +60,17 @@ public class ItemTeacup extends ItemSubBaseTest
 	}
 
 	@Override
-	public int getNumberOfSubItems()
-	{
-		return 5;
-	}
-
-	@Override
 	public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> list)
 	{
 		list.add(new ItemStack(item, 1, 0));
 		list.add(new ItemStack(item, 1, getNumberOfSubItems() - 1));
 	}
 
-	@SuppressWarnings("all")
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List l, boolean flag)
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean flag)
 	{
-		l.add(StatCollector.translateToLocal("desc." + getUnlocalizedName() + "." + getMetaName(1)));
-		l.add(getSipsLeft(stack));
+		list.add(StatCollector.translateToLocal("desc." + getUnlocalizedName() + "." + getMetaName(stack)));
+		list.add(getSipsLeft(stack));
 	}
 
 	public String getSipsLeft(ItemStack stack)
