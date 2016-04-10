@@ -1,6 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution;
 
-import me.modmuss50.jsonDestroyer.JsonDestroyer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod;
@@ -27,8 +26,6 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	public static final String MODNAME = "Steam Age Revolution";
 	public static final String MODVERSION = "@VERSION@";
 
-	public static JsonDestroyer jsonDestroyer = new JsonDestroyer();
-
 	public CreativeTabs tab = new SARTab();
 
 	public static ModLogger logger;
@@ -36,7 +33,6 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		logger = new ModLogger(MODID);
 		addModules();
 		BoilerplateLib.getInstance().preInitStart(event);
 		logger = BoilerplateLib.getLogger();
@@ -47,7 +43,6 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	public void init(FMLInitializationEvent event)
 	{
 		BoilerplateLib.getInstance().init(event);
-		jsonDestroyer.load();
 	}
 
 	@Mod.EventHandler
@@ -97,7 +92,7 @@ public class SteamAgeRevolution implements IBoilerplateMod
 
 		public SARTab()
 		{
-			super(SteamAgeRevolution.MODID + "_tab");
+			super(MODID);
 		}
 
 		@Override
@@ -110,10 +105,10 @@ public class SteamAgeRevolution implements IBoilerplateMod
 
 	private static void addModules()
 	{
-		BoilerplateLib.getInstance().getModuleHandler().addModule(new RawMaterialsModule());
-		BoilerplateLib.getInstance().getModuleHandler().addModule(new PartsModule());
-		BoilerplateLib.getInstance().getModuleHandler().addModule(new TeaModule());
-		BoilerplateLib.getInstance().getModuleHandler().addModule(new VanityModule());
+		BoilerplateLib.getModuleHandler().addModule(new RawMaterialsModule());
+		BoilerplateLib.getModuleHandler().addModule(new PartsModule());
+		BoilerplateLib.getModuleHandler().addModule(new TeaModule());
+		BoilerplateLib.getModuleHandler().addModule(new VanityModule());
 	}
 
 }

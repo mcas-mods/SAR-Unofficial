@@ -1,25 +1,22 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.vanity.items;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
-import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.boilerplate.lib.common.items.BaseItem;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.boilerplate.lib.common.items.ItemBase;
 
-public class ItemWatch extends BaseItem implements ITexturedItem
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+public class ItemWatch extends ItemBase
 {
 	public ItemWatch()
 	{
-		super("watch");
+		super("vanity", "watch");
 		this.setMaxStackSize(1);
-		SteamAgeRevolution.jsonDestroyer.registerObject(this);
 	}
 
 	@Override
@@ -29,30 +26,18 @@ public class ItemWatch extends BaseItem implements ITexturedItem
 		{
 			final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
-			String message = StatCollector.translateToLocal("desc.item.watch.mcTime") + world.getWorldTime();
-			ChatComponentText component = new ChatComponentText(message);
-			component.getChatStyle().setColor(EnumChatFormatting.GOLD);
-			player.addChatComponentMessage(component);
+			String mcTimeMessage = StatCollector.translateToLocal("desc.item.watch.mcTime") + world.getWorldTime();
+			ChatComponentText mcTimeComponent = new ChatComponentText(mcTimeMessage);
+			mcTimeComponent.getChatStyle().setColor(EnumChatFormatting.GOLD);
+			player.addChatComponentMessage(mcTimeComponent);
 
-			String message1 = StatCollector.translateToLocal("desc.item.watch.rwTime")
+			String rwTimeMessage = StatCollector.translateToLocal("desc.item.watch.rwTime")
 					+ sdf.format(Calendar.getInstance().getTime());
-			ChatComponentText component1 = new ChatComponentText(message1);
-			component1.getChatStyle().setColor(EnumChatFormatting.GOLD);
-			player.addChatComponentMessage(component1);
+			ChatComponentText rwTimeComponent = new ChatComponentText(rwTimeMessage);
+			rwTimeComponent.getChatStyle().setColor(EnumChatFormatting.GOLD);
+			player.addChatComponentMessage(rwTimeComponent);
 		}
 
 		return stack;
-	}
-
-	@Override
-	public String getTextureName(int damage)
-	{
-		return SteamAgeRevolution.MODID + ":items/watch";
-	}
-
-	@Override
-	public int getMaxMeta()
-	{
-		return 1;
 	}
 }
