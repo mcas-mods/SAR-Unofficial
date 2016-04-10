@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.boilerplate.lib.common.items.ItemBase;
 
@@ -25,15 +26,16 @@ public class ItemWatch extends ItemBase
 		{
 			final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
-			String minecraftTime = "Minecraft Time: " + world.getWorldTime();
-			ChatComponentText component = new ChatComponentText(minecraftTime);
-			component.getChatStyle().setColor(EnumChatFormatting.GOLD);
-			player.addChatComponentMessage(component);
+			String mcTimeMessage = StatCollector.translateToLocal("desc.item.watch.mcTime") + world.getWorldTime();
+			ChatComponentText mcTimeComponent = new ChatComponentText(mcTimeMessage);
+			mcTimeComponent.getChatStyle().setColor(EnumChatFormatting.GOLD);
+			player.addChatComponentMessage(mcTimeComponent);
 
-			String realWorldTime = "Real-World Time: " + sdf.format(Calendar.getInstance().getTime());
-			ChatComponentText component1 = new ChatComponentText(realWorldTime);
-			component1.getChatStyle().setColor(EnumChatFormatting.GOLD);
-			player.addChatComponentMessage(component1);
+			String rwTimeMessage = StatCollector.translateToLocal("desc.item.watch.rwTime")
+					+ sdf.format(Calendar.getInstance().getTime());
+			ChatComponentText rwTimeComponent = new ChatComponentText(rwTimeMessage);
+			rwTimeComponent.getChatStyle().setColor(EnumChatFormatting.GOLD);
+			player.addChatComponentMessage(rwTimeComponent);
 		}
 
 		return stack;

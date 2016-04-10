@@ -104,3 +104,5 @@ desc.item.teacup.4sips=4 Sips Left
 
 ##Vanity
 item.watch.name=Watch
+desc.item.watch.mcTime=Minecraft Time:
+desc.item.watch.rwTime=Real-World Time:
