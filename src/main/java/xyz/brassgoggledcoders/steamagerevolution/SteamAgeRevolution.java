@@ -3,7 +3,6 @@ package xyz.brassgoggledcoders.steamagerevolution;
 import me.modmuss50.jsonDestroyer.JsonDestroyer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -88,30 +87,6 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	public String getPrefix()
 	{
 		return MODID + ":";
-	}
-
-	@Override
-	public ModLogger getLogger()
-	{
-		return logger;
-	}
-
-	@Override
-	public Configuration getConfig()
-	{
-		return null;
-	}
-
-	@Override
-	public String getClientProxyPath()
-	{
-		return null;
-	}
-
-	@Override
-	public String getCommonProxyPath()
-	{
-		return null;
 	}
 
 	public class SARTab extends BaseCreativeTab
