@@ -1,3 +1,5 @@
+import java.nio.file.Files
+
 buildscript {
     repositories {
         mavenCentral()
@@ -66,7 +68,6 @@ configurations {
 
 dependencies {
     shade "brassgoggledcoders:boilerplate:${minecraftversion}-${boilerplateversion}:lib"
-    shade 'JSON-Destroyer:JSON-Destroyer:0.4.15+:dev'
     deobfCompile "mezz.jei:jei_${minecraftversion}:${jeiversion}"
     deobfCompile "MCMultiPart:MCMultiPart:${mcmultipartversion}:universal"
 }
@@ -100,13 +101,11 @@ idea {
 
 reobfJar {
     addExtraSrgLine "PK: xyz/brassgoggledcoders/boilerplate xyz/brassgoggledcoders/steamagerevolution/boilerplate"
-	addExtraSrgLine "PK: me/modmuss50/jsonDestroyer steamcraft/client/jsonDestroyer"
 }
 
 jar {
     configurations.shade.each { dep ->
         from(project.zipTree(dep)){
-			include 'me/modmuss50/jsonDestroyer/'
             exclude 'META-INF', 'META-INF/**', 'mcmod.info'
         }
     }
@@ -171,6 +170,92 @@ task("uploadJars", dependsOn: "reobf") {
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+def createItemJSON() {
+    File modelDirectory = new File("./src/main/resources/assets/steamagerevolution/models")
+    File itemModelDirectory = new File("./src/main/resources/assets/steamagerevolution/models/item")
+    if(!modelDirectory.exists()) modelDirectory.mkdir()
+    if(!itemModelDirectory.exists()) itemModelDirectory.mkdir()
+
+    File textureDirectory = new File("./src/main/resources/assets/steamagerevolution/textures/items")
+
+    createJSONsForTextures(textureDirectory, "")
+}
+
+def createJSONsForTextures(File directory, String directoryPath) {
+    for(File file: directory.listFiles()) {
+        if(file.isDirectory()) {
+            String newDirectoryPath = directoryPath;
+
+            if(!newDirectoryPath.isEmpty()) {
+                newDirectoryPath += "/"
+            }
+            newDirectoryPath += file.name
+
+            String newDirectoryPathFileString = ".\\src\\main\\resources\\assets\\steamagerevolution\\models\\item\\" + newDirectoryPath
+            File newDirectoryPathFile = new File(newDirectoryPathFileString);
+            if(!newDirectoryPathFile.exists()) {
+                newDirectoryPathFile.mkdir();
+            }
+
+            createJSONsForTextures(file, newDirectoryPath)
+        } else {
+            String fileName = file.name
+            String newFileName = ""
+            for (Character aChar : fileName.toCharArray()) {
+                if (Character.isUpperCase(aChar)) {
+                    newFileName += "_" + aChar.toString().toLowerCase()
+                } else {
+                    newFileName += aChar
+                }
+            }
+
+            if (newFileName.startsWith("item")) {
+                newFileName = newFileName.replaceFirst("item", "")
+            }
+            if (newFileName.startsWith("_")) {
+                newFileName = newFileName.replaceFirst("_", "")
+            }
+
+            Files.move(file.toPath(), file.toPath().resolveSibling(newFileName));
+
+            newFileName = newFileName.replace(".png", "")
+            newFileName = newFileName.replace(".mcmeta", "")
+
+            if (!directoryPath.isEmpty() && !(directoryPath.endsWith("\\") || directoryPath.endsWith("/"))) {
+                directoryPath += "\\";
+            }
+            String fileLocation = ".\\src\\main\\resources\\assets\\steamagerevolution\\models\\item\\" + directoryPath +
+                    newFileName.toString() + ".json"
+            println(fileLocation)
+            File jsonFile = new File(fileLocation);
+            if (!jsonFile.exists()) {
+                directoryPath = directoryPath.replace("\\", "/")
+                jsonFile.createNewFile();
+                String jsonString = '''{
+    "parent":"builtin/generated",
+    "textures":{
+        "layer0":"''' + archivesBaseName + ":items/" + directoryPath + newFileName + '''"
+    },
+    "display": {
+        "thirdperson": {
+            "rotation": [ -90, 0, 0 ],
+            "translation": [ 0, 1, -3 ],
+            "scale": [ 0.55, 0.55, 0.55 ]
+        },
+        "firstperson": {
+            "rotation": [ 0, -135, 25 ],
+            "translation": [ 0, 4, 2 ],
+            "scale": [ 1.7, 1.7, 1.7 ]
+        }
+    }
+}
+'''
+                jsonFile << jsonString
             }
         }
     }
