@@ -69,7 +69,7 @@ repositories {
 dependencies {
     deobfCompile "brassgoggledcoders:boilerplate:${minecraftversion}-${boilerplateversion}:deobf"
     deobfCompile "mezz.jei:jei_${minecraftversion}:${jeiversion}"
-    deobfCompile "MCMultiPart:MCMultiPart:${mcmultipartversion}:universal"
+    deobfCompile "MCMultiPart:MCMultiPart-experimental:${mcmultipartversion}:universal"
 }
 
 runClient {
