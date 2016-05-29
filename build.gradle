@@ -14,7 +14,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
     }
 }
 
@@ -31,7 +31,7 @@ group = "brassgoggledcoders"
 archivesBaseName = "steamagerevolution"
 
 minecraft {
-    version = "${minecraftversion}-${forgeversion}"
+    version = "${minecraftversion}-${forgeversion}-${minecraftversion}"
     mappings = "${mappingsversion}"
     useDepAts = true
     runDir = "run/"
@@ -66,13 +66,8 @@ repositories {
     }
 }
 
-configurations {
-    shade
-    compile.extendsFrom shade
-}
-
 dependencies {
-    shade "brassgoggledcoders:boilerplate:${minecraftversion}-${boilerplateversion}:lib"
+    deobfCompile "brassgoggledcoders:boilerplate:${minecraftversion}-${boilerplateversion}:deobf"
     deobfCompile "mezz.jei:jei_${minecraftversion}:${jeiversion}"
     deobfCompile "MCMultiPart:MCMultiPart:${mcmultipartversion}:universal"
 }
@@ -104,25 +99,11 @@ idea {
     }
 }
 
-reobfJar {
-    addExtraSrgLine "PK: xyz/brassgoggledcoders/boilerplate xyz/brassgoggledcoders/steamagerevolution/boilerplate"
-}
-
 jar {
-    configurations.shade.each { dep ->
-        from(project.zipTree(dep)){
-            exclude 'META-INF', 'META-INF/**', 'mcmod.info'
-        }
-    }
-    classifier = ""
+    classifier = "universal"
 }
 
 task deobfJar(type: Jar) {
-    configurations.shade.each { dep ->
-        from(project.zipTree(dep)){
-            exclude 'META-INF', 'META-INF/**'
-        }
-    }
     from(sourceSets.main.output) {
         classifier = "deobf"
     }
