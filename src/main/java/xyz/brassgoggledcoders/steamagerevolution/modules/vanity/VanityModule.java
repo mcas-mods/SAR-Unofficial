@@ -1,8 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.vanity;
 
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import xyz.brassgoggledcoders.boilerplate.lib.common.modules.Module;
-import xyz.brassgoggledcoders.boilerplate.lib.common.registries.ItemRegistry;
+import xyz.brassgoggledcoders.boilerplate.modules.Module;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.vanity.items.ItemWatch;
 
 public class VanityModule extends Module
@@ -24,7 +24,7 @@ public class VanityModule extends Module
 	public void registerItems()
 	{
 		watch = new ItemWatch();
-		ItemRegistry.registerItem(watch);
+		SteamAgeRevolution.instance.getRegistryHolder().getItemRegistry().registerItem(watch);
 	}
 
 }

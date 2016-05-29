@@ -1,8 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.guide;
 
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import xyz.brassgoggledcoders.boilerplate.lib.common.modules.Module;
-import xyz.brassgoggledcoders.boilerplate.lib.common.registries.ItemRegistry;
+import xyz.brassgoggledcoders.boilerplate.modules.Module;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public class GuideModule extends Module 
 {
@@ -17,7 +17,7 @@ public class GuideModule extends Module
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		manual = new ItemManual();
-		ItemRegistry.registerItem(manual);
+		SteamAgeRevolution.instance.getRegistryHolder().getItemRegistry().registerItem(manual);
 	}
 	
 }

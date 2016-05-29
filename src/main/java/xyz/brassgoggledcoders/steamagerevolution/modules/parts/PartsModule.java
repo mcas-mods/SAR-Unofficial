@@ -1,9 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.parts;
 
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import xyz.brassgoggledcoders.boilerplate.lib.common.items.ItemSubBase;
-import xyz.brassgoggledcoders.boilerplate.lib.common.modules.Module;
-import xyz.brassgoggledcoders.boilerplate.lib.common.registries.ItemRegistry;
+import xyz.brassgoggledcoders.boilerplate.items.ItemSubBase;
+import xyz.brassgoggledcoders.boilerplate.modules.Module;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.lib.ItemTypes;
 
 public class PartsModule extends Module
@@ -25,24 +25,24 @@ public class PartsModule extends Module
 	public void registerItems()
 	{
 		bearing = new ItemSubBase("parts", "bearing", ItemTypes.metalsParts);
-		ItemRegistry.registerItem(bearing);
+		SteamAgeRevolution.instance.getRegistryHolder().getItemRegistry().registerItem(bearing);
 		bolt = new ItemSubBase("parts", "bolt", ItemTypes.metalsParts);
-		ItemRegistry.registerItem(bolt);
+		SteamAgeRevolution.instance.getRegistryHolder().getItemRegistry().registerItem(bolt);
 		gear = new ItemSubBase("parts", "gear", ItemTypes.metalsParts);
-		ItemRegistry.registerItem(gear);
+		SteamAgeRevolution.instance.getRegistryHolder().getItemRegistry().registerItem(gear);
 		nail = new ItemSubBase("parts", "nail", ItemTypes.metalsParts);
-		ItemRegistry.registerItem(nail);
+		SteamAgeRevolution.instance.getRegistryHolder().getItemRegistry().registerItem(nail);
 		nut = new ItemSubBase("parts", "nut", ItemTypes.metalsParts);
-		ItemRegistry.registerItem(nut);
+		SteamAgeRevolution.instance.getRegistryHolder().getItemRegistry().registerItem(nut);
 		screw = new ItemSubBase("parts", "screw", ItemTypes.metalsParts);
-		ItemRegistry.registerItem(screw);
+		SteamAgeRevolution.instance.getRegistryHolder().getItemRegistry().registerItem(screw);
 		spring = new ItemSubBase("parts", "spring", ItemTypes.metalsParts);
-		ItemRegistry.registerItem(spring);
+		SteamAgeRevolution.instance.getRegistryHolder().getItemRegistry().registerItem(spring);
 		sprocket = new ItemSubBase("parts", "sprocket", ItemTypes.metalsParts);
-		ItemRegistry.registerItem(sprocket);
+		SteamAgeRevolution.instance.getRegistryHolder().getItemRegistry().registerItem(sprocket);
 		thread = new ItemSubBase("parts", "thread", ItemTypes.metalsParts);
-		ItemRegistry.registerItem(thread);
+		SteamAgeRevolution.instance.getRegistryHolder().getItemRegistry().registerItem(thread);
 		washer = new ItemSubBase("parts",  "washer", ItemTypes.metalsParts);
-		ItemRegistry.registerItem(washer);
+		SteamAgeRevolution.instance.getRegistryHolder().getItemRegistry().registerItem(washer);
 	}
 }

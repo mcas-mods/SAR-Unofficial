@@ -7,10 +7,13 @@ import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import xyz.brassgoggledcoders.boilerplate.lib.BoilerplateLib;
-import xyz.brassgoggledcoders.boilerplate.lib.common.BaseCreativeTab;
-import xyz.brassgoggledcoders.boilerplate.lib.common.IBoilerplateMod;
-import xyz.brassgoggledcoders.boilerplate.lib.common.utils.ModLogger;
+import xyz.brassgoggledcoders.boilerplate.BaseCreativeTab;
+import xyz.brassgoggledcoders.boilerplate.Boilerplate;
+import xyz.brassgoggledcoders.boilerplate.BoilerplateModBase;
+import xyz.brassgoggledcoders.boilerplate.modules.ModuleHandler;
+import xyz.brassgoggledcoders.boilerplate.proxies.CommonProxy;
+import xyz.brassgoggledcoders.boilerplate.registries.ItemRegistry;
+import xyz.brassgoggledcoders.boilerplate.utils.ModLogger;
 import xyz.brassgoggledcoders.steamagerevolution.modules.guide.GuideModule;
 import xyz.brassgoggledcoders.steamagerevolution.modules.parts.PartsModule;
 import xyz.brassgoggledcoders.steamagerevolution.modules.rawmaterials.RawMaterialsModule;
@@ -18,8 +21,12 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.tea.TeaModule;
 import xyz.brassgoggledcoders.steamagerevolution.modules.vanity.VanityModule;
 
 @Mod(modid = SteamAgeRevolution.MODID, name = SteamAgeRevolution.MODNAME, version = SteamAgeRevolution.MODVERSION)
-public class SteamAgeRevolution implements IBoilerplateMod
+public class SteamAgeRevolution extends BoilerplateModBase
 {
+	public SteamAgeRevolution() {
+		super(MODID, MODNAME, MODVERSION, tab);
+	}
+
 	@Instance("steamagerevolution")
 	public static SteamAgeRevolution instance;
 
@@ -27,68 +34,43 @@ public class SteamAgeRevolution implements IBoilerplateMod
 	public static final String MODNAME = "Steam Age Revolution";
 	public static final String MODVERSION = "@VERSION@";
 
-	public CreativeTabs tab = new SARTab();
+	public static CreativeTabs tab = new SARTab();
+	
+	public static ModuleHandler handler = new ModuleHandler(instance);
+	
 
-	public static ModLogger logger;
-
-	@Mod.EventHandler
-	public void preInit(FMLPreInitializationEvent event)
-	{
+	@Override
+	protected void modPreInit(FMLPreInitializationEvent event) {
 		addModules();
-		BoilerplateLib.getInstance().preInitStart(event);
-		logger = BoilerplateLib.getLogger();
-		BoilerplateLib.getInstance().preInitEnd(event);
 	}
 
-	@Mod.EventHandler
-	public void init(FMLInitializationEvent event)
-	{
-		BoilerplateLib.getInstance().init(event);
+	@Override
+	protected void modInit(FMLInitializationEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 
-	@Mod.EventHandler
-	public void postInit(FMLPostInitializationEvent event)
-	{
-		BoilerplateLib.getInstance().postInit(event);
+	@Override
+	protected void modPostInit(FMLPostInitializationEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
-
+	
 	@Override
 	public Object getInstance()
 	{
 		return instance;
 	}
 
-	@Override
-	public CreativeTabs getCreativeTab()
+	private static void addModules()
 	{
-		return tab;
+		handler.addModule(new RawMaterialsModule());
+		handler.addModule(new PartsModule());
+		handler.addModule(new TeaModule());
+		handler.addModule(new VanityModule());
+		//handler.addModule(new GuideModule());
 	}
-
-	@Override
-	public String getID()
-	{
-		return MODID;
-	}
-
-	@Override
-	public String getName()
-	{
-		return MODNAME;
-	}
-
-	@Override
-	public String getVersion()
-	{
-		return MODVERSION;
-	}
-
-	@Override
-	public String getPrefix()
-	{
-		return MODID + ":";
-	}
-
-	public class SARTab extends BaseCreativeTab
+	public static class SARTab extends BaseCreativeTab
 	{
 
 		public SARTab()
@@ -103,14 +85,8 @@ public class SteamAgeRevolution implements IBoilerplateMod
 		}
 
 	}
-
-	private static void addModules()
-	{
-		BoilerplateLib.getModuleHandler().addModule(new RawMaterialsModule());
-		BoilerplateLib.getModuleHandler().addModule(new PartsModule());
-		BoilerplateLib.getModuleHandler().addModule(new TeaModule());
-		BoilerplateLib.getModuleHandler().addModule(new VanityModule());
-		BoilerplateLib.getModuleHandler().addModule(new GuideModule());
+	@Override
+	public CommonProxy getProxy() {
+		return null;
 	}
-
 }
