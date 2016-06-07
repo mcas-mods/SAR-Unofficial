@@ -1,5 +1,3 @@
-import java.nio.file.Files
-
 buildscript {
     repositories {
         mavenCentral()
@@ -18,45 +16,12 @@ buildscript {
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
-
-project.ext {
-    buildNum = System.getenv("BUILD_NUMBER")
-    mcVersion = "${project.minecraft.version}"
-    sarVersion = "${steamagerevolutionversion}-${project.ext.buildNum}"
-}
-
-version = "${minecraftversion}-" + project.ext.sarVersion
-group = "brassgoggledcoders"
-archivesBaseName = "steamagerevolution"
-
-minecraft {
-    version = "${minecraftversion}-${forgeversion}-${minecraftversion}"
-    mappings = "${mappingsversion}"
-    useDepAts = true
-    runDir = "run/"
-    useDepAts = true
-
-    replace "@VERSION@", project.ext.sarVersion
-    replaceIn "SteamAgeRevolution.java"
-}
-
-compileJava {
-    sourceCompatibility = 1.7
-    targetCompatibility = 1.7
-}
-
 repositories {
-    mavenLocal()
     maven {
-        name "K4Repo"
-        url "http://maven.k-4u.nl"
+        name "BrassGoggledCoders maven"
+        url "https://maven.brassgoggledcoders.xyz"
     }
-    maven {
-        name = "Modmuss50"
-        url = "http://maven.modmuss50.me/"
-    }
-    maven {
+maven {
         name "JEI"
         url "http://dvs1.progwml6.com/files/maven"
     }
@@ -66,41 +31,53 @@ repositories {
     }
 }
 
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+version = "${minecraft_version}-${mod_version}." + System.getenv("bamboo_buildNumber")
+
+group= "xyz.brassgoggledcoders.modularutilities"
+archivesBaseName = "${mod_name}"
+
+minecraft {
+    version = "${minecraft_version}-${forge_version}-${minecraft_version}"
+
+    mappings = "${mappings_version}"
+    runDir = "run/"
+    useDepAts = true
+
+    replace "@VERSION@", project.version
+    replaceIn "${mod_name}.java"
+}
+
 dependencies {
-    deobfCompile "brassgoggledcoders:boilerplate:${minecraftversion}-${boilerplateversion}:deobf"
-    deobfCompile "mezz.jei:jei_${minecraftversion}:${jeiversion}"
-    deobfCompile "MCMultiPart:MCMultiPart-experimental:${mcmultipartversion}:universal"
+    compile "xyz.brassgoggledcoders.boilerplate:Boilerplate:${minecraft_version}-${boilerplate_version}:deobf"
+    deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
+    deobfCompile "MCMultiPart:MCMultiPart-experimental:${mcmultipart_version}:universal"
 }
 
-runClient {
-    if(project.hasProperty('mcUsername') && project.hasProperty('mcPassword') ) {
-        args += "--username=${project.mcUsername}"
-        args += "--password=${project.mcPassword}"
-    }
+compileJava {
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
 }
 
-processResources {
+processResources
+{
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
+
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-        
+
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
 }
 
-idea {
-    module {
-        inheritOutputDirs = true
-    }
-}
-
 jar {
-    classifier = "universal"
+    classifier = ""
 }
 
 task deobfJar(type: Jar) {
@@ -113,36 +90,42 @@ artifacts {
     archives deobfJar
 }
 
+idea {
+    module {
+        inheritOutputDirs = true
+    }
+}
+
 task("uploadJars", dependsOn: "reobf") {
     description = "uploads JARs"
-    if (System.getenv("local_maven") != null) {
+    if (System.getenv("bamboo_local_maven") != null) {
         apply plugin: 'maven'
         uploadArchives {
             repositories {
                 mavenDeployer {
-                    repository(url: "file://" + System.getenv("local_maven"))
+                    repository(url: "file://" + System.getenv("bamboo_local_maven"))
                     pom {
                         groupId = project.group
-                        version
+                        version = project.version
                         artifactId = project.archivesBaseName
                         project {
                             name project.archivesBaseName
                             packaging 'jar'
-                            description 'SteamAgeRevolution'
-                            url 'http://BrassGoggledCoders.xyz'
+                            description 'ModularUtilities'
+                            url ''
                             scm {
-                                url 'https://github.com/BrassGoggledCoders/SteamAgeRevolution.git'
-                                connection 'scm:git:git@github.com:BrassGoggledCoders/SteamAGeRevolution.git'
-                                developerConnection 'scm:git:git@github.com:BrassGoggledCoders/SteamAgeRevolution.git'
+                                url 'https://github.com/BrassGoggledCoders/${mod_name}'
+                                connection 'scm:git:git@github.com:BrassGoggledCoders/${mod_name}.git'
+                                developerConnection 'scm:git:git@github.com:BrassGoggledCoders/${mod_name}.git'
                             }
                             issueManagement {
                                 system 'github'
-                                url 'https://github.com/BrassGoggledCoders/SteamAgeRevolution/issues'
+                                url 'https://github.com/BrassGoggledCoders/${mod_name}/issues'
                             }
                             licenses {
                                 license {
                                     name 'MIT'
-                                    url 'https://github.com/BrassGoggledCoders/SteamAgeRevolution/blob/master/LICENSE'
+                                    url 'https://github.com/BrassGoggledCoders/ModularUtilities/blob/master/LICENSE'
                                     distribution 'repo'
                                 }
                             }
@@ -152,96 +135,15 @@ task("uploadJars", dependsOn: "reobf") {
                                     name 'SkySom'
                                     roles { role 'developer' }
                                 }
+				developer {
+                                    id 'warlordjones'
+                                    name 'warlordjones'
+                                    roles { role 'developer' }
+                                }
                             }
                         }
                     }
                 }
-            }
-        }
-    }
-}
-
-def createItemJSON() {
-    File modelDirectory = new File("./src/main/resources/assets/steamagerevolution/models")
-    File itemModelDirectory = new File("./src/main/resources/assets/steamagerevolution/models/item")
-    if(!modelDirectory.exists()) modelDirectory.mkdir()
-    if(!itemModelDirectory.exists()) itemModelDirectory.mkdir()
-
-    File textureDirectory = new File("./src/main/resources/assets/steamagerevolution/textures/items")
-
-    createJSONsForTextures(textureDirectory, "")
-}
-
-def createJSONsForTextures(File directory, String directoryPath) {
-    for(File file: directory.listFiles()) {
-        if(file.isDirectory()) {
-            String newDirectoryPath = directoryPath;
-
-            if(!newDirectoryPath.isEmpty()) {
-                newDirectoryPath += "/"
-            }
-            newDirectoryPath += file.name
-
-            String newDirectoryPathFileString = ".\\src\\main\\resources\\assets\\steamagerevolution\\models\\item\\" + newDirectoryPath
-            File newDirectoryPathFile = new File(newDirectoryPathFileString);
-            if(!newDirectoryPathFile.exists()) {
-                newDirectoryPathFile.mkdir();
-            }
-
-            createJSONsForTextures(file, newDirectoryPath)
-        } else {
-            String fileName = file.name
-            String newFileName = ""
-            for (Character aChar : fileName.toCharArray()) {
-                if (Character.isUpperCase(aChar)) {
-                    newFileName += "_" + aChar.toString().toLowerCase()
-                } else {
-                    newFileName += aChar
-                }
-            }
-
-            if (newFileName.startsWith("item")) {
-                newFileName = newFileName.replaceFirst("item", "")
-            }
-            if (newFileName.startsWith("_")) {
-                newFileName = newFileName.replaceFirst("_", "")
-            }
-
-            Files.move(file.toPath(), file.toPath().resolveSibling(newFileName));
-
-            newFileName = newFileName.replace(".png", "")
-            newFileName = newFileName.replace(".mcmeta", "")
-
-            if (!directoryPath.isEmpty() && !(directoryPath.endsWith("\\") || directoryPath.endsWith("/"))) {
-                directoryPath += "\\";
-            }
-            String fileLocation = ".\\src\\main\\resources\\assets\\steamagerevolution\\models\\item\\" + directoryPath +
-                    newFileName.toString() + ".json"
-            println(fileLocation)
-            File jsonFile = new File(fileLocation);
-            if (!jsonFile.exists()) {
-                directoryPath = directoryPath.replace("\\", "/")
-                jsonFile.createNewFile();
-                String jsonString = '''{
-    "parent":"builtin/generated",
-    "textures":{
-        "layer0":"''' + archivesBaseName + ":items/" + directoryPath + newFileName + '''"
-    },
-    "display": {
-        "thirdperson": {
-            "rotation": [ -90, 0, 0 ],
-            "translation": [ 0, 1, -3 ],
-            "scale": [ 0.55, 0.55, 0.55 ]
-        },
-        "firstperson": {
-            "rotation": [ 0, -135, 25 ],
-            "translation": [ 0, 4, 2 ],
-            "scale": [ 1.7, 1.7, 1.7 ]
-        }
-    }
-}
-'''
-                jsonFile << jsonString
             }
         }
     }
