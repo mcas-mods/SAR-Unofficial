@@ -1,11 +1,13 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.tea;
 
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import xyz.brassgoggledcoders.boilerplate.modules.Module;
+import xyz.brassgoggledcoders.boilerplate.module.Module;
+import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.tea.items.ItemTeacup;
 
-public class TeaModule extends Module
+@Module
+public class TeaModule extends ModuleBase
 {
 
 	public static ItemTeacup teacup;
@@ -25,7 +27,7 @@ public class TeaModule extends Module
 	public void registerItems()
 	{
 		teacup = new ItemTeacup();
-		SteamAgeRevolution.instance.getRegistryHolder().getItemRegistry().registerItem(teacup);
+		this.getItemRegistry().registerItem(teacup);
 	}
 
 }

@@ -33,23 +33,17 @@ public class SteamAgeRevolution extends BoilerplateModBase
 
 	@Override
 	protected void modPreInit(FMLPreInitializationEvent event) {
-		moduleHandler.addModule(new RawMaterialsModule());
-		moduleHandler.addModule(new PartsModule());
-		moduleHandler.addModule(new TeaModule());
-		moduleHandler.addModule(new VanityModule());
-		//moduleHandler.addModule(new GuideModule());
+		
 	}
 
 	@Override
 	protected void modInit(FMLInitializationEvent event) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	protected void modPostInit(FMLPostInitializationEvent event) {
-		// TODO Auto-generated method stub
-		
+		logger.devError("" + this.getModuleHandler().getModules());
 	}
 	
 	@Override
@@ -71,9 +65,5 @@ public class SteamAgeRevolution extends BoilerplateModBase
 			return RawMaterialsModule.plates;
 		}
 
-	}
-	@Override
-	public CommonProxy getProxy() {
-		return null;
 	}
 }
