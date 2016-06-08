@@ -6,7 +6,8 @@ import xyz.brassgoggledcoders.boilerplate.module.Module;
 import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.lib.ItemTypes;
-@Module
+
+@Module(mod = SteamAgeRevolution.MODID)
 public class RawMaterialsModule extends ModuleBase
 {
 	public static ItemSubBase ingots, nuggets, dusts, plates;

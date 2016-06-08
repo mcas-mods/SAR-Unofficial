@@ -6,7 +6,7 @@ import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.vanity.items.ItemWatch;
 
-@Module
+@Module(mod = SteamAgeRevolution.MODID)
 public class VanityModule extends ModuleBase
 {
 	public static ItemWatch watch;

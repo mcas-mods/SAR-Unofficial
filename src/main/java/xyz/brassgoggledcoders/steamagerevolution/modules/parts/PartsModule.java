@@ -7,7 +7,7 @@ import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.lib.ItemTypes;
 
-@Module
+@Module(mod = SteamAgeRevolution.MODID)
 public class PartsModule extends ModuleBase
 {
 	public static ItemSubBase bearing, bolt, gear, nail, nut, screw, spring, sprocket, thread, washer;

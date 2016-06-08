@@ -6,7 +6,7 @@ import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.tea.items.ItemTeacup;
 
-@Module
+@Module(mod = SteamAgeRevolution.MODID)
 public class TeaModule extends ModuleBase
 {
 

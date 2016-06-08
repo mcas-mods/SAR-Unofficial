@@ -5,7 +5,7 @@ import xyz.brassgoggledcoders.boilerplate.module.Module;
 import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
-@Module
+@Module(mod = SteamAgeRevolution.MODID)
 public class GuideModule extends ModuleBase
 {
 	public static ItemManual manual; 
