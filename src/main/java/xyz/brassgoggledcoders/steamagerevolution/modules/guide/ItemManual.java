@@ -1,6 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.guide;
 
+import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -13,33 +15,37 @@ import xyz.brassgoggledcoders.boilerplate.items.ItemBase;
 import xyz.brassgoggledcoders.boilerplate.manual.ILexicon;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
-public class ItemManual extends ItemBase implements ILexicon, IOpenableGUI {
+public class ItemManual extends ItemBase implements ILexicon, IOpenableGUI
+{
 
-	public ItemManual() {
+	public ItemManual()
+	{
 		super("manual");
 		setMaxStackSize(1);
 	}
-	
+
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
 	{
-		if (world.isRemote)
+		if(world.isRemote)
 		{
 			player.openGui(SteamAgeRevolution.instance, 0, world, 0, 0, 0);
-			return new ActionResult(EnumActionResult.SUCCESS, stack);
+			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 		}
-		return new ActionResult(EnumActionResult.FAIL, stack);
+		return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
 	}
-	
+
 	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos) {
-		//TODO
-		//SteamAgeRevolution.getProxy().setLexiconStack(player.getCurrentEquippedItem());
+	public Gui getClientGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos)
+	{
+		// TODO
+		// SteamAgeRevolution.getProxy().setLexiconStack(player.getCurrentEquippedItem());
 		return GuiLexicon.currentOpenLexicon;
 	}
 
 	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos) {
+	public Container getServerGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos)
+	{
 		return null;
 	}
 
