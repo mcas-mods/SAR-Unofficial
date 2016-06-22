@@ -14,10 +14,8 @@ import xyz.brassgoggledcoders.boilerplate.BoilerplateModBase;
 
 @Mod(modid = SteamAgeRevolution.MODID, name = SteamAgeRevolution.MODNAME, version = SteamAgeRevolution.MODVERSION,
 		dependencies = SteamAgeRevolution.DEPENDENCIES)
-public class SteamAgeRevolution extends BoilerplateModBase
-{
-	public SteamAgeRevolution()
-	{
+public class SteamAgeRevolution extends BoilerplateModBase {
+	public SteamAgeRevolution() {
 		super(MODID, MODNAME, MODVERSION, tab);
 	}
 
@@ -31,41 +29,37 @@ public class SteamAgeRevolution extends BoilerplateModBase
 
 	public static CreativeTabs tab = new SARTab();
 
+	@Override
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event)
-	{
+	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
 	}
 
+	@Override
 	@EventHandler
-	public void init(FMLInitializationEvent event)
-	{
+	public void init(FMLInitializationEvent event) {
 		super.init(event);
 	}
 
+	@Override
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent event)
-	{
+	public void postInit(FMLPostInitializationEvent event) {
 		super.postInit(event);
 	}
 
 	@Override
-	public Object getInstance()
-	{
+	public Object getInstance() {
 		return instance;
 	}
 
-	public static class SARTab extends BaseCreativeTab
-	{
+	public static class SARTab extends BaseCreativeTab {
 
-		public SARTab()
-		{
+		public SARTab() {
 			super(MODID);
 		}
 
 		@Override
-		public Item getTabIconItem()
-		{
+		public Item getTabIconItem() {
 			return Item.getItemFromBlock(Blocks.SPONGE);
 		}
 

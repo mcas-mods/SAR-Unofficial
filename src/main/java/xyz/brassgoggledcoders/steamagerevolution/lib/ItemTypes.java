@@ -3,8 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.lib;
 import java.util.Arrays;
 import java.util.List;
 
-public class ItemTypes
-{
+public class ItemTypes {
 	public static List<String> metalsIngot = Arrays.asList("aluminum", "brass", "cast_iron", "copper", "zinc");
 	public static List<String> metalsNugget = Arrays.asList("iron", "aluminum", "brass", "cast_iron", "copper", "zinc");
 	public static List<String> metalsAll =

@@ -8,24 +8,20 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.lib.ItemTypes;
 
 @Module(mod = SteamAgeRevolution.MODID)
-public class PartsModule extends ModuleBase
-{
+public class PartsModule extends ModuleBase {
 	public static ItemSubBase bearing, bolt, gear, nail, nut, screw, spring, sprocket, thread, washer;
 
 	@Override
-	public void preInit(FMLPreInitializationEvent event)
-	{
+	public void preInit(FMLPreInitializationEvent event) {
 		this.registerItems();
 	}
 
 	@Override
-	public String getName()
-	{
+	public String getName() {
 		return "Parts";
 	}
 
-	public void registerItems()
-	{
+	public void registerItems() {
 		bearing = new ItemSubBase("parts", "bearing", ItemTypes.metalsParts);
 		this.getItemRegistry().registerItem(bearing);
 		bolt = new ItemSubBase("parts", "bolt", ItemTypes.metalsParts);
@@ -44,7 +40,7 @@ public class PartsModule extends ModuleBase
 		this.getItemRegistry().registerItem(sprocket);
 		thread = new ItemSubBase("parts", "thread", ItemTypes.metalsParts);
 		this.getItemRegistry().registerItem(thread);
-		washer = new ItemSubBase("parts",  "washer", ItemTypes.metalsParts);
+		washer = new ItemSubBase("parts", "washer", ItemTypes.metalsParts);
 		this.getItemRegistry().registerItem(washer);
 	}
 }

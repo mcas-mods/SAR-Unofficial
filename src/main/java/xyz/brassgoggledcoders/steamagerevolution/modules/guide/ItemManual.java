@@ -15,20 +15,16 @@ import xyz.brassgoggledcoders.boilerplate.items.ItemBase;
 import xyz.brassgoggledcoders.boilerplate.manual.ILexicon;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
-public class ItemManual extends ItemBase implements ILexicon, IOpenableGUI
-{
+public class ItemManual extends ItemBase implements ILexicon, IOpenableGUI {
 
-	public ItemManual()
-	{
+	public ItemManual() {
 		super("manual");
 		setMaxStackSize(1);
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
-	{
-		if(world.isRemote)
-		{
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+		if(world.isRemote) {
 			player.openGui(SteamAgeRevolution.instance, 0, world, 0, 0, 0);
 			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 		}
@@ -36,16 +32,14 @@ public class ItemManual extends ItemBase implements ILexicon, IOpenableGUI
 	}
 
 	@Override
-	public Gui getClientGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos)
-	{
+	public Gui getClientGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos) {
 		// TODO
 		// SteamAgeRevolution.getProxy().setLexiconStack(player.getCurrentEquippedItem());
 		return GuiLexicon.currentOpenLexicon;
 	}
 
 	@Override
-	public Container getServerGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos)
-	{
+	public Container getServerGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos) {
 		return null;
 	}
 

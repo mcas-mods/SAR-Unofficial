@@ -13,13 +13,11 @@ import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 @Module(mod = SteamAgeRevolution.MODID)
-public class ModuleMaterials extends ModuleBase
-{
+public class ModuleMaterials extends ModuleBase {
 	public static Item dust, plate;
 
 	@Override
-	public void preInit(FMLPreInitializationEvent fmlPreInitializationEvent)
-	{
+	public void preInit(FMLPreInitializationEvent fmlPreInitializationEvent) {
 		// TODO Move to materials tab
 		dust = new ItemSubBase("metals/", "dust", MaterialsModule.allMetals);
 		getItemRegistry().registerItem(dust);
@@ -28,18 +26,14 @@ public class ModuleMaterials extends ModuleBase
 	}
 
 	@Override
-	public void init(FMLInitializationEvent event)
-	{
+	public void init(FMLInitializationEvent event) {
 		for(int i = 0; i < BlockMetal.EnumBlockType.values().length; i++)
-		{
 			// TODO Plate/Dust creation recipes
 			GameRegistry.addSmelting(new ItemStack(MaterialsModule.ingot, 1, i), new ItemStack(dust, 1, i), 0.5F);
-		}
 	}
 
 	@Override
-	public String getName()
-	{
+	public String getName() {
 		return "Materials";
 	}
 }

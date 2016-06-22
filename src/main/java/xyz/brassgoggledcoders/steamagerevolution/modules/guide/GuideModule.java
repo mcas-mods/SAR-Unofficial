@@ -6,20 +6,18 @@ import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 @Module(mod = SteamAgeRevolution.MODID)
-public class GuideModule extends ModuleBase
-{
-	public static ItemManual manual; 
-	
+public class GuideModule extends ModuleBase {
+	public static ItemManual manual;
+
 	@Override
 	public String getName() {
 		return "Guide";
 	}
 
 	@Override
-	public void preInit(FMLPreInitializationEvent event)
-	{
+	public void preInit(FMLPreInitializationEvent event) {
 		manual = new ItemManual();
 		this.getItemRegistry().registerItem(manual);
 	}
-	
+
 }

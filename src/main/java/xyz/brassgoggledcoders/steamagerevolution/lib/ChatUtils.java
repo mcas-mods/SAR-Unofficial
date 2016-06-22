@@ -6,7 +6,6 @@ package xyz.brassgoggledcoders.steamagerevolution.lib;
  * https://github.com/SleepyTrousers/EnderCore/blob/master/src/main/java/com/enderio/core/common/util/ChatUtil.java
  */
 
-public class ChatUtils
-{
-	//TODO
+public class ChatUtils {
+	// TODO
 }

@@ -7,25 +7,21 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.tea.items.ItemTeacup;
 
 @Module(mod = SteamAgeRevolution.MODID)
-public class TeaModule extends ModuleBase
-{
+public class TeaModule extends ModuleBase {
 
 	public static ItemTeacup teacup;
 
 	@Override
-	public void preInit(FMLPreInitializationEvent event)
-	{
+	public void preInit(FMLPreInitializationEvent event) {
 		this.registerItems();
 	}
 
 	@Override
-	public String getName()
-	{
+	public String getName() {
 		return "Tea";
 	}
 
-	public void registerItems()
-	{
+	public void registerItems() {
 		teacup = new ItemTeacup();
 		this.getItemRegistry().registerItem(teacup);
 	}
