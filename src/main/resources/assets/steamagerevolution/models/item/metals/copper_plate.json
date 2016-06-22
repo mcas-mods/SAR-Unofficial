@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures":{
-        "layer0":"steamagerevolution:items/metals/ingot_cast_iron"
+        "layer0":"steamagerevolution:items/metals/copper_plate"
     },
     "display": {
         "thirdperson": {

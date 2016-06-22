@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures":{
-        "layer0":"steamagerevolution:items/metals/dust_cast_iron"
+        "layer0":"steamagerevolution:items/metals/iron_plate"
     },
     "display": {
         "thirdperson": {

@@ -11,7 +11,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.boilerplate.BaseCreativeTab;
 import xyz.brassgoggledcoders.boilerplate.BoilerplateModBase;
-import xyz.brassgoggledcoders.boilerplate.OreRequestRegistry;
 
 @Mod(modid = SteamAgeRevolution.MODID, name = SteamAgeRevolution.MODNAME, version = SteamAgeRevolution.MODVERSION,
 		dependencies = SteamAgeRevolution.DEPENDENCIES)
@@ -31,11 +30,6 @@ public class SteamAgeRevolution extends BoilerplateModBase
 	public static final String DEPENDENCIES = "required-after:boilerplate";
 
 	public static CreativeTabs tab = new SARTab();
-
-	static
-	{
-		OreRequestRegistry.instance.requestOre(new String[] {"Copper", "ore", "block", "ingot"});
-	}
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)

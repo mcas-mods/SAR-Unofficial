@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures":{
-        "layer0":"steamagerevolution:items/metals/nugget_brass"
+        "layer0":"steamagerevolution:items/metals/zinc_dust"
     },
     "display": {
         "thirdperson": {

@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures":{
-        "layer0":"steamagerevolution:items/metals/plate_copper"
+        "layer0":"steamagerevolution:items/metals/gold_plate"
     },
     "display": {
         "thirdperson": {
