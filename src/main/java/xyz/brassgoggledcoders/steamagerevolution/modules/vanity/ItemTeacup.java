@@ -1,5 +1,6 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.tea.items;
+package xyz.brassgoggledcoders.steamagerevolution.modules.vanity;
 
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -8,11 +9,13 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import xyz.brassgoggledcoders.boilerplate.items.ItemSubBase;
-import xyz.brassgoggledcoders.steamagerevolution.lib.ItemTypes;
 
 public class ItemTeacup extends ItemSubBase {
+
+	public static List<String> teacup = Arrays.asList("empty", "quarter", "half", "threequarter", "full");
+
 	public ItemTeacup() {
-		super("tea", "teacup", ItemTypes.teacup);
+		super("tea", "teacup", teacup);
 	}
 
 	@Override

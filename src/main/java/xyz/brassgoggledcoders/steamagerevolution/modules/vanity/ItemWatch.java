@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.vanity.items;
+package xyz.brassgoggledcoders.steamagerevolution.modules.vanity;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
