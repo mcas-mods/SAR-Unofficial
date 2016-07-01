@@ -5,8 +5,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import xyz.brassgoggledcoders.steamagerevolution.api.ISpinHandler;
-import xyz.brassgoggledcoders.steamagerevolution.api.SpinHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.SpinHandler;
 
 public class CapabilityHandler {
 

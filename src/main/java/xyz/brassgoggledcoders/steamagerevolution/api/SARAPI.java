@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.api;
 
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
+import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 
 public class SARAPI {
 

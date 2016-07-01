@@ -6,8 +6,12 @@ import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.steamagerevolution.api.SARAPI;
+import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.SpinHandler;
 
 public class TileGearbox extends TileEntity implements ITickable {
+
+	private ISpinHandler handler = new SpinHandler();
 
 	@Override
 	public boolean hasCapability(Capability<?> capObject, EnumFacing side) {
@@ -20,7 +24,7 @@ public class TileGearbox extends TileEntity implements ITickable {
 	@Override
 	public <T> T getCapability(Capability<T> capObject, EnumFacing side) {
 		if(capObject == SARAPI.SPIN_HANDLER_CAPABILITY) {
-			return (T) SARAPI.SPIN_HANDLER_CAPABILITY.getDefaultInstance();
+			return SARAPI.SPIN_HANDLER_CAPABILITY.cast(handler);
 		}
 
 		return super.getCapability(capObject, side);
@@ -28,7 +32,10 @@ public class TileGearbox extends TileEntity implements ITickable {
 
 	@Override
 	public void update() {
-		this.getCapability(SARAPI.SPIN_HANDLER_CAPABILITY, null).fill(null, 1, true);
-		FMLLog.warning("" + this.getCapability(SARAPI.SPIN_HANDLER_CAPABILITY, null).getStoredSpin(), "");
+		if(getWorld().isRemote)
+			return;
+
+		this.handler.fill(null, 1, true);
+		FMLLog.warning("" + handler.getStoredSpin(), "");
 	}
 }

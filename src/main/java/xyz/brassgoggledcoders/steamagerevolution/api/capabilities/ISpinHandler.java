@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.api;
+package xyz.brassgoggledcoders.steamagerevolution.api.capabilities;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
