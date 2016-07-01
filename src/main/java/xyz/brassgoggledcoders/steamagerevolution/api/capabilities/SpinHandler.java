@@ -23,13 +23,13 @@ public class SpinHandler implements ISpinHandler {
 
 	@Override
 	public void drain(int amount) {
-		if(this.canFill(amount))
+		if(this.canDrain(amount))
 			storedSpin -= amount;
 	}
 
 	@Override
 	public boolean canFill(int amount) {
-		if((this.getMaxSpin() - this.getStoredSpin()) <= amount)
+		if((this.getMaxSpin() - this.getStoredSpin()) >= amount)
 			return true;
 
 		return false;
