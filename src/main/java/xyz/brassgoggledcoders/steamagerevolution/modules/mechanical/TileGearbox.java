@@ -35,7 +35,7 @@ public class TileGearbox extends TileEntity implements ITickable {
 		if(getWorld().isRemote)
 			return;
 
-		this.handler.fill(null, 1, true);
+		this.handler.fill(1);
 		FMLLog.warning("" + handler.getStoredSpin(), "");
 	}
 }

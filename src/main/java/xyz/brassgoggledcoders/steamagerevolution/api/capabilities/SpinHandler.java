@@ -1,7 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.api.capabilities;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
 
 public class SpinHandler implements ISpinHandler {
 
@@ -17,23 +16,30 @@ public class SpinHandler implements ISpinHandler {
 	}
 
 	@Override
-	public int fill(EnumFacing from, int amount, boolean doFill) {
-		return storedSpin += amount;
+	public void fill(int amount) {
+		if(this.canFill(amount))
+			storedSpin += amount;
 	}
 
 	@Override
-	public int drain(EnumFacing from, int amount, boolean doDrain) {
-		return storedSpin -= amount;
+	public void drain(int amount) {
+		if(this.canFill(amount))
+			storedSpin -= amount;
 	}
 
 	@Override
-	public boolean canFill(EnumFacing from, int amount) {
-		return true;
+	public boolean canFill(int amount) {
+		if((this.getMaxSpin() - this.getStoredSpin()) <= amount)
+			return true;
+
+		return false;
 	}
 
 	@Override
-	public boolean canDrain(EnumFacing from, int amount) {
-		// TODO Auto-generated method stub
+	public boolean canDrain(int amount) {
+		if(this.getStoredSpin() >= amount)
+			return true;
+
 		return false;
 	}
 

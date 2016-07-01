@@ -1,18 +1,17 @@
 package xyz.brassgoggledcoders.steamagerevolution.api.capabilities;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public interface ISpinHandler extends INBTSerializable<NBTTagCompound> {
 
-	int fill(EnumFacing from, int amount, boolean doFill);
+	void fill(int amount);
 
-	int drain(EnumFacing from, int amount, boolean doDrain);
+	void drain(int amount);
 
-	boolean canFill(EnumFacing from, int amount);
+	boolean canFill(int amount);
 
-	boolean canDrain(EnumFacing from, int amount);
+	boolean canDrain(int amount);
 
 	int getStoredSpin();
 
