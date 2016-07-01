@@ -32,6 +32,7 @@ public class SteamAgeRevolution extends BoilerplateModBase {
 	@Override
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		CapabilityHandler.init();
 		super.preInit(event);
 	}
 

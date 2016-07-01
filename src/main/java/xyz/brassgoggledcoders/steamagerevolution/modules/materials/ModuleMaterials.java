@@ -30,6 +30,7 @@ public class ModuleMaterials extends ModuleBase {
 				xyz.brassgoggledcoders.boilerplate.modules.materials.MaterialsModule.allMetals);
 		getItemRegistry().registerItem(plate);
 
+		// TODO Old method.
 		bearing = new ItemSubBase("parts", "bearing", metalsParts);
 		this.getItemRegistry().registerItem(bearing);
 		bolt = new ItemSubBase("parts", "bolt", metalsParts);
