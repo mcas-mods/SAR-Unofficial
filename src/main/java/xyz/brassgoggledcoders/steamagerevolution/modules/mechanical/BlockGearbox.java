@@ -15,13 +15,13 @@ public class BlockGearbox extends BlockTEBase
 	@Override
 	public Class<? extends TileEntity> getTileEntityClass()
 	{
-		return TileGearbox.class;
+		return TileEntityGearbox.class;
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta)
 	{
-		return new TileGearbox();
+		return new TileEntityGearbox();
 	}
 
 }

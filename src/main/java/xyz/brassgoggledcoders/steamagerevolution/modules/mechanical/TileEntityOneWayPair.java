@@ -2,8 +2,8 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-public class TileOneWayPair extends TilePairedBlock {
-	private boolean master = true;
+public class TileEntityOneWayPair extends TileEntityPairedBlock {
+	private boolean master;
 
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {

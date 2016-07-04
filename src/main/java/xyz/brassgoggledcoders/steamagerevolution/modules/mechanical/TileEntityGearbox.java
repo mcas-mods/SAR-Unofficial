@@ -8,7 +8,7 @@ import xyz.brassgoggledcoders.steamagerevolution.api.SARAPI;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.SpinHandler;
 
-public class TileGearbox extends TileEntity implements ITickable {
+public class TileEntityGearbox extends TileEntity implements ITickable {
 
 	private ISpinHandler handler = new SpinHandler();
 

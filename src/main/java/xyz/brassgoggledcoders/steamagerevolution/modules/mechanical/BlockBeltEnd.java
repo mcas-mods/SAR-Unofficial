@@ -12,12 +12,12 @@ public class BlockBeltEnd extends BlockTEBase {
 
 	@Override
 	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileBeltEnd.class;
+		return TileEntityBeltEnd.class;
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileBeltEnd();
+		return new TileEntityBeltEnd();
 	}
 
 }

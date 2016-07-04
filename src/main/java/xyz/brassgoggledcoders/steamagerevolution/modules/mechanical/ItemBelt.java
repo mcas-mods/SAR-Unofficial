@@ -18,30 +18,46 @@ public class ItemBelt extends ItemBase {
 		this.setMaxStackSize(1);
 	}
 
+	// TODO Only allow linking along axes. Disallow linking if already linked.
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos,
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos clicked_pos,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if(worldIn.isRemote)
+			return EnumActionResult.PASS;
+
 		if(!stack.hasTagCompound()) {
 			NBTTagCompound nbt = new NBTTagCompound();
-			nbt.setLong("pos", pos.toLong());
 			stack.setTagCompound(nbt);
-			SteamAgeRevolution.instance.getLogger().devInfo("Compound set");
+		}
+		// Store position of first block
+		if(stack.getTagCompound().getLong("pos") == 0) {
+			stack.getTagCompound().setLong("pos", clicked_pos.toLong());
+			SteamAgeRevolution.instance.getLogger().devInfo("Pos " + clicked_pos.toString());
+			return EnumActionResult.SUCCESS;
 		}
 		else {
-			if(worldIn.getTileEntity(pos) != null && worldIn.getTileEntity(pos) instanceof TileBeltEnd) {
-				TileBeltEnd end = (TileBeltEnd) worldIn.getTileEntity(pos);
-				if(!(end.isTilePaired())) {
-					end.setPairedTileLoc(BlockPos.fromLong(stack.getTagCompound().getLong("pos")));
-					SteamAgeRevolution.instance.getLogger().devInfo("First");
+			// Get saved block position
+			BlockPos saved_pos = BlockPos.fromLong(stack.getTagCompound().getLong("pos"));
+			// Check that both ends are actually belts.
+			if(worldIn.getTileEntity(clicked_pos) instanceof TileEntityBeltEnd
+					&& (worldIn.getChunkFromBlockCoords(saved_pos).isLoaded()
+							&& worldIn.getTileEntity(saved_pos) instanceof TileEntityBeltEnd)) {
+				TileEntityBeltEnd start = (TileEntityBeltEnd) worldIn.getTileEntity(saved_pos);
+				TileEntityBeltEnd end = (TileEntityBeltEnd) worldIn.getTileEntity(clicked_pos);
+
+				// Don't allow pairing if either end is already paired or if you're trying to pair something with
+				// itself.
+				if(!(end.isTilePaired()) && !(start.isTilePaired()) && saved_pos != clicked_pos) {
+					// Set start's pair
+					start.setPairedTileLoc(clicked_pos);
+					start.setMaster();
+					// Set end's pair
+					end.setPairedTileLoc(saved_pos);
 					end.setSlave();
-					if(!(stack.getTagCompound().getBoolean("second"))) {
-						stack.getTagCompound().setBoolean("second", true);
-					}
-					else
-						end.setSlave();
-					stack.stackSize--;
-					return EnumActionResult.SUCCESS;
 				}
+				// Delete the belt
+				stack.stackSize--;
+				return EnumActionResult.SUCCESS;
 			}
 		}
 		return EnumActionResult.PASS;
