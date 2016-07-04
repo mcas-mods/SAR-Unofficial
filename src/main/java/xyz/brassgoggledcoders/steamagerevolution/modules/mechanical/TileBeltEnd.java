@@ -1,14 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical;
 
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.steamagerevolution.api.SARAPI;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.SpinHandler;
 
-public class TileGearbox extends TileEntity implements ITickable {
+public class TileBeltEnd extends TileOneWayPair implements ITickable {
 
 	private ISpinHandler handler = new SpinHandler();
 
@@ -33,5 +33,12 @@ public class TileGearbox extends TileEntity implements ITickable {
 	public void update() {
 		if(getWorld().isRemote)
 			return;
+
+		if(this.isTilePaired()) {
+			FMLLog.warning("Paired", "");
+			if((this.isMaster())) {
+				FMLLog.warning("First", "");
+			}
+		}
 	}
 }
