@@ -38,28 +38,12 @@ public class ItemBelt extends ItemBase {
 		else {
 			// Get saved block position
 			BlockPos saved_pos = BlockPos.fromLong(stack.getTagCompound().getLong("pos"));
-			// Check that both ends are actually belts.
-			if(worldIn.getTileEntity(clicked_pos) instanceof TileEntityBeltEnd
-					&& (worldIn.getChunkFromBlockCoords(saved_pos).isLoaded()
-							&& worldIn.getTileEntity(saved_pos) instanceof TileEntityBeltEnd)) {
-				TileEntityBeltEnd start = (TileEntityBeltEnd) worldIn.getTileEntity(saved_pos);
-				TileEntityBeltEnd end = (TileEntityBeltEnd) worldIn.getTileEntity(clicked_pos);
-
-				// Don't allow pairing if either end is already paired or if you're trying to pair something with
-				// itself.
-				if(!(end.isTilePaired()) && !(start.isTilePaired()) && saved_pos != clicked_pos) {
-					// Set start's pair
-					start.setPairedTileLoc(clicked_pos);
-					start.setMaster();
-					// Set end's pair
-					end.setPairedTileLoc(saved_pos);
-					end.setSlave();
-				}
-				// Delete the belt
+			if(TileEntityOneWayPair.pairBlocks(worldIn, clicked_pos, saved_pos)) {
+				// If pairing is successful, delete the belt
 				stack.stackSize--;
 				return EnumActionResult.SUCCESS;
 			}
+			return EnumActionResult.PASS;
 		}
-		return EnumActionResult.PASS;
 	}
 }
