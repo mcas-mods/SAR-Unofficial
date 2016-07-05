@@ -17,14 +17,12 @@ public class SpinHandler implements ISpinHandler {
 
 	@Override
 	public void fill(int amount) {
-		if(this.canFill(amount))
-			storedSpin += amount;
+		storedSpin += amount;
 	}
 
 	@Override
 	public void drain(int amount) {
-		if(this.canDrain(amount))
-			storedSpin -= amount;
+		storedSpin -= amount;
 	}
 
 	@Override
@@ -68,5 +66,29 @@ public class SpinHandler implements ISpinHandler {
 	@Override
 	public void deserializeNBT(NBTTagCompound nbt) {
 		this.storedSpin = nbt.getInteger("spin");
+	}
+
+	@Override
+	public void fill(int amount, float slipPercent) {
+		if(slipPercent == 0.0F)
+			this.fill(amount);
+		int adjustedAmount = Math.round(amount * slipPercent);
+		this.fill(adjustedAmount);
+	}
+
+	@Override
+	public void drain(int amount, float slipPercent) {
+		if(slipPercent == 0.0F)
+			this.drain(amount);
+		int adjustedAmount = Math.round(amount * slipPercent);
+		this.drain(adjustedAmount);
+	}
+
+	@Override
+	public void transferSpin(ISpinHandler from, ISpinHandler to, int spinPer, float slipPercent) {
+		if(from.canDrain(spinPer) && to.canFill(spinPer)) {
+			from.drain(spinPer);
+			to.fill(spinPer, slipPercent);
+		}
 	}
 }

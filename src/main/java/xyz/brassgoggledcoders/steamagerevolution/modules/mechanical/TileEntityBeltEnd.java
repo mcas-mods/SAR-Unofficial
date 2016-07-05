@@ -1,14 +1,18 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical;
 
+import java.util.LinkedHashMap;
+
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+import xyz.brassgoggledcoders.boilerplate.api.IDebuggable;
 import xyz.brassgoggledcoders.steamagerevolution.api.SARAPI;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.SpinHandler;
 
-public class TileEntityBeltEnd extends TileEntityOneWayPair {
+public class TileEntityBeltEnd extends TileEntityOneWayPair implements IDebuggable {
 
 	private ISpinHandler handler = new SpinHandler();
+	private int spinPer = 10;
 
 	@Override
 	public boolean hasCapability(Capability<?> capObject, EnumFacing side) {
@@ -32,16 +36,22 @@ public class TileEntityBeltEnd extends TileEntityOneWayPair {
 		if(getWorld().isRemote)
 			return;
 
+		// this.handler.fill(1);
+
 		if(this.isTilePaired()) {
-			if((this.isMaster())) {
-				if(this.getPairedTile() != null) {
-					TileEntityBeltEnd other_belt = (TileEntityBeltEnd) this.getPairedTile();
-					other_belt.handler.fill(1);
-				}
-				this.mod.getLogger().devInfo("Master at: " + this.getPos().toString());
+			if((this.isMaster() && this.getPairedTile() != null)) {
+				this.handler.transferSpin(this.handler, ((TileEntityBeltEnd) this.getPairedTile()).handler, spinPer,
+						0.5F);
+				// this.mod.getLogger().devInfo("Master at: " + this.getPos().toString());
 			}
-			else
-				this.mod.getLogger().devInfo("Slave at: " + this.getPos().toString());
+			// else
+			// this.mod.getLogger().devInfo("Slave at: " + this.getPos().toString());
 		}
+	}
+
+	@Override
+	public LinkedHashMap<String, String> getDebugStrings(LinkedHashMap<String, String> debugStrings) {
+		debugStrings.put("spin", "" + this.handler.getStoredSpin());
+		return debugStrings;
 	}
 }
