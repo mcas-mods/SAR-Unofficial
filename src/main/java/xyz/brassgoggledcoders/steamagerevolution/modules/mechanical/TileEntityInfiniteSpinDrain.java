@@ -1,14 +1,15 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical;
 
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntitySlowTick;
 import xyz.brassgoggledcoders.steamagerevolution.api.SARAPI;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.SpinHandler;
 
-public class TileEntityBeltEnd extends TileEntityOneWayPair {
-
-	private ISpinHandler handler = new SpinHandler();
+public class TileEntityInfiniteSpinDrain extends TileEntitySlowTick {
+	private ISpinHandler handler = new SpinHandler(1000000000);
 
 	@Override
 	public boolean hasCapability(Capability<?> capObject, EnumFacing side) {
@@ -32,16 +33,14 @@ public class TileEntityBeltEnd extends TileEntityOneWayPair {
 		if(getWorld().isRemote)
 			return;
 
-		if(this.isTilePaired()) {
-			if((this.isMaster())) {
-				if(this.getPairedTile() != null) {
-					TileEntityBeltEnd other_belt = (TileEntityBeltEnd) this.getPairedTile();
-					other_belt.handler.fill(1);
-				}
-				this.mod.getLogger().devInfo("Master at: " + this.getPos().toString());
-			}
-			else
-				this.mod.getLogger().devInfo("Slave at: " + this.getPos().toString());
-		}
+		this.handler.drain(this.handler.getMaxSpin());
+	}
+
+	@Override
+	public void readFromNBTCustom(NBTTagCompound nbtTagCompound) {}
+
+	@Override
+	public NBTTagCompound writeToNBTCustom(NBTTagCompound compound) {
+		return compound;
 	}
 }

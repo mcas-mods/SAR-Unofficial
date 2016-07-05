@@ -10,6 +10,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 @Module(mod = SteamAgeRevolution.MODID)
 public class MechanicalModule extends ModuleBase {
+	public Block inf_spin_source, inf_spin_drain;
 	public Block gearbox, belt_end;
 	public Item belt;
 
@@ -27,6 +28,10 @@ public class MechanicalModule extends ModuleBase {
 
 		belt = new ItemBelt("belt");
 		this.getItemRegistry().registerItem(belt);
-	}
 
+		inf_spin_source = new BlockInfiniteSpinSource(Material.CIRCUITS, "infinite_spin_source");
+		this.getBlockRegistry().registerBlock(inf_spin_source);
+		inf_spin_drain = new BlockInfiniteSpinDrain(Material.CIRCUITS, "infinite_spin_drain");
+		this.getBlockRegistry().registerBlock(inf_spin_drain);
+	}
 }
