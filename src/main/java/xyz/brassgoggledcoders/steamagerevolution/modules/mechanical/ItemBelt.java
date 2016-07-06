@@ -38,12 +38,17 @@ public class ItemBelt extends ItemBase {
 		else {
 			// Get saved block position
 			BlockPos saved_pos = BlockPos.fromLong(stack.getTagCompound().getLong("pos"));
-			if(TileEntityOneWayPair.pairBlocks(worldIn, clicked_pos, saved_pos)) {
+			if(TileEntityPaired.pairBlocks(worldIn, clicked_pos, saved_pos)) {
 				// If pairing is successful, delete the belt
 				stack.stackSize--;
 				return EnumActionResult.SUCCESS;
 			}
-			return EnumActionResult.PASS;
+			else {
+				// Pairing failed.
+				stack.getTagCompound().setLong("pos", 0);
+				// TODO Notify player of failure.
+				return EnumActionResult.FAIL;
+			}
 		}
 	}
 }

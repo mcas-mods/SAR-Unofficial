@@ -9,7 +9,7 @@ import xyz.brassgoggledcoders.steamagerevolution.api.SARAPI;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.SpinHandler;
 
-public class TileEntityBeltEnd extends TileEntityOneWayPair implements IDebuggable {
+public class TileEntityBeltEnd extends TileEntityPaired implements IDebuggable {
 
 	private ISpinHandler handler = new SpinHandler();
 	private int spinPer = 10;

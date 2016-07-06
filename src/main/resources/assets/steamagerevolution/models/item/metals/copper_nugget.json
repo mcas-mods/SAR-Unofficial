@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures":{
-        "layer0":"boilerplate:items/metals/copper_nugget"
+        "layer0":"steamagerevolution:items/metals/copper_nugget"
     },
     "display": {
         "thirdperson": {

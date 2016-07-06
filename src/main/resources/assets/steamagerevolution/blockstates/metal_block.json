@@ -5,9 +5,9 @@
         "transform": "forge:default-block"
     },
     "variants": {
-    	"type=copper": [{ "textures": { "all": "boilerplate:blocks/copper_block", "particle": "#all" } }],
-    	"type=zinc": [{ "textures": { "all": "boilerplate:blocks/zinc_block", "particle": "#all" } }],
-    	"type=brass": [{ "textures": { "all": "boilerplate:blocks/brass_block", "particle": "#all" } }],
-    	"type=steel": [{ "textures": { "all": "boilerplate:blocks/steel_block", "particle": "#all" } }]
+    	"type=copper": [{ "textures": { "all": "steamagerevolution:blocks/copper_block", "particle": "#all" } }],
+    	"type=zinc": [{ "textures": { "all": "steamagerevolution:blocks/zinc_block", "particle": "#all" } }],
+    	"type=brass": [{ "textures": { "all": "steamagerevolution:blocks/brass_block", "particle": "#all" } }],
+    	"type=steel": [{ "textures": { "all": "steamagerevolution:blocks/steel_block", "particle": "#all" } }]
     }
 } 	

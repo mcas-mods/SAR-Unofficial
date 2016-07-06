@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures":{
-        "layer0":"boilerplate:items/metals/brass_nugget"
+        "layer0":"steamagerevolution:items/metals/brass_nugget"
     },
     "display": {
         "thirdperson": {
