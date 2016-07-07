@@ -1,5 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical;
 
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntitySlowTick;
@@ -10,8 +11,6 @@ import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.SpinHandler;
 public abstract class TileEntitySpinMachine extends TileEntitySlowTick {
 
 	private ISpinHandler handler = new SpinHandler();
-
-	// TODO Default behaviour is to attempt to push on all sides, unless wrenched to be pull.
 
 	@Override
 	public boolean hasCapability(Capability<?> capObject, EnumFacing side) {
@@ -28,5 +27,15 @@ public abstract class TileEntitySpinMachine extends TileEntitySlowTick {
 		}
 
 		return super.getCapability(capObject, side);
+	}
+
+	@Override
+	public void readFromNBTCustom(NBTTagCompound compound) {
+
+	}
+
+	@Override
+	public NBTTagCompound writeToNBTCustom(NBTTagCompound compound) {
+		return compound;
 	}
 }

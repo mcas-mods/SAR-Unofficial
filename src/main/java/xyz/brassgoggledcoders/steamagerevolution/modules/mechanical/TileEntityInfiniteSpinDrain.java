@@ -9,7 +9,7 @@ import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.SpinHandler;
 
 public class TileEntityInfiniteSpinDrain extends TileEntitySlowTick {
-	private ISpinHandler handler = new SpinHandler(1000000000);
+	private ISpinHandler handler = new SpinHandler();
 	// TODO Move rate to ISpinHandler
 	private int spinPer = 10;
 
@@ -35,15 +35,15 @@ public class TileEntityInfiniteSpinDrain extends TileEntitySlowTick {
 		if(getWorld().isRemote)
 			return;
 
-		this.handler.drain(this.handler.getMaxSpin());
+		// this.handler.drain(this.handler.getMaxSpin());
 
 		// TODO Move to ISpinHandler as 'pushPower' method
 		for(int i = 0; i < EnumFacing.VALUES.length; i++) {
 			if(this.getWorld().getTileEntity(getPos().offset(EnumFacing.VALUES[i]))
 					.hasCapability(SARAPI.SPIN_HANDLER_CAPABILITY, EnumFacing.VALUES[i].getOpposite())) {
-				this.getWorld().getTileEntity(getPos().offset(EnumFacing.VALUES[i]))
-						.getCapability(SARAPI.SPIN_HANDLER_CAPABILITY, EnumFacing.VALUES[i].getOpposite())
-						.drain(this.spinPer);
+				// this.getWorld().getTileEntity(getPos().offset(EnumFacing.VALUES[i]))
+				// .getCapability(SARAPI.SPIN_HANDLER_CAPABILITY, EnumFacing.VALUES[i].getOpposite())
+				// .drain(this.spinPer);
 			}
 		}
 	}
