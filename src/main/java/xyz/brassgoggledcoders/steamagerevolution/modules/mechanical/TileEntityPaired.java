@@ -6,10 +6,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntitySlowTick;
 import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
 
-public class TileEntityPaired extends TileEntitySlowTick {
+public class TileEntityPaired extends TileEntitySpinMachine {
 	private boolean master;
 	private BlockPos pos;
 
@@ -72,6 +71,7 @@ public class TileEntityPaired extends TileEntitySlowTick {
 			if(!(end.isTilePaired()) && !(start.isTilePaired()) && saved_pos != clicked_pos) {
 				// Ensure pairs are aligned on axes
 				if(PositionUtils.arePositionsAlignedOnTwoAxes(clicked_pos, saved_pos)) {
+					// TODO Distance check.
 					// Set start's pair, and make it a master.
 					start.setPairedTileLoc(clicked_pos);
 					start.setMaster();

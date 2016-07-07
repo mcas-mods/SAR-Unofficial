@@ -33,5 +33,7 @@ public class MechanicalModule extends ModuleBase {
 		this.getBlockRegistry().registerBlock(inf_spin_source);
 		inf_spin_drain = new BlockInfiniteSpinDrain(Material.CIRCUITS, "infinite_spin_drain");
 		this.getBlockRegistry().registerBlock(inf_spin_drain);
+
+		// ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBeltEnd.class, new TileEntityBeltRenderer());
 	}
 }

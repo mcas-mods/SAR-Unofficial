@@ -6,13 +6,20 @@ public class SpinHandler implements ISpinHandler {
 
 	int storedSpin = 0;
 	int maxSpin;
+	int spinPer;
 
 	public SpinHandler() {
 		maxSpin = 100;
+		spinPer = 10;
 	}
 
 	public SpinHandler(int maxSpin) {
 		this.maxSpin = maxSpin;
+	}
+
+	public SpinHandler(int maxSpin, int transferRate) {
+		this.maxSpin = maxSpin;
+		this.spinPer = transferRate;
 	}
 
 	@Override
@@ -85,10 +92,30 @@ public class SpinHandler implements ISpinHandler {
 	}
 
 	@Override
-	public void transferSpin(ISpinHandler from, ISpinHandler to, int spinPer, float slipPercent) {
+	public void transferSpin(ISpinHandler from, ISpinHandler to, float slipPercent) {
 		if(from.canDrain(spinPer) && to.canFill(spinPer)) {
 			from.drain(spinPer);
 			to.fill(spinPer, slipPercent);
 		}
+	}
+
+	@Override
+	public void fill() {
+		this.fill(spinPer);
+	}
+
+	@Override
+	public void fill(float slipPercent) {
+		this.fill(spinPer, slipPercent);
+	}
+
+	@Override
+	public void drain() {
+		this.drain(spinPer);
+	}
+
+	@Override
+	public int getSpinPer() {
+		return spinPer;
 	}
 }
