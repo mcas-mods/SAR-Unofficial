@@ -7,9 +7,16 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.boilerplate.module.Module;
 import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltEnd;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockGearbox;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockInfiniteSpinDrain;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockInfiniteSpinSource;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockWaterTurbine;
 
 @Module(mod = SteamAgeRevolution.MODID)
 public class MechanicalModule extends ModuleBase {
+
+	public Block water_turbine;
 	public Block inf_spin_source, inf_spin_drain;
 	public Block gearbox, belt_end;
 	public Item belt;
@@ -30,9 +37,12 @@ public class MechanicalModule extends ModuleBase {
 		this.getItemRegistry().registerItem(belt);
 
 		inf_spin_source = new BlockInfiniteSpinSource(Material.CIRCUITS, "infinite_spin_source");
-		this.getBlockRegistry().registerBlock(inf_spin_source);
+		// this.getBlockRegistry().registerBlock(inf_spin_source);
 		inf_spin_drain = new BlockInfiniteSpinDrain(Material.CIRCUITS, "infinite_spin_drain");
-		this.getBlockRegistry().registerBlock(inf_spin_drain);
+		// this.getBlockRegistry().registerBlock(inf_spin_drain);
+
+		water_turbine = new BlockWaterTurbine(Material.IRON, "water_turbine");
+		this.getBlockRegistry().registerBlock(water_turbine);
 
 		// ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBeltEnd.class, new TileEntityBeltRenderer());
 	}

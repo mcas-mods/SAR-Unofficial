@@ -4,5 +4,15 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public interface ISpinHandler extends INBTSerializable<NBTTagCompound> {
-	void spin(int speed);
+	int getSpeed();
+
+	void setSpeed(int speed);
+
+	void incrSpeed(int toIncr);
+
+	void decrSpeed(int toDecr);
+
+	void incrSpeed();
+
+	void decrSpeed();
 }

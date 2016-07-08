@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities;
 
 import javax.annotation.Nullable;
 
