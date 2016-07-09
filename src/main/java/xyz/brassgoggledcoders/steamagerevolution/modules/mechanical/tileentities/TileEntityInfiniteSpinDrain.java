@@ -38,9 +38,10 @@ public class TileEntityInfiniteSpinDrain extends TileEntitySlowTick {
 			return;
 
 		ArrayList<ISpinHandler> handlers = SpinUtils.getHandlersNearby(this.getWorld(), this.getPos());
-		
+
 		for(ISpinHandler handler : handlers) {
-			handler.setSpeed(0);
+			handler.decrSpeed(handler.getSpeed());
+			this.mod.getLogger().devInfo("Speed voided");
 		}
 	}
 

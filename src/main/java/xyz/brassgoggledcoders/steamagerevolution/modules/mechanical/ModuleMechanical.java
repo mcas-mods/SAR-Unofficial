@@ -14,7 +14,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.Block
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockWaterTurbine;
 
 @Module(mod = SteamAgeRevolution.MODID)
-public class MechanicalModule extends ModuleBase {
+public class ModuleMechanical extends ModuleBase {
 
 	public Block water_turbine;
 	public Block inf_spin_source, inf_spin_drain;
@@ -37,9 +37,9 @@ public class MechanicalModule extends ModuleBase {
 		this.getItemRegistry().registerItem(belt);
 
 		inf_spin_source = new BlockInfiniteSpinSource(Material.CIRCUITS, "infinite_spin_source");
-		// this.getBlockRegistry().registerBlock(inf_spin_source);
+		this.getBlockRegistry().registerBlock(inf_spin_source);
 		inf_spin_drain = new BlockInfiniteSpinDrain(Material.CIRCUITS, "infinite_spin_drain");
-		// this.getBlockRegistry().registerBlock(inf_spin_drain);
+		this.getBlockRegistry().registerBlock(inf_spin_drain);
 
 		water_turbine = new BlockWaterTurbine(Material.IRON, "water_turbine");
 		this.getBlockRegistry().registerBlock(water_turbine);
