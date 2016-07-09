@@ -24,20 +24,20 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 @Module(mod = SteamAgeRevolution.MODID)
 public class ModuleMaterials extends ModuleBase {
 	public static Item dust, plate;
-	public static ItemSubBase bearing, bolt, gear, nail, nut, screw, spring, sprocket, thread, washer;
+	public static ItemSubBase iron_part, brass_part;
 
 	public static List<String> oreMetals = Arrays.asList(BlockMetalOre.EnumBlockType.names());
 	public static List<String> ourMetals = Arrays.asList(BlockMetal.EnumBlockType.names());
 	public static List<String> almostAllMetals =
-			Arrays.asList(ArrayUtils.addAll(BlockMetalOre.EnumBlockType.names(), new String[] {"iron"}));
+			Arrays.asList(ArrayUtils.addAll(BlockMetal.EnumBlockType.names(), new String[] {"iron"}));
 	public static List<String> allMetals =
-			Arrays.asList(ArrayUtils.addAll(BlockMetalOre.EnumBlockType.names(), new String[] {"iron", "gold"}));
-	public static List<String> partsMetals = Arrays.asList("iron", "brass");
+			Arrays.asList(ArrayUtils.addAll(BlockMetal.EnumBlockType.names(), new String[] {"iron", "gold"}));
+	public static List<String> partTypes = Arrays.asList("gear");
 
 	public static Block metal_ore, metal_block;
 	public static Item ingot, nugget;
 
-	// TODO oredict registration
+	// TODO Oredict registration
 
 	@Override
 	public void preInit(FMLPreInitializationEvent fmlPreInitializationEvent) {
@@ -47,21 +47,10 @@ public class ModuleMaterials extends ModuleBase {
 		plate = new ItemSubBase("metals/", "plate", allMetals);
 		getItemRegistry().registerItem(plate);
 
-		// TODO Old method.
-		bearing = new ItemSubBase("parts", "bearing", partsMetals);
-		this.getItemRegistry().registerItem(bearing);
-		bolt = new ItemSubBase("parts", "bolt", partsMetals);
-		this.getItemRegistry().registerItem(bolt);
-		gear = new ItemSubBase("parts", "gear", partsMetals);
-		this.getItemRegistry().registerItem(gear);
-		nail = new ItemSubBase("parts", "nail", partsMetals);
-		this.getItemRegistry().registerItem(nail);
-		nut = new ItemSubBase("parts", "nut", partsMetals);
-		this.getItemRegistry().registerItem(nut);
-		screw = new ItemSubBase("parts", "screw", partsMetals);
-		this.getItemRegistry().registerItem(screw);
-		spring = new ItemSubBase("parts", "spring", partsMetals);
-		this.getItemRegistry().registerItem(spring);
+		iron_part = new ItemSubBase("parts", "iron_part", partTypes);
+		this.getItemRegistry().registerItem(iron_part);
+		brass_part = new ItemSubBase("parts", "brass_part", partTypes);
+		this.getItemRegistry().registerItem(brass_part);
 
 		metal_ore = new BlockMetalOre();
 		this.getBlockRegistry().registerBlock(metal_ore, "metal_ore");
