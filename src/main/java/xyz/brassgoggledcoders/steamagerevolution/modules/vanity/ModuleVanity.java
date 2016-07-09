@@ -6,7 +6,7 @@ import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 @Module(mod = SteamAgeRevolution.MODID)
-public class VanityModule extends ModuleBase {
+public class ModuleVanity extends ModuleBase {
 	public static ItemWatch watch;
 	public static ItemTeacup teacup;
 
