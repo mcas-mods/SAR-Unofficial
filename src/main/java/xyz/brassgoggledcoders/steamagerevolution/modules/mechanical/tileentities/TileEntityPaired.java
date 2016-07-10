@@ -4,12 +4,12 @@ import java.util.Iterator;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.ModuleMechanical;
 
 public class TileEntityPaired extends TileEntitySpinMachine {
 
@@ -110,8 +110,8 @@ public class TileEntityPaired extends TileEntitySpinMachine {
 							BlockPos pos = positions.next();
 							if(pos.equals(clicked_pos) || pos.equals(saved_pos))
 								continue;
-
-							worldIn.setBlockState(pos, Blocks.BEDROCK.getDefaultState());
+							// TODO States. This should not be here.
+							worldIn.setBlockState(pos, ModuleMechanical.belt_dummy.getDefaultState());
 						}
 						return true;
 					}

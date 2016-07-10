@@ -7,7 +7,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.boilerplate.module.Module;
 import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltDummy;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltEnd;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockFurnaceHeater;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockGearbox;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockInfiniteSpinDrain;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockInfiniteSpinSource;
@@ -16,10 +18,11 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.Block
 @Module(mod = SteamAgeRevolution.MODID)
 public class ModuleMechanical extends ModuleBase {
 
-	public Block water_turbine;
-	public Block inf_spin_source, inf_spin_drain;
-	public Block gearbox, belt_end;
-	public Item belt;
+	public static Block inf_spin_source, inf_spin_drain;
+	public static Block gearbox, belt_end, belt_dummy;
+	public static Block water_turbine;
+	public static Block furnace_heater;
+	public static Item belt;
 
 	@Override
 	public String getName() {
@@ -30,6 +33,8 @@ public class ModuleMechanical extends ModuleBase {
 	public void preInit(FMLPreInitializationEvent event) {
 		belt_end = new BlockBeltEnd(Material.IRON, "belt_end");
 		this.getBlockRegistry().registerBlock(belt_end);
+		belt_dummy = new BlockBeltDummy(Material.CLOTH, "belt_dummy");
+		this.getBlockRegistry().registerBlock(belt_dummy);
 		gearbox = new BlockGearbox(Material.IRON, "gearbox");
 		this.getBlockRegistry().registerBlock(gearbox);
 
@@ -43,6 +48,9 @@ public class ModuleMechanical extends ModuleBase {
 
 		water_turbine = new BlockWaterTurbine(Material.IRON, "water_turbine");
 		this.getBlockRegistry().registerBlock(water_turbine);
+
+		furnace_heater = new BlockFurnaceHeater(Material.IRON, "furnace_heater");
+		this.getBlockRegistry().registerBlock(furnace_heater);
 
 		// ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBeltEnd.class, new TileEntityBeltRenderer());
 	}

@@ -2,6 +2,8 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentitie
 
 import java.util.ArrayList;
 
+import net.minecraft.block.BlockFurnace;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import xyz.brassgoggledcoders.steamagerevolution.api.SARAPI;
@@ -9,7 +11,7 @@ import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.SpinHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SpinUtils;
 
-public class TileEntityBeltEnd extends TileEntityPaired {
+public class TileEntityFurnaceHeater extends TileEntitySpinConsumer {
 
 	private ISpinHandler handler = new SpinHandler();
 
@@ -40,8 +42,13 @@ public class TileEntityBeltEnd extends TileEntityPaired {
 			this.handler.setSpeed(handler.getSpeed());
 		}
 
-		if(this.isTilePaired())
-			if(this.isMaster() && this.getPairedTile() != null)
-				this.getPairedTile().getCapability(SARAPI.SPIN_HANDLER_CAPABILITY, null).setSpeed(handler.getSpeed());
+		if(this.handler.getSpeed() >= 100) {
+			if(this.getWorld().getTileEntity(getPos().up()) instanceof TileEntityFurnace) {
+				TileEntityFurnace furnace = (TileEntityFurnace) this.getWorld().getTileEntity(getPos().up());
+				BlockFurnace.setState(true, this.getWorld(), getPos().up());
+				// TODO Make instant smelting only occur at higher speeds, use normal cooktime otherwise.
+				furnace.smeltItem();
+			}
+		}
 	}
 }
