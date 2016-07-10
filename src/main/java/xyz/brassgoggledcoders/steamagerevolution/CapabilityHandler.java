@@ -22,7 +22,7 @@ public class CapabilityHandler {
 			public void readNBT(Capability<ISpinHandler> capability, ISpinHandler instance, EnumFacing side,
 					NBTBase nbt) {
 				if(nbt instanceof NBTTagCompound)
-					instance.deserializeNBT(((NBTTagCompound) nbt));
+					instance.deserializeNBT((NBTTagCompound) nbt);
 			}
 		}, SpinHandler.class);
 	}

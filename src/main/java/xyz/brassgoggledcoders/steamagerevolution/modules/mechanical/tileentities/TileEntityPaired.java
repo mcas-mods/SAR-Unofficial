@@ -1,48 +1,69 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities;
 
+import java.util.Iterator;
+
 import javax.annotation.Nullable;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public class TileEntityPaired extends TileEntitySpinMachine {
-	private boolean master;
-	private BlockPos pos;
 
-	// TODO Handling for unpairing when blocks are broken
+	private boolean master;
+	private BlockPos paired_pos;
 
 	@Nullable
-	public TileEntity getPairedTile() {
-		if(this.getWorld().getChunkFromBlockCoords(pos).isLoaded())
-			return this.getWorld().getTileEntity(pos);
+	public TileEntityPaired getPairedTile() {
+		if(this.getWorld().getChunkFromBlockCoords(paired_pos).isLoaded()
+				&& this.getWorld().getTileEntity(paired_pos) instanceof TileEntityPaired)
+			return (TileEntityPaired) this.getWorld().getTileEntity(paired_pos);
 		else
 			return null;
 	}
 
+	public void unpair() {
+		// Remove the dummy blocks.
+		Iterator<BlockPos> positions = BlockPos.getAllInBox(this.getPos(), this.getPairedTile().getPos()).iterator();
+		while(positions.hasNext()) {
+			BlockPos pos = positions.next();
+
+			if(pos.equals(this.getPos()) || pos.equals(this.getPairedTile().getPos()))
+				continue;
+
+			this.getWorld().setBlockToAir(pos);
+		}
+		// Unpair tiles
+		this.getPairedTile().setPairedTileLoc(null);
+		this.getPairedTile().master = false;
+		this.setPairedTileLoc(null);
+		this.master = false;
+	}
+
 	public boolean isTilePaired() {
-		return (pos != null);
+		return paired_pos != null;
 	}
 
 	public void setPairedTileLoc(BlockPos pos) {
 		// TODO Move 'already paired' check to here
-		this.pos = pos;
+		this.paired_pos = pos;
 	}
 
 	@Override
 	public void readFromNBTCustom(NBTTagCompound compound) {
 		this.master = compound.getBoolean("isMaster");
 		if(compound.getLong("pos") != 0)
-			this.pos = BlockPos.fromLong(compound.getLong("pos"));
+			this.paired_pos = BlockPos.fromLong(compound.getLong("pos"));
 	}
 
 	@Override
 	public NBTTagCompound writeToNBTCustom(NBTTagCompound compound) {
 		compound.setBoolean("isMaster", master);
-		if(pos != null)
-			compound.setLong("pos", pos.toLong());
+		if(paired_pos != null)
+			compound.setLong("pos", paired_pos.toLong());
 		return compound;
 	}
 
@@ -59,26 +80,41 @@ public class TileEntityPaired extends TileEntitySpinMachine {
 	}
 
 	public static boolean pairBlocks(World worldIn, BlockPos clicked_pos, BlockPos saved_pos) {
-		// Check that both ends are actually belts.
+		// Check that both ends are actually pairable.
 		if(worldIn.getTileEntity(clicked_pos) instanceof TileEntityPaired
-				&& (worldIn.getChunkFromBlockCoords(saved_pos).isLoaded()
-						&& worldIn.getTileEntity(saved_pos) instanceof TileEntityPaired)) {
+				&& worldIn.getChunkFromBlockCoords(saved_pos).isLoaded()
+				&& worldIn.getTileEntity(saved_pos) instanceof TileEntityPaired) {
+			SteamAgeRevolution.instance.getLogger().devInfo("First paircheck passed (instanceof)");
 			TileEntityPaired start = (TileEntityPaired) worldIn.getTileEntity(saved_pos);
 			TileEntityPaired end = (TileEntityPaired) worldIn.getTileEntity(clicked_pos);
 
 			// Don't allow pairing if either end is already paired or if you're trying to pair something with
 			// itself.
-			if(!(end.isTilePaired()) && !(start.isTilePaired()) && saved_pos != clicked_pos) {
+			if(!end.isTilePaired() && !start.isTilePaired() && saved_pos != clicked_pos) {
+				SteamAgeRevolution.instance.getLogger().devInfo("Second paircheck passed (not already paired)");
 				// Ensure pairs are aligned on axes
 				if(PositionUtils.arePositionsAlignedOnTwoAxes(clicked_pos, saved_pos)) {
-					// TODO Distance check.
-					// Set start's pair, and make it a master.
-					start.setPairedTileLoc(clicked_pos);
-					start.setMaster();
-					// Set end's pair, and make it a slave.
-					end.setPairedTileLoc(saved_pos);
-					end.setSlave();
-					return true;
+					SteamAgeRevolution.instance.getLogger().devInfo("Third paircheck passed (alignment)");
+					if(PositionUtils.isLOSClear(worldIn, saved_pos, clicked_pos)) {
+						SteamAgeRevolution.instance.getLogger().devInfo("Fourth paircheck passed (clear LOS)");
+						// TODO Distance check.
+						// Set start's pair, and make it a master.
+						start.setPairedTileLoc(clicked_pos);
+						start.setMaster();
+						// Set end's pair, and make it a slave.
+						end.setPairedTileLoc(saved_pos);
+						end.setSlave();
+						// Add the dummy blocks.
+						Iterator<BlockPos> positions = BlockPos.getAllInBox(clicked_pos, saved_pos).iterator();
+						while(positions.hasNext()) {
+							BlockPos pos = positions.next();
+							if(pos.equals(clicked_pos) || pos.equals(saved_pos))
+								continue;
+
+							worldIn.setBlockState(pos, Blocks.BEDROCK.getDefaultState());
+						}
+						return true;
+					}
 				}
 			}
 		}

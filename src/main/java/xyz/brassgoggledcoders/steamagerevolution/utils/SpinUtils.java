@@ -17,22 +17,19 @@ public class SpinUtils {
 
 		ArrayList<ISpinHandler> handlers = getHandlersNearby(world, pos);
 
-		for(int i = 0; i < EnumFacing.VALUES.length; i++) {
-			if(handlers.get(i) == null) {
+		for(int i = 0; i < EnumFacing.VALUES.length; i++)
+			if(handlers.get(i) == null)
 				speeds[i] = 0;
-			}
-			else {
+			else
 				speeds[i] = handlers.get(i).getSpeed();
-			}
-		}
 
 		return Ints.max(speeds);
 	}
 
 	public static ArrayList<ISpinHandler> getHandlersNearby(World world, BlockPos pos) {
 		ArrayList<ISpinHandler> handlers = new ArrayList<ISpinHandler>();
-		for(int i = 0; i < EnumFacing.VALUES.length; i++) {
-			BlockPos off = pos.offset(EnumFacing.VALUES[i]);
+		for(EnumFacing element : EnumFacing.VALUES) {
+			BlockPos off = pos.offset(element);
 
 			if(world.getTileEntity(off) != null) {
 				TileEntity te = world.getTileEntity(off);

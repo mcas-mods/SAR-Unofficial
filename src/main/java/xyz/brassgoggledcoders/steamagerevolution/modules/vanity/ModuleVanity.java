@@ -1,11 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.vanity;
 
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import xyz.brassgoggledcoders.boilerplate.module.Module;
 import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
-@Module(mod = SteamAgeRevolution.MODID)
+// @Module(mod = SteamAgeRevolution.MODID)
 public class ModuleVanity extends ModuleBase {
 	public static ItemWatch watch;
 	public static ItemTeacup teacup;

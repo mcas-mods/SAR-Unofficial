@@ -14,17 +14,15 @@ public class TileEntityGearbox extends TileEntity implements ITickable {
 
 	@Override
 	public boolean hasCapability(Capability<?> capObject, EnumFacing side) {
-		if(capObject == SARAPI.SPIN_HANDLER_CAPABILITY) {
+		if(capObject == SARAPI.SPIN_HANDLER_CAPABILITY)
 			return true;
-		}
 		return super.hasCapability(capObject, side);
 	}
 
 	@Override
 	public <T> T getCapability(Capability<T> capObject, EnumFacing side) {
-		if(capObject == SARAPI.SPIN_HANDLER_CAPABILITY) {
+		if(capObject == SARAPI.SPIN_HANDLER_CAPABILITY)
 			return SARAPI.SPIN_HANDLER_CAPABILITY.cast(handler);
-		}
 
 		return super.getCapability(capObject, side);
 	}

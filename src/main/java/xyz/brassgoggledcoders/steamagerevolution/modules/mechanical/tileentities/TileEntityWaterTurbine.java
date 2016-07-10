@@ -16,17 +16,15 @@ public class TileEntityWaterTurbine extends TileEntitySpinMachine implements IDe
 
 	@Override
 	public boolean hasCapability(Capability<?> capObject, EnumFacing side) {
-		if(capObject == SARAPI.SPIN_HANDLER_CAPABILITY) {
+		if(capObject == SARAPI.SPIN_HANDLER_CAPABILITY)
 			return true;
-		}
 		return super.hasCapability(capObject, side);
 	}
 
 	@Override
 	public <T> T getCapability(Capability<T> capObject, EnumFacing side) {
-		if(capObject == SARAPI.SPIN_HANDLER_CAPABILITY) {
+		if(capObject == SARAPI.SPIN_HANDLER_CAPABILITY)
 			return SARAPI.SPIN_HANDLER_CAPABILITY.cast(handler);
-		}
 
 		return super.getCapability(capObject, side);
 	}
@@ -36,14 +34,11 @@ public class TileEntityWaterTurbine extends TileEntitySpinMachine implements IDe
 		if(getWorld().isRemote)
 			return;
 
-		if(getWorld().getBlockState(getPos().up()).getMaterial() == Material.WATER) {
+		if(getWorld().getBlockState(getPos().up()).getMaterial() == Material.WATER)
 			this.handler.setSpeed(100);
-		}
-		else {
-			// Spin down
-			if(handler.getSpeed() > 0)
-				this.handler.decrSpeed();
-		}
+		else // Spin down
+		if(handler.getSpeed() > 0)
+			this.handler.decrSpeed();
 	}
 
 	@Override

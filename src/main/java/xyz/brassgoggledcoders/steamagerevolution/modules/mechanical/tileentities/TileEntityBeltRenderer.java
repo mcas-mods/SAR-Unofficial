@@ -18,7 +18,7 @@ public class TileEntityBeltRenderer extends TileEntitySpecialRenderer<TileEntity
 		GlStateManager.translate(x, y, z);
 		GlStateManager.disableCull();
 
-		if(te.getWorld() != null) {
+		if(te.getWorld() != null)
 			if(te.isTilePaired() && te.isMaster()) {
 				BlockPos current = te.getPos();
 				BlockPos paired = te.getPairedTile().getPos();
@@ -31,7 +31,6 @@ public class TileEntityBeltRenderer extends TileEntitySpecialRenderer<TileEntity
 				// wr.finishDrawing();
 				tes.draw();
 			}
-		}
 		GlStateManager.popMatrix();
 	}
 
