@@ -11,7 +11,8 @@ import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.ModuleMechanical;
 
-public class TileEntityPaired extends TileEntitySpinMachine {
+// TODO This isn't cleanly split from TileEntityBeltEnd
+public abstract class TileEntityPaired extends TileEntitySpinMachine {
 
 	private boolean master;
 	private BlockPos paired_pos;

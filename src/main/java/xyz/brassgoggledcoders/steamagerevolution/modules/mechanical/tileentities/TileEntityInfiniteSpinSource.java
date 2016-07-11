@@ -4,12 +4,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import xyz.brassgoggledcoders.steamagerevolution.api.SARAPI;
-import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
-import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.SpinHandler;
 
 public class TileEntityInfiniteSpinSource extends TileEntitySpinMachine {
-
-	private ISpinHandler handler = new SpinHandler();
 
 	@Override
 	public boolean hasCapability(Capability<?> capObject, EnumFacing side) {

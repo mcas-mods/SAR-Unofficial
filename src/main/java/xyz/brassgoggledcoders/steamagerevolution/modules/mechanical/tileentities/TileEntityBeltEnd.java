@@ -6,12 +6,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import xyz.brassgoggledcoders.steamagerevolution.api.SARAPI;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
-import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.SpinHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SpinUtils;
 
 public class TileEntityBeltEnd extends TileEntityPaired {
-
-	private ISpinHandler handler = new SpinHandler();
 
 	@Override
 	public boolean hasCapability(Capability<?> capObject, EnumFacing side) {

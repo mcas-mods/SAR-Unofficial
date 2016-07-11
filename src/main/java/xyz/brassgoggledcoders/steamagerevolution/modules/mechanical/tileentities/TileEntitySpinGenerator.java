@@ -1,5 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities;
 
-public class TileEntityGearbox extends TileEntitySpinMachine {
+public abstract class TileEntitySpinGenerator extends TileEntitySpinMachine {
 
 }
