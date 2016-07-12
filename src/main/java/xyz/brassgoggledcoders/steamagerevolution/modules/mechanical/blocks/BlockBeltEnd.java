@@ -5,15 +5,14 @@ import javax.annotation.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import xyz.brassgoggledcoders.boilerplate.api.BoilerplateAPI;
 import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
-import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityBeltEnd;
 
 public class BlockBeltEnd extends BlockTEBase {
@@ -36,7 +35,7 @@ public class BlockBeltEnd extends BlockTEBase {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if(ItemStackUtils.doItemsMatch(heldItem, Items.STICK))
+		if(heldItem != null && heldItem.hasCapability(BoilerplateAPI.SPANNER_CAPABILITY, side))
 			if(worldIn.getTileEntity(pos) instanceof TileEntityBeltEnd) {
 				TileEntityBeltEnd belt = (TileEntityBeltEnd) worldIn.getTileEntity(pos);
 				if(belt.isTilePaired()) {
