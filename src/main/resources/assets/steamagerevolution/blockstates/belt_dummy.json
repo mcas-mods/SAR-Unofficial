@@ -1,7 +1,8 @@
 {
     "forge_marker": 1,
     "defaults": {
-        "model": "steamagerevolution:belt_dummy"
+        "model": "steamagerevolution:belt_dummy",
+        "textures": { "main": "minecraft:blocks/hopper_outside" }
     },
     "variants": {
     	"normal": [{}]
