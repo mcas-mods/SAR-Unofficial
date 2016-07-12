@@ -2,7 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentitie
 
 import net.minecraft.block.material.Material;
 
-public class TileEntityWaterTurbine extends TileEntitySpinMachine {
+public class TileEntityWaterTurbine extends TileEntitySpinGenerator {
 
 	public TileEntityWaterTurbine() {
 		super();
@@ -15,8 +15,12 @@ public class TileEntityWaterTurbine extends TileEntitySpinMachine {
 
 		if(getWorld().getBlockState(getPos().up()).getMaterial() == Material.WATER)
 			this.handler.setSpeed(100);
-		else // Spin down
-		if(this.handler.getSpeed() > 0)
-			this.handler.decrSpeed();
+		else {
+			// Spin down
+			if(this.handler.getSpeed() > 0)
+				this.handler.decrSpeed();
+		}
+
+		super.updateTile();
 	}
 }
