@@ -35,7 +35,7 @@ public class BlockBeltEnd extends BlockTEBase {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if(heldItem != null && heldItem.hasCapability(BoilerplateAPI.SPANNER_CAPABILITY, side))
+		if(heldItem != null && heldItem.hasCapability(BoilerplateAPI.PIPE_WRENCH_CAPABILITY, side))
 			if(worldIn.getTileEntity(pos) instanceof TileEntityBeltEnd) {
 				TileEntityBeltEnd belt = (TileEntityBeltEnd) worldIn.getTileEntity(pos);
 				if(belt.isTilePaired()) {
