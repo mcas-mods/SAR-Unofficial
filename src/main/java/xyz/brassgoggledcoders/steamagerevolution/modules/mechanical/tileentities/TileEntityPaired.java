@@ -99,25 +99,29 @@ public abstract class TileEntityPaired extends TileEntitySpinMachine {
 				// Ensure pairs are aligned on axes
 				if(PositionUtils.arePositionsAlignedOnTwoAxes(clicked_pos, saved_pos)) {
 					SteamAgeRevolution.instance.getLogger().devInfo("Third paircheck passed (alignment)");
-					if(PositionUtils.isLOSClear(worldIn, saved_pos, clicked_pos)) {
-						SteamAgeRevolution.instance.getLogger().devInfo("Fourth paircheck passed (clear LOS)");
-						// TODO Distance check.
-						// Set start's pair, and make it a master.
-						start.setPairedTileLoc(clicked_pos);
-						start.setMaster();
-						// Set end's pair, and make it a slave.
-						end.setPairedTileLoc(saved_pos);
-						end.setSlave();
-						// Add the dummy blocks.
-						Iterator<BlockPos> positions = BlockPos.getAllInBox(clicked_pos, saved_pos).iterator();
-						while(positions.hasNext()) {
-							BlockPos pos = positions.next();
-							if(pos.equals(clicked_pos) || pos.equals(saved_pos))
-								continue;
-							// TODO States. This should not be here.
-							worldIn.setBlockState(pos, ModuleMechanical.belt_dummy.getDefaultState());
+					if(PositionUtils.getDistanceBetweenPositions(clicked_pos, saved_pos) <= 6) {
+						SteamAgeRevolution.instance.getLogger().devInfo("Fifth paircheck passed (distance)");
+						if(PositionUtils.isLOSClear(worldIn, saved_pos, clicked_pos)) {
+							SteamAgeRevolution.instance.getLogger().devInfo("Fifth paircheck passed (clear LOS)");
+							// TODO Distance check.
+							// Set start's pair, and make it a master.
+							start.setPairedTileLoc(clicked_pos);
+							start.setMaster();
+							// Set end's pair, and make it a slave.
+							end.setPairedTileLoc(saved_pos);
+							end.setSlave();
+							// Add the dummy blocks.
+							Iterator<BlockPos> positions = BlockPos.getAllInBox(clicked_pos, saved_pos).iterator();
+							while(positions.hasNext()) {
+								BlockPos pos = positions.next();
+								if(pos.equals(clicked_pos) || pos.equals(saved_pos))
+									continue;
+								// TODO States. This should not be here.
+								worldIn.setBlockState(pos, ModuleMechanical.belt_dummy.getDefaultState());
+							}
+							return true;
 						}
-						return true;
+
 					}
 				}
 			}
