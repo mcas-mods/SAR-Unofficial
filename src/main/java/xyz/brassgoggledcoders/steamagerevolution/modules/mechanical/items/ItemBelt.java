@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.items;
 
 import java.util.List;
 

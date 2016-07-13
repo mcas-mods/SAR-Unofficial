@@ -39,6 +39,7 @@ public class ModuleMaterials extends ModuleBase {
 
 	// TODO Oredict registration
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void preInit(FMLPreInitializationEvent fmlPreInitializationEvent) {
 

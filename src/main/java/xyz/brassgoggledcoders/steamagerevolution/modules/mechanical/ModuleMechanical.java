@@ -14,6 +14,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.Block
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockInfiniteSpinDrain;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockInfiniteSpinSource;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockWaterTurbine;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.items.ItemBelt;
 
 @Module(mod = SteamAgeRevolution.MODID)
 public class ModuleMechanical extends ModuleBase {
