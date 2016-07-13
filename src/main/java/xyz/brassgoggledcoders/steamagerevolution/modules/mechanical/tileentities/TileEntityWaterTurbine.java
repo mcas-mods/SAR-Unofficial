@@ -17,7 +17,7 @@ public class TileEntityWaterTurbine extends TileEntitySpinGenerator {
 
 		int numberOfBlocks = 0;
 
-		for(int i = 0; i < blocksToCheck; i++) {
+		for(int i = 1; i < blocksToCheck - 1; i++) {
 			if(getWorld().getBlockState(getPos().up(i)).getMaterial() == Material.WATER)
 				numberOfBlocks++;
 			else

@@ -13,6 +13,7 @@ public class TileEntityFurnaceHeater extends TileEntitySpinConsumer {
 		if(this.handler.getSpeed() >= 50) {
 			if(this.getWorld().getTileEntity(getPos().up()) instanceof TileEntityFurnace) {
 				TileEntityFurnace furnace = (TileEntityFurnace) this.getWorld().getTileEntity(getPos().up());
+				// TODO This makes the furnace appear to burn forever...
 				BlockFurnace.setState(true, this.getWorld(), getPos().up());
 				// TODO Make instant smelting only occur at higher speeds, use normal cooktime otherwise.
 				furnace.smeltItem();
