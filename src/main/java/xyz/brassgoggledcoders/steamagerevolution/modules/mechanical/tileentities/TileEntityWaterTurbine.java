@@ -4,6 +4,8 @@ import net.minecraft.block.material.Material;
 
 public class TileEntityWaterTurbine extends TileEntitySpinGenerator {
 
+	private int blocksToCheck = 25;
+
 	public TileEntityWaterTurbine() {
 		super();
 	}
@@ -13,8 +15,18 @@ public class TileEntityWaterTurbine extends TileEntitySpinGenerator {
 		if(getWorld().isRemote)
 			return;
 
-		if(getWorld().getBlockState(getPos().up()).getMaterial() == Material.WATER)
-			this.handler.setSpeed(100);
+		int numberOfBlocks = 0;
+
+		for(int i = 0; i < blocksToCheck; i++) {
+			if(getWorld().getBlockState(getPos().up(i)).getMaterial() == Material.WATER)
+				numberOfBlocks++;
+			else
+				break;
+		}
+
+		if(numberOfBlocks != 0) {
+			this.handler.setSpeed(3 * numberOfBlocks);
+		}
 		else {
 			// Spin down
 			if(this.handler.getSpeed() > 0)
