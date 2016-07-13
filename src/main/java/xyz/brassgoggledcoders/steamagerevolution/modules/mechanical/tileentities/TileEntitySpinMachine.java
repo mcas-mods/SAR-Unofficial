@@ -6,12 +6,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import xyz.brassgoggledcoders.boilerplate.api.IDebuggable;
-import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntitySlowTick;
+import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntitySidedSlowTick;
 import xyz.brassgoggledcoders.steamagerevolution.api.SARAPI;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.SpinHandler;
 
-public abstract class TileEntitySpinMachine extends TileEntitySlowTick implements IDebuggable {
+public abstract class TileEntitySpinMachine extends TileEntitySidedSlowTick implements IDebuggable {
 
 	protected final ISpinHandler handler;
 

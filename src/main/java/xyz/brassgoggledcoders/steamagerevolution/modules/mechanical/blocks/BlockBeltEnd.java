@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.boilerplate.api.BoilerplateAPI;
 import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
+import xyz.brassgoggledcoders.boilerplate.blocks.SideType;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityBeltEnd;
 
 public class BlockBeltEnd extends BlockTEBase {
@@ -35,14 +36,27 @@ public class BlockBeltEnd extends BlockTEBase {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if(heldItem != null && heldItem.hasCapability(BoilerplateAPI.PIPE_WRENCH_CAPABILITY, side))
+		if(heldItem != null && heldItem.hasCapability(BoilerplateAPI.PIPE_WRENCH_CAPABILITY, side)) {
 			if(worldIn.getTileEntity(pos) instanceof TileEntityBeltEnd) {
 				TileEntityBeltEnd belt = (TileEntityBeltEnd) worldIn.getTileEntity(pos);
-				if(belt.isTilePaired()) {
-					belt.unpair();
-					return true;
+				if(playerIn.isSneaking()) {
+					if(belt.isTilePaired()) {
+						belt.unpair();
+						return true;
+					}
+				}
+				else {
+					// If there's already an output side, exit.
+					for(int i = 0; i < EnumFacing.VALUES.length; i++) {
+						if(belt.getSideValue(i) == SideType.OUTPUT)
+							return false;
+					}
+
+					// If not, set clicked side to output.
+					belt.setSideConfig(side.ordinal(), SideType.OUTPUT);
 				}
 			}
+		}
 		return false;
 	}
 }
