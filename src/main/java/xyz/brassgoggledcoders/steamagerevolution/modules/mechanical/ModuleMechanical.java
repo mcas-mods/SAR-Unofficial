@@ -19,7 +19,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.Block
 public class ModuleMechanical extends ModuleBase {
 
 	public static Block inf_spin_source, inf_spin_drain;
-	public static Block gearbox, belt_end, belt_dummy;
+	public static Block gearbox, iron_belt_end, brass_belt_end, steel_belt_end, belt_dummy;
 	public static Block water_turbine;
 	public static Block furnace_heater;
 	public static Item belt;
@@ -31,8 +31,12 @@ public class ModuleMechanical extends ModuleBase {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		belt_end = new BlockBeltEnd(Material.IRON, "belt_end");
-		this.getBlockRegistry().registerBlock(belt_end);
+		iron_belt_end = new BlockBeltEnd(Material.IRON, "iron_belt_end", 0.5F);
+		this.getBlockRegistry().registerBlock(iron_belt_end);
+		brass_belt_end = new BlockBeltEnd(Material.IRON, "brass_belt_end", 0.75F);
+		this.getBlockRegistry().registerBlock(brass_belt_end);
+		steel_belt_end = new BlockBeltEnd(Material.IRON, "steel_belt_end", 0.89F);
+		this.getBlockRegistry().registerBlock(steel_belt_end);
 		belt_dummy = new BlockBeltDummy(Material.CLOTH, "belt_dummy");
 		this.getBlockRegistry().registerBlock(belt_dummy);
 		gearbox = new BlockGearbox(Material.IRON, "gearbox");

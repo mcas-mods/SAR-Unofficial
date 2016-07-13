@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities;
 
+import java.util.LinkedHashMap;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -9,7 +11,12 @@ import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 
 public class TileEntityBeltEnd extends TileEntityPaired {
 
-	private float slipAmount = 0.5F;
+	private float slipFactor;
+
+	public TileEntityBeltEnd(float slipFactor) {
+		super();
+		this.slipFactor = slipFactor;
+	}
 
 	@Override
 	public void updateTile() {
@@ -19,7 +26,7 @@ public class TileEntityBeltEnd extends TileEntityPaired {
 		if(this.isTilePaired() && this.getPairedTile() != null) {
 			if(this.isMaster()) {
 				this.getPairedTile().getCapability(SARAPI.SPIN_HANDLER_CAPABILITY, null)
-						.setSpeed(Math.round(handler.getSpeed() * slipAmount));
+						.setSpeed(Math.round(handler.getSpeed() * slipFactor));
 			}
 			else {
 				// Logic mostly copied from SpinUtils
@@ -41,5 +48,14 @@ public class TileEntityBeltEnd extends TileEntityPaired {
 				}
 			}
 		}
+	}
+
+	@Override
+	public LinkedHashMap<String, String> getDebugStrings(LinkedHashMap<String, String> debugStrings) {
+		if(this.getPairedTile() != null) {
+			debugStrings.put("paired_loc", this.getPairedTile().getPos().toString());
+		}
+		debugStrings.put("slip_factor", "" + this.slipFactor);
+		return super.getDebugStrings(debugStrings);
 	}
 }

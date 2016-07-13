@@ -19,6 +19,9 @@ public abstract class TileEntityPaired extends TileEntitySpinMachine {
 
 	@Nullable
 	public TileEntityPaired getPairedTile() {
+		if(paired_pos == null)
+			return null;
+
 		if(this.getWorld().getChunkFromBlockCoords(paired_pos).isLoaded()
 				&& this.getWorld().getTileEntity(paired_pos) instanceof TileEntityPaired)
 			return (TileEntityPaired) this.getWorld().getTileEntity(paired_pos);
@@ -26,22 +29,22 @@ public abstract class TileEntityPaired extends TileEntitySpinMachine {
 			return null;
 	}
 
-	public void unpair() {
+	public static void unpair(TileEntityPaired tile) {
 		// Remove the dummy blocks.
-		Iterator<BlockPos> positions = BlockPos.getAllInBox(this.getPos(), this.getPairedTile().getPos()).iterator();
+		Iterator<BlockPos> positions = BlockPos.getAllInBox(tile.getPos(), tile.getPairedTile().getPos()).iterator();
 		while(positions.hasNext()) {
 			BlockPos pos = positions.next();
 
-			if(pos.equals(this.getPos()) || pos.equals(this.getPairedTile().getPos()))
+			if(pos.equals(tile.getPos()) || pos.equals(tile.getPairedTile().getPos()))
 				continue;
 
-			this.getWorld().setBlockToAir(pos);
+			tile.getWorld().setBlockToAir(pos);
 		}
 		// Unpair tiles
-		this.getPairedTile().setPairedTileLoc(null);
-		this.getPairedTile().master = false;
-		this.setPairedTileLoc(null);
-		this.master = false;
+		tile.getPairedTile().setPairedTileLoc(null);
+		tile.getPairedTile().master = false;
+		tile.setPairedTileLoc(null);
+		tile.master = false;
 	}
 
 	public boolean isTilePaired() {

@@ -17,8 +17,12 @@ import xyz.brassgoggledcoders.boilerplate.blocks.SideType;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityBeltEnd;
 
 public class BlockBeltEnd extends BlockTEBase {
-	public BlockBeltEnd(Material mat, String name) {
+
+	private float slipFactor;
+
+	public BlockBeltEnd(Material mat, String name, float slipFactor) {
 		super(mat, name);
+		this.slipFactor = slipFactor;
 	}
 
 	@Override
@@ -28,7 +32,7 @@ public class BlockBeltEnd extends BlockTEBase {
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityBeltEnd();
+		return new TileEntityBeltEnd(slipFactor);
 	}
 
 	// TODO Handling for unpairing when blocks are broken
@@ -41,7 +45,7 @@ public class BlockBeltEnd extends BlockTEBase {
 				TileEntityBeltEnd belt = (TileEntityBeltEnd) worldIn.getTileEntity(pos);
 				if(playerIn.isSneaking()) {
 					if(belt.isTilePaired()) {
-						belt.unpair();
+						TileEntityBeltEnd.unpair(belt);
 						return true;
 					}
 				}
@@ -58,5 +62,9 @@ public class BlockBeltEnd extends BlockTEBase {
 			}
 		}
 		return false;
+	}
+
+	public float getSlipFactor() {
+		return slipFactor;
 	}
 }
