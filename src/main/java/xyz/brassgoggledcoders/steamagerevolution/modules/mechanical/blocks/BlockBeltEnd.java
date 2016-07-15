@@ -1,8 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -15,9 +19,11 @@ import xyz.brassgoggledcoders.boilerplate.api.BoilerplateAPI;
 import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
 import xyz.brassgoggledcoders.boilerplate.blocks.SideType;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityBeltEnd;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityPaired;
 
 public class BlockBeltEnd extends BlockTEBase {
 
+	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 	private float slipFactor;
 
 	public BlockBeltEnd(Material mat, String name, float slipFactor) {
@@ -35,7 +41,38 @@ public class BlockBeltEnd extends BlockTEBase {
 		return new TileEntityBeltEnd(slipFactor);
 	}
 
-	// TODO Handling for unpairing when blocks are broken
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] {FACING});
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		EnumFacing enumfacing = EnumFacing.getFront(meta);
+		return this.getDefaultState().withProperty(FACING, enumfacing);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(FACING).getIndex();
+	}
+
+	@Override
+	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+		worldIn.setBlockState(pos, state.withProperty(FACING, EnumFacing.UP), 2);
+		super.onBlockAdded(worldIn, pos, state);
+	}
+
+	@Override
+	public void breakBlock(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+		if(worldIn.getTileEntity(pos) instanceof TileEntityBeltEnd) {
+			TileEntityBeltEnd belt_end = (TileEntityBeltEnd) worldIn.getTileEntity(pos);
+			if(belt_end.isTilePaired()) {
+				TileEntityPaired.unpair(belt_end);
+			}
+		}
+		super.breakBlock(worldIn, pos, state);
+	}
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
