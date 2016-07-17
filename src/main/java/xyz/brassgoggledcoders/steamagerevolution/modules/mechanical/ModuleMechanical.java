@@ -15,6 +15,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.Block
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockInfiniteSpinSource;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockWaterTurbine;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.items.ItemBelt;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.items.ItemSpinReader;
 
 @Module(mod = SteamAgeRevolution.MODID)
 public class ModuleMechanical extends ModuleBase {
@@ -24,6 +25,7 @@ public class ModuleMechanical extends ModuleBase {
 	public static Block water_turbine;
 	public static Block furnace_heater;
 	public static Item leather_belt, rubber_belt;
+	public static Item spin_reader;
 
 	@Override
 	public String getName() {
@@ -58,6 +60,10 @@ public class ModuleMechanical extends ModuleBase {
 
 		furnace_heater = new BlockFurnaceHeater(Material.IRON, "furnace_heater");
 		this.getBlockRegistry().registerBlock(furnace_heater);
+
+		// Not a sin reader, that's something else entirely...
+		spin_reader = new ItemSpinReader("spin_reader");
+		this.getItemRegistry().registerItem(spin_reader);
 
 		// ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBeltEnd.class, new TileEntityBeltRenderer());
 	}
