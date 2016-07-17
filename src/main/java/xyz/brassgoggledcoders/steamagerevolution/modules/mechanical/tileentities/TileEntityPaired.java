@@ -5,7 +5,6 @@ import java.util.Iterator;
 import javax.annotation.Nullable;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
@@ -115,15 +114,17 @@ public abstract class TileEntityPaired extends TileEntitySpinMachine {
 							Iterator<BlockPos> positions = BlockPos.getAllInBox(clicked_pos, saved_pos).iterator();
 							while(positions.hasNext()) {
 								BlockPos pos = positions.next();
+								// Skip over actual ends themselves
 								if(pos.equals(clicked_pos) || pos.equals(saved_pos))
 									continue;
 								// TODO States. This should not be here.
 								worldIn.setBlockState(pos, ModuleMechanical.belt_dummy.getDefaultState());
 							}
-							worldIn.setBlockState(start.getPos(), worldIn.getBlockState(start.getPos())
-									.withProperty(BlockBeltEnd.FACING, EnumFacing.DOWN));
-							worldIn.setBlockState(end.getPos(), worldIn.getBlockState(end.getPos())
-									.withProperty(BlockBeltEnd.FACING, EnumFacing.DOWN));
+							// Set facings of ends
+							worldIn.setBlockState(start.getPos(), worldIn.getBlockState(start.getPos()).withProperty(
+									BlockBeltEnd.FACING, PositionUtils.getFacingFromPositions(clicked_pos, saved_pos)));
+							worldIn.setBlockState(end.getPos(), worldIn.getBlockState(end.getPos()).withProperty(
+									BlockBeltEnd.FACING, PositionUtils.getFacingFromPositions(saved_pos, clicked_pos)));
 							return true;
 						}
 
