@@ -23,7 +23,7 @@ public class ModuleMechanical extends ModuleBase {
 	public static Block gearbox, iron_belt_end, brass_belt_end, steel_belt_end, belt_dummy;
 	public static Block water_turbine;
 	public static Block furnace_heater;
-	public static Item belt;
+	public static Item leather_belt, rubber_belt;
 
 	@Override
 	public String getName() {
@@ -43,8 +43,10 @@ public class ModuleMechanical extends ModuleBase {
 		gearbox = new BlockGearbox(Material.IRON, "gearbox");
 		this.getBlockRegistry().registerBlock(gearbox);
 
-		belt = new ItemBelt("belt");
-		this.getItemRegistry().registerItem(belt);
+		leather_belt = new ItemBelt("leather_belt", 6);
+		this.getItemRegistry().registerItem(leather_belt);
+		rubber_belt = new ItemBelt("rubber_belt", 12);
+		this.getItemRegistry().registerItem(rubber_belt);
 
 		inf_spin_source = new BlockInfiniteSpinSource(Material.CIRCUITS, "infinite_spin_source");
 		this.getBlockRegistry().registerBlock(inf_spin_source);

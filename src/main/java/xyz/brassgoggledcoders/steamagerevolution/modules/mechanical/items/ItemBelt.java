@@ -13,14 +13,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.boilerplate.items.ItemBase;
+import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityPaired;
 
 public class ItemBelt extends ItemBase {
 
-	public ItemBelt(String name) {
+	int maxLength;
+
+	public ItemBelt(String name, int maxLength) {
 		super(name);
 		this.setMaxStackSize(1);
+		this.maxLength = maxLength;
 	}
 
 	@Override
@@ -53,10 +57,22 @@ public class ItemBelt extends ItemBase {
 			SteamAgeRevolution.instance.getLogger().devInfo("Attempted pairing");
 			// Get saved block position
 			BlockPos saved_pos = BlockPos.fromLong(stack.getTagCompound().getLong("pos"));
-			if(TileEntityPaired.pairBlocks(worldIn, clicked_pos, saved_pos)) {
-				// If pairing is successful, delete the belt
-				stack.stackSize--;
-				return EnumActionResult.SUCCESS;
+			if(PositionUtils.getDistanceBetweenPositions(clicked_pos, saved_pos) <= maxLength) {
+				SteamAgeRevolution.instance.getLogger().devInfo("First paircheck passed (distance)");
+				if(TileEntityPaired.pairBlocks(worldIn, clicked_pos, saved_pos)) {
+					// If pairing is successful, delete the belt
+					stack.stackSize--;
+					return EnumActionResult.SUCCESS;
+				}
+				// TODO
+				else {
+					// Pairing failed.
+
+					// Remove stored position.
+					stack.getTagCompound().setLong("pos", 0);
+					// TODO Notify player of failure.
+					return EnumActionResult.FAIL;
+				}
 			}
 			else {
 				// Pairing failed.

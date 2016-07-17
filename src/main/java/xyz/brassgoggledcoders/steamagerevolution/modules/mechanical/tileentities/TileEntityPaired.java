@@ -89,46 +89,43 @@ public abstract class TileEntityPaired extends TileEntitySpinMachine {
 		if(worldIn.getTileEntity(clicked_pos) instanceof TileEntityPaired
 				&& worldIn.getChunkFromBlockCoords(saved_pos).isLoaded()
 				&& worldIn.getTileEntity(saved_pos) instanceof TileEntityPaired) {
-			SteamAgeRevolution.instance.getLogger().devInfo("First paircheck passed (instanceof)");
+			SteamAgeRevolution.instance.getLogger().devInfo("Second paircheck passed (instanceof)");
 			TileEntityPaired start = (TileEntityPaired) worldIn.getTileEntity(saved_pos);
 			TileEntityPaired end = (TileEntityPaired) worldIn.getTileEntity(clicked_pos);
 
 			// Don't allow pairing if either end is already paired or if you're trying to pair something with
 			// itself.
 			if(!end.isTilePaired() && !start.isTilePaired() && saved_pos != clicked_pos) {
-				SteamAgeRevolution.instance.getLogger().devInfo("Second paircheck passed (not already paired)");
+				SteamAgeRevolution.instance.getLogger().devInfo("Third paircheck passed (not already paired)");
 				// Ensure pairs are aligned on axes
 				if(PositionUtils.arePositionsAlignedOnTwoAxes(clicked_pos, saved_pos)) {
-					SteamAgeRevolution.instance.getLogger().devInfo("Third paircheck passed (alignment)");
-					if(PositionUtils.getDistanceBetweenPositions(clicked_pos, saved_pos) <= 6) {
-						SteamAgeRevolution.instance.getLogger().devInfo("Fifth paircheck passed (distance)");
-						if(PositionUtils.isLOSClear(worldIn, saved_pos, clicked_pos)) {
-							SteamAgeRevolution.instance.getLogger().devInfo("Fifth paircheck passed (clear LOS)");
-							// Set start's pair, and make it a master.
-							start.setPairedTileLoc(clicked_pos);
-							start.setMaster();
-							// Set end's pair, and make it a slave.
-							end.setPairedTileLoc(saved_pos);
-							end.setSlave();
-							// Add the dummy blocks.
-							Iterator<BlockPos> positions = BlockPos.getAllInBox(clicked_pos, saved_pos).iterator();
-							while(positions.hasNext()) {
-								BlockPos pos = positions.next();
-								// Skip over actual ends themselves
-								if(pos.equals(clicked_pos) || pos.equals(saved_pos))
-									continue;
-								// TODO States. This should not be here.
-								worldIn.setBlockState(pos, ModuleMechanical.belt_dummy.getDefaultState());
-							}
-							// Set facings of ends
-							worldIn.setBlockState(start.getPos(), worldIn.getBlockState(start.getPos()).withProperty(
-									BlockBeltEnd.FACING, PositionUtils.getFacingFromPositions(clicked_pos, saved_pos)));
-							worldIn.setBlockState(end.getPos(), worldIn.getBlockState(end.getPos()).withProperty(
-									BlockBeltEnd.FACING, PositionUtils.getFacingFromPositions(saved_pos, clicked_pos)));
-							return true;
+					SteamAgeRevolution.instance.getLogger().devInfo("Fourth paircheck passed (alignment)");
+					if(PositionUtils.isLOSClear(worldIn, saved_pos, clicked_pos)) {
+						SteamAgeRevolution.instance.getLogger().devInfo("Fifth paircheck passed (clear LOS)");
+						// Set start's pair, and make it a master.
+						start.setPairedTileLoc(clicked_pos);
+						start.setMaster();
+						// Set end's pair, and make it a slave.
+						end.setPairedTileLoc(saved_pos);
+						end.setSlave();
+						// Add the dummy blocks.
+						Iterator<BlockPos> positions = BlockPos.getAllInBox(clicked_pos, saved_pos).iterator();
+						while(positions.hasNext()) {
+							BlockPos pos = positions.next();
+							// Skip over actual ends themselves
+							if(pos.equals(clicked_pos) || pos.equals(saved_pos))
+								continue;
+							// TODO States. This should not be here.
+							worldIn.setBlockState(pos, ModuleMechanical.belt_dummy.getDefaultState());
 						}
-
+						// Set facings of ends
+						worldIn.setBlockState(start.getPos(), worldIn.getBlockState(start.getPos()).withProperty(
+								BlockBeltEnd.FACING, PositionUtils.getFacingFromPositions(clicked_pos, saved_pos)));
+						worldIn.setBlockState(end.getPos(), worldIn.getBlockState(end.getPos()).withProperty(
+								BlockBeltEnd.FACING, PositionUtils.getFacingFromPositions(saved_pos, clicked_pos)));
+						return true;
 					}
+
 				}
 			}
 		}
