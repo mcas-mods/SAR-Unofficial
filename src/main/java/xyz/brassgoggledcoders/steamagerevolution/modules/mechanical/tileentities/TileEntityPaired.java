@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.ModuleMechanical;
@@ -46,6 +47,7 @@ public abstract class TileEntityPaired extends TileEntitySpinMachine {
 		tile.getPairedTile().master = false;
 		tile.setPairedTileLoc(null);
 		tile.master = false;
+		FMLLog.warning("" + tile.getPairedTile().getPos(), "");
 	}
 
 	public boolean isTilePaired() {

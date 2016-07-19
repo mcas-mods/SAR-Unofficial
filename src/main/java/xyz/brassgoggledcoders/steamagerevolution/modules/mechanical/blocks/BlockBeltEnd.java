@@ -18,6 +18,8 @@ import net.minecraft.world.World;
 import xyz.brassgoggledcoders.boilerplate.api.BoilerplateAPI;
 import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
 import xyz.brassgoggledcoders.boilerplate.blocks.SideType;
+import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityBeltEnd;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityPaired;
 
@@ -77,28 +79,30 @@ public class BlockBeltEnd extends BlockTEBase {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if(heldItem != null && heldItem.hasCapability(BoilerplateAPI.TOOL_CAPABILITY, side)) {
-			if(worldIn.getTileEntity(pos) instanceof TileEntityBeltEnd) {
-				TileEntityBeltEnd belt = (TileEntityBeltEnd) worldIn.getTileEntity(pos);
-				if(playerIn.isSneaking()) {
-					if(belt.isTilePaired()) {
-						TileEntityBeltEnd.unpair(belt);
-						return true;
-					}
+		if(worldIn.getTileEntity(pos) instanceof TileEntityBeltEnd) {
+			TileEntityBeltEnd belt = (TileEntityBeltEnd) worldIn.getTileEntity(pos);
+			// TODO Changing output sides
+			if(!ItemStackUtils.isItemNonNull(heldItem)) {
+				// If there's already an output side, exit.
+				for(int i = 0; i < EnumFacing.VALUES.length; i++) {
+					if(belt.getSideValue(i) == SideType.OUTPUT)
+						return false;
 				}
-				else {
-					// If there's already an output side, exit.
-					for(int i = 0; i < EnumFacing.VALUES.length; i++) {
-						if(belt.getSideValue(i) == SideType.OUTPUT)
-							return false;
-					}
 
-					// If not, set clicked side to output.
-					belt.setSideConfig(side.ordinal(), SideType.OUTPUT);
+				// If not, set clicked side to output.
+				belt.setSideConfig(side.ordinal(), SideType.OUTPUT);
+			}
+			else if(heldItem.hasCapability(BoilerplateAPI.TOOL_CAPABILITY, side)) {
+				if(belt.isTilePaired()) {
+					SteamAgeRevolution.instance.getLogger().devInfo("Attempted unpairing");
+					TileEntityBeltEnd.unpair(belt);
+					return true;
 				}
+
 			}
 		}
 		return false;
+
 	}
 
 	public float getSlipFactor() {
