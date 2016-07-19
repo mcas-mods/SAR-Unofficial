@@ -4,11 +4,15 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.SpinHandler;
 
 public class CapabilityHandler {
+
+	@CapabilityInject(ISpinHandler.class)
+	public static final Capability<ISpinHandler> SPIN_HANDLER_CAPABILITY = null;
 
 	public static void init() {
 		CapabilityManager.INSTANCE.register(ISpinHandler.class, new Capability.IStorage<ISpinHandler>() {

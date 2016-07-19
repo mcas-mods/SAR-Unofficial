@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import xyz.brassgoggledcoders.boilerplate.blocks.SideType;
-import xyz.brassgoggledcoders.steamagerevolution.api.SARAPI;
+import xyz.brassgoggledcoders.steamagerevolution.CapabilityHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 
 public class TileEntityBeltEnd extends TileEntityPaired {
@@ -25,7 +25,7 @@ public class TileEntityBeltEnd extends TileEntityPaired {
 
 		if(this.isTilePaired() && this.getPairedTile() != null) {
 			if(this.isMaster()) {
-				this.getPairedTile().getCapability(SARAPI.SPIN_HANDLER_CAPABILITY, null)
+				this.getPairedTile().getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null)
 						.setSpeed(Math.round(handler.getSpeed() * slipFactor));
 			}
 			else {
@@ -37,8 +37,8 @@ public class TileEntityBeltEnd extends TileEntityPaired {
 						if(this.getWorld().getTileEntity(off) != null) {
 							TileEntity te = this.getWorld().getTileEntity(off);
 
-							if(te.hasCapability(SARAPI.SPIN_HANDLER_CAPABILITY, null)) {
-								ISpinHandler other_handler = te.getCapability(SARAPI.SPIN_HANDLER_CAPABILITY, null);
+							if(te.hasCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null)) {
+								ISpinHandler other_handler = te.getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null);
 								if(this.handler.getSpeed() > other_handler.getSpeed()) {
 									other_handler.setSpeed(this.handler.getSpeed());
 								}

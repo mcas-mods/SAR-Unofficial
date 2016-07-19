@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.api.SARAPI;
+import xyz.brassgoggledcoders.steamagerevolution.CapabilityHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 
 public class SpinUtils {
@@ -34,8 +34,8 @@ public class SpinUtils {
 			if(world.getTileEntity(off) != null) {
 				TileEntity te = world.getTileEntity(off);
 
-				if(te.hasCapability(SARAPI.SPIN_HANDLER_CAPABILITY, null)) {
-					ISpinHandler handler = te.getCapability(SARAPI.SPIN_HANDLER_CAPABILITY, null);
+				if(te.hasCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null)) {
+					ISpinHandler handler = te.getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null);
 					handlers.add(handler);
 				}
 			}

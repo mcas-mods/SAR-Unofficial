@@ -23,8 +23,6 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 @Module(mod = SteamAgeRevolution.MODID)
 public class ModuleMaterials extends ModuleBase {
-	public static Item dust, plate;
-	public static ItemSubBase iron_part, brass_part;
 
 	public static List<String> oreMetals = Arrays.asList(BlockMetalOre.EnumBlockType.names());
 	public static List<String> ourMetals = Arrays.asList(BlockMetal.EnumBlockType.names());
@@ -32,10 +30,9 @@ public class ModuleMaterials extends ModuleBase {
 			Arrays.asList(ArrayUtils.addAll(BlockMetal.EnumBlockType.names(), new String[] {"iron"}));
 	public static List<String> allMetals =
 			Arrays.asList(ArrayUtils.addAll(BlockMetal.EnumBlockType.names(), new String[] {"iron", "gold"}));
-	public static List<String> partTypes = Arrays.asList("gear");
 
 	public static Block metal_ore, metal_block;
-	public static Item ingot, nugget;
+	public static Item ingot, nugget, dust, plate;
 
 	// TODO Oredict registration
 
@@ -47,11 +44,6 @@ public class ModuleMaterials extends ModuleBase {
 		getItemRegistry().registerItem(dust);
 		plate = new ItemSubBase("metals/", "plate", allMetals);
 		getItemRegistry().registerItem(plate);
-
-		iron_part = new ItemSubBase("parts", "iron_part", partTypes);
-		this.getItemRegistry().registerItem(iron_part);
-		brass_part = new ItemSubBase("parts", "brass_part", partTypes);
-		this.getItemRegistry().registerItem(brass_part);
 
 		metal_ore = new BlockMetalOre();
 		this.getBlockRegistry().registerBlock(metal_ore, "metal_ore");
