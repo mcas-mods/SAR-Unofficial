@@ -27,13 +27,14 @@ public class TileEntityChute extends TileEntitySpinConsumer {
 					down.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
 			for(int i = 0; i < top_inventory.getSlots(); i++) {
 				ItemStack stack = top_inventory.getStackInSlot(i);
-				// TODO Eww...
+
 				if(ItemStackUtils.isItemNonNull(stack) && top_inventory.extractItem(i, 1 * rate, true) != null
 						&& ItemHandlerHelper.insertItemStacked(bottom_inventory,
 								top_inventory.extractItem(i, 1 * rate, true), true) == null) {
 					ItemHandlerHelper.insertItemStacked(bottom_inventory, top_inventory.extractItem(i, 1 * rate, false),
 							false);
 				}
+				break;
 			}
 		}
 	}
