@@ -10,6 +10,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltDummy;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltEnd;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockChute;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockFrictionHeater;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockFurnaceHeater;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockGearbox;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockInfiniteSpinDrain;
@@ -24,7 +25,7 @@ public class ModuleMechanical extends ModuleBase {
 	public static Block inf_spin_source, inf_spin_drain;
 	public static Block gearbox, iron_belt_end, brass_belt_end, steel_belt_end, belt_dummy;
 	public static Block water_turbine;
-	public static Block furnace_heater, chute;
+	public static Block furnace_heater, chute, friction_heater;
 	public static Item leather_belt, rubber_belt;
 	public static Item spin_reader;
 
@@ -63,6 +64,8 @@ public class ModuleMechanical extends ModuleBase {
 		this.getBlockRegistry().registerBlock(furnace_heater);
 		chute = new BlockChute(Material.ANVIL, "chute");
 		this.getBlockRegistry().registerBlock(chute);
+		friction_heater = new BlockFrictionHeater(Material.IRON, "friction_heater");
+		getBlockRegistry().registerBlock(friction_heater);
 
 		// Not a sin reader, that's something else entirely...
 		spin_reader = new ItemSpinReader("spin_reader");

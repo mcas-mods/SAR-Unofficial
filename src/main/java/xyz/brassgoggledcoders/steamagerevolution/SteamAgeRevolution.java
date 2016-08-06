@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.util.DamageSource;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -34,6 +35,9 @@ public class SteamAgeRevolution extends BoilerplateModBase {
 	public static final String DEPENDENCIES = "required-after:boilerplate";
 
 	public static CreativeTabs tab = new SARTab();
+
+	public static DamageSource belt =
+			new DamageSource("belt").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
 
 	@Override
 	@EventHandler
