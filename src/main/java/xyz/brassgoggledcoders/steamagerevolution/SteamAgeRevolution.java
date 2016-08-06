@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -15,6 +16,11 @@ import xyz.brassgoggledcoders.boilerplate.BoilerplateModBase;
 @Mod(modid = SteamAgeRevolution.MODID, name = SteamAgeRevolution.MODNAME, version = SteamAgeRevolution.MODVERSION,
 		dependencies = SteamAgeRevolution.DEPENDENCIES)
 public class SteamAgeRevolution extends BoilerplateModBase {
+
+	static {
+		FluidRegistry.enableUniversalBucket();
+	}
+
 	public SteamAgeRevolution() {
 		super(MODID, MODNAME, MODVERSION, tab);
 	}
