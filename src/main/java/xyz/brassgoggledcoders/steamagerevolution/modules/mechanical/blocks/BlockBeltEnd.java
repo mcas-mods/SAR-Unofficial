@@ -21,7 +21,6 @@ import xyz.brassgoggledcoders.boilerplate.blocks.SideType;
 import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityBeltEnd;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityPaired;
 
 public class BlockBeltEnd extends BlockTEBase {
 
@@ -70,7 +69,7 @@ public class BlockBeltEnd extends BlockTEBase {
 		if(worldIn.getTileEntity(pos) instanceof TileEntityBeltEnd) {
 			TileEntityBeltEnd belt_end = (TileEntityBeltEnd) worldIn.getTileEntity(pos);
 			if(belt_end.isTilePaired()) {
-				TileEntityPaired.unpair(belt_end);
+				TileEntityBeltEnd.unpair(belt_end);
 			}
 		}
 		super.breakBlock(worldIn, pos, state);

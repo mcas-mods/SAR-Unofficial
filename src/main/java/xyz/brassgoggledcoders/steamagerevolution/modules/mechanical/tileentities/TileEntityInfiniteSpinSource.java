@@ -2,7 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentitie
 
 import net.minecraft.nbt.NBTTagCompound;
 
-public class TileEntityInfiniteSpinSource extends TileEntitySpinMachine {
+public class TileEntityInfiniteSpinSource extends TileEntitySpinGenerator {
 
 	@Override
 	public void updateTile() {

@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.boilerplate.items.ItemBase;
 import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityPaired;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityBeltEnd;
 
 public class ItemBelt extends ItemBase {
 
@@ -59,7 +59,7 @@ public class ItemBelt extends ItemBase {
 			BlockPos saved_pos = BlockPos.fromLong(stack.getTagCompound().getLong("pos"));
 			if(PositionUtils.getDistanceBetweenPositions(clicked_pos, saved_pos) <= maxLength) {
 				SteamAgeRevolution.instance.getLogger().devInfo("First paircheck passed (distance)");
-				if(TileEntityPaired.pairBlocks(worldIn, clicked_pos, saved_pos)) {
+				if(TileEntityBeltEnd.pairBlocks(worldIn, clicked_pos, saved_pos)) {
 					// If pairing is successful, delete the belt
 					stack.stackSize--;
 					return EnumActionResult.SUCCESS;

@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.boilerplate.items.ItemBase;
-import xyz.brassgoggledcoders.steamagerevolution.api.SARAPI;
+import xyz.brassgoggledcoders.steamagerevolution.CapabilityHandler;
 
 public class ItemSpinReader extends ItemBase {
 
@@ -22,16 +22,17 @@ public class ItemSpinReader extends ItemBase {
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if(worldIn.getTileEntity(pos) != null
-				&& worldIn.getTileEntity(pos).hasCapability(SARAPI.SPIN_HANDLER_CAPABILITY, facing)) {
+				&& worldIn.getTileEntity(pos).hasCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, facing)) {
 			if(worldIn.isRemote) {
-				playerIn.addChatMessage(new TextComponentString("Current Speed: "
-						+ worldIn.getTileEntity(pos).getCapability(SARAPI.SPIN_HANDLER_CAPABILITY, facing).getSpeed()));
+				playerIn.addChatMessage(new TextComponentString("Current Speed: " + worldIn.getTileEntity(pos)
+						.getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, facing).getSpeed()));
 				return EnumActionResult.SUCCESS;
 			}
 			else {
 				if(playerIn.isSneaking()) {
-					playerIn.addChatMessage(new TextComponentString("Current Speed (Server):" + worldIn
-							.getTileEntity(pos).getCapability(SARAPI.SPIN_HANDLER_CAPABILITY, facing).getSpeed()));
+					playerIn.addChatMessage(
+							new TextComponentString("Current Speed (Server):" + worldIn.getTileEntity(pos)
+									.getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, facing).getSpeed()));
 					return EnumActionResult.SUCCESS;
 				}
 			}

@@ -37,5 +37,6 @@ public class TileEntityChute extends TileEntitySpinConsumer {
 				break;
 			}
 		}
+		super.updateTile();
 	}
 }
