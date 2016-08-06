@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -11,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.boilerplate.Boilerplate;
 import xyz.brassgoggledcoders.boilerplate.blocks.material.BlockMetal;
 import xyz.brassgoggledcoders.boilerplate.blocks.material.BlockMetalOre;
@@ -45,15 +47,31 @@ public class ModuleMaterials extends ModuleBase {
 		plate = new ItemSubBase("metals/", "plate", allMetals);
 		getItemRegistry().registerItem(plate);
 
+		for(int i = 0; i < allMetals.size(); i++) {
+			OreDictionary.registerOre("dust" + StringUtils.capitalize(allMetals.get(i)), new ItemStack(dust, 1, i));
+			OreDictionary.registerOre("plate" + StringUtils.capitalize(allMetals.get(i)), new ItemStack(plate, 1, i));
+		}
+
 		metal_ore = new BlockMetalOre();
 		this.getBlockRegistry().registerBlock(metal_ore, "metal_ore");
 		metal_block = new BlockMetal();
 		this.getBlockRegistry().registerBlock(metal_block, "metal_block");
-
 		ingot = new ItemSubBase("metals/", "ingot", ourMetals);
 		getItemRegistry().registerItem(ingot);
+
+		for(int i = 0; i < ourMetals.size(); i++) {
+			OreDictionary.registerOre("ore" + StringUtils.capitalize(ourMetals.get(i)), new ItemStack(metal_ore, 1, i));
+			OreDictionary.registerOre("block" + StringUtils.capitalize(ourMetals.get(i)),
+					new ItemStack(metal_block, 1, i));
+			OreDictionary.registerOre("ingot" + StringUtils.capitalize(ourMetals.get(i)), new ItemStack(ingot, 1, i));
+		}
+
 		nugget = new ItemSubBase("metals/", "nugget", almostAllMetals);
 		getItemRegistry().registerItem(nugget);
+
+		for(int i = 0; i < almostAllMetals.size(); i++) {
+			OreDictionary.registerOre("nugget" + StringUtils.capitalize(ourMetals.get(i)), new ItemStack(nugget, 1, i));
+		}
 
 		// TODO This needs to go someplace else.
 		Boilerplate.instance.getRegistryHolder().getConfigRegistry().addNewConfigFile("oregeneration");
