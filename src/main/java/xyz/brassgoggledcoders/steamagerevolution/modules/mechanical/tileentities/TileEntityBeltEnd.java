@@ -10,12 +10,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.boilerplate.blocks.SideType;
 import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.CapabilityHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.events.BeltLinkedEvent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.ModuleMechanical;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltEnd;
 
@@ -179,6 +181,7 @@ public class TileEntityBeltEnd extends TileEntitySpinMachine {
 								BlockBeltEnd.FACING, PositionUtils.getFacingFromPositions(clicked_pos, saved_pos)));
 						worldIn.setBlockState(end.getPos(), worldIn.getBlockState(end.getPos()).withProperty(
 								BlockBeltEnd.FACING, PositionUtils.getFacingFromPositions(saved_pos, clicked_pos)));
+						MinecraftForge.EVENT_BUS.post(new BeltLinkedEvent(start, end));
 						return true;
 					}
 
