@@ -47,11 +47,6 @@ public class ModuleMaterials extends ModuleBase {
 		plate = new ItemSubBase("metals/", "plate", allMetals);
 		getItemRegistry().registerItem(plate);
 
-		for(int i = 0; i < allMetals.size(); i++) {
-			OreDictionary.registerOre("dust" + StringUtils.capitalize(allMetals.get(i)), new ItemStack(dust, 1, i));
-			OreDictionary.registerOre("plate" + StringUtils.capitalize(allMetals.get(i)), new ItemStack(plate, 1, i));
-		}
-
 		metal_ore = new BlockMetalOre();
 		this.getBlockRegistry().registerBlock(metal_ore, "metal_ore");
 		metal_block = new BlockMetal();
@@ -59,19 +54,8 @@ public class ModuleMaterials extends ModuleBase {
 		ingot = new ItemSubBase("metals/", "ingot", ourMetals);
 		getItemRegistry().registerItem(ingot);
 
-		for(int i = 0; i < ourMetals.size(); i++) {
-			OreDictionary.registerOre("ore" + StringUtils.capitalize(ourMetals.get(i)), new ItemStack(metal_ore, 1, i));
-			OreDictionary.registerOre("block" + StringUtils.capitalize(ourMetals.get(i)),
-					new ItemStack(metal_block, 1, i));
-			OreDictionary.registerOre("ingot" + StringUtils.capitalize(ourMetals.get(i)), new ItemStack(ingot, 1, i));
-		}
-
 		nugget = new ItemSubBase("metals/", "nugget", almostAllMetals);
 		getItemRegistry().registerItem(nugget);
-
-		for(int i = 0; i < almostAllMetals.size(); i++) {
-			OreDictionary.registerOre("nugget" + StringUtils.capitalize(ourMetals.get(i)), new ItemStack(nugget, 1, i));
-		}
 
 		// TODO This needs to go someplace else.
 		Boilerplate.instance.getRegistryHolder().getConfigRegistry().addNewConfigFile("oregeneration");
@@ -81,6 +65,24 @@ public class ModuleMaterials extends ModuleBase {
 
 	@Override
 	public void init(FMLInitializationEvent event) {
+
+		for(int i = 0; i < allMetals.size(); i++) {
+			OreDictionary.registerOre("dust" + StringUtils.capitalize(allMetals.get(i)), new ItemStack(dust, 1, i));
+			OreDictionary.registerOre("plate" + StringUtils.capitalize(allMetals.get(i)), new ItemStack(plate, 1, i));
+		}
+
+		for(int i = 0; i < ourMetals.size(); i++) {
+			OreDictionary.registerOre("ore" + StringUtils.capitalize(ourMetals.get(i)), new ItemStack(metal_ore, 1, i));
+			OreDictionary.registerOre("block" + StringUtils.capitalize(ourMetals.get(i)),
+					new ItemStack(metal_block, 1, i));
+			OreDictionary.registerOre("ingot" + StringUtils.capitalize(ourMetals.get(i)), new ItemStack(ingot, 1, i));
+		}
+
+		for(int i = 0; i < almostAllMetals.size(); i++) {
+			OreDictionary.registerOre("nugget" + StringUtils.capitalize(almostAllMetals.get(i)),
+					new ItemStack(nugget, 1, i));
+		}
+
 		GameRegistry.addSmelting(new ItemStack(metal_ore, 1, 0), new ItemStack(ingot, 1, 0), 0.5F);
 		GameRegistry.addSmelting(new ItemStack(metal_ore, 1, 1), new ItemStack(ingot, 1, 1), 0.5F);
 
