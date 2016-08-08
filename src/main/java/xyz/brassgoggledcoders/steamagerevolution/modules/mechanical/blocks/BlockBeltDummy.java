@@ -1,8 +1,10 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks;
 
-import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.SoundEvents;
@@ -19,8 +21,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public class BlockBeltDummy extends BlockBase {
 
-	public static final PropertyEnum<BlockLog.EnumAxis> AXIS =
-			PropertyEnum.<BlockLog.EnumAxis> create("axis", BlockLog.EnumAxis.class);
+	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 	public static final PropertyEnum<BlockBeltDummy.EnumBeltType> BELT_TYPE =
 			PropertyEnum.<BlockBeltDummy.EnumBeltType> create("type", BlockBeltDummy.EnumBeltType.class);
 
@@ -29,6 +30,8 @@ public class BlockBeltDummy extends BlockBase {
 	public BlockBeltDummy(Material mat, String name) {
 		super(mat, name);
 		this.setBlockUnbreakable();
+		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN)
+				.withProperty(BELT_TYPE, EnumBeltType.LEATHER));
 	}
 
 	@Override
@@ -58,6 +61,7 @@ public class BlockBeltDummy extends BlockBase {
 		return true;
 	}
 
+	// TODO Belts aren't aware if they are spinning...so can't only perform this if they are powered...
 	@Override
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
 		entityIn.attackEntityFrom(SteamAgeRevolution.belt, 3.0F + worldIn.rand.nextInt(3));
@@ -77,13 +81,43 @@ public class BlockBeltDummy extends BlockBase {
 		return false;
 	}
 
-	public enum EnumBeltType implements IStringSerializable {
-		LEATHER(), RUBBER();
-
-		@Override
-		public String getName() {
-			return EnumBeltType.values()[ordinal()].toString();
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if(meta <= EnumFacing.VALUES.length) {
+			return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta)).withProperty(BELT_TYPE,
+					EnumBeltType.LEATHER);
+		}
+		else {
+			return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta / 2)).withProperty(BELT_TYPE,
+					EnumBeltType.RUBBER);
 		}
 	}
 
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		if(state.getValue(BELT_TYPE) == EnumBeltType.LEATHER)
+			return state.getValue(FACING).getIndex();
+		else
+			return state.getValue(FACING).getIndex() * 2;
+	}
+
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] {FACING, BELT_TYPE});
+	}
+
+	public enum EnumBeltType implements IStringSerializable {
+		LEATHER("leather"), RUBBER("rubber");
+
+		private String name;
+
+		private EnumBeltType(String name) {
+			this.name = name;
+		}
+
+		@Override
+		public String getName() {
+			return name;
+		}
+	}
 }

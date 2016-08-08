@@ -5,6 +5,31 @@
         "textures": { "main": "minecraft:blocks/hopper_outside" }
     },
     "variants": {
-    	"normal": [{}]
+    	"facing": { 
+    		"up": { 
+    			"y": 90 
+    		},
+    		"down": {
+    			"y": -90
+    		},
+    		"east": {
+    			
+    		},
+    		"west": {
+    			
+    		},
+    		"north": {
+    			
+    		},
+    		"south": {
+    			
+    		}
+    	},
+    	"type": {
+    		"leather": {
+    			"textures": { "main": "minecraft:blocks/wool_colored_brown" }
+    		},
+    		"rubber": {}
+    	}
     }
 } 	

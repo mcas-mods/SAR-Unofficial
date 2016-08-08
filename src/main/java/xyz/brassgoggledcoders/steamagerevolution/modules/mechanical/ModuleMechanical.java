@@ -39,9 +39,9 @@ public class ModuleMechanical extends ModuleBase {
 		iron_belt_end = new BlockBeltEnd(Material.IRON, "iron_belt_end", 0.5F);
 		this.getBlockRegistry().registerBlock(iron_belt_end);
 		brass_belt_end = new BlockBeltEnd(Material.IRON, "brass_belt_end", 0.75F);
-		this.getBlockRegistry().registerBlock(brass_belt_end);
+		// this.getBlockRegistry().registerBlock(brass_belt_end);
 		steel_belt_end = new BlockBeltEnd(Material.IRON, "steel_belt_end", 0.89F);
-		this.getBlockRegistry().registerBlock(steel_belt_end);
+		// this.getBlockRegistry().registerBlock(steel_belt_end);
 		belt_dummy = new BlockBeltDummy(Material.CLOTH, "belt_dummy");
 		this.getBlockRegistry().registerBlock(belt_dummy);
 		gearbox = new BlockGearbox(Material.IRON, "gearbox");
