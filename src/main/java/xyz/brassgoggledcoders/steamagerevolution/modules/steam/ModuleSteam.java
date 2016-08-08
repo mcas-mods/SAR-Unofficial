@@ -6,11 +6,10 @@ import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import xyz.brassgoggledcoders.boilerplate.module.Module;
 import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
-@Module(mod = SteamAgeRevolution.MODID)
+// @Module(mod = SteamAgeRevolution.MODID)
 public class ModuleSteam extends ModuleBase {
 
 	public static Fluid steam;
