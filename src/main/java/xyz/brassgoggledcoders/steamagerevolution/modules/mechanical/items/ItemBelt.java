@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -38,6 +39,28 @@ public class ItemBelt extends ItemBase {
 	}
 
 	@Override
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World worldIn, EntityPlayer playerIn,
+			EnumHand hand) {
+		if(worldIn.isRemote)
+			return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
+
+		if(playerIn.isSneaking()) {
+			if(!stack.hasTagCompound()) {
+				NBTTagCompound nbt = new NBTTagCompound();
+				stack.setTagCompound(nbt);
+			}
+
+			if(stack.getTagCompound().getLong("pos") != 0) {
+				stack.getTagCompound().setLong("pos", 0);
+
+				return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+			}
+		}
+
+		return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
+	}
+
+	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos clicked_pos,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if(worldIn.isRemote)
@@ -59,7 +82,7 @@ public class ItemBelt extends ItemBase {
 			BlockPos saved_pos = BlockPos.fromLong(stack.getTagCompound().getLong("pos"));
 			if(PositionUtils.getDistanceBetweenPositions(clicked_pos, saved_pos) <= maxLength) {
 				SteamAgeRevolution.instance.getLogger().devInfo("First paircheck passed (distance)");
-				if(TileEntityBeltEnd.pairBlocks(worldIn, clicked_pos, saved_pos)) {
+				if(TileEntityBeltEnd.pairBlocks(worldIn, stack, clicked_pos, saved_pos)) {
 					// If pairing is successful, delete the belt
 					stack.stackSize--;
 					return EnumActionResult.SUCCESS;
