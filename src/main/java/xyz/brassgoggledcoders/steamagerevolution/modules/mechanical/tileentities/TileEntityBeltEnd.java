@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -13,12 +14,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.boilerplate.blocks.SideType;
+import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
 import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.CapabilityHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.events.BeltLinkedEvent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.ModuleMechanical;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltDummy;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltEnd;
 
 public class TileEntityBeltEnd extends TileEntitySpinMachine {
@@ -142,7 +145,7 @@ public class TileEntityBeltEnd extends TileEntitySpinMachine {
 		return master;
 	}
 
-	public static boolean pairBlocks(World worldIn, BlockPos clicked_pos, BlockPos saved_pos) {
+	public static boolean pairBlocks(World worldIn, ItemStack stack, BlockPos clicked_pos, BlockPos saved_pos) {
 		// Check that both ends are actually pairable.
 		if(worldIn.getTileEntity(clicked_pos) instanceof TileEntityBeltEnd
 				&& worldIn.getChunkFromBlockCoords(saved_pos).isLoaded()
@@ -173,14 +176,26 @@ public class TileEntityBeltEnd extends TileEntitySpinMachine {
 							// Skip over actual ends themselves
 							if(pos.equals(clicked_pos) || pos.equals(saved_pos))
 								continue;
-							// TODO States. This should not be here.
-							worldIn.setBlockState(pos, ModuleMechanical.belt_dummy.getDefaultState());
+							// Set facings and type of dummies
+							if(ItemStackUtils.doItemsMatch(stack, ModuleMechanical.leather_belt)) {
+								worldIn.setBlockState(pos, ModuleMechanical.belt_dummy.getDefaultState()
+										.withProperty(BlockBeltDummy.FACING,
+												PositionUtils.getFacingFromPositions(clicked_pos, saved_pos))
+										.withProperty(BlockBeltDummy.BELT_TYPE, BlockBeltDummy.EnumBeltType.LEATHER));
+							}
+							else {
+								worldIn.setBlockState(pos, ModuleMechanical.belt_dummy.getDefaultState()
+										.withProperty(BlockBeltDummy.FACING,
+												PositionUtils.getFacingFromPositions(clicked_pos, saved_pos))
+										.withProperty(BlockBeltDummy.BELT_TYPE, BlockBeltDummy.EnumBeltType.RUBBER));
+							}
 						}
 						// Set facings of ends
 						worldIn.setBlockState(start.getPos(), worldIn.getBlockState(start.getPos()).withProperty(
 								BlockBeltEnd.FACING, PositionUtils.getFacingFromPositions(clicked_pos, saved_pos)));
 						worldIn.setBlockState(end.getPos(), worldIn.getBlockState(end.getPos()).withProperty(
 								BlockBeltEnd.FACING, PositionUtils.getFacingFromPositions(saved_pos, clicked_pos)));
+						// Post event
 						MinecraftForge.EVENT_BUS.post(new BeltLinkedEvent(start, end));
 						return true;
 					}
