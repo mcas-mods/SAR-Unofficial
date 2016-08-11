@@ -14,6 +14,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.Block
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltEnd;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockChute;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockDropHammer;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockDropHammerAnvil;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockFrictionHeater;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockFurnaceHeater;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockGearbox;
@@ -30,7 +31,7 @@ public class ModuleMechanical extends ModuleBase {
 	public static Block inf_spin_source, inf_spin_drain;
 	public static Block gearbox, iron_belt_end, brass_belt_end, steel_belt_end, belt_dummy;
 	public static Block water_turbine;
-	public static Block furnace_heater, chute, friction_heater, drop_hammer;
+	public static Block furnace_heater, chute, friction_heater, drop_hammer, drop_hammer_anvil;
 	public static Item leather_belt, rubber_belt;
 	public static Item spin_reader;
 
@@ -73,6 +74,8 @@ public class ModuleMechanical extends ModuleBase {
 		getBlockRegistry().registerBlock(friction_heater);
 		drop_hammer = new BlockDropHammer(Material.IRON, "drop_hammer");
 		getBlockRegistry().registerBlock(drop_hammer);
+		drop_hammer_anvil = new BlockDropHammerAnvil(Material.IRON, "drop_hammer_anvil");
+		getBlockRegistry().registerBlock(drop_hammer_anvil);
 
 		spin_reader = new ItemSpinReader("spin_reader");
 		this.getItemRegistry().registerItem(spin_reader);
