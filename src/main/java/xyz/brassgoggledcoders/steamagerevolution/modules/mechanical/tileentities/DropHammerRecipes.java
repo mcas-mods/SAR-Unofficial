@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import com.google.common.collect.Maps;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
@@ -52,5 +53,12 @@ public class DropHammerRecipes {
 
 	public Map<ItemStack, ItemStack> getRecipeList() {
 		return recipeList;
+	}
+
+	public static void registerRecipes() {
+		// Utility
+		instance().addDropHammerRecipe(Blocks.STONE, new ItemStack(Blocks.COBBLESTONE));
+		instance().addDropHammerRecipe(Blocks.COBBLESTONE, new ItemStack(Blocks.GRAVEL));
+		instance().addDropHammerRecipe(Blocks.GRAVEL, new ItemStack(Blocks.SAND));
 	}
 }

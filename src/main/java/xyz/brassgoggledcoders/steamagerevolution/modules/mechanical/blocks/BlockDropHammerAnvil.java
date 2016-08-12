@@ -11,8 +11,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityDropHammerAnvil;
 
 public class BlockDropHammerAnvil extends BlockTEBase {
@@ -35,18 +35,14 @@ public class BlockDropHammerAnvil extends BlockTEBase {
 			EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if(worldIn.getTileEntity(pos) instanceof TileEntityDropHammerAnvil) { // It certainly should be.
 			TileEntityDropHammerAnvil anvil = (TileEntityDropHammerAnvil) worldIn.getTileEntity(pos);
-			if(anvil.handler.getStackInSlot(0) != null && heldItem == null) {
-				playerIn.inventory.addItemStackToInventory(anvil.handler.extractItem(0, 1, false));
+			if(anvil.handler.getStackInSlot(1) != null && heldItem == null) {
+				playerIn.inventory.addItemStackToInventory(anvil.handler.extractItem(1, 1, false));
 			}
-
-			if(anvil.handler.getStackInSlot(0) == null && heldItem != null) {
-				anvil.handler.insertItem(0, heldItem, false);
-				if(heldItem.stackSize > 0)
-					heldItem.stackSize--;
-				else
-					heldItem = null;
+			if(heldItem != null && anvil.handler.insertItem(0, heldItem, true) == null) {
+				heldItem = anvil.handler.insertItem(0, heldItem, false);
 			}
-			FMLLog.warning("" + anvil.handler.getStackInSlot(0));
+			SteamAgeRevolution.instance.getLogger().devInfo("" + anvil.handler.getStackInSlot(0));
+			SteamAgeRevolution.instance.getLogger().devInfo("" + anvil.handler.getStackInSlot(1));
 			return true;
 		}
 

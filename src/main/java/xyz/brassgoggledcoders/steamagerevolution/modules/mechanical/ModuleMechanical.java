@@ -2,10 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.boilerplate.module.Module;
 import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
@@ -74,17 +71,11 @@ public class ModuleMechanical extends ModuleBase {
 		getBlockRegistry().registerBlock(friction_heater);
 		drop_hammer = new BlockDropHammer(Material.IRON, "drop_hammer");
 		getBlockRegistry().registerBlock(drop_hammer);
+		DropHammerRecipes.registerRecipes();
 		drop_hammer_anvil = new BlockDropHammerAnvil(Material.IRON, "drop_hammer_anvil");
 		getBlockRegistry().registerBlock(drop_hammer_anvil);
 
 		spin_reader = new ItemSpinReader("spin_reader");
 		this.getItemRegistry().registerItem(spin_reader);
-
-		// TODO Relocate
-		DropHammerRecipes.instance().addDropHammerRecipe(Blocks.STONE, new ItemStack(Blocks.COBBLESTONE));
-		DropHammerRecipes.instance().addDropHammerRecipe(Blocks.COBBLESTONE, new ItemStack(Blocks.GRAVEL));
-		DropHammerRecipes.instance().addDropHammerRecipe(Blocks.GRAVEL, new ItemStack(Blocks.SAND));
-
-		FMLLog.warning("" + DropHammerRecipes.instance().getResult(new ItemStack(Blocks.STONE)));
 	}
 }

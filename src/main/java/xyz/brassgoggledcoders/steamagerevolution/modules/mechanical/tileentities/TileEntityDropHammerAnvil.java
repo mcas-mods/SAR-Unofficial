@@ -10,8 +10,7 @@ import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntityBase;
 
 public class TileEntityDropHammerAnvil extends TileEntityBase {
 
-	// TODO Custom handler that enforces stacksize
-	public IItemHandler handler = new ItemStackHandler();
+	public IItemHandler handler = new ItemStackHandler(2);
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
