@@ -23,11 +23,11 @@
     			"y": -90
     		}
     	},
-    	"type": {
-    		"leather": {
-    			"textures": { "main": "minecraft:blocks/wool_colored_brown" }
+    	"spinning": {
+    		"true": {
+    			"textures": { "main": "minecraft:blocks/hopper_inside" }
     		},
-    		"rubber": {}
+    		"false": {}
     	}
     }
 } 	

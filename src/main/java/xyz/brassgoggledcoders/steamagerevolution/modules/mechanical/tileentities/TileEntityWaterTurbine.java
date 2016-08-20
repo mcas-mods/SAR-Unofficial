@@ -4,7 +4,7 @@ import net.minecraft.block.material.Material;
 
 public class TileEntityWaterTurbine extends TileEntitySpinGenerator {
 
-	private int blocksToCheck = 25;
+	private static int blocksToCheck = 25;
 
 	public TileEntityWaterTurbine() {
 		super();

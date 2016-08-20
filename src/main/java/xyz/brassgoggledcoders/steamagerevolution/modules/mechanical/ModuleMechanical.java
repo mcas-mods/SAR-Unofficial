@@ -26,7 +26,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities
 public class ModuleMechanical extends ModuleBase {
 
 	public static Block inf_spin_source, inf_spin_drain;
-	public static Block gearbox, iron_belt_end, brass_belt_end, steel_belt_end, belt_dummy;
+	public static Block gearbox, iron_belt_end, brass_belt_end, steel_belt_end, leather_belt_dummy, rubber_belt_dummy;
 	public static Block water_turbine;
 	public static Block furnace_heater, chute, friction_heater, drop_hammer, drop_hammer_anvil;
 	public static Item leather_belt, rubber_belt;
@@ -45,8 +45,10 @@ public class ModuleMechanical extends ModuleBase {
 		this.getBlockRegistry().registerBlock(brass_belt_end);
 		steel_belt_end = new BlockBeltEnd(Material.IRON, "steel_belt_end", 0.89F);
 		this.getBlockRegistry().registerBlock(steel_belt_end);
-		belt_dummy = new BlockBeltDummy(Material.CLOTH, "belt_dummy");
-		this.getBlockRegistry().registerBlock(belt_dummy);
+		leather_belt_dummy = new BlockBeltDummy("leather");
+		this.getBlockRegistry().registerBlock(leather_belt_dummy);
+		rubber_belt_dummy = new BlockBeltDummy("rubber");
+		this.getBlockRegistry().registerBlock(rubber_belt_dummy);
 		gearbox = new BlockGearbox(Material.IRON, "gearbox");
 		this.getBlockRegistry().registerBlock(gearbox);
 
