@@ -3,16 +3,10 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentitie
 import javax.annotation.Nullable;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import xyz.brassgoggledcoders.boilerplate.blocks.SideType;
 import xyz.brassgoggledcoders.steamagerevolution.CapabilityHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltDummy;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltEnd;
-import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 
 public class TileEntityBeltEnd extends TileEntitySpinMachine {
 
@@ -34,32 +28,33 @@ public class TileEntityBeltEnd extends TileEntitySpinMachine {
 							.setSpeed(Math.round(this.handler.getSpeed()
 									* ((BlockBeltEnd) getWorld().getBlockState(getPos()).getBlock()).getSlipFactor()));
 					boolean flag = false;
-					if(this.handler.getSpeed() > 0)
+					if(this.handler.getSpeed() > 0) {
 						flag = true;
-					// TODO Make less fragile
-					PositionUtils.replaceBlocksIn(getWorld(), getPos(), getPairedTile().getPos(),
-							this.getWorld().getBlockState(pos).withProperty(BlockBeltDummy.SPINNING, flag));
-				}
-				else {
-					// Logic mostly copied from SpinUtils
-					for(EnumFacing element : EnumFacing.VALUES) {
-						if(this.getSideValue(element.ordinal()) == SideType.OUTPUT) {
-							BlockPos off = this.pos.offset(element);
-
-							if(this.getWorld().getTileEntity(off) != null) {
-								TileEntity te = this.getWorld().getTileEntity(off);
-
-								if(te.hasCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null)) {
-									ISpinHandler other_handler =
-											te.getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null);
-									if(this.handler.getSpeed() > other_handler.getSpeed()) {
-										other_handler.setSpeed(this.handler.getSpeed());
-									}
-								}
-							}
-						}
 					}
+					// TODO
+					// PositionUtils.replaceBlocksIn(getWorld(), getPos(), getPairedTile().getPos(),
+					// this.getWorld().getBlockState(pos).withProperty(BlockBeltDummy.SPINNING, flag));
 				}
+				// else {
+				// // Logic mostly copied from SpinUtils
+				// for(EnumFacing element : EnumFacing.VALUES) {
+				// if(this.getSideValue(element.ordinal()) == SideType.OUTPUT) {
+				// BlockPos off = this.pos.offset(element);
+				//
+				// if(this.getWorld().getTileEntity(off) != null) {
+				// TileEntity te = this.getWorld().getTileEntity(off);
+				//
+				// if(te.hasCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null)) {
+				// ISpinHandler other_handler =
+				// te.getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null);
+				// if(this.handler.getSpeed() > other_handler.getSpeed()) {
+				// other_handler.setSpeed(this.handler.getSpeed());
+				// }
+				// }
+				// }
+				// }
+				// }
+				// }
 			}
 		}
 	}

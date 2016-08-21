@@ -10,7 +10,6 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.events.BeltLinkedEvent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.ModuleMechanical;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltDummy;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltEnd;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityBeltEnd;
 
 public class PairingHandler {
@@ -43,7 +42,7 @@ public class PairingHandler {
 					SteamAgeRevolution.instance.getLogger().devInfo("Fourth paircheck passed (alignment)");
 					if(PositionUtils.isLOSClear(worldIn, saved_pos, clicked_pos)) {
 						SteamAgeRevolution.instance.getLogger().devInfo("Fifth paircheck passed (clear LOS)");
-						// Add the dummy blocks.
+						// // Add the dummy blocks.
 						IBlockState dummy;
 						if(ItemStackUtils.doItemsMatch(stack, ModuleMechanical.leather_belt)) {
 							dummy = ModuleMechanical.leather_belt_dummy.getDefaultState().withProperty(
@@ -56,11 +55,12 @@ public class PairingHandler {
 									PositionUtils.getFacingFromPositions(clicked_pos, saved_pos));
 						}
 						PositionUtils.replaceBlocksIn(worldIn, clicked_pos, saved_pos, dummy);
-						// Set facings of ends
-						worldIn.setBlockState(start.getPos(), worldIn.getBlockState(start.getPos()).withProperty(
-								BlockBeltEnd.FACING, PositionUtils.getFacingFromPositions(clicked_pos, saved_pos)));
-						worldIn.setBlockState(end.getPos(), worldIn.getBlockState(end.getPos()).withProperty(
-								BlockBeltEnd.FACING, PositionUtils.getFacingFromPositions(saved_pos, clicked_pos)));
+						// TODO For some reason this breaks everything...
+						// // Set facings of ends
+						// worldIn.setBlockState(start.getPos(), worldIn.getBlockState(start.getPos()).withProperty(
+						// BlockBeltEnd.FACING, PositionUtils.getFacingFromPositions(clicked_pos, saved_pos)));
+						// worldIn.setBlockState(end.getPos(), worldIn.getBlockState(end.getPos()).withProperty(
+						// BlockBeltEnd.FACING, PositionUtils.getFacingFromPositions(saved_pos, clicked_pos)));
 						// Set start's pair, and make it a master.
 						start.setPairedTileLoc(clicked_pos);
 						start.setMaster();
