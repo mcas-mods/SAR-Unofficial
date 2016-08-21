@@ -1,43 +1,27 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities;
 
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-
 import javax.annotation.Nullable;
 
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 import xyz.brassgoggledcoders.boilerplate.blocks.SideType;
-import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
-import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.CapabilityHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
-import xyz.brassgoggledcoders.steamagerevolution.api.events.BeltLinkedEvent;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.ModuleMechanical;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltDummy;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltEnd;
+import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 
 public class TileEntityBeltEnd extends TileEntitySpinMachine {
 
 	private boolean master;
 	private BlockPos paired_pos;
 
-	private float slipFactor;
-
-	public TileEntityBeltEnd(float slipFactor) {
-		super();
-		this.slipFactor = slipFactor;
-	}
-
 	@Override
 	public void updateTile() {
-		if(getWorld().isRemote)
+		if(this.getWorld().isRemote)
 			return;
 
 		if(this.isTilePaired()) {
@@ -47,26 +31,20 @@ public class TileEntityBeltEnd extends TileEntitySpinMachine {
 				if(this.isMaster()) {
 					SteamAgeRevolution.instance.getLogger().devInfo("Master");
 					this.getPairedTile().getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null)
-							.setSpeed(Math.round(handler.getSpeed() * slipFactor));
+							.setSpeed(Math.round(this.handler.getSpeed()
+									* ((BlockBeltEnd) getWorld().getBlockState(getPos()).getBlock()).getSlipFactor()));
 					boolean flag = false;
-					if(handler.getSpeed() > 0) {
+					if(this.handler.getSpeed() > 0)
 						flag = true;
-					}
-					Iterator<BlockPos> positions = BlockPos.getAllInBox(getPos(), getPairedTile().getPos()).iterator();
-					while(positions.hasNext()) {
-						BlockPos pos = positions.next();
-						// Skip over actual ends themselves
-						if(pos.equals(getPos()) || pos.equals(getPairedTile().getPos()))
-							continue;
-						getWorld().setBlockState(pos,
-								getWorld().getBlockState(pos).withProperty(BlockBeltDummy.SPINNING, flag));
-					}
+					// TODO Make less fragile
+					PositionUtils.replaceBlocksIn(getWorld(), getPos(), getPairedTile().getPos(),
+							this.getWorld().getBlockState(pos).withProperty(BlockBeltDummy.SPINNING, flag));
 				}
 				else {
 					// Logic mostly copied from SpinUtils
 					for(EnumFacing element : EnumFacing.VALUES) {
 						if(this.getSideValue(element.ordinal()) == SideType.OUTPUT) {
-							BlockPos off = pos.offset(element);
+							BlockPos off = this.pos.offset(element);
 
 							if(this.getWorld().getTileEntity(off) != null) {
 								TileEntity te = this.getWorld().getTileEntity(off);
@@ -86,40 +64,16 @@ public class TileEntityBeltEnd extends TileEntitySpinMachine {
 		}
 	}
 
-	@Override
-	public LinkedHashMap<String, String> getDebugStrings(LinkedHashMap<String, String> debugStrings) {
-		debugStrings.put("slip_factor", "" + this.slipFactor);
-		return super.getDebugStrings(debugStrings);
-	}
-
 	@Nullable
 	public TileEntityBeltEnd getPairedTile() {
 		if(this.paired_pos == null)
 			return null;
 
-		if(this.getWorld().getChunkFromBlockCoords(paired_pos).isLoaded()
-				&& this.getWorld().getTileEntity(paired_pos) instanceof TileEntityBeltEnd)
-			return (TileEntityBeltEnd) this.getWorld().getTileEntity(paired_pos);
+		if(this.getWorld().getChunkFromBlockCoords(this.paired_pos).isLoaded()
+				&& this.getWorld().getTileEntity(this.paired_pos) instanceof TileEntityBeltEnd)
+			return (TileEntityBeltEnd) this.getWorld().getTileEntity(this.paired_pos);
 		else
 			return null;
-	}
-
-	public static void unpair(TileEntityBeltEnd tile) {
-		// Remove the dummy blocks.
-		Iterator<BlockPos> positions = BlockPos.getAllInBox(tile.getPos(), tile.getPairedTile().getPos()).iterator();
-		while(positions.hasNext()) {
-			BlockPos pos = positions.next();
-
-			if(pos.equals(tile.getPos()) || pos.equals(tile.getPairedTile().getPos()))
-				continue;
-
-			tile.getWorld().setBlockToAir(pos);
-		}
-		// Unpair tiles
-		tile.getPairedTile().setPairedTileLoc(null);
-		tile.getPairedTile().master = false;
-		tile.setPairedTileLoc(null);
-		tile.master = false;
 	}
 
 	public boolean isTilePaired() {
@@ -134,7 +88,8 @@ public class TileEntityBeltEnd extends TileEntitySpinMachine {
 
 	@Override
 	public void readFromNBTCustom(NBTTagCompound compound) {
-		this.master = compound.getBoolean("isMaster");
+		super.readFromNBTCustom(compound);
+		this.master = compound.getBoolean("master");
 		if(compound.getLong("pos") != 0) {
 			SteamAgeRevolution.instance.getLogger().devInfo("Reading pair position");
 			this.paired_pos = BlockPos.fromLong(compound.getLong("pos"));
@@ -143,9 +98,10 @@ public class TileEntityBeltEnd extends TileEntitySpinMachine {
 
 	@Override
 	public NBTTagCompound writeToNBTCustom(NBTTagCompound compound) {
-		compound.setBoolean("isMaster", master);
-		if(paired_pos != null) {
-			compound.setLong("pos", paired_pos.toLong());
+		super.writeToNBTCustom(compound);
+		compound.setBoolean("master", this.master);
+		if(this.paired_pos != null) {
+			compound.setLong("pos", this.paired_pos.toLong());
 			SteamAgeRevolution.instance.getLogger().devInfo("Writing pair position");
 		}
 		return compound;
@@ -161,67 +117,6 @@ public class TileEntityBeltEnd extends TileEntitySpinMachine {
 	}
 
 	public boolean isMaster() {
-		return master;
-	}
-
-	public static boolean pairBlocks(World worldIn, ItemStack stack, BlockPos clicked_pos, BlockPos saved_pos) {
-		// Check that both ends are actually pairable.
-		if(worldIn.getTileEntity(clicked_pos) instanceof TileEntityBeltEnd
-				&& worldIn.getChunkFromBlockCoords(saved_pos).isLoaded()
-				&& worldIn.getTileEntity(saved_pos) instanceof TileEntityBeltEnd) {
-			SteamAgeRevolution.instance.getLogger().devInfo("Second paircheck passed (instanceof)");
-			TileEntityBeltEnd start = (TileEntityBeltEnd) worldIn.getTileEntity(saved_pos);
-			TileEntityBeltEnd end = (TileEntityBeltEnd) worldIn.getTileEntity(clicked_pos);
-
-			// Don't allow pairing if either end is already paired or if you're trying to pair something with
-			// itself.
-			if(!end.isTilePaired() && !start.isTilePaired() && saved_pos != clicked_pos) {
-				SteamAgeRevolution.instance.getLogger().devInfo("Third paircheck passed (not already paired)");
-				// Ensure pairs are aligned on axes
-				if(PositionUtils.arePositionsAlignedOnTwoAxes(clicked_pos, saved_pos)) {
-					SteamAgeRevolution.instance.getLogger().devInfo("Fourth paircheck passed (alignment)");
-					if(PositionUtils.isLOSClear(worldIn, saved_pos, clicked_pos)) {
-						SteamAgeRevolution.instance.getLogger().devInfo("Fifth paircheck passed (clear LOS)");
-						// Add the dummy blocks.
-						Iterator<BlockPos> positions = BlockPos.getAllInBox(clicked_pos, saved_pos).iterator();
-						while(positions.hasNext()) {
-							BlockPos pos = positions.next();
-							// Skip over actual ends themselves
-							if(pos.equals(clicked_pos) || pos.equals(saved_pos))
-								continue;
-							// Set facings and type of dummies
-							if(ItemStackUtils.doItemsMatch(stack, ModuleMechanical.leather_belt)) {
-								worldIn.setBlockState(pos,
-										ModuleMechanical.leather_belt_dummy.getDefaultState().withProperty(
-												BlockBeltDummy.FACING,
-												PositionUtils.getFacingFromPositions(clicked_pos, saved_pos)));
-							}
-							else {
-								worldIn.setBlockState(pos,
-										ModuleMechanical.rubber_belt_dummy.getDefaultState().withProperty(
-												BlockBeltDummy.FACING,
-												PositionUtils.getFacingFromPositions(clicked_pos, saved_pos)));
-							}
-						}
-						// Set facings of ends
-						worldIn.setBlockState(start.getPos(), worldIn.getBlockState(start.getPos()).withProperty(
-								BlockBeltEnd.FACING, PositionUtils.getFacingFromPositions(clicked_pos, saved_pos)));
-						worldIn.setBlockState(end.getPos(), worldIn.getBlockState(end.getPos()).withProperty(
-								BlockBeltEnd.FACING, PositionUtils.getFacingFromPositions(saved_pos, clicked_pos)));
-						// Set start's pair, and make it a master.
-						start.setPairedTileLoc(clicked_pos);
-						start.setMaster();
-						// Set end's pair, and make it a slave.
-						end.setPairedTileLoc(saved_pos);
-						end.setSlave();
-						// Post event
-						MinecraftForge.EVENT_BUS.post(new BeltLinkedEvent(start, end));
-						return true;
-					}
-
-				}
-			}
-		}
-		return false;
+		return this.master;
 	}
 }

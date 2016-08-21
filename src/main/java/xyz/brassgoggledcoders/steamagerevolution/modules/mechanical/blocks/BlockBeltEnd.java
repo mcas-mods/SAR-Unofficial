@@ -21,6 +21,7 @@ import xyz.brassgoggledcoders.boilerplate.blocks.SideType;
 import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityBeltEnd;
+import xyz.brassgoggledcoders.steamagerevolution.utils.PairingHandler;
 
 public class BlockBeltEnd extends BlockTEBase {
 
@@ -39,7 +40,7 @@ public class BlockBeltEnd extends BlockTEBase {
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityBeltEnd(slipFactor);
+		return new TileEntityBeltEnd();
 	}
 
 	@Override
@@ -69,7 +70,7 @@ public class BlockBeltEnd extends BlockTEBase {
 		if(worldIn.getTileEntity(pos) instanceof TileEntityBeltEnd) {
 			TileEntityBeltEnd belt_end = (TileEntityBeltEnd) worldIn.getTileEntity(pos);
 			if(belt_end.isTilePaired()) {
-				TileEntityBeltEnd.unpair(belt_end);
+				PairingHandler.unpair(belt_end);
 			}
 		}
 		super.breakBlock(worldIn, pos, state);
@@ -94,7 +95,7 @@ public class BlockBeltEnd extends BlockTEBase {
 			else if(heldItem.hasCapability(BoilerplateAPI.TOOL_CAPABILITY, side)) {
 				if(belt.isTilePaired()) {
 					SteamAgeRevolution.instance.getLogger().devInfo("Attempted unpairing");
-					TileEntityBeltEnd.unpair(belt);
+					PairingHandler.unpair(belt);
 					return true;
 				}
 
