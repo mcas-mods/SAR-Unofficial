@@ -30,6 +30,7 @@ public class BlockBeltDummy extends BlockBase {
 		this.setBlockUnbreakable();
 		this.setDefaultState(
 				this.blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(SPINNING, false));
+		this.setCreativeTab(null);
 	}
 
 	@Override

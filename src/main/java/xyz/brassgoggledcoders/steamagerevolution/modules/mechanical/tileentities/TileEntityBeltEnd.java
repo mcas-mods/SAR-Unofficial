@@ -1,11 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities;
 
+import java.util.Iterator;
+
 import javax.annotation.Nullable;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import xyz.brassgoggledcoders.steamagerevolution.CapabilityHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltDummy;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltEnd;
 
 public class TileEntityBeltEnd extends TileEntitySpinMachine {
@@ -19,11 +22,11 @@ public class TileEntityBeltEnd extends TileEntitySpinMachine {
 			return;
 
 		if(this.isTilePaired()) {
-			SteamAgeRevolution.instance.getLogger().devInfo("Paired (1)");
+			// SteamAgeRevolution.instance.getLogger().devInfo("Paired (1)");
 			if(this.getPairedTile() != null) {
-				SteamAgeRevolution.instance.getLogger().devInfo("Paired (2)");
+				// SteamAgeRevolution.instance.getLogger().devInfo("Paired (2)");
 				if(this.isMaster()) {
-					SteamAgeRevolution.instance.getLogger().devInfo("Master");
+					// SteamAgeRevolution.instance.getLogger().devInfo("Master");
 					this.getPairedTile().getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null)
 							.setSpeed(Math.round(this.handler.getSpeed()
 									* ((BlockBeltEnd) getWorld().getBlockState(getPos()).getBlock()).getSlipFactor()));
@@ -31,9 +34,19 @@ public class TileEntityBeltEnd extends TileEntitySpinMachine {
 					if(this.handler.getSpeed() > 0) {
 						flag = true;
 					}
-					// TODO
-					// PositionUtils.replaceBlocksIn(getWorld(), getPos(), getPairedTile().getPos(),
-					// this.getWorld().getBlockState(pos).withProperty(BlockBeltDummy.SPINNING, flag));
+					BlockPos from = this.getPos();
+					BlockPos to = this.getPairedTile().getPos();
+					Iterator<BlockPos> positions = BlockPos.getAllInBox(from, to).iterator();
+					while(positions.hasNext()) {
+						BlockPos pos = positions.next();
+
+						if(pos.equals(from) || pos.equals(to)) {
+							continue;
+						}
+						// TODO This resets facing
+						getWorld().setBlockState(pos,
+								getWorld().getBlockState(pos).withProperty(BlockBeltDummy.SPINNING, flag));
+					}
 				}
 				// else {
 				// // Logic mostly copied from SpinUtils
@@ -57,6 +70,7 @@ public class TileEntityBeltEnd extends TileEntitySpinMachine {
 				// }
 			}
 		}
+		super.updateTile();
 	}
 
 	@Nullable
@@ -78,7 +92,7 @@ public class TileEntityBeltEnd extends TileEntitySpinMachine {
 	public void setPairedTileLoc(BlockPos pos) {
 		// TODO Move 'already paired' check to here
 		this.paired_pos = pos;
-		SteamAgeRevolution.instance.getLogger().devInfo("Paired location set to: " + this.paired_pos.toString());
+		// SteamAgeRevolution.instance.getLogger().devInfo("Paired location set to: " + this.paired_pos.toString());
 	}
 
 	@Override
