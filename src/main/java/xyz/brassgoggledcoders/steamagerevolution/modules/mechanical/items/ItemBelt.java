@@ -14,9 +14,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.boilerplate.items.ItemBase;
+import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PairingHandler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 
 public class ItemBelt extends ItemBase {
 

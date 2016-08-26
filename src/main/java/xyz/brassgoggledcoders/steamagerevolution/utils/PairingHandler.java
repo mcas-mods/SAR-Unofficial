@@ -6,6 +6,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
+import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.events.BeltLinkedEvent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.ModuleMechanical;
