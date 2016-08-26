@@ -1,5 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.BlockFluidClassic;
@@ -15,6 +16,8 @@ public class ModuleSteam extends ModuleBase {
 	public static Fluid steam;
 	public static BlockFluidClassic steam_block;
 
+	public static Block brass_casing, fluid_port, solid_firebox, tank;
+
 	@Override
 	public String getName() {
 		return "Steam";
@@ -28,11 +31,12 @@ public class ModuleSteam extends ModuleBase {
 				new ResourceLocation(SteamAgeRevolution.MODID, "blocks/steam_flow")).setGaseous(true)
 						.setTemperature(1000).setViscosity(200);
 
-		if(!(FluidRegistry.isFluidRegistered(steam))) {
+		if(!(FluidRegistry.isFluidRegistered(steam))) { // Soft registration
 			FluidRegistry.registerFluid(steam);
 			FluidRegistry.addBucketForFluid(steam);
 			steam_block = new BlockFluidClassic(steam, Material.LAVA);
 			getBlockRegistry().registerBlock(steam_block);
 		}
+
 	}
 }
