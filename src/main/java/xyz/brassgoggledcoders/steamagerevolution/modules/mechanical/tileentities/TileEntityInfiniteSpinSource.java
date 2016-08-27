@@ -1,7 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities;
 
-import net.minecraft.nbt.NBTTagCompound;
-
 public class TileEntityInfiniteSpinSource extends TileEntitySpinGenerator {
 
 	@Override
@@ -12,13 +10,5 @@ public class TileEntityInfiniteSpinSource extends TileEntitySpinGenerator {
 		this.handler.setSpeed(Integer.MAX_VALUE);
 
 		super.updateTile();
-	}
-
-	@Override
-	public void readFromNBTCustom(NBTTagCompound nbtTagCompound) {}
-
-	@Override
-	public NBTTagCompound writeToNBTCustom(NBTTagCompound compound) {
-		return compound;
 	}
 }

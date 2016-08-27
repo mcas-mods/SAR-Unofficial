@@ -2,7 +2,6 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentitie
 
 import java.util.LinkedHashMap;
 
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import xyz.brassgoggledcoders.boilerplate.api.IDebuggable;
@@ -38,15 +37,5 @@ public abstract class TileEntitySpinMachine extends TileEntitySidedSlowTick impl
 	public LinkedHashMap<String, String> getDebugStrings(LinkedHashMap<String, String> debugStrings) {
 		debugStrings.put("speed", "" + this.handler.getSpeed());
 		return debugStrings;
-	}
-
-	@Override
-	public void readFromNBTCustom(NBTTagCompound compound) {
-
-	}
-
-	@Override
-	public NBTTagCompound writeToNBTCustom(NBTTagCompound compound) {
-		return compound;
 	}
 }

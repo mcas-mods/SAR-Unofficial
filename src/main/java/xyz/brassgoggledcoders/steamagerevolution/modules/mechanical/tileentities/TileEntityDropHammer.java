@@ -62,13 +62,13 @@ public class TileEntityDropHammer extends TileEntitySpinConsumer {
 	}
 
 	@Override
-	public void readFromNBTCustom(NBTTagCompound compound) {
+	public void readFromDisk(NBTTagCompound compound) {
 		this.progress = compound.getInteger("progress");
 	}
 
 	@Override
-	public NBTTagCompound writeToNBTCustom(NBTTagCompound compound) {
+	public NBTTagCompound writeToDisk(NBTTagCompound compound) {
 		compound.setInteger("progress", progress);
-		return compound;
+		return super.writeToDisk(compound);
 	}
 }

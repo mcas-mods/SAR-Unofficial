@@ -2,7 +2,6 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentitie
 
 import java.util.ArrayList;
 
-import net.minecraft.nbt.NBTTagCompound;
 import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntitySlowTick;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SpinUtils;
@@ -20,13 +19,5 @@ public class TileEntityInfiniteSpinDrain extends TileEntitySlowTick {
 			handler.decrSpeed(handler.getSpeed());
 			this.mod.getLogger().devInfo("Speed voided");
 		}
-	}
-
-	@Override
-	public void readFromNBTCustom(NBTTagCompound nbtTagCompound) {}
-
-	@Override
-	public NBTTagCompound writeToNBTCustom(NBTTagCompound compound) {
-		return compound;
 	}
 }

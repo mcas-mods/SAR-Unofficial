@@ -1,6 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities;
 
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -27,15 +26,4 @@ public class TileEntityDropHammerAnvil extends TileEntityBase {
 		}
 		return super.getCapability(capability, facing);
 	}
-
-	@Override
-	public void readFromNBTCustom(NBTTagCompound compound) {
-
-	}
-
-	@Override
-	public NBTTagCompound writeToNBTCustom(NBTTagCompound compound) {
-		return compound;
-	}
-
 }

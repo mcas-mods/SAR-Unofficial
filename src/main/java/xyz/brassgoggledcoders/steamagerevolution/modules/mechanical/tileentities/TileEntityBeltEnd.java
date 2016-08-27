@@ -96,24 +96,23 @@ public class TileEntityBeltEnd extends TileEntitySpinMachine {
 	}
 
 	@Override
-	public void readFromNBTCustom(NBTTagCompound compound) {
-		super.readFromNBTCustom(compound);
+	public void readFromDisk(NBTTagCompound compound) {
 		this.master = compound.getBoolean("master");
 		if(compound.getLong("pos") != 0) {
 			SteamAgeRevolution.instance.getLogger().devInfo("Reading pair position");
 			this.paired_pos = BlockPos.fromLong(compound.getLong("pos"));
 		}
+		super.readFromDisk(compound);
 	}
 
 	@Override
-	public NBTTagCompound writeToNBTCustom(NBTTagCompound compound) {
-		super.writeToNBTCustom(compound);
+	public NBTTagCompound writeToDisk(NBTTagCompound compound) {
 		compound.setBoolean("master", this.master);
 		if(this.paired_pos != null) {
 			compound.setLong("pos", this.paired_pos.toLong());
 			SteamAgeRevolution.instance.getLogger().devInfo("Writing pair position");
 		}
-		return compound;
+		return super.writeToDisk(compound);
 	}
 
 	public void setMaster() {

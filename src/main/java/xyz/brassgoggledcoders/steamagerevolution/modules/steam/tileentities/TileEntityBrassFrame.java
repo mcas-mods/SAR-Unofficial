@@ -4,6 +4,10 @@ import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValid
 
 public class TileEntityBrassFrame extends TileEntityBasicBoilerPart {
 
+	public TileEntityBrassFrame() {
+
+	}
+
 	@Override
 	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
 

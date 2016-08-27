@@ -1,6 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities;
 
-import net.minecraft.nbt.NBTTagCompound;
 import xyz.brassgoggledcoders.boilerplate.multiblock.MultiblockControllerBase;
 import xyz.brassgoggledcoders.boilerplate.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 
@@ -12,31 +11,13 @@ public abstract class TileEntityBasicBoilerPart extends RectangularMultiblockTil
 	}
 
 	@Override
-	public void onMachineActivated() {
-		// TODO Auto-generated method stub
-
-	}
+	public void onMachineActivated() {}
 
 	@Override
-	public void onMachineDeactivated() {
-		// TODO Auto-generated method stub
-
-	}
+	public void onMachineDeactivated() {}
 
 	@Override
 	public MultiblockControllerBase createNewMultiblock() {
 		return new BasicBoilerController(getWorld());
-	}
-
-	@Override
-	public void readFromNBTCustom(NBTTagCompound nbtTagCompound) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public NBTTagCompound writeToNBTCustom(NBTTagCompound nbtTagCompound) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

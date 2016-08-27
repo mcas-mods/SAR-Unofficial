@@ -2,11 +2,11 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.boilerplate.multiblock.IMultiblockPart;
 import xyz.brassgoggledcoders.boilerplate.multiblock.MultiblockControllerBase;
 import xyz.brassgoggledcoders.boilerplate.multiblock.rectangular.RectangularMultiblockControllerBase;
 import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValidator;
-import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntityBase.SyncReason;
 
 public class BasicBoilerController extends RectangularMultiblockControllerBase {
 
@@ -58,7 +58,7 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 
 	@Override
 	protected int getMinimumNumberOfBlocksForAssembledMachine() {
-		return 27;
+		return 26;
 	}
 
 	@Override
@@ -90,7 +90,7 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 
 	@Override
 	protected boolean updateServer() {
-		// TODO Auto-generated method stub
+		FMLLog.warning("Multiblock ticked!");
 		return false;
 	}
 
@@ -103,41 +103,53 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 	@Override
 	protected boolean isBlockGoodForFrame(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	protected boolean isBlockGoodForTop(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	protected boolean isBlockGoodForBottom(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
-	protected void syncDataFrom(NBTTagCompound data, SyncReason syncReason) {
+	public void readFromDisk(NBTTagCompound data) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	protected void syncDataTo(NBTTagCompound data, SyncReason syncReason) {
+	public void writeToDisk(NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void readFromUpdatePacket(NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void writeToUpdatePacket(NBTTagCompound data) {
 		// TODO Auto-generated method stub
 
 	}
