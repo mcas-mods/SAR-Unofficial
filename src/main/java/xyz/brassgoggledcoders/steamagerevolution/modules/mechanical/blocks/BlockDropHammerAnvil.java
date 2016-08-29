@@ -15,7 +15,7 @@ import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityDropHammerAnvil;
 
-public class BlockDropHammerAnvil extends BlockTEBase {
+public class BlockDropHammerAnvil extends BlockTEBase<TileEntityDropHammerAnvil> {
 	public BlockDropHammerAnvil(Material mat, String name) {
 		super(mat, name);
 	}
@@ -26,7 +26,7 @@ public class BlockDropHammerAnvil extends BlockTEBase {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
+	public TileEntity createTileEntity(World world, IBlockState blockState) {
 		return new TileEntityDropHammerAnvil();
 	}
 
@@ -48,5 +48,4 @@ public class BlockDropHammerAnvil extends BlockTEBase {
 
 		return false;
 	}
-
 }

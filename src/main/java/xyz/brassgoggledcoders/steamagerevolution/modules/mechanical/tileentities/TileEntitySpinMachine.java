@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentitie
 
 import java.util.LinkedHashMap;
 
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import xyz.brassgoggledcoders.boilerplate.api.IDebuggable;
@@ -32,6 +33,18 @@ public abstract class TileEntitySpinMachine extends TileEntitySidedSlowTick impl
 
 		return super.getCapability(capObject, side);
 	}
+
+	@Override
+	protected void readFromUpdatePacket(NBTTagCompound data) {
+		this.handler.deserializeNBT(data.getCompoundTag("spinhandler"));
+		super.readFromUpdatePacket(data);
+	};
+
+	@Override
+	protected NBTTagCompound writeToUpdatePacket(NBTTagCompound data) {
+		data.setTag("spinhandler", this.handler.serializeNBT());
+		return super.writeToUpdatePacket(data);
+	};
 
 	@Override
 	public LinkedHashMap<String, String> getDebugStrings(LinkedHashMap<String, String> debugStrings) {

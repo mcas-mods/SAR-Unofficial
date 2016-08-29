@@ -23,7 +23,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityBeltEnd;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PairingHandler;
 
-public class BlockBeltEnd extends BlockTEBase {
+public class BlockBeltEnd extends BlockTEBase<TileEntityBeltEnd> {
 
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 	private float slipFactor;
@@ -31,16 +31,6 @@ public class BlockBeltEnd extends BlockTEBase {
 	public BlockBeltEnd(Material mat, String name, float slipFactor) {
 		super(mat, name);
 		this.slipFactor = slipFactor;
-	}
-
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityBeltEnd.class;
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityBeltEnd();
 	}
 
 	@Override
@@ -107,5 +97,15 @@ public class BlockBeltEnd extends BlockTEBase {
 
 	public float getSlipFactor() {
 		return slipFactor;
+	}
+
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState blockState) {
+		return new TileEntityBeltEnd();
+	}
+
+	@Override
+	public Class<? extends TileEntity> getTileEntityClass() {
+		return TileEntityBeltEnd.class;
 	}
 }
