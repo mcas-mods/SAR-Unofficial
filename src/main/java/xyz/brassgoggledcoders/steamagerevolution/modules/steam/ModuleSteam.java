@@ -2,14 +2,22 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import xyz.brassgoggledcoders.boilerplate.blocks.BlockModFluid;
 import xyz.brassgoggledcoders.boilerplate.module.Module;
 import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockBrassFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockFrictionFirebox;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSolidFirebox;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteamOutput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteamTank;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockWaterInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockWaterTank;
 
 @Module(mod = SteamAgeRevolution.MODID)
 public class ModuleSteam extends ModuleBase {
@@ -17,7 +25,8 @@ public class ModuleSteam extends ModuleBase {
 	public static Fluid steam;
 	public static BlockFluidClassic steam_block;
 
-	public static Block brass_casing, fluid_port, solid_firebox, friction_firebox, tank;
+	public static Block brass_casing, water_input, solid_firebox, friction_firebox, water_tank, steam_output,
+			steam_tank;
 
 	@Override
 	public String getName() {
@@ -28,27 +37,30 @@ public class ModuleSteam extends ModuleBase {
 	public void preInit(FMLPreInitializationEvent event) {
 
 		// TODO Adjust properties
-		// steam = new Fluid("steam", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/steam"),
-		// new ResourceLocation(SteamAgeRevolution.MODID, "blocks/steam_flow")).setGaseous(true)
-		// .setTemperature(1000).setViscosity(200);
-		//
-		// if(!(FluidRegistry.isFluidRegistered(steam))) { // Soft registration
-		// FluidRegistry.registerFluid(steam);
-		// FluidRegistry.addBucketForFluid(steam);
-		// steam_block = new BlockFluidClassic(steam, Material.LAVA);
-		// getBlockRegistry().registerBlock(steam_block);
-		// }
+		steam = new Fluid("steam", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/steam"),
+				new ResourceLocation(SteamAgeRevolution.MODID, "blocks/steam_flow")).setGaseous(true)
+						.setTemperature(1000).setViscosity(200);
+
+		if(!(FluidRegistry.isFluidRegistered(steam))) { // Soft registration
+			FluidRegistry.registerFluid(steam);
+			FluidRegistry.addBucketForFluid(steam);
+			steam_block = new BlockModFluid(Material.LAVA, "steam", steam);
+			getBlockRegistry().registerBlock(steam_block);
+		}
 
 		brass_casing = new BlockBrassFrame(Material.IRON, "brass_frame");
 		getBlockRegistry().registerBlock(brass_casing);
-		fluid_port = new BlockBrassFrame(Material.IRON, "fluid_port");
-		getBlockRegistry().registerBlock(fluid_port);
-		solid_firebox = new BlockBrassFrame(Material.IRON, "solid_firebox");
+		water_input = new BlockWaterInput(Material.IRON, "water_input");
+		getBlockRegistry().registerBlock(water_input);
+		water_tank = new BlockWaterTank(Material.IRON, "water_tank");
+		getBlockRegistry().registerBlock(water_tank);
+		steam_output = new BlockSteamOutput(Material.IRON, "steam_output");
+		getBlockRegistry().registerBlock(steam_output);
+		steam_tank = new BlockSteamTank(Material.IRON, "steam_tank");
+		getBlockRegistry().registerBlock(steam_tank);
+		solid_firebox = new BlockSolidFirebox(Material.IRON, "solid_firebox");
 		getBlockRegistry().registerBlock(solid_firebox);
 		friction_firebox = new BlockFrictionFirebox(Material.IRON, "friction_firebox");
 		getBlockRegistry().registerBlock(friction_firebox);
-		tank = new BlockBrassFrame(Material.IRON, "fluid_tank");
-		getBlockRegistry().registerBlock(tank);
-
 	}
 }

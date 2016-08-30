@@ -5,7 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityFrictionFirebox;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler.TileEntityFrictionFirebox;
 
 public class BlockFrictionFirebox extends BlockTEBase<TileEntityFrictionFirebox> {
 	public BlockFrictionFirebox(Material mat, String name) {

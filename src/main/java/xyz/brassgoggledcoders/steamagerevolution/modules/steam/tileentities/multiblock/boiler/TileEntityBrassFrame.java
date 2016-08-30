@@ -1,13 +1,17 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler;
 
 import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValidator;
 
-public class TileEntityFluidTank extends TileEntityBasicBoilerPart {
+public class TileEntityBrassFrame extends TileEntityBasicBoilerPart {
+
+	public TileEntityBrassFrame() {
+
+	}
 
 	@Override
 	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
 
-		return false;
+		return true;
 	}
 
 	@Override
@@ -31,7 +35,7 @@ public class TileEntityFluidTank extends TileEntityBasicBoilerPart {
 	@Override
 	public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
 
-		return true;
+		return false;
 	}
 
 }

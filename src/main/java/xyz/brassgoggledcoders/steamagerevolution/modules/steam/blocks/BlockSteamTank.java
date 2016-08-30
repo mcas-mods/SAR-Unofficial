@@ -5,23 +5,24 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler.TileEntitySteamTank;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler.TileEntityWaterTank;
 
-public class BlockFluidTank extends BlockTEBase<TileEntityFluidTank> {
+public class BlockSteamTank extends BlockTEBase<TileEntityWaterTank> {
 
-	public BlockFluidTank(Material material, String name) {
+	public BlockSteamTank(Material material, String name) {
 		super(material, name);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityFluidTank.class;
+		return TileEntitySteamTank.class;
 	}
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityFluidTank();
+		return new TileEntitySteamTank();
 	}
 
 }
