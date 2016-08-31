@@ -22,6 +22,7 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 	private Set<TileEntitySteamOutput> attachedOutputs;
 	private Set<TileEntitySteamTank> attachedSteamTanks;
 	private Set<TileEntitySolidFirebox> attachedFireboxes;
+	private Set<ITickableMultiblockPart> attachedTickables;
 
 	protected BasicBoilerController(World world) {
 		super(world);
@@ -30,6 +31,7 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 		attachedOutputs = new HashSet<TileEntitySteamOutput>();
 		attachedSteamTanks = new HashSet<TileEntitySteamTank>();
 		attachedFireboxes = new HashSet<TileEntitySolidFirebox>();
+		attachedTickables = new HashSet<ITickableMultiblockPart>();
 	}
 
 	@Override
@@ -56,6 +58,9 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 		else if(newPart instanceof TileEntitySolidFirebox) {
 			attachedFireboxes.add((TileEntitySolidFirebox) newPart);
 		}
+		else if(newPart instanceof ITickableMultiblockPart) {
+			attachedTickables.add((ITickableMultiblockPart) newPart);
+		}
 	}
 
 	@Override
@@ -74,6 +79,9 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 		}
 		else if(oldPart instanceof TileEntitySolidFirebox) {
 			attachedFireboxes.remove((TileEntitySolidFirebox) oldPart);
+		}
+		else if(oldPart instanceof ITickableMultiblockPart) {
+			attachedTickables.remove((ITickableMultiblockPart) oldPart);
 		}
 	}
 
@@ -124,6 +132,18 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 	protected boolean updateServer() {
 		boolean flag = false;
 
+		int i = 0;
+
+		for(ITickableMultiblockPart tickable : attachedTickables) {
+			if(tickable.tick())
+				i++;
+		}
+
+		// If any tickable has changed, the whole multiblock has changed, thus flag for update.
+		if(i > 0) {
+			flag = true;
+		}
+
 		for(TileEntityWaterInput input : attachedInputs) {
 			if(input.buffer.getFluidAmount() > 0) {
 				for(TileEntityWaterTank tank : attachedWaterTanks) {
@@ -139,21 +159,24 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 		}
 
 		for(TileEntitySolidFirebox firebox : attachedFireboxes) {
-			// TODO Burn time handling
-			for(TileEntityWaterTank waterTank : attachedWaterTanks) {
-				if(waterTank.tank.getFluidAmount() > Fluid.BUCKET_VOLUME) {
-					for(TileEntitySteamTank steamTank : attachedSteamTanks) {
-						if(steamTank.tank.fill(new FluidStack(FluidRegistry.getFluid("steam"), Fluid.BUCKET_VOLUME),
-								false) == waterTank.tank.drain(Fluid.BUCKET_VOLUME, false).amount) {
-							waterTank.tank.drain(Fluid.BUCKET_VOLUME, true);
-							steamTank.tank.fill(new FluidStack(FluidRegistry.getFluid("steam"), Fluid.BUCKET_VOLUME),
-									true);
-							FMLLog.warning("Heating water into steam");
-						}
+			if(firebox.getBurnTime() > 0) {
+				// TODO Burn time handling
+				for(TileEntityWaterTank waterTank : attachedWaterTanks) {
+					if(waterTank.tank.getFluidAmount() > Fluid.BUCKET_VOLUME) {
+						for(TileEntitySteamTank steamTank : attachedSteamTanks) {
+							if(steamTank.tank.fill(new FluidStack(FluidRegistry.getFluid("steam"), Fluid.BUCKET_VOLUME),
+									false) == waterTank.tank.drain(Fluid.BUCKET_VOLUME, false).amount) {
+								waterTank.tank.drain(Fluid.BUCKET_VOLUME, true);
+								steamTank.tank.fill(
+										new FluidStack(FluidRegistry.getFluid("steam"), Fluid.BUCKET_VOLUME), true);
+								FMLLog.warning("Heating water into steam");
+								flag = true;
+							}
 
+							break;
+						}
 						break;
 					}
-					break;
 				}
 			}
 		}
