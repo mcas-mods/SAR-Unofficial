@@ -58,7 +58,8 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 		else if(newPart instanceof TileEntitySolidFirebox) {
 			attachedFireboxes.add((TileEntitySolidFirebox) newPart);
 		}
-		else if(newPart instanceof ITickableMultiblockPart) {
+
+		if(newPart instanceof ITickableMultiblockPart) {
 			attachedTickables.add((ITickableMultiblockPart) newPart);
 		}
 	}
@@ -80,7 +81,8 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 		else if(oldPart instanceof TileEntitySolidFirebox) {
 			attachedFireboxes.remove((TileEntitySolidFirebox) oldPart);
 		}
-		else if(oldPart instanceof ITickableMultiblockPart) {
+
+		if(oldPart instanceof ITickableMultiblockPart) {
 			attachedTickables.remove((ITickableMultiblockPart) oldPart);
 		}
 	}
@@ -126,6 +128,10 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 	protected void onAssimilated(MultiblockControllerBase assimilator) {
 		this.attachedInputs.clear();
 		this.attachedWaterTanks.clear();
+		this.attachedFireboxes.clear();
+		this.attachedOutputs.clear();
+		this.attachedSteamTanks.clear();
+		this.attachedTickables.clear();
 	}
 
 	@Override
@@ -160,7 +166,6 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 
 		for(TileEntitySolidFirebox firebox : attachedFireboxes) {
 			if(firebox.getBurnTime() > 0) {
-				// TODO Burn time handling
 				for(TileEntityWaterTank waterTank : attachedWaterTanks) {
 					if(waterTank.tank.getFluidAmount() > Fluid.BUCKET_VOLUME) {
 						for(TileEntitySteamTank steamTank : attachedSteamTanks) {
