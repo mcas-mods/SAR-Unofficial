@@ -71,4 +71,9 @@ public class TileEntitySteamOutput extends TileEntityBasicBoilerPart implements 
 		debugStrings.put("fluidAmount", "" + buffer.getFluidAmount());
 		return debugStrings;
 	}
+
+	@Override
+	public String getPartName() {
+		return "Steam Output";
+	}
 }

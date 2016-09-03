@@ -38,4 +38,9 @@ public class TileEntityBrassFrame extends TileEntityBasicBoilerPart {
 		return false;
 	}
 
+	@Override
+	public String getPartName() {
+		return "Frame";
+	}
+
 }

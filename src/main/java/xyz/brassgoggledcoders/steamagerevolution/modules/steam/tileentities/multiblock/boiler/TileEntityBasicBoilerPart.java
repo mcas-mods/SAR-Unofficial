@@ -20,4 +20,7 @@ public abstract class TileEntityBasicBoilerPart extends RectangularMultiblockTil
 	public MultiblockControllerBase createNewMultiblock() {
 		return new BasicBoilerController(getWorld());
 	}
+
+	// TODO Localisation
+	public abstract String getPartName();
 }

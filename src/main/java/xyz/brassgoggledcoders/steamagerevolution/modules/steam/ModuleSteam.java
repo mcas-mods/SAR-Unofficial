@@ -11,6 +11,7 @@ import xyz.brassgoggledcoders.boilerplate.blocks.BlockModFluid;
 import xyz.brassgoggledcoders.boilerplate.module.Module;
 import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockBoilerController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockBrassFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockFrictionFirebox;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSolidFirebox;
@@ -26,7 +27,7 @@ public class ModuleSteam extends ModuleBase {
 	public static BlockFluidClassic steam_block;
 
 	public static Block brass_casing, water_input, solid_firebox, friction_firebox, water_tank, steam_output,
-			steam_tank;
+			steam_tank, boiler_controller;
 
 	@Override
 	public String getName() {
@@ -62,5 +63,7 @@ public class ModuleSteam extends ModuleBase {
 		getBlockRegistry().registerBlock(solid_firebox);
 		friction_firebox = new BlockFrictionFirebox(Material.IRON, "friction_firebox");
 		getBlockRegistry().registerBlock(friction_firebox);
+		boiler_controller = new BlockBoilerController(Material.IRON, "boiler_controller");
+		getBlockRegistry().registerBlock(boiler_controller);
 	}
 }

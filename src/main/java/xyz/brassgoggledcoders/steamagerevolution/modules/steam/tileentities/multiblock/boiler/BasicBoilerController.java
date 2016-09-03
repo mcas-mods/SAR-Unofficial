@@ -1,5 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,6 +10,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.FMLLog;
+import xyz.brassgoggledcoders.boilerplate.client.guis.IOpenableGUI;
 import xyz.brassgoggledcoders.boilerplate.multiblock.IMultiblockPart;
 import xyz.brassgoggledcoders.boilerplate.multiblock.MultiblockControllerBase;
 import xyz.brassgoggledcoders.boilerplate.multiblock.rectangular.RectangularMultiblockControllerBase;
@@ -23,6 +25,7 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 	private Set<TileEntitySteamTank> attachedSteamTanks;
 	private Set<TileEntitySolidFirebox> attachedFireboxes;
 	private Set<ITickableMultiblockPart> attachedTickables;
+	private ArrayList<TileEntityBasicBoilerPart> attachedGUIs;
 
 	protected BasicBoilerController(World world) {
 		super(world);
@@ -32,6 +35,7 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 		attachedSteamTanks = new HashSet<TileEntitySteamTank>();
 		attachedFireboxes = new HashSet<TileEntitySolidFirebox>();
 		attachedTickables = new HashSet<ITickableMultiblockPart>();
+		attachedGUIs = new ArrayList<TileEntityBasicBoilerPart>();
 	}
 
 	@Override
@@ -62,6 +66,10 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 		if(newPart instanceof ITickableMultiblockPart) {
 			attachedTickables.add((ITickableMultiblockPart) newPart);
 		}
+
+		if(newPart instanceof IOpenableGUI) {
+			attachedGUIs.add((TileEntityBasicBoilerPart) newPart);
+		}
 	}
 
 	@Override
@@ -84,6 +92,10 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 
 		if(oldPart instanceof ITickableMultiblockPart) {
 			attachedTickables.remove((ITickableMultiblockPart) oldPart);
+		}
+
+		if(oldPart instanceof IOpenableGUI) {
+			attachedGUIs.remove((TileEntityBasicBoilerPart) oldPart);
 		}
 	}
 
@@ -132,6 +144,7 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 		this.attachedOutputs.clear();
 		this.attachedSteamTanks.clear();
 		this.attachedTickables.clear();
+		// TODO
 	}
 
 	@Override
@@ -256,6 +269,10 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 	public void writeToUpdatePacket(NBTTagCompound data) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public ArrayList<TileEntityBasicBoilerPart> getAttachedGUIs() {
+		return attachedGUIs;
 	}
 
 }

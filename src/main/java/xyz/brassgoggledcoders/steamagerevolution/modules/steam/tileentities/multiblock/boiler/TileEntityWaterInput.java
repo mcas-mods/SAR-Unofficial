@@ -87,4 +87,9 @@ public class TileEntityWaterInput extends TileEntityBasicBoilerPart implements I
 		debugStrings.put("fluidAmount", "" + buffer.getFluidAmount());
 		return debugStrings;
 	}
+
+	@Override
+	public String getPartName() {
+		return "Water Input";
+	}
 }

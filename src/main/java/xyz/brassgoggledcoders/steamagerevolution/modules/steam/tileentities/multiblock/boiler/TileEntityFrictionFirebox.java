@@ -58,4 +58,9 @@ public class TileEntityFrictionFirebox extends TileEntityBasicBoilerPart {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public String getPartName() {
+		return "Friction Firebox";
+	}
 }

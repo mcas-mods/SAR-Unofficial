@@ -55,8 +55,10 @@ public class TileEntitySolidFirebox extends TileEntityBasicBoilerPart
 			flag = true;
 		}
 
-		// TODO Better way of packet triggering
-		this.sendBlockUpdate();
+		if(flag) {
+			this.sendBlockUpdate();
+			this.markDirty();
+		}
 
 		return flag;
 	}
@@ -155,6 +157,11 @@ public class TileEntitySolidFirebox extends TileEntityBasicBoilerPart
 	public LinkedHashMap<String, String> getDebugStrings(LinkedHashMap<String, String> debugStrings) {
 		debugStrings.put("burnTime", "" + burnTime);
 		return debugStrings;
+	}
+
+	@Override
+	public String getPartName() {
+		return "Solid Firebox";
 	}
 
 }

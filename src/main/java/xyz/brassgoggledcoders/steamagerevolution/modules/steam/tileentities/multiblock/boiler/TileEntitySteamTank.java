@@ -77,4 +77,9 @@ public class TileEntitySteamTank extends TileEntityBasicBoilerPart implements ID
 		return debugStrings;
 	}
 
+	@Override
+	public String getPartName() {
+		return "Steam Tank";
+	}
+
 }

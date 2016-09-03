@@ -78,4 +78,9 @@ public class TileEntityWaterTank extends TileEntityBasicBoilerPart implements ID
 		return debugStrings;
 	}
 
+	@Override
+	public String getPartName() {
+		return "Water Tank";
+	}
+
 }
