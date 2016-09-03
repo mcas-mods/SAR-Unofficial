@@ -2,16 +2,24 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.mul
 
 import java.util.LinkedHashMap;
 
+import net.minecraft.client.gui.Gui;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.boilerplate.api.IDebuggable;
+import xyz.brassgoggledcoders.boilerplate.client.guis.IOpenableGUI;
 import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValidator;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.containers.multiblock.boiler.ContainerSingleTank;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.guis.multiblock.boiler.GuiSingleTank;
 
-public class TileEntitySteamTank extends TileEntityBasicBoilerPart implements IDebuggable {
+public class TileEntitySteamTank extends TileEntityBasicBoilerPart implements IOpenableGUI, IDebuggable {
 
 	protected FluidTank tank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
 
@@ -81,5 +89,27 @@ public class TileEntitySteamTank extends TileEntityBasicBoilerPart implements ID
 	public String getPartName() {
 		return "Steam Tank";
 	}
+
+	@Override
+	public Gui getClientGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos) {
+		return new GuiSingleTank(player, this);
+	}
+
+	@Override
+	public Container getServerGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos) {
+		return new ContainerSingleTank(player, this);
+	}
+
+	@Override
+	protected void readFromUpdatePacket(NBTTagCompound data) {
+		this.tank.readFromNBT(data);
+		super.readFromUpdatePacket(data);
+	};
+
+	@Override
+	protected NBTTagCompound writeToUpdatePacket(NBTTagCompound data) {
+		this.tank.writeToNBT(data);
+		return super.writeToUpdatePacket(data);
+	};
 
 }

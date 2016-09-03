@@ -188,6 +188,8 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 								steamTank.tank.fill(
 										new FluidStack(FluidRegistry.getFluid("steam"), Fluid.BUCKET_VOLUME), true);
 								FMLLog.warning("Heating water into steam");
+								steamTank.sendBlockUpdate();
+								steamTank.markDirty();
 								flag = true;
 							}
 

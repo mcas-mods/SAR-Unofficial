@@ -12,13 +12,24 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler.TileEntitySteamOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler.TileEntityWaterInput;
 
-public class BlockSteamOutput extends BlockTEBase<TileEntityWaterInput> {
+public class BlockSteamOutput extends BlockTEBase<TileEntitySteamOutput> {
 
 	public BlockSteamOutput(Material material, String name) {
 		super(material, name);
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
+			@Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+		TileEntitySteamOutput tile = getTileEntity(world, pos);
+		if(tile != null && !player.isSneaking()) {
+			player.openGui(SteamAgeRevolution.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -29,12 +40,6 @@ public class BlockSteamOutput extends BlockTEBase<TileEntityWaterInput> {
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
 		return new TileEntitySteamOutput();
-	}
-
-	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-		return false;
 	}
 
 }

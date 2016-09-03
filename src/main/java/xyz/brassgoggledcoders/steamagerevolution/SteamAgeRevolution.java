@@ -8,6 +8,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -36,6 +37,10 @@ public class SteamAgeRevolution extends BoilerplateModBase {
 
 	public static CreativeTabs tab = new SARTab();
 
+	@SidedProxy(clientSide = "xyz.brassgoggledcoders.steamagerevolution.proxies.ClientProxy",
+			serverSide = "xyz.brassgoggledcoders.steamagerevolution.proxies.CommonProxy")
+	public static xyz.brassgoggledcoders.steamagerevolution.proxies.CommonProxy proxy;
+
 	public static DamageSource belt =
 			new DamageSource("belt").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
 
@@ -44,6 +49,7 @@ public class SteamAgeRevolution extends BoilerplateModBase {
 	public void preInit(FMLPreInitializationEvent event) {
 		CapabilityHandler.init();
 		super.preInit(event);
+		proxy.registerModels();
 	}
 
 	@Override
