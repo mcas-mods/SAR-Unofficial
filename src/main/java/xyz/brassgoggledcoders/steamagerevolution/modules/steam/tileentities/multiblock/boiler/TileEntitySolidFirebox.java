@@ -16,7 +16,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.boilerplate.api.IDebuggable;
 import xyz.brassgoggledcoders.boilerplate.client.guis.IOpenableGUI;
@@ -29,12 +28,24 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.guis.multiblock.b
 public class TileEntitySolidFirebox extends TileEntityBasicBoilerPart
 		implements ITickableMultiblockPart, IOnSlotChanged, IOpenableGUI, IDebuggable {
 
-	private IItemHandler inventory;
+	private ItemStackHandler inventory;
 	private int burnTime;
 
 	public TileEntitySolidFirebox() {
 		super();
 		inventory = new ItemStackHandler();
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound tag) {
+		super.readFromNBT(tag);
+		inventory.deserializeNBT((NBTTagCompound) tag.getTag("inventory"));
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound tag) {
+		tag.setTag("inventory", inventory.serializeNBT());
+		return super.writeToNBT(tag);
 	}
 
 	@Override
