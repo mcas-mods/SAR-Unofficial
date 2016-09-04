@@ -39,7 +39,7 @@ public class GuiSingleTank extends GuiScreenBase {
 		if(containedFluid != null && containedFluid.getFluid() != null && containedFluid.amount > 0) {
 			// TODO Move scaling to utils
 			int fluidLevel = (int) (((float) containedFluid.amount / (float) capacity) * 60);
-			GuiUtils.renderTiledFluid(this.guiLeft + 78, this.guiTop + 30, 20, fluidLevel, 3, containedFluid);
+			GuiUtils.renderTiledFluid(this.guiLeft + 78, this.guiTop + 11, 20, fluidLevel, 3, containedFluid);
 		}
 
 		// TODO

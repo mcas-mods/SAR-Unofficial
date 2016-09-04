@@ -6,15 +6,13 @@ import java.util.Set;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.boilerplate.client.guis.IOpenableGUI;
 import xyz.brassgoggledcoders.boilerplate.multiblock.IMultiblockPart;
 import xyz.brassgoggledcoders.boilerplate.multiblock.MultiblockControllerBase;
 import xyz.brassgoggledcoders.boilerplate.multiblock.rectangular.RectangularMultiblockControllerBase;
 import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValidator;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.ITickableMultiblockPart;
 
 public class BasicBoilerController extends RectangularMultiblockControllerBase {
 
@@ -154,7 +152,7 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 		int i = 0;
 
 		for(ITickableMultiblockPart tickable : attachedTickables) {
-			if(tickable.tick())
+			if(tickable.tick(this))
 				i++;
 		}
 
@@ -179,25 +177,7 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 
 		for(TileEntitySolidFirebox firebox : attachedFireboxes) {
 			if(firebox.getBurnTime() > 0) {
-				for(TileEntityWaterTank waterTank : attachedWaterTanks) {
-					if(waterTank.tank.getFluidAmount() > Fluid.BUCKET_VOLUME) {
-						for(TileEntitySteamTank steamTank : attachedSteamTanks) {
-							if(steamTank.tank.fill(new FluidStack(FluidRegistry.getFluid("steam"), Fluid.BUCKET_VOLUME),
-									false) == waterTank.tank.drain(Fluid.BUCKET_VOLUME, false).amount) {
-								waterTank.tank.drain(Fluid.BUCKET_VOLUME, true);
-								steamTank.tank.fill(
-										new FluidStack(FluidRegistry.getFluid("steam"), Fluid.BUCKET_VOLUME), true);
-								FMLLog.warning("Heating water into steam");
-								steamTank.sendBlockUpdate();
-								steamTank.markDirty();
-								flag = true;
-							}
 
-							break;
-						}
-						break;
-					}
-				}
 			}
 		}
 
@@ -275,6 +255,14 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 
 	public ArrayList<TileEntityBasicBoilerPart> getAttachedGUIs() {
 		return attachedGUIs;
+	}
+
+	public Set<TileEntityWaterTank> getAttachedWaterTanks() {
+		return attachedWaterTanks;
+	}
+
+	public Set<TileEntitySteamTank> getAttachedSteamTanks() {
+		return attachedSteamTanks;
 	}
 
 }

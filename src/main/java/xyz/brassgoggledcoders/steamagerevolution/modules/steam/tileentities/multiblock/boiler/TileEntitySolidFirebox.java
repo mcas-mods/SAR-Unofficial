@@ -15,15 +15,21 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.boilerplate.api.IDebuggable;
 import xyz.brassgoggledcoders.boilerplate.client.guis.IOpenableGUI;
+import xyz.brassgoggledcoders.boilerplate.multiblock.MultiblockControllerBase;
 import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValidator;
 import xyz.brassgoggledcoders.boilerplate.tileentities.IOnSlotChanged;
 import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.containers.multiblock.boiler.ContainerSolidFirebox;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.guis.multiblock.boiler.GuiSolidFirebox;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.ITickableMultiblockPart;
 
 public class TileEntitySolidFirebox extends TileEntityBasicBoilerPart
 		implements ITickableMultiblockPart, IOnSlotChanged, IOpenableGUI, IDebuggable {
@@ -49,7 +55,8 @@ public class TileEntitySolidFirebox extends TileEntityBasicBoilerPart
 	}
 
 	@Override
-	public boolean tick() {
+	public boolean tick(MultiblockControllerBase controller) {
+		BasicBoilerController boiler = (BasicBoilerController) controller;
 		boolean flag = false;
 		if(burnTime <= 0) {
 			if(ItemStackUtils.isItemNonNull(inventory.getStackInSlot(0))
@@ -62,6 +69,27 @@ public class TileEntitySolidFirebox extends TileEntityBasicBoilerPart
 			}
 		}
 		else {
+			for(TileEntityWaterTank waterTank : boiler.getAttachedWaterTanks()) {
+				if(waterTank.tank.getFluidAmount() > Fluid.BUCKET_VOLUME) {
+					for(TileEntitySteamTank steamTank : boiler.getAttachedSteamTanks()) {
+						if(steamTank.tank.fill(new FluidStack(FluidRegistry.getFluid("steam"), Fluid.BUCKET_VOLUME),
+								false) == waterTank.tank.drain(Fluid.BUCKET_VOLUME, false).amount) {
+							waterTank.tank.drain(Fluid.BUCKET_VOLUME, true);
+							steamTank.tank.fill(new FluidStack(FluidRegistry.getFluid("steam"), Fluid.BUCKET_VOLUME),
+									true);
+							FMLLog.warning("Heating water into steam");
+							steamTank.sendBlockUpdate();
+							steamTank.markDirty();
+							waterTank.sendBlockUpdate();
+							waterTank.markDirty();
+							flag = true;
+						}
+
+						break;
+					}
+					break;
+				}
+			}
 			burnTime--;
 			flag = true;
 		}
