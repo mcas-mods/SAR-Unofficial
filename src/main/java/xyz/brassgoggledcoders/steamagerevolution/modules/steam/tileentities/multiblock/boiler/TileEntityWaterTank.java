@@ -101,4 +101,20 @@ public class TileEntityWaterTank extends TileEntityBasicBoilerPart implements IO
 		return "Water Tank";
 	}
 
+	@Override
+	protected void readFromUpdatePacket(NBTTagCompound data) {
+		// if(tank.getFluidAmount() > 0)
+		// data.setInteger("level", this.tank.getFluidAmount());
+		super.readFromUpdatePacket(data);
+	};
+
+	@Override
+	protected NBTTagCompound writeToUpdatePacket(NBTTagCompound data) {
+		// if(data.getInteger("level") != 0)
+		// this.tank.setFluid(new FluidStack(FluidRegistry.WATER, data.getInteger("level")));
+		// else
+		// this.tank.setFluid(null);
+		return super.writeToUpdatePacket(data);
+	};
+
 }

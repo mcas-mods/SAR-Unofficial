@@ -11,6 +11,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.boilerplate.api.IDebuggable;
@@ -102,13 +104,13 @@ public class TileEntitySteamTank extends TileEntityBasicBoilerPart implements IO
 
 	@Override
 	protected void readFromUpdatePacket(NBTTagCompound data) {
-		this.tank.readFromNBT(data);
+		data.setInteger("level", this.tank.getFluidAmount());
 		super.readFromUpdatePacket(data);
 	};
 
 	@Override
 	protected NBTTagCompound writeToUpdatePacket(NBTTagCompound data) {
-		this.tank.writeToNBT(data);
+		this.tank.setFluid(new FluidStack(FluidRegistry.getFluid("steam"), data.getInteger("level")));
 		return super.writeToUpdatePacket(data);
 	};
 

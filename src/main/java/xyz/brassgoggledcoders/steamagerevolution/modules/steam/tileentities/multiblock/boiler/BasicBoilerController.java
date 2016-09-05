@@ -6,7 +6,6 @@ import java.util.Set;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.boilerplate.client.guis.IOpenableGUI;
 import xyz.brassgoggledcoders.boilerplate.multiblock.IMultiblockPart;
 import xyz.brassgoggledcoders.boilerplate.multiblock.MultiblockControllerBase;
@@ -73,27 +72,27 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 	@Override
 	protected void onBlockRemoved(IMultiblockPart oldPart) {
 		if(oldPart instanceof TileEntityWaterInput) {
-			attachedInputs.remove((TileEntityWaterInput) oldPart);
+			attachedInputs.remove(oldPart);
 		}
 		else if(oldPart instanceof TileEntityWaterTank) {
-			attachedWaterTanks.remove((TileEntityWaterTank) oldPart);
+			attachedWaterTanks.remove(oldPart);
 		}
 		else if(oldPart instanceof TileEntitySteamOutput) {
-			attachedOutputs.remove((TileEntitySteamOutput) oldPart);
+			attachedOutputs.remove(oldPart);
 		}
 		else if(oldPart instanceof TileEntitySteamTank) {
-			attachedSteamTanks.remove((TileEntitySteamTank) oldPart);
+			attachedSteamTanks.remove(oldPart);
 		}
 		else if(oldPart instanceof TileEntitySolidFirebox) {
-			attachedFireboxes.remove((TileEntitySolidFirebox) oldPart);
+			attachedFireboxes.remove(oldPart);
 		}
 
 		if(oldPart instanceof ITickableMultiblockPart) {
-			attachedTickables.remove((ITickableMultiblockPart) oldPart);
+			attachedTickables.remove(oldPart);
 		}
 
 		if(oldPart instanceof IOpenableGUI) {
-			attachedGUIs.remove((TileEntityBasicBoilerPart) oldPart);
+			attachedGUIs.remove(oldPart);
 		}
 	}
 
@@ -142,7 +141,7 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 		this.attachedOutputs.clear();
 		this.attachedSteamTanks.clear();
 		this.attachedTickables.clear();
-		// TODO
+		this.attachedGUIs.clear();
 	}
 
 	@Override
@@ -160,39 +159,6 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 		if(i > 0) {
 			flag = true;
 		}
-
-		for(TileEntityWaterInput input : attachedInputs) {
-			if(input.buffer.getFluidAmount() > 0) {
-				for(TileEntityWaterTank tank : attachedWaterTanks) {
-					if(tank.tank.fill(input.buffer.getFluid(), false) != 0) {
-						tank.tank.fill(input.buffer.getFluid(), true);
-						input.buffer.drain(input.buffer.getFluidAmount(), true);
-						flag = true;
-						FMLLog.warning("Water moved");
-						break;
-					}
-				}
-			}
-		}
-
-		for(TileEntitySolidFirebox firebox : attachedFireboxes) {
-			if(firebox.getBurnTime() > 0) {
-
-			}
-		}
-
-		// for(TileEntitySteamOutput output : attachedOutputs) {
-		// if(output.buffer.getFluidAmount() == 0) {
-		// for(TileEntitySteamTank tank : attachedSteamTanks) {
-		// if(tank.tank.drain(Fluid.BUCKET_VOLUME, false).amount != 0
-		// && output.buffer.fill(tank.tank.drain(Fluid.BUCKET_VOLUME, false), false) != 0) {
-		// output.buffer.fill(tank.tank.drain(Fluid.BUCKET_VOLUME, true), true);
-		// FMLLog.warning("Steam moved");
-		// break;
-		// }
-		// }
-		// }
-		// }
 
 		return flag;
 	}

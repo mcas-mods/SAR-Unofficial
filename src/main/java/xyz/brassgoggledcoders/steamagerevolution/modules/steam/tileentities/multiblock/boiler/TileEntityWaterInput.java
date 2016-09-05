@@ -15,13 +15,17 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.boilerplate.api.IDebuggable;
 import xyz.brassgoggledcoders.boilerplate.client.guis.IOpenableGUI;
+import xyz.brassgoggledcoders.boilerplate.multiblock.MultiblockControllerBase;
 import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValidator;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.containers.multiblock.boiler.ContainerSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.guis.multiblock.boiler.GuiSingleTank;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.ITickableMultiblockPart;
 
-public class TileEntityWaterInput extends TileEntityBasicBoilerPart implements IOpenableGUI, IDebuggable {
+public class TileEntityWaterInput extends TileEntityBasicBoilerPart
+		implements IOpenableGUI, IDebuggable, ITickableMultiblockPart {
 
 	public FluidTank buffer = new WaterLockedTank(Fluid.BUCKET_VOLUME);
 
@@ -110,4 +114,40 @@ public class TileEntityWaterInput extends TileEntityBasicBoilerPart implements I
 	public String getPartName() {
 		return "Water Input";
 	}
+
+	@Override
+	public boolean tick(MultiblockControllerBase controller) {
+		BasicBoilerController boiler = (BasicBoilerController) controller;
+		boolean flag = false;
+
+		if(buffer.getFluidAmount() > 0) {
+			for(TileEntityWaterTank tank : boiler.getAttachedWaterTanks()) {
+				if(tank.tank.fill(buffer.getFluid(), false) != 0) {
+					tank.tank.fill(buffer.getFluid(), true);
+					buffer.drain(buffer.getFluidAmount(), true);
+					tank.sendBlockUpdate();
+					tank.markDirty();
+					this.sendBlockUpdate();
+					this.markDirty();
+					flag = true;
+					FMLLog.warning("Water moved");
+					break;
+				}
+			}
+		}
+
+		return flag;
+	}
+
+	@Override
+	protected void readFromUpdatePacket(NBTTagCompound data) {
+		data.setInteger("level", this.buffer.getFluidAmount());
+		super.readFromUpdatePacket(data);
+	};
+
+	@Override
+	protected NBTTagCompound writeToUpdatePacket(NBTTagCompound data) {
+		this.buffer.setFluid(new FluidStack(FluidRegistry.WATER, data.getInteger("level")));
+		return super.writeToUpdatePacket(data);
+	};
 }

@@ -11,15 +11,21 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.boilerplate.api.IDebuggable;
 import xyz.brassgoggledcoders.boilerplate.client.guis.IOpenableGUI;
+import xyz.brassgoggledcoders.boilerplate.multiblock.MultiblockControllerBase;
 import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValidator;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.containers.multiblock.boiler.ContainerSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.guis.multiblock.boiler.GuiSingleTank;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.ITickableMultiblockPart;
 
-public class TileEntitySteamOutput extends TileEntityBasicBoilerPart implements IOpenableGUI, IDebuggable {
+public class TileEntitySteamOutput extends TileEntityBasicBoilerPart
+		implements IOpenableGUI, IDebuggable, ITickableMultiblockPart {
 
 	public FluidTank buffer = new FluidTank(Fluid.BUCKET_VOLUME);
 
@@ -94,4 +100,41 @@ public class TileEntitySteamOutput extends TileEntityBasicBoilerPart implements 
 	public String getPartName() {
 		return "Steam Output";
 	}
+
+	@Override
+	public boolean tick(MultiblockControllerBase controller) {
+		BasicBoilerController boiler = (BasicBoilerController) controller;
+		boolean flag = false;
+
+		if(buffer.getFluidAmount() == 0) {
+			for(TileEntitySteamTank tank : boiler.getAttachedSteamTanks()) {
+				if(tank.tank.getFluid() != null && tank.tank.getFluidAmount() != 0
+						&& tank.tank.drain(Fluid.BUCKET_VOLUME, false).amount != 0
+						&& buffer.fill(tank.tank.drain(Fluid.BUCKET_VOLUME, false), false) != 0) {
+					buffer.fill(tank.tank.drain(Fluid.BUCKET_VOLUME, true), true);
+					tank.markDirty();
+					tank.sendBlockUpdate();
+					this.markDirty();
+					tank.sendBlockUpdate();
+					FMLLog.warning("Moving from tank to output");
+					flag = true;
+					break;
+				}
+			}
+		}
+
+		return flag;
+	}
+
+	@Override
+	protected void readFromUpdatePacket(NBTTagCompound data) {
+		data.setInteger("level", this.buffer.getFluidAmount());
+		super.readFromUpdatePacket(data);
+	};
+
+	@Override
+	protected NBTTagCompound writeToUpdatePacket(NBTTagCompound data) {
+		this.buffer.setFluid(new FluidStack(FluidRegistry.getFluid("steam"), data.getInteger("level")));
+		return super.writeToUpdatePacket(data);
+	};
 }
