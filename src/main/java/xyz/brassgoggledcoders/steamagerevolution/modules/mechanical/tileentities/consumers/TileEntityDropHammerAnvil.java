@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.consumers;
 
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;

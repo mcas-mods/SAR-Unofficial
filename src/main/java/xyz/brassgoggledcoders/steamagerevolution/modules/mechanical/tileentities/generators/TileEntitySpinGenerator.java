@@ -1,8 +1,9 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.generators;
 
 import java.util.ArrayList;
 
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntitySpinMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SpinUtils;
 
 public abstract class TileEntitySpinGenerator extends TileEntitySpinMachine {

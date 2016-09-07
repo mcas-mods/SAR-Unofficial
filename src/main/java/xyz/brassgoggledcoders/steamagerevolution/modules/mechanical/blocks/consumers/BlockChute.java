@@ -1,25 +1,26 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityDropHammer;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.consumers.TileEntityChute;
 
-public class BlockDropHammer extends BlockTEBase<TileEntityDropHammer> {
-	public BlockDropHammer(Material mat, String name) {
-		super(mat, name);
+public class BlockChute extends BlockTEBase<TileEntityChute> {
+
+	public BlockChute(Material material, String name) {
+		super(material, name);
 	}
 
 	@Override
 	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityDropHammer.class;
+		return TileEntityChute.class;
 	}
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityDropHammer();
+		return new TileEntityChute();
 	}
 
 }

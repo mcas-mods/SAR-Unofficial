@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.generators;
 
 import net.minecraft.block.material.Material;
 

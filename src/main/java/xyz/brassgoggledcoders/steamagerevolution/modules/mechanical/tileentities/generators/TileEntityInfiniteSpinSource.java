@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.generators;
 
 public class TileEntityInfiniteSpinSource extends TileEntitySpinGenerator {
 
