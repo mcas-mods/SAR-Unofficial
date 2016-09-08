@@ -11,11 +11,14 @@ public class TileEntityCartBooster extends TileEntitySpinConsumer {
 	public void updateTile() {
 
 		List<EntityMinecart> carts = this.getWorld().getEntitiesWithinAABB(EntityMinecart.class,
-				new AxisAlignedBB(this.getPos()).expandXyz(3));
+				new AxisAlignedBB(this.getPos()).expandXyz(2));
 
 		for(EntityMinecart cart : carts) {
 			// if(cart.canUseRail()) {
-			cart.setVelocity(cart.motionX * 3, cart.motionY, cart.motionZ * 3);
+			cart.setCurrentCartSpeedCapOnRail(cart.getMaxCartSpeedOnRail());
+			cart.motionX *= this.handler.getSpeed();
+			cart.motionZ *= this.handler.getSpeed();
+
 			if(this.handler.getSpeed() > 100) {
 				// TODO Make fire time and explosion strength proportional to speed.
 				if(!cart.getPassengers().isEmpty()) {
@@ -23,8 +26,9 @@ public class TileEntityCartBooster extends TileEntitySpinConsumer {
 					if(entity != null)
 						entity.setFire(25);
 				}
-				cart.onKillCommand();
+				// Kaboom.
 				cart.getEntityWorld().createExplosion(cart, cart.posX, cart.posY, cart.posZ, 10, false);
+				cart.onKillCommand();
 			}
 			// }
 		}
