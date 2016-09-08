@@ -122,9 +122,10 @@ public class TileEntityWaterInput extends TileEntityBasicBoilerPart
 
 		if(buffer.getFluidAmount() > 0) {
 			for(TileEntityWaterTank tank : boiler.getAttachedWaterTanks()) {
-				if(tank.tank.fill(buffer.getFluid(), false) != 0) {
-					tank.tank.fill(buffer.getFluid(), true);
-					buffer.drain(buffer.getFluidAmount(), true);
+				FluidStack water = new FluidStack(FluidRegistry.WATER, BasicBoilerController.fluidTransferRate);
+				if(tank.tank.fill(water, false) == BasicBoilerController.fluidTransferRate) {
+					tank.tank.fill(water, true);
+					buffer.drain(BasicBoilerController.fluidTransferRate, true);
 					tank.sendBlockUpdate();
 					tank.markDirty();
 					this.sendBlockUpdate();
@@ -141,13 +142,13 @@ public class TileEntityWaterInput extends TileEntityBasicBoilerPart
 
 	@Override
 	protected void readFromUpdatePacket(NBTTagCompound data) {
-		data.setInteger("level", this.buffer.getFluidAmount());
+		this.buffer.setFluid(new FluidStack(FluidRegistry.WATER, data.getInteger("level")));
 		super.readFromUpdatePacket(data);
 	};
 
 	@Override
 	protected NBTTagCompound writeToUpdatePacket(NBTTagCompound data) {
-		this.buffer.setFluid(new FluidStack(FluidRegistry.WATER, data.getInteger("level")));
+		data.setInteger("level", this.buffer.getFluidAmount());
 		return super.writeToUpdatePacket(data);
 	};
 }

@@ -128,13 +128,13 @@ public class TileEntitySteamOutput extends TileEntityBasicBoilerPart
 
 	@Override
 	protected void readFromUpdatePacket(NBTTagCompound data) {
-		data.setInteger("level", this.buffer.getFluidAmount());
+		this.buffer.setFluid(new FluidStack(FluidRegistry.getFluid("steam"), data.getInteger("level")));
 		super.readFromUpdatePacket(data);
 	};
 
 	@Override
 	protected NBTTagCompound writeToUpdatePacket(NBTTagCompound data) {
-		this.buffer.setFluid(new FluidStack(FluidRegistry.getFluid("steam"), data.getInteger("level")));
+		data.setInteger("level", this.buffer.getFluidAmount());
 		return super.writeToUpdatePacket(data);
 	};
 }

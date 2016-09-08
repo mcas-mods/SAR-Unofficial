@@ -104,13 +104,13 @@ public class TileEntitySteamTank extends TileEntityBasicBoilerPart implements IO
 
 	@Override
 	protected void readFromUpdatePacket(NBTTagCompound data) {
-		data.setInteger("level", this.tank.getFluidAmount());
+		this.tank.setFluid(new FluidStack(FluidRegistry.getFluid("steam"), data.getInteger("level")));
 		super.readFromUpdatePacket(data);
 	};
 
 	@Override
 	protected NBTTagCompound writeToUpdatePacket(NBTTagCompound data) {
-		this.tank.setFluid(new FluidStack(FluidRegistry.getFluid("steam"), data.getInteger("level")));
+		data.setInteger("level", this.tank.getFluidAmount());
 		return super.writeToUpdatePacket(data);
 	};
 

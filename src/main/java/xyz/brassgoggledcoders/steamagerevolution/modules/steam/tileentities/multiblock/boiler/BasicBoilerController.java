@@ -15,6 +15,9 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.mult
 
 public class BasicBoilerController extends RectangularMultiblockControllerBase {
 
+	// Values for parts to use
+	public static int fluidTransferRate = 10; // mB per tick
+
 	// Lists of connected parts
 	private Set<TileEntityWaterInput> attachedInputs;
 	private Set<TileEntityWaterTank> attachedWaterTanks;
