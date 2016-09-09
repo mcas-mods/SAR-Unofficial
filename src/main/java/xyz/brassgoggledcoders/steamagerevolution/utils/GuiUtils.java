@@ -3,68 +3,88 @@ package xyz.brassgoggledcoders.steamagerevolution.utils;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
 
-// Sto...borrowed from TiCon.
+// Sto...borrowed from EnderCore.
 public class GuiUtils {
-	protected static Minecraft mc = Minecraft.getMinecraft();
+	public static final ResourceLocation BLOCK_TEX = TextureMap.LOCATION_BLOCKS_TEXTURE;
 
-	/** Renders the given texture tiled into a GUI */
-	public static void renderTiledTextureAtlas(int x, int y, int width, int height, float depth,
-			TextureAtlasSprite sprite) {
-		Tessellator tessellator = Tessellator.getInstance();
-		VertexBuffer worldrenderer = tessellator.getBuffer();
-		worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-		mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-
-		putTiledTextureQuads(worldrenderer, x, y, width, height, depth, sprite);
-
-		tessellator.draw();
+	public static TextureManager engine() {
+		return Minecraft.getMinecraft().renderEngine;
 	}
 
-	public static void renderTiledFluid(int x, int y, int width, int height, float depth, FluidStack fluidStack) {
-		TextureAtlasSprite fluidSprite =
-				mc.getTextureMapBlocks().getAtlasSprite(fluidStack.getFluid().getStill(fluidStack).toString());
-		renderTiledTextureAtlas(x, y, width, height, depth, fluidSprite);
+	public static void bindBlockTexture() {
+		engine().bindTexture(BLOCK_TEX);
 	}
 
-	/** Adds a quad to the rendering pipeline. Call startDrawingQuads beforehand. You need to call draw() yourself. */
-	public static void putTiledTextureQuads(VertexBuffer renderer, int x, int y, int width, int height, float depth,
-			TextureAtlasSprite sprite) {
-		float u1 = sprite.getMinU();
-		float v1 = sprite.getMinV();
+	public static TextureAtlasSprite getStillTexture(FluidStack fluid) {
+		if(fluid == null || fluid.getFluid() == null)
+			return null;
+		return getStillTexture(fluid.getFluid());
+	}
 
-		// tile vertically
-		do {
-			int renderHeight = Math.min(sprite.getIconHeight(), height);
-			height -= renderHeight;
+	public static TextureAtlasSprite getStillTexture(Fluid fluid) {
+		ResourceLocation iconKey = fluid.getStill();
+		if(iconKey == null)
+			return null;
+		return Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(iconKey.toString());
+	}
 
-			float v2 = sprite.getInterpolatedV((16f * renderHeight) / (float) sprite.getIconHeight());
+	public static void renderGuiTank(FluidTank tank, double x, double y, double width, double height) {
+		renderGuiTank(tank.getFluid(), tank.getCapacity(), tank.getFluidAmount(), x, y, width, height);
+	}
 
-			// we need to draw the quads per width too
-			int x2 = x;
-			int width2 = width;
-			// tile horizontally
-			do {
-				int renderWidth = Math.min(sprite.getIconWidth(), width2);
-				width2 -= renderWidth;
+	public static void renderGuiTank(FluidStack fluid, int capacity, int amount, double x, double y, double width,
+			double height) {
+		if(fluid == null || fluid.getFluid() == null || fluid.amount <= 0)
+			return;
 
-				float u2 = sprite.getInterpolatedU((16f * renderWidth) / (float) sprite.getIconWidth());
+		TextureAtlasSprite icon = getStillTexture(fluid);
+		if(icon == null)
+			return;
 
-				renderer.pos(x2, y, depth).tex(u1, v1).endVertex();
-				renderer.pos(x2, y + renderHeight, depth).tex(u1, v2).endVertex();
-				renderer.pos(x2 + renderWidth, y + renderHeight, depth).tex(u2, v2).endVertex();
-				renderer.pos(x2 + renderWidth, y, depth).tex(u2, v1).endVertex();
+		int renderAmount = (int) Math.max(Math.min(height, amount * height / capacity), 1);
+		int posY = (int) (y + height - renderAmount);
 
-				x2 += renderWidth;
-			} while(width2 > 0);
+		bindBlockTexture();
+		int color = fluid.getFluid().getColor(fluid);
+		GL11.glColor3ub((byte) (color >> 16 & 0xFF), (byte) (color >> 8 & 0xFF), (byte) (color & 0xFF));
 
-			y += renderHeight;
-		} while(height > 0);
+		GlStateManager.enableBlend();
+		for(int i = 0; i < width; i += 16)
+			for(int j = 0; j < renderAmount; j += 16) {
+				int drawWidth = (int) Math.min(width - i, 16);
+				int drawHeight = Math.min(renderAmount - j, 16);
+
+				int drawX = (int) (x + i);
+				int drawY = posY + j;
+
+				double minU = icon.getMinU();
+				double maxU = icon.getMaxU();
+				double minV = icon.getMinV();
+				double maxV = icon.getMaxV();
+
+				Tessellator tessellator = Tessellator.getInstance();
+				VertexBuffer tes = tessellator.getBuffer();
+				tes.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+				tes.pos(drawX, drawY + drawHeight, 0).tex(minU, minV + (maxV - minV) * drawHeight / 16F).endVertex();
+				tes.pos(drawX + drawWidth, drawY + drawHeight, 0)
+						.tex(minU + (maxU - minU) * drawWidth / 16F, minV + (maxV - minV) * drawHeight / 16F)
+						.endVertex();
+				tes.pos(drawX + drawWidth, drawY, 0).tex(minU + (maxU - minU) * drawWidth / 16F, minV).endVertex();
+				tes.pos(drawX, drawY, 0).tex(minU, minV).endVertex();
+				tessellator.draw();
+			}
+		GlStateManager.disableBlend();
 	}
 }

@@ -37,14 +37,12 @@ public class GuiSingleTank extends GuiScreenBase {
 				.getCapacity();
 
 		if(containedFluid != null && containedFluid.getFluid() != null && containedFluid.amount > 0) {
-			// TODO Move scaling to utils
-			int fluidLevel = (int) (((float) containedFluid.amount / (float) capacity) * 60);
-			GuiUtils.renderTiledFluid(this.guiLeft + 78, this.guiTop + 11, 20, fluidLevel, 3, containedFluid);
+			GuiUtils.renderGuiTank(containedFluid, capacity, containedFluid.amount, this.guiLeft + 78, this.guiTop + 11,
+					20, 60);
 		}
 
-		// TODO
-		// this.mc.renderEngine.bindTexture(guiTexture);
-		// this.drawTexturedModalRect(this.guiLeft + 78, this.guiTop + 20, 176, 14, 20, 49);
+		this.mc.renderEngine.bindTexture(guiTexture);
+		this.drawTexturedModalRect(this.guiLeft + 78, this.guiTop + 17, 176, 14, 20, 49);
 
 		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
 	}
