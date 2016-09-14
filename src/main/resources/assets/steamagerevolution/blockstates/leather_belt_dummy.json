@@ -6,11 +6,13 @@
     },
     "variants": {
     	"facing": { 
-    		"up": { 
-    			"x": 90 
+    		"up": {
+    			"x": 180,
+    			"z": -90
     		},
     		"down": {
-    			"x": -90
+    			"x": -90,
+    			"y": 90
     		},
     		"east": {
     			"x": 180
@@ -25,7 +27,7 @@
     	},
     	"spinning": {
     		"true": {
-    			"textures": { "main": "minecraft:blocks/wool_coloured_brown" }
+    			"textures": { "main": "minecraft:blocks/wool_colored_brown" }
     		},
     		"false": {}
     	}
