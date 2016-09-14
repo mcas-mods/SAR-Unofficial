@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler;
 
 import javax.annotation.Nullable;
 
@@ -13,19 +13,20 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler.TileEntitySolidFirebox;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler.TileEntitySteamTank;
 
-public class BlockSolidFirebox extends BlockTEBase<TileEntitySolidFirebox> {
+public class BlockSteamTank extends BlockTEBase<TileEntitySteamTank> {
 
-	public BlockSolidFirebox(Material material, String name) {
+	public BlockSteamTank(Material material, String name) {
 		super(material, name);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
 			@Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-		TileEntitySolidFirebox tileEntityExpansionEditor = getTileEntity(world, pos);
-		if(tileEntityExpansionEditor != null && !player.isSneaking()) {
+		TileEntitySteamTank tile = getTileEntity(world, pos);
+		if(tile != null && !player.isSneaking()) {
 			player.openGui(SteamAgeRevolution.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
 			return true;
 		}
@@ -34,12 +35,12 @@ public class BlockSolidFirebox extends BlockTEBase<TileEntitySolidFirebox> {
 
 	@Override
 	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntitySolidFirebox.class;
+		return TileEntitySteamTank.class;
 	}
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntitySolidFirebox();
+		return new TileEntitySteamTank();
 	}
 
 }

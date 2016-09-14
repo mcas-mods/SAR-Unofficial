@@ -11,14 +11,14 @@ import xyz.brassgoggledcoders.boilerplate.blocks.BlockModFluid;
 import xyz.brassgoggledcoders.boilerplate.module.Module;
 import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockBoilerController;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockBrassFrame;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockFrictionFirebox;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSolidFirebox;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteamOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteamTank;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockWaterInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockWaterTank;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockBoilerController;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockBrassFrame;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockFrictionFirebox;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockSolidFirebox;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockSteamOutput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockSteamTank;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockWaterInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockWaterTank;
 
 @Module(mod = SteamAgeRevolution.MODID)
 public class ModuleSteam extends ModuleBase {

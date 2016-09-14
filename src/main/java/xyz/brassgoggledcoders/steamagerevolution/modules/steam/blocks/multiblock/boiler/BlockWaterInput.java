@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler;
 
 import javax.annotation.Nullable;
 
