@@ -2,17 +2,16 @@
     "forge_marker": 1,
     "defaults": {
         "model": "steamagerevolution:belt_dummy",
-        "textures": { "main": "minecraft:blocks/wool_colored_black" }
+        "textures": { "main": "steamagerevolution:blocks/leather_belt" }
     },
     "variants": {
     	"facing": { 
     		"up": {
-    			"x": 180,
-    			"z": -90
+    			"model": "steamagerevolution:belt_dummy_vertical"
     		},
     		"down": {
-    			"x": -90,
-    			"y": 90
+    			"model": "steamagerevolution:belt_dummy_vertical",
+    			"y": 180
     		},
     		"east": {
     			"x": 180
