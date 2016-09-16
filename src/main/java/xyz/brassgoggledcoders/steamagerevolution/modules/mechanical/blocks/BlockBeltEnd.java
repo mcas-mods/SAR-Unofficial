@@ -15,6 +15,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.boilerplate.api.BoilerplateAPI;
 import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
 import xyz.brassgoggledcoders.boilerplate.blocks.SideType;
@@ -72,27 +73,31 @@ public class BlockBeltEnd extends BlockTEBase<TileEntityBeltEnd> {
 		if(worldIn.getTileEntity(pos) instanceof TileEntityBeltEnd) {
 			TileEntityBeltEnd belt = (TileEntityBeltEnd) worldIn.getTileEntity(pos);
 			// TODO Changing output sides
-			if(!ItemStackUtils.isItemNonNull(heldItem)) {
-				// If there's already an output side, exit.
-				for(int i = 0; i < EnumFacing.VALUES.length; i++) {
-					if(belt.getSideValue(i) == SideType.OUTPUT)
-						return false;
-				}
-
-				// If not, set clicked side to output.
-				belt.setSideConfig(side.ordinal(), SideType.OUTPUT);
-			}
-			else if(heldItem.hasCapability(BoilerplateAPI.TOOL_CAPABILITY, side)) {
-				if(belt.isTilePaired()) {
+			if(ItemStackUtils.isItemNonNull(heldItem) && belt.isTilePaired()) {
+				if(heldItem.hasCapability(BoilerplateAPI.TOOL_CAPABILITY, null)) {
 					SteamAgeRevolution.instance.getLogger().devInfo("Attempted unpairing");
 					PairingHandler.unpair(belt);
+					return true;
+
+				}
+				else {
+					FMLLog.warning("s");
+					// If there's already an output side, exit.
+					for(int i = 0; i < EnumFacing.VALUES.length; i++) {
+						if(belt.getSideValue(i) == SideType.OUTPUT)
+							return false;
+					}
+					FMLLog.warning("x");
+
+					// If not, set clicked side to output.
+					belt.setSideConfig(side.getIndex(), SideType.OUTPUT);
 					return true;
 				}
 
 			}
+
 		}
 		return false;
-
 	}
 
 	public float getSlipFactor() {
