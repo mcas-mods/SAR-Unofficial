@@ -1,40 +1,47 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.turbine;
 
-import net.minecraft.nbt.NBTTagCompound;
+import java.util.HashSet;
+import java.util.Set;
+
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.boilerplate.multiblock.IMultiblockPart;
-import xyz.brassgoggledcoders.boilerplate.multiblock.MultiblockControllerBase;
-import xyz.brassgoggledcoders.boilerplate.multiblock.rectangular.RectangularMultiblockControllerBase;
-import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValidator;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.RectangularMultiblockController;
 
-public class SteamTurbineController extends RectangularMultiblockControllerBase {
+public class SteamTurbineController extends RectangularMultiblockController {
+
+	// Values for parts to use
+	public static int fluidTransferRate = 20; // mB per tick
+
+	private Set<TileEntityMechanicalOutput> attachedOutputs;
+	private Set<TileEntitySteamInput> attachedInputs;
 
 	public SteamTurbineController(World world) {
 		super(world);
+		attachedOutputs = new HashSet<TileEntityMechanicalOutput>();
+		attachedInputs = new HashSet<TileEntitySteamInput>();
 	}
 
 	@Override
-	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		this.readFromDisk(data);
+	protected void onBlockAdded(IMultiblockPart newPart) {
+		if(newPart instanceof TileEntitySteamInput) {
+			attachedInputs.add((TileEntitySteamInput) newPart);
+		}
+		else if(newPart instanceof TileEntityMechanicalOutput) {
+			attachedOutputs.add((TileEntityMechanicalOutput) newPart);
+		}
+		super.onBlockAdded(newPart);
 	}
 
 	@Override
-	protected void onBlockAdded(IMultiblockPart newPart) {}
-
-	@Override
-	protected void onBlockRemoved(IMultiblockPart oldPart) {}
-
-	@Override
-	protected void onMachineAssembled() {}
-
-	@Override
-	protected void onMachineRestored() {}
-
-	@Override
-	protected void onMachinePaused() {}
-
-	@Override
-	protected void onMachineDisassembled() {}
+	protected void onBlockRemoved(IMultiblockPart oldPart) {
+		if(oldPart instanceof TileEntitySteamInput) {
+			attachedInputs.remove(oldPart);
+		}
+		else if(oldPart instanceof TileEntityMechanicalOutput) {
+			attachedOutputs.remove(oldPart);
+		}
+		super.onBlockRemoved(oldPart);
+	}
 
 	@Override
 	protected int getMinimumNumberOfBlocksForAssembledMachine() {
@@ -56,72 +63,11 @@ public class SteamTurbineController extends RectangularMultiblockControllerBase 
 		return 3;
 	}
 
-	@Override
-	protected void onAssimilate(MultiblockControllerBase assimilated) {
-
+	public Set<TileEntityMechanicalOutput> getOutputs() {
+		return attachedOutputs;
 	}
 
-	@Override
-	protected void onAssimilated(MultiblockControllerBase assimilator) {
-
+	public Set<TileEntitySteamInput> getInputs() {
+		return attachedInputs;
 	}
-
-	@Override
-	protected boolean updateServer() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected void updateClient() {}
-
-	@Override
-	protected boolean isBlockGoodForFrame(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		return true;
-	}
-
-	@Override
-	protected boolean isBlockGoodForTop(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		return true;
-	}
-
-	@Override
-	protected boolean isBlockGoodForBottom(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		return true;
-	}
-
-	@Override
-	protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		return true;
-	}
-
-	@Override
-	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		return true;
-	}
-
-	@Override
-	public void readFromDisk(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void writeToDisk(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void readFromUpdatePacket(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void writeToUpdatePacket(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

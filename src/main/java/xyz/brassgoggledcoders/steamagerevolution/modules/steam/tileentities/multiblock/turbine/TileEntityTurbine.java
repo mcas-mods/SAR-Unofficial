@@ -1,8 +1,10 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.turbine;
 
+import xyz.brassgoggledcoders.boilerplate.multiblock.MultiblockControllerBase;
 import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValidator;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.ITickableMultiblockPart;
 
-public class TileEntityTurbine extends TileEntitySteamTurbinePart {
+public class TileEntityTurbine extends TileEntitySteamTurbinePart implements ITickableMultiblockPart {
 
 	@Override
 	public String getPartName() {
@@ -37,6 +39,29 @@ public class TileEntityTurbine extends TileEntitySteamTurbinePart {
 	public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public boolean tick(MultiblockControllerBase controller) {
+		SteamTurbineController turbine = (SteamTurbineController) controller;
+		boolean flag = false;
+
+		for(TileEntitySteamInput tank : turbine.getInputs()) {
+
+			if(tank.buffer.getFluidAmount() > SteamTurbineController.fluidTransferRate) {
+				tank.buffer.drain(SteamTurbineController.fluidTransferRate, true);
+				for(TileEntityMechanicalOutput output : turbine.getOutputs()) {
+
+				}
+				tank.markDirty();
+				tank.sendBlockUpdate();
+				this.markDirty();
+				this.sendBlockUpdate();
+				flag = true;
+			}
+		}
+
+		return flag;
 	}
 
 }

@@ -2,16 +2,17 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.mul
 
 import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValidator;
 
-public class TileEntityMechanicalOutput extends TileEntitySteamTurbinePart {
+public class TileEntityTurbineFrame extends TileEntitySteamTurbinePart {
 
 	@Override
 	public String getPartName() {
-		return "Mechanical Output";
+		return "Turbine Frame";
 	}
 
 	@Override
 	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
-		return false;
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 	@Override

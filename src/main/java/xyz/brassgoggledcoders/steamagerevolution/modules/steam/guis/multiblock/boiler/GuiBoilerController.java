@@ -13,6 +13,7 @@ import xyz.brassgoggledcoders.boilerplate.client.guis.GuiScreenBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.containers.multiblock.boiler.ContainerBoilerController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler.BasicBoilerController;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler.TileEntityBasicBoilerPart;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler.TileEntityBoilerController;
 
 @SideOnly(Side.CLIENT)
@@ -33,7 +34,7 @@ public class GuiBoilerController extends GuiScreenBase {
 			BasicBoilerController controller = (BasicBoilerController) tile.getMultiblockController();
 			for(int i = 0; i < controller.getAttachedGUIs().size(); i++) {
 				GuiButton button = new GuiButton(i, this.guiLeft + 38, this.guiTop + 10 + (22 * i), 100, 20,
-						controller.getAttachedGUIs().get(i).getPartName());
+						((TileEntityBasicBoilerPart) controller.getAttachedGUIs().get(i)).getPartName());
 				this.buttonList.add(button);
 			}
 		}
