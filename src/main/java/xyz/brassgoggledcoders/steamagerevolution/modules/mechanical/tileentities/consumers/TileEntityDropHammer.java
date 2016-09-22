@@ -10,30 +10,14 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities
 
 public class TileEntityDropHammer extends TileEntitySpinConsumer {
 
+	public TileEntityDropHammer() {
+		super(50);
+	}
+
 	private int progress = 0;
 
 	public int getProgress() {
 		return progress;
-	}
-
-	@Override
-	public void updateTile() {
-		if(getWorld().isRemote)
-			return;
-
-		if(this.handler.getSpeed() > 50) {
-			if(progress < 10) {
-				this.progress++;
-			}
-			else {
-				progress = 0;
-				drop();
-			}
-		}
-
-		// TODO Anvil and dies
-
-		super.updateTile();
 	}
 
 	private void drop() {
@@ -72,4 +56,18 @@ public class TileEntityDropHammer extends TileEntitySpinConsumer {
 		compound.setInteger("progress", progress);
 		return super.writeToDisk(compound);
 	}
+
+	@Override
+	public void tickAtWorkSpeed() {
+		if(progress < 10) {
+			this.progress++;
+		}
+		else {
+			progress = 0;
+			drop();
+		}
+	}
+
+	@Override
+	public void tickAtDangerSpeed() {}
 }

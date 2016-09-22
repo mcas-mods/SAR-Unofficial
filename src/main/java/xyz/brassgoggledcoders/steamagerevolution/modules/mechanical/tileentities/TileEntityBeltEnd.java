@@ -22,63 +22,6 @@ public class TileEntityBeltEnd extends TileEntitySpinMachine {
 	private boolean master;
 	private BlockPos paired_pos;
 
-	@Override
-	public void updateTile() {
-		if(this.getWorld().isRemote)
-			return;
-
-		if(this.isTilePaired()) {
-			// SteamAgeRevolution.instance.getLogger().devInfo("Paired (1)");
-			if(this.getPairedTile() != null) {
-				// SteamAgeRevolution.instance.getLogger().devInfo("Paired (2)");
-				if(this.isMaster()) {
-					// SteamAgeRevolution.instance.getLogger().devInfo("Master");
-					this.getPairedTile().getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null)
-							.setSpeed(Math.round(this.handler.getSpeed()
-									* ((BlockBeltEnd) getWorld().getBlockState(getPos()).getBlock()).getSlipFactor()));
-					boolean flag = false;
-					if(this.handler.getSpeed() > 0) {
-						flag = true;
-					}
-					BlockPos from = this.getPos();
-					BlockPos to = this.getPairedTile().getPos();
-					Iterator<BlockPos> positions = BlockPos.getAllInBox(from, to).iterator();
-					while(positions.hasNext()) {
-						BlockPos pos = positions.next();
-
-						if(pos.equals(from) || pos.equals(to)) {
-							continue;
-						}
-						// TODO This resets facing
-						getWorld().notifyBlockUpdate(pos, getWorld().getBlockState(pos),
-								getWorld().getBlockState(pos).withProperty(BlockBeltDummy.SPINNING, flag), 3);
-					}
-				}
-				else {
-					// Logic mostly copied from SpinUtils
-					for(EnumFacing element : EnumFacing.VALUES) {
-						if(this.getSideValue(element.ordinal()) == SideType.OUTPUT) {
-							BlockPos off = this.pos.offset(element);
-
-							if(this.getWorld().getTileEntity(off) != null) {
-								TileEntity te = this.getWorld().getTileEntity(off);
-
-								if(te.hasCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null)) {
-									ISpinHandler other_handler =
-											te.getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null);
-									if(this.handler.getSpeed() > other_handler.getSpeed()) {
-										other_handler.setSpeed(this.handler.getSpeed());
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		super.updateTile();
-	}
-
 	@Nullable
 	public TileEntityBeltEnd getPairedTile() {
 		if(this.paired_pos == null)
@@ -137,5 +80,58 @@ public class TileEntityBeltEnd extends TileEntitySpinMachine {
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
 		return oldState.getBlock() != newState.getBlock();
+	}
+
+	@Override
+	public void updateTile() {
+		if(this.isTilePaired()) {
+			// SteamAgeRevolution.instance.getLogger().devInfo("Paired (1)");
+			if(this.getPairedTile() != null) {
+				// SteamAgeRevolution.instance.getLogger().devInfo("Paired (2)");
+				if(this.isMaster()) {
+					// SteamAgeRevolution.instance.getLogger().devInfo("Master");
+					this.getPairedTile().getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null)
+							.setSpeed(Math.round(this.handler.getSpeed()
+									* ((BlockBeltEnd) getWorld().getBlockState(getPos()).getBlock()).getSlipFactor()));
+					boolean flag = false;
+					if(this.handler.getSpeed() > 0) {
+						flag = true;
+					}
+					BlockPos from = this.getPos();
+					BlockPos to = this.getPairedTile().getPos();
+					Iterator<BlockPos> positions = BlockPos.getAllInBox(from, to).iterator();
+					while(positions.hasNext()) {
+						BlockPos pos = positions.next();
+
+						if(pos.equals(from) || pos.equals(to)) {
+							continue;
+						}
+						// TODO This resets facing
+						getWorld().notifyBlockUpdate(pos, getWorld().getBlockState(pos),
+								getWorld().getBlockState(pos).withProperty(BlockBeltDummy.SPINNING, flag), 3);
+					}
+				}
+				else {
+					// Logic mostly copied from SpinUtils
+					for(EnumFacing element : EnumFacing.VALUES) {
+						if(this.getSideValue(element.ordinal()) == SideType.OUTPUT) {
+							BlockPos off = this.pos.offset(element);
+
+							if(this.getWorld().getTileEntity(off) != null) {
+								TileEntity te = this.getWorld().getTileEntity(off);
+
+								if(te.hasCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null)) {
+									ISpinHandler other_handler =
+											te.getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null);
+									if(this.handler.getSpeed() > other_handler.getSpeed()) {
+										other_handler.setSpeed(this.handler.getSpeed());
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }

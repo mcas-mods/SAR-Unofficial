@@ -6,10 +6,6 @@ public class TileEntityWaterTurbine extends TileEntitySpinGenerator {
 
 	private static int blocksToCheck = 25;
 
-	public TileEntityWaterTurbine() {
-		super();
-	}
-
 	@Override
 	public void updateTile() {
 		if(getWorld().isRemote)

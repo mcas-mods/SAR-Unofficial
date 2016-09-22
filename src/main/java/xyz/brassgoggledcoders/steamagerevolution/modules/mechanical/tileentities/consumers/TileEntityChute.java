@@ -10,8 +10,12 @@ import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
 
 public class TileEntityChute extends TileEntitySpinConsumer {
 
+	public TileEntityChute() {
+		super(10);
+	}
+
 	@Override
-	public void updateTile() {
+	public void tickAtWorkSpeed() {
 		if(getWorld().isRemote)
 			return;
 		int rate = handler.getSpeed() / 4;
@@ -25,6 +29,7 @@ public class TileEntityChute extends TileEntitySpinConsumer {
 					up.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN);
 			IItemHandler bottom_inventory =
 					down.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
+			// TODO ???
 			for(int i = 0; i < top_inventory.getSlots(); i++) {
 				ItemStack stack = top_inventory.getStackInSlot(i);
 
@@ -37,6 +42,8 @@ public class TileEntityChute extends TileEntitySpinConsumer {
 				break;
 			}
 		}
-		super.updateTile();
 	}
+
+	@Override
+	public void tickAtDangerSpeed() {}
 }

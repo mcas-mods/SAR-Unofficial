@@ -16,6 +16,7 @@ public abstract class TileEntitySpinMachine extends TileEntitySidedSlowTick impl
 	protected final ISpinHandler handler;
 
 	public TileEntitySpinMachine() {
+		super();
 		this.handler = new SpinHandler();
 	}
 
