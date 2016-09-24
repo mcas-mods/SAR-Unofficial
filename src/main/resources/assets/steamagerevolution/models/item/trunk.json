@@ -1,0 +1,6 @@
+{
+    "parent":"item/chest",
+    "textures":{
+        "layer0":"steamagerevolution:blocks/trunk"
+    }
+}

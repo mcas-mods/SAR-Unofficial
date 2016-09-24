@@ -1,12 +1,20 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.vanity;
 
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import xyz.brassgoggledcoders.boilerplate.module.Module;
 import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
+import xyz.brassgoggledcoders.boilerplate.registries.BlockRegistry;
+import xyz.brassgoggledcoders.boilerplate.registries.ConfigRegistry;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.vanity.blocks.BlockTrunk;
 
-// @Module(mod = SteamAgeRevolution.MODID)
+@Module(mod = SteamAgeRevolution.MODID)
 public class ModuleVanity extends ModuleBase {
 	public static ItemWatch watch;
 	public static ItemTeacup teacup;
+
+	public static Block trunk;
 
 	@Override
 	public String getName() {
@@ -14,15 +22,9 @@ public class ModuleVanity extends ModuleBase {
 	}
 
 	@Override
-	public void preInit(FMLPreInitializationEvent event) {
-		this.registerItems();
-	}
-
-	public void registerItems() {
-		watch = new ItemWatch();
-		this.getItemRegistry().registerItem(watch);
-		teacup = new ItemTeacup();
-		this.getItemRegistry().registerItem(teacup);
+	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
+		trunk = new BlockTrunk(Material.WOOD, "trunk");
+		blockRegistry.registerBlock(trunk);
 	}
 
 }
