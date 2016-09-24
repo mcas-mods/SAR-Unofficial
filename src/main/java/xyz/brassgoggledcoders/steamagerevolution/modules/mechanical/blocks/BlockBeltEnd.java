@@ -106,7 +106,7 @@ public class BlockBeltEnd extends BlockTEBase<TileEntityBeltEnd> {
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityBeltEnd();
+		return new TileEntityBeltEnd().setSlipFactor(getSlipFactor());
 	}
 
 	@Override

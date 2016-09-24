@@ -23,7 +23,7 @@ public class BlockBeltDummy extends BlockBase {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 	public static final PropertyBool SPINNING = PropertyBool.create("spinning");
 
-	protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.1D, 0.1D, 0.1D, 0.9D, 0.9D, 0.9D);
+	protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.2D, 0.2D, 0.2D, 0.8D, 0.8D, 0.8D);
 
 	public BlockBeltDummy(String type) {
 		super(Material.CLOTH, type + "_belt_dummy");

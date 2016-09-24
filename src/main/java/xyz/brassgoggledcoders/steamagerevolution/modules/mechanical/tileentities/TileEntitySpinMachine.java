@@ -14,6 +14,8 @@ import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.SpinHandler;
 public abstract class TileEntitySpinMachine extends TileEntitySidedSlowTick implements IDebuggable {
 
 	protected final ISpinHandler handler;
+	private int lastSpeed = 0;
+	protected int updatesUntilSpindown;
 
 	public TileEntitySpinMachine() {
 		super();
@@ -37,19 +39,61 @@ public abstract class TileEntitySpinMachine extends TileEntitySidedSlowTick impl
 
 	@Override
 	protected void readFromUpdatePacket(NBTTagCompound data) {
-		this.handler.deserializeNBT(data.getCompoundTag("spinhandler"));
+		this.handler.setSpeed(data.getInteger("speed"));
 		super.readFromUpdatePacket(data);
 	};
 
 	@Override
 	protected NBTTagCompound writeToUpdatePacket(NBTTagCompound data) {
-		data.setTag("spinhandler", this.handler.serializeNBT());
+		data.setInteger("speed", this.handler.getSpeed());
 		return super.writeToUpdatePacket(data);
+	};
+
+	@Override
+	public void readFromDisk(NBTTagCompound data) {
+		this.handler.deserializeNBT(data.getCompoundTag("spinhandler"));
+		super.readFromDisk(data);
+	}
+
+	@Override
+	public NBTTagCompound writeToDisk(NBTTagCompound data) {
+		data.setTag("spinhandler", this.handler.serializeNBT());
+		return super.writeToDisk(data);
 	};
 
 	@Override
 	public LinkedHashMap<String, String> getDebugStrings(LinkedHashMap<String, String> debugStrings) {
 		debugStrings.put("speed", "" + this.handler.getSpeed());
 		return debugStrings;
+	}
+
+	@Override
+	public void updateTile() {
+		if(this.lastSpeed != this.handler.getSpeed()) {
+			onSpeedChanged(lastSpeed, this.handler.getSpeed());
+		}
+
+		// TODO
+		if(this.handler.getSpeed() > 0) {
+			if(this.updatesUntilSpindown > 0) {
+				this.updatesUntilSpindown--;
+			}
+			else {
+				// TODO SFX
+				this.handler.setSpeed(0);
+				this.onSpeedChanged(lastSpeed, 0);
+			}
+		}
+
+		this.lastSpeed = this.handler.getSpeed();
+		super.updateTile();
+	}
+
+	protected void onSpeedChanged(int lastSpeed, int newSpeed) {
+		if(lastSpeed < newSpeed) {
+			updatesUntilSpindown = 5;
+		}
+		this.markDirty();
+		this.sendBlockUpdate();
 	}
 }

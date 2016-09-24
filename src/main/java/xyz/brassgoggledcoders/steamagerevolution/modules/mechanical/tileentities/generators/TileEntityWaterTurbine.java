@@ -22,12 +22,7 @@ public class TileEntityWaterTurbine extends TileEntitySpinGenerator {
 
 		if(numberOfBlocks != 0) {
 			this.handler.setSpeed(3 * numberOfBlocks);
-		}
-		else {
-			// Spin down
-			if(this.handler.getSpeed() > 0) {
-				this.handler.decrSpeed();
-			}
+			this.updatesUntilSpindown = 10;
 		}
 
 		this.sendBlockUpdate();

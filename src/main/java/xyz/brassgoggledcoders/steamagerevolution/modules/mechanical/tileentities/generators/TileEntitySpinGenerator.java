@@ -8,6 +8,19 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.SpinUtils;
 
 public abstract class TileEntitySpinGenerator extends TileEntitySpinMachine {
 
+	public TileEntitySpinGenerator() {
+		super();
+	}
+
+	@Override
+	protected void onSpeedChanged(int lastSpeed, int newSpeed) {
+		if(lastSpeed < newSpeed) {
+			updatesUntilSpindown = 10;
+		}
+		this.markDirty();
+		this.sendBlockUpdate();
+	}
+
 	@Override
 	public void updateTile() {
 		ArrayList<ISpinHandler> handlers = SpinUtils.getHandlersNearby(this.getWorld(), this.getPos());
@@ -18,4 +31,5 @@ public abstract class TileEntitySpinGenerator extends TileEntitySpinMachine {
 			}
 		}
 	}
+
 }

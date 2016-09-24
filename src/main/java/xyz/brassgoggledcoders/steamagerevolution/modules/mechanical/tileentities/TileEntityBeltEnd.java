@@ -15,12 +15,17 @@ import xyz.brassgoggledcoders.steamagerevolution.CapabilityHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltDummy;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltEnd;
 
 public class TileEntityBeltEnd extends TileEntitySpinMachine {
 
 	private boolean master;
 	private BlockPos paired_pos;
+	private float slipFactor;
+
+	public TileEntityBeltEnd setSlipFactor(float factor) {
+		this.slipFactor = factor;
+		return this;
+	}
 
 	@Nullable
 	public TileEntityBeltEnd getPairedTile() {
@@ -83,51 +88,42 @@ public class TileEntityBeltEnd extends TileEntitySpinMachine {
 	}
 
 	@Override
+	public void onSpeedChanged(int lastSpeed, int newSpeed) {
+		if(this.isMaster() && this.isTilePaired() && this.getPairedTile() != null) {
+			this.getPairedTile().getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null)
+					.setSpeed((int) Math.floor(this.handler.getSpeed() * slipFactor));
+			boolean flag = newSpeed > 0;
+			BlockPos from = this.getPos();
+			BlockPos to = this.getPairedTile().getPos();
+			Iterator<BlockPos> positions = BlockPos.getAllInBox(from, to).iterator();
+			while(positions.hasNext()) {
+				BlockPos pos = positions.next();
+				if(pos.equals(from) || pos.equals(to))
+					continue;
+				getWorld().setBlockState(pos, getWorld().getBlockState(pos).getActualState(getWorld(), getPos())
+						.withProperty(BlockBeltDummy.SPINNING, flag), 3);
+			}
+		}
+		super.onSpeedChanged(lastSpeed, newSpeed);
+	}
+
+	@Override
 	public void updateTile() {
-		if(this.isTilePaired()) {
-			// SteamAgeRevolution.instance.getLogger().devInfo("Paired (1)");
-			if(this.getPairedTile() != null) {
-				// SteamAgeRevolution.instance.getLogger().devInfo("Paired (2)");
-				if(this.isMaster()) {
-					// SteamAgeRevolution.instance.getLogger().devInfo("Master");
-					this.getPairedTile().getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null)
-							.setSpeed(Math.round(this.handler.getSpeed()
-									* ((BlockBeltEnd) getWorld().getBlockState(getPos()).getBlock()).getSlipFactor()));
-					boolean flag = false;
-					if(this.handler.getSpeed() > 0) {
-						flag = true;
-					}
-					BlockPos from = this.getPos();
-					BlockPos to = this.getPairedTile().getPos();
-					Iterator<BlockPos> positions = BlockPos.getAllInBox(from, to).iterator();
-					while(positions.hasNext()) {
-						BlockPos pos = positions.next();
+		super.updateTile();
+		if(!this.isMaster()) {
+			// TODO
+			for(EnumFacing element : EnumFacing.VALUES) {
+				if(this.getSideValue(element.ordinal()) == SideType.OUTPUT) {
+					BlockPos off = this.pos.offset(element);
 
-						if(pos.equals(from) || pos.equals(to)) {
-							continue;
-						}
-						// TODO This resets facing
-						getWorld().notifyBlockUpdate(pos, getWorld().getBlockState(pos),
-								getWorld().getBlockState(pos).withProperty(BlockBeltDummy.SPINNING, flag), 3);
-					}
-				}
-				else {
-					// Logic mostly copied from SpinUtils
-					for(EnumFacing element : EnumFacing.VALUES) {
-						if(this.getSideValue(element.ordinal()) == SideType.OUTPUT) {
-							BlockPos off = this.pos.offset(element);
+					if(this.getWorld().getTileEntity(off) != null) {
+						TileEntity te = this.getWorld().getTileEntity(off);
 
-							if(this.getWorld().getTileEntity(off) != null) {
-								TileEntity te = this.getWorld().getTileEntity(off);
-
-								if(te.hasCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null)) {
-									ISpinHandler other_handler =
-											te.getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null);
-									if(this.handler.getSpeed() > other_handler.getSpeed()) {
-										other_handler.setSpeed(this.handler.getSpeed());
-									}
-								}
-							}
+						if(te.hasCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null)) {
+							ISpinHandler other_handler =
+									te.getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null);
+							if(this.handler.getSpeed() > other_handler.getSpeed())
+								other_handler.setSpeed(this.handler.getSpeed());
 						}
 					}
 				}
