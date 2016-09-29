@@ -4,10 +4,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockMechanicalTEBase;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.generators.TileEntityWaterTurbine;
 
-public class BlockWaterTurbine extends BlockTEBase<TileEntityWaterTurbine> {
+public class BlockWaterTurbine extends BlockMechanicalTEBase<TileEntityWaterTurbine> {
 	public BlockWaterTurbine(Material mat, String name) {
 		super(mat, name);
 	}

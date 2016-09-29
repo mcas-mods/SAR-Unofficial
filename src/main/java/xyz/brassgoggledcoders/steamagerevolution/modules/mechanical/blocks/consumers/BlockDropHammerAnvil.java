@@ -11,11 +11,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockMechanicalTEBase;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.consumers.TileEntityDropHammerAnvil;
 
-public class BlockDropHammerAnvil extends BlockTEBase<TileEntityDropHammerAnvil> {
+public class BlockDropHammerAnvil extends BlockMechanicalTEBase<TileEntityDropHammerAnvil> {
 	public BlockDropHammerAnvil(Material mat, String name) {
 		super(mat, name);
 	}

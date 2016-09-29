@@ -17,14 +17,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.boilerplate.api.BoilerplateAPI;
-import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
 import xyz.brassgoggledcoders.boilerplate.blocks.SideType;
 import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityBeltEnd;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PairingHandler;
 
-public class BlockBeltEnd extends BlockTEBase<TileEntityBeltEnd> {
+public class BlockBeltEnd extends BlockMechanicalTEBase<TileEntityBeltEnd> {
 
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 	private float slipFactor;

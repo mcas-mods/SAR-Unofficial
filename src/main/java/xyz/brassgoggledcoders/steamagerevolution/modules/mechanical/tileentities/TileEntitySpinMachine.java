@@ -1,12 +1,15 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import xyz.brassgoggledcoders.boilerplate.api.IDebuggable;
 import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntitySidedSlowTick;
+import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.CapabilityHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.SpinHandler;
@@ -15,10 +18,12 @@ public abstract class TileEntitySpinMachine extends TileEntitySidedSlowTick impl
 
 	protected final ISpinHandler handler;
 	private int lastSpeed = 0;
-	protected int updatesUntilSpindown;
+	protected int[] nearbyHandlerCache;
 
 	public TileEntitySpinMachine() {
 		super();
+		nearbyHandlerCache = new int[6];
+		Arrays.fill(nearbyHandlerCache, 0);
 		this.handler = new SpinHandler();
 	}
 
@@ -52,18 +57,22 @@ public abstract class TileEntitySpinMachine extends TileEntitySidedSlowTick impl
 	@Override
 	public void readFromDisk(NBTTagCompound data) {
 		this.handler.deserializeNBT(data.getCompoundTag("spinhandler"));
+		if(data.getIntArray("cache").length > 0)
+			this.nearbyHandlerCache = data.getIntArray("cache");
 		super.readFromDisk(data);
 	}
 
 	@Override
 	public NBTTagCompound writeToDisk(NBTTagCompound data) {
 		data.setTag("spinhandler", this.handler.serializeNBT());
+		data.setIntArray("cache", nearbyHandlerCache);
 		return super.writeToDisk(data);
 	};
 
 	@Override
 	public LinkedHashMap<String, String> getDebugStrings(LinkedHashMap<String, String> debugStrings) {
 		debugStrings.put("speed", "" + this.handler.getSpeed());
+		debugStrings.put("nearbyHandlerCache", Arrays.toString(nearbyHandlerCache));
 		return debugStrings;
 	}
 
@@ -72,28 +81,31 @@ public abstract class TileEntitySpinMachine extends TileEntitySidedSlowTick impl
 		if(this.lastSpeed != this.handler.getSpeed()) {
 			onSpeedChanged(lastSpeed, this.handler.getSpeed());
 		}
-
-		// TODO
-		if(this.handler.getSpeed() > 0) {
-			if(this.updatesUntilSpindown > 0) {
-				this.updatesUntilSpindown--;
-			}
-			else {
-				// TODO SFX
-				this.handler.setSpeed(0);
-				this.onSpeedChanged(lastSpeed, 0);
-			}
-		}
-
 		this.lastSpeed = this.handler.getSpeed();
 		super.updateTile();
 	}
 
 	protected void onSpeedChanged(int lastSpeed, int newSpeed) {
-		if(lastSpeed < newSpeed) {
-			updatesUntilSpindown = 5;
+		// Cascade
+		for(int i = 0; i < nearbyHandlerCache.length; i++) {
+			if(nearbyHandlerCache[i] == 0)
+				return;
+			EnumFacing facing = EnumFacing.VALUES[i];
+			ISpinHandler handler = this.getWorld().getTileEntity(this.getPos().offset(facing))
+					.getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, facing);
+			if(handler.getSpeed() != newSpeed)
+				handler.setSpeed(newSpeed);
 		}
 		this.markDirty();
 		this.sendBlockUpdate();
+	}
+
+	public void onNeighbourChange(BlockPos neighbor) {
+		int facingIndex = PositionUtils.getFacingFromPositions(this.getPos(), neighbor).getIndex();
+		if(this.getWorld().getTileEntity(neighbor).hasCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null)) {
+			this.nearbyHandlerCache[facingIndex] = 1;
+		}
+		else
+			this.nearbyHandlerCache[facingIndex] = 0;
 	}
 }
