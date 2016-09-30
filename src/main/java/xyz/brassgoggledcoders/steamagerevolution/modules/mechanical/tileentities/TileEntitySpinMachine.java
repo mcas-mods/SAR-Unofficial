@@ -7,7 +7,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.boilerplate.api.IDebuggable;
 import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntitySidedSlowTick;
 import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
@@ -46,12 +45,15 @@ public abstract class TileEntitySpinMachine extends TileEntitySidedSlowTick impl
 	@Override
 	protected void readFromUpdatePacket(NBTTagCompound data) {
 		this.handler.setSpeed(data.getInteger("speed"));
+		if(data.getIntArray("cache").length > 0)
+			this.nearbyHandlerCache = data.getIntArray("cache");
 		super.readFromUpdatePacket(data);
 	};
 
 	@Override
 	protected NBTTagCompound writeToUpdatePacket(NBTTagCompound data) {
 		data.setInteger("speed", this.handler.getSpeed());
+		data.setIntArray("cache", nearbyHandlerCache);
 		return super.writeToUpdatePacket(data);
 	};
 
@@ -79,27 +81,34 @@ public abstract class TileEntitySpinMachine extends TileEntitySidedSlowTick impl
 
 	@Override
 	public void updateTile() {
+		// Cascade
+		int speed = this.handler.getSpeed();
+		if(speed > 0) {
+			for(int i = 0; i < nearbyHandlerCache.length; i++) {
+				if(nearbyHandlerCache[i] != 0) {
+					EnumFacing facing = EnumFacing.getFront(i).getOpposite();
+					// No idea why 'getOpposite' is required...
+					TileEntitySpinMachine tile =
+							(TileEntitySpinMachine) this.getWorld().getTileEntity(this.getPos().offset(facing));
+					if(tile != null) {
+
+						ISpinHandler handler = tile.getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, facing);
+						if(handler.getSpeed() != speed) {
+							tile.onSpeedChanged(handler.getSpeed(), speed);
+							handler.setSpeed(speed);
+						}
+					}
+				}
+			}
+		}
 		if(this.lastSpeed != this.handler.getSpeed()) {
-			onSpeedChanged(lastSpeed, this.handler.getSpeed());
+			this.onSpeedChanged(lastSpeed, this.handler.getSpeed());
 		}
 		this.lastSpeed = this.handler.getSpeed();
 		super.updateTile();
 	}
 
 	protected void onSpeedChanged(int lastSpeed, int newSpeed) {
-		// Cascade
-		for(int i = 0; i < nearbyHandlerCache.length; i++) {
-			FMLLog.warning("cache");
-			if(nearbyHandlerCache[i] == 0)
-				return;
-			EnumFacing facing = EnumFacing.VALUES[i];
-			if(this.getWorld().getTileEntity(this.getPos().offset(facing)) == null)
-				return;
-			ISpinHandler handler = this.getWorld().getTileEntity(this.getPos().offset(facing))
-					.getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, facing);
-			if(handler.getSpeed() < newSpeed)
-				handler.setSpeed(newSpeed);
-		}
 		this.markDirty();
 		this.sendBlockUpdate();
 	}

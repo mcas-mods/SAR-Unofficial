@@ -11,17 +11,12 @@ import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.CapabilityHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltDummy;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltEnd;
 
 public class TileEntityBeltEnd extends TileEntitySpinMachine {
 
 	private boolean master;
 	private BlockPos paired_pos;
-	private float slipFactor;
-
-	public TileEntityBeltEnd setSlipFactor(float factor) {
-		this.slipFactor = factor;
-		return this;
-	}
 
 	@Nullable
 	public TileEntityBeltEnd getPairedTile() {
@@ -86,8 +81,11 @@ public class TileEntityBeltEnd extends TileEntitySpinMachine {
 	@Override
 	public void onSpeedChanged(int lastSpeed, int newSpeed) {
 		if(this.isMaster() && this.isTilePaired() && this.getPairedTile() != null) {
-			this.getPairedTile().getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null)
-					.setSpeed((int) Math.floor(this.handler.getSpeed() * slipFactor));
+			// TODO
+			float slipFactor = ((BlockBeltEnd) this.getWorld().getBlockState(getPos()).getBlock()).getSlipFactor();
+			int decayedSpeed = (int) Math.floor(this.handler.getSpeed() * slipFactor);
+			// this.mod.getLogger().devInfo("Decayed Speed: " + decayedSpeed);
+			this.getPairedTile().getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null).setSpeed(decayedSpeed);
 			boolean flag = newSpeed > 0;
 			BlockPos from = this.getPos();
 			BlockPos to = this.getPairedTile().getPos();
