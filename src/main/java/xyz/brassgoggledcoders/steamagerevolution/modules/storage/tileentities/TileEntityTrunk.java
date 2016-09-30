@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.vanity.tileentities;
+package xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

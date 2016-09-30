@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.vanity.renderers;
+package xyz.brassgoggledcoders.steamagerevolution.modules.storage.renderers;
 
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.GlStateManager;
@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.vanity.tileentities.TileEntityTrunk;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityTrunk;
 
 @SideOnly(Side.CLIENT)
 public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntityTrunk> {

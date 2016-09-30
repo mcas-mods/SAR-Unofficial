@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.management.blocks;
+package xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.blocks;
 
 import net.minecraft.block.material.Material;
 import xyz.brassgoggledcoders.boilerplate.blocks.BlockBase;

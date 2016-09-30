@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.vanity.blocks;
+package xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks;
 
 import javax.annotation.Nullable;
 
@@ -24,7 +24,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.vanity.tileentities.TileEntityTrunk;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityTrunk;
 
 public class BlockTrunk extends BlockTEBase<TileEntityTrunk> {
 

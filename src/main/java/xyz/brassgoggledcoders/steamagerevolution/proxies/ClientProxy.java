@@ -7,9 +7,9 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.renderers.TileEntityTrunkRenderer;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityTrunk;
 import xyz.brassgoggledcoders.steamagerevolution.modules.vanity.ModuleVanity;
-import xyz.brassgoggledcoders.steamagerevolution.modules.vanity.renderers.TileEntityTrunkRenderer;
-import xyz.brassgoggledcoders.steamagerevolution.modules.vanity.tileentities.TileEntityTrunk;
 
 public class ClientProxy extends CommonProxy {
 	@Override

@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.management.blocks;
+package xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.blocks;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -9,7 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
-import xyz.brassgoggledcoders.steamagerevolution.modules.management.tileentities.TileEntitySender;
+import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.tileentities.TileEntitySender;
 
 public class BlockSender extends BlockTEBase<TileEntitySender> {
 

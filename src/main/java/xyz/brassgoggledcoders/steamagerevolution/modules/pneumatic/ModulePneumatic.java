@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.management;
+package xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -7,24 +7,24 @@ import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
 import xyz.brassgoggledcoders.boilerplate.registries.BlockRegistry;
 import xyz.brassgoggledcoders.boilerplate.registries.ConfigRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.management.blocks.BlockPneumaticTube;
-import xyz.brassgoggledcoders.steamagerevolution.modules.management.blocks.BlockRouter;
-import xyz.brassgoggledcoders.steamagerevolution.modules.management.blocks.BlockSender;
+import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.blocks.BlockPneumaticTube;
+import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.blocks.BlockRouter;
+import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.blocks.BlockSender;
 
 @Module(mod = SteamAgeRevolution.MODID)
-public class ModuleManagement extends ModuleBase {
+public class ModulePneumatic extends ModuleBase {
 
-	public static Block pneumatic_tube, sender, router;
+	public static Block pneumaticTube, sender, router;
 
 	@Override
 	public String getName() {
-		return "Management";
+		return "Pneumatic";
 	}
 
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
-		pneumatic_tube = new BlockPneumaticTube(Material.IRON, "pneumatic_tube");
-		blockRegistry.registerBlock(pneumatic_tube);
+		pneumaticTube = new BlockPneumaticTube(Material.IRON, "pneumatic_tube");
+		blockRegistry.registerBlock(pneumaticTube);
 		sender = new BlockSender(Material.IRON, "sender");
 		blockRegistry.registerBlock(sender);
 		router = new BlockRouter(Material.IRON, "router");
