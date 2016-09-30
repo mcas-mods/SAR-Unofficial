@@ -60,6 +60,13 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IOpenabl
 	}
 
 	@Override
+	public boolean hasCapability(Capability<?> capObject, EnumFacing side) {
+		if(capObject == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+			return true;
+		return super.hasCapability(capObject, side);
+	}
+
+	@Override
 	public NBTTagCompound writeToDisk(NBTTagCompound tag) {
 		NBTTagCompound inv = new NBTTagCompound();
 		for(int i = 0; i < inventory.getSlots(); i++) {
@@ -90,10 +97,10 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IOpenabl
 		this.prevLidAngle = this.lidAngle;
 
 		if(this.numPlayersUsing > 0 && this.lidAngle == 0.0F) {
-			double d1 = (double) i + 0.5D;
-			double d2 = (double) k + 0.5D;
+			double d1 = i + 0.5D;
+			double d2 = k + 0.5D;
 
-			this.worldObj.playSound((EntityPlayer) null, d1, (double) j + 0.5D, d2, SoundEvents.BLOCK_CHEST_OPEN,
+			this.worldObj.playSound((EntityPlayer) null, d1, j + 0.5D, d2, SoundEvents.BLOCK_CHEST_OPEN,
 					SoundCategory.BLOCKS, 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
 		}
 
@@ -114,10 +121,10 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IOpenabl
 			float f3 = 0.5F;
 
 			if(this.lidAngle < 0.5F && f2 >= 0.5F) {
-				double d3 = (double) i + 0.5D;
-				double d0 = (double) k + 0.5D;
+				double d3 = i + 0.5D;
+				double d0 = k + 0.5D;
 
-				this.worldObj.playSound((EntityPlayer) null, d3, (double) j + 0.5D, d0, SoundEvents.BLOCK_CHEST_CLOSE,
+				this.worldObj.playSound((EntityPlayer) null, d3, j + 0.5D, d0, SoundEvents.BLOCK_CHEST_CLOSE,
 						SoundCategory.BLOCKS, 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
 			}
 
