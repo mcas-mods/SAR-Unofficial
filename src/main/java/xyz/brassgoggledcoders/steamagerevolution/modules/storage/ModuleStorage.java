@@ -25,4 +25,8 @@ public class ModuleStorage extends ModuleBase {
 		blockRegistry.registerBlock(trunk);
 	}
 
+	@Override
+	public String getClientProxyPath() {
+		return "xyz.brassgoggledcoders.steamagerevolution.modules.storage.ClientProxy";
+	}
 }

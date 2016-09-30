@@ -46,13 +46,13 @@ public class PairingHandler {
 						SteamAgeRevolution.instance.getLogger().devInfo("Fifth paircheck passed (clear LOS)");
 						// // Add the dummy blocks.
 						IBlockState dummy;
-						if(ItemStackUtils.doItemsMatch(stack, ModuleMechanical.leather_belt)) {
-							dummy = ModuleMechanical.leather_belt_dummy.getDefaultState().withProperty(
+						if(ItemStackUtils.doItemsMatch(stack, ModuleMechanical.leatherBelt)) {
+							dummy = ModuleMechanical.leatherBeltDummy.getDefaultState().withProperty(
 									BlockBeltDummy.FACING,
 									PositionUtils.getFacingFromPositions(clicked_pos, saved_pos));
 						}
 						else {
-							dummy = ModuleMechanical.rubber_belt_dummy.getDefaultState().withProperty(
+							dummy = ModuleMechanical.rubberBeltDummy.getDefaultState().withProperty(
 									BlockBeltDummy.FACING,
 									PositionUtils.getFacingFromPositions(clicked_pos, saved_pos));
 						}

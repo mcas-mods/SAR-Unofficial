@@ -27,7 +27,7 @@ public class TileEntityDropHammer extends TileEntitySpinConsumer {
 		// TODO Metadata and ore dictionary handling
 		if(!getWorld().isAirBlock(target)) {
 			Block target_block = getWorld().getBlockState(target).getBlock();
-			if(target_block == ModuleMechanical.drop_hammer_anvil) {
+			if(target_block == ModuleMechanical.dropHammerAnvil) {
 				TileEntityDropHammerAnvil anvil = (TileEntityDropHammerAnvil) getWorld().getTileEntity(target);
 				if(anvil.handler.getStackInSlot(0) != null) {
 					ItemStack result = DropHammerRecipes.instance().getResult(anvil.handler.getStackInSlot(0));

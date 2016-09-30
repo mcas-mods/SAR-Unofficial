@@ -152,5 +152,4 @@ public class BlockTrunk extends BlockTEBase<TileEntityTrunk> {
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
 		return new TileEntityTrunk();
 	}
-
 }

@@ -29,14 +29,20 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock
 public class ModuleSteam extends ModuleBase {
 
 	public static Fluid steam;
-	public static BlockFluidClassic steam_block;
+	public static BlockFluidClassic steamBlock;
 
-	public static Block brass_casing, water_input, solid_firebox, friction_firebox, water_tank, steam_output,
-			steam_tank, boiler_controller, steam_turbine, mechanical_output, steam_input, turbine_frame;
+	public static Block brassCasing, waterInput, solidFirebox, frictionFirebox, waterTank, steamOutput, steamTank,
+			boilerController;
+	public static Block steamTurbine, mechanicalOutput, steamInput, turbineFrame;
 
 	@Override
 	public String getName() {
 		return "Steam";
+	}
+
+	@Override
+	public String getClientProxyPath() {
+		return "xyz.brassgoggledcoders.steamagerevolution.modules.steam.ClientProxy";
 	}
 
 	@Override
@@ -50,35 +56,35 @@ public class ModuleSteam extends ModuleBase {
 		if(!(FluidRegistry.isFluidRegistered(steam))) { // Soft registration
 			FluidRegistry.registerFluid(steam);
 			FluidRegistry.addBucketForFluid(steam);
-			steam_block = new BlockModFluid(Material.LAVA, "steam", steam);
-			blockRegistry.registerBlock(steam_block);
+			steamBlock = new BlockModFluid(Material.LAVA, "steam", steam);
+			blockRegistry.registerBlock(steamBlock);
 		}
 
-		brass_casing = new BlockBrassFrame(Material.IRON, "brass_frame");
-		blockRegistry.registerBlock(brass_casing);
-		water_input = new BlockWaterInput(Material.IRON, "water_input");
-		blockRegistry.registerBlock(water_input);
-		water_tank = new BlockWaterTank(Material.IRON, "water_tank");
-		blockRegistry.registerBlock(water_tank);
-		steam_output = new BlockSteamOutput(Material.IRON, "steam_output");
-		blockRegistry.registerBlock(steam_output);
-		steam_tank = new BlockSteamTank(Material.IRON, "steam_tank");
-		blockRegistry.registerBlock(steam_tank);
-		solid_firebox = new BlockSolidFirebox(Material.IRON, "solid_firebox");
-		blockRegistry.registerBlock(solid_firebox);
-		friction_firebox = new BlockFrictionFirebox(Material.IRON, "friction_firebox");
-		blockRegistry.registerBlock(friction_firebox);
-		boiler_controller = new BlockBoilerController(Material.IRON, "boiler_controller");
-		blockRegistry.registerBlock(boiler_controller);
+		brassCasing = new BlockBrassFrame(Material.IRON, "brass_frame");
+		blockRegistry.registerBlock(brassCasing);
+		waterInput = new BlockWaterInput(Material.IRON, "water_input");
+		blockRegistry.registerBlock(waterInput);
+		waterTank = new BlockWaterTank(Material.IRON, "water_tank");
+		blockRegistry.registerBlock(waterTank);
+		steamOutput = new BlockSteamOutput(Material.IRON, "steam_output");
+		blockRegistry.registerBlock(steamOutput);
+		steamTank = new BlockSteamTank(Material.IRON, "steam_tank");
+		blockRegistry.registerBlock(steamTank);
+		solidFirebox = new BlockSolidFirebox(Material.IRON, "solid_firebox");
+		blockRegistry.registerBlock(solidFirebox);
+		frictionFirebox = new BlockFrictionFirebox(Material.IRON, "friction_firebox");
+		blockRegistry.registerBlock(frictionFirebox);
+		boilerController = new BlockBoilerController(Material.IRON, "boiler_controller");
+		blockRegistry.registerBlock(boilerController);
 
-		steam_turbine = new BlockTurbine(Material.IRON, "steam_turbine");
-		blockRegistry.registerBlock(steam_turbine);
-		mechanical_output = new BlockMechanicalOutput(Material.IRON, "mechanical_output");
-		blockRegistry.registerBlock(mechanical_output);
-		steam_input = new BlockSteamInput(Material.IRON, "steam_input");
-		blockRegistry.registerBlock(steam_input);
-		turbine_frame = new BlockTurbineFrame(Material.IRON, "turbine_frame");
-		blockRegistry.registerBlock(turbine_frame);
+		steamTurbine = new BlockTurbine(Material.IRON, "steam_turbine");
+		blockRegistry.registerBlock(steamTurbine);
+		mechanicalOutput = new BlockMechanicalOutput(Material.IRON, "mechanical_output");
+		blockRegistry.registerBlock(mechanicalOutput);
+		steamInput = new BlockSteamInput(Material.IRON, "steam_input");
+		blockRegistry.registerBlock(steamInput);
+		turbineFrame = new BlockTurbineFrame(Material.IRON, "turbine_frame");
+		blockRegistry.registerBlock(turbineFrame);
 
 	}
 }

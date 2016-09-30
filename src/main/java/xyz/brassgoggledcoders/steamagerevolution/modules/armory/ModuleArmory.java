@@ -7,12 +7,12 @@ import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
 // @Module(mod = SteamAgeRevolution.MODID)
 public class ModuleArmory extends ModuleBase {
 
-	public static Item slab_shield;
+	public static Item slabShield;
 
 	@Override
 	public void preInit(FMLPreInitializationEvent fmlPreInitializationEvent) {
-		slab_shield = new ItemSlabShield();
-		getItemRegistry().registerItem(slab_shield);
+		slabShield = new ItemSlabShield();
+		getItemRegistry().registerItem(slabShield);
 	}
 
 	@Override
