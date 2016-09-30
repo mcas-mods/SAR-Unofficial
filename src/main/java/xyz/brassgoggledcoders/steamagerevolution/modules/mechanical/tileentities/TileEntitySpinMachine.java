@@ -7,6 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.boilerplate.api.IDebuggable;
 import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntitySidedSlowTick;
 import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
@@ -88,12 +89,15 @@ public abstract class TileEntitySpinMachine extends TileEntitySidedSlowTick impl
 	protected void onSpeedChanged(int lastSpeed, int newSpeed) {
 		// Cascade
 		for(int i = 0; i < nearbyHandlerCache.length; i++) {
+			FMLLog.warning("cache");
 			if(nearbyHandlerCache[i] == 0)
 				return;
 			EnumFacing facing = EnumFacing.VALUES[i];
+			if(this.getWorld().getTileEntity(this.getPos().offset(facing)) == null)
+				return;
 			ISpinHandler handler = this.getWorld().getTileEntity(this.getPos().offset(facing))
 					.getCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, facing);
-			if(handler.getSpeed() != newSpeed)
+			if(handler.getSpeed() < newSpeed)
 				handler.setSpeed(newSpeed);
 		}
 		this.markDirty();
@@ -101,11 +105,15 @@ public abstract class TileEntitySpinMachine extends TileEntitySidedSlowTick impl
 	}
 
 	public void onNeighbourChange(BlockPos neighbor) {
-		int facingIndex = PositionUtils.getFacingFromPositions(this.getPos(), neighbor).getIndex();
-		if(this.getWorld().getTileEntity(neighbor).hasCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, null)) {
-			this.nearbyHandlerCache[facingIndex] = 1;
+		EnumFacing facing = PositionUtils.getFacingFromPositions(this.getPos(), neighbor);
+		if(this.getWorld().getTileEntity(neighbor) == null) {
+			this.nearbyHandlerCache[facing.getIndex()] = 0;
+			return;
+		}
+		if(this.getWorld().getTileEntity(neighbor).hasCapability(CapabilityHandler.SPIN_HANDLER_CAPABILITY, facing)) {
+			this.nearbyHandlerCache[facing.getIndex()] = 1;
 		}
 		else
-			this.nearbyHandlerCache[facingIndex] = 0;
+			this.nearbyHandlerCache[facing.getIndex()] = 0;
 	}
 }
