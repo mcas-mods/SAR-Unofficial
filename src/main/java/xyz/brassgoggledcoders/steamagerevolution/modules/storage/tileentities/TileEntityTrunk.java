@@ -118,8 +118,6 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IOpenabl
 				this.lidAngle = 1.0F;
 			}
 
-			float f3 = 0.5F;
-
 			if(this.lidAngle < 0.5F && f2 >= 0.5F) {
 				double d3 = i + 0.5D;
 				double d0 = k + 0.5D;

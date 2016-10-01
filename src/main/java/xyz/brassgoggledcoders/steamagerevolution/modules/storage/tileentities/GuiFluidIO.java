@@ -1,7 +1,6 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.guis.multiblock.boiler;
+package xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -9,17 +8,16 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.boilerplate.client.guis.GuiScreenBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.containers.multiblock.boiler.ContainerSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.GuiUtils;
 
 @SideOnly(Side.CLIENT)
-public class GuiSingleTank extends GuiScreenBase {
+public class GuiFluidIO extends GuiScreenBase {
 	private static ResourceLocation guiTexture =
-			new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/single_tank.png");
-	private final TileEntity tile;
+			new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/fluid_io.png");
+	private final TileEntityFluidIO tile;
 
-	public GuiSingleTank(EntityPlayer player, TileEntity tile) {
-		super(new ContainerSingleTank(player, tile));
+	public GuiFluidIO(EntityPlayer player, TileEntityFluidIO tile) {
+		super(new ContainerFluidIO(player, tile));
 		this.tile = tile;
 	}
 
