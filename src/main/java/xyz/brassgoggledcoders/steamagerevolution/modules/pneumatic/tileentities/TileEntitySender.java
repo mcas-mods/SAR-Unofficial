@@ -1,8 +1,10 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.tileentities;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntitySlowTick;
@@ -32,6 +34,8 @@ public class TileEntitySender extends TileEntitySlowTick {
 					if(recieveInventory.insertItem(0, sendInventory.getStackInSlot(0), true) == null) {
 						recieveInventory.insertItem(0, sendInventory.getStackInSlot(0), false);
 						sendInventory.extractItem(0, sendInventory.getStackInSlot(0).stackSize, false);
+						this.getWorld().playSound(null, this.getPos(), SoundEvents.ENTITY_CAT_HISS,
+								SoundCategory.BLOCKS, 1, 1);
 					}
 					return;
 				}
