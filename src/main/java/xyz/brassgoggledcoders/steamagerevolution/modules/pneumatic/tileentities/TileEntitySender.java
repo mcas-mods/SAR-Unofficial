@@ -1,25 +1,42 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.tileentities;
 
 import net.minecraft.block.Block;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntitySlowTick;
+import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
 import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.ModulePneumatic;
 import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.blocks.BlockSender;
 
 public class TileEntitySender extends TileEntitySlowTick {
 
-	public int maxDistance = 15;
+	private int maxDistance = 16;
 
 	@Override
 	public void updateTile() {
 		EnumFacing facing = this.getWorld().getBlockState(getPos()).getValue(BlockSender.FACING);
-		for(int i = 0; i < maxDistance; i++) {
-			Block block = this.getWorld().getBlockState(getPos().offset(facing, i)).getBlock();
-			if(block != ModulePneumatic.pneumaticTube) {
+		TileEntity behind = this.getWorld().getTileEntity(getPos().offset(facing.getOpposite()));
+		if(behind instanceof TileEntityRouter) {
+			IItemHandler sendInventory =
+					behind.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing.getOpposite());
+			if(!ItemStackUtils.isItemNonNull(sendInventory.getStackInSlot(0))) {
+				return;
+			}
+			for(int i = 1; i < maxDistance; i++) {
+				Block block = this.getWorld().getBlockState(getPos().offset(facing, i)).getBlock();
 				if(block == ModulePneumatic.router) {
-					FMLLog.warning("Tube");
+					IItemHandler recieveInventory = this.getWorld().getTileEntity(getPos().offset(facing, i))
+							.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
+					if(recieveInventory.insertItem(0, sendInventory.getStackInSlot(0), true) == null) {
+						recieveInventory.insertItem(0, sendInventory.getStackInSlot(0), false);
+						sendInventory.extractItem(0, sendInventory.getStackInSlot(0).stackSize, false);
+					}
 					return;
+				}
+				else if(block == ModulePneumatic.pneumaticTube) {
+					continue;
 				}
 				else
 					return;

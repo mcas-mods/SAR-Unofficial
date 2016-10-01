@@ -29,6 +29,9 @@ maven {
         name "MCMultiPart"
         url "http://maven.amadornes.com/"
     }
+    maven {
+	url "http://maven.tterrag.com"
+    }
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -53,6 +56,8 @@ dependencies {
     compile "xyz.brassgoggledcoders.boilerplate:Boilerplate:${minecraft_version}-${boilerplate_version}:deobf"
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
     deobfCompile "MCMultiPart:MCMultiPart-experimental:${mcmultipart_version}:universal"
+    deobfCompile "com.enderio.core:EnderCore:1.10.2-0.4.1.41-beta"
+    deobfCompile "com.enderio:EnderIO:1.10.2-3.0.1.75_beta"
 }
 
 compileJava {

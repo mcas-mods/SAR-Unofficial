@@ -1,7 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.tileentities;
 
-import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntityBase;
+import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntityInventoryBase;
 
-public class TileEntityRouter extends TileEntityBase {
+public class TileEntityRouter extends TileEntityInventoryBase {
+
+	public TileEntityRouter() {
+		super(1);
+	}
 
 }
