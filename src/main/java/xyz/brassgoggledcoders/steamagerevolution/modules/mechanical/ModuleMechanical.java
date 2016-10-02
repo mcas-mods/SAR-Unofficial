@@ -16,6 +16,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consu
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockChute;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockDropHammer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockDropHammerAnvil;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockFan;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockFurnaceHeater;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.generators.BlockInfiniteSpinSource;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.generators.BlockWaterTurbine;
@@ -29,7 +30,7 @@ public class ModuleMechanical extends ModuleBase {
 	public static Block infSpinSource;
 	public static Block gearbox, ironBeltEnd, brassBeltEnd, steelBeltEnd, leatherBeltDummy, rubberBeltDummy;
 	public static Block waterTurbine;
-	public static Block furnaceHeater, chute, dropHammer, dropHammerAnvil, cartBooster;
+	public static Block furnaceHeater, chute, dropHammer, dropHammerAnvil, cartBooster, fan;
 	public static Item leatherBelt, rubberBelt;
 	public static Item spinReader;
 
@@ -42,6 +43,10 @@ public class ModuleMechanical extends ModuleBase {
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
 		spinReader = new ItemSpinReader("spin_reader");
 		itemRegistry.registerItem(spinReader);
+		leatherBelt = new ItemBelt("leather_belt", 6);
+		itemRegistry.registerItem(leatherBelt);
+		rubberBelt = new ItemBelt("rubber_belt", 12);
+		itemRegistry.registerItem(rubberBelt);
 	}
 
 	@Override
@@ -59,11 +64,6 @@ public class ModuleMechanical extends ModuleBase {
 		gearbox = new BlockGearbox(Material.IRON, "gearbox");
 		blockRegistry.registerBlock(gearbox);
 
-		leatherBelt = new ItemBelt("leather_belt", 6);
-		this.getItemRegistry().registerItem(leatherBelt);
-		rubberBelt = new ItemBelt("rubber_belt", 12);
-		this.getItemRegistry().registerItem(rubberBelt);
-
 		infSpinSource = new BlockInfiniteSpinSource(Material.CIRCUITS, "infinite_spin_source");
 		blockRegistry.registerBlock(infSpinSource);
 		waterTurbine = new BlockWaterTurbine(Material.IRON, "water_turbine");
@@ -74,11 +74,14 @@ public class ModuleMechanical extends ModuleBase {
 		chute = new BlockChute(Material.ANVIL, "chute");
 		blockRegistry.registerBlock(chute);
 		dropHammer = new BlockDropHammer(Material.IRON, "drop_hammer");
-		getBlockRegistry().registerBlock(dropHammer);
+		blockRegistry.registerBlock(dropHammer);
+		// TODO
 		DropHammerRecipes.registerRecipes();
 		dropHammerAnvil = new BlockDropHammerAnvil(Material.IRON, "drop_hammer_anvil");
-		getBlockRegistry().registerBlock(dropHammerAnvil);
+		blockRegistry.registerBlock(dropHammerAnvil);
 		cartBooster = new BlockCartBooster(Material.IRON, "cart_booster");
-		getBlockRegistry().registerBlock(cartBooster);
+		blockRegistry.registerBlock(cartBooster);
+		fan = new BlockFan();
+		blockRegistry.registerBlock(fan);
 	}
 }
