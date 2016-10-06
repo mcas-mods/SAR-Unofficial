@@ -33,9 +33,11 @@ public class GuiBoilerController extends GuiScreenBase {
 		if(tile.isConnected()) {
 			BasicBoilerController controller = (BasicBoilerController) tile.getMultiblockController();
 			for(int i = 0; i < controller.getAttachedGUIs().size(); i++) {
-				GuiButton button = new GuiButton(i, this.guiLeft + 38, this.guiTop + 10 + (22 * i), 100, 20,
-						((TileEntityBasicBoilerPart) controller.getAttachedGUIs().get(i)).getPartName());
-				this.buttonList.add(button);
+				String name = ((TileEntityBasicBoilerPart) controller.getAttachedGUIs().get(i)).getPartName();
+				if(name != "Controller") {
+					GuiButton button = new GuiButton(i, this.guiLeft + 38, this.guiTop + 10 + (22 * i), 100, 20, name);
+					this.buttonList.add(button);
+				}
 			}
 		}
 	}
