@@ -12,12 +12,14 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltDummy;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltEnd;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockGearbox;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockSawblade;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockCartBooster;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockChute;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockDropHammer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockDropHammerAnvil;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockFan;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockFurnaceHeater;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockSaw;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.generators.BlockInfiniteSpinSource;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.generators.BlockWaterTurbine;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.items.ItemBelt;
@@ -31,6 +33,7 @@ public class ModuleMechanical extends ModuleBase {
 	public static Block gearbox, ironBeltEnd, brassBeltEnd, steelBeltEnd, leatherBeltDummy, rubberBeltDummy;
 	public static Block waterTurbine;
 	public static Block furnaceHeater, chute, dropHammer, dropHammerAnvil, cartBooster, fan;
+	public static Block saw, sawBlade;
 	public static Item leatherBelt, rubberBelt;
 	public static Item spinReader;
 
@@ -83,5 +86,9 @@ public class ModuleMechanical extends ModuleBase {
 		blockRegistry.registerBlock(cartBooster);
 		fan = new BlockFan();
 		blockRegistry.registerBlock(fan);
+		saw = new BlockSaw();
+		blockRegistry.registerBlock(saw);
+		sawBlade = new BlockSawblade();
+		blockRegistry.registerBlock(sawBlade);
 	}
 }
