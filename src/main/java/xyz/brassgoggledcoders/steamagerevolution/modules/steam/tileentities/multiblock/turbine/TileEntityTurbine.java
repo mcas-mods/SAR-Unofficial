@@ -1,7 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.turbine;
 
-import xyz.brassgoggledcoders.boilerplate.multiblock.MultiblockControllerBase;
-import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValidator;
+import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.ITickableMultiblockPart;
 
 public class TileEntityTurbine extends TileEntitySteamTurbinePart implements ITickableMultiblockPart {

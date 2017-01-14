@@ -5,6 +5,9 @@ import java.util.LinkedHashMap;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -23,8 +26,6 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.boilerplate.api.IDebuggable;
 import xyz.brassgoggledcoders.boilerplate.client.guis.IOpenableGUI;
-import xyz.brassgoggledcoders.boilerplate.multiblock.MultiblockControllerBase;
-import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValidator;
 import xyz.brassgoggledcoders.boilerplate.tileentities.IOnSlotChanged;
 import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.containers.multiblock.boiler.ContainerSolidFirebox;

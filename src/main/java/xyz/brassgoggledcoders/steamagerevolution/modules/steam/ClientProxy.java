@@ -1,10 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam;
 
+import com.teamacronymcoders.base.modulesystem.proxies.IModuleProxy;
+
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import xyz.brassgoggledcoders.boilerplate.module.IModuleProxy;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public class ClientProxy implements IModuleProxy {
@@ -14,7 +15,7 @@ public class ClientProxy implements IModuleProxy {
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-		xyz.brassgoggledcoders.boilerplate.proxies.ClientProxy.registerFluidModel(ModuleSteam.steamBlock,
+		com.teamacronymcoders.base.client.ClientProxy.registerFluidModel(ModuleSteam.steamBlock,
 				new ModelResourceLocation(SteamAgeRevolution.MODID + ":fluids", "steam"));
 	}
 

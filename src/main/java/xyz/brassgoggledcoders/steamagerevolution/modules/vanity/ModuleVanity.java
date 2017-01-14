@@ -1,10 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.vanity;
 
-import xyz.brassgoggledcoders.boilerplate.module.Module;
-import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
+import com.teamacronymcoders.base.modulesystem.Module;
+import com.teamacronymcoders.base.modulesystem.ModuleBase;
+
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
-@Module(mod = SteamAgeRevolution.MODID)
+@Module(value = SteamAgeRevolution.MODID)
 public class ModuleVanity extends ModuleBase {
 	public static ItemWatch watch;
 	public static ItemTeacup teacup;

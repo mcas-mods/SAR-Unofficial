@@ -1,12 +1,13 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils;
 
+import com.teamacronymcoders.base.util.ItemStackUtils;
+import com.teamacronymcoders.base.util.PositionUtils;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
-import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.events.BeltLinkedEvent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.ModuleMechanical;

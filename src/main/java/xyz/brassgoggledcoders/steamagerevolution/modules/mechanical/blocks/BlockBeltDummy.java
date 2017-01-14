@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks;
 
+import com.teamacronymcoders.base.blocks.BlockBase;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -15,7 +17,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.boilerplate.blocks.BlockBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public class BlockBeltDummy extends BlockBase {

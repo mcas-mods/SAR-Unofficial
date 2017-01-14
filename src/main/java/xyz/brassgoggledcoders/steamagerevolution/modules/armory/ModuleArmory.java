@@ -1,18 +1,18 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 
-import net.minecraft.item.Item;
+import com.teamacronymcoders.base.modulesystem.ModuleBase;
+
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
 
 // @Module(mod = SteamAgeRevolution.MODID)
 public class ModuleArmory extends ModuleBase {
 
-	public static Item slabShield;
+	public static ItemSlabShield slabShield;
 
 	@Override
 	public void preInit(FMLPreInitializationEvent fmlPreInitializationEvent) {
 		slabShield = new ItemSlabShield();
-		getItemRegistry().registerItem(slabShield);
+		getItemRegistry().register(slabShield);
 	}
 
 	@Override

@@ -1,10 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.smeltery;
 
+import com.teamacronymcoders.base.multiblock.IMultiblockPart;
+import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.boilerplate.multiblock.IMultiblockPart;
-import xyz.brassgoggledcoders.boilerplate.multiblock.MultiblockControllerBase;
-import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValidator;
 
 public class SmelteryController extends MultiblockControllerBase {
 

@@ -1,6 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.turbine;
 
-import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValidator;
+import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 public class TileEntityTurbineFrame extends TileEntitySteamTurbinePart {
 

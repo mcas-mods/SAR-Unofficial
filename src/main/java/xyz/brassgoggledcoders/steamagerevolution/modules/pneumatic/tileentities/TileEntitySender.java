@@ -1,5 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.tileentities;
 
+import com.teamacronymcoders.base.tileentities.TileEntitySlowTick;
+import com.teamacronymcoders.base.util.ItemStackUtils;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.tileentity.TileEntity;
@@ -7,8 +10,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntitySlowTick;
-import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
 import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.ModulePneumatic;
 import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.blocks.BlockSender;
 

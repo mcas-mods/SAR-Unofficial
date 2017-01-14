@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution;
 
+import com.teamacronymcoders.base.BaseModFoundation;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -12,12 +14,10 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import xyz.brassgoggledcoders.boilerplate.BaseCreativeTab;
-import xyz.brassgoggledcoders.boilerplate.BoilerplateModBase;
 
 @Mod(modid = SteamAgeRevolution.MODID, name = SteamAgeRevolution.MODNAME, version = SteamAgeRevolution.MODVERSION,
 		dependencies = SteamAgeRevolution.DEPENDENCIES)
-public class SteamAgeRevolution extends BoilerplateModBase {
+public class SteamAgeRevolution extends BaseModFoundation {
 
 	static {
 		FluidRegistry.enableUniversalBucket();
@@ -69,7 +69,7 @@ public class SteamAgeRevolution extends BoilerplateModBase {
 		return instance;
 	}
 
-	public static class SARTab extends BaseCreativeTab {
+	public static class SARTab extends CreativeTabs {
 
 		public SARTab() {
 			super(MODID);

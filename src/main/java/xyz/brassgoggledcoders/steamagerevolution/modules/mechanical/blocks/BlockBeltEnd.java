@@ -3,6 +3,9 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.teamacronymcoders.base.blocks.SideType;
+import com.teamacronymcoders.base.util.ItemStackUtils;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -16,9 +19,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLLog;
-import xyz.brassgoggledcoders.boilerplate.api.BoilerplateAPI;
-import xyz.brassgoggledcoders.boilerplate.blocks.SideType;
-import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntityBeltEnd;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PairingHandler;

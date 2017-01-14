@@ -1,11 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.consumers;
 
+import com.teamacronymcoders.base.tileentities.TileEntityBase;
+
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntityBase;
 
 public class TileEntityDropHammerAnvil extends TileEntityBase {
 

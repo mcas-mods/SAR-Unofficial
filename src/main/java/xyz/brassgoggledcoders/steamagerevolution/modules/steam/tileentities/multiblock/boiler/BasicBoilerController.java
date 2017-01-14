@@ -3,9 +3,10 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.mul
 import java.util.HashSet;
 import java.util.Set;
 
+import com.teamacronymcoders.base.multiblock.IMultiblockPart;
+import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.boilerplate.multiblock.IMultiblockPart;
-import xyz.brassgoggledcoders.boilerplate.multiblock.MultiblockControllerBase;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.RectangularMultiblockController;
 
 public class BasicBoilerController extends RectangularMultiblockController {

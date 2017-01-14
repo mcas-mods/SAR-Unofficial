@@ -2,6 +2,9 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.blocks;
 
 import javax.annotation.Nullable;
 
+import com.teamacronymcoders.base.blocks.BlockTEBase;
+import com.teamacronymcoders.base.util.ItemStackUtils;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -14,9 +17,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.boilerplate.api.BoilerplateAPI;
-import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
-import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
 import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.tileentities.TileEntitySender;
 
 public class BlockSender extends BlockTEBase<TileEntitySender> {

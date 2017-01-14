@@ -1,12 +1,13 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.consumers;
 
+import com.teamacronymcoders.base.util.ItemStackUtils;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
-import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
 
 public class TileEntityChute extends TileEntitySpinConsumer {
 

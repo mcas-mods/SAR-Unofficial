@@ -2,6 +2,9 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.items;
 
 import java.util.List;
 
+import com.teamacronymcoders.base.items.ItemBase;
+import com.teamacronymcoders.base.util.PositionUtils;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,8 +16,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.boilerplate.items.ItemBase;
-import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PairingHandler;
 

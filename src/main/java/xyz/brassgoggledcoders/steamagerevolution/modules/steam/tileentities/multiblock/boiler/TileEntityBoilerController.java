@@ -1,12 +1,13 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler;
 
+import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.boilerplate.client.guis.IOpenableGUI;
-import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValidator;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.containers.multiblock.boiler.ContainerBoilerController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.guis.multiblock.boiler.GuiBoilerController;
 

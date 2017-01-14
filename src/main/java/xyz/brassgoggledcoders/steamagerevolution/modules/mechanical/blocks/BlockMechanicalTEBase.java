@@ -2,17 +2,19 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks;
 
 import javax.annotation.Nonnull;
 
+import com.teamacronymcoders.base.blocks.BlockTEBase;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.boilerplate.blocks.BlockTEBase;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.TileEntitySpinMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SpinUtils;
 
-public abstract class BlockMechanicalTEBase<T extends TileEntitySpinMachine> extends BlockTEBase<T> {
+public abstract class BlockMechanicalTEBase<T extends TileEntitySpinMachine>
+		extends BlockTEBase<TileEntitySpinMachine> {
 
 	public BlockMechanicalTEBase(Material material, String name) {
 		super(material, name);

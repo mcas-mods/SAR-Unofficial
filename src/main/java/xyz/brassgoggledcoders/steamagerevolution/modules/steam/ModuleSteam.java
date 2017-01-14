@@ -1,16 +1,16 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam;
 
+import com.teamacronymcoders.base.modulesystem.Module;
+import com.teamacronymcoders.base.modulesystem.ModuleBase;
+import com.teamacronymcoders.base.registry.BlockRegistry;
+import com.teamacronymcoders.base.registry.config.ConfigRegistry;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import xyz.brassgoggledcoders.boilerplate.blocks.BlockModFluid;
-import xyz.brassgoggledcoders.boilerplate.module.Module;
-import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
-import xyz.brassgoggledcoders.boilerplate.registries.BlockRegistry;
-import xyz.brassgoggledcoders.boilerplate.registries.ConfigRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockBoilerController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockBrassFrame;
@@ -25,7 +25,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.turbine.BlockTurbine;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.turbine.BlockTurbineFrame;
 
-@Module(mod = SteamAgeRevolution.MODID)
+@Module(value = SteamAgeRevolution.MODID)
 public class ModuleSteam extends ModuleBase {
 
 	public static Fluid steam;
@@ -57,34 +57,34 @@ public class ModuleSteam extends ModuleBase {
 			FluidRegistry.registerFluid(steam);
 			FluidRegistry.addBucketForFluid(steam);
 			steamBlock = new BlockModFluid(Material.LAVA, "steam", steam);
-			blockRegistry.registerBlock(steamBlock);
+			blockRegistry.register(steamBlock);
 		}
 
 		brassCasing = new BlockBrassFrame(Material.IRON, "brass_frame");
-		blockRegistry.registerBlock(brassCasing);
+		blockRegistry.register(brassCasing);
 		waterInput = new BlockWaterInput(Material.IRON, "water_input");
-		blockRegistry.registerBlock(waterInput);
+		blockRegistry.register(waterInput);
 		waterTank = new BlockWaterTank(Material.IRON, "water_tank");
-		blockRegistry.registerBlock(waterTank);
+		blockRegistry.register(waterTank);
 		steamOutput = new BlockSteamOutput(Material.IRON, "steam_output");
-		blockRegistry.registerBlock(steamOutput);
+		blockRegistry.register(steamOutput);
 		steamTank = new BlockSteamTank(Material.IRON, "steam_tank");
-		blockRegistry.registerBlock(steamTank);
+		blockRegistry.register(steamTank);
 		solidFirebox = new BlockSolidFirebox(Material.IRON, "solid_firebox");
-		blockRegistry.registerBlock(solidFirebox);
+		blockRegistry.register(solidFirebox);
 		frictionFirebox = new BlockFrictionFirebox(Material.IRON, "friction_firebox");
-		blockRegistry.registerBlock(frictionFirebox);
+		blockRegistry.register(frictionFirebox);
 		boilerController = new BlockBoilerController(Material.IRON, "boiler_controller");
-		blockRegistry.registerBlock(boilerController);
+		blockRegistry.register(boilerController);
 
 		steamTurbine = new BlockTurbine(Material.IRON, "steam_turbine");
-		blockRegistry.registerBlock(steamTurbine);
+		blockRegistry.register(steamTurbine);
 		mechanicalOutput = new BlockMechanicalOutput(Material.IRON, "mechanical_output");
-		blockRegistry.registerBlock(mechanicalOutput);
+		blockRegistry.register(mechanicalOutput);
 		steamInput = new BlockSteamInput(Material.IRON, "steam_input");
-		blockRegistry.registerBlock(steamInput);
+		blockRegistry.register(steamInput);
 		turbineFrame = new BlockTurbineFrame(Material.IRON, "turbine_frame");
-		blockRegistry.registerBlock(turbineFrame);
+		blockRegistry.register(turbineFrame);
 
 	}
 }

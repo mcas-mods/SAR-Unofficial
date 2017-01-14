@@ -2,6 +2,8 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.mul
 
 import java.util.LinkedHashMap;
 
+import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -17,7 +19,6 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.boilerplate.api.IDebuggable;
 import xyz.brassgoggledcoders.boilerplate.client.guis.IOpenableGUI;
-import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValidator;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.containers.multiblock.boiler.ContainerSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.guis.multiblock.boiler.GuiSingleTank;
 

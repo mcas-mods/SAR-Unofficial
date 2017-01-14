@@ -3,19 +3,21 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.vanity;
 import java.util.Arrays;
 import java.util.List;
 
+import com.teamacronymcoders.base.items.IHasSubItems;
+import com.teamacronymcoders.base.items.ItemBase;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import xyz.brassgoggledcoders.boilerplate.items.ItemSubBase;
 
-public class ItemTeacup extends ItemSubBase {
+public class ItemTeacup extends ItemBase implements IHasSubItems {
 
 	public static List<String> teacup = Arrays.asList("empty", "quarter", "half", "threequarter", "full");
 
 	public ItemTeacup() {
-		super("tea", "teacup", teacup);
+		super("teacup");
 	}
 
 	@Override

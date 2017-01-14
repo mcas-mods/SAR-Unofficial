@@ -1,8 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler;
 
+import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValidator;
 import xyz.brassgoggledcoders.steamagerevolution.CapabilityHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.SpinHandler;

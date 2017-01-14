@@ -1,7 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks;
 
+import com.teamacronymcoders.base.blocks.BlockBase;
+
 import net.minecraft.block.material.Material;
-import xyz.brassgoggledcoders.boilerplate.blocks.BlockBase;
 
 public class BlockSawblade extends BlockBase {
 

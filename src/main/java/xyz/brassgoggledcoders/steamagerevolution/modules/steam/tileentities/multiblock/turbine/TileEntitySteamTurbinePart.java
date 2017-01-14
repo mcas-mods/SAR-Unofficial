@@ -1,7 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.turbine;
 
-import xyz.brassgoggledcoders.boilerplate.multiblock.MultiblockControllerBase;
-import xyz.brassgoggledcoders.boilerplate.multiblock.rectangular.RectangularMultiblockTileEntityBase;
+import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 
 public abstract class TileEntitySteamTurbinePart extends RectangularMultiblockTileEntityBase {
 

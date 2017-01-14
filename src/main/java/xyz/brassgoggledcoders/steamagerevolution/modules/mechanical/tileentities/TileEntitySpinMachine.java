@@ -3,13 +3,14 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentitie
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 
+import com.teamacronymcoders.base.api.IDebuggable;
+import com.teamacronymcoders.base.tileentities.TileEntitySidedSlowTick;
+import com.teamacronymcoders.base.util.PositionUtils;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
-import xyz.brassgoggledcoders.boilerplate.api.IDebuggable;
-import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntitySidedSlowTick;
-import xyz.brassgoggledcoders.boilerplate.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.CapabilityHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.ISpinHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.capabilities.SpinHandler;

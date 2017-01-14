@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.teamacronymcoders.base.multiblock.IMultiblockPart;
+import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
+import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.boilerplate.client.guis.IOpenableGUI;
-import xyz.brassgoggledcoders.boilerplate.multiblock.IMultiblockPart;
-import xyz.brassgoggledcoders.boilerplate.multiblock.MultiblockControllerBase;
-import xyz.brassgoggledcoders.boilerplate.multiblock.rectangular.RectangularMultiblockControllerBase;
-import xyz.brassgoggledcoders.boilerplate.multiblock.validation.IMultiblockValidator;
 
 public abstract class RectangularMultiblockController extends RectangularMultiblockControllerBase {
 

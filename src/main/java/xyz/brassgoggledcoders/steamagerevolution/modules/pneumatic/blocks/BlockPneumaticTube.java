@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.blocks;
 
+import com.teamacronymcoders.base.blocks.BlockBase;
+
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.material.Material;
@@ -13,7 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.boilerplate.blocks.BlockBase;
 
 public class BlockPneumaticTube extends BlockBase {
 
