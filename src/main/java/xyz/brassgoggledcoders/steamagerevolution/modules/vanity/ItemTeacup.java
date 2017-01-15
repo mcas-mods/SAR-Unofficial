@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 
 public class ItemTeacup extends ItemBase implements IHasSubItems {
 
+	// TODO
 	public static List<String> teacup = Arrays.asList("empty", "quarter", "half", "threequarter", "full");
 
 	public ItemTeacup() {
@@ -58,7 +59,7 @@ public class ItemTeacup extends ItemBase implements IHasSubItems {
 	@Override
 	public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> list) {
 		list.add(new ItemStack(item, 1, 0));
-		list.add(new ItemStack(item, 1, getNumberOfSubItems() - 1));
+		// list.add(new ItemStack(item, 1, getNumberOfSubItems() - 1));
 	}
 
 	@Override
@@ -68,10 +69,10 @@ public class ItemTeacup extends ItemBase implements IHasSubItems {
 	}
 
 	public String getSipsLeft(ItemStack stack) {
-		if(stack.getItemDamage() < getNumberOfSubItems()) {
-			// return StatCollector.translateToLocal("desc." + getUnlocalizedName() + "." + stack.getItemDamage() +
-			// "sips");
-		}
+		// if(stack.getItemDamage() < getNumberOfSubItems()) {
+		// return StatCollector.translateToLocal("desc." + getUnlocalizedName() + "." + stack.getItemDamage() +
+		// "sips");
+		// }
 
 		return "";
 	}

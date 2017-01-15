@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.teamacronymcoders.base.api.BaseAPI;
 import com.teamacronymcoders.base.blocks.SideType;
 import com.teamacronymcoders.base.util.ItemStackUtils;
 
@@ -73,7 +74,7 @@ public class BlockBeltEnd extends BlockMechanicalTEBase<TileEntityBeltEnd> {
 			TileEntityBeltEnd belt = (TileEntityBeltEnd) worldIn.getTileEntity(pos);
 			// TODO Changing output sides
 			if(ItemStackUtils.isItemNonNull(heldItem) && belt.isTilePaired()) {
-				if(heldItem.hasCapability(BoilerplateAPI.TOOL_CAPABILITY, null)) {
+				if(heldItem.hasCapability(BaseAPI.TOOL_CAPABILITY, null)) {
 					SteamAgeRevolution.instance.getLogger().devInfo("Attempted unpairing");
 					PairingHandler.unpair(belt);
 					return true;

@@ -1,10 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.containers.multiblock.boiler;
 
+import com.teamacroynmcoders.base.containers.ContainerBase;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import xyz.brassgoggledcoders.boilerplate.containers.ContainerBase;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler.TileEntitySolidFirebox;
 
 public class ContainerSolidFirebox extends ContainerBase {

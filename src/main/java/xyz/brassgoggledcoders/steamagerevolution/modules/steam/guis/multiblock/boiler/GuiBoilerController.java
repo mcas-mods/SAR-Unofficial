@@ -4,12 +4,12 @@ import java.io.IOException;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.boilerplate.client.guis.GuiScreenBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.containers.multiblock.boiler.ContainerBoilerController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler.BasicBoilerController;
@@ -17,7 +17,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.mult
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler.TileEntityBoilerController;
 
 @SideOnly(Side.CLIENT)
-public class GuiBoilerController extends GuiScreenBase {
+public class GuiBoilerController extends GuiContainer {
 	private static ResourceLocation guiTexture =
 			new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/multiblock/controller.png");
 	private final TileEntityBoilerController tile;
@@ -59,8 +59,6 @@ public class GuiBoilerController extends GuiScreenBase {
 		int x = (this.width - this.xSize) / 2;
 		int y = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
-
-		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
 	}
 
 }

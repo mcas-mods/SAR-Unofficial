@@ -1,7 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.containers.multiblock.boiler;
 
+import com.teamacroynmcoders.base.containers.ContainerBase;
+
 import net.minecraft.entity.player.EntityPlayer;
-import xyz.brassgoggledcoders.boilerplate.containers.ContainerBase;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler.TileEntityBoilerController;
 
 public class ContainerBoilerController extends ContainerBase {

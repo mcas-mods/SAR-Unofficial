@@ -1,10 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.items;
 
+import com.teamacronymcoders.base.items.ItemBase;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
-import xyz.brassgoggledcoders.boilerplate.items.ItemBase;
 
 public class ItemCanister extends ItemBase {
 

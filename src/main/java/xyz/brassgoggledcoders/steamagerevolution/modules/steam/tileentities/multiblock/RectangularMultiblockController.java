@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
@@ -12,7 +13,6 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.boilerplate.client.guis.IOpenableGUI;
 
 public abstract class RectangularMultiblockController extends RectangularMultiblockControllerBase {
 
@@ -36,7 +36,7 @@ public abstract class RectangularMultiblockController extends RectangularMultibl
 			attachedTickables.add((ITickableMultiblockPart) newPart);
 		}
 
-		if(newPart instanceof IOpenableGUI) {
+		if(newPart instanceof IHasGui) {
 			attachedGUIs.add((TileEntity) newPart);
 		}
 	}
@@ -47,7 +47,7 @@ public abstract class RectangularMultiblockController extends RectangularMultibl
 			attachedTickables.remove(oldPart);
 		}
 
-		if(oldPart instanceof IOpenableGUI) {
+		if(oldPart instanceof IHasGui) {
 			attachedGUIs.remove(oldPart);
 		}
 	}

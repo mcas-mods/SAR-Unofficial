@@ -1,5 +1,10 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities;
 
+import com.teamacronymcoders.base.guisystem.IHasGui;
+import com.teamacronymcoders.base.tileentities.IOnSlotChanged;
+import com.teamacronymcoders.base.tileentities.TileEntityInventoryBase;
+import com.teamacronymcoders.base.util.ItemStackUtils;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -7,7 +12,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
@@ -18,12 +22,8 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import xyz.brassgoggledcoders.boilerplate.client.guis.IOpenableGUI;
-import xyz.brassgoggledcoders.boilerplate.tileentities.IOnSlotChanged;
-import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntityInventoryBase;
-import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
 
-public class TileEntityFluidIO extends TileEntityInventoryBase implements IOpenableGUI, IOnSlotChanged, ITickable {
+public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGui, IOnSlotChanged, ITickable {
 
 	public FluidTank buffer = new FluidTank(Fluid.BUCKET_VOLUME * 10);
 	private int fluidTransferRate = 20;
@@ -98,16 +98,16 @@ public class TileEntityFluidIO extends TileEntityInventoryBase implements IOpena
 	}
 
 	@Override
-	public Gui getClientGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos) {
-		return new GuiFluidIO(player, this);
-	}
-
-	@Override
-	public Container getServerGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos) {
-		return new ContainerFluidIO(player, this);
-	}
-
-	@Override
 	public void onSlotChanged(Slot slot) {}
+
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, NBTTagCompound context) {
+		return new GuiFluidIO(entityPlayer, this);
+	}
+
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, NBTTagCompound context) {
+		return new ContainerFluidIO(entityPlayer, this);
+	}
 
 }

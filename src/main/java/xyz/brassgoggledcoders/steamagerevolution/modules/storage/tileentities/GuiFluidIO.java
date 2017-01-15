@@ -1,17 +1,17 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities;
 
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.boilerplate.client.guis.GuiScreenBase;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.GuiUtils;
 
 @SideOnly(Side.CLIENT)
-public class GuiFluidIO extends GuiScreenBase {
+public class GuiFluidIO extends GuiContainer {
 	private static ResourceLocation guiTexture =
 			new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/fluid_io.png");
 	private final TileEntityFluidIO tile;
@@ -41,8 +41,6 @@ public class GuiFluidIO extends GuiScreenBase {
 
 		this.mc.renderEngine.bindTexture(guiTexture);
 		this.drawTexturedModalRect(this.guiLeft + 78, this.guiTop + 17, 176, 14, 20, 49);
-
-		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
 	}
 
 }

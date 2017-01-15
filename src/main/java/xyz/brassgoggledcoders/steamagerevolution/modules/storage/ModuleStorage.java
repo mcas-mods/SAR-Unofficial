@@ -1,19 +1,20 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage;
 
+import com.teamacronymcoders.base.modulesystem.Module;
+import com.teamacronymcoders.base.modulesystem.ModuleBase;
+import com.teamacronymcoders.base.registry.BlockRegistry;
+import com.teamacronymcoders.base.registry.ItemRegistry;
+import com.teamacronymcoders.base.registry.config.ConfigRegistry;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
-import xyz.brassgoggledcoders.boilerplate.module.Module;
-import xyz.brassgoggledcoders.boilerplate.module.ModuleBase;
-import xyz.brassgoggledcoders.boilerplate.registries.BlockRegistry;
-import xyz.brassgoggledcoders.boilerplate.registries.ConfigRegistry;
-import xyz.brassgoggledcoders.boilerplate.registries.ItemRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockFluidIO;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockTrunk;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.items.ItemCanister;
 
-@Module(mod = SteamAgeRevolution.MODID)
+@Module(value = SteamAgeRevolution.MODID)
 public class ModuleStorage extends ModuleBase {
 
 	public static Block trunk, fluidIO;
@@ -27,15 +28,15 @@ public class ModuleStorage extends ModuleBase {
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
 		trunk = new BlockTrunk(Material.WOOD, "trunk");
-		blockRegistry.registerBlock(trunk);
+		blockRegistry.register(trunk);
 		fluidIO = new BlockFluidIO();
-		blockRegistry.registerBlock(fluidIO);
+		blockRegistry.register(fluidIO);
 	}
 
 	@Override
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
 		canister = new ItemCanister("canister", 10000);
-		itemRegistry.registerItem(canister);
+		itemRegistry.register(canister);
 	}
 
 	@Override

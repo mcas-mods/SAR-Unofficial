@@ -1,5 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.turbine;
 
+import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.client.gui.Gui;
@@ -7,17 +8,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import xyz.brassgoggledcoders.boilerplate.client.guis.IOpenableGUI;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.containers.multiblock.boiler.ContainerSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.guis.multiblock.boiler.GuiSingleTank;
 
-public class TileEntitySteamInput extends TileEntitySteamTurbinePart implements IOpenableGUI {
+public class TileEntitySteamInput extends TileEntitySteamTurbinePart implements IHasGui {
 
 	public FluidTank buffer = new FluidTank(Fluid.BUCKET_VOLUME);
 
@@ -78,13 +77,13 @@ public class TileEntitySteamInput extends TileEntitySteamTurbinePart implements 
 	}
 
 	@Override
-	public Gui getClientGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos) {
-		return new GuiSingleTank(player, this);
+	public Gui getGui(EntityPlayer entityPlayer, World world, NBTTagCompound context) {
+		return new GuiSingleTank(entityPlayer, this);
 	}
 
 	@Override
-	public Container getServerGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos) {
-		return new ContainerSingleTank(player, this);
+	public Container getContainer(EntityPlayer entityPlayer, World world, NBTTagCompound context) {
+		return new ContainerSingleTank(entityPlayer, this);
 	}
 
 }

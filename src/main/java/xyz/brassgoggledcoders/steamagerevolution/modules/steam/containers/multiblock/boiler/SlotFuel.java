@@ -2,11 +2,12 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.containers.multi
 
 import javax.annotation.Nullable;
 
+import com.teamacronymcoders.base.tileentities.IOnSlotChanged;
+import com.teamacroynmcoders.base.containers.slots.SlotChanged;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.items.IItemHandler;
-import xyz.brassgoggledcoders.boilerplate.containers.slots.SlotChanged;
-import xyz.brassgoggledcoders.boilerplate.tileentities.IOnSlotChanged;
 
 public class SlotFuel extends SlotChanged {
 

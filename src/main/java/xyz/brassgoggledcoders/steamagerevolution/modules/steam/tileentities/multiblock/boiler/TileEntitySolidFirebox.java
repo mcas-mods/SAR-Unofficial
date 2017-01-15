@@ -5,8 +5,12 @@ import java.util.LinkedHashMap;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.teamacronymcoders.base.api.IDebuggable;
+import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+import com.teamacronymcoders.base.tileentities.IOnSlotChanged;
+import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,7 +19,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
@@ -24,16 +27,12 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.boilerplate.api.IDebuggable;
-import xyz.brassgoggledcoders.boilerplate.client.guis.IOpenableGUI;
-import xyz.brassgoggledcoders.boilerplate.tileentities.IOnSlotChanged;
-import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.containers.multiblock.boiler.ContainerSolidFirebox;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.guis.multiblock.boiler.GuiSolidFirebox;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.ITickableMultiblockPart;
 
 public class TileEntitySolidFirebox extends TileEntityBasicBoilerPart
-		implements ITickableMultiblockPart, IOnSlotChanged, IOpenableGUI, IDebuggable {
+		implements ITickableMultiblockPart, IOnSlotChanged, IHasGui, IDebuggable {
 
 	private ItemStackHandler inventory;
 	private int burnTime;
@@ -179,16 +178,6 @@ public class TileEntitySolidFirebox extends TileEntityBasicBoilerPart
 	}
 
 	@Override
-	public Gui getClientGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos) {
-		return new GuiSolidFirebox(player, this);
-	}
-
-	@Override
-	public Container getServerGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos) {
-		return new ContainerSolidFirebox(player, this);
-	}
-
-	@Override
 	public void onSlotChanged(Slot slot) {
 
 	}
@@ -202,6 +191,16 @@ public class TileEntitySolidFirebox extends TileEntityBasicBoilerPart
 	@Override
 	public String getPartName() {
 		return "Solid Firebox";
+	}
+
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, NBTTagCompound context) {
+		return new GuiSolidFirebox(entityPlayer, this);
+	}
+
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, NBTTagCompound context) {
+		return new ContainerSolidFirebox(entityPlayer, this);
 	}
 
 }

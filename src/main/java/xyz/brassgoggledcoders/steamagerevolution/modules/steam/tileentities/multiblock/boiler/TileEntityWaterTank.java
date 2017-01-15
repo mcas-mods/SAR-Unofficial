@@ -2,6 +2,8 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.mul
 
 import java.util.LinkedHashMap;
 
+import com.teamacronymcoders.base.api.IDebuggable;
+import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.client.gui.Gui;
@@ -9,7 +11,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
@@ -17,13 +18,11 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import xyz.brassgoggledcoders.boilerplate.api.IDebuggable;
-import xyz.brassgoggledcoders.boilerplate.client.guis.IOpenableGUI;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.containers.multiblock.boiler.ContainerSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.guis.multiblock.boiler.GuiSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.boiler.TileEntityWaterInput.WaterLockedTank;
 
-public class TileEntityWaterTank extends TileEntityBasicBoilerPart implements IOpenableGUI, IDebuggable {
+public class TileEntityWaterTank extends TileEntityBasicBoilerPart implements IHasGui, IDebuggable {
 
 	protected FluidTank tank = new WaterLockedTank(Fluid.BUCKET_VOLUME * 16);
 
@@ -84,13 +83,13 @@ public class TileEntityWaterTank extends TileEntityBasicBoilerPart implements IO
 	}
 
 	@Override
-	public Gui getClientGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos) {
-		return new GuiSingleTank(player, this);
+	public Gui getGui(EntityPlayer entityPlayer, World world, NBTTagCompound context) {
+		return new GuiSingleTank(entityPlayer, this);
 	}
 
 	@Override
-	public Container getServerGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos) {
-		return new ContainerSingleTank(player, this);
+	public Container getContainer(EntityPlayer entityPlayer, World world, NBTTagCompound context) {
+		return new ContainerSingleTank(entityPlayer, this);
 	}
 
 	@Override

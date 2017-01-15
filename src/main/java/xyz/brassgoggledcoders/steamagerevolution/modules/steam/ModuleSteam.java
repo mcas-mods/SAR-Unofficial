@@ -1,5 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam;
 
+import com.teamacronymcoders.base.blocks.BlockFluidBase;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registry.BlockRegistry;
@@ -56,7 +57,7 @@ public class ModuleSteam extends ModuleBase {
 		if(!(FluidRegistry.isFluidRegistered(steam))) { // Soft registration
 			FluidRegistry.registerFluid(steam);
 			FluidRegistry.addBucketForFluid(steam);
-			steamBlock = new BlockModFluid(Material.LAVA, "steam", steam);
+			steamBlock = new BlockFluidBase("steam", steam, Material.LAVA);
 			blockRegistry.register(steamBlock);
 		}
 

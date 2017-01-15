@@ -33,7 +33,7 @@ public class SteamAgeRevolution extends BaseModFoundation {
 	public static final String MODID = "steamagerevolution";
 	public static final String MODNAME = "Steam Age Revolution";
 	public static final String MODVERSION = "@VERSION@";
-	public static final String DEPENDENCIES = "required-after:boilerplate";
+	public static final String DEPENDENCIES = "required-after:base";
 
 	public static CreativeTabs tab = new SARTab();
 

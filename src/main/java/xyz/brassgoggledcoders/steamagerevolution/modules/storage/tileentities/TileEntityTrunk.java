@@ -3,6 +3,10 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.teamacronymcoders.base.guisystem.IHasGui;
+import com.teamacronymcoders.base.tileentities.TileEntityInventoryBase;
+import com.teamacronymcoders.base.util.ItemStackUtils;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,16 +20,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import xyz.brassgoggledcoders.boilerplate.client.guis.IOpenableGUI;
-import xyz.brassgoggledcoders.boilerplate.tileentities.TileEntityInventoryBase;
-import xyz.brassgoggledcoders.boilerplate.utils.ItemStackUtils;
 
-public class TileEntityTrunk extends TileEntityInventoryBase implements IOpenableGUI, ITickable {
+public class TileEntityTrunk extends TileEntityInventoryBase implements IHasGui, ITickable {
 
 	IInventory inv;
 	InvWrapper inventory;
@@ -37,16 +37,6 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IOpenabl
 		super(27);
 		inv = new InventoryBasic("container.chest", false, 27);
 		inventory = new InvWrapper(inv);
-	}
-
-	@Override
-	public Gui getClientGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos) {
-		return new GuiChest(player.inventory, inv);
-	}
-
-	@Override
-	public Container getServerGuiElement(int ID, EntityPlayer player, World world, BlockPos blockPos) {
-		return new ContainerChest(player.inventory, inv, player);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -132,4 +122,13 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IOpenabl
 		}
 	}
 
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, NBTTagCompound context) {
+		return new GuiChest(entityPlayer.inventory, inv);
+	}
+
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, NBTTagCompound context) {
+		return new ContainerChest(entityPlayer.inventory, inv, entityPlayer);
+	}
 }

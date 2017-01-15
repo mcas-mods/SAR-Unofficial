@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.cons
 
 import javax.annotation.Nullable;
 
+import com.teamacronymcoders.base.api.BaseAPI;
 import com.teamacronymcoders.base.blocks.BlockTEBase;
 import com.teamacronymcoders.base.util.ItemStackUtils;
 
@@ -31,7 +32,7 @@ public class BlockFan extends BlockTEBase<TileEntityFan> {
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
 			@Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if(ItemStackUtils.isItemNonNull(heldItem) && heldItem.hasCapability(BoilerplateAPI.TOOL_CAPABILITY, side)) {
+		if(ItemStackUtils.isItemNonNull(heldItem) && heldItem.hasCapability(BaseAPI.TOOL_CAPABILITY, side)) {
 			world.setBlockState(pos, state.cycleProperty(FACING));
 			return true;
 		}
