@@ -1,6 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.blocks;
 
+import com.teamacronymcoders.base.api.BaseAPI;
 import com.teamacronymcoders.base.blocks.BlockBase;
+import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockLog.EnumAxis;
@@ -9,10 +11,15 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -24,6 +31,24 @@ public class BlockPneumaticTube extends BlockBase {
 	public BlockPneumaticTube(Material mat, String name) {
 		super(mat, name);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumAxis.X));
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
+			ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+		if(ItemStackUtils.isItemNonNull(heldItem) && heldItem.hasCapability(BaseAPI.TOOL_CAPABILITY, side)) {
+			state.cycleProperty(AXIS);
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ,
+			int meta, EntityLivingBase placer) {
+		return this.getStateFromMeta(meta).withProperty(AXIS,
+				BlockLog.EnumAxis.fromFacingAxis(facing.getOpposite().getAxis()));
 	}
 
 	@Override

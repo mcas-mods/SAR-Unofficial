@@ -3,11 +3,13 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multibloc
 import javax.annotation.Nullable;
 
 import com.teamacronymcoders.base.blocks.BlockTEBase;
+import com.teamacronymcoders.base.guisystem.target.GuiBlockTarget;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -27,7 +29,8 @@ public class BlockWaterTank extends BlockTEBase<TileEntityWaterTank> {
 			@Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		TileEntity tile = getTileEntity(world, pos);
 		if(tile != null && !player.isSneaking()) {
-			player.openGui(SteamAgeRevolution.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+			SteamAgeRevolution.instance.getGuiHandler().openGui(new GuiBlockTarget(this, pos), new NBTTagCompound(),
+					false, player, world);
 			return true;
 		}
 		return false;

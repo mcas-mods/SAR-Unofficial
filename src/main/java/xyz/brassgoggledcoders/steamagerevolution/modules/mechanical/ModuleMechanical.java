@@ -1,6 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical;
 
-import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registry.BlockRegistry;
 import com.teamacronymcoders.base.registry.ItemRegistry;
@@ -9,7 +8,6 @@ import com.teamacronymcoders.base.registry.config.ConfigRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltDummy;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockBeltEnd;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockGearbox;
@@ -27,7 +25,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.items.ItemBe
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.items.ItemSpinReader;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.DropHammerRecipes;
 
-@Module(value = SteamAgeRevolution.MODID)
+// @Module(value = SteamAgeRevolution.MODID)
 public class ModuleMechanical extends ModuleBase {
 
 	public static Block infSpinSource;

@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks;
 import javax.annotation.Nullable;
 
 import com.teamacronymcoders.base.blocks.BlockTEBase;
+import com.teamacronymcoders.base.guisystem.target.GuiTileTarget;
 
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
@@ -13,6 +14,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -138,7 +140,8 @@ public class BlockTrunk extends BlockTEBase<TileEntityTrunk> {
 			@Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		TileEntityTrunk tile = getTileEntity(world, pos);
 		if(tile != null && !player.isSneaking()) {
-			player.openGui(SteamAgeRevolution.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+			SteamAgeRevolution.instance.getGuiHandler().openGui(new GuiTileTarget(tile, pos), new NBTTagCompound(),
+					false, player, world);
 			return true;
 		}
 		return false;

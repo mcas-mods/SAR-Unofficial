@@ -7,5 +7,4 @@ public abstract class TileEntitySpinGenerator extends TileEntitySpinMachine {
 	public TileEntitySpinGenerator() {
 		super();
 	}
-
 }
