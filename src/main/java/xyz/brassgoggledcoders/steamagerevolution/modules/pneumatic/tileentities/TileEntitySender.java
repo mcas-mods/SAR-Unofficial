@@ -1,7 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.tileentities;
 
 import com.teamacronymcoders.base.tileentities.TileEntitySlowTick;
-import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
@@ -29,7 +28,7 @@ public class TileEntitySender extends TileEntitySlowTick {
 		if(behind instanceof TileEntityRouter) {
 			IItemHandler sendInventory =
 					behind.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing.getOpposite());
-			if(!ItemStackUtils.isItemNonNull(sendInventory.getStackInSlot(0))) {
+			if(sendInventory.getStackInSlot(0) == null) {
 				return;
 			}
 			BlockPos[] tubePositions = new BlockPos[maxDistance];
@@ -48,6 +47,7 @@ public class TileEntitySender extends TileEntitySlowTick {
 								SoundCategory.BLOCKS, 1, 1);
 						for(int i2 = 0; i2 < maxDistance; i2++) {
 							if(tubePositions[i2] != null) {
+								SteamAgeRevolution.proxy.spawnSmoke(this.getPos());
 								SteamAgeRevolution.proxy.spawnSmoke(tubePositions[i2]);
 							}
 						}

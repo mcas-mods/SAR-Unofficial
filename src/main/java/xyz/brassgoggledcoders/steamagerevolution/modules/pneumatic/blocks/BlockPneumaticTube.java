@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -27,10 +28,25 @@ public class BlockPneumaticTube extends BlockBase {
 
 	public static final PropertyEnum<BlockLog.EnumAxis> AXIS =
 			PropertyEnum.<BlockLog.EnumAxis> create("axis", BlockLog.EnumAxis.class);
+	public static final AxisAlignedBB X_TUBE_AABB = new AxisAlignedBB(0.0D, 0.2D, 0.2D, 1.0D, 0.8D, 0.8D);
+	public static final AxisAlignedBB Y_TUBE_AABB = new AxisAlignedBB(0.2D, 0.0D, 0.2D, 0.8D, 1.0D, 0.8D);
+	public static final AxisAlignedBB Z_TUBE_AABB = new AxisAlignedBB(0.2D, 0.2D, 0.0D, 0.8D, 0.8D, 1.0D);
 
 	public BlockPneumaticTube(Material mat, String name) {
 		super(mat, name);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumAxis.X));
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		switch(state.getValue(AXIS)) {
+			case Y:
+				return Y_TUBE_AABB;
+			case Z:
+				return Z_TUBE_AABB;
+			default:
+				return X_TUBE_AABB;
+		}
 	}
 
 	@Override

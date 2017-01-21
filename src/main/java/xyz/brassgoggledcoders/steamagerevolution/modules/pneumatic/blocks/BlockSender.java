@@ -11,12 +11,14 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -32,6 +34,17 @@ public class BlockSender extends BlockTEBase<TileEntitySender> {
 	public BlockSender(Material material, String name) {
 		super(material, name);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		EnumFacing f = state.getValue(FACING);
+		if(f == EnumFacing.NORTH || f == EnumFacing.SOUTH)
+			return BlockPneumaticTube.Z_TUBE_AABB;
+		else if(f == EnumFacing.EAST || f == EnumFacing.WEST)
+			return BlockPneumaticTube.X_TUBE_AABB;
+		else
+			return BlockPneumaticTube.Y_TUBE_AABB;
 	}
 
 	@Override
@@ -90,6 +103,12 @@ public class BlockSender extends BlockTEBase<TileEntitySender> {
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
 		return new TileEntitySender();
+	}
+
+	@Override
+	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ,
+			int meta, EntityLivingBase placer) {
+		return this.getStateFromMeta(meta).withProperty(FACING, facing);
 	}
 
 }
