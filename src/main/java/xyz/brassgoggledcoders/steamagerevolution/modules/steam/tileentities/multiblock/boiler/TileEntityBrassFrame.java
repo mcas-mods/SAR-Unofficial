@@ -10,7 +10,6 @@ public class TileEntityBrassFrame extends TileEntityBasicBoilerPart {
 
 	@Override
 	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
-
 		return true;
 	}
 

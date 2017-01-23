@@ -5,8 +5,12 @@ import java.util.Set;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.RectangularMultiblockController;
 
 public class BasicBoilerController extends RectangularMultiblockController {
@@ -108,6 +112,31 @@ public class BasicBoilerController extends RectangularMultiblockController {
 
 	public Set<TileEntitySteamTank> getAttachedSteamTanks() {
 		return attachedSteamTanks;
+	}
+
+	@Override
+	protected boolean isBlockGoodForFrame(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		FMLLog.warning("Checking for frame at" + new BlockPos(x, y, z).toString());
+		if(world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.NETHER_BRICK)
+			return true;
+		else
+			return false;
+	}
+
+	@Override
+	protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		if(world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.NETHER_BRICK)
+			return true;
+		else
+			return false;
+	}
+
+	@Override
+	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		if(world.isAirBlock(new BlockPos(x, y, z)))
+			return true;
+		else
+			return false;
 	}
 
 }

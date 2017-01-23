@@ -15,16 +15,13 @@ import net.minecraftforge.fluids.FluidRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockBoilerController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockBrassFrame;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockFrictionFirebox;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockSolidFirebox;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockSteamOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockSteamTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockWaterInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockWaterTank;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.turbine.BlockMechanicalOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.turbine.BlockSteamInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.turbine.BlockTurbine;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.turbine.BlockTurbineFrame;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.smeltery.BlockSmelteryController;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.smeltery.BlockSmelteryFrame;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleSteam extends ModuleBase {
@@ -35,6 +32,7 @@ public class ModuleSteam extends ModuleBase {
 	public static Block brassCasing, waterInput, solidFirebox, frictionFirebox, waterTank, steamOutput, steamTank,
 			boilerController;
 	public static Block steamTurbine, mechanicalOutput, steamInput, turbineFrame;
+	public static Block smelteryController, itemInput, smelteryFrame;
 
 	@Override
 	public String getName() {
@@ -73,19 +71,24 @@ public class ModuleSteam extends ModuleBase {
 		blockRegistry.register(steamTank);
 		solidFirebox = new BlockSolidFirebox(Material.IRON, "solid_firebox");
 		blockRegistry.register(solidFirebox);
-		frictionFirebox = new BlockFrictionFirebox(Material.IRON, "friction_firebox");
-		blockRegistry.register(frictionFirebox);
+		// frictionFirebox = new BlockFrictionFirebox(Material.IRON, "friction_firebox");
+		// blockRegistry.register(frictionFirebox);
 		boilerController = new BlockBoilerController(Material.IRON, "boiler_controller");
 		blockRegistry.register(boilerController);
 
-		steamTurbine = new BlockTurbine(Material.IRON, "steam_turbine");
-		blockRegistry.register(steamTurbine);
-		mechanicalOutput = new BlockMechanicalOutput(Material.IRON, "mechanical_output");
-		blockRegistry.register(mechanicalOutput);
-		steamInput = new BlockSteamInput(Material.IRON, "steam_input");
-		blockRegistry.register(steamInput);
-		turbineFrame = new BlockTurbineFrame(Material.IRON, "turbine_frame");
-		blockRegistry.register(turbineFrame);
+		smelteryController = new BlockSmelteryController(Material.ANVIL, "smeltery_controller");
+		blockRegistry.register(smelteryController);
+		smelteryFrame = new BlockSmelteryFrame(Material.ROCK, "smeltery_frame");
+		blockRegistry.register(smelteryFrame);
+
+		// steamTurbine = new BlockTurbine(Material.IRON, "steam_turbine");
+		// blockRegistry.register(steamTurbine);
+		// mechanicalOutput = new BlockMechanicalOutput(Material.IRON, "mechanical_output");
+		// blockRegistry.register(mechanicalOutput);
+		// steamInput = new BlockSteamInput(Material.IRON, "steam_input");
+		// blockRegistry.register(steamInput);
+		// turbineFrame = new BlockTurbineFrame(Material.IRON, "turbine_frame");
+		// blockRegistry.register(turbineFrame);
 
 	}
 }

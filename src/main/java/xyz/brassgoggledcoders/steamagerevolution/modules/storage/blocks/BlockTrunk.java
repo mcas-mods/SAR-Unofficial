@@ -40,6 +40,18 @@ public class BlockTrunk extends BlockTEBase<TileEntityTrunk> {
 	}
 
 	@Override
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
+			@Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+		TileEntity tile = getTileEntity(world, pos);
+		if(tile != null && !player.isSneaking()) {
+			SteamAgeRevolution.instance.getGuiHandler().openGui(new GuiTileTarget(tile, pos), new NBTTagCompound(),
+					false, player, world);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
@@ -133,18 +145,6 @@ public class BlockTrunk extends BlockTEBase<TileEntityTrunk> {
 	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, new IProperty[] {FACING});
-	}
-
-	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
-			@Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-		TileEntityTrunk tile = getTileEntity(world, pos);
-		if(tile != null && !player.isSneaking()) {
-			SteamAgeRevolution.instance.getGuiHandler().openGui(new GuiTileTarget(tile, pos), new NBTTagCompound(),
-					false, player, world);
-			return true;
-		}
-		return false;
 	}
 
 	@Override

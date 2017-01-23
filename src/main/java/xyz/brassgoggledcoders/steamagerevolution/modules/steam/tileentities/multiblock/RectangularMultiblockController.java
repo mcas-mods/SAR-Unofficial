@@ -97,27 +97,27 @@ public abstract class RectangularMultiblockController extends RectangularMultibl
 
 	@Override
 	protected boolean isBlockGoodForFrame(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		return true;
+		return false;
 	}
 
 	@Override
 	protected boolean isBlockGoodForTop(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		return true;
+		return false;
 	}
 
 	@Override
 	protected boolean isBlockGoodForBottom(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		return true;
+		return false;
 	}
 
 	@Override
 	protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		return true;
+		return false;
 	}
 
 	@Override
 	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		return true;
+		return false;
 	}
 
 	@Override
