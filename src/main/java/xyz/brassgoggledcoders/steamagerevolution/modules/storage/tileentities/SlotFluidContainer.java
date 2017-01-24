@@ -2,8 +2,8 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities;
 
 import javax.annotation.Nullable;
 
+import com.teamacronymcoders.base.containers.slots.SlotChanged;
 import com.teamacronymcoders.base.tileentities.IOnSlotChanged;
-import com.teamacroynmcoders.base.containers.slots.SlotChanged;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;

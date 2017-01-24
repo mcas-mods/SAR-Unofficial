@@ -1,6 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities;
 
-import com.teamacroynmcoders.base.containers.ContainerBase;
+import com.teamacronymcoders.base.containers.ContainerBase;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.items.CapabilityItemHandler;

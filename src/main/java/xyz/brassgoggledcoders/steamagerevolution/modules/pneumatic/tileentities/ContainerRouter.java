@@ -1,7 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.tileentities;
 
-import com.teamacroynmcoders.base.containers.ContainerBase;
-import com.teamacroynmcoders.base.containers.slots.SlotChanged;
+import com.teamacronymcoders.base.containers.ContainerBase;
+import com.teamacronymcoders.base.containers.slots.SlotChanged;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.items.CapabilityItemHandler;

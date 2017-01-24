@@ -4,14 +4,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
-import com.teamacronymcoders.base.tileentities.IOnSlotChanged;
 
-import net.minecraft.inventory.Slot;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class TileEntityFurnaceItemInput extends TileEntityFurnacePart implements IOnSlotChanged {
+public class TileEntityFurnaceItemInput extends TileEntityFurnacePart {
 
 	@Override
 	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
@@ -48,7 +46,4 @@ public class TileEntityFurnaceItemInput extends TileEntityFurnacePart implements
 		}
 		return super.getCapability(capability, facing);
 	}
-
-	@Override
-	public void onSlotChanged(Slot slot) {}
 }

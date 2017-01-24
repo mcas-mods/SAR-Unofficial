@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.RectangularMultiblockController;
@@ -76,6 +77,7 @@ public class SteamFurnaceController extends RectangularMultiblockController {
 	@Override
 	protected boolean updateServer() {
 		super.updateServer();
+		FMLLog.warning(inputInventory.toString());
 		if(temperature < 200) {
 			if(steamTank.drain(fluidUseOnHeat, false) != null) {
 				steamTank.drain(fluidUseOnHeat, true);
