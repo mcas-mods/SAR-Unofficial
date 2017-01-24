@@ -23,6 +23,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.furnace.BlockFurnaceCasing;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.furnace.BlockFurnaceItemInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.furnace.BlockFurnaceItemOutput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.furnace.BlockFurnaceSteamInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.smeltery.BlockSmelteryController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.smeltery.BlockSmelteryFrame;
 
@@ -36,7 +37,7 @@ public class ModuleSteam extends ModuleBase {
 			boilerController;
 	public static Block steamTurbine, mechanicalOutput, steamInput, turbineFrame;
 	public static Block furnaceCasing, furnaceItemInput, furnaceItemOutput;
-	public static Block smelteryController, itemInput, smelteryFrame;
+	public static Block smelteryController, itemInput, smelteryFrame, furnaceSteamInput;
 
 	@Override
 	public String getName() {
@@ -91,6 +92,8 @@ public class ModuleSteam extends ModuleBase {
 		blockRegistry.register(furnaceItemInput);
 		furnaceItemOutput = new BlockFurnaceItemOutput(Material.IRON, "furnace_itemoutput");
 		blockRegistry.register(furnaceItemOutput);
+		furnaceSteamInput = new BlockFurnaceSteamInput(Material.IRON, "furnace_steaminput");
+		blockRegistry.register(furnaceSteamInput);
 
 		// steamTurbine = new BlockTurbine(Material.IRON, "steam_turbine");
 		// blockRegistry.register(steamTurbine);

@@ -7,8 +7,8 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 public abstract class TileEntityFurnacePart extends RectangularMultiblockTileEntityBase {
 
 	@Override
-	public Class<FurnaceController> getMultiblockControllerType() {
-		return FurnaceController.class;
+	public Class<SteamFurnaceController> getMultiblockControllerType() {
+		return SteamFurnaceController.class;
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public abstract class TileEntityFurnacePart extends RectangularMultiblockTileEnt
 
 	@Override
 	public MultiblockControllerBase createNewMultiblock() {
-		return new FurnaceController(getWorld());
+		return new SteamFurnaceController(getWorld());
 	}
 
 }
