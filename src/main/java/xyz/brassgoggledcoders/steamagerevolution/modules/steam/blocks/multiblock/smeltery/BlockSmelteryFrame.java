@@ -13,11 +13,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.smeltery.TileEntitySmelteryController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.smeltery.TileEntitySmelteryFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.smeltery.TileEntitySmelteryPart;
 
-public class BlockSmelteryFrame extends BlockTEBase<TileEntitySmelteryController> {
+public class BlockSmelteryFrame extends BlockTEBase<TileEntitySmelteryFrame> {
 
 	public BlockSmelteryFrame(Material material, String name) {
 		super(material, name);

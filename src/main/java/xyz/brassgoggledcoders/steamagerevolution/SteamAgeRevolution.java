@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = SteamAgeRevolution.MODID, name = SteamAgeRevolution.MODNAME, version = SteamAgeRevolution.MODVERSION,
 		dependencies = SteamAgeRevolution.DEPENDENCIES)
-public class SteamAgeRevolution extends BaseModFoundation {
+public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 
 	static {
 		FluidRegistry.enableUniversalBucket();
@@ -65,7 +65,7 @@ public class SteamAgeRevolution extends BaseModFoundation {
 	}
 
 	@Override
-	public Object getInstance() {
+	public SteamAgeRevolution getInstance() {
 		return instance;
 	}
 

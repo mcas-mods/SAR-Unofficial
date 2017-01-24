@@ -20,6 +20,9 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockSteamTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockWaterInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockWaterTank;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.furnace.BlockFurnaceCasing;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.furnace.BlockFurnaceItemInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.furnace.BlockFurnaceItemOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.smeltery.BlockSmelteryController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.smeltery.BlockSmelteryFrame;
 
@@ -32,6 +35,7 @@ public class ModuleSteam extends ModuleBase {
 	public static Block brassCasing, waterInput, solidFirebox, frictionFirebox, waterTank, steamOutput, steamTank,
 			boilerController;
 	public static Block steamTurbine, mechanicalOutput, steamInput, turbineFrame;
+	public static Block furnaceCasing, furnaceItemInput, furnaceItemOutput;
 	public static Block smelteryController, itemInput, smelteryFrame;
 
 	@Override
@@ -80,6 +84,13 @@ public class ModuleSteam extends ModuleBase {
 		blockRegistry.register(smelteryController);
 		smelteryFrame = new BlockSmelteryFrame(Material.ROCK, "smeltery_frame");
 		blockRegistry.register(smelteryFrame);
+
+		furnaceCasing = new BlockFurnaceCasing(Material.IRON, "furnace_casing");
+		blockRegistry.register(furnaceCasing);
+		furnaceItemInput = new BlockFurnaceItemInput(Material.IRON, "furnace_iteminput");
+		blockRegistry.register(furnaceItemInput);
+		furnaceItemOutput = new BlockFurnaceItemOutput(Material.IRON, "furnace_itemoutput");
+		blockRegistry.register(furnaceItemOutput);
 
 		// steamTurbine = new BlockTurbine(Material.IRON, "steam_turbine");
 		// blockRegistry.register(steamTurbine);
