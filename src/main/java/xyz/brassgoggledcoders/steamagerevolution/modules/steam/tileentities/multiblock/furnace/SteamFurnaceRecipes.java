@@ -8,9 +8,11 @@ import javax.annotation.Nullable;
 import com.google.common.collect.Maps;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.oredict.OreDictionary;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 
 public class SteamFurnaceRecipes {
 	private static final SteamFurnaceRecipes INSTANCE = new SteamFurnaceRecipes();
@@ -30,13 +32,17 @@ public class SteamFurnaceRecipes {
 	}
 
 	@Nullable
-	public ItemStack getResult(ItemStack input) {
+	public ItemStack getResult(ItemStack input, int temperature) {
 
 		for(int oreId : OreDictionary.getOreIDs(input)) {
 			String type = OreDictionary.getOreName(oreId).replace("ore", "");
 			if(OreDictionary.doesOreNameExist("ingot" + type)) {
 				return OreDictionary.getOres("ingot" + type, false).get(oreId);
 			}
+		}
+
+		if(temperature >= 80 && input.getItem() instanceof ItemFood) {
+			return new ItemStack(ModuleSteam.charcoalPowder);
 		}
 
 		for(Entry<ItemStack, ItemStack> entry : this.recipeList.entrySet()) {

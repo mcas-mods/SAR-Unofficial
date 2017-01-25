@@ -1,17 +1,26 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam;
 
 import com.teamacronymcoders.base.blocks.BlockFluidBase;
+import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registry.BlockRegistry;
+import com.teamacronymcoders.base.registry.ItemRegistry;
 import com.teamacronymcoders.base.registry.config.ConfigRegistry;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockBoilerController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockBrassFrame;
@@ -27,6 +36,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.furnace.BlockFurnaceSteamInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.smeltery.BlockSmelteryController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.smeltery.BlockSmelteryFrame;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.furnace.SteamFurnaceRecipes;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleSteam extends ModuleBase {
@@ -40,6 +50,8 @@ public class ModuleSteam extends ModuleBase {
 	public static Block furnaceCasing, furnaceItemInput, furnaceItemOutput;
 	public static Block smelteryController, itemInput, smelteryFrame, furnaceSteamInput, furnaceMonitor;
 
+	public static Item charcoalPowder;
+
 	@Override
 	public String getName() {
 		return "Steam";
@@ -48,6 +60,14 @@ public class ModuleSteam extends ModuleBase {
 	@Override
 	public String getClientProxyPath() {
 		return "xyz.brassgoggledcoders.steamagerevolution.modules.steam.ClientProxy";
+	}
+
+	@Override
+	public void init(FMLInitializationEvent event) {
+		SteamFurnaceRecipes.registerRecipes();
+		GameRegistry.addRecipe(
+				new ShapedOreRecipe(new ItemStack(Items.COAL, 1, 1), "PPP", "PPP", "PPP", 'P', "dustCharcoal"));
+		super.init(event);
 	}
 
 	@Override
@@ -107,5 +127,12 @@ public class ModuleSteam extends ModuleBase {
 		// turbineFrame = new BlockTurbineFrame(Material.IRON, "turbine_frame");
 		// blockRegistry.register(turbineFrame);
 
+	}
+
+	@Override
+	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
+		charcoalPowder = new ItemBase("charcoal_powder");
+		itemRegistry.register(charcoalPowder);
+		OreDictionary.registerOre("dustCharcoal", charcoalPowder);
 	}
 }
