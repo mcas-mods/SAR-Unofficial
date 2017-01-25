@@ -22,21 +22,21 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockBoilerController;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockBrassFrame;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockSolidFirebox;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockSteamOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockSteamTank;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockWaterInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.boiler.BlockWaterTank;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.furnace.BlockFurnaceCasing;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.furnace.BlockFurnaceItemInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.furnace.BlockFurnaceItemOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.furnace.BlockFurnaceMonitor;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.furnace.BlockFurnaceSteamInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.smeltery.BlockSmelteryController;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.multiblock.smeltery.BlockSmelteryFrame;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.furnace.SteamFurnaceRecipes;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockBoilerController;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockBrassFrame;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockSolidFirebox;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockSteamOutput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockSteamTank;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockWaterInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockWaterTank;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceCasing;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceItemInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceItemOutput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceMonitor;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceSteamInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.SteamFurnaceRecipes;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery.BlockSmelteryController;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery.BlockSmelteryFrame;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleSteam extends ModuleBase {
