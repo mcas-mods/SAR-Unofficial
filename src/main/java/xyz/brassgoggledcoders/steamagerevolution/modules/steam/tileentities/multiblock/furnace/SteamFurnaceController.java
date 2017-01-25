@@ -29,10 +29,11 @@ public class SteamFurnaceController extends RectangularMultiblockController {
 	public ItemStackHandler outputInventory;
 	public FluidTank steamTank;
 
-	private int temperature = 0;
+	int temperature = 0;
 	private float pressure = 0;
 	private int fluidUseOnHeat = 1000;
-	private int fluidUseOnCook = fluidUseOnHeat / 10;
+	private int fluidUseOnUpkeep = 10;
+	private int fluidUseOnCook = 100;
 
 	public SteamFurnaceController(World world) {
 		super(world);
@@ -69,7 +70,7 @@ public class SteamFurnaceController extends RectangularMultiblockController {
 		}
 		else if(oldPart instanceof TileEntitySteamInput) {
 			attachedSteamInputs.add((TileEntityFurnaceSteamInput) oldPart);
-			steamTank = new FluidTank(steamTank.getFluid(), Fluid.BUCKET_VOLUME * 16 * attachedSteamInputs.size());
+			steamTank = new FluidTank(steamTank.getFluid(), (Fluid.BUCKET_VOLUME * 16) * attachedSteamInputs.size());
 		}
 		super.onBlockRemoved(oldPart);
 	}
@@ -77,25 +78,38 @@ public class SteamFurnaceController extends RectangularMultiblockController {
 	@Override
 	protected boolean updateServer() {
 		super.updateServer();
-		FMLLog.warning(inputInventory.toString());
+
 		if(temperature < 200) {
-			if(steamTank.drain(fluidUseOnHeat, false) != null) {
+			if(steamTank.getFluid() != null && steamTank.drain(fluidUseOnHeat, false).amount == fluidUseOnHeat) {
 				steamTank.drain(fluidUseOnHeat, true);
 				temperature++;
 				return true;
 			}
+		}
+		else {
+			if(steamTank.getFluid() != null && steamTank.drain(fluidUseOnUpkeep, false).amount == fluidUseOnUpkeep) {
+				steamTank.drain(fluidUseOnUpkeep, true);
+			}
+			else {
+				temperature--;
+			}
+			return true;
 		}
 
 		if(temperature >= 100) {
 			for(int i = 0; i < inputInventory.getSlots(); i++) {
 				if(ItemStackUtils.isItemNonNull(inputInventory.getStackInSlot(i)) && ItemStackUtils
 						.isItemNonNull(SteamFurnaceRecipes.instance().getResult(inputInventory.getStackInSlot(i)))) {
-					ItemStack resultItem = SteamFurnaceRecipes.instance().getResult(inputInventory.getStackInSlot(i));
+					ItemStack r = SteamFurnaceRecipes.instance().getResult(inputInventory.getStackInSlot(i));
+					ItemStack resultItem = new ItemStack(r.getItem(), 1, r.getItemDamage());
+					FMLLog.warning(resultItem.toString());
 					if(ItemHandlerHelper.insertItem(outputInventory, resultItem, true) == null) {
-						ItemHandlerHelper.insertItem(outputInventory, resultItem, false);
-						inputInventory.extractItem(i, 1, false);
-						steamTank.drain(fluidUseOnCook, true);
-						return true;
+						if(inputInventory.extractItem(i, resultItem.stackSize, true) != null) {
+							inputInventory.extractItem(i, resultItem.stackSize, false);
+							ItemHandlerHelper.insertItem(outputInventory, resultItem, false);
+							steamTank.drain(fluidUseOnCook, true);
+							return true;
+						}
 					}
 				}
 			}
