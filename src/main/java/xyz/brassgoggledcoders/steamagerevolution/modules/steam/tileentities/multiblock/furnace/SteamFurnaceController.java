@@ -31,7 +31,7 @@ public class SteamFurnaceController extends RectangularMultiblockController {
 	int temperature = 0;
 	private float pressure = 0;
 	private int fluidUseOnHeat = 1000;
-	private int fluidUseOnUpkeep = 100;
+	private int fluidUseOnUpkeep = 10;
 
 	public SteamFurnaceController(World world) {
 		super(world);
@@ -76,7 +76,7 @@ public class SteamFurnaceController extends RectangularMultiblockController {
 	@Override
 	protected boolean updateServer() {
 		super.updateServer();
-
+		boolean flag = false;
 		if(temperature < 200) {
 			if(steamTank.getFluid() != null && steamTank.drain(fluidUseOnHeat, false).amount == fluidUseOnHeat) {
 				steamTank.drain(fluidUseOnHeat, true);
@@ -84,14 +84,14 @@ public class SteamFurnaceController extends RectangularMultiblockController {
 				return true;
 			}
 		}
-		else {
-			if(steamTank.getFluid() != null && steamTank.drain(fluidUseOnUpkeep, false).amount == fluidUseOnUpkeep) {
-				steamTank.drain(fluidUseOnUpkeep, true);
-			}
-			else {
-				temperature--;
-			}
-			return true;
+
+		if(steamTank.getFluid() != null && steamTank.drain(fluidUseOnUpkeep, false).amount == fluidUseOnUpkeep) {
+			steamTank.drain(fluidUseOnUpkeep, true);
+			flag = true;
+		}
+		else if(temperature > 0) {
+			temperature--;
+			flag = true;
 		}
 
 		if(temperature >= 80) {
@@ -105,13 +105,13 @@ public class SteamFurnaceController extends RectangularMultiblockController {
 						if(inputInventory.extractItem(i, resultItem.stackSize, true) != null) {
 							inputInventory.extractItem(i, resultItem.stackSize, false);
 							ItemHandlerHelper.insertItem(outputInventory, resultItem, false);
-							return true;
+							flag = true;
 						}
 					}
 				}
 			}
 		}
-		return false;
+		return flag;
 	}
 
 	@Override
