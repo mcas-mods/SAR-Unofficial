@@ -13,7 +13,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.multiblock.RectangularMultiblockController;
@@ -102,7 +101,6 @@ public class SteamFurnaceController extends RectangularMultiblockController {
 						.isItemNonNull(SteamFurnaceRecipes.instance().getResult(inputInventory.getStackInSlot(i)))) {
 					ItemStack r = SteamFurnaceRecipes.instance().getResult(inputInventory.getStackInSlot(i));
 					ItemStack resultItem = new ItemStack(r.getItem(), 1, r.getItemDamage());
-					FMLLog.warning(resultItem.toString());
 					if(ItemHandlerHelper.insertItem(outputInventory, resultItem, true) == null) {
 						if(inputInventory.extractItem(i, resultItem.stackSize, true) != null) {
 							inputInventory.extractItem(i, resultItem.stackSize, false);
