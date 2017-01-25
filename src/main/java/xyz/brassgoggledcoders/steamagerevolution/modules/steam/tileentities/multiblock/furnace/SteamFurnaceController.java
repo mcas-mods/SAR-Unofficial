@@ -95,7 +95,7 @@ public class SteamFurnaceController extends RectangularMultiblockController {
 			return true;
 		}
 
-		if(temperature >= 100) {
+		if(temperature >= 80) {
 			for(int i = 0; i < inputInventory.getSlots(); i++) {
 				if(ItemStackUtils.isItemNonNull(inputInventory.getStackInSlot(i)) && ItemStackUtils.isItemNonNull(
 						SteamFurnaceRecipes.instance().getResult(inputInventory.getStackInSlot(i), temperature))) {

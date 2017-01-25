@@ -36,7 +36,7 @@ public class SteamFurnaceRecipes {
 
 		for(int oreId : OreDictionary.getOreIDs(input)) {
 			String type = OreDictionary.getOreName(oreId).replace("ore", "");
-			if(OreDictionary.doesOreNameExist("ingot" + type)) {
+			if(OreDictionary.doesOreNameExist("ingot" + type) && temperature >= 150) {
 				return OreDictionary.getOres("ingot" + type, false).get(oreId);
 			}
 		}
