@@ -31,8 +31,7 @@ public class SteamFurnaceController extends RectangularMultiblockController {
 	int temperature = 0;
 	private float pressure = 0;
 	private int fluidUseOnHeat = 1000;
-	private int fluidUseOnUpkeep = 10;
-	private int fluidUseOnCook = 100;
+	private int fluidUseOnUpkeep = 100;
 
 	public SteamFurnaceController(World world) {
 		super(world);
@@ -106,7 +105,6 @@ public class SteamFurnaceController extends RectangularMultiblockController {
 						if(inputInventory.extractItem(i, resultItem.stackSize, true) != null) {
 							inputInventory.extractItem(i, resultItem.stackSize, false);
 							ItemHandlerHelper.insertItem(outputInventory, resultItem, false);
-							steamTank.drain(fluidUseOnCook, true);
 							return true;
 						}
 					}
