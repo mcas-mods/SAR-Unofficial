@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
+import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.util.ItemStackUtils;
 
@@ -12,13 +14,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.RectangularMultiblockController;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.turbine.TileEntitySteamInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
 
-public class SteamFurnaceController extends RectangularMultiblockController {
+public class SteamFurnaceController extends RectangularMultiblockControllerBase {
 
 	private Set<TileEntityFurnaceItemInput> attachedItemInputs;
 	private Set<TileEntityFurnaceItemOutput> attachedItemOutputs;
@@ -26,12 +26,12 @@ public class SteamFurnaceController extends RectangularMultiblockController {
 
 	public ItemStackHandler inputInventory;
 	public ItemStackHandler outputInventory;
-	public FluidTank steamTank;
+	public FluidTankSingleType steamTank;
 
 	int temperature = 0;
 	private float pressure = 0;
-	private int fluidUseOnHeat = 1000;
-	private int fluidUseOnUpkeep = 10;
+	private static final int fluidUseOnHeat = 1000;
+	private static final int fluidUseOnUpkeep = 10;
 
 	public SteamFurnaceController(World world) {
 		super(world);
@@ -40,7 +40,7 @@ public class SteamFurnaceController extends RectangularMultiblockController {
 		attachedSteamInputs = new HashSet<TileEntityFurnaceSteamInput>();
 		inputInventory = new ItemStackHandler(3);
 		outputInventory = new ItemStackHandler(3);
-		steamTank = new FluidTank(0);
+		steamTank = new FluidTankSingleType(0, "steam");
 	}
 
 	@Override
@@ -53,9 +53,9 @@ public class SteamFurnaceController extends RectangularMultiblockController {
 		}
 		else if(newPart instanceof TileEntityFurnaceSteamInput) {
 			attachedSteamInputs.add((TileEntityFurnaceSteamInput) newPart);
-			steamTank = new FluidTank(steamTank.getFluid(), Fluid.BUCKET_VOLUME * 16 * attachedSteamInputs.size());
+			steamTank = new FluidTankSingleType(steamTank.getFluid(),
+					Fluid.BUCKET_VOLUME * 16 * attachedSteamInputs.size(), "steam");
 		}
-		super.onBlockAdded(newPart);
 	}
 
 	@Override
@@ -66,16 +66,15 @@ public class SteamFurnaceController extends RectangularMultiblockController {
 		else if(oldPart instanceof TileEntityFurnaceItemOutput) {
 			attachedItemOutputs.remove(oldPart);
 		}
-		else if(oldPart instanceof TileEntitySteamInput) {
+		else if(oldPart instanceof TileEntityFurnaceSteamInput) {
 			attachedSteamInputs.add((TileEntityFurnaceSteamInput) oldPart);
-			steamTank = new FluidTank(steamTank.getFluid(), (Fluid.BUCKET_VOLUME * 16) * attachedSteamInputs.size());
+			steamTank = new FluidTankSingleType(steamTank.getFluid(),
+					(Fluid.BUCKET_VOLUME * 16) * attachedSteamInputs.size(), "steam");
 		}
-		super.onBlockRemoved(oldPart);
 	}
 
 	@Override
 	protected boolean updateServer() {
-		super.updateServer();
 		boolean flag = false;
 		if(temperature < 200) {
 			if(steamTank.getFluid() != null && steamTank.drain(fluidUseOnHeat, false).amount == fluidUseOnHeat) {
@@ -169,7 +168,6 @@ public class SteamFurnaceController extends RectangularMultiblockController {
 		inputInventory.deserializeNBT(data.getCompoundTag("inputinv"));
 		outputInventory.deserializeNBT(data.getCompoundTag("outputinv"));
 		steamTank.readFromNBT(data.getCompoundTag("fluidtank"));
-		super.readFromDisk(data);
 	}
 
 	@Override
@@ -180,7 +178,84 @@ public class SteamFurnaceController extends RectangularMultiblockController {
 		NBTTagCompound tankTag = new NBTTagCompound();
 		steamTank.writeToNBT(tankTag);
 		data.setTag("fluidtank", tankTag);
-		super.writeToDisk(data);
+	}
+
+	@Override
+	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onMachineAssembled() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onMachineRestored() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onMachinePaused() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onAssimilate(MultiblockControllerBase assimilated) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onAssimilated(MultiblockControllerBase assimilator) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void updateClient() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected boolean isBlockGoodForFrame(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected boolean isBlockGoodForTop(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected boolean isBlockGoodForBottom(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void readFromUpdatePacket(NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void writeToUpdatePacket(NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

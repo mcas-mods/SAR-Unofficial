@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam;
 
 import com.teamacronymcoders.base.containers.ContainerBase;
 

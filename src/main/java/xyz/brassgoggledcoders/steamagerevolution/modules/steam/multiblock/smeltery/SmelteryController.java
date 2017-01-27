@@ -2,15 +2,18 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smelt
 
 import java.util.Set;
 
+import com.teamacronymcoders.base.multiblock.IMultiblockPart;
+import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLLog;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.RectangularMultiblockController;
 
-public class SmelteryController extends RectangularMultiblockController {
+public class SmelteryController extends RectangularMultiblockControllerBase {
 
 	private Set<TileEntitySteamInjector> attachedInjectors;
 
@@ -20,7 +23,6 @@ public class SmelteryController extends RectangularMultiblockController {
 
 	@Override
 	protected boolean updateServer() {
-		super.updateServer();
 		boolean flag = false;
 		FMLLog.warning("Ticking");
 		return flag;
@@ -102,6 +104,96 @@ public class SmelteryController extends RectangularMultiblockController {
 	@Override
 	protected int getMaximumYSize() {
 		return 9;
+	}
+
+	@Override
+	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onBlockAdded(IMultiblockPart newPart) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onBlockRemoved(IMultiblockPart oldPart) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onMachineAssembled() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onMachineRestored() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onMachinePaused() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onMachineDisassembled() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onAssimilate(MultiblockControllerBase assimilated) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onAssimilated(MultiblockControllerBase assimilator) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void updateClient() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected boolean isBlockGoodForFrame(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void readFromDisk(NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void writeToDisk(NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void readFromUpdatePacket(NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void writeToUpdatePacket(NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

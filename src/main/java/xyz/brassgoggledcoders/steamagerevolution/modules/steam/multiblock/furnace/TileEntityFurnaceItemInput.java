@@ -41,8 +41,7 @@ public class TileEntityFurnaceItemInput extends TileEntityFurnacePart {
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-					.cast(((SteamFurnaceController) this.getMultiblockController()).inputInventory);
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(this.getMultiblockController().inputInventory);
 		}
 		return super.getCapability(capability, facing);
 	}

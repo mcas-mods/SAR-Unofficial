@@ -26,9 +26,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockBrassFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockSolidFirebox;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockSteamOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockSteamTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockWaterInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockWaterTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceCasing;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceItemInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceItemOutput;
@@ -44,8 +42,7 @@ public class ModuleSteam extends ModuleBase {
 	public static Fluid steam;
 	public static BlockFluidClassic steamBlock;
 
-	public static Block brassCasing, waterInput, solidFirebox, frictionFirebox, waterTank, steamOutput, steamTank,
-			boilerController;
+	public static Block brassCasing, waterInput, solidFirebox, frictionFirebox, steamOutput, boilerController;
 	public static Block steamTurbine, mechanicalOutput, steamInput, turbineFrame;
 	public static Block furnaceCasing, furnaceItemInput, furnaceItemOutput;
 	public static Block smelteryController, itemInput, smelteryFrame, furnaceSteamInput, furnaceMonitor;
@@ -89,12 +86,8 @@ public class ModuleSteam extends ModuleBase {
 		blockRegistry.register(brassCasing);
 		waterInput = new BlockWaterInput(Material.IRON, "water_input");
 		blockRegistry.register(waterInput);
-		waterTank = new BlockWaterTank(Material.IRON, "water_tank");
-		blockRegistry.register(waterTank);
 		steamOutput = new BlockSteamOutput(Material.IRON, "steam_output");
 		blockRegistry.register(steamOutput);
-		steamTank = new BlockSteamTank(Material.IRON, "steam_tank");
-		blockRegistry.register(steamTank);
 		solidFirebox = new BlockSolidFirebox(Material.IRON, "solid_firebox");
 		blockRegistry.register(solidFirebox);
 		// frictionFirebox = new BlockFrictionFirebox(Material.IRON, "friction_firebox");

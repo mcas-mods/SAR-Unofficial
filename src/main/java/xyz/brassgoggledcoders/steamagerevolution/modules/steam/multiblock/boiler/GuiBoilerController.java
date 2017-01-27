@@ -1,12 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler;
 
-import java.io.IOException;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -26,27 +21,6 @@ public class GuiBoilerController extends GuiContainer {
 	@Override
 	public void initGui() {
 		super.initGui();
-		if(tile.isConnected()) {
-			BasicBoilerController controller = (BasicBoilerController) tile.getMultiblockController();
-			for(int i = 0; i < controller.getAttachedGUIs().size(); i++) {
-				String name = ((TileEntityBasicBoilerPart) controller.getAttachedGUIs().get(i)).getPartName();
-				if(name != "Controller") {
-					GuiButton button = new GuiButton(i, this.guiLeft + 38, this.guiTop + 10 + (22 * i), 100, 20, name);
-					this.buttonList.add(button);
-				}
-			}
-		}
-	}
-
-	@Override
-	protected void actionPerformed(GuiButton button) throws IOException {
-		if(tile.isConnected()) {
-			BasicBoilerController controller = (BasicBoilerController) tile.getMultiblockController();
-			TileEntity otherTile = controller.getAttachedGUIs().get(button.id);
-			Minecraft.getMinecraft().thePlayer.openGui(SteamAgeRevolution.instance, 0, otherTile.getWorld(),
-					otherTile.getPos().getX(), otherTile.getPos().getY(), otherTile.getPos().getZ());
-		}
-		super.actionPerformed(button);
 	}
 
 	@Override

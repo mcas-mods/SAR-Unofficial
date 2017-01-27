@@ -5,33 +5,68 @@ import java.util.Set;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+import com.teamacronymcoders.base.util.ItemStackUtils;
 
-import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.RectangularMultiblockController;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.items.ItemStackHandler;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
 
-public class BasicBoilerController extends RectangularMultiblockController {
+public class BasicBoilerController extends RectangularMultiblockControllerBase {
 
-	// Values for parts to use
-	public static int fluidTransferRate = 10; // mB per tick
+	public static final int fuelDivisor = 3;
+	public static final int fluidConversionPerTick = 10;
 
 	// Lists of connected parts
 	private Set<TileEntityWaterInput> attachedInputs;
-	private Set<TileEntityWaterTank> attachedWaterTanks;
 	private Set<TileEntitySteamOutput> attachedOutputs;
-	private Set<TileEntitySteamTank> attachedSteamTanks;
 	private Set<TileEntitySolidFirebox> attachedFireboxes;
+
+	public ItemStackHandler solidFuelInventory;
+	public FluidTankSingleType waterTank;
+	public FluidTankSingleType steamTank;
+
+	int temperature = 0;
+	int currentBurnTime = 0;
 
 	protected BasicBoilerController(World world) {
 		super(world);
 		attachedInputs = new HashSet<TileEntityWaterInput>();
-		attachedWaterTanks = new HashSet<TileEntityWaterTank>();
 		attachedOutputs = new HashSet<TileEntitySteamOutput>();
-		attachedSteamTanks = new HashSet<TileEntitySteamTank>();
 		attachedFireboxes = new HashSet<TileEntitySolidFirebox>();
+		solidFuelInventory = new ItemStackHandler(3);
+	}
+
+	@Override
+	protected boolean updateServer() {
+		if(steamTank.getFluidAmount() == (steamTank.getCapacity() - fluidConversionPerTick)
+				|| waterTank.getFluidAmount() < fluidConversionPerTick)
+			return false;
+
+		if(temperature < 100 && currentBurnTime == 0) {
+			for(int i = 0; i < solidFuelInventory.getSlots(); i++) {
+				ItemStack fuel = solidFuelInventory.getStackInSlot(i);
+				if(ItemStackUtils.isItemNonNull(fuel) && TileEntityFurnace.getItemBurnTime(fuel) != 0) {
+					currentBurnTime = (TileEntityFurnace.getItemBurnTime(fuel) / fuelDivisor);
+					fuel.stackSize--;
+					solidFuelInventory.setStackInSlot(i, fuel);
+				}
+			}
+		}
+		else {
+			steamTank.fill(new FluidStack(FluidRegistry.getFluid("steam"), fluidConversionPerTick), true);
+			waterTank.drain(fluidConversionPerTick, true);
+			currentBurnTime--;
+		}
+		return false;
 	}
 
 	@Override
@@ -39,41 +74,35 @@ public class BasicBoilerController extends RectangularMultiblockController {
 		// FMLLog.warning("Part added " + newPart.toString());
 		if(newPart instanceof TileEntityWaterInput) {
 			attachedInputs.add((TileEntityWaterInput) newPart);
-		}
-		else if(newPart instanceof TileEntityWaterTank) {
-			attachedWaterTanks.add((TileEntityWaterTank) newPart);
+			waterTank = new FluidTankSingleType(waterTank.getFluid(),
+					(Fluid.BUCKET_VOLUME * 16) * attachedInputs.size(), "water");
 		}
 		else if(newPart instanceof TileEntitySteamOutput) {
 			attachedOutputs.add((TileEntitySteamOutput) newPart);
-		}
-		else if(newPart instanceof TileEntitySteamTank) {
-			attachedSteamTanks.add((TileEntitySteamTank) newPart);
+			steamTank = new FluidTankSingleType(steamTank.getFluid(),
+					(Fluid.BUCKET_VOLUME * 16) * attachedOutputs.size(), "steam");
 		}
 		// TODO Not only solid
 		else if(newPart instanceof TileEntitySolidFirebox) {
 			attachedFireboxes.add((TileEntitySolidFirebox) newPart);
 		}
-		super.onBlockAdded(newPart);
 	}
 
 	@Override
 	protected void onBlockRemoved(IMultiblockPart oldPart) {
 		if(oldPart instanceof TileEntityWaterInput) {
 			attachedInputs.remove(oldPart);
-		}
-		else if(oldPart instanceof TileEntityWaterTank) {
-			attachedWaterTanks.remove(oldPart);
+			waterTank = new FluidTankSingleType(waterTank.getFluid(),
+					(Fluid.BUCKET_VOLUME * 16) * attachedInputs.size(), "water");
 		}
 		else if(oldPart instanceof TileEntitySteamOutput) {
 			attachedOutputs.remove(oldPart);
-		}
-		else if(oldPart instanceof TileEntitySteamTank) {
-			attachedSteamTanks.remove(oldPart);
+			steamTank = new FluidTankSingleType(steamTank.getFluid(),
+					(Fluid.BUCKET_VOLUME * 16) * attachedOutputs.size(), "steam");
 		}
 		else if(oldPart instanceof TileEntitySolidFirebox) {
 			attachedFireboxes.remove(oldPart);
 		}
-		super.onBlockRemoved(oldPart);
 	}
 
 	@Override
@@ -99,36 +128,8 @@ public class BasicBoilerController extends RectangularMultiblockController {
 	@Override
 	protected void onAssimilated(MultiblockControllerBase assimilator) {
 		this.attachedInputs.clear();
-		this.attachedWaterTanks.clear();
 		this.attachedFireboxes.clear();
 		this.attachedOutputs.clear();
-		this.attachedSteamTanks.clear();
-		super.onAssimilated(assimilator);
-	}
-
-	public Set<TileEntityWaterTank> getAttachedWaterTanks() {
-		return attachedWaterTanks;
-	}
-
-	public Set<TileEntitySteamTank> getAttachedSteamTanks() {
-		return attachedSteamTanks;
-	}
-
-	@Override
-	protected boolean isBlockGoodForFrame(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		FMLLog.warning("Checking for frame at" + new BlockPos(x, y, z).toString());
-		if(world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.NETHER_BRICK)
-			return true;
-		else
-			return false;
-	}
-
-	@Override
-	protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		if(world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.NETHER_BRICK)
-			return true;
-		else
-			return false;
 	}
 
 	@Override
@@ -137,6 +138,96 @@ public class BasicBoilerController extends RectangularMultiblockController {
 			return true;
 		else
 			return false;
+	}
+
+	@Override
+	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onMachineAssembled() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onMachineRestored() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onMachinePaused() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onMachineDisassembled() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onAssimilate(MultiblockControllerBase assimilated) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void updateClient() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected boolean isBlockGoodForTop(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected boolean isBlockGoodForBottom(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void readFromDisk(NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void writeToDisk(NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void readFromUpdatePacket(NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void writeToUpdatePacket(NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected boolean isBlockGoodForFrame(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

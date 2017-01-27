@@ -37,11 +37,6 @@ public class TileEntityBoilerController extends TileEntityBasicBoilerPart implem
 	}
 
 	@Override
-	public String getPartName() {
-		return "Controller";
-	}
-
-	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, NBTTagCompound context) {
 		return new GuiBoilerController(entityPlayer, this);
 	}

@@ -4,7 +4,7 @@ import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-public abstract class TileEntitySmelteryPart extends RectangularMultiblockTileEntityBase {
+public abstract class TileEntitySmelteryPart extends RectangularMultiblockTileEntityBase<SmelteryController> {
 
 	@Override
 	public Class<SmelteryController> getMultiblockControllerType() {

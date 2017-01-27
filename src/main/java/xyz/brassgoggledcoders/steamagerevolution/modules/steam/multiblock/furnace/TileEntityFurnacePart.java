@@ -4,7 +4,7 @@ import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-public abstract class TileEntityFurnacePart extends RectangularMultiblockTileEntityBase {
+public abstract class TileEntityFurnacePart extends RectangularMultiblockTileEntityBase<SteamFurnaceController> {
 
 	@Override
 	public Class<SteamFurnaceController> getMultiblockControllerType() {
