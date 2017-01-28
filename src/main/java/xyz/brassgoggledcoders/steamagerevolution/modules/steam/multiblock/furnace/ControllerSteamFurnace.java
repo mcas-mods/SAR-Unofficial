@@ -18,6 +18,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
 
+// TODO NBT
 public class ControllerSteamFurnace extends RectangularMultiblockControllerBase {
 
 	private Set<TileEntityFurnaceItemInput> attachedItemInputs;
