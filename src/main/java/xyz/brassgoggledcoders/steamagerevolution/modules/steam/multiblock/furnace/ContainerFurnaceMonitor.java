@@ -7,7 +7,7 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerFurnaceMonitor extends ContainerBase {
 	public ContainerFurnaceMonitor(EntityPlayer player, TileEntityFurnaceMonitor tile) {
-		SteamFurnaceController c = ((SteamFurnaceController) tile.getMultiblockController());
+		ControllerSteamFurnace c = ((ControllerSteamFurnace) tile.getMultiblockController());
 		this.addSlotToContainer(new SlotItemHandler(c.inputInventory, 0, 0, 0));
 		this.addSlotToContainer(new SlotItemHandler(c.inputInventory, 1, 20, 0));
 		this.addSlotToContainer(new SlotItemHandler(c.inputInventory, 2, 40, 0));

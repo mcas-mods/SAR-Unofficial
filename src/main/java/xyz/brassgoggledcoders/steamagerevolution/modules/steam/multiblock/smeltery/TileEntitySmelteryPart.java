@@ -4,11 +4,11 @@ import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-public abstract class TileEntitySmelteryPart extends RectangularMultiblockTileEntityBase<SmelteryController> {
+public abstract class TileEntitySmelteryPart extends RectangularMultiblockTileEntityBase<ControllerSmeltery> {
 
 	@Override
-	public Class<SmelteryController> getMultiblockControllerType() {
-		return SmelteryController.class;
+	public Class<ControllerSmeltery> getMultiblockControllerType() {
+		return ControllerSmeltery.class;
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public abstract class TileEntitySmelteryPart extends RectangularMultiblockTileEn
 
 	@Override
 	public MultiblockControllerBase createNewMultiblock() {
-		return new SmelteryController(getWorld());
+		return new ControllerSmeltery(getWorld());
 	}
 
 }

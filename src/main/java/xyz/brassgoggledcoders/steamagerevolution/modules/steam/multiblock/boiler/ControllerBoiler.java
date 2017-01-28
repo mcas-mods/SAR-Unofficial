@@ -20,7 +20,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
 
-public class BasicBoilerController extends RectangularMultiblockControllerBase {
+public class ControllerBoiler extends RectangularMultiblockControllerBase {
 
 	public static final int fuelDivisor = 3;
 	public static final int fluidConversionPerTick = 10;
@@ -37,7 +37,7 @@ public class BasicBoilerController extends RectangularMultiblockControllerBase {
 	int temperature = 0;
 	int currentBurnTime = 0;
 
-	protected BasicBoilerController(World world) {
+	protected ControllerBoiler(World world) {
 		super(world);
 		attachedInputs = new HashSet<TileEntityWaterInput>();
 		attachedOutputs = new HashSet<TileEntitySteamOutput>();

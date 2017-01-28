@@ -36,7 +36,7 @@ public class BlockFurnaceItemInput extends BlockTEBase<TileEntityFurnaceItemInpu
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
 			@Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		TileEntityFurnacePart tile = getTileEntity(world, pos);
-		ItemStackHandler h = ((SteamFurnaceController) tile.getMultiblockController()).inputInventory;
+		ItemStackHandler h = ((ControllerSteamFurnace) tile.getMultiblockController()).inputInventory;
 		if(h.getStackInSlot(0) != null)
 			FMLLog.warning("0 " + h.getStackInSlot(0).toString());
 		if(h.getStackInSlot(1) != null)

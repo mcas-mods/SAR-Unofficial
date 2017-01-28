@@ -18,7 +18,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
 
-public class SteamFurnaceController extends RectangularMultiblockControllerBase {
+public class ControllerSteamFurnace extends RectangularMultiblockControllerBase {
 
 	private Set<TileEntityFurnaceItemInput> attachedItemInputs;
 	private Set<TileEntityFurnaceItemOutput> attachedItemOutputs;
@@ -33,7 +33,7 @@ public class SteamFurnaceController extends RectangularMultiblockControllerBase 
 	private static final int fluidUseOnHeat = 1000;
 	private static final int fluidUseOnUpkeep = 10;
 
-	public SteamFurnaceController(World world) {
+	public ControllerSteamFurnace(World world) {
 		super(world);
 		attachedItemInputs = new HashSet<TileEntityFurnaceItemInput>();
 		attachedItemOutputs = new HashSet<TileEntityFurnaceItemOutput>();

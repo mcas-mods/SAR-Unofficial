@@ -4,11 +4,11 @@ import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-public abstract class TileEntityFurnacePart extends RectangularMultiblockTileEntityBase<SteamFurnaceController> {
+public abstract class TileEntityFurnacePart extends RectangularMultiblockTileEntityBase<ControllerSteamFurnace> {
 
 	@Override
-	public Class<SteamFurnaceController> getMultiblockControllerType() {
-		return SteamFurnaceController.class;
+	public Class<ControllerSteamFurnace> getMultiblockControllerType() {
+		return ControllerSteamFurnace.class;
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public abstract class TileEntityFurnacePart extends RectangularMultiblockTileEnt
 
 	@Override
 	public MultiblockControllerBase createNewMultiblock() {
-		return new SteamFurnaceController(getWorld());
+		return new ControllerSteamFurnace(getWorld());
 	}
 
 }

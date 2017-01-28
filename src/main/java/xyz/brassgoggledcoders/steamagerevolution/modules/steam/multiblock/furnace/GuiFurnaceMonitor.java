@@ -11,11 +11,11 @@ public class GuiFurnaceMonitor extends GuiContainer {
 
 	private static ResourceLocation guiTexture =
 			new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/multiblock/controller.png");
-	private SteamFurnaceController c;
+	private ControllerSteamFurnace c;
 
 	public GuiFurnaceMonitor(Container inventorySlotsIn, TileEntityFurnaceMonitor tile) {
 		super(inventorySlotsIn);
-		c = ((SteamFurnaceController) tile.getMultiblockController());
+		c = ((ControllerSteamFurnace) tile.getMultiblockController());
 	}
 
 	@Override

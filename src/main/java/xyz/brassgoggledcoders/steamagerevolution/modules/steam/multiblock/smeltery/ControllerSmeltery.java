@@ -13,11 +13,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLLog;
 
-public class SmelteryController extends RectangularMultiblockControllerBase {
+public class ControllerSmeltery extends RectangularMultiblockControllerBase {
 
 	private Set<TileEntitySteamInjector> attachedInjectors;
 
-	public SmelteryController(World world) {
+	public ControllerSmeltery(World world) {
 		super(world);
 	}
 

@@ -3,11 +3,11 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boile
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 
-public abstract class TileEntityBasicBoilerPart extends RectangularMultiblockTileEntityBase<BasicBoilerController> {
+public abstract class TileEntityBasicBoilerPart extends RectangularMultiblockTileEntityBase<ControllerBoiler> {
 
 	@Override
 	public Class<? extends MultiblockControllerBase> getMultiblockControllerType() {
-		return BasicBoilerController.class;
+		return ControllerBoiler.class;
 	}
 
 	@Override
@@ -18,6 +18,6 @@ public abstract class TileEntityBasicBoilerPart extends RectangularMultiblockTil
 
 	@Override
 	public MultiblockControllerBase createNewMultiblock() {
-		return new BasicBoilerController(getWorld());
+		return new ControllerBoiler(getWorld());
 	}
 }

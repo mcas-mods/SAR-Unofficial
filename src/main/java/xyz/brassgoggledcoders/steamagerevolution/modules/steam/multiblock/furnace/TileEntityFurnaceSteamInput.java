@@ -36,7 +36,7 @@ public class TileEntityFurnaceSteamInput extends TileEntityFurnacePart {
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
-					.cast(((SteamFurnaceController) this.getMultiblockController()).steamTank);
+					.cast(((ControllerSteamFurnace) this.getMultiblockController()).steamTank);
 		}
 		return super.getCapability(capability, facing);
 	}

@@ -22,7 +22,7 @@ public class TileEntityFurnaceItemOutput extends TileEntityFurnacePart {
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-					.cast(((SteamFurnaceController) this.getMultiblockController()).outputInventory);
+					.cast(((ControllerSteamFurnace) this.getMultiblockController()).outputInventory);
 		}
 		return super.getCapability(capability, facing);
 	}
