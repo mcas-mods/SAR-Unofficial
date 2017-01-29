@@ -45,4 +45,18 @@ public class TileEntityInputBuffer extends TileEntitySorterPart implements IHasG
 	public Container getContainer(EntityPlayer entityPlayer, World world, NBTTagCompound context) {
 		return new ContainerCodeSelector(code, entityPlayer.inventory);
 	}
+
+	@Override
+	public void readFromDisk(NBTTagCompound compound) {
+		code.deserializeNBT(compound.getCompoundTag("code"));
+		code.deserializeNBT(compound.getCompoundTag("inventory"));
+		super.readFromDisk(compound);
+	}
+
+	@Override
+	public NBTTagCompound writeToDisk(NBTTagCompound compound) {
+		compound.setTag("code", code.serializeNBT());
+		compound.setTag("inventory", inventory.serializeNBT());
+		return super.writeToDisk(compound);
+	}
 }
