@@ -7,4 +7,9 @@ public class TileEntitySmelteryFrame extends TileEntitySmelteryPart {
 	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
 		return true;
 	}
+
+	@Override
+	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
+		return true;
+	}
 }

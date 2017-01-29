@@ -18,19 +18,18 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
 
-// TODO NBT
 public class ControllerSteamFurnace extends RectangularMultiblockControllerBase {
 
 	private Set<TileEntityFurnaceItemInput> attachedItemInputs;
 	private Set<TileEntityFurnaceItemOutput> attachedItemOutputs;
 	private Set<TileEntityFurnaceSteamInput> attachedSteamInputs;
 
-	public ItemStackHandler inputInventory;
-	public ItemStackHandler outputInventory;
+	public ItemStackHandler inputInventory = new ItemStackHandler(3);;
+	public ItemStackHandler outputInventory = new ItemStackHandler(3);;
 	public FluidTankSingleType steamTank;
 
 	int temperature = 0;
-	private float pressure = 0;
+	// private float pressure = 0;
 	private static final int fluidUseOnHeat = 1000;
 	private static final int fluidUseOnUpkeep = 10;
 
@@ -39,9 +38,6 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 		attachedItemInputs = new HashSet<TileEntityFurnaceItemInput>();
 		attachedItemOutputs = new HashSet<TileEntityFurnaceItemOutput>();
 		attachedSteamInputs = new HashSet<TileEntityFurnaceSteamInput>();
-		inputInventory = new ItemStackHandler(3);
-		outputInventory = new ItemStackHandler(3);
-		steamTank = new FluidTankSingleType(0, "steam");
 	}
 
 	@Override
@@ -117,7 +113,7 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 	@Override
 	protected void onMachineDisassembled() {
 		temperature = 0;
-		pressure = 0;
+		// pressure = 0;
 	}
 
 	@Override

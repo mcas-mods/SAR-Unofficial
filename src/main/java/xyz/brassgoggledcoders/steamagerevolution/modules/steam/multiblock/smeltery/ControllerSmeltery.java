@@ -7,7 +7,6 @@ import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -40,30 +39,6 @@ public class ControllerSmeltery extends RectangularMultiblockControllerBase {
 	protected int getMinimumNumberOfBlocksForAssembledMachine() {
 		// TODO
 		return 1;
-	}
-
-	@Override
-	protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		if(world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.NETHER_BRICK)
-			return true;
-		else
-			return false;
-	}
-
-	@Override
-	protected boolean isBlockGoodForTop(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		if(world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.NETHER_BRICK)
-			return true;
-		else
-			return false;
-	}
-
-	@Override
-	protected boolean isBlockGoodForBottom(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		if(world.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.NETHER_BRICK)
-			return true;
-		else
-			return false;
 	}
 
 	@Override
@@ -194,6 +169,24 @@ public class ControllerSmeltery extends RectangularMultiblockControllerBase {
 	public void writeToUpdatePacket(NBTTagCompound data) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	protected boolean isBlockGoodForTop(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected boolean isBlockGoodForBottom(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

@@ -31,7 +31,7 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 	private Set<TileEntitySteamOutput> attachedOutputs;
 	private Set<TileEntitySolidFirebox> attachedFireboxes;
 
-	public ItemStackHandler solidFuelInventory;
+	public ItemStackHandler solidFuelInventory = new ItemStackHandler(3);
 	public FluidTankSingleType waterTank;
 	public FluidTankSingleType steamTank;
 
@@ -43,7 +43,6 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 		attachedInputs = new HashSet<TileEntityWaterInput>();
 		attachedOutputs = new HashSet<TileEntitySteamOutput>();
 		attachedFireboxes = new HashSet<TileEntitySolidFirebox>();
-		solidFuelInventory = new ItemStackHandler(3);
 	}
 
 	@Override
@@ -197,14 +196,20 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 
 	@Override
 	public void readFromDisk(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
+		temperature = data.getInteger("temp");
+		currentBurnTime = data.getInteger("burntime");
+		solidFuelInventory.deserializeNBT(data.getCompoundTag("fuelinv"));
+		waterTank.readFromNBT(data.getCompoundTag("wtank"));
+		steamTank.readFromNBT(data.getCompoundTag("stank"));
 	}
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
+		data.setInteger("temp", temperature);
+		data.setInteger("burntime", currentBurnTime);
+		data.setTag("fuelinv", solidFuelInventory.serializeNBT());
+		data.setTag("wtank", waterTank.writeToNBT(new NBTTagCompound()));
+		data.setTag("stank", steamTank.writeToNBT(new NBTTagCompound()));
 	}
 
 	@Override
