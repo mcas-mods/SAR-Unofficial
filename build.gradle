@@ -58,6 +58,8 @@ dependencies {
     deobfCompile "MCMultiPart:MCMultiPart-experimental:${mcmultipart_version}:universal"
     deobfCompile "com.enderio.core:EnderCore:1.10.2-0.4.1.41-beta"
     deobfCompile "com.enderio:EnderIO:1.10.2-3.0.1.75_beta"
+    deobfCompile "slimeknights:TConstruct:${minecraft_version}-${tinkers_version}"
+    deobfCompile "slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}"
 }
 
 compileJava {
