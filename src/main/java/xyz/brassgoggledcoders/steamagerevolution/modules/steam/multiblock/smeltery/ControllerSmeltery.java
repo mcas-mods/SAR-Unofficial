@@ -1,7 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery;
 
-import java.util.Set;
-
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
@@ -10,11 +8,16 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class ControllerSmeltery extends RectangularMultiblockControllerBase {
 
-	private Set<TileEntitySteamInjector> attachedInjectors;
+	public FluidTank steamTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
+	public FluidTank ironTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
+	public ItemStackHandler coalInv = new ItemStackHandler(3);
+	public FluidTank steelTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
 
 	public ControllerSmeltery(World world) {
 		super(world);
@@ -23,7 +26,7 @@ public class ControllerSmeltery extends RectangularMultiblockControllerBase {
 	@Override
 	protected boolean updateServer() {
 		boolean flag = false;
-		FMLLog.warning("Ticking");
+
 		return flag;
 	}
 

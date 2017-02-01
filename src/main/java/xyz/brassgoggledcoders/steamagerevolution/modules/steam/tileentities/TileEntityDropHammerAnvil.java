@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.consumers;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities;
 
 import com.teamacronymcoders.base.tileentities.TileEntityBase;
 

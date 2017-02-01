@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.consumers;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -6,7 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.ModuleMechanical;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.DropHammerRecipes;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.consumers.TileEntitySpinConsumer;
 
 public class TileEntityDropHammer extends TileEntitySpinConsumer {
 

@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks;
 
 import javax.annotation.Nullable;
 
@@ -14,7 +14,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.consumers.TileEntityDropHammerAnvil;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityDropHammerAnvil;
 
 public class BlockDropHammerAnvil extends BlockTEBase<TileEntityDropHammerAnvil> {
 	public BlockDropHammerAnvil(Material mat, String name) {

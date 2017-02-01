@@ -15,9 +15,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.TileEntityBoilerController;
 
-public class BlockItemInput extends BlockTEBase<TileEntityBoilerController> {
+public class BlockCoalInput extends BlockTEBase<TileEntityBoilerController> {
 
-	public BlockItemInput(Material material, String name) {
+	public BlockCoalInput(Material material, String name) {
 		super(material, name);
 	}
 

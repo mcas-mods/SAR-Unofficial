@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities;
 
 import java.util.Map;
 import java.util.Map.Entry;

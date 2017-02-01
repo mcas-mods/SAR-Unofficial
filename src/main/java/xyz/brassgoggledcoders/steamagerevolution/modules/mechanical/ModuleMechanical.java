@@ -14,16 +14,16 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.Block
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockSawblade;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockCartBooster;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockChute;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockDropHammer;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockDropHammerAnvil;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockFan;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockFurnaceHeater;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.consumers.BlockSaw;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.generators.BlockInfiniteSpinSource;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.generators.BlockWaterTurbine;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.items.ItemBelt;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.items.ItemSpinReader;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.tileentities.DropHammerRecipes;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockDropHammer;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockDropHammerAnvil;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockFurnaceHeater;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.DropHammerRecipes;
 
 // @Module(value = SteamAgeRevolution.MODID)
 public class ModuleMechanical extends ModuleBase {
