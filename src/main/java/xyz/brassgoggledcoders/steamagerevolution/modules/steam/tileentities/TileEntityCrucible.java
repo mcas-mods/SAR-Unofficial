@@ -53,7 +53,7 @@ public class TileEntityCrucible extends TileEntityBase {
 					return;
 				if(FluidRegistry.isFluidRegistered(splitName[1].toLowerCase())) {
 					Fluid fluid = FluidRegistry.getFluid(splitName[1].toLowerCase());
-					int value = getValueFromName(splitName[0].toLowerCase());
+					int value = getValueFromName(splitName[0].toLowerCase()) * stack.stackSize;
 					if(value != 0) {
 						FluidStack toInsert = new FluidStack(fluid, value);
 						if(tank.fill(toInsert, false) == value) {
