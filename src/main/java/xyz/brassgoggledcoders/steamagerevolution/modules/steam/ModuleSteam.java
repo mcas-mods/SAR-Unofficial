@@ -34,8 +34,11 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnac
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceMonitor;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceSteamInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.SteamFurnaceRecipes;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery.BlockSmelteryCoalInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery.BlockSmelteryController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery.BlockSmelteryFrame;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery.BlockSmelteryIronInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery.BlockSmelterySteelOutput;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleSteam extends ModuleBase {
@@ -45,8 +48,9 @@ public class ModuleSteam extends ModuleBase {
 
 	public static Block brassCasing, waterInput, solidFirebox, frictionFirebox, steamOutput, boilerController;
 	public static Block steamTurbine, mechanicalOutput, steamInput, turbineFrame;
-	public static Block furnaceCasing, furnaceItemInput, furnaceItemOutput;
-	public static Block smelteryController, itemInput, smelteryFrame, furnaceSteamInput, furnaceMonitor;
+	public static Block furnaceCasing, furnaceItemInput, furnaceItemOutput, furnaceSteamInput, furnaceMonitor;
+	public static Block smelteryController, itemInput, smelteryFrame, smelteryCoalInput, smelteryIronInput,
+			smelterySteelOutput;
 	public static Block crucible;
 
 	public static Item charcoalPowder;
@@ -98,9 +102,15 @@ public class ModuleSteam extends ModuleBase {
 		blockRegistry.register(boilerController);
 
 		smelteryController = new BlockSmelteryController(Material.ANVIL, "smeltery_controller");
-		blockRegistry.register(smelteryController);
+		// blockRegistry.register(smelteryController);
 		smelteryFrame = new BlockSmelteryFrame(Material.ROCK, "smeltery_frame");
 		blockRegistry.register(smelteryFrame);
+		smelteryCoalInput = new BlockSmelteryCoalInput(Material.ROCK, "smeltery_coalinput");
+		blockRegistry.register(smelteryCoalInput);
+		smelteryIronInput = new BlockSmelteryIronInput(Material.ROCK, "smeltery_ironinput");
+		blockRegistry.register(smelteryIronInput);
+		smelterySteelOutput = new BlockSmelterySteelOutput(Material.ROCK, "smeltery_steeloutput");
+		blockRegistry.register(smelterySteelOutput);
 
 		furnaceCasing = new BlockFurnaceCasing(Material.IRON, "furnace_casing");
 		blockRegistry.register(furnaceCasing);
@@ -124,7 +134,6 @@ public class ModuleSteam extends ModuleBase {
 
 		crucible = new BlockCrucible(Material.ANVIL, "crucible");
 		blockRegistry.register(crucible);
-
 	}
 
 	@Override

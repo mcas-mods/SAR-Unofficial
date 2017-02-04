@@ -7,27 +7,27 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
-public class TileEntitySmelteryCoalInput extends TileEntitySmelteryPart {
+public class TileEntitySmelteryIronInput extends TileEntitySmelteryPart {
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-		return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.isConnected())
+		return (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.isConnected())
 				|| super.hasCapability(capability, facing);
 	}
 
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-					.cast(((ControllerSmeltery) this.getMultiblockController()).coalInv);
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
+					.cast(((ControllerSmeltery) this.getMultiblockController()).ironTank);
 		}
 		return super.getCapability(capability, facing);
 	}
 
 	@Override
-	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
+	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
 		return true;
 	}
 }

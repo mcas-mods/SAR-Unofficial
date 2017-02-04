@@ -25,7 +25,7 @@ public class BlockSmelteryFrame extends BlockTEBase<TileEntitySmelteryFrame> {
 			@Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		TileEntitySmelteryPart te = getTileEntity(world, pos);
 		if(te != null && !player.isSneaking()) {
-			// player.addChatMessage(te.getMultiblockController().getLastError().getChatMessage());
+			player.addChatMessage(te.getMultiblockController().getLastError().getChatMessage());
 			return true;
 		}
 		return false;
