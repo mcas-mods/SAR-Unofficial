@@ -1,35 +1,24 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
-import com.teamacronymcoders.base.tileentities.IOnSlotChanged;
 
-import net.minecraft.inventory.Slot;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
-public class TileEntitySolidFirebox extends TileEntityBoilerPart implements IOnSlotChanged {
-
-	public TileEntitySolidFirebox() {
-		super();
-	}
+public class TileEntityLiquidFirebox extends TileEntityBoilerPart {
 
 	@Override
-	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-		return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.isConnected())
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		return (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.isConnected())
 				|| super.hasCapability(capability, facing);
 	}
 
 	@Override
-	@Nonnull
-	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-					.cast(((ControllerBoiler) this.getMultiblockController()).solidFuelInventory);
-		}
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
+					.cast(this.getMultiblockController().liquidFuelInventory);
 		return super.getCapability(capability, facing);
 	}
 
@@ -52,18 +41,13 @@ public class TileEntitySolidFirebox extends TileEntityBoilerPart implements IOnS
 
 	@Override
 	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
+		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public void onSlotChanged(Slot slot) {
-
 	}
 
 }

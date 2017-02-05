@@ -9,7 +9,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class TileEntityBoilerController extends TileEntityBasicBoilerPart implements IHasGui {
+public class TileEntityBoilerController extends TileEntityBoilerPart implements IHasGui {
 
 	@Override
 	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {

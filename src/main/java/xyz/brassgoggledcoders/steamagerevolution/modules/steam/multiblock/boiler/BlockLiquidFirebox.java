@@ -7,20 +7,20 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockSolidFirebox extends BlockTEBase<TileEntitySolidFirebox> {
+public class BlockLiquidFirebox extends BlockTEBase<TileEntityLiquidFirebox> {
 
-	public BlockSolidFirebox(Material material, String name) {
+	public BlockLiquidFirebox(Material material, String name) {
 		super(material, name);
 	}
 
 	@Override
 	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntitySolidFirebox.class;
+		return TileEntityLiquidFirebox.class;
 	}
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntitySolidFirebox();
+		return new TileEntityLiquidFirebox();
 	}
 
 }

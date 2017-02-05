@@ -3,7 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boile
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 
-public abstract class TileEntityBasicBoilerPart extends RectangularMultiblockTileEntityBase<ControllerBoiler> {
+public abstract class TileEntityBoilerPart extends RectangularMultiblockTileEntityBase<ControllerBoiler> {
 
 	@Override
 	public Class<? extends MultiblockControllerBase> getMultiblockControllerType() {

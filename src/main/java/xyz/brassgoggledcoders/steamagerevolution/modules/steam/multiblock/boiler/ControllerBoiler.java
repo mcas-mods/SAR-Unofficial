@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
 
@@ -29,9 +30,9 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 	// Lists of connected parts
 	private Set<TileEntityWaterInput> attachedInputs;
 	private Set<TileEntitySteamOutput> attachedOutputs;
-	private Set<TileEntitySolidFirebox> attachedFireboxes;
 
 	public ItemStackHandler solidFuelInventory = new ItemStackHandler(3);
+	public FluidTank liquidFuelInventory = new FluidTank(Fluid.BUCKET_VOLUME * 16);
 	public FluidTankSingleType waterTank;
 	public FluidTankSingleType steamTank;
 
@@ -42,30 +43,46 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 		super(world);
 		attachedInputs = new HashSet<TileEntityWaterInput>();
 		attachedOutputs = new HashSet<TileEntitySteamOutput>();
-		attachedFireboxes = new HashSet<TileEntitySolidFirebox>();
 	}
 
 	@Override
 	protected boolean updateServer() {
-		if(steamTank.getFluidAmount() == (steamTank.getCapacity() - fluidConversionPerTick)
-				|| waterTank.getFluidAmount() < fluidConversionPerTick)
-			return false;
 
-		if(temperature < 100 && currentBurnTime == 0) {
+		if(currentBurnTime == 0) {
 			for(int i = 0; i < solidFuelInventory.getSlots(); i++) {
 				ItemStack fuel = solidFuelInventory.getStackInSlot(i);
 				if(ItemStackUtils.isItemNonNull(fuel) && TileEntityFurnace.getItemBurnTime(fuel) != 0) {
 					currentBurnTime = (TileEntityFurnace.getItemBurnTime(fuel) / fuelDivisor);
+					// TODO
 					fuel.stackSize--;
 					solidFuelInventory.setStackInSlot(i, fuel);
+					return true;
+				}
+			}
+			if(liquidFuelInventory.getFluidAmount() != 0) {
+				// TODO
+				if(liquidFuelInventory.getFluid().getFluid() == FluidRegistry.LAVA) {
+					currentBurnTime = 1000;
 				}
 			}
 		}
 		else {
-			steamTank.fill(new FluidStack(FluidRegistry.getFluid("steam"), fluidConversionPerTick), true);
-			waterTank.drain(fluidConversionPerTick, true);
+			if(temperature < 150) {
+				temperature++;
+			}
 			currentBurnTime--;
 		}
+
+		if(temperature >= 100) {
+			if(steamTank.getFluidAmount() == (steamTank.getCapacity() - fluidConversionPerTick)
+					|| waterTank.getFluidAmount() < fluidConversionPerTick) {
+				steamTank.fill(new FluidStack(FluidRegistry.getFluid("steam"), fluidConversionPerTick), true);
+				waterTank.drain(fluidConversionPerTick, true);
+				temperature--;
+				return true;
+			}
+		}
+
 		return false;
 	}
 
@@ -82,10 +99,6 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 			steamTank = new FluidTankSingleType(steamTank.getFluid(),
 					(Fluid.BUCKET_VOLUME * 16) * attachedOutputs.size(), "steam");
 		}
-		// TODO Not only solid
-		else if(newPart instanceof TileEntitySolidFirebox) {
-			attachedFireboxes.add((TileEntitySolidFirebox) newPart);
-		}
 	}
 
 	@Override
@@ -99,9 +112,6 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 			attachedOutputs.remove(oldPart);
 			steamTank = new FluidTankSingleType(steamTank.getFluid(),
 					(Fluid.BUCKET_VOLUME * 16) * attachedOutputs.size(), "steam");
-		}
-		else if(oldPart instanceof TileEntitySolidFirebox) {
-			attachedFireboxes.remove(oldPart);
 		}
 	}
 
@@ -128,7 +138,6 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 	@Override
 	protected void onAssimilated(MultiblockControllerBase assimilator) {
 		this.attachedInputs.clear();
-		this.attachedFireboxes.clear();
 		this.attachedOutputs.clear();
 	}
 
@@ -201,6 +210,7 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 		solidFuelInventory.deserializeNBT(data.getCompoundTag("fuelinv"));
 		waterTank.readFromNBT(data.getCompoundTag("wtank"));
 		steamTank.readFromNBT(data.getCompoundTag("stank"));
+		liquidFuelInventory.readFromNBT(data.getCompoundTag("liquidfuelinv"));
 	}
 
 	@Override
@@ -210,6 +220,7 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 		data.setTag("fuelinv", solidFuelInventory.serializeNBT());
 		data.setTag("wtank", waterTank.writeToNBT(new NBTTagCompound()));
 		data.setTag("stank", steamTank.writeToNBT(new NBTTagCompound()));
+		data.setTag("liquidfuelinv", liquidFuelInventory.writeToNBT(new NBTTagCompound()));
 	}
 
 	@Override

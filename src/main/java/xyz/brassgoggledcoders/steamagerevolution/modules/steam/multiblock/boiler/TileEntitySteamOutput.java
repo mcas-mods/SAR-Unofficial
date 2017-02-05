@@ -6,7 +6,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
-public class TileEntitySteamOutput extends TileEntityBasicBoilerPart {
+public class TileEntitySteamOutput extends TileEntityBoilerPart {
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {

@@ -2,7 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boile
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-public class TileEntityBrassFrame extends TileEntityBasicBoilerPart {
+public class TileEntityBrassFrame extends TileEntityBoilerPart {
 
 	public TileEntityBrassFrame() {
 
