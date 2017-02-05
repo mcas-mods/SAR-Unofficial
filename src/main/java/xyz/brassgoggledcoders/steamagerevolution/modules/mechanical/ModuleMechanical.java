@@ -22,7 +22,6 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.items.ItemBe
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.items.ItemSpinReader;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockDropHammer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockDropHammerAnvil;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockFurnaceHeater;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.DropHammerRecipes;
 
 // @Module(value = SteamAgeRevolution.MODID)
@@ -71,8 +70,6 @@ public class ModuleMechanical extends ModuleBase {
 		waterTurbine = new BlockWaterTurbine(Material.IRON, "water_turbine");
 		blockRegistry.register(waterTurbine);
 
-		furnaceHeater = new BlockFurnaceHeater(Material.IRON, "furnace_heater");
-		blockRegistry.register(furnaceHeater);
 		chute = new BlockChute(Material.ANVIL, "chute");
 		blockRegistry.register(chute);
 		dropHammer = new BlockDropHammer(Material.IRON, "drop_hammer");

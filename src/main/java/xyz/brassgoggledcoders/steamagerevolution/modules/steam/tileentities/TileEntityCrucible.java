@@ -64,8 +64,9 @@ public class TileEntityCrucible extends TileEntityBase {
 				}
 			}
 		}
-		else
+		else {
 			entityIn.setFire(10);
+		}
 	}
 
 	public int getValueFromName(String name) {

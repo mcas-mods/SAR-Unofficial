@@ -1,13 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks;
 
+import com.teamacronymcoders.base.blocks.BlockTEBase;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.BlockMechanicalTEBase;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityFurnaceHeater;
 
-public class BlockFurnaceHeater extends BlockMechanicalTEBase<TileEntityFurnaceHeater> {
+public class BlockFurnaceHeater extends BlockTEBase<TileEntityFurnaceHeater> {
 	public BlockFurnaceHeater(Material mat, String name) {
 		super(mat, name);
 	}
