@@ -6,7 +6,7 @@ import net.minecraftforge.fluids.FluidTank;
 
 public class FluidTankSingleType extends FluidTank {
 
-	String fluidName;
+	private String fluidName;
 
 	public FluidTankSingleType(int capacity, String fluidName) {
 		super(capacity);
@@ -20,7 +20,11 @@ public class FluidTankSingleType extends FluidTank {
 
 	@Override
 	public boolean canFillFluidType(FluidStack fluid) {
-		return (FluidRegistry.getFluidName(fluid) == fluidName) ? canFill() : false;
+		return (FluidRegistry.getFluidName(fluid) == getFluidName()) ? canFill() : false;
+	}
+
+	public String getFluidName() {
+		return fluidName;
 	}
 
 }

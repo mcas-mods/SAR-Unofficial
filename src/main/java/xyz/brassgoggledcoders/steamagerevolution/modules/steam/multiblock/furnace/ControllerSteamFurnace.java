@@ -1,8 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
@@ -20,13 +17,11 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleTy
 
 public class ControllerSteamFurnace extends RectangularMultiblockControllerBase {
 
-	private Set<TileEntityFurnaceTemperatureLimiter> attachedTemperatureLimiters;
-	// private Set<TileEntityFurnaceItemOutput> attachedItemOutputs;
-	private Set<TileEntityFurnaceSteamInput> attachedSteamInputs;
+	private int numAttachedTempLimiters = 0;
 
-	public ItemStackHandler inputInventory = new ItemStackHandler(3);;
-	public ItemStackHandler outputInventory = new ItemStackHandler(3);;
-	public FluidTankSingleType steamTank;
+	public ItemStackHandler inputInventory = new ItemStackHandler(3);
+	public ItemStackHandler outputInventory = new ItemStackHandler(3);
+	public FluidTankSingleType steamTank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 16, "steam");
 
 	int temperature = 0;
 	// private float pressure = 0;
@@ -35,32 +30,19 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 
 	public ControllerSteamFurnace(World world) {
 		super(world);
-		attachedTemperatureLimiters = new HashSet<TileEntityFurnaceTemperatureLimiter>();
-		// attachedItemOutputs = new HashSet<TileEntityFurnaceItemOutput>();
-		attachedSteamInputs = new HashSet<TileEntityFurnaceSteamInput>();
 	}
 
 	@Override
 	protected void onBlockAdded(IMultiblockPart newPart) {
 		if(newPart instanceof TileEntityFurnaceTemperatureLimiter) {
-			attachedTemperatureLimiters.add((TileEntityFurnaceTemperatureLimiter) newPart);
-		}
-		else if(newPart instanceof TileEntityFurnaceSteamInput) {
-			attachedSteamInputs.add((TileEntityFurnaceSteamInput) newPart);
-			steamTank = new FluidTankSingleType(steamTank.getFluid(),
-					Fluid.BUCKET_VOLUME * 16 * attachedSteamInputs.size(), "steam");
+			numAttachedTempLimiters++;
 		}
 	}
 
 	@Override
 	protected void onBlockRemoved(IMultiblockPart oldPart) {
 		if(oldPart instanceof TileEntityFurnaceTemperatureLimiter) {
-			attachedTemperatureLimiters.remove(oldPart);
-		}
-		else if(oldPart instanceof TileEntityFurnaceSteamInput) {
-			attachedSteamInputs.add((TileEntityFurnaceSteamInput) oldPart);
-			steamTank = new FluidTankSingleType(steamTank.getFluid(),
-					(Fluid.BUCKET_VOLUME * 16) * attachedSteamInputs.size(), "steam");
+			numAttachedTempLimiters--;
 		}
 	}
 
@@ -68,8 +50,8 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 	protected boolean updateServer() {
 		boolean flag = false;
 		if(temperature < 200) {
-			if(attachedTemperatureLimiters.size() > 0) {
-				if(temperature >= (attachedTemperatureLimiters.size() * 10)) {
+			if(numAttachedTempLimiters > 0) {
+				if(temperature >= (numAttachedTempLimiters * 10)) {
 					return false;
 				}
 			}

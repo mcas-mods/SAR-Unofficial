@@ -1,6 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
@@ -33,16 +32,14 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 
 	public ItemStackHandler solidFuelInventory = new ItemStackHandler(3);
 	public FluidTank liquidFuelInventory = new FluidTank(Fluid.BUCKET_VOLUME * 16);
-	public FluidTankSingleType waterTank;
-	public FluidTankSingleType steamTank;
+	public FluidTankSingleType waterTank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 16, "water");
+	public FluidTankSingleType steamTank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 16, "steam");
 
 	int temperature = 0;
 	int currentBurnTime = 0;
 
 	protected ControllerBoiler(World world) {
 		super(world);
-		attachedInputs = new HashSet<TileEntityWaterInput>();
-		attachedOutputs = new HashSet<TileEntitySteamOutput>();
 	}
 
 	@Override
@@ -84,35 +81,6 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 		}
 
 		return false;
-	}
-
-	@Override
-	protected void onBlockAdded(IMultiblockPart newPart) {
-		// FMLLog.warning("Part added " + newPart.toString());
-		if(newPart instanceof TileEntityWaterInput) {
-			attachedInputs.add((TileEntityWaterInput) newPart);
-			waterTank = new FluidTankSingleType(waterTank.getFluid(),
-					(Fluid.BUCKET_VOLUME * 16) * attachedInputs.size(), "water");
-		}
-		else if(newPart instanceof TileEntitySteamOutput) {
-			attachedOutputs.add((TileEntitySteamOutput) newPart);
-			steamTank = new FluidTankSingleType(steamTank.getFluid(),
-					(Fluid.BUCKET_VOLUME * 16) * attachedOutputs.size(), "steam");
-		}
-	}
-
-	@Override
-	protected void onBlockRemoved(IMultiblockPart oldPart) {
-		if(oldPart instanceof TileEntityWaterInput) {
-			attachedInputs.remove(oldPart);
-			waterTank = new FluidTankSingleType(waterTank.getFluid(),
-					(Fluid.BUCKET_VOLUME * 16) * attachedInputs.size(), "water");
-		}
-		else if(oldPart instanceof TileEntitySteamOutput) {
-			attachedOutputs.remove(oldPart);
-			steamTank = new FluidTankSingleType(steamTank.getFluid(),
-					(Fluid.BUCKET_VOLUME * 16) * attachedOutputs.size(), "steam");
-		}
 	}
 
 	@Override
@@ -245,6 +213,18 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 	protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	protected void onBlockAdded(IMultiblockPart newPart) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onBlockRemoved(IMultiblockPart oldPart) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
