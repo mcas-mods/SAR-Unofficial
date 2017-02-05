@@ -20,7 +20,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.Tile
 public class ControllerSmeltery extends RectangularMultiblockControllerBase {
 
 	public FluidTank steamTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
-	public FluidTank ironTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
+	public FluidTank ironTank = new FluidTank(TileEntityCrucible.VALUE_BLOCK * 16);
 	public ItemStackHandler coalInv = new ItemStackHandler(3);
 	public FluidTank steelTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
 
@@ -44,7 +44,8 @@ public class ControllerSmeltery extends RectangularMultiblockControllerBase {
 			}
 		}
 
-		if(carbonLevel > 0 && ironTank.getFluidAmount() > TileEntityCrucible.VALUE_NUGGET
+		if(carbonLevel > 0
+				&& ironTank.getFluidAmount() > ((TileEntityCrucible.VALUE_BLOCK * 9) + TileEntityCrucible.VALUE_NUGGET)
 				&& steelTank.getFluidAmount() != steelTank.getCapacity()) {
 			if(ironTank.drain(TileEntityCrucible.VALUE_NUGGET, false).amount == TileEntityCrucible.VALUE_NUGGET) {
 				FluidStack toInsert =
