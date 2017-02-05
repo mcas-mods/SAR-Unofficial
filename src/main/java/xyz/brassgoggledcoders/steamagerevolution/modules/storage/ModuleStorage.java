@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockBasicFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockFluidIO;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockTrunk;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.items.ItemCanister;
@@ -17,7 +18,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.storage.items.ItemCanis
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleStorage extends ModuleBase {
 
-	public static Block trunk, fluidIO;
+	public static Block trunk, fluidIO, basicFluidTank;
 	public static Item canister;
 
 	@Override
@@ -31,6 +32,8 @@ public class ModuleStorage extends ModuleBase {
 		blockRegistry.register(trunk);
 		fluidIO = new BlockFluidIO();
 		blockRegistry.register(fluidIO);
+		basicFluidTank = new BlockBasicFluidTank(Material.IRON, "basic_fluid_tank");
+		blockRegistry.register(basicFluidTank);
 	}
 
 	@Override
