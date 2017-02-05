@@ -17,6 +17,7 @@ public class ControllerSorter extends MultiblockControllerBase {
 
 	private Set<TileEntityInputBuffer> attachedInputs;
 	private Set<TileEntityOutputBuffer> attachedOutputs;
+	private int numberOfRateUpgrades = 0;
 
 	protected ControllerSorter(World world) {
 		super(world);
@@ -26,6 +27,13 @@ public class ControllerSorter extends MultiblockControllerBase {
 
 	@Override
 	protected boolean updateServer() {
+		int rate = 1;
+		if(numberOfRateUpgrades > 0) {
+			// There's probably a more efficient, mathier way to do this.
+			for(int i = 0; i < numberOfRateUpgrades; i++) {
+				rate *= 2;
+			}
+		}
 		for(TileEntityInputBuffer in : attachedInputs) {
 			for(TileEntityOutputBuffer out : attachedOutputs) {
 				// Check if code matches
@@ -40,10 +48,10 @@ public class ControllerSorter extends MultiblockControllerBase {
 				for(int i2 = 0; i2 < in.inventory.getSlots(); i2++) {
 					if(ItemStackUtils.isItemNonNull(in.inventory.getStackInSlot(i2))) {
 						ItemStack toTransfer = in.inventory.getStackInSlot(i2).copy();
-						toTransfer.stackSize = 1;
-						if(in.inventory.extractItem(i2, 1, true) != null
+						toTransfer.stackSize = rate;
+						if(in.inventory.extractItem(i2, rate, true) != null
 								&& ItemHandlerHelper.insertItem(out.inventory, toTransfer, true) == null) {
-							in.inventory.extractItem(i2, 1, false);
+							in.inventory.extractItem(i2, rate, false);
 							ItemHandlerHelper.insertItem(out.inventory, toTransfer, false);
 							return false; // Nothing about the multiblock *controller* has changed.
 						}
@@ -63,6 +71,9 @@ public class ControllerSorter extends MultiblockControllerBase {
 		else if(newPart instanceof TileEntityOutputBuffer) {
 			attachedOutputs.add((TileEntityOutputBuffer) newPart);
 		}
+		else if(newPart instanceof TileEntitySorterRateUpgrade) {
+			numberOfRateUpgrades++;
+		}
 	}
 
 	@Override
@@ -72,6 +83,9 @@ public class ControllerSorter extends MultiblockControllerBase {
 		}
 		else if(oldPart instanceof TileEntityOutputBuffer) {
 			attachedOutputs.remove(oldPart);
+		}
+		else if(oldPart instanceof TileEntitySorterRateUpgrade) {
+			numberOfRateUpgrades--;
 		}
 	}
 
