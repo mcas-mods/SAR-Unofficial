@@ -27,6 +27,8 @@ public class ControllerSmeltery extends RectangularMultiblockControllerBase {
 
 	public int carbonLevel = 0;
 
+	public static final int steamUsePerOperation = Fluid.BUCKET_VOLUME / 10;
+
 	public ControllerSmeltery(World world) {
 		super(world);
 	}
@@ -47,17 +49,19 @@ public class ControllerSmeltery extends RectangularMultiblockControllerBase {
 
 		if(carbonLevel > 0
 				&& ironTank.getFluidAmount() > ((TileEntityCrucible.VALUE_BLOCK * 9) + TileEntityCrucible.VALUE_NUGGET)
-				&& steelTank.getFluidAmount() != steelTank.getCapacity()) {
-			if(ironTank.drain(TileEntityCrucible.VALUE_NUGGET, false).amount == TileEntityCrucible.VALUE_NUGGET) {
-				FluidStack toInsert =
-						new FluidStack(FluidRegistry.getFluid("iron"/* TODO */), TileEntityCrucible.VALUE_NUGGET);
-				if(steelTank.fill(toInsert, false) == TileEntityCrucible.VALUE_NUGGET) {
-					ironTank.drain(TileEntityCrucible.VALUE_NUGGET, true);
-					steelTank.fill(toInsert, true);
-					carbonLevel--;
-					flag = true;
-				}
+				&& steelTank.getFluidAmount() != steelTank.getCapacity()
+				&& steamTank.getFluidAmount() >= steamUsePerOperation) {
+
+			FluidStack toInsert =
+					new FluidStack(FluidRegistry.getFluid("iron"/* TODO */), TileEntityCrucible.VALUE_NUGGET);
+			if(steelTank.fill(toInsert, false) == TileEntityCrucible.VALUE_NUGGET) {
+				ironTank.drain(TileEntityCrucible.VALUE_NUGGET, true);
+				steelTank.fill(toInsert, true);
+				steamTank.drain(steamUsePerOperation, true);
+				carbonLevel--;
+				flag = true;
 			}
+
 		}
 
 		return flag;
