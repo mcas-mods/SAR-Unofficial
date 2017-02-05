@@ -15,14 +15,15 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCrucible;
 
 public class ControllerSmeltery extends RectangularMultiblockControllerBase {
 
-	public FluidTank steamTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
-	public FluidTank ironTank = new FluidTank(TileEntityCrucible.VALUE_BLOCK * 16);
+	public FluidTank steamTank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 16, "steam");
+	public FluidTank ironTank = new FluidTankSingleType(TileEntityCrucible.VALUE_BLOCK * 16, "iron");
 	public ItemStackHandler coalInv = new ItemStackHandler(3);
-	public FluidTank steelTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
+	public FluidTank steelTank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 16, "steel");
 
 	public int carbonLevel = 0;
 
