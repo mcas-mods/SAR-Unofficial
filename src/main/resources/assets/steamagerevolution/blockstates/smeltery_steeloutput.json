@@ -2,7 +2,7 @@
     "forge_marker": 1,
     "defaults": {
         "model": "cube_all",
-        "textures": { "all": "minecraft:blocks/gold_ore", "particle": "#all" },
+        "textures": { "all": "steamagerevolution:blocks/smeltery_steeloutput", "particle": "#all" },
         "transform": "forge:default-block"
     },
     "variants": {

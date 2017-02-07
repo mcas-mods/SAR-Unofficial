@@ -1,7 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler;
 
-import java.util.Set;
-
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
@@ -25,10 +23,6 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 
 	public static final int fuelDivisor = 3;
 	public static final int fluidConversionPerTick = 10;
-
-	// Lists of connected parts
-	private Set<TileEntityWaterInput> attachedInputs;
-	private Set<TileEntitySteamOutput> attachedOutputs;
 
 	public ItemStackHandler solidFuelInventory = new ItemStackHandler(3);
 	public FluidTank liquidFuelInventory = new FluidTank(Fluid.BUCKET_VOLUME * 16);
@@ -105,8 +99,7 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 
 	@Override
 	protected void onAssimilated(MultiblockControllerBase assimilator) {
-		this.attachedInputs.clear();
-		this.attachedOutputs.clear();
+
 	}
 
 	@Override
