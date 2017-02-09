@@ -19,12 +19,17 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 
 	private int numAttachedTempLimiters = 0;
 
-	public ItemStackHandler inputInventory = new ItemStackHandler(3);
+	public ItemStackHandler inputInventory = new ItemStackHandler(1);
 	public ItemStackHandler outputInventory = new ItemStackHandler(3);
 	public FluidTankSingleType steamTank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 16, "steam");
 
 	int temperature = 0;
-	// private float pressure = 0;
+	float pressure = 1.0F;
+	int currentCookTime = 0;
+
+	private static final int temperatureMax = 100;
+	private static final float pressureMax = 2.0F;
+	private static final int cookTime = 2400;
 	private static final int fluidUseOnHeat = 1000;
 	private static final int fluidUseOnUpkeep = 10;
 
@@ -49,52 +54,69 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 	@Override
 	protected boolean updateServer() {
 		boolean flag = false;
-		if(temperature < 200) {
-			if(numAttachedTempLimiters > 0) {
-				if(temperature >= (numAttachedTempLimiters * 10)) {
-					return false;
-				}
-			}
+		// Check it isn't boom time.
+		if(pressure >= pressureMax) {
+			// Uh oh.
+			this.WORLD.createExplosion(null, this.getReferenceCoord().getX(), getReferenceCoord().getY(),
+					getReferenceCoord().getZ(), 10, true);
+			return true;
+		}
+
+		// Heat from cold to maximum.
+		if(temperature < temperatureMax) {
 			if(steamTank.getFluid() != null && steamTank.drain(fluidUseOnHeat, false).amount == fluidUseOnHeat) {
 				steamTank.drain(fluidUseOnHeat, true);
 				temperature++;
 				return true;
 			}
 		}
-
-		if(steamTank.getFluid() != null && steamTank.drain(fluidUseOnUpkeep, false).amount == fluidUseOnUpkeep) {
-			steamTank.drain(fluidUseOnUpkeep, true);
-			flag = true;
+		// When at maximum heat, switch to upkeep mode.
+		else {
+			if(steamTank.getFluid() != null && steamTank.drain(fluidUseOnUpkeep, false).amount == fluidUseOnUpkeep) {
+				steamTank.drain(fluidUseOnUpkeep, true);
+				flag = true;
+			}
+			else if(temperature > 0) {
+				temperature--;
+				flag = true;
+			}
 		}
-		else if(temperature > 0) {
-			temperature--;
-			flag = true;
-		}
 
-		if(temperature >= 70) {
-			for(int i = 0; i < inputInventory.getSlots(); i++) {
-				if(ItemStackUtils.isItemNonNull(inputInventory.getStackInSlot(i)) && ItemStackUtils.isItemNonNull(
-						SteamFurnaceRecipes.instance().getResult(inputInventory.getStackInSlot(i), temperature))) {
+		// Smelting logic TODO Liquid metal output
+		if(temperature > 30) {
+			if(ItemStackUtils.isItemNonNull(inputInventory.getStackInSlot(0)) && ItemStackUtils.isItemNonNull(
+					SteamFurnaceRecipes.instance().getResult(inputInventory.getStackInSlot(0), temperature))) {
+				if(currentCookTime < cookTime) {
+					currentCookTime += Math.round((temperature * pressure) / 10); // TODO
+				}
+				else {
 					ItemStack r =
-							SteamFurnaceRecipes.instance().getResult(inputInventory.getStackInSlot(i), temperature);
+							SteamFurnaceRecipes.instance().getResult(inputInventory.getStackInSlot(0), temperature);
 					ItemStack resultItem = new ItemStack(r.getItem(), 1, r.getItemDamage());
 					if(ItemHandlerHelper.insertItem(outputInventory, resultItem, true) == null) {
-						if(inputInventory.extractItem(i, resultItem.stackSize, true) != null) {
-							inputInventory.extractItem(i, resultItem.stackSize, false);
+						if(inputInventory.extractItem(0, resultItem.stackSize, true) != null) {
+							inputInventory.extractItem(0, resultItem.stackSize, false);
 							ItemHandlerHelper.insertItem(outputInventory, resultItem, false);
+							currentCookTime = 0;
+							pressure -= 0.01F;
 							flag = true;
 						}
 					}
 				}
 			}
+			// If the furnace has nothing to do, build pressure.
+			else {
+				pressure += 0.001F;
+			}
 		}
+
 		return flag;
 	}
 
 	@Override
 	protected void onMachineDisassembled() {
 		temperature = 0;
-		// pressure = 0;
+		pressure = 1.0F;
 	}
 
 	@Override
@@ -143,6 +165,8 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 	@Override
 	public void readFromDisk(NBTTagCompound data) {
 		temperature = data.getInteger("temperature");
+		pressure = data.getFloat("pressure");
+		currentCookTime = data.getInteger("cookTime");
 		inputInventory.deserializeNBT(data.getCompoundTag("inputinv"));
 		outputInventory.deserializeNBT(data.getCompoundTag("outputinv"));
 		steamTank.readFromNBT(data.getCompoundTag("fluidtank"));
@@ -151,6 +175,8 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
 		data.setInteger("temperature", temperature);
+		data.setFloat("pressure", pressure);
+		data.setInteger("cookTime", currentCookTime);
 		data.setTag("inputinv", inputInventory.serializeNBT());
 		data.setTag("outputinv", outputInventory.serializeNBT());
 		NBTTagCompound tankTag = new NBTTagCompound();

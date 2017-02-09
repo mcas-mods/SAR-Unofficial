@@ -16,6 +16,11 @@ public class TileEntityFurnaceMonitor extends TileEntityFurnacePart implements I
 	}
 
 	@Override
+	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
+		return true;
+	}
+
+	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, NBTTagCompound context) {
 		return new GuiFurnaceMonitor(new ContainerFurnaceMonitor(entityPlayer, this), this);
 	}

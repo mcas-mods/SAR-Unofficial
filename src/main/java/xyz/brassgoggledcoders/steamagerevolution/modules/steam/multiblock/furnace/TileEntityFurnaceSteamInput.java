@@ -27,8 +27,8 @@ public class TileEntityFurnaceSteamInput extends TileEntityFurnacePart {
 
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-		return (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.isConnected())
-				|| super.hasCapability(capability, facing);
+		return (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.isConnected()
+				&& this.getMultiblockController().isAssembled()) || super.hasCapability(capability, facing);
 	}
 
 	@Override
