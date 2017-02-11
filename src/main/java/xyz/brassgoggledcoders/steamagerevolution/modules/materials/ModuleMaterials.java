@@ -5,6 +5,7 @@ import java.awt.Color;
 import com.teamacronymcoders.base.api.materials.MaterialRegistry;
 import com.teamacronymcoders.base.api.materials.MaterialType;
 import com.teamacronymcoders.base.api.materials.MaterialType.EnumPartType;
+import com.teamacronymcoders.base.materialsystem.materials.Material;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 
@@ -14,15 +15,15 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleMaterials extends ModuleBase {
 
-	EnumPartType[] alloy = new EnumPartType[] {EnumPartType.BLOCK, EnumPartType.DUST, EnumPartType.GEAR,
-			EnumPartType.INGOT, EnumPartType.NUGGET, EnumPartType.PLATE};
+	String[] alloy = new String[] {"gear", "ingot", "nugget", "plate"};
 
 	@Override
 	public void preInit(FMLPreInitializationEvent fmlPreInitializationEvent) {
-		MaterialType steel = new MaterialType("Steel", new Color(12876343), false, alloy);
-		MaterialRegistry.registerMaterial(666, steel);
-		MaterialType brass = new MaterialType("Brass", new Color(12876343), false, alloy);
-		MaterialRegistry.registerMaterial(667, brass);
+		Material steel = new Material("Steel", Color.DARK_GRAY, false);
+		steel.registerPartsFor(alloy);
+		Material brass = new Material("Brass", Color.MAGENTA, false);
+		brass.registerPartsFor(alloy);
+		
 	}
 
 	@Override

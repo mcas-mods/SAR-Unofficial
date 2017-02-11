@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution;
 
 import com.teamacronymcoders.base.BaseModFoundation;
+import com.teamacronymcoders.base.featuresystem.FeatureHandler;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -25,6 +26,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 
 	public SteamAgeRevolution() {
 		super(MODID, MODNAME, MODVERSION, tab);
+		FeatureHandler.requestFeature("MATERIALS", MODID);
 	}
 
 	@Instance("steamagerevolution")

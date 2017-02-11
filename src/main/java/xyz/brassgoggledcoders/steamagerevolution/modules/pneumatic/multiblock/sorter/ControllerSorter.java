@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.util.ItemStackUtils;
 
@@ -13,7 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-public class ControllerSorter extends MultiblockControllerBase {
+public class ControllerSorter extends RectangularMultiblockControllerBase {
 
 	private Set<TileEntityInputBuffer> attachedInputs;
 	private Set<TileEntityOutputBuffer> attachedOutputs;
