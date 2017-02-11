@@ -60,6 +60,7 @@ dependencies {
     deobfCompile "com.enderio:EnderIO:1.10.2-3.0.1.75_beta"
     deobfCompile "slimeknights:TConstruct:${minecraft_version}-${tinkers_version}"
     deobfCompile "slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}"
+    deobfCompile "team.chisel:Chisel:MC1.10.2-0.0.7.7"
 }
 
 compileJava {
