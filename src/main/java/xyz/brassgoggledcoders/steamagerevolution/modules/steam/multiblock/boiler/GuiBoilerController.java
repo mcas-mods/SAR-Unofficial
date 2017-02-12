@@ -32,11 +32,11 @@ public class GuiBoilerController extends GuiContainer {
 		int y = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
 	}
-	
+
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		this.drawString(fontRendererObj, "Steam Level: " + c.steamTank.getFluidAmount(), 10, 50, Color.WHITE.value());
-		this.drawString(fontRendererObj, "Temperature: " + c.temperature, 10, 70, Color.WHITE.value());
+		// this.drawString(fontRendererObj, "Temperature: " + c.temperature, 10, 70, Color.WHITE.value());
 		this.drawString(fontRendererObj, "Pressure: " + c.pressure, 10, 90, Color.WHITE.value());
 		this.drawString(fontRendererObj, "Burn Time: " + c.currentBurnTime, 10, 110, Color.WHITE.value());
 	}

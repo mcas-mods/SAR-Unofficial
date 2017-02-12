@@ -29,7 +29,7 @@ public class GuiFurnaceMonitor extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		this.drawString(fontRendererObj, "Steam Level: " + c.steamTank.getFluidAmount(), 10, 50, Color.WHITE.value());
-		this.drawString(fontRendererObj, "Temperature: " + c.temperature, 10, 70, Color.WHITE.value());
+		// this.drawString(fontRendererObj, "Temperature: " + c.temperature, 10, 70, Color.WHITE.value());
 		this.drawString(fontRendererObj, "Pressure: " + c.pressure, 10, 90, Color.WHITE.value());
 		this.drawString(fontRendererObj, "Cook Time: " + c.currentCookTime, 10, 110, Color.WHITE.value());
 	}

@@ -32,16 +32,16 @@ public class SteamFurnaceRecipes {
 	}
 
 	@Nullable
-	public ItemStack getResult(ItemStack input, int temperature) {
+	public ItemStack getResult(ItemStack input) {
 
 		for(int oreId : OreDictionary.getOreIDs(input)) {
 			String type = OreDictionary.getOreName(oreId).replace("ore", "");
-			if(OreDictionary.doesOreNameExist("ingot" + type) && temperature >= 150) {
+			if(OreDictionary.doesOreNameExist("ingot" + type)) {
 				return OreDictionary.getOres("ingot" + type, false).get(oreId);
 			}
 		}
 
-		if(temperature >= 80 && input.getItem() instanceof ItemFood) {
+		if(input.getItem() instanceof ItemFood) {
 			return new ItemStack(ModuleSteam.charcoalPowder);
 		}
 
