@@ -72,7 +72,7 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 					waterTank.drain(fluidConversionPerTick, true);
 				}
 				else {
-					pressure++;
+					pressure += 0.01F;
 				}
 				currentBurnTime--;
 				return true;
