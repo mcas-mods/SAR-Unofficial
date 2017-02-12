@@ -17,8 +17,6 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleTy
 
 public class ControllerSteamFurnace extends RectangularMultiblockControllerBase {
 
-	private int numAttachedTempLimiters = 0;
-
 	public ItemStackHandler inputInventory = new ItemStackHandler(1);
 	public ItemStackHandler outputInventory = new ItemStackHandler(3);
 	public FluidTankSingleType steamTank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 16, "steam");
@@ -39,23 +37,19 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 
 	@Override
 	protected void onBlockAdded(IMultiblockPart newPart) {
-		if(newPart instanceof TileEntityFurnaceTemperatureLimiter) {
-			numAttachedTempLimiters++;
-		}
+	
 	}
 
 	@Override
 	protected void onBlockRemoved(IMultiblockPart oldPart) {
-		if(oldPart instanceof TileEntityFurnaceTemperatureLimiter) {
-			numAttachedTempLimiters--;
-		}
+		
 	}
 
 	@Override
 	protected boolean updateServer() {
 		boolean flag = false;
 		// Check it isn't boom time.
-		if(pressure >= pressureMax) {
+		if(pressure > pressureMax) {
 			// Uh oh.
 			this.WORLD.createExplosion(null, this.getReferenceCoord().getX(), getReferenceCoord().getY(),
 					getReferenceCoord().getZ(), 10, true);

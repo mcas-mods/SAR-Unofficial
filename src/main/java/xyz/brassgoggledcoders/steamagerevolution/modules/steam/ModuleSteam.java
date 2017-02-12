@@ -18,6 +18,7 @@ import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -90,6 +91,7 @@ public class ModuleSteam extends ModuleBase {
 
 		brassCasing = new BlockBrassFrame(Material.IRON, "brass_frame");
 		blockRegistry.register(brassCasing);
+		FMLInterModComms.sendMessage("chisel", "variation:add", "brass_frame|SteamAgeRevolution:brass_frame|0");
 		waterInput = new BlockWaterInput(Material.IRON, "water_input");
 		blockRegistry.register(waterInput);
 		steamOutput = new BlockSteamOutput(Material.IRON, "steam_output");

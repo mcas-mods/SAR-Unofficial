@@ -2,9 +2,6 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.materials;
 
 import java.awt.Color;
 
-import com.teamacronymcoders.base.api.materials.MaterialRegistry;
-import com.teamacronymcoders.base.api.materials.MaterialType;
-import com.teamacronymcoders.base.api.materials.MaterialType.EnumPartType;
 import com.teamacronymcoders.base.materialsystem.materials.Material;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
