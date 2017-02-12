@@ -49,11 +49,11 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 		if(pressure > pressureMax) {
 			// Uh oh.
 			this.WORLD.createExplosion(null, this.getReferenceCoord().getX(), getReferenceCoord().getY(),
-					getReferenceCoord().getZ(), 10, true);
+					getReferenceCoord().getZ(), 10 * pressure, true);
 			return true;
 		}
 
-		if(pressure < 2.0F) {
+		if(pressure < 1.5F) {
 			if(steamTank.drain(fluidUseOnHeat, false).amount == fluidUseOnHeat) {
 				steamTank.drain(fluidUseOnHeat, true);
 				pressure += 0.01F;

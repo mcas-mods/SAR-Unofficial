@@ -42,7 +42,7 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 		if(pressure > 2.0F) {
 			// Whoopsyboom
 			this.WORLD.createExplosion(null, this.getReferenceCoord().getX(), getReferenceCoord().getY(),
-					getReferenceCoord().getZ(), 10, true);
+					getReferenceCoord().getZ(), 10 * pressure, true);
 			return true;
 		}
 
