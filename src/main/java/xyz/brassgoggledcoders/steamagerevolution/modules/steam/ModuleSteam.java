@@ -73,8 +73,10 @@ public class ModuleSteam extends ModuleBase {
 	@Override
 	public void init(FMLInitializationEvent event) {
 		SteamFurnaceRecipes.registerRecipes();
+		DropHammerRecipes.registerRecipes();
 		GameRegistry.addRecipe(
 				new ShapedOreRecipe(new ItemStack(Items.COAL, 1, 1), "PPP", "PPP", "PPP", 'P', "dustCharcoal"));
+		OreDictionary.registerOre("dustCharcoal", charcoalPowder);
 		super.init(event);
 	}
 
@@ -143,8 +145,6 @@ public class ModuleSteam extends ModuleBase {
 
 		dropHammer = new BlockDropHammer(Material.IRON, "drop_hammer");
 		blockRegistry.register(dropHammer);
-		// TODO
-		DropHammerRecipes.registerRecipes();
 		dropHammerAnvil = new BlockDropHammerAnvil(Material.IRON, "drop_hammer_anvil");
 		blockRegistry.register(dropHammerAnvil);
 	}
@@ -153,6 +153,5 @@ public class ModuleSteam extends ModuleBase {
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
 		charcoalPowder = new ItemBase("charcoal_powder");
 		itemRegistry.register(charcoalPowder);
-		OreDictionary.registerOre("dustCharcoal", charcoalPowder);
 	}
 }
