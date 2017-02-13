@@ -16,6 +16,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBench;
@@ -79,9 +80,13 @@ public class BlockCastingBench extends BlockTEBase<TileEntityCastingBench> {
 		return FULL_BLOCK_AABB;
 	}
 
-	// public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-	// if(this.getTileEntity(worldIn, pos) != null)
-	// this.getTileEntity(worldIn, pos).onEntityCollided(entityIn);
-	// }
+	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+		if(this.getTileEntity(worldIn, pos) != null) {
+			TileEntityCastingBench te = this.getTileEntity(worldIn, pos);
+			if(te.tank.getFluid().getFluid().getTemperature() > FluidRegistry.WATER.getTemperature()) {
+				entityIn.setFire(10);
+			}
+		}
+	}
 
 }

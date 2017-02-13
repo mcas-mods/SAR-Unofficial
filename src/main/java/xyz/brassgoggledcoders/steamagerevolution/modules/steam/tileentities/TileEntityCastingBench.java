@@ -28,7 +28,7 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 	protected ItemStackHandler internal = new ItemStackHandler();
 	public FluidTank tank = new FluidTank(VALUE_BLOCK);
 	public int coolingTime = 2400;
-	int lastFluidValue = 0;
+	int lastFluidValue = -1;
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
@@ -103,6 +103,8 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 			this.sendBlockUpdate();
 			lastFluidValue = this.tank.getFluidAmount();
 		}
+
+		// Cooling Logic
 		if(this.tank.getFluid() != null && this.tank.drain(VALUE_BLOCK, false).amount == VALUE_BLOCK
 				&& !ItemStackUtils.isItemNonNull(this.internal.getStackInSlot(0))) {
 			String oreName = "block" + StringUtils.capitalize(FluidRegistry.getFluidName(this.tank.getFluid()));
