@@ -81,8 +81,8 @@ public class BlockCastingBench extends BlockTEBase<TileEntityCastingBench> {
 	}
 
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-		if(this.getTileEntity(worldIn, pos) != null) {
-			TileEntityCastingBench te = this.getTileEntity(worldIn, pos);
+		TileEntityCastingBench te = this.getTileEntity(worldIn, pos);
+		if(te != null) {
 			if(te.tank.getFluid().getFluid().getTemperature() > FluidRegistry.WATER.getTemperature()) {
 				entityIn.setFire(10);
 			}
