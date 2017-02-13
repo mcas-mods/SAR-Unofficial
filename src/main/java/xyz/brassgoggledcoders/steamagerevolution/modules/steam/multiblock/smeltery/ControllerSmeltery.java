@@ -16,12 +16,12 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCrucible;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBench;
 
 public class ControllerSmeltery extends RectangularMultiblockControllerBase {
 
 	public FluidTank steamTank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 16, "steam");
-	public FluidTank ironTank = new FluidTankSingleType(TileEntityCrucible.VALUE_BLOCK * 16, "iron");
+	public FluidTank ironTank = new FluidTankSingleType(TileEntityCastingBench.VALUE_BLOCK * 16, "iron");
 	public ItemStackHandler coalInv = new ItemStackHandler(3);
 	public FluidTank steelTank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 16, "steel");
 
@@ -48,14 +48,14 @@ public class ControllerSmeltery extends RectangularMultiblockControllerBase {
 		}
 
 		if(carbonLevel > 0
-				&& ironTank.getFluidAmount() > ((TileEntityCrucible.VALUE_BLOCK * 9) + TileEntityCrucible.VALUE_NUGGET)
+				&& ironTank.getFluidAmount() > ((TileEntityCastingBench.VALUE_BLOCK * 9) + TileEntityCastingBench.VALUE_NUGGET)
 				&& steelTank.getFluidAmount() != steelTank.getCapacity()
 				&& steamTank.getFluidAmount() >= steamUsePerOperation) {
 
 			FluidStack toInsert =
-					new FluidStack(FluidRegistry.getFluid("iron"/* TODO */), TileEntityCrucible.VALUE_NUGGET);
-			if(steelTank.fill(toInsert, false) == TileEntityCrucible.VALUE_NUGGET) {
-				ironTank.drain(TileEntityCrucible.VALUE_NUGGET, true);
+					new FluidStack(FluidRegistry.getFluid("iron"/* TODO */), TileEntityCastingBench.VALUE_NUGGET);
+			if(steelTank.fill(toInsert, false) == TileEntityCastingBench.VALUE_NUGGET) {
+				ironTank.drain(TileEntityCastingBench.VALUE_NUGGET, true);
 				steelTank.fill(toInsert, true);
 				steamTank.drain(steamUsePerOperation, true);
 				carbonLevel--;

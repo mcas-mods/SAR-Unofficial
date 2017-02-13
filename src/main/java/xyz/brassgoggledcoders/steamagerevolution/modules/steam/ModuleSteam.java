@@ -23,7 +23,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockCrucible;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockBoilerController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockBrassFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockSolidFirebox;
@@ -52,7 +52,7 @@ public class ModuleSteam extends ModuleBase {
 	public static Block furnaceCasing, furnaceItemInput, furnaceItemOutput, furnaceSteamInput, furnaceMonitor;
 	public static Block smelteryController, itemInput, smelteryFrame, smelteryCoalInput, smelteryIronInput,
 			smelterySteelOutput;
-	public static Block crucible, furnaceHeater;
+	public static Block castingBench;
 
 	public static Item charcoalPowder;
 
@@ -134,8 +134,8 @@ public class ModuleSteam extends ModuleBase {
 		// turbineFrame = new BlockTurbineFrame(Material.IRON, "turbine_frame");
 		// blockRegistry.register(turbineFrame);
 
-		crucible = new BlockCrucible(Material.ANVIL, "crucible");
-		blockRegistry.register(crucible);
+		castingBench = new BlockCastingBench(Material.ANVIL, "casting_bench");
+		blockRegistry.register(castingBench);
 	}
 
 	@Override
