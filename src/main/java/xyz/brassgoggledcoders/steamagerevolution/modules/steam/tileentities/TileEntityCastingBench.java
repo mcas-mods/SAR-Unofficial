@@ -28,6 +28,7 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 	protected ItemStackHandler internal = new ItemStackHandler();
 	public FluidTank tank = new FluidTank(VALUE_BLOCK);
 	public int coolingTime = 2400;
+	int lastFluidValue = 0;
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
@@ -82,7 +83,26 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 	}
 
 	@Override
+	public NBTTagCompound writeToUpdatePacket(NBTTagCompound tag) {
+		tank.writeToNBT(tag);
+		return super.writeToUpdatePacket(tag);
+	}
+
+	@Override
+	public void readFromUpdatePacket(NBTTagCompound tag) {
+		tank.readFromNBT(tag);
+		super.readFromUpdatePacket(tag);
+	}
+
+	@Override
 	public void update() {
+		if(worldObj.isRemote)
+			return;
+		// Sync for rendering
+		if(this.tank.getFluidAmount() != lastFluidValue) {
+			this.sendBlockUpdate();
+			lastFluidValue = this.tank.getFluidAmount();
+		}
 		if(this.tank.getFluid() != null && this.tank.drain(VALUE_BLOCK, false).amount == VALUE_BLOCK
 				&& !ItemStackUtils.isItemNonNull(this.internal.getStackInSlot(0))) {
 			String oreName = "block" + StringUtils.capitalize(FluidRegistry.getFluidName(this.tank.getFluid()));
