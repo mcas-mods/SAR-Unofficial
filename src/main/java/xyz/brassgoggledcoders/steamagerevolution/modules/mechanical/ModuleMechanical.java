@@ -20,9 +20,6 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.gener
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.blocks.generators.BlockWaterTurbine;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.items.ItemBelt;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mechanical.items.ItemSpinReader;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockDropHammer;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockDropHammerAnvil;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.DropHammerRecipes;
 
 // @Module(value = SteamAgeRevolution.MODID)
 public class ModuleMechanical extends ModuleBase {
@@ -30,7 +27,7 @@ public class ModuleMechanical extends ModuleBase {
 	public static Block infSpinSource;
 	public static Block gearbox, ironBeltEnd, brassBeltEnd, steelBeltEnd, leatherBeltDummy, rubberBeltDummy;
 	public static Block waterTurbine;
-	public static Block furnaceHeater, chute, dropHammer, dropHammerAnvil, cartBooster, fan;
+	public static Block furnaceHeater, chute, cartBooster, fan;
 	public static Block saw, sawBlade;
 	public static Item leatherBelt, rubberBelt;
 	public static Item spinReader;
@@ -72,12 +69,6 @@ public class ModuleMechanical extends ModuleBase {
 
 		chute = new BlockChute(Material.ANVIL, "chute");
 		blockRegistry.register(chute);
-		dropHammer = new BlockDropHammer(Material.IRON, "drop_hammer");
-		blockRegistry.register(dropHammer);
-		// TODO
-		DropHammerRecipes.registerRecipes();
-		dropHammerAnvil = new BlockDropHammerAnvil(Material.IRON, "drop_hammer_anvil");
-		blockRegistry.register(dropHammerAnvil);
 		cartBooster = new BlockCartBooster(Material.IRON, "cart_booster");
 		blockRegistry.register(cartBooster);
 		fan = new BlockFan();

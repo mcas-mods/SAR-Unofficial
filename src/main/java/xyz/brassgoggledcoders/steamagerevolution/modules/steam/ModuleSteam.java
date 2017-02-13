@@ -24,6 +24,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockCastingBench;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockDropHammer;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockDropHammerAnvil;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockBoilerController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockBrassFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockSolidFirebox;
@@ -40,6 +42,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smelte
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery.BlockSmelteryFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery.BlockSmelteryIronInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery.BlockSmelterySteelOutput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.DropHammerRecipes;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleSteam extends ModuleBase {
@@ -53,6 +56,7 @@ public class ModuleSteam extends ModuleBase {
 	public static Block smelteryController, itemInput, smelteryFrame, smelteryCoalInput, smelteryIronInput,
 			smelterySteelOutput;
 	public static Block castingBench;
+	public static Block dropHammer, dropHammerAnvil;
 
 	public static Item charcoalPowder;
 
@@ -136,6 +140,13 @@ public class ModuleSteam extends ModuleBase {
 
 		castingBench = new BlockCastingBench(Material.ANVIL, "casting_bench");
 		blockRegistry.register(castingBench);
+
+		dropHammer = new BlockDropHammer(Material.IRON, "drop_hammer");
+		blockRegistry.register(dropHammer);
+		// TODO
+		DropHammerRecipes.registerRecipes();
+		dropHammerAnvil = new BlockDropHammerAnvil(Material.IRON, "drop_hammer_anvil");
+		blockRegistry.register(dropHammerAnvil);
 	}
 
 	@Override
