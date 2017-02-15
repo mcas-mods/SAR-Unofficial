@@ -10,7 +10,10 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.renderers.TileEntityBasicFluidTankRenderer;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.renderers.TileEntityBasicFluidTankRenderer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.renderers.TileEntityTrunkRenderer;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityBasicFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityTrunk;
 
 public class ClientProxy implements IModuleProxy {
@@ -25,6 +28,8 @@ public class ClientProxy implements IModuleProxy {
 				xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityTrunk.class);
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModuleStorage.trunk), 0,
 				new ModelResourceLocation("steamagerevolution:trunk", "normal"));
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBasicFluidTank.class,
+				new TileEntityBasicFluidTankRenderer());
 	}
 
 	@Override
