@@ -29,6 +29,18 @@ maven {
         name "MCMultiPart"
         url "http://maven.amadornes.com/"
     }
+    maven { url = "http://mobiusstrip.eu/maven" }
+    maven { url = "http://dl.tsr.me/artifactory/libs-release-local" }
+    maven { url = "http://dvs1.progwml6.com/files/maven" } 
+    maven { url = "http://maven.cil.li/" }
+    maven { url = "http://maven.ic2.player.to" }
+    maven { url = "http://maven.epoxide.xyz" }
+    ivy {
+        url "http://ae-mod.info/builds"
+        layout "pattern", {
+            artifact "[module]-[revision](-[classifier])(.[ext])"
+        }
+    }
     maven {
 	url "http://maven.tterrag.com"
     }
@@ -56,8 +68,8 @@ dependencies {
      compile "com.teamacronymcoders.base:base:${minecraft_version}-${base_version}-Snapshot.+:deobf"
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
     deobfCompile "MCMultiPart:MCMultiPart-experimental:${mcmultipart_version}:universal"
-    deobfCompile "com.enderio.core:EnderCore:1.10.2-0.4.1.41-beta"
-    deobfCompile "com.enderio:EnderIO:1.10.2-3.0.1.75_beta"
+    deobfCompile "com.enderio.core:EnderCore:${minecraft_version}-${ecore_version}"
+    deobfCompile "com.enderio:EnderIO:${minecraft_version}-${eio_version}"
     deobfCompile "slimeknights:TConstruct:${minecraft_version}-${tinkers_version}"
     deobfCompile "slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}"
     deobfCompile "team.chisel:Chisel:MC1.10.2-0.0.7.7"
