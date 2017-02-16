@@ -28,6 +28,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockDropH
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockDropHammerAnvil;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockBoilerController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockBrassFrame;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockPressureMonitor;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockSolidFirebox;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockSteamOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockWaterInput;
@@ -50,7 +51,7 @@ public class ModuleSteam extends ModuleBase {
 	public static Fluid steam;
 	public static BlockFluidClassic steamBlock;
 
-	public static Block brassCasing, waterInput, solidFirebox, frictionFirebox, steamOutput, boilerController;
+	public static Block brassCasing, waterInput, solidFirebox, frictionFirebox, steamOutput, boilerController, boilerPressureMonitor;
 	public static Block steamTurbine, mechanicalOutput, steamInput, turbineFrame;
 	public static Block furnaceCasing, furnaceItemInput, furnaceItemOutput, furnaceSteamInput, furnaceMonitor;
 	public static Block smelteryController, itemInput, smelteryFrame, smelteryCoalInput, smelteryIronInput,
@@ -108,6 +109,8 @@ public class ModuleSteam extends ModuleBase {
 		// blockRegistry.register(frictionFirebox);
 		boilerController = new BlockBoilerController(Material.IRON, "boiler_controller");
 		blockRegistry.register(boilerController);
+		boilerPressureMonitor = new BlockPressureMonitor(Material.IRON, "boiler_pressuremonitor");
+		blockRegistry.register(boilerPressureMonitor);
 
 		smelteryController = new BlockSmelteryController(Material.ANVIL, "smeltery_controller");
 		// blockRegistry.register(smelteryController);

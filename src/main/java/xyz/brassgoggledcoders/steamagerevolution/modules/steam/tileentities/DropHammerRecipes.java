@@ -6,9 +6,11 @@ import java.util.Map.Entry;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Maps;
+import com.teamacronymcoders.base.modules.materials.ModuleMaterials;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
@@ -20,7 +22,7 @@ public class DropHammerRecipes {
 		return INSTANCE;
 	}
 
-	// TODO IMC
+	// TODO IMC, OreDict
 	public void addDropHammerRecipe(ItemStack input, ItemStack output) {
 		SteamAgeRevolution.instance.getLogger().devInfo("Hammer recipe: " + input + " > " + output + " added");
 		if(getResult(input) != null) {
@@ -56,6 +58,8 @@ public class DropHammerRecipes {
 	}
 
 	public static void registerRecipes() {
+		//Metals
+		instance().addDropHammerRecipe(new ItemStack(Items.IRON_INGOT), new ItemStack(ModuleMaterials.PLATE));
 		// Utility
 		instance().addDropHammerRecipe(Blocks.STONE, new ItemStack(Blocks.COBBLESTONE));
 		instance().addDropHammerRecipe(Blocks.COBBLESTONE, new ItemStack(Blocks.GRAVEL));

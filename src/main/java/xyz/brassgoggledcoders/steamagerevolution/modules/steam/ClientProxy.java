@@ -3,7 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam;
 import com.teamacronymcoders.base.Base;
 import com.teamacronymcoders.base.modulesystem.proxies.IModuleProxy;
 
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -20,7 +20,7 @@ public class ClientProxy implements IModuleProxy {
 	@Override
 	public void init(FMLInitializationEvent event) {
 		Base.instance.getLibProxy().registerFluidModel(ModuleSteam.steamBlock,
-				new ModelResourceLocation(SteamAgeRevolution.MODID + ":fluids", "steam"));
+				new ResourceLocation(SteamAgeRevolution.MODID, "steam"));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCastingBench.class,
 				new TileEntityCastingBenchRenderer());
 	}

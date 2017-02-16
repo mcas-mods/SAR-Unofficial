@@ -1,5 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
@@ -15,14 +18,17 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 
 // TODO NBT
 public class ControllerBoiler extends RectangularMultiblockControllerBase {
 
 	public static final int fuelDivisor = 3;
 	public static final int fluidConversionPerTick = 5;
+	public static final float maxPressure = 3.0F;
 
 	public ItemStackHandler solidFuelInventory = new ItemStackHandler(3);
 	public FluidTank liquidFuelInventory = new FluidTank(Fluid.BUCKET_VOLUME * 16);
@@ -31,20 +37,23 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 
 	float pressure = 1.0F;
 	int currentBurnTime = 0;
+	
+	Set<BlockPos> attachedMonLocs;
 
 	protected ControllerBoiler(World world) {
 		super(world);
+		attachedMonLocs = new HashSet<BlockPos>();
 	}
 
 	@Override
 	protected boolean updateServer() {
 
-		if(pressure > 2.0F) {
+		//if(pressure > maxPressure) {
 			// Whoopsyboom
-			this.WORLD.createExplosion(null, this.getReferenceCoord().getX(), getReferenceCoord().getY(),
-					getReferenceCoord().getZ(), 10 * pressure, true);
-			return true;
-		}
+			//this.WORLD.createExplosion(null, this.getReferenceCoord().getX(), getReferenceCoord().getY(),
+			//		getReferenceCoord().getZ(), 10 * pressure, true);
+			//return true;
+		//}
 
 		if(currentBurnTime == 0) {
 			for(int i = 0; i < solidFuelInventory.getSlots(); i++) {
@@ -73,6 +82,7 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 				}
 				else {
 					pressure += 0.01F;
+					this.updateRedstoneOutputLevels();
 				}
 				currentBurnTime--;
 				return true;
@@ -215,14 +225,23 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 
 	@Override
 	protected void onBlockAdded(IMultiblockPart newPart) {
-		// TODO Auto-generated method stub
-
+		if(newPart instanceof TileEntityPressureMonitor) {
+			attachedMonLocs.add(newPart.getWorldPosition());
+		}
 	}
 
 	@Override
 	protected void onBlockRemoved(IMultiblockPart oldPart) {
-		// TODO Auto-generated method stub
-
+		if(oldPart instanceof TileEntityPressureMonitor) {
+			attachedMonLocs.remove(oldPart.getWorldPosition());
+		}
+	}
+	
+	private void updateRedstoneOutputLevels() {
+		for(BlockPos pos : attachedMonLocs) {
+			//FMLLog.warning(pos.toString());
+			WORLD.updateComparatorOutputLevel(pos, ModuleSteam.boilerPressureMonitor);
+		}
 	}
 
 }
