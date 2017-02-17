@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -14,11 +14,11 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
-public class DropHammerRecipes {
-	private static final DropHammerRecipes INSTANCE = new DropHammerRecipes();
+public class SteamHammerRecipes {
+	private static final SteamHammerRecipes INSTANCE = new SteamHammerRecipes();
 	private Map<ItemStack, ItemStack> recipeList = Maps.<ItemStack, ItemStack> newHashMap();
 
-	public static DropHammerRecipes instance() {
+	public static SteamHammerRecipes instance() {
 		return INSTANCE;
 	}
 

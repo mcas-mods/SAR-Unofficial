@@ -27,21 +27,22 @@ public class BlockPressureMonitor extends BlockTEBase<TileEntityPressureMonitor>
 		// TODO Auto-generated method stub
 		return new TileEntityPressureMonitor();
 	}
-	
+
 	@Override
-	  public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
-	    TileEntityPressureMonitor te = getTileEntity(world, pos);
-	    if(te.isConnected() && te.getMultiblockController().isAssembled()) {
-	    	//TODO
-	    	int strength = Math.round((te.getMultiblockController().pressure / ControllerBoiler.maxPressure)) * 10;
-	    	//return (strength > 15) ? 15 : strength;
-	    	return 15;
-	    }
-	    return 0;
-	  }
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+		TileEntityPressureMonitor te = getTileEntity(world, pos);
+		if (te.isConnected() && te.getMultiblockController().isAssembled()) {
+			// TODO
+			int strength = Math.round((te.getMultiblockController().pressure / ControllerBoiler.maxPressure)) * 10;
+			// return (strength > 15) ? 15 : strength;
+			return 15;
+		}
+		return 0;
+	}
+
 	@Override
 	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
-}
+	}
 
 }
