@@ -7,7 +7,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.ControllerBoiler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureMonitor;
 
 public class BlockBoilerPressureMonitor extends BlockTEBase<TileEntityBoilerPressureMonitor> {
@@ -33,10 +32,7 @@ public class BlockBoilerPressureMonitor extends BlockTEBase<TileEntityBoilerPres
 	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
 		TileEntityBoilerPressureMonitor te = getTileEntity(world, pos);
 		if(te.isConnected() && te.getMultiblockController().isAssembled()) {
-			// TODO
-			int strength = Math.round((te.getMultiblockController().pressure / ControllerBoiler.maxPressure)) * 10;
-			// return (strength > 15) ? 15 : strength;
-			return 15;
+			return (int) Math.ceil((te.getMultiblockController().pressure));
 		}
 		return 0;
 	}
