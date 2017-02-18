@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities;
 
 import org.fusesource.jansi.Ansi.Color;
 
@@ -8,6 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.ControllerBoiler;
 
 @SideOnly(Side.CLIENT)
 public class GuiBoilerController extends GuiContainer {

@@ -48,7 +48,8 @@ public class ControllerSmeltery extends RectangularMultiblockControllerBase {
 		}
 
 		if(carbonLevel > 0
-				&& ironTank.getFluidAmount() > ((TileEntityCastingBench.VALUE_BLOCK * 9) + TileEntityCastingBench.VALUE_NUGGET)
+				&& ironTank.getFluidAmount() > ((TileEntityCastingBench.VALUE_BLOCK * 9)
+						+ TileEntityCastingBench.VALUE_NUGGET)
 				&& steelTank.getFluidAmount() != steelTank.getCapacity()
 				&& steamTank.getFluidAmount() >= steamUsePerOperation) {
 

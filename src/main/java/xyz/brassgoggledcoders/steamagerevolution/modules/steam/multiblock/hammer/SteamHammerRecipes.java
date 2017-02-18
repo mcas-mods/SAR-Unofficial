@@ -58,7 +58,7 @@ public class SteamHammerRecipes {
 	}
 
 	public static void registerRecipes() {
-		//Metals
+		// Metals
 		instance().addDropHammerRecipe(new ItemStack(Items.IRON_INGOT), new ItemStack(ModuleMaterials.PLATE));
 		// Utility
 		instance().addDropHammerRecipe(Blocks.STONE, new ItemStack(Blocks.COBBLESTONE));

@@ -20,7 +20,7 @@ public class ModuleMaterials extends ModuleBase {
 		steel.registerPartsFor(alloy);
 		Material brass = new Material("Brass", Color.MAGENTA, false);
 		brass.registerPartsFor(alloy);
-		
+
 	}
 
 	@Override

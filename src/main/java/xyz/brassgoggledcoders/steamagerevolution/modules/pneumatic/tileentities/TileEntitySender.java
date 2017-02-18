@@ -25,7 +25,7 @@ public class TileEntitySender extends TileEntitySlowTick {
 	public void updateTile() {
 		EnumFacing facing = this.getWorld().getBlockState(getPos()).getValue(BlockSender.FACING);
 		TileEntity behind = this.getWorld().getTileEntity(getPos().offset(facing.getOpposite()));
-	if(behind.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing.getOpposite())) {
+		if(behind.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing.getOpposite())) {
 			IItemHandler sendInventory =
 					behind.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing.getOpposite());
 			if(sendInventory.getStackInSlot(0) == null) {

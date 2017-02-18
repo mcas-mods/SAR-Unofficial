@@ -24,12 +24,13 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockCastingBench;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockBoilerController;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockBrassFrame;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockPressureMonitor;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockSolidFirebox;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockSteamOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.BlockWaterInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerCasing;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerController;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerLiquidFirebox;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerPressureMonitor;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerSolidFirebox;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerSteamOutput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockboilerWaterInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceCasing;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceItemInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceItemOutput;
@@ -52,7 +53,8 @@ public class ModuleSteam extends ModuleBase {
 	public static Fluid steam;
 	public static BlockFluidClassic steamBlock;
 
-	public static Block brassCasing, waterInput, solidFirebox, frictionFirebox, steamOutput, boilerController, boilerPressureMonitor;
+	public static Block boilerCasing, boilerWaterInput, boilerSolidFirebox, boilerLiquidFirebox, boilerSteamOutput,
+			boilerMonitor, boilerPressureMonitor;
 	public static Block steamTurbine, mechanicalOutput, steamInput, turbineFrame;
 	public static Block furnaceCasing, furnaceItemInput, furnaceItemOutput, furnaceSteamInput, furnaceMonitor;
 	public static Block smelteryController, itemInput, smelteryFrame, smelteryCoalInput, smelteryIronInput,
@@ -97,20 +99,20 @@ public class ModuleSteam extends ModuleBase {
 			blockRegistry.register(steamBlock);
 		}
 
-		brassCasing = new BlockBrassFrame(Material.IRON, "brass_frame");
-		blockRegistry.register(brassCasing);
+		boilerCasing = new BlockBoilerCasing(Material.IRON, "brass_frame");
+		blockRegistry.register(boilerCasing);
 		FMLInterModComms.sendMessage("chisel", "variation:add", "brass_frame|SteamAgeRevolution:brass_frame|0");
-		waterInput = new BlockWaterInput(Material.IRON, "water_input");
-		blockRegistry.register(waterInput);
-		steamOutput = new BlockSteamOutput(Material.IRON, "steam_output");
-		blockRegistry.register(steamOutput);
-		solidFirebox = new BlockSolidFirebox(Material.IRON, "solid_firebox");
-		blockRegistry.register(solidFirebox);
-		// frictionFirebox = new BlockFrictionFirebox(Material.IRON, "friction_firebox");
-		// blockRegistry.register(frictionFirebox);
-		boilerController = new BlockBoilerController(Material.IRON, "boiler_controller");
-		blockRegistry.register(boilerController);
-		boilerPressureMonitor = new BlockPressureMonitor(Material.IRON, "boiler_pressuremonitor");
+		boilerWaterInput = new BlockboilerWaterInput(Material.IRON, "water_input");
+		blockRegistry.register(boilerWaterInput);
+		boilerSteamOutput = new BlockBoilerSteamOutput(Material.IRON, "steam_output");
+		blockRegistry.register(boilerSteamOutput);
+		boilerSolidFirebox = new BlockBoilerSolidFirebox(Material.IRON, "solid_firebox");
+		blockRegistry.register(boilerSolidFirebox);
+		boilerLiquidFirebox = new BlockBoilerLiquidFirebox(Material.IRON, "boiler_liquid_firebox");
+		blockRegistry.register(boilerLiquidFirebox);
+		boilerMonitor = new BlockBoilerController(Material.IRON, "boiler_controller");
+		blockRegistry.register(boilerMonitor);
+		boilerPressureMonitor = new BlockBoilerPressureMonitor(Material.IRON, "boiler_pressuremonitor");
 		blockRegistry.register(boilerPressureMonitor);
 
 		smelteryController = new BlockSmelteryController(Material.ANVIL, "smeltery_controller");

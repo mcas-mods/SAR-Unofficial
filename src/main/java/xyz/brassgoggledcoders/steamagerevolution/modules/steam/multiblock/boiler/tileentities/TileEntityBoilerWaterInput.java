@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities;
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
@@ -6,7 +6,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
-public class TileEntityWaterInput extends TileEntityBoilerPart {
+public class TileEntityBoilerWaterInput extends TileEntityBoilerPart {
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {

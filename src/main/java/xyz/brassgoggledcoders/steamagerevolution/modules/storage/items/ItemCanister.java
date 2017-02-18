@@ -27,7 +27,7 @@ public class ItemCanister extends ItemBase {
 		this.setHasSubtypes(true);
 		this.capacity = capacity;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> subItems) {
@@ -35,11 +35,12 @@ public class ItemCanister extends ItemBase {
 		subItems.add(new ItemStack(item));
 		for(Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
 			ItemStack filledStack = new ItemStack(item);
-			filledStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null).fill(new FluidStack(fluid, capacity), true);
+			filledStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)
+					.fill(new FluidStack(fluid, capacity), true);
 			subItems.add(filledStack);
 		}
-}
-	
+	}
+
 	@Override
 	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
 		return new FluidHandlerItemStack(stack, capacity);

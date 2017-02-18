@@ -4,7 +4,7 @@ import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-public class TileEntitySteamHammerPart extends RectangularMultiblockTileEntityBase<ControllerSteamHammer>{
+public class TileEntitySteamHammerPart extends RectangularMultiblockTileEntityBase<ControllerSteamHammer> {
 
 	@Override
 	public Class<? extends MultiblockControllerBase> getMultiblockControllerType() {
@@ -45,13 +45,13 @@ public class TileEntitySteamHammerPart extends RectangularMultiblockTileEntityBa
 	@Override
 	public void onMachineActivated() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onMachineDeactivated() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

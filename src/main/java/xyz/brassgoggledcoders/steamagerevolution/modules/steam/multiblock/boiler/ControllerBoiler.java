@@ -18,10 +18,10 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureMonitor;
 
 // TODO NBT
 public class ControllerBoiler extends RectangularMultiblockControllerBase {
@@ -35,12 +35,12 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 	public FluidTankSingleType waterTank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 16, "water");
 	public FluidTankSingleType steamTank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 4, "steam");
 
-	float pressure = 1.0F;
-	int currentBurnTime = 0;
-	
+	public float pressure = 1.0F;
+	public int currentBurnTime = 0;
+
 	Set<BlockPos> attachedMonLocs;
 
-	protected ControllerBoiler(World world) {
+	public ControllerBoiler(World world) {
 		super(world);
 		attachedMonLocs = new HashSet<BlockPos>();
 	}
@@ -48,12 +48,12 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 	@Override
 	protected boolean updateServer() {
 
-		//if(pressure > maxPressure) {
-			// Whoopsyboom
-			//this.WORLD.createExplosion(null, this.getReferenceCoord().getX(), getReferenceCoord().getY(),
-			//		getReferenceCoord().getZ(), 10 * pressure, true);
-			//return true;
-		//}
+		// if(pressure > maxPressure) {
+		// Whoopsyboom
+		// this.WORLD.createExplosion(null, this.getReferenceCoord().getX(), getReferenceCoord().getY(),
+		// getReferenceCoord().getZ(), 10 * pressure, true);
+		// return true;
+		// }
 
 		if(currentBurnTime == 0) {
 			for(int i = 0; i < solidFuelInventory.getSlots(); i++) {
@@ -225,21 +225,21 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 
 	@Override
 	protected void onBlockAdded(IMultiblockPart newPart) {
-		if(newPart instanceof TileEntityPressureMonitor) {
+		if(newPart instanceof TileEntityBoilerPressureMonitor) {
 			attachedMonLocs.add(newPart.getWorldPosition());
 		}
 	}
 
 	@Override
 	protected void onBlockRemoved(IMultiblockPart oldPart) {
-		if(oldPart instanceof TileEntityPressureMonitor) {
+		if(oldPart instanceof TileEntityBoilerPressureMonitor) {
 			attachedMonLocs.remove(oldPart.getWorldPosition());
 		}
 	}
-	
+
 	private void updateRedstoneOutputLevels() {
 		for(BlockPos pos : attachedMonLocs) {
-			//FMLLog.warning(pos.toString());
+			// FMLLog.warning(pos.toString());
 			WORLD.updateComparatorOutputLevel(pos, ModuleSteam.boilerPressureMonitor);
 		}
 	}

@@ -11,6 +11,7 @@ public class TileEntitySteamHammerFrame extends TileEntitySteamHammerPart {
 	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
 		return true;
 	}
+
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
 		return (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.isConnected())

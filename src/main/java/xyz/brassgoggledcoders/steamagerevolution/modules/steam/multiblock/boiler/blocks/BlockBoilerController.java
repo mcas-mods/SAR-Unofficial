@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks;
 
 import javax.annotation.Nullable;
 
@@ -16,6 +16,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerController;
 
 public class BlockBoilerController extends BlockTEBase<TileEntityBoilerController> {
 

@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -10,10 +10,11 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.ControllerBoiler;
 
-public class TileEntitySolidFirebox extends TileEntityBoilerPart implements IOnSlotChanged {
+public class TileEntityBoilerSolidFirebox extends TileEntityBoilerPart implements IOnSlotChanged {
 
-	public TileEntitySolidFirebox() {
+	public TileEntityBoilerSolidFirebox() {
 		super();
 	}
 

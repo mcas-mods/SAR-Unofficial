@@ -1,8 +1,8 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities;
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-public class TileEntityPressureMonitor extends TileEntityBoilerPart {
+public class TileEntityBoilerPressureMonitor extends TileEntityBoilerPart {
 
 	@Override
 	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {

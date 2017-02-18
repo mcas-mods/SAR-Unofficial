@@ -1,10 +1,10 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities;
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-public class TileEntityBrassFrame extends TileEntityBoilerPart {
+public class TileEntityBoilerCasing extends TileEntityBoilerPart {
 
-	public TileEntityBrassFrame() {
+	public TileEntityBoilerCasing() {
 
 	}
 

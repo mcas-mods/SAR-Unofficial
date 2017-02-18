@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks;
 
 import javax.annotation.Nullable;
 
@@ -16,10 +16,11 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerWaterInput;
 
-public class BlockWaterInput extends BlockTEBase<TileEntityWaterInput> {
+public class BlockboilerWaterInput extends BlockTEBase<TileEntityBoilerWaterInput> {
 
-	public BlockWaterInput(Material material, String name) {
+	public BlockboilerWaterInput(Material material, String name) {
 		super(material, name);
 	}
 
@@ -37,12 +38,12 @@ public class BlockWaterInput extends BlockTEBase<TileEntityWaterInput> {
 
 	@Override
 	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityWaterInput.class;
+		return TileEntityBoilerWaterInput.class;
 	}
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityWaterInput();
+		return new TileEntityBoilerWaterInput();
 	}
 
 }

@@ -56,9 +56,6 @@ public final class ModelCanister implements IModel, IModelCustomData, IRetextura
 	public static final ModelResourceLocation LOCATION =
 			new ModelResourceLocation(new ResourceLocation(SteamAgeRevolution.MODID, "canister"), "inventory");
 
-	// minimal Z offset to prevent depth-fighting
-	private static final float NORTH_Z_BASE = 7.496f / 16f;
-	private static final float SOUTH_Z_BASE = 8.504f / 16f;
 	private static final float NORTH_Z_FLUID = 7.498f / 16f;
 	private static final float SOUTH_Z_FLUID = 8.502f / 16f;
 

@@ -16,7 +16,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
 
 public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
-	
+
 	public ItemStackHandler inventory = new ItemStackHandler();
 	public FluidTank tank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 4, "steam");
 	protected String dieType = "";
@@ -29,43 +29,43 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void onBlockAdded(IMultiblockPart newPart) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void onBlockRemoved(IMultiblockPart oldPart) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void onMachineAssembled() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void onMachineRestored() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void onMachinePaused() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void onMachineDisassembled() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -90,17 +90,17 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 		// TODO Auto-generated method stub
 		return getMinimumYSize();
 	}
-	
+
 	@Override
 	protected int getMinimumXSize() {
 		return 3;
 	}
-	
+
 	@Override
 	protected int getMinimumZSize() {
 		return getMinimumZSize();
 	}
-	
+
 	@Override
 	protected int getMinimumYSize() {
 		return 4;
@@ -109,27 +109,27 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 	@Override
 	protected void onAssimilate(MultiblockControllerBase assimilated) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void onAssimilated(MultiblockControllerBase assimilator) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected boolean updateServer() {
-		if (tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
-			if (progress < 10) {
+		if(tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
+			if(progress < 10) {
 				this.progress++;
 				tank.drain(Fluid.BUCKET_VOLUME, true);
 				return true;
-			} else {
+			}
+			else {
 				if(ItemStackUtils.isItemNonNull(inventory.getStackInSlot(0))) {
 					ItemStack result = SteamHammerRecipes.instance().getResult(inventory.getStackInSlot(0));
-					if (ItemStackUtils.isItemNonNull(result)
-							&& inventory.insertItem(1, result, true) == null) {
+					if(ItemStackUtils.isItemNonNull(result) && inventory.insertItem(1, result, true) == null) {
 						inventory.extractItem(0, 1, false);
 						inventory.insertItem(1, result, false);
 						progress = 0;
@@ -144,7 +144,7 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 	@Override
 	protected void updateClient() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -179,25 +179,25 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 	@Override
 	public void readFromDisk(NBTTagCompound data) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void readFromUpdatePacket(NBTTagCompound data) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void writeToUpdatePacket(NBTTagCompound data) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
