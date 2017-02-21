@@ -22,6 +22,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureMonitor;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureValve;
 
 // TODO NBT
 public class ControllerBoiler extends RectangularMultiblockControllerBase {
@@ -38,22 +39,33 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 	public float pressure = 1.0F;
 	public int currentBurnTime = 0;
 
-	Set<BlockPos> attachedMonLocs;
+	Set<BlockPos> attachedMonitors;
+	Set<BlockPos> attachedValves;
 
 	public ControllerBoiler(World world) {
 		super(world);
-		attachedMonLocs = new HashSet<BlockPos>();
+		attachedMonitors = new HashSet<BlockPos>();
+		attachedValves = new HashSet<BlockPos>();
 	}
 
 	@Override
 	protected boolean updateServer() {
 
-		// if(pressure > maxPressure) {
-		// Whoopsyboom
-		// this.WORLD.createExplosion(null, this.getReferenceCoord().getX(), getReferenceCoord().getY(),
-		// getReferenceCoord().getZ(), 10 * pressure, true);
-		// return true;
-		// }
+		// Logic must of course run before checking if it should explode...!
+		for(BlockPos pos : attachedValves) {
+			if(WORLD.isBlockPowered(pos)) {
+				this.steamTank.drain(Fluid.BUCKET_VOLUME, true);
+				pressure = 1.0F;
+				this.updateRedstoneOutputLevels();
+			}
+		}
+
+		if(pressure > maxPressure) {
+			// Whoopsyboom
+			this.WORLD.createExplosion(null, this.getReferenceCoord().getX(), getReferenceCoord().getY(),
+					getReferenceCoord().getZ(), 10 * pressure, true);
+			return true;
+		}
 
 		if(currentBurnTime == 0) {
 			for(int i = 0; i < solidFuelInventory.getSlots(); i++) {
@@ -226,19 +238,25 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 	@Override
 	protected void onBlockAdded(IMultiblockPart newPart) {
 		if(newPart instanceof TileEntityBoilerPressureMonitor) {
-			attachedMonLocs.add(newPart.getWorldPosition());
+			attachedMonitors.add(newPart.getWorldPosition());
+		}
+		else if(newPart instanceof TileEntityBoilerPressureValve) {
+			attachedValves.add(newPart.getWorldPosition());
 		}
 	}
 
 	@Override
 	protected void onBlockRemoved(IMultiblockPart oldPart) {
 		if(oldPart instanceof TileEntityBoilerPressureMonitor) {
-			attachedMonLocs.remove(oldPart.getWorldPosition());
+			attachedMonitors.remove(oldPart.getWorldPosition());
+		}
+		else if(oldPart instanceof TileEntityBoilerPressureValve) {
+			attachedValves.remove(oldPart.getWorldPosition());
 		}
 	}
 
 	private void updateRedstoneOutputLevels() {
-		for(BlockPos pos : attachedMonLocs) {
+		for(BlockPos pos : attachedMonitors) {
 			// FMLLog.warning(pos.toString());
 			WORLD.updateComparatorOutputLevel(pos, ModuleSteam.boilerPressureMonitor);
 		}

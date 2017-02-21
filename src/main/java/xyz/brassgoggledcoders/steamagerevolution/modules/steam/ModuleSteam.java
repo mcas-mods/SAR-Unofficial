@@ -28,6 +28,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerLiquidFirebox;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerPressureMonitor;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerPressureValve;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerSolidFirebox;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerSteamOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockboilerWaterInput;
@@ -54,7 +55,7 @@ public class ModuleSteam extends ModuleBase {
 	public static BlockFluidClassic steamBlock;
 
 	public static Block boilerCasing, boilerWaterInput, boilerSolidFirebox, boilerLiquidFirebox, boilerSteamOutput,
-			boilerMonitor, boilerPressureMonitor;
+			boilerMonitor, boilerPressureMonitor, boilerPressureValve;
 	public static Block steamTurbine, mechanicalOutput, steamInput, turbineFrame;
 	public static Block furnaceCasing, furnaceItemInput, furnaceItemOutput, furnaceSteamInput, furnaceMonitor;
 	public static Block smelteryController, itemInput, smelteryFrame, smelteryCoalInput, smelteryIronInput,
@@ -114,6 +115,8 @@ public class ModuleSteam extends ModuleBase {
 		blockRegistry.register(boilerMonitor);
 		boilerPressureMonitor = new BlockBoilerPressureMonitor(Material.IRON, "boiler_pressuremonitor");
 		blockRegistry.register(boilerPressureMonitor);
+		boilerPressureValve = new BlockBoilerPressureValve(Material.IRON, "boiler_pressurevalve");
+		blockRegistry.register(boilerPressureValve);
 
 		smelteryController = new BlockSmelteryController(Material.ANVIL, "smeltery_controller");
 		// blockRegistry.register(smelteryController);
