@@ -82,7 +82,7 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 	@Override
 	protected int getMaximumZSize() {
 		// TODO Auto-generated method stub
-		return getMaximumZSize();
+		return getMinimumZSize();
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 
 	@Override
 	protected int getMinimumZSize() {
-		return getMinimumZSize();
+		return 3;
 	}
 
 	@Override
