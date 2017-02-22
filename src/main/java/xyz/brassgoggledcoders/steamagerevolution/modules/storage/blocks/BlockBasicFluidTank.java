@@ -31,6 +31,7 @@ public class BlockBasicFluidTank extends BlockTEBase<TileEntityBasicFluidTank> {
 	}
 
 	@SideOnly(Side.CLIENT)
+	@Override
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
