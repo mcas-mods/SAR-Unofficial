@@ -24,6 +24,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockCastingBench;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteamVent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerCasing;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerLiquidFirebox;
@@ -62,6 +63,7 @@ public class ModuleSteam extends ModuleBase {
 			smelterySteelOutput;
 	public static Block castingBench;
 	public static Block steamhammerHammer, steamhammerAnvil, steamhammerFrame, steamhammerShielding;
+	public static Block steamVent;
 
 	public static Item charcoalPowder;
 
@@ -160,6 +162,9 @@ public class ModuleSteam extends ModuleBase {
 		blockRegistry.register(steamhammerAnvil);
 		steamhammerHammer = new BlockSteamHammerHammer(Material.IRON, "steamhammer_hammer");
 		blockRegistry.register(steamhammerHammer);
+
+		steamVent = new BlockSteamVent(Material.IRON, "steam_vent");
+		blockRegistry.register(steamVent);
 	}
 
 	@Override
