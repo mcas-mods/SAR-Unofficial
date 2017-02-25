@@ -18,7 +18,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteam
 
 public class TileEntitySteamVent extends TileEntitySlowTick {
 
-	public FluidTank tank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 3, "steam");
+	public FluidTank tank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 6, "steam");
 
 	@Override
 	// TODO No real need to tick.
@@ -27,11 +27,10 @@ public class TileEntitySteamVent extends TileEntitySlowTick {
 		BlockPos pos = getPos();
 		if(w.isBlockPowered(pos) && this.tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
 			EnumFacing f = w.getBlockState(pos).getValue(BlockSteamVent.FACING);
-			pos.offset(f);
-			this.tank.drain(Fluid.BUCKET_VOLUME, true);
-			for(EntityLiving e : w.getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(pos))) {
+			for(EntityLiving e : w.getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(pos.offset(f)))) {
 				e.attackEntityFrom(DamageSource.inFire, 3F);
 			}
+			this.tank.drain(Fluid.BUCKET_VOLUME, true);
 			// TODO particles and noise
 		}
 	}
