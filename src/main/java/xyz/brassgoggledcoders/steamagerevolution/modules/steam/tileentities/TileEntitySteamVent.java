@@ -13,6 +13,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteamVent;
 
@@ -32,7 +33,7 @@ public class TileEntitySteamVent extends TileEntitySlowTick {
 				e.attackEntityFrom(DamageSource.inFire, 3F);
 			}
 			this.tank.drain(Fluid.BUCKET_VOLUME, true);
-			// TODO particles and noise
+			SteamAgeRevolution.proxy.spawnSteamJet(pos, f);
 		}
 	}
 

@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
 import net.minecraftforge.fluids.FluidStack;
 
 // Originally from Tinker's Construct, source here - https://github.com/SlimeKnights/TinkersConstruct/
@@ -417,5 +418,26 @@ public final class RenderUtil {
 
 	public static int blue(int c) {
 		return (c) & 0xFF;
+	}
+
+	// TODO This is a really really awful name. And probably a stupid method anyway.
+	public static float[] directionalVelocitiesOfMagnitude(Vec3i vector, float magnitude) {
+		float x = 0, y = 0, z = 0;
+		if(vector.getX() != 0) {
+			x = magnitude;
+			if(vector.getX() < 0)
+				x = -x;
+		}
+		if(vector.getY() != 0) {
+			y = magnitude;
+			if(vector.getY() < 0)
+				y = -y;
+		}
+		if(vector.getZ() != 0) {
+			z = magnitude;
+			if(vector.getZ() < 0)
+				z = -z;
+		}
+		return new float[] {x, y, z};
 	}
 }
