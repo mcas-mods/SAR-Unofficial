@@ -2,7 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities;
 
 import com.teamacronymcoders.base.tileentities.TileEntitySlowTick;
 
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
@@ -27,7 +27,8 @@ public class TileEntitySteamVent extends TileEntitySlowTick {
 		BlockPos pos = getPos();
 		if(w.isBlockPowered(pos) && this.tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
 			EnumFacing f = w.getBlockState(pos).getValue(BlockSteamVent.FACING);
-			for(EntityLiving e : w.getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(pos.offset(f)))) {
+			for(EntityLivingBase e : w.getEntitiesWithinAABB(EntityLivingBase.class,
+					new AxisAlignedBB(pos.offset(f)))) {
 				e.attackEntityFrom(DamageSource.inFire, 3F);
 			}
 			this.tank.drain(Fluid.BUCKET_VOLUME, true);
