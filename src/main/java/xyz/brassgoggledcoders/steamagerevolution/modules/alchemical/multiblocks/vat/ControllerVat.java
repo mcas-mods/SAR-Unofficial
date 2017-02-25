@@ -1,29 +1,16 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer;
+package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
-import com.teamacronymcoders.base.util.ItemStackUtils;
 
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fml.common.FMLLog;
-import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
 
-public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
+public class ControllerVat extends RectangularMultiblockControllerBase {
 
-	public ItemStackHandler inventory = new ItemStackHandler(2);
-	public FluidTank tank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 4, "steam");
-	protected String dieType = "test";
-	private int progress = 0;
-
-	protected ControllerSteamHammer(World world) {
+	protected ControllerVat(World world) {
 		super(world);
 	}
 
@@ -71,41 +58,27 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 
 	@Override
 	protected int getMinimumNumberOfBlocksForAssembledMachine() {
-		return 34;
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
 	protected int getMaximumXSize() {
 		// TODO Auto-generated method stub
-		return 3;
+		return 0;
 	}
 
 	@Override
 	protected int getMaximumZSize() {
 		// TODO Auto-generated method stub
-		return 3;
+		return 0;
 	}
 
 	@Override
 	protected int getMaximumYSize() {
 		// TODO Auto-generated method stub
-		return 4;
+		return 0;
 	}
-
-	// @Override
-	// protected int getMinimumXSize() {
-	// return 3;
-	// }
-	//
-	// @Override
-	// protected int getMinimumZSize() {
-	// return 3;
-	// }
-	//
-	// @Override
-	// protected int getMinimumYSize() {
-	// return 4;
-	// }
 
 	@Override
 	protected void onAssimilate(MultiblockControllerBase assimilated) {
@@ -121,26 +94,7 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 
 	@Override
 	protected boolean updateServer() {
-		if(tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
-			FMLLog.warning("X");
-			if(progress < 10) {
-				this.progress++;
-				tank.drain(Fluid.BUCKET_VOLUME, true);
-				return true;
-			}
-			else {
-				if(ItemStackUtils.isItemNonNull(inventory.getStackInSlot(0))) {
-					ItemStack result = SteamHammerRecipe.getResult(inventory.getStackInSlot(0), dieType);
-					FMLLog.warning(result.getUnlocalizedName());
-					if(ItemStackUtils.isItemNonNull(result) && inventory.insertItem(1, result, true) == null) {
-						inventory.extractItem(0, 1, false);
-						inventory.insertItem(1, result, false);
-						progress = 0;
-						return true;
-					}
-				}
-			}
-		}
+		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -176,7 +130,8 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 
 	@Override
 	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		return world.isAirBlock(new BlockPos(x, y, z));
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override

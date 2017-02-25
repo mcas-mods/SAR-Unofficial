@@ -42,7 +42,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnac
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.BlockSteamHammerAnvil;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.BlockSteamHammerFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.BlockSteamHammerHammer;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.SteamHammerRecipes;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.SteamHammerRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery.BlockSmelteryCoalInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery.BlockSmelteryController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery.BlockSmelteryFrame;
@@ -80,7 +80,7 @@ public class ModuleSteam extends ModuleBase {
 	@Override
 	public void init(FMLInitializationEvent event) {
 		SteamFurnaceRecipes.registerRecipes();
-		SteamHammerRecipes.registerRecipes();
+		SteamHammerRecipe.registerRecipes();
 		GameRegistry.addRecipe(
 				new ShapedOreRecipe(new ItemStack(Items.COAL, 1, 1), "PPP", "PPP", "PPP", 'P', "dustCharcoal"));
 		OreDictionary.registerOre("dustCharcoal", charcoalPowder);
