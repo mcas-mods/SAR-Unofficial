@@ -32,7 +32,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerPressureValve;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerSolidFirebox;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerSteamOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockboilerWaterInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerWaterInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceCasing;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceItemInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceItemOutput;
@@ -105,7 +105,7 @@ public class ModuleSteam extends ModuleBase {
 		boilerCasing = new BlockBoilerCasing(Material.IRON, "brass_frame");
 		blockRegistry.register(boilerCasing);
 		FMLInterModComms.sendMessage("chisel", "variation:add", "brass_frame|SteamAgeRevolution:brass_frame|0");
-		boilerWaterInput = new BlockboilerWaterInput(Material.IRON, "water_input");
+		boilerWaterInput = new BlockBoilerWaterInput(Material.IRON, "water_input");
 		blockRegistry.register(boilerWaterInput);
 		boilerSteamOutput = new BlockBoilerSteamOutput(Material.IRON, "steam_output");
 		blockRegistry.register(boilerSteamOutput);

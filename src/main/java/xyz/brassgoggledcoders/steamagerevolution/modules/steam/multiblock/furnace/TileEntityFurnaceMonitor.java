@@ -6,7 +6,7 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class TileEntityFurnaceMonitor extends TileEntityFurnacePart implements IHasGui {
@@ -21,12 +21,12 @@ public class TileEntityFurnaceMonitor extends TileEntityFurnacePart implements I
 	}
 
 	@Override
-	public Gui getGui(EntityPlayer entityPlayer, World world, NBTTagCompound context) {
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
 		return new GuiFurnaceMonitor(new ContainerFurnaceMonitor(entityPlayer, this), this);
 	}
 
 	@Override
-	public Container getContainer(EntityPlayer entityPlayer, World world, NBTTagCompound context) {
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
 		return new ContainerFurnaceMonitor(entityPlayer, this);
 	}
 }

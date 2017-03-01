@@ -12,6 +12,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
@@ -101,12 +102,12 @@ public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGu
 	public void onSlotChanged(Slot slot) {}
 
 	@Override
-	public Gui getGui(EntityPlayer entityPlayer, World world, NBTTagCompound context) {
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
 		return new GuiFluidIO(entityPlayer, this);
 	}
 
 	@Override
-	public Container getContainer(EntityPlayer entityPlayer, World world, NBTTagCompound context) {
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
 		return new ContainerFluidIO(entityPlayer, this);
 	}
 

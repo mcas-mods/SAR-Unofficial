@@ -5,22 +5,22 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.BlockGUIBase;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerSteamOutput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerWaterInput;
 
-public class BlockBoilerSteamOutput extends BlockGUIBase<TileEntityBoilerSteamOutput> {
+public class BlockBoilerWaterInput extends BlockGUIBase<TileEntityBoilerWaterInput> {
 
-	public BlockBoilerSteamOutput(Material material, String name) {
+	public BlockBoilerWaterInput(Material material, String name) {
 		super(material, name);
 	}
 
 	@Override
 	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityBoilerSteamOutput.class;
+		return TileEntityBoilerWaterInput.class;
 	}
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityBoilerSteamOutput();
+		return new TileEntityBoilerWaterInput();
 	}
 
 }
