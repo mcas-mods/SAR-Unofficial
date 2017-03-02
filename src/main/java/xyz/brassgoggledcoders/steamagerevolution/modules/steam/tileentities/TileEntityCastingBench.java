@@ -9,6 +9,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
@@ -26,7 +27,7 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 	public static final int VALUE_INGOT = 144;
 	public static final int VALUE_NUGGET = VALUE_INGOT / 9;
 	public static final int VALUE_BLOCK = VALUE_INGOT * 9;
-	public static final int VALUE_ORE = VALUE_INGOT * 2; // TODO Config
+	// public static final int VALUE_ORE = VALUE_INGOT * 2; // TODO Config
 
 	protected ItemStackHandler internal = new ItemStackHandler();
 	public FluidTank tank = new FluidTank(VALUE_BLOCK);
@@ -35,7 +36,7 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		if(facing == EnumFacing.DOWN) {
+		if(facing.getAxis() == Axis.Y) {
 			return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 					|| super.hasCapability(capability, facing);
 		}
@@ -63,7 +64,7 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 			case "nugget":
 				return VALUE_NUGGET;
 			case "ore":
-				return VALUE_ORE;
+				return VALUE_INGOT;
 			default:
 				return 0;
 		}
