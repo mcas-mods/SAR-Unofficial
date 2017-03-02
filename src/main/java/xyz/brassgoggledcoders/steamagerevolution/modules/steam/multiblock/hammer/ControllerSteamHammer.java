@@ -145,33 +145,26 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 	}
 
 	@Override
-	protected void updateClient() {
-		// TODO Auto-generated method stub
-
-	}
+	protected void updateClient() {}
 
 	@Override
 	protected boolean isBlockGoodForFrame(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	protected boolean isBlockGoodForTop(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	protected boolean isBlockGoodForBottom(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return false;
+		return world.isAirBlock(new BlockPos(x, y, z));
 	}
 
 	@Override
@@ -181,14 +174,16 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 
 	@Override
 	public void readFromDisk(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
+		data.setTag("tank", tank.writeToNBT(new NBTTagCompound()));
+		data.setString("dieType", dieType);
+		data.setInteger("progress", progress);
 	}
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
+		tank.readFromNBT(data.getCompoundTag("tank"));
+		dieType = data.getString("dieType");
+		progress = data.getInteger("progress");
 	}
 
 	@Override
