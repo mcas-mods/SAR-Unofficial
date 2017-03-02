@@ -112,11 +112,18 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 		// Melting Logic TODO Cache this check
 		if(getWorld().getBlockState(getPos().down()).getMaterial() == Material.LAVA) {
 			if(ItemStackUtils.isItemNonNull(stack)) {
+				String[] splitName = null;
+				// TODO Caching. This *should* never change at runtime.
 				for(int oreId : OreDictionary.getOreIDs(stack)) {
-					String[] splitName = OreDictionary.getOreName(oreId).split("(?=[A-Z])");
+					splitName = OreDictionary.getOreName(oreId).split("(?=[A-Z])");
 					if(splitName.length != 2)
 						return;
 					if(FluidRegistry.isFluidRegistered(splitName[1].toLowerCase())) {
+						break;
+					}
+				}
+				if(splitName != null) {
+					if(stateChangeTime == 0) {
 						Fluid fluid = FluidRegistry.getFluid(splitName[1].toLowerCase());
 						int value = getValueFromName(splitName[0].toLowerCase()) * stack.stackSize;
 						if(value != 0) {
@@ -127,6 +134,9 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 								this.internal.setStackInSlot(0, stack);
 							}
 						}
+					}
+					else {
+						stateChangeTime--;
 					}
 				}
 			}
