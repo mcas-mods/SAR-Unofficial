@@ -132,7 +132,11 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 							if(tank.fill(toInsert, false) == value) {
 								tank.fill(toInsert, true);
 								stack.stackSize--;
-								this.internal.setStackInSlot(0, stack);
+								if(stack.stackSize > 0)
+									this.internal.setStackInSlot(0, stack);
+								else {
+									this.internal.setStackInSlot(0, null);
+								}
 							}
 						}
 					}
