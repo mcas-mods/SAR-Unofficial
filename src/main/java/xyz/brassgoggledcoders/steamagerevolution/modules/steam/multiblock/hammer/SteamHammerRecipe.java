@@ -6,8 +6,6 @@ import javax.annotation.Nullable;
 
 import com.teamacronymcoders.base.util.ItemStackUtils;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -48,7 +46,6 @@ public class SteamHammerRecipe {
 	}
 
 	public static void registerRecipes() {
-		addSteamHammerRecipe(new ItemStack(Blocks.COBBLESTONE), new ItemStack(Blocks.GRAVEL));
-		addSteamHammerRecipe(new ItemStack(Blocks.DIRT), new ItemStack(Items.DIAMOND), "test");
+
 	}
 }

@@ -61,15 +61,15 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 		}
 		else {
 			// Smelting logic TODO Liquid metal output
-			if(ItemStackUtils.isItemNonNull(inputInventory.getStackInSlot(0)) && ItemStackUtils
-					.isItemNonNull(SteamFurnaceRecipes.instance().getResult(inputInventory.getStackInSlot(0)))) {
+			if(ItemStackUtils.isItemNonNull(inputInventory.getStackInSlot(0))
+					&& ItemStackUtils.isItemNonNull(SteamFurnaceRecipe.getResult(inputInventory.getStackInSlot(0)))) {
 				if(steamTank.drain(fluidUseOnTick, false).amount == fluidUseOnTick) {
 					steamTank.drain(fluidUseOnTick, true);
 					if(currentCookTime < cookTime) {
 						currentCookTime += Math.floor(pressure); // TODO
 					}
 					else {
-						ItemStack r = SteamFurnaceRecipes.instance().getResult(inputInventory.getStackInSlot(0));
+						ItemStack r = SteamFurnaceRecipe.getResult(inputInventory.getStackInSlot(0));
 						ItemStack resultItem = new ItemStack(r.getItem(), 1, r.getItemDamage());
 						if(ItemHandlerHelper.insertItem(outputInventory, resultItem, true) == null) {
 							if(inputInventory.extractItem(0, resultItem.stackSize, true) != null) {

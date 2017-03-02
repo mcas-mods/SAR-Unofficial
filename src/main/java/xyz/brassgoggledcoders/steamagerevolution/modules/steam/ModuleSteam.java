@@ -10,6 +10,7 @@ import com.teamacronymcoders.base.registry.config.ConfigRegistry;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -38,7 +39,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnac
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceItemOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceMonitor;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceSteamInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.SteamFurnaceRecipes;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.SteamFurnaceRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.BlockSteamHammerAnvil;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.BlockSteamHammerFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.BlockSteamHammerHammer;
@@ -79,8 +80,20 @@ public class ModuleSteam extends ModuleBase {
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-		SteamFurnaceRecipes.registerRecipes();
-		SteamHammerRecipe.registerRecipes();
+		SteamFurnaceRecipe.addSteamFurnaceRecipe(new ItemStack(Items.COOKED_CHICKEN),
+				new ItemStack(ModuleSteam.charcoalPowder));
+		SteamFurnaceRecipe.addSteamFurnaceRecipe(new ItemStack(Items.COOKED_BEEF),
+				new ItemStack(ModuleSteam.charcoalPowder));
+		SteamFurnaceRecipe.addSteamFurnaceRecipe(new ItemStack(Items.COOKED_FISH),
+				new ItemStack(ModuleSteam.charcoalPowder));
+		SteamFurnaceRecipe.addSteamFurnaceRecipe(new ItemStack(Items.COOKED_MUTTON),
+				new ItemStack(ModuleSteam.charcoalPowder));
+		SteamFurnaceRecipe.addSteamFurnaceRecipe(new ItemStack(Items.COOKED_RABBIT),
+				new ItemStack(ModuleSteam.charcoalPowder));
+
+		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.COBBLESTONE), new ItemStack(Blocks.GRAVEL));
+		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.DIRT), new ItemStack(Items.DIAMOND), "test");
+
 		GameRegistry.addRecipe(
 				new ShapedOreRecipe(new ItemStack(Items.COAL, 1, 1), "PPP", "PPP", "PPP", 'P', "dustCharcoal"));
 		OreDictionary.registerOre("dustCharcoal", charcoalPowder);
