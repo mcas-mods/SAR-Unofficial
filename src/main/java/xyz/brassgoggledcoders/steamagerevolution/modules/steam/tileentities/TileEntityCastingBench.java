@@ -5,12 +5,15 @@ import org.apache.commons.lang3.StringUtils;
 import com.teamacronymcoders.base.tileentities.TileEntityBase;
 import com.teamacronymcoders.base.util.ItemStackUtils;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -27,7 +30,7 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 
 	protected ItemStackHandler internal = new ItemStackHandler();
 	public FluidTank tank = new FluidTank(VALUE_BLOCK);
-	public int coolingTime = 2400;
+	public int stateChangeTime = 2400;
 	int lastFluidValue = -1;
 
 	@Override
@@ -70,7 +73,7 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 	public NBTTagCompound writeToDisk(NBTTagCompound tag) {
 		tag.setTag("tank", tank.writeToNBT(new NBTTagCompound()));
 		tag.setTag("inv", internal.serializeNBT());
-		tag.setInteger("coolTime", coolingTime);
+		tag.setInteger("coolTime", stateChangeTime);
 		return super.writeToDisk(tag);
 	}
 
@@ -78,7 +81,7 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 	public void readFromDisk(NBTTagCompound tag) {
 		tank.readFromNBT(tag.getCompoundTag("tank"));
 		internal.deserializeNBT(tag.getCompoundTag("inv"));
-		coolingTime = tag.getInteger("cooltime");
+		stateChangeTime = tag.getInteger("cooltime");
 		super.readFromDisk(tag);
 	}
 
@@ -104,20 +107,46 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 			lastFluidValue = this.tank.getFluidAmount();
 		}
 
-		// Cooling Logic
-		if(this.tank.getFluid() != null && this.tank.drain(VALUE_BLOCK, false).amount == VALUE_BLOCK
-				&& !ItemStackUtils.isItemNonNull(this.internal.getStackInSlot(0))) {
-			String oreName = "block" + StringUtils.capitalize(FluidRegistry.getFluidName(this.tank.getFluid()));
-			if(OreDictionary.doesOreNameExist(oreName)) {
-				if(coolingTime == 0) {
-					this.tank.drain(VALUE_BLOCK, true);
-					ItemStack toInsert = OreDictionary.getOres(oreName).get(0);
-					toInsert.stackSize = 1;
-					this.internal.insertItem(0, toInsert, false);
-					coolingTime = 2400;
+		ItemStack stack = this.internal.getStackInSlot(0);
+
+		// Melting Logic TODO Cache this check
+		if(getWorld().getBlockState(getPos().down()).getMaterial() == Material.LAVA) {
+			if(ItemStackUtils.isItemNonNull(stack)) {
+				for(int oreId : OreDictionary.getOreIDs(stack)) {
+					String[] splitName = OreDictionary.getOreName(oreId).split("(?=[A-Z])");
+					if(splitName.length != 2)
+						return;
+					if(FluidRegistry.isFluidRegistered(splitName[1].toLowerCase())) {
+						Fluid fluid = FluidRegistry.getFluid(splitName[1].toLowerCase());
+						int value = getValueFromName(splitName[0].toLowerCase()) * stack.stackSize;
+						if(value != 0) {
+							FluidStack toInsert = new FluidStack(fluid, value);
+							if(tank.fill(toInsert, false) == value) {
+								tank.fill(toInsert, true);
+								stack.stackSize--;
+								this.internal.setStackInSlot(0, stack);
+							}
+						}
+					}
 				}
-				else {
-					coolingTime--;
+			}
+		}
+		// Cooling Logic
+		else {
+			if(this.tank.getFluid() != null && this.tank.drain(VALUE_BLOCK, false).amount == VALUE_BLOCK
+					&& !ItemStackUtils.isItemNonNull(stack)) {
+				String oreName = "block" + StringUtils.capitalize(FluidRegistry.getFluidName(this.tank.getFluid()));
+				if(OreDictionary.doesOreNameExist(oreName)) {
+					if(stateChangeTime == 0) {
+						this.tank.drain(VALUE_BLOCK, true);
+						ItemStack toInsert = OreDictionary.getOres(oreName).get(0);
+						toInsert.stackSize = 1;
+						this.internal.insertItem(0, toInsert, false);
+						stateChangeTime = 2400;
+					}
+					else {
+						stateChangeTime--;
+					}
 				}
 			}
 		}
