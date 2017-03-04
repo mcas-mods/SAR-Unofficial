@@ -18,8 +18,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.BlockGUIBase;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityTrunk;
+import xyz.brassgoggledcoders.steamagerevolution.utils.BlockGUIBase;
 
 public class BlockTrunk extends BlockGUIBase<TileEntityTrunk> {
 

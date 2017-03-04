@@ -6,21 +6,24 @@ import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockCo
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.util.ItemStackUtils;
 
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.ItemStackHandler;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
 
 public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 
 	public ItemStackHandler inventory = new ItemStackHandler(2);
 	public FluidTank tank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 4, "steam");
-	protected String dieType = "test";
+	protected String dieType = "";
 	private int progress = 0;
 
 	protected ControllerSteamHammer(World world) {
@@ -65,13 +68,13 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 
 	@Override
 	protected void onMachineDisassembled() {
-		// TODO Auto-generated method stub
+		// TODO Auto-genera@Nullableted method stub
 
 	}
 
 	@Override
 	protected int getMinimumNumberOfBlocksForAssembledMachine() {
-		return 34;
+		return 26;// 3*3*4-10 Shielding is optional, always hollow.
 	}
 
 	@Override
@@ -122,7 +125,6 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 	@Override
 	protected boolean updateServer() {
 		if(tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
-			FMLLog.warning("X");
 			if(progress < 10) {
 				this.progress++;
 				tank.drain(Fluid.BUCKET_VOLUME, true);
@@ -131,11 +133,18 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 			else {
 				if(ItemStackUtils.isItemNonNull(inventory.getStackInSlot(0))) {
 					ItemStack result = SteamHammerRecipe.getResult(inventory.getStackInSlot(0), dieType);
-					FMLLog.warning(result.getUnlocalizedName());
-					if(ItemStackUtils.isItemNonNull(result) && inventory.insertItem(1, result, true) == null) {
+					if(ItemStackUtils.isItemNonNull(result)
+							&& !ItemStackUtils.isItemNonNull(inventory.getStackInSlot(1))) {
 						inventory.extractItem(0, 1, false);
-						inventory.insertItem(1, result, false);
+						inventory.setStackInSlot(1, result);// TODO
 						progress = 0;
+
+						BlockPos center = this.getReferenceCoord().up(2).east().south();
+						WORLD.playSound(null, center.getX(), center.getY(), center.getZ(),
+								SoundEvents.BLOCK_ANVIL_PLACE, SoundCategory.BLOCKS, 100F, 1F);
+						SteamAgeRevolution.proxy.spawnFX(EnumParticleTypes.FLAME, center);
+						// TODO Entity damage
+
 						return true;
 					}
 				}

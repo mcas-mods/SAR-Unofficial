@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution;
+package xyz.brassgoggledcoders.steamagerevolution.utils;
 
 import javax.annotation.Nullable;
 
