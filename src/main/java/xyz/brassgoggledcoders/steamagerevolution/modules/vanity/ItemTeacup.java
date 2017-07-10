@@ -6,10 +6,8 @@ import java.util.List;
 import com.teamacronymcoders.base.items.IHasSubItems;
 import com.teamacronymcoders.base.items.ItemBase;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class ItemTeacup extends ItemBase implements IHasSubItems {
@@ -55,12 +53,6 @@ public class ItemTeacup extends ItemBase implements IHasSubItems {
 	 * return stack;
 	 * }
 	 */
-
-	@Override
-	public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> list) {
-		list.add(new ItemStack(item, 1, 0));
-		// list.add(new ItemStack(item, 1, getNumberOfSubItems() - 1));
-	}
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean flag) {

@@ -3,7 +3,6 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities;
 import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.tileentities.IOnSlotChanged;
 import com.teamacronymcoders.base.tileentities.TileEntityInventoryBase;
-import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,7 +35,7 @@ public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGu
 	@Override
 	public void update() {
 		IItemHandler handler = this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-		if(ItemStackUtils.isItemNonNull(handler.getStackInSlot(0))) {
+		if(!handler.getStackInSlot(0).isEmpty()) {
 			IFluidHandler itemFluid =
 					handler.getStackInSlot(0).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
 			if(buffer.fill(itemFluid.drain(fluidTransferRate, false), false) == fluidTransferRate) {
@@ -45,7 +44,7 @@ public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGu
 				this.sendBlockUpdate();
 			}
 		}
-		if(ItemStackUtils.isItemNonNull(handler.getStackInSlot(1))) {
+		if(!handler.getStackInSlot(1).isEmpty()) {
 			IFluidHandler itemFluid =
 					handler.getStackInSlot(1).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
 			if(itemFluid.fill(buffer.drain(fluidTransferRate, false), false) == fluidTransferRate) {

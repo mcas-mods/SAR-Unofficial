@@ -23,7 +23,7 @@ public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntit
 		GlStateManager.depthMask(true);
 		int i;
 
-		if(te != null && te.hasWorldObj()) {
+		if(te != null && te.hasWorld()) {
 			i = te.getBlockMetadata();
 		}
 		else

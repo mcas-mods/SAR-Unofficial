@@ -4,7 +4,6 @@ import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
-import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -131,10 +130,9 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 				return true;
 			}
 			else {
-				if(ItemStackUtils.isItemNonNull(inventory.getStackInSlot(0))) {
+				if(!inventory.getStackInSlot(0).isEmpty()) {
 					ItemStack result = SteamHammerRecipe.getResult(inventory.getStackInSlot(0), dieType);
-					if(ItemStackUtils.isItemNonNull(result)
-							&& !ItemStackUtils.isItemNonNull(inventory.getStackInSlot(1))) {
+					if(!result.isEmpty() && inventory.getStackInSlot(1).isEmpty()) {
 						inventory.extractItem(0, 1, false);
 						inventory.setStackInSlot(1, result);// TODO
 						progress = 0;

@@ -4,7 +4,6 @@ import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
-import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -61,8 +60,8 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 		}
 		else {
 			// Smelting logic TODO Liquid metal output
-			if(ItemStackUtils.isItemNonNull(inputInventory.getStackInSlot(0))
-					&& ItemStackUtils.isItemNonNull(SteamFurnaceRecipe.getResult(inputInventory.getStackInSlot(0)))) {
+			if(!inputInventory.getStackInSlot(0).isEmpty()
+					&& !SteamFurnaceRecipe.getResult(inputInventory.getStackInSlot(0)).isEmpty()) {
 				if(steamTank.drain(fluidUseOnTick, false).amount == fluidUseOnTick) {
 					steamTank.drain(fluidUseOnTick, true);
 					if(currentCookTime < cookTime) {
@@ -72,8 +71,8 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 						ItemStack r = SteamFurnaceRecipe.getResult(inputInventory.getStackInSlot(0));
 						ItemStack resultItem = new ItemStack(r.getItem(), 1, r.getItemDamage());
 						if(ItemHandlerHelper.insertItem(outputInventory, resultItem, true) == null) {
-							if(inputInventory.extractItem(0, resultItem.stackSize, true) != null) {
-								inputInventory.extractItem(0, resultItem.stackSize, false);
+							if(inputInventory.extractItem(0, resultItem.getCount(), true) != null) {
+								inputInventory.extractItem(0, resultItem.getCount(), false);
 								ItemHandlerHelper.insertItem(outputInventory, resultItem, false);
 								currentCookTime = 0;
 								return true;

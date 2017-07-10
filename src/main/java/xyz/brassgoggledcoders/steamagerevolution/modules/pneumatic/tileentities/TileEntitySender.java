@@ -38,9 +38,8 @@ public class TileEntitySender extends TileEntitySlowTick {
 				if(block == ModulePneumatic.router) {
 					IItemHandler recieveInventory = this.getWorld().getTileEntity(getPos().offset(facing, i))
 							.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
-					if(recieveInventory.getStackInSlot(0) == null
-							|| recieveInventory.getStackInSlot(0).stackSize < recieveInventory.getStackInSlot(0)
-									.getMaxStackSize()) {
+					if(recieveInventory.getStackInSlot(0) == null || recieveInventory.getStackInSlot(0)
+							.getCount() < recieveInventory.getStackInSlot(0).getMaxStackSize()) {
 						// TODO Creates zero-size stacks
 						recieveInventory.insertItem(0, sendInventory.getStackInSlot(0).splitStack(rate), false);
 						this.getWorld().playSound(null, this.getPos(), SoundEvents.ENTITY_CAT_HISS,
@@ -54,7 +53,7 @@ public class TileEntitySender extends TileEntitySlowTick {
 					}
 					return;
 				}
-				else if(block == ModulePneumatic.pneumaticTube && worldObj.getBlockState(currentPos)
+				else if(block == ModulePneumatic.pneumaticTube && this.getWorld().getBlockState(currentPos)
 						.getValue(BlockPneumaticTube.AXIS) == BlockLog.EnumAxis.fromFacingAxis(facing.getAxis())) {
 					tubePositions[i] = currentPos;
 					continue;

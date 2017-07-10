@@ -1,10 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks;
 
-import javax.annotation.Nullable;
-
-import com.teamacronymcoders.base.api.BaseAPI;
+import com.teamacronymcoders.base.Capabilities;
 import com.teamacronymcoders.base.blocks.BlockTEBase;
-import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -12,7 +9,6 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -57,13 +53,12 @@ public class BlockSteamVent extends BlockTEBase<TileEntitySteamVent> {
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if(ItemStackUtils.isItemNonNull(heldItem)) {
-			if(heldItem.hasCapability(BaseAPI.TOOL_CAPABILITY, null)) {
-				worldIn.setBlockState(pos, worldIn.getBlockState(pos).cycleProperty(FACING));
-				return true;
+			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if(!playerIn.getHeldItem(hand).isEmpty()
+				&& playerIn.getHeldItem(hand).hasCapability(Capabilities.TOOL, facing)) {
+			worldIn.setBlockState(pos, worldIn.getBlockState(pos).cycleProperty(FACING));
+			return true;
 
-			}
 		}
 		return false;
 	}

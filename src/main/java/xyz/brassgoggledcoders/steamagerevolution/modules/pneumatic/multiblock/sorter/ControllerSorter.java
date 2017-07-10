@@ -39,17 +39,17 @@ public class ControllerSorter extends RectangularMultiblockControllerBase {
 			for(TileEntityOutputBuffer out : attachedOutputs) {
 				// Check if code matches
 				for(int i = 0; i < in.code.getSlots(); i++) {
-					if(!ItemStackUtils.isItemNonNull(out.code.getStackInSlot(i))
-							|| !ItemStackUtils.isItemNonNull(in.code.getStackInSlot(i)) || (!ItemStackUtils
-									.doItemsMatch(out.code.getStackInSlot(i), in.code.getStackInSlot(i).getItem()))) {
+					if(!(out.code.getStackInSlot(i).isEmpty()) || !in.code.getStackInSlot(i).isEmpty()
+							|| (!ItemStackUtils.doItemsMatch(out.code.getStackInSlot(i),
+									in.code.getStackInSlot(i).getItem()))) {
 						return false;
 					}
 				}
 				// If so, transfer
 				for(int i2 = 0; i2 < in.inventory.getSlots(); i2++) {
-					if(ItemStackUtils.isItemNonNull(in.inventory.getStackInSlot(i2))) {
+					if(!(in.inventory.getStackInSlot(i2).isEmpty())) {
 						ItemStack toTransfer = in.inventory.getStackInSlot(i2).copy();
-						toTransfer.stackSize = rate;
+						toTransfer.shrink(rate);
 						if(in.inventory.extractItem(i2, rate, true) != null
 								&& ItemHandlerHelper.insertItem(out.inventory, toTransfer, true) == null) {
 							in.inventory.extractItem(i2, rate, false);

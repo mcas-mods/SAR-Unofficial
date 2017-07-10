@@ -10,7 +10,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.RenderUtil;
 public class ClientProxy extends CommonProxy {
 	@Override
 	public void spawnSmoke(BlockPos at) {
-		World world = Minecraft.getMinecraft().theWorld;
+		World world = Minecraft.getMinecraft().world;
 		if(world == null)
 			return;
 		world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, at.getX() + 0.5F, at.getY(), at.getZ() + 0.5F, 0, 0, 0);
@@ -23,7 +23,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void spawnSteamJet(BlockPos at, EnumFacing f) {
-		World world = Minecraft.getMinecraft().theWorld;
+		World world = Minecraft.getMinecraft().world;
 		if(world == null)
 			return;
 		for(int i = 0; i < 20; i++) {
@@ -36,7 +36,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void spawnFX(EnumParticleTypes type, BlockPos pos) {
-		World world = Minecraft.getMinecraft().theWorld;
+		World world = Minecraft.getMinecraft().world;
 		if(type == EnumParticleTypes.PORTAL)
 			for(int j = 0; j < 70; ++j)
 				world.spawnParticle(type, pos.getX() + (-0.2 + world.rand.nextDouble()), pos.getY(),

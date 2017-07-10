@@ -4,7 +4,6 @@ import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
-import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.init.Items;
 import net.minecraft.nbt.NBTTagCompound;
@@ -38,7 +37,7 @@ public class ControllerSmeltery extends RectangularMultiblockControllerBase {
 		boolean flag = false;
 
 		for(int i = 0; i < coalInv.getSlots(); i++) {
-			if(ItemStackUtils.isItemNonNull(coalInv.getStackInSlot(i))) {
+			if(!coalInv.getStackInSlot(i).isEmpty()) {
 				if(coalInv.getStackInSlot(i).getItem() == Items.COAL) {
 					carbonLevel += 9;
 					coalInv.extractItem(i, 1, false);

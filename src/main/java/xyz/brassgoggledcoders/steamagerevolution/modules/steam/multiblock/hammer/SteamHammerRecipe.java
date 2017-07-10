@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.teamacronymcoders.base.util.ItemStackUtils;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -29,7 +27,7 @@ public class SteamHammerRecipe {
 	}
 
 	public static void addSteamHammerRecipe(ItemStack input, ItemStack output, @Nonnull String dieType) {
-		if(ItemStackUtils.isItemNonNull(input))
+		if(!input.isEmpty())
 			recipeList.add(new SteamHammerRecipe(input, output, dieType));
 	}
 

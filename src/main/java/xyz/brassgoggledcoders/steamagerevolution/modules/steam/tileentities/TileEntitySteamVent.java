@@ -30,7 +30,7 @@ public class TileEntitySteamVent extends TileEntitySlowTick {
 			EnumFacing f = w.getBlockState(pos).getValue(BlockSteamVent.FACING);
 			for(EntityLivingBase e : w.getEntitiesWithinAABB(EntityLivingBase.class,
 					new AxisAlignedBB(pos.offset(f)))) {
-				e.attackEntityFrom(DamageSource.inFire, 3F);
+				e.attackEntityFrom(DamageSource.IN_FIRE, 3F);
 			}
 			this.tank.drain(Fluid.BUCKET_VOLUME, true);
 			SteamAgeRevolution.proxy.spawnSteamJet(pos, f);

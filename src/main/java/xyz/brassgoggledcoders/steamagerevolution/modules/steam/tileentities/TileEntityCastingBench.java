@@ -3,7 +3,6 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities;
 import org.apache.commons.lang3.StringUtils;
 
 import com.teamacronymcoders.base.tileentities.TileEntityBase;
-import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
@@ -100,7 +99,7 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 
 	@Override
 	public void update() {
-		if(worldObj.isRemote)
+		if(this.getWorld().isRemote)
 			return;
 		// Sync for rendering
 		if(this.tank.getFluidAmount() != lastFluidValue) {
@@ -112,7 +111,7 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 
 		// Melting Logic TODO Cache this check
 		if(getWorld().getBlockState(getPos().down()).getMaterial() == Material.LAVA) {
-			if(ItemStackUtils.isItemNonNull(stack)) {
+			if(!stack.isEmpty()) {
 				String[] splitName = null;
 				// TODO Caching. This *should* never change at runtime.
 				for(int oreId : OreDictionary.getOreIDs(stack)) {
@@ -126,17 +125,12 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 				if(splitName != null) {
 					if(stateChangeTime == 0) {
 						Fluid fluid = FluidRegistry.getFluid(splitName[1].toLowerCase());
-						int value = getValueFromName(splitName[0].toLowerCase()) * stack.stackSize;
+						int value = getValueFromName(splitName[0].toLowerCase()) * stack.getCount();
 						if(value != 0) {
 							FluidStack toInsert = new FluidStack(fluid, value);
 							if(tank.fill(toInsert, false) == value) {
 								tank.fill(toInsert, true);
-								stack.stackSize--;
-								if(stack.stackSize > 0)
-									this.internal.setStackInSlot(0, stack);
-								else {
-									this.internal.setStackInSlot(0, null);
-								}
+								stack.shrink(1);
 							}
 						}
 					}
@@ -149,13 +143,13 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 		// Cooling Logic
 		else {
 			if(this.tank.getFluid() != null && this.tank.drain(VALUE_BLOCK, false).amount == VALUE_BLOCK
-					&& !ItemStackUtils.isItemNonNull(stack)) {
+					&& stack.isEmpty()) {
 				String oreName = "block" + StringUtils.capitalize(FluidRegistry.getFluidName(this.tank.getFluid()));
 				if(OreDictionary.doesOreNameExist(oreName)) {
 					if(stateChangeTime == 0) {
 						this.tank.drain(VALUE_BLOCK, true);
 						ItemStack toInsert = OreDictionary.getOres(oreName).get(0);
-						toInsert.stackSize = 1;
+						toInsert.setCount(1);
 						this.internal.insertItem(0, toInsert, false);
 						stateChangeTime = 2400;
 					}

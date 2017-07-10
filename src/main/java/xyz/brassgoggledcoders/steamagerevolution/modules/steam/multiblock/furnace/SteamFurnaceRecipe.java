@@ -2,10 +2,6 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furna
 
 import java.util.ArrayList;
 
-import javax.annotation.Nullable;
-
-import com.teamacronymcoders.base.util.ItemStackUtils;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.oredict.OreDictionary;
@@ -23,11 +19,10 @@ public class SteamFurnaceRecipe {
 	private static ArrayList<SteamFurnaceRecipe> recipeList = new ArrayList<SteamFurnaceRecipe>();
 
 	public static void addSteamFurnaceRecipe(ItemStack input, ItemStack output) {
-		if(ItemStackUtils.isItemNonNull(input))
+		if(!input.isEmpty())
 			recipeList.add(new SteamFurnaceRecipe(input, output));
 	}
 
-	@Nullable
 	public static ItemStack getResult(ItemStack input) {
 		for(SteamFurnaceRecipe r : recipeList) {
 			// Check own recipes first
@@ -39,6 +34,6 @@ public class SteamFurnaceRecipe {
 				return FurnaceRecipes.instance().getSmeltingResult(input);
 			}
 		}
-		return null;
+		return ItemStack.EMPTY;
 	}
 }

@@ -1,11 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution;
 
 import com.teamacronymcoders.base.BaseModFoundation;
-import com.teamacronymcoders.base.featuresystem.FeatureHandler;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -25,8 +25,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 	}
 
 	public SteamAgeRevolution() {
-		super(MODID, MODNAME, MODVERSION, tab);
-		FeatureHandler.requestFeature("MATERIALS", MODID);
+		super(MODID, MODNAME, MODVERSION, tab, true);
 	}
 
 	@Instance("steamagerevolution")
@@ -78,8 +77,8 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 		}
 
 		@Override
-		public Item getTabIconItem() {
-			return Item.getItemFromBlock(Blocks.SPONGE);
+		public ItemStack getTabIconItem() {
+			return new ItemStack(Item.getItemFromBlock(Blocks.SPONGE));
 		}
 
 	}

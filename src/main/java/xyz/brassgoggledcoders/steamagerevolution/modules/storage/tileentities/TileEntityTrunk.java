@@ -5,7 +5,6 @@ import javax.annotation.Nullable;
 
 import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.tileentities.TileEntityInventoryBase;
-import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -61,7 +60,7 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IHasGui,
 	public NBTTagCompound writeToDisk(NBTTagCompound tag) {
 		NBTTagCompound inv = new NBTTagCompound();
 		for(int i = 0; i < inventory.getSlots(); i++) {
-			if(ItemStackUtils.isItemNonNull(inventory.getStackInSlot(i)))
+			if(!inventory.getStackInSlot(i).isEmpty())
 				inv.setTag("slot" + i, inventory.getStackInSlot(i).serializeNBT());
 		}
 		tag.setTag("inventory", inv);
@@ -71,10 +70,7 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IHasGui,
 	@Override
 	public void readFromDisk(NBTTagCompound tag) {
 		for(int i = 0; i < inventory.getSlots(); i++) {
-			ItemStack stack =
-					ItemStack.loadItemStackFromNBT(tag.getCompoundTag("inventory").getCompoundTag("slot" + i));
-			if(ItemStackUtils.isItemNonNull(stack))
-				inventory.setStackInSlot(i, stack);
+			inventory.setStackInSlot(i, new ItemStack(tag.getCompoundTag("inventory").getCompoundTag("slot" + i)));
 		}
 		super.readFromDisk(tag);
 	}
@@ -91,8 +87,8 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IHasGui,
 			double d1 = i + 0.5D;
 			double d2 = k + 0.5D;
 
-			this.worldObj.playSound((EntityPlayer) null, d1, j + 0.5D, d2, SoundEvents.BLOCK_CHEST_OPEN,
-					SoundCategory.BLOCKS, 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+			this.world.playSound((EntityPlayer) null, d1, j + 0.5D, d2, SoundEvents.BLOCK_CHEST_OPEN,
+					SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
 		}
 
 		if(this.numPlayersUsing == 0 && this.lidAngle > 0.0F || this.numPlayersUsing > 0 && this.lidAngle < 1.0F) {
@@ -113,8 +109,8 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IHasGui,
 				double d3 = i + 0.5D;
 				double d0 = k + 0.5D;
 
-				this.worldObj.playSound((EntityPlayer) null, d3, j + 0.5D, d0, SoundEvents.BLOCK_CHEST_CLOSE,
-						SoundCategory.BLOCKS, 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+				this.world.playSound((EntityPlayer) null, d3, j + 0.5D, d0, SoundEvents.BLOCK_CHEST_CLOSE,
+						SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
 			}
 
 			if(this.lidAngle < 0.0F) {

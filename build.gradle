@@ -19,7 +19,7 @@ buildscript {
 repositories {
     maven {
         name "TAC maven"
-        url "http://blamejared.com/maven"
+        url "http://maven.blamejared.com"
     }
 maven {
         name "JEI"
@@ -65,14 +65,14 @@ minecraft {
 }
 
 dependencies {
-     compile "com.teamacronymcoders.base:base:${minecraft_version}-${base_version}-Snapshot.+:deobf"
-    deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
-    deobfCompile "MCMultiPart:MCMultiPart-experimental:${mcmultipart_version}:universal"
-    deobfCompile "com.enderio.core:EnderCore:${minecraft_version}-${ecore_version}"
-    deobfCompile "com.enderio:EnderIO:${minecraft_version}-${eio_version}"
-    deobfCompile "slimeknights:TConstruct:${minecraft_version}-${tinkers_version}"
-    deobfCompile "slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}"
-    deobfCompile "team.chisel:Chisel:MC1.10.2-0.0.7.7"
+     deobfCompile "com.teamacronymcoders.base:base:${minecraft_version}-${base_version}-Snapshot.+"
+    //deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
+    //deobfCompile "MCMultiPart:MCMultiPart-experimental:${mcmultipart_version}:universal"
+    //deobfCompile "com.enderio.core:EnderCore:${minecraft_version}-${ecore_version}"
+    //deobfCompile "com.enderio:EnderIO:${minecraft_version}-${eio_version}"
+    //deobfCompile "slimeknights:TConstruct:${minecraft_version}-${tinkers_version}"
+    //deobfCompile "slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}"
+    //deobfCompile "team.chisel:Chisel:MC1.10.2-0.0.7.7"
 }
 
 compileJava {

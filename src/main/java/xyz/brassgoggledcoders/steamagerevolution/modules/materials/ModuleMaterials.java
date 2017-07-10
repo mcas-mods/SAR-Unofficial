@@ -1,8 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.materials;
 
-import java.awt.Color;
-
-import com.teamacronymcoders.base.materialsystem.materials.Material;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 
@@ -16,10 +13,10 @@ public class ModuleMaterials extends ModuleBase {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent fmlPreInitializationEvent) {
-		Material steel = new Material("Steel", Color.DARK_GRAY, false);
-		steel.registerPartsFor(alloy);
-		Material brass = new Material("Brass", Color.MAGENTA, false);
-		brass.registerPartsFor(alloy);
+		// Material steel = new Material("Steel", Color.DARK_GRAY, false);
+		// steel.registerPartsFor(alloy);
+		// Material brass = new Material("Brass", Color.MAGENTA, false);
+		// brass.registerPartsFor(alloy);
 
 	}
 

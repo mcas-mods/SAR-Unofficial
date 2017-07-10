@@ -7,7 +7,6 @@ import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
-import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -70,10 +69,10 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 		if(currentBurnTime == 0) {
 			for(int i = 0; i < solidFuelInventory.getSlots(); i++) {
 				ItemStack fuel = solidFuelInventory.getStackInSlot(i);
-				if(ItemStackUtils.isItemNonNull(fuel) && TileEntityFurnace.getItemBurnTime(fuel) != 0) {
+				if(!fuel.isEmpty() && TileEntityFurnace.getItemBurnTime(fuel) != 0) {
 					currentBurnTime = (TileEntityFurnace.getItemBurnTime(fuel) / fuelDivisor);
 					// TODO
-					fuel.stackSize--;
+					fuel.shrink(1);
 					solidFuelInventory.setStackInSlot(i, fuel);
 					return true;
 				}
