@@ -43,6 +43,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnac
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.BlockSteamHammerAnvil;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.BlockSteamHammerFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.BlockSteamHammerHammer;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.BlockSteamHammerShielding;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.SteamHammerRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery.BlockSmelteryCoalInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery.BlockSmelteryController;
@@ -169,7 +170,7 @@ public class ModuleSteam extends ModuleBase {
 
 		steamhammerFrame = new BlockSteamHammerFrame(Material.IRON, "steamhammer_frame");
 		blockRegistry.register(steamhammerFrame);
-		steamhammerShielding = new BlockSteamHammerFrame(Material.GLASS, "steamhammer_shielding");
+		steamhammerShielding = new BlockSteamHammerShielding(Material.GLASS, "steamhammer_shielding");
 		blockRegistry.register(steamhammerShielding);
 		steamhammerAnvil = new BlockSteamHammerAnvil(Material.ANVIL, "steamhammer_anvil");
 		blockRegistry.register(steamhammerAnvil);

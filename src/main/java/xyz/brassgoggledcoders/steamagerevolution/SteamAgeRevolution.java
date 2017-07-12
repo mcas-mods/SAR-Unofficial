@@ -6,7 +6,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -42,8 +41,8 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 			serverSide = "xyz.brassgoggledcoders.steamagerevolution.proxies.CommonProxy")
 	public static xyz.brassgoggledcoders.steamagerevolution.proxies.CommonProxy proxy;
 
-	public static DamageSource belt =
-			new DamageSource("belt").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
+	// public static DamageSource belt =
+	// new DamageSource("belt").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
 
 	@Override
 	@EventHandler
