@@ -123,31 +123,31 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 
 	@Override
 	protected boolean updateServer() {
-		if(tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
-			if(progress < 10) {
-				this.progress++;
-				tank.drain(Fluid.BUCKET_VOLUME, true);
-				return true;
-			}
-			else {
-				if(!inventory.getStackInSlot(0).isEmpty()) {
-					ItemStack result = SteamHammerRecipe.getResult(inventory.getStackInSlot(0), dieType);
-					if(!result.isEmpty() && inventory.getStackInSlot(1).isEmpty()) {
-						inventory.extractItem(0, 1, false);
-						inventory.setStackInSlot(1, result);// TODO
-						progress = 0;
+		// if(tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
+		if(progress < 10) {
+			this.progress++;
+			// tank.drain(Fluid.BUCKET_VOLUME, true);
+			return true;
+		}
+		else {
+			if(!inventory.getStackInSlot(0).isEmpty()) {
+				ItemStack result = SteamHammerRecipe.getResult(inventory.getStackInSlot(0), dieType);
+				if(!result.isEmpty() && inventory.getStackInSlot(1).isEmpty()) {
+					inventory.extractItem(0, 1, false);
+					inventory.setStackInSlot(1, result);// TODO
+					progress = 0;
 
-						BlockPos center = this.getReferenceCoord().up(2).east().south();
-						WORLD.playSound(null, center.getX(), center.getY(), center.getZ(),
-								SoundEvents.BLOCK_ANVIL_PLACE, SoundCategory.BLOCKS, 100F, 1F);
-						SteamAgeRevolution.proxy.spawnFX(EnumParticleTypes.FLAME, center);
-						// TODO Entity damage
+					BlockPos center = this.getReferenceCoord().up(2).east().south();
+					WORLD.playSound(null, center.getX(), center.getY(), center.getZ(), SoundEvents.BLOCK_ANVIL_PLACE,
+							SoundCategory.BLOCKS, 100F, 1F);
+					SteamAgeRevolution.proxy.spawnFX(EnumParticleTypes.FLAME, center);
+					// TODO Entity damage
 
-						return true;
-					}
+					return true;
 				}
 			}
 		}
+		// }
 		return false;
 	}
 

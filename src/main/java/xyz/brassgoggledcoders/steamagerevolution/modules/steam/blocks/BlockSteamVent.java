@@ -62,5 +62,4 @@ public class BlockSteamVent extends BlockTEBase<TileEntitySteamVent> {
 		}
 		return false;
 	}
-
 }
