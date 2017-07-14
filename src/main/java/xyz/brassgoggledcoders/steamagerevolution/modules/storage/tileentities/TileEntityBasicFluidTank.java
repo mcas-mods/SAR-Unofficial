@@ -7,8 +7,14 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 
 public class TileEntityBasicFluidTank extends TileEntityBase implements ITickable {
 	public FluidTank tank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
@@ -55,9 +61,17 @@ public class TileEntityBasicFluidTank extends TileEntityBase implements ITickabl
 		if(getWorld().isRemote)
 			return;
 		if(lastFluidLevel != this.tank.getFluidAmount()) {
-			this.sendBlockUpdate();
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+					new PacketFluidUpdate(getPos(), tank.getFluid()),
+					new TargetPoint(this.getWorld().provider.getDimension(), getPos().getX(), getPos().getY(),
+							getPos().getZ(), 64));
 			this.lastFluidLevel = this.tank.getFluidAmount();
 		}
 
+	}
+
+	@SideOnly(Side.CLIENT)
+	public void updateFluid(FluidStack fluid) {
+		this.tank.setFluid(fluid);
 	}
 }

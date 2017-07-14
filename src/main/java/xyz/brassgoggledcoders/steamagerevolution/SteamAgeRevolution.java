@@ -14,6 +14,9 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import xyz.brassgoggledcoders.steamagerevolution.network.FluidUpdateHandler;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 
 @Mod(modid = SteamAgeRevolution.MODID, name = SteamAgeRevolution.MODNAME, version = SteamAgeRevolution.MODVERSION,
 		dependencies = SteamAgeRevolution.DEPENDENCIES)
@@ -50,6 +53,8 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 		CapabilityHandler.init();
 		super.preInit(event);
 		proxy.registerModels();
+		SteamAgeRevolution.instance.getPacketHandler().registerPacket(FluidUpdateHandler.class, PacketFluidUpdate.class,
+				Side.CLIENT);
 	}
 
 	@Override
