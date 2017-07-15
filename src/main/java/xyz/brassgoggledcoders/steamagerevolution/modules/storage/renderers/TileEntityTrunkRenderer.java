@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.renderers;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -16,8 +18,8 @@ public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntit
 	private final ModelChest simpleChest = new ModelChest();
 
 	@Override
-	public void renderTileEntityAt(TileEntityTrunk te, double x, double y, double z, float partialTicks,
-			int destroyStage) {
+	public void renderTileEntityFast(@Nonnull TileEntityTrunk te, double x, double y, double z, float partialTicks,
+			int destroyStage, float partial, net.minecraft.client.renderer.BufferBuilder buffer) {
 		GlStateManager.enableDepth();
 		GlStateManager.depthFunc(515);
 		GlStateManager.depthMask(true);

@@ -14,8 +14,8 @@ public class TileEntityBasicFluidTankRenderer extends TileEntitySpecialRenderer<
 	protected static Minecraft mc = Minecraft.getMinecraft();
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileEntityBasicFluidTank tile, double x, double y, double z,
-			float partialTicks, int destroyStage) {
+	public void renderTileEntityFast(@Nonnull TileEntityBasicFluidTank tile, double x, double y, double z,
+			float partialTicks, int destroyStage, float partial, net.minecraft.client.renderer.BufferBuilder buffer) {
 		FluidTank tank = tile.tank;
 		FluidStack liquid = tank.getFluid();
 

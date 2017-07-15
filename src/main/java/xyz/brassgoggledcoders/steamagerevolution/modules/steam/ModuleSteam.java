@@ -21,9 +21,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteamVent;
@@ -101,8 +99,6 @@ public class ModuleSteam extends ModuleBase {
 		AlloyFurnaceRecipe.addUpgradedAlloyFurnaceRecipe(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME),
 				new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME / 2));
 
-		GameRegistry.addRecipe(
-				new ShapedOreRecipe(new ItemStack(Items.COAL, 1, 1), "PPP", "PPP", "PPP", 'P', "dustCharcoal"));
 		OreDictionary.registerOre("dustCharcoal", charcoalPowder);
 		super.init(event);
 	}

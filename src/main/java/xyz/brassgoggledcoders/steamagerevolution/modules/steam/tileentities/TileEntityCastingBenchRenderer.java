@@ -13,8 +13,8 @@ public class TileEntityCastingBenchRenderer extends TileEntitySpecialRenderer<Ti
 	protected static Minecraft mc = Minecraft.getMinecraft();
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileEntityCastingBench tile, double x, double y, double z,
-			float partialTicks, int destroyStage) {
+	public void renderTileEntityFast(@Nonnull TileEntityCastingBench tile, double x, double y, double z,
+			float partialTicks, int destroyStage, float partial, net.minecraft.client.renderer.BufferBuilder buffer) {
 		FluidTank tank = tile.tank;
 		FluidStack liquid = tank.getFluid();
 

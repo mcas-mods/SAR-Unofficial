@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -31,7 +30,7 @@ public class ClientProxy implements IModuleProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBasicFluidTank.class,
 				new TileEntityBasicFluidTankRenderer());
 
-		ModelLoaderRegistry.registerLoader(ModelCanister.LoaderDynBucketz.instance);
+		// ModelLoaderRegistry.registerLoader(ModelCanister.LoaderDynBucketz.instance);
 	}
 
 	@Override

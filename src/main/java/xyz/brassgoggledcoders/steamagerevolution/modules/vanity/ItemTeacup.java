@@ -6,7 +6,6 @@ import java.util.List;
 import com.teamacronymcoders.base.items.IHasSubItems;
 import com.teamacronymcoders.base.items.ItemBase;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 
@@ -53,12 +52,6 @@ public class ItemTeacup extends ItemBase implements IHasSubItems {
 	 * return stack;
 	 * }
 	 */
-
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean flag) {
-		// list.add(StatCollector.translateToLocal("desc." + getUnlocalizedName() + "." + getMetaName(stack)));
-		list.add(getSipsLeft(stack));
-	}
 
 	public String getSipsLeft(ItemStack stack) {
 		// if(stack.getItemDamage() < getNumberOfSubItems()) {

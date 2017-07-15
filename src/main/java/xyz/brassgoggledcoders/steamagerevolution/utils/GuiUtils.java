@@ -3,9 +3,9 @@ package xyz.brassgoggledcoders.steamagerevolution.utils;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -75,7 +75,7 @@ public class GuiUtils {
 				double maxV = icon.getMaxV();
 
 				Tessellator tessellator = Tessellator.getInstance();
-				VertexBuffer tes = tessellator.getBuffer();
+				BufferBuilder tes = tessellator.getBuffer();
 				tes.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 				tes.pos(drawX, drawY + drawHeight, 0).tex(minU, minV + (maxV - minV) * drawHeight / 16F).endVertex();
 				tes.pos(drawX + drawWidth, drawY + drawHeight, 0)
