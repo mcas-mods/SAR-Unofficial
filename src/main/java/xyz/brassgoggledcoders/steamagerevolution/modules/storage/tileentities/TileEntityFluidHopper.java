@@ -36,14 +36,19 @@ public class TileEntityFluidHopper extends TileEntitySlowTick {
 	public void updateTile() {
 		if(world.isRemote)
 			return;
-		if(BlockFluidHopper.isEnabled(this.getBlockMetadata()) && hasFrom && toPos != null) {
-			IFluidHandler from = getWorld().getTileEntity(getPos().up())
-					.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.DOWN);
-			IFluidHandler to =
-					getWorld().getTileEntity(toPos).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
-							PositionUtils.getFacingFromPositions(getPos(), toPos));
-			FluidUtil.tryFluidTransfer(buffer, from, Fluid.BUCKET_VOLUME, true);
-			FluidUtil.tryFluidTransfer(to, from, Fluid.BUCKET_VOLUME, true);
+		if(BlockFluidHopper.isEnabled(this.getBlockMetadata())) {
+			if(toPos != null) {
+				IFluidHandler to =
+						getWorld().getTileEntity(toPos).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
+								PositionUtils.getFacingFromPositions(getPos(), toPos));
+				FluidUtil.tryFluidTransfer(to, buffer, Fluid.BUCKET_VOLUME, true);
+			}
+			if(hasFrom) {
+				IFluidHandler from = getWorld().getTileEntity(getPos().up())
+						.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.DOWN);
+
+				FluidUtil.tryFluidTransfer(buffer, from, Fluid.BUCKET_VOLUME, true);
+			}
 		}
 	}
 

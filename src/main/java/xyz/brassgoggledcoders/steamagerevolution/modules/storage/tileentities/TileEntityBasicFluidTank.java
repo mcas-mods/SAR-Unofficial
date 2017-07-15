@@ -52,7 +52,6 @@ public class TileEntityBasicFluidTank extends TileEntityBase implements ITickabl
 					new PacketFluidUpdate(getPos(), tank.getFluid()), getPos(), getWorld().provider.getDimension());
 			this.lastFluidLevel = this.tank.getFluidAmount();
 		}
-
 	}
 
 	@SideOnly(Side.CLIENT)
