@@ -10,7 +10,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
@@ -45,26 +44,12 @@ public class TileEntityBasicFluidTank extends TileEntityBase implements ITickabl
 	}
 
 	@Override
-	public void readFromUpdatePacket(NBTTagCompound tag) {
-		tank.readFromNBT(tag);
-		super.readFromUpdatePacket(tag);
-	}
-
-	@Override
-	public NBTTagCompound writeToUpdatePacket(NBTTagCompound tag) {
-		tank.writeToNBT(tag);
-		return super.writeToUpdatePacket(tag);
-	}
-
-	@Override
 	public void update() {
 		if(getWorld().isRemote)
 			return;
 		if(lastFluidLevel != this.tank.getFluidAmount()) {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketFluidUpdate(getPos(), tank.getFluid()),
-					new TargetPoint(this.getWorld().provider.getDimension(), getPos().getX(), getPos().getY(),
-							getPos().getZ(), 64));
+					new PacketFluidUpdate(getPos(), tank.getFluid()), getPos(), getWorld().provider.getDimension());
 			this.lastFluidLevel = this.tank.getFluidAmount();
 		}
 

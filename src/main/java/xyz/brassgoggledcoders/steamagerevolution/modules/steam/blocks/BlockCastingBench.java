@@ -89,5 +89,4 @@ public class BlockCastingBench extends BlockTEBase<TileEntityCastingBench> {
 			}
 		}
 	}
-
 }

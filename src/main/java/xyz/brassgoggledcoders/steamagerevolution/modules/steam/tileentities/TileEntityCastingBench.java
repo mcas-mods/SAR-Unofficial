@@ -16,9 +16,13 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreDictionary;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 
 public class TileEntityCastingBench extends TileEntityBase implements ITickable {
 
@@ -86,24 +90,13 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 	}
 
 	@Override
-	public NBTTagCompound writeToUpdatePacket(NBTTagCompound tag) {
-		tank.writeToNBT(tag);
-		return super.writeToUpdatePacket(tag);
-	}
-
-	@Override
-	public void readFromUpdatePacket(NBTTagCompound tag) {
-		tank.readFromNBT(tag);
-		super.readFromUpdatePacket(tag);
-	}
-
-	@Override
 	public void update() {
 		if(this.getWorld().isRemote)
 			return;
 		// Sync for rendering
 		if(this.tank.getFluidAmount() != lastFluidValue) {
-			this.sendBlockUpdate();
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+					new PacketFluidUpdate(getPos(), tank.getFluid()), getPos(), getWorld().provider.getDimension());
 			lastFluidValue = this.tank.getFluidAmount();
 		}
 
@@ -161,4 +154,8 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 		}
 	}
 
+	@SideOnly(Side.CLIENT)
+	public void updateFluid(FluidStack fluid) {
+		this.tank.setFluid(fluid);
+	}
 }
