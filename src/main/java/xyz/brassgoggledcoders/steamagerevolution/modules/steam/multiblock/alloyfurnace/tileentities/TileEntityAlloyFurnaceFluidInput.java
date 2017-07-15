@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.tileentities;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -7,9 +7,11 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.ControllerAlloyFurnace;
 
-public class TileEntitySmelterySteelOutput extends TileEntitySmelteryPart {
+public class TileEntityAlloyFurnaceFluidInput extends TileEntityAlloyFurnacePart {
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
 		return (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.isConnected())
@@ -20,8 +22,12 @@ public class TileEntitySmelterySteelOutput extends TileEntitySmelteryPart {
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
-					.cast(((ControllerSmeltery) this.getMultiblockController()).steelTank);
+			if(this.isConnected()) {
+				return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
+						.cast(((ControllerAlloyFurnace) this.getMultiblockController()).inputTank);
+			}
+			else
+				return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new FluidTank(0));
 		}
 		return super.getCapability(capability, facing);
 	}
@@ -30,4 +36,15 @@ public class TileEntitySmelterySteelOutput extends TileEntitySmelteryPart {
 	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
 		return true;
 	}
+
+	@Override
+	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
+		return true;
+	}
+
+	@Override
+	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
+		return true;
+	}
+
 }

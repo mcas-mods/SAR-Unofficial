@@ -1,8 +1,8 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.tileentities;
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-public class TileEntitySmelteryFrame extends TileEntitySmelteryPart {
+public class TileEntityAlloyFurnaceHardFrame extends TileEntityAlloyFurnacePart {
 	@Override
 	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
 		return true;

@@ -16,8 +16,13 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 
 public class TileEntityBasicFluidTank extends TileEntityBase implements ITickable {
-	public FluidTank tank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
-	int lastFluidLevel = -1;
+	public FluidTank tank;
+	int lastFluidLevel;
+
+	public TileEntityBasicFluidTank() {
+		this.tank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
+		lastFluidLevel = -1;
+	}
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {

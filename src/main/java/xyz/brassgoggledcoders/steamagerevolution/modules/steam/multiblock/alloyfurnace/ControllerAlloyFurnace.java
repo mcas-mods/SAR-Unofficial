@@ -1,68 +1,79 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-import net.minecraft.init.Items;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBench;
 
-public class ControllerSmeltery extends RectangularMultiblockControllerBase {
+public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase {
 
 	public FluidTank steamTank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 16, "steam");
-	public FluidTank ironTank = new FluidTankSingleType(TileEntityCastingBench.VALUE_BLOCK * 16, "iron");
-	public ItemStackHandler coalInv = new ItemStackHandler(3);
-	public FluidTank steelTank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 16, "steel");
+	public FluidTank inputTank = new FluidTank(TileEntityCastingBench.VALUE_BLOCK * 16);
+	public ItemStackHandler itemInv = new ItemStackHandler(3);
+	public FluidTank outputTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
 
 	public int carbonLevel = 0;
+	public boolean isHardened = true;
 
 	public static final int steamUsePerOperation = Fluid.BUCKET_VOLUME / 10;
 
-	public ControllerSmeltery(World world) {
+	public ControllerAlloyFurnace(World world) {
 		super(world);
 	}
 
 	@Override
 	protected boolean updateServer() {
 		boolean flag = false;
-
-		for(int i = 0; i < coalInv.getSlots(); i++) {
-			if(!coalInv.getStackInSlot(i).isEmpty()) {
-				if(coalInv.getStackInSlot(i).getItem() == Items.COAL) {
-					carbonLevel += 9;
-					coalInv.extractItem(i, 1, false);
-					flag = true;
+		if(inputTank.getFluid() != null && AlloyFurnaceRecipe.getRecipe(inputTank.getFluid()) != null) {
+			AlloyFurnaceRecipe r = AlloyFurnaceRecipe.getRecipe(inputTank.getFluid());
+			if(!r.requiresHardCase || this.isHardened) {
+				if((r.input.isFluidEqual(inputTank.getFluid()) && r.input.amount >= inputTank.getFluidAmount())) {
+					if(outputTank.getFluid() == null || (r.output.isFluidEqual(outputTank.getFluid())
+							&& r.output.amount <= (outputTank.getCapacity() - outputTank.getFluidAmount()))) {
+						outputTank.fill(r.output, true);
+						inputTank.drain(r.input, true);
+						flag = true;
+					}
 				}
 			}
 		}
 
-		if(carbonLevel > 0
-				&& ironTank.getFluidAmount() > ((TileEntityCastingBench.VALUE_BLOCK * 9)
-						+ TileEntityCastingBench.VALUE_NUGGET)
-				&& steelTank.getFluidAmount() != steelTank.getCapacity()
-				&& steamTank.getFluidAmount() >= steamUsePerOperation) {
-
-			FluidStack toInsert =
-					new FluidStack(FluidRegistry.getFluid("iron"/* TODO */), TileEntityCastingBench.VALUE_NUGGET);
-			if(steelTank.fill(toInsert, false) == TileEntityCastingBench.VALUE_NUGGET) {
-				ironTank.drain(TileEntityCastingBench.VALUE_NUGGET, true);
-				steelTank.fill(toInsert, true);
-				steamTank.drain(steamUsePerOperation, true);
-				carbonLevel--;
-				flag = true;
-			}
-
-		}
+		// for(int i = 0; i < itemInv.getSlots(); i++) {
+		// if(!itemInv.getStackInSlot(i).isEmpty()) {
+		// if(itemInv.getStackInSlot(i).getItem() == Items.COAL) {
+		// carbonLevel += 9;
+		// itemInv.extractItem(i, 1, false);
+		// flag = true;
+		// }
+		// }
+		// }
+		//
+		// if(carbonLevel > 0
+		// && inputTank.getFluidAmount() > ((TileEntityCastingBench.VALUE_BLOCK * 9)
+		// + TileEntityCastingBench.VALUE_NUGGET)
+		// && outputTank.getFluidAmount() != outputTank.getCapacity()
+		// && steamTank.getFluidAmount() >= steamUsePerOperation) {
+		//
+		// FluidStack toInsert =
+		// new FluidStack(FluidRegistry.getFluid("iron"/* TODO */), TileEntityCastingBench.VALUE_NUGGET);
+		// if(outputTank.fill(toInsert, false) == TileEntityCastingBench.VALUE_NUGGET) {
+		// inputTank.drain(TileEntityCastingBench.VALUE_NUGGET, true);
+		// outputTank.fill(toInsert, true);
+		// steamTank.drain(steamUsePerOperation, true);
+		// carbonLevel--;
+		// flag = true;
+		// }
+		//
+		// }
 
 		return flag;
 	}
@@ -85,17 +96,17 @@ public class ControllerSmeltery extends RectangularMultiblockControllerBase {
 
 	@Override
 	protected int getMinimumXSize() {
-		return 5;
+		return 3;
 	}
 
 	@Override
 	protected int getMinimumZSize() {
-		return 5;
+		return 3;
 	}
 
 	@Override
 	protected int getMinimumYSize() {
-		return 9;
+		return 3;
 	}
 
 	@Override
@@ -133,7 +144,6 @@ public class ControllerSmeltery extends RectangularMultiblockControllerBase {
 
 	@Override
 	protected void onMachineAssembled() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -181,18 +191,20 @@ public class ControllerSmeltery extends RectangularMultiblockControllerBase {
 
 	@Override
 	public void readFromDisk(NBTTagCompound data) {
+		data.setBoolean("hardened", isHardened);
 		carbonLevel = data.getInteger("carbon");
-		coalInv.deserializeNBT(data.getCompoundTag("inv"));
-		ironTank.readFromNBT(data.getCompoundTag("iron"));
-		steelTank.readFromNBT(data.getCompoundTag("steel"));
+		itemInv.deserializeNBT(data.getCompoundTag("inv"));
+		inputTank.readFromNBT(data.getCompoundTag("input"));
+		outputTank.readFromNBT(data.getCompoundTag("output"));
 	}
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
+		data.setBoolean("hardened", isHardened);
 		data.setInteger("carbon", carbonLevel);
-		data.setTag("inv", coalInv.serializeNBT());
-		data.setTag("iron", ironTank.writeToNBT(new NBTTagCompound()));
-		data.setTag("steel", steelTank.writeToNBT(new NBTTagCompound()));
+		data.setTag("inv", itemInv.serializeNBT());
+		data.setTag("input", inputTank.writeToNBT(new NBTTagCompound()));
+		data.setTag("output", outputTank.writeToNBT(new NBTTagCompound()));
 	}
 
 	@Override

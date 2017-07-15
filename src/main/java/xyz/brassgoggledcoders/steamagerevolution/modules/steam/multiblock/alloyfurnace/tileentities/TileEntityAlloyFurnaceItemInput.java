@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.tileentities;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -8,8 +8,9 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.ControllerAlloyFurnace;
 
-public class TileEntitySmelteryCoalInput extends TileEntitySmelteryPart {
+public class TileEntityAlloyFurnaceItemInput extends TileEntityAlloyFurnacePart {
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
 		return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.isConnected())
@@ -21,7 +22,7 @@ public class TileEntitySmelteryCoalInput extends TileEntitySmelteryPart {
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-					.cast(((ControllerSmeltery) this.getMultiblockController()).coalInv);
+					.cast(((ControllerAlloyFurnace) this.getMultiblockController()).itemInv);
 		}
 		return super.getCapability(capability, facing);
 	}

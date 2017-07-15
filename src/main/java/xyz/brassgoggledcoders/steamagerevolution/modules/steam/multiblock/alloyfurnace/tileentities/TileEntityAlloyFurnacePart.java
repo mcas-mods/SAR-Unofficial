@@ -1,14 +1,16 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.smeltery;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.tileentities;
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-public abstract class TileEntitySmelteryPart extends RectangularMultiblockTileEntityBase<ControllerSmeltery> {
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.ControllerAlloyFurnace;
+
+public abstract class TileEntityAlloyFurnacePart extends RectangularMultiblockTileEntityBase<ControllerAlloyFurnace> {
 
 	@Override
-	public Class<ControllerSmeltery> getMultiblockControllerType() {
-		return ControllerSmeltery.class;
+	public Class<ControllerAlloyFurnace> getMultiblockControllerType() {
+		return ControllerAlloyFurnace.class;
 	}
 
 	@Override
@@ -44,7 +46,7 @@ public abstract class TileEntitySmelteryPart extends RectangularMultiblockTileEn
 
 	@Override
 	public MultiblockControllerBase createNewMultiblock() {
-		return new ControllerSmeltery(getWorld());
+		return new ControllerAlloyFurnace(getWorld());
 	}
 
 }

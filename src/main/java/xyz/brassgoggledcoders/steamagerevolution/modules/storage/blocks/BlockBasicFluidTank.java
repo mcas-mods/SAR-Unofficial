@@ -64,8 +64,8 @@ public class BlockBasicFluidTank extends BlockTEBase<TileEntityBasicFluidTank> {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		TileEntityBasicFluidTank te = getTileEntity(worldIn, pos);
-		if(te != null && !playerIn.isSneaking()) {
-			FluidUtil.interactWithFluidHandler(playerIn, hand, worldIn, pos, facing);
+		if(!worldIn.isRemote && te != null && !playerIn.isSneaking()) {
+			return FluidUtil.interactWithFluidHandler(playerIn, hand, worldIn, pos, facing);
 		}
 		return false;
 	}
