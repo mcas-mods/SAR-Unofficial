@@ -384,10 +384,10 @@ public final class RenderUtil {
 	}
 
 	public static void setColorRGBA(int color) {
-		float a = (float) alpha(color) / 255.0F;
-		float r = (float) red(color) / 255.0F;
-		float g = (float) green(color) / 255.0F;
-		float b = (float) blue(color) / 255.0F;
+		float a = alpha(color) / 255.0F;
+		float r = red(color) / 255.0F;
+		float g = green(color) / 255.0F;
+		float b = blue(color) / 255.0F;
 
 		GlStateManager.color(r, g, b, a);
 	}

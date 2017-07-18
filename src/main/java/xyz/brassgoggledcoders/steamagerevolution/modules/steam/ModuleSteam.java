@@ -118,14 +118,14 @@ public class ModuleSteam extends ModuleBase {
 			blockRegistry.register(steamBlock);
 		}
 
-		boilerCasing = new BlockBoilerCasing(Material.IRON, "brass_frame");
+		boilerCasing = new BlockBoilerCasing(Material.IRON, "boiler_casing");
 		blockRegistry.register(boilerCasing);
 		FMLInterModComms.sendMessage("chisel", "variation:add", "brass_frame|SteamAgeRevolution:brass_frame|0");
-		boilerWaterInput = new BlockBoilerWaterInput(Material.IRON, "water_input");
+		boilerWaterInput = new BlockBoilerWaterInput(Material.IRON, "boiler_water_input");
 		blockRegistry.register(boilerWaterInput);
-		boilerSteamOutput = new BlockBoilerSteamOutput(Material.IRON, "steam_output");
+		boilerSteamOutput = new BlockBoilerSteamOutput(Material.IRON, "boiler_steam_output");
 		blockRegistry.register(boilerSteamOutput);
-		boilerSolidFirebox = new BlockBoilerSolidFirebox(Material.IRON, "solid_firebox");
+		boilerSolidFirebox = new BlockBoilerSolidFirebox(Material.IRON, "boiler_solid_firebox");
 		blockRegistry.register(boilerSolidFirebox);
 		boilerLiquidFirebox = new BlockBoilerLiquidFirebox(Material.IRON, "boiler_liquid_firebox");
 		blockRegistry.register(boilerLiquidFirebox);
