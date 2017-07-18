@@ -3,8 +3,6 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.blocks;
 import com.teamacronymcoders.base.Capabilities;
 import com.teamacronymcoders.base.blocks.BlockBase;
 
-import net.minecraft.block.BlockLog;
-import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
@@ -12,8 +10,11 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumFacing.Axis;
+import net.minecraft.util.EnumFacing.AxisDirection;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -21,18 +22,19 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.ModulePneumatic;
+import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.tileentities.TileEntitySender;
 
 public class BlockPneumaticTube extends BlockBase {
 
-	public static final PropertyEnum<BlockLog.EnumAxis> AXIS =
-			PropertyEnum.<BlockLog.EnumAxis> create("axis", BlockLog.EnumAxis.class);
+	public static final PropertyEnum<Axis> AXIS = PropertyEnum.<Axis> create("axis", Axis.class);
 	public static final AxisAlignedBB X_TUBE_AABB = new AxisAlignedBB(0.0D, 0.2D, 0.2D, 1.0D, 0.8D, 0.8D);
 	public static final AxisAlignedBB Y_TUBE_AABB = new AxisAlignedBB(0.2D, 0.0D, 0.2D, 0.8D, 1.0D, 0.8D);
 	public static final AxisAlignedBB Z_TUBE_AABB = new AxisAlignedBB(0.2D, 0.2D, 0.0D, 0.8D, 0.8D, 1.0D);
 
 	public BlockPneumaticTube(Material mat, String name) {
 		super(mat, name);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumAxis.X));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, Axis.X));
 	}
 
 	@Override
@@ -62,8 +64,7 @@ public class BlockPneumaticTube extends BlockBase {
 	@Override
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY,
 			float hitZ, int meta, EntityLivingBase placer) {
-		return this.getStateFromMeta(meta).withProperty(AXIS,
-				BlockLog.EnumAxis.fromFacingAxis(facing.getOpposite().getAxis()));
+		return this.getStateFromMeta(meta).withProperty(AXIS, facing.getOpposite().getAxis());
 	}
 
 	@Override
@@ -91,21 +92,21 @@ public class BlockPneumaticTube extends BlockBase {
 	public IBlockState getStateFromMeta(int meta) {
 		switch(meta) {
 			case 0:
-				return this.getDefaultState().withProperty(AXIS, EnumAxis.X);
+				return this.getDefaultState().withProperty(AXIS, Axis.X);
 			case 1:
-				return this.getDefaultState().withProperty(AXIS, EnumAxis.Z);
+				return this.getDefaultState().withProperty(AXIS, Axis.Z);
 			case 2:
-				return this.getDefaultState().withProperty(AXIS, EnumAxis.Y);
+				return this.getDefaultState().withProperty(AXIS, Axis.Y);
 		}
 		return null;
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		BlockLog.EnumAxis axis = state.getValue(AXIS);
-		if(axis == EnumAxis.Z)
+		Axis axis = state.getValue(AXIS);
+		if(axis == Axis.Z)
 			return 1;
-		else if(axis == EnumAxis.Y)
+		else if(axis == Axis.Y)
 			return 2;
 		else
 			return 0;
@@ -116,4 +117,33 @@ public class BlockPneumaticTube extends BlockBase {
 		return new BlockStateContainer(this, new IProperty[] {AXIS});
 	}
 
+	// TODO Cascade if possible
+	@Override
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+		findAndNotifySenderToRecalcCache(worldIn, pos, state);
+	}
+
+	// See above
+	@Override
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
+			ItemStack stack) {
+		findAndNotifySenderToRecalcCache(worldIn, pos, state);
+	}
+
+	private void findAndNotifySenderToRecalcCache(World worldIn, BlockPos pos, IBlockState state) {
+		for(int i = 1; i < TileEntitySender.maxDistance; i++) {
+			BlockPos checkPos =
+					pos.offset(EnumFacing.getFacingFromAxis(AxisDirection.POSITIVE, state.getValue(AXIS)), i);
+			if(worldIn.getBlockState(checkPos).getBlock() == ModulePneumatic.sender) {
+				((TileEntitySender) worldIn.getTileEntity(checkPos)).recalculateCache(worldIn, checkPos);
+				return;
+			}
+			BlockPos checkNeg =
+					pos.offset(EnumFacing.getFacingFromAxis(AxisDirection.NEGATIVE, state.getValue(AXIS)), i);
+			if(worldIn.getBlockState(checkNeg).getBlock() == ModulePneumatic.sender) {
+				((TileEntitySender) worldIn.getTileEntity(checkNeg)).recalculateCache(worldIn, checkNeg);
+				return;
+			}
+		}
+	}
 }

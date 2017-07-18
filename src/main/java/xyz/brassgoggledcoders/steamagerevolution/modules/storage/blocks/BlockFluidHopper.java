@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 
 import com.google.common.base.Predicate;
 import com.teamacronymcoders.base.blocks.BlockTEBase;
-import com.teamacronymcoders.base.util.PositionUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -18,6 +17,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
@@ -28,7 +28,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityFluidHopper;
@@ -123,48 +122,14 @@ public class BlockFluidHopper extends BlockTEBase<TileEntityFluidHopper> {
 	}
 
 	@Override
-	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-		this.updateStateAndTile(worldIn, pos, state, null);
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
+			ItemStack stack) {
+		((TileEntityFluidHopper) worldIn.getTileEntity(pos)).recalculateCache(worldIn, pos, state, null);
 	}
 
 	@Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-		this.updateStateAndTile(worldIn, pos, state, fromPos);
-	}
-
-	private void updateStateAndTile(World worldIn, BlockPos pos, IBlockState state, BlockPos fromPos) {
-		boolean flag = !worldIn.isBlockPowered(pos);
-
-		if(flag != ((Boolean) state.getValue(ENABLED)).booleanValue()) {
-			worldIn.setBlockState(pos, state.withProperty(ENABLED, Boolean.valueOf(flag)), 4);
-		}
-
-		if(fromPos == null) {
-			fromPos = pos.offset(state.getValue(FACING));
-		}
-
-		TileEntityFluidHopper hopper = getTileEntity(worldIn, pos);
-		if(hopper != null) {
-			EnumFacing facing = PositionUtils.getFacingFromPositions(pos, fromPos);
-			if(facing == EnumFacing.DOWN) {
-				TileEntity up = worldIn.getTileEntity(pos.up());
-				if(up != null && up.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing)) {
-					hopper.hasFrom = true;
-				}
-				else {
-					hopper.hasFrom = false;
-				}
-			}
-			else if(facing == state.getValue(FACING).getOpposite()) {
-				TileEntity pointed = worldIn.getTileEntity(fromPos);
-				if(pointed != null && pointed.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing)) {
-					hopper.toPos = fromPos;
-				}
-				else {
-					hopper.toPos = null;
-				}
-			}
-		}
+		((TileEntityFluidHopper) worldIn.getTileEntity(pos)).recalculateCache(worldIn, pos, state, fromPos);
 	}
 
 	public static boolean isEnabled(int meta) {

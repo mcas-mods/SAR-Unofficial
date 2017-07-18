@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.blocks;
 import com.teamacronymcoders.base.Capabilities;
 import com.teamacronymcoders.base.blocks.BlockTEBase;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -10,6 +11,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -104,6 +106,17 @@ public class BlockSender extends BlockTEBase<TileEntitySender> {
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY,
 			float hitZ, int meta, EntityLivingBase placer) {
 		return this.getStateFromMeta(meta).withProperty(FACING, facing);
+	}
+
+	@Override
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
+			ItemStack stack) {
+		((TileEntitySender) worldIn.getTileEntity(pos)).recalculateCache(worldIn, pos);
+	}
+
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+		((TileEntitySender) worldIn.getTileEntity(pos)).recalculateCache(worldIn, pos);
 	}
 
 }
