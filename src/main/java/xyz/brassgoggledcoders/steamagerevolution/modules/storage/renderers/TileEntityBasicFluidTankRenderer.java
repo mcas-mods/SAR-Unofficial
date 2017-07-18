@@ -1,7 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.renderers;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraftforge.fluids.FluidStack;
@@ -14,8 +12,8 @@ public class TileEntityBasicFluidTankRenderer extends TileEntitySpecialRenderer<
 	protected static Minecraft mc = Minecraft.getMinecraft();
 
 	@Override
-	public void renderTileEntityFast(@Nonnull TileEntityBasicFluidTank tile, double x, double y, double z,
-			float partialTicks, int destroyStage, float partial, net.minecraft.client.renderer.BufferBuilder buffer) {
+	public void render(TileEntityBasicFluidTank tile, double x, double y, double z, float partialTicks,
+			int destroyStage, float alpha) {
 		FluidTank tank = tile.tank;
 		FluidStack liquid = tank.getFluid();
 
