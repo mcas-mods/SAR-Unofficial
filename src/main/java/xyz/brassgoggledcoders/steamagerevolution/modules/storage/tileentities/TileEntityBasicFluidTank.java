@@ -4,7 +4,6 @@ import com.teamacronymcoders.base.tileentities.TileEntityBase;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -13,15 +12,15 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankUpdateSensitive;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ITankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 
-public class TileEntityBasicFluidTank extends TileEntityBase implements ITickable {
+public class TileEntityBasicFluidTank extends TileEntityBase implements ITankCallback {
 	public FluidTank tank;
-	int lastFluidLevel;
 
 	public TileEntityBasicFluidTank() {
-		this.tank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
-		lastFluidLevel = -1;
+		this.tank = new FluidTankUpdateSensitive(Fluid.BUCKET_VOLUME * 16, this);
 	}
 
 	@Override
@@ -48,19 +47,14 @@ public class TileEntityBasicFluidTank extends TileEntityBase implements ITickabl
 		return super.writeToDisk(tag);
 	}
 
-	@Override
-	public void update() {
-		if(getWorld().isRemote)
-			return;
-		if(lastFluidLevel != this.tank.getFluidAmount()) {
-			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketFluidUpdate(getPos(), tank.getFluid()), getPos(), getWorld().provider.getDimension());
-			this.lastFluidLevel = this.tank.getFluidAmount();
-		}
-	}
-
 	@SideOnly(Side.CLIENT)
 	public void updateFluid(FluidStack fluid) {
 		this.tank.setFluid(fluid);
+	}
+
+	@Override
+	public void onTankContentsChanged(FluidTank tank) {
+		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(new PacketFluidUpdate(getPos(), tank.getFluid()),
+				getPos(), getWorld().provider.getDimension());
 	}
 }
