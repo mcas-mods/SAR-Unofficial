@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.network;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -15,7 +16,18 @@ public class FluidUpdateHandler implements IMessageHandler<PacketFluidUpdate, IM
 
 	@Override
 	public IMessage onMessage(PacketFluidUpdate message, MessageContext ctx) {
-		TileEntity te = Minecraft.getMinecraft().world.getTileEntity(message.pos);
+		Minecraft minecraft = Minecraft.getMinecraft();
+		final WorldClient worldClient = minecraft.world;
+		minecraft.addScheduledTask(new Runnable() {
+			public void run() {
+				processMessage(worldClient, message);
+			}
+		});
+		return null;
+	}
+
+	private void processMessage(WorldClient worldClient, PacketFluidUpdate message) {
+		TileEntity te = worldClient.getTileEntity(message.pos);
 		if(te instanceof TileEntityBasicFluidTank) {
 			TileEntityBasicFluidTank tile = (TileEntityBasicFluidTank) te;
 			tile.updateFluid(message.fluid);
@@ -24,6 +36,5 @@ public class FluidUpdateHandler implements IMessageHandler<PacketFluidUpdate, IM
 			TileEntityCastingBench tile = (TileEntityCastingBench) te;
 			tile.updateFluid(message.fluid);
 		}
-		return null;
 	}
 }
