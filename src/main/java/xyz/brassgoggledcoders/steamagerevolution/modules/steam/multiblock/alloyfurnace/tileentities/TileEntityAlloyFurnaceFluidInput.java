@@ -7,7 +7,6 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.ControllerAlloyFurnace;
 
@@ -22,12 +21,8 @@ public class TileEntityAlloyFurnaceFluidInput extends TileEntityAlloyFurnacePart
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			if(this.isConnected()) {
-				return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
-						.cast(((ControllerAlloyFurnace) this.getMultiblockController()).inputTank);
-			}
-			else
-				return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new FluidTank(0));
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
+					.cast(((ControllerAlloyFurnace) this.getMultiblockController()).inputTank1);
 		}
 		return super.getCapability(capability, facing);
 	}

@@ -1,31 +1,40 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBench;
 
 public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase implements ISmartTankCallback {
 
 	public FluidTank steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
-	public FluidTank inputTank = new FluidTank(TileEntityCastingBench.VALUE_BLOCK * 16);
-	public ItemStackHandler itemInv = new ItemStackHandler(3);
+	public FluidTank inputTank1 = new FluidTankSmart(TileEntityCastingBench.VALUE_BLOCK * 16, this);
+	public FluidTank inputTank2 = new FluidTankSmart(TileEntityCastingBench.VALUE_BLOCK * 16, this);
+	public ItemStackHandler inputSolid = new ItemStackHandler();
 	public FluidTank outputTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
 
-	public int carbonLevel = 0;
 	public boolean isHardened = true;
+	// public int temperature = 0;
 
-	public static final int steamUsePerOperation = Fluid.BUCKET_VOLUME / 10;
+	public static final int steamUsePerHeat = Fluid.BUCKET_VOLUME / 10;
+	public static final int steamUsePerMaintain = Fluid.BUCKET_VOLUME / 100;
+	// public static final int maxTemperature = 1000;
 
 	public ControllerAlloyFurnace(World world) {
 		super(world);
@@ -34,47 +43,63 @@ public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase 
 	@Override
 	protected boolean updateServer() {
 		boolean flag = false;
-		if(inputTank.getFluid() != null && AlloyFurnaceRecipe.getRecipe(inputTank.getFluid()) != null) {
-			AlloyFurnaceRecipe r = AlloyFurnaceRecipe.getRecipe(inputTank.getFluid());
-			if(!r.requiresHardCase || this.isHardened) {
-				if((r.input.isFluidEqual(inputTank.getFluid()) && r.input.amount >= inputTank.getFluidAmount())) {
-					if(outputTank.getFluid() == null || (r.output.isFluidEqual(outputTank.getFluid())
-							&& r.output.amount <= (outputTank.getCapacity() - outputTank.getFluidAmount()))) {
+
+		// // Maintain logic
+		// if(temperature > 0) {
+		// if(steamTank.getFluidAmount() >= steamUsePerMaintain) {
+		// steamTank.drain(steamUsePerMaintain, true);
+		// }
+		// else {
+		// temperature -= 5;
+		// }
+		// flag = true;
+		// }
+		//
+		// // Heating logic
+		// if(temperature < maxTemperature) {
+		// if(steamTank.getFluidAmount() >= steamUsePerHeat) {
+		// temperature++;
+		// steamTank.drain(steamUsePerHeat, true);
+		// flag = true;
+		// }
+		// }
+
+		boolean hasFirstFluid = inputTank1.getFluid() != null;
+		boolean hasSecondFluid = inputTank2.getFluid() != null;
+		boolean hasItems = !inputSolid.getStackInSlot(0).isEmpty();
+
+		// Can't do anything without a base for the alloy
+		if(hasFirstFluid) {
+			if(hasSecondFluid) {
+				AlloyFurnaceRecipe r =
+						AlloyFurnaceRecipe.getRecipe(Pair.of(inputTank1.getFluid(), inputTank2.getFluid()));
+				if(r != null && (!r.requiresHardCase || isHardened)) {
+					if(inputTank1.drain(r.input.getLeft(), false) != null
+							&& inputTank2.drain((FluidStack) r.input.getRight(), false) != null
+							&& outputTank.fill(r.output, false) == r.output.amount) {
+						inputTank1.drain(r.input.getLeft(), true);
+						inputTank2.drain((FluidStack) r.input.getRight(), true);
 						outputTank.fill(r.output, true);
-						inputTank.drain(r.input, true);
-						flag = true;
 					}
 				}
 			}
+			if(hasItems) {
+				AlloyFurnaceRecipe r =
+						AlloyFurnaceRecipe.getRecipe(Pair.of(inputTank1.getFluid(), inputSolid.getStackInSlot(0)));
+				FMLLog.warning(String.valueOf(r != null));
+				if(r != null && (!r.requiresHardCase || isHardened)) {
+					int count = ((ItemStack) r.input.getRight()).getCount();
+					if(inputTank1.drain(r.input.getLeft(), false) != null
+							&& inputSolid.getStackInSlot(0).getCount() >= count
+							&& outputTank.fill(r.output, false) == r.output.amount) {
+						inputTank1.drain(r.input.getLeft(), true);
+						inputSolid.extractItem(0, count, false);
+						outputTank.fill(r.output, true);
+					}
+				}
+			}
+			// else do nothing, can't make a recipe with one fluid
 		}
-
-		// for(int i = 0; i < itemInv.getSlots(); i++) {
-		// if(!itemInv.getStackInSlot(i).isEmpty()) {
-		// if(itemInv.getStackInSlot(i).getItem() == Items.COAL) {
-		// carbonLevel += 9;
-		// itemInv.extractItem(i, 1, false);
-		// flag = true;
-		// }
-		// }
-		// }
-		//
-		// if(carbonLevel > 0
-		// && inputTank.getFluidAmount() > ((TileEntityCastingBench.VALUE_BLOCK * 9)
-		// + TileEntityCastingBench.VALUE_NUGGET)
-		// && outputTank.getFluidAmount() != outputTank.getCapacity()
-		// && steamTank.getFluidAmount() >= steamUsePerOperation) {
-		//
-		// FluidStack toInsert =
-		// new FluidStack(FluidRegistry.getFluid("iron"/* TODO */), TileEntityCastingBench.VALUE_NUGGET);
-		// if(outputTank.fill(toInsert, false) == TileEntityCastingBench.VALUE_NUGGET) {
-		// inputTank.drain(TileEntityCastingBench.VALUE_NUGGET, true);
-		// outputTank.fill(toInsert, true);
-		// steamTank.drain(steamUsePerOperation, true);
-		// carbonLevel--;
-		// flag = true;
-		// }
-		//
-		// }
 
 		return flag;
 	}
@@ -123,12 +148,6 @@ public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase 
 	@Override
 	protected int getMaximumYSize() {
 		return 9;
-	}
-
-	@Override
-	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -191,20 +210,20 @@ public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase 
 	}
 
 	@Override
-	public void readFromDisk(NBTTagCompound data) {
+	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
 		data.setBoolean("hardened", isHardened);
-		carbonLevel = data.getInteger("carbon");
-		itemInv.deserializeNBT(data.getCompoundTag("inv"));
-		inputTank.readFromNBT(data.getCompoundTag("input"));
+		inputSolid.deserializeNBT(data.getCompoundTag("solidInput"));
+		inputTank1.readFromNBT(data.getCompoundTag("fluidInput1"));
+		inputTank2.readFromNBT(data.getCompoundTag("fluidInput2"));
 		outputTank.readFromNBT(data.getCompoundTag("output"));
 	}
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
 		data.setBoolean("hardened", isHardened);
-		data.setInteger("carbon", carbonLevel);
-		data.setTag("inv", itemInv.serializeNBT());
-		data.setTag("input", inputTank.writeToNBT(new NBTTagCompound()));
+		data.setTag("solidInput", inputSolid.serializeNBT());
+		data.setTag("fluidInput1", inputTank1.writeToNBT(new NBTTagCompound()));
+		data.setTag("fluidInput2", inputTank2.writeToNBT(new NBTTagCompound()));
 		data.setTag("output", outputTank.writeToNBT(new NBTTagCompound()));
 	}
 
@@ -228,6 +247,12 @@ public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase 
 
 	@Override
 	public void onTankContentsChanged(FluidTank tank) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void readFromDisk(NBTTagCompound data) {
 		// TODO Auto-generated method stub
 
 	}

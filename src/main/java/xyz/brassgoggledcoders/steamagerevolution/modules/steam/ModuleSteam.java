@@ -97,8 +97,11 @@ public class ModuleSteam extends ModuleBase {
 		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.COBBLESTONE), new ItemStack(Blocks.GRAVEL));
 		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.DIRT), new ItemStack(Items.DIAMOND), "test");
 
-		AlloyFurnaceRecipe.addUpgradedAlloyFurnaceRecipe(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME),
-				new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME / 2));
+		AlloyFurnaceRecipe.addAlloyFurnaceRecipe(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME),
+				new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME),
+				new FluidStack(FluidRegistry.getFluid("steam"), Fluid.BUCKET_VOLUME));
+		AlloyFurnaceRecipe.addAlloyFurnaceRecipe(new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME),
+				new ItemStack(Items.COAL), new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME));
 
 		OreDictionary.registerOre("dustCharcoal", charcoalPowder);
 		super.init(event);

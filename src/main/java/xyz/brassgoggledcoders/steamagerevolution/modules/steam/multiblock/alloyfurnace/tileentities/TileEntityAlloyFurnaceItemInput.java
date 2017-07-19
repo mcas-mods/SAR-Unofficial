@@ -22,13 +22,13 @@ public class TileEntityAlloyFurnaceItemInput extends TileEntityAlloyFurnacePart 
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-					.cast(((ControllerAlloyFurnace) this.getMultiblockController()).itemInv);
+					.cast(((ControllerAlloyFurnace) this.getMultiblockController()).inputSolid);
 		}
 		return super.getCapability(capability, facing);
 	}
 
 	@Override
-	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
+	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
 		return true;
 	}
 }
