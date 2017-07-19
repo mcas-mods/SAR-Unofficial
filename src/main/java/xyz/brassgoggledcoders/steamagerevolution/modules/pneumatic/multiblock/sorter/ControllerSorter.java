@@ -210,16 +210,4 @@ public class ControllerSorter extends RectangularMultiblockControllerBase {
 
 	}
 
-	@Override
-	public void readFromUpdatePacket(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void writeToUpdatePacket(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

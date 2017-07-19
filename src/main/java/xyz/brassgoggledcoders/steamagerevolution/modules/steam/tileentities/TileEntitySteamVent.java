@@ -54,25 +54,12 @@ public class TileEntitySteamVent extends TileEntitySlowTick implements ISmartTan
 	@Override
 	public NBTTagCompound writeToDisk(NBTTagCompound tag) {
 		tag.setTag("tank", tank.writeToNBT(new NBTTagCompound()));
-		return super.writeToDisk(tag);
+		return tag;
 	}
 
 	@Override
 	public void readFromDisk(NBTTagCompound tag) {
 		tank.readFromNBT(tag.getCompoundTag("tank"));
-		super.readFromDisk(tag);
-	}
-
-	@Override
-	public NBTTagCompound writeToUpdatePacket(NBTTagCompound tag) {
-		tank.writeToNBT(tag);
-		return super.writeToUpdatePacket(tag);
-	}
-
-	@Override
-	public void readFromUpdatePacket(NBTTagCompound tag) {
-		tank.readFromNBT(tag);
-		super.readFromUpdatePacket(tag);
 	}
 
 	@Override

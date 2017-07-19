@@ -64,7 +64,6 @@ public class TileEntityFluidHopper extends TileEntitySlowTick {
 		buffer.readFromNBT(tag);
 		hasFrom = tag.getBoolean("from");
 		toPos = BlockPos.fromLong(tag.getLong("to"));
-		super.readFromDisk(tag);
 	}
 
 	@Override
@@ -73,7 +72,7 @@ public class TileEntityFluidHopper extends TileEntitySlowTick {
 		tag.setBoolean("from", hasFrom);
 		if(toPos != null)
 			tag.setLong("to", toPos.toLong());
-		return super.writeToDisk(tag);
+		return tag;
 	}
 
 	public void recalculateCache(World worldIn, BlockPos pos, IBlockState state, BlockPos fromPos) {

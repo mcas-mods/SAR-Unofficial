@@ -78,7 +78,7 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 		tag.setTag("tank", tank.writeToNBT(new NBTTagCompound()));
 		tag.setTag("inv", internal.serializeNBT());
 		tag.setInteger("coolTime", stateChangeTime);
-		return super.writeToDisk(tag);
+		return tag;
 	}
 
 	@Override
@@ -86,7 +86,6 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 		tank.readFromNBT(tag.getCompoundTag("tank"));
 		internal.deserializeNBT(tag.getCompoundTag("inv"));
 		stateChangeTime = tag.getInteger("cooltime");
-		super.readFromDisk(tag);
 	}
 
 	@Override

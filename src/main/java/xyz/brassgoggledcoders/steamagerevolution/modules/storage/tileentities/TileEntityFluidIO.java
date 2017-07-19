@@ -15,8 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -58,31 +56,12 @@ public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGu
 	@Override
 	public void readFromDisk(NBTTagCompound tag) {
 		buffer.readFromNBT(tag);
-		super.readFromDisk(tag);
 	}
 
 	@Override
 	public NBTTagCompound writeToDisk(NBTTagCompound tag) {
-		buffer.writeToNBT(tag);
-		return super.writeToDisk(tag);
+		return buffer.writeToNBT(tag);
 	}
-
-	@Override
-	protected void readFromUpdatePacket(NBTTagCompound data) {
-		if(!data.getString("fluid").isEmpty())
-			this.buffer.setFluid(
-					new FluidStack(FluidRegistry.getFluid(data.getString("fluid")), data.getInteger("level")));
-		super.readFromUpdatePacket(data);
-	};
-
-	@Override
-	protected NBTTagCompound writeToUpdatePacket(NBTTagCompound data) {
-		if(buffer.getFluid() != null) {
-			data.setString("fluid", FluidRegistry.getFluidName(buffer.getFluid().getFluid()));
-			data.setInteger("level", this.buffer.getFluidAmount());
-		}
-		return super.writeToUpdatePacket(data);
-	};
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {

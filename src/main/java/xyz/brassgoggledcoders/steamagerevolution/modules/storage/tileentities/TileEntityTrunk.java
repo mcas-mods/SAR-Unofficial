@@ -64,7 +64,7 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IHasGui,
 				inv.setTag("slot" + i, inventory.getStackInSlot(i).serializeNBT());
 		}
 		tag.setTag("inventory", inv);
-		return super.writeToDisk(tag);
+		return tag;
 	}
 
 	@Override
@@ -72,7 +72,6 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IHasGui,
 		for(int i = 0; i < inventory.getSlots(); i++) {
 			inventory.setStackInSlot(i, new ItemStack(tag.getCompoundTag("inventory").getCompoundTag("slot" + i)));
 		}
-		super.readFromDisk(tag);
 	}
 
 	@Override

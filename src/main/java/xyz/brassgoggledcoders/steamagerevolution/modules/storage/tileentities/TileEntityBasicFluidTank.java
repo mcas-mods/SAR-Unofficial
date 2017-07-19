@@ -38,13 +38,11 @@ public class TileEntityBasicFluidTank extends TileEntityBase implements ISmartTa
 	@Override
 	public void readFromDisk(NBTTagCompound tag) {
 		tank.readFromNBT(tag);
-		super.readFromDisk(tag);
 	}
 
 	@Override
 	public NBTTagCompound writeToDisk(NBTTagCompound tag) {
-		tank.writeToNBT(tag);
-		return super.writeToDisk(tag);
+		return tank.writeToNBT(tag);
 	}
 
 	@SideOnly(Side.CLIENT)

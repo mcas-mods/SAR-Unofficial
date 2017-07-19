@@ -209,18 +209,6 @@ public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase 
 	}
 
 	@Override
-	public void readFromUpdatePacket(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void writeToUpdatePacket(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	protected boolean isBlockGoodForTop(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
 		// TODO Auto-generated method stub
 		return false;

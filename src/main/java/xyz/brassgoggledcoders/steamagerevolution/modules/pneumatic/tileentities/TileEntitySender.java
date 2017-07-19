@@ -5,6 +5,7 @@ import com.teamacronymcoders.base.tileentities.TileEntitySlowTick;
 import net.minecraft.block.Block;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
@@ -87,5 +88,13 @@ public class TileEntitySender extends TileEntitySlowTick {
 				return;
 			}
 		}
+	}
+
+	@Override
+	protected void readFromDisk(NBTTagCompound data) {}
+
+	@Override
+	protected NBTTagCompound writeToDisk(NBTTagCompound data) {
+		return data;
 	}
 }

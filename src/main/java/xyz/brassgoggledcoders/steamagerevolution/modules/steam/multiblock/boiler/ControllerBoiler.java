@@ -59,6 +59,7 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase implem
 				this.steamTank.drain(Fluid.BUCKET_VOLUME, true);
 				pressure = 1.0F;
 				this.updateRedstoneOutputLevels();
+				return true;
 			}
 		}
 
@@ -140,12 +141,6 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase implem
 	}
 
 	@Override
-	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	protected void onMachineAssembled() {
 		// TODO Auto-generated method stub
 
@@ -194,7 +189,7 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase implem
 	}
 
 	@Override
-	public void readFromDisk(NBTTagCompound data) {
+	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
 		pressure = data.getFloat("pressure");
 		currentBurnTime = data.getInteger("burntime");
 		solidFuelInventory.deserializeNBT(data.getCompoundTag("fuelinv"));
@@ -211,18 +206,6 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase implem
 		data.setTag("wtank", waterTank.writeToNBT(new NBTTagCompound()));
 		data.setTag("stank", steamTank.writeToNBT(new NBTTagCompound()));
 		data.setTag("liquidfuelinv", liquidFuelTank.writeToNBT(new NBTTagCompound()));
-	}
-
-	@Override
-	public void readFromUpdatePacket(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void writeToUpdatePacket(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -276,5 +259,11 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase implem
 			waterTank.setFluid(fluid);
 		else
 			steamTank.setFluid(fluid);
+	}
+
+	@Override
+	public void readFromDisk(NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
 	}
 }
