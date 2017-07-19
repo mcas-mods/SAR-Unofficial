@@ -14,12 +14,13 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteamVent;
 
-public class TileEntitySteamVent extends TileEntitySlowTick {
+public class TileEntitySteamVent extends TileEntitySlowTick implements ISmartTankCallback {
 
-	public FluidTank tank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 6, "steam");
+	public FluidTank tank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 6, "steam", this);
 
 	@Override
 	// TODO No real need to tick.
@@ -72,6 +73,12 @@ public class TileEntitySteamVent extends TileEntitySlowTick {
 	public void readFromUpdatePacket(NBTTagCompound tag) {
 		tank.readFromNBT(tag);
 		super.readFromUpdatePacket(tag);
+	}
+
+	@Override
+	public void onTankContentsChanged(FluidTank tank) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

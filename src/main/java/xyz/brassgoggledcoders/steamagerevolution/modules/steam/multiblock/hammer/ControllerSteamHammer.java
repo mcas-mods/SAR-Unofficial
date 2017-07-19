@@ -16,12 +16,13 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ISmartTankCallback;
 
-public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
+public class ControllerSteamHammer extends RectangularMultiblockControllerBase implements ISmartTankCallback {
 
 	public ItemStackHandler inventory = new ItemStackHandler(2);
-	public FluidTank tank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 4, "steam");
+	public FluidTank tank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this);
 	protected String dieType = "";
 	private int progress = 0;
 
@@ -201,6 +202,12 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase {
 
 	@Override
 	public void writeToUpdatePacket(NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onTankContentsChanged(FluidTank tank) {
 		// TODO Auto-generated method stub
 
 	}

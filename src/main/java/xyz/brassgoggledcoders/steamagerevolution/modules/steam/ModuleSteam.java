@@ -33,7 +33,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyf
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceHardFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceItemInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerCasing;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerController;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerFluidMonitor;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerLiquidFirebox;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerPressureMonitor;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerPressureValve;
@@ -129,7 +129,7 @@ public class ModuleSteam extends ModuleBase {
 		blockRegistry.register(boilerSolidFirebox);
 		boilerLiquidFirebox = new BlockBoilerLiquidFirebox(Material.IRON, "boiler_liquid_firebox");
 		blockRegistry.register(boilerLiquidFirebox);
-		boilerMonitor = new BlockBoilerController(Material.IRON, "boiler_controller");
+		boilerMonitor = new BlockBoilerFluidMonitor(Material.IRON, "boiler_controller");
 		blockRegistry.register(boilerMonitor);
 		boilerPressureMonitor = new BlockBoilerPressureMonitor(Material.IRON, "boiler_pressuremonitor");
 		blockRegistry.register(boilerPressureMonitor);

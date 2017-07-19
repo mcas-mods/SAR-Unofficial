@@ -12,15 +12,15 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankUpdateSensitive;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ITankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSmart;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 
-public class TileEntityBasicFluidTank extends TileEntityBase implements ITankCallback {
+public class TileEntityBasicFluidTank extends TileEntityBase implements ISmartTankCallback {
 	public FluidTank tank;
 
 	public TileEntityBasicFluidTank() {
-		this.tank = new FluidTankUpdateSensitive(Fluid.BUCKET_VOLUME * 16, this);
+		tank = new FluidTankSmart(Fluid.BUCKET_VOLUME * 16, this);
 	}
 
 	@Override
@@ -54,6 +54,7 @@ public class TileEntityBasicFluidTank extends TileEntityBase implements ITankCal
 
 	@Override
 	public void onTankContentsChanged(FluidTank tank) {
+		this.markDirty();
 		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(new PacketFluidUpdate(getPos(), tank.getFluid()),
 				getPos(), getWorld().provider.getDimension());
 	}

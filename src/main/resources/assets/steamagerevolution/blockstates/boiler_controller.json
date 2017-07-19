@@ -2,7 +2,7 @@
     "forge_marker": 1,
     "defaults": {
         "model": "cube_all",
-        "textures": { "all": "steamagerevolution:blocks/boiler_controller", "particle": "#all" },
+        "textures": { "all": "blocks/glass", "particle": "#all" },
         "transform": "forge:default-block"
     },
     "variants": {

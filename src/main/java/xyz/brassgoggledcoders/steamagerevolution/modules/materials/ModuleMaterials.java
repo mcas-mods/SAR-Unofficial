@@ -20,9 +20,9 @@ public class ModuleMaterials extends ModuleBase {
 	public void preInit(FMLPreInitializationEvent event) {
 		try {
 			Material steel =
-					new MaterialBuilder().setName("steel").setColor(Color.DARK_GRAY).setHasEffect(false).build();
+					new MaterialBuilder().setName("Steel").setColor(Color.DARK_GRAY).setHasEffect(false).build();
 			SteamAgeRevolution.instance.getMaterialUser().registerPartsForMaterial(steel, alloyParts);
-			Material brass = new MaterialBuilder().setName("brass").setColor(Color.ORANGE).setHasEffect(false).build();
+			Material brass = new MaterialBuilder().setName("Brass").setColor(Color.ORANGE).setHasEffect(false).build();
 			SteamAgeRevolution.instance.getMaterialUser().registerPartsForMaterial(brass, alloyParts);
 		}
 		catch(MaterialException e) {

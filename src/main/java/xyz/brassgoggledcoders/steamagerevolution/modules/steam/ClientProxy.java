@@ -9,6 +9,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.renderers.TileEntityBoilerFluidMonitorRenderer;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerFluidMonitor;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBenchRenderer;
 
@@ -23,6 +25,8 @@ public class ClientProxy implements IModuleProxy {
 				new ResourceLocation(SteamAgeRevolution.MODID, "steam"));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCastingBench.class,
 				new TileEntityCastingBenchRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBoilerFluidMonitor.class,
+				new TileEntityBoilerFluidMonitorRenderer());
 	}
 
 	@Override

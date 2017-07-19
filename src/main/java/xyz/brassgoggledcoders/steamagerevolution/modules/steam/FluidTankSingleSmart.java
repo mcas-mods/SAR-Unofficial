@@ -1,19 +1,22 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam;
 
+import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-public class FluidTankSingleType extends FluidTankUpdateSensitive {
+public class FluidTankSingleSmart extends FluidTankSmart {
 
 	private String fluidName;
 
-	public FluidTankSingleType(int capacity, String fluidName) {
-		this(capacity, fluidName, null);
+	public FluidTankSingleSmart(int capacity, String fluidName, TileEntity parent) {
+		super(capacity, parent);
+		this.fluidName = fluidName;
 	}
 
-	public FluidTankSingleType(int capacity, String fluidName, TileEntity parent) {
-		super(null, capacity, parent);
+	public FluidTankSingleSmart(int capacity, String fluidName, MultiblockControllerBase parent) {
+		super(capacity, parent);
 		this.fluidName = fluidName;
 	}
 

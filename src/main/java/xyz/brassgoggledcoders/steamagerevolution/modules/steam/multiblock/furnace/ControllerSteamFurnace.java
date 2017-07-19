@@ -10,15 +10,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ISmartTankCallback;
 
-public class ControllerSteamFurnace extends RectangularMultiblockControllerBase {
+public class ControllerSteamFurnace extends RectangularMultiblockControllerBase implements ISmartTankCallback {
 
 	public ItemStackHandler inputInventory = new ItemStackHandler(1);
 	public ItemStackHandler outputInventory = new ItemStackHandler(3);
-	public FluidTankSingleType steamTank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 16, "steam");
+	public FluidTankSingleSmart steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
 
 	float pressure = 1.0F;
 	int currentCookTime = 0;
@@ -232,6 +234,12 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 
 	@Override
 	public void writeToUpdatePacket(NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onTankContentsChanged(FluidTank tank) {
 		// TODO Auto-generated method stub
 
 	}

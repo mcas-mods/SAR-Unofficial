@@ -11,12 +11,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBench;
 
-public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase {
+public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase implements ISmartTankCallback {
 
-	public FluidTank steamTank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 16, "steam");
+	public FluidTank steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
 	public FluidTank inputTank = new FluidTank(TileEntityCastingBench.VALUE_BLOCK * 16);
 	public ItemStackHandler itemInv = new ItemStackHandler(3);
 	public FluidTank outputTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
@@ -235,6 +236,12 @@ public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase 
 	protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void onTankContentsChanged(FluidTank tank) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

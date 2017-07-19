@@ -18,13 +18,16 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleType;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureMonitor;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureValve;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 
 // TODO NBT
-public class ControllerBoiler extends RectangularMultiblockControllerBase {
+public class ControllerBoiler extends RectangularMultiblockControllerBase implements ISmartTankCallback {
 
 	public static final int fuelDivisor = 3;
 	public static final int fluidConversionPerTick = 5;
@@ -32,8 +35,8 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 
 	public ItemStackHandler solidFuelInventory = new ItemStackHandler(3);
 	public FluidTank liquidFuelInventory = new FluidTank(Fluid.BUCKET_VOLUME * 16);
-	public FluidTankSingleType waterTank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 16, "water");
-	public FluidTankSingleType steamTank = new FluidTankSingleType(Fluid.BUCKET_VOLUME * 4, "steam");
+	public FluidTankSingleSmart waterTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "water", this);
+	public FluidTankSingleSmart steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this);
 
 	public float pressure = 1.0F;
 	public int currentBurnTime = 0;
@@ -261,4 +264,17 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase {
 		}
 	}
 
+	@Override
+	public void onTankContentsChanged(FluidTank tank) {
+		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+				new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid()), this.getReferenceCoord(),
+				WORLD.provider.getDimension());
+	}
+
+	public void updateFluid(FluidStack fluid) {
+		if(fluid.getFluid().equals(FluidRegistry.WATER))
+			waterTank.setFluid(fluid);
+		else
+			steamTank.setFluid(fluid);
+	}
 }
