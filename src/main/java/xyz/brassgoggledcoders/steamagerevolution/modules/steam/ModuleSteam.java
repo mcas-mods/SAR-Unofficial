@@ -33,12 +33,13 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyf
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceHardFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceItemInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerCasing;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerFluidMonitor;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerLiquidFirebox;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerPressureMonitor;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerPressureValve;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerSolidFirebox;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerSteamGauge;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerSteamOutput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerWaterGauge;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerWaterInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceCasing;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.BlockFurnaceItemInput;
@@ -59,7 +60,7 @@ public class ModuleSteam extends ModuleBase {
 	public static BlockFluidClassic steamBlock;
 
 	public static Block boilerCasing, boilerWaterInput, boilerSolidFirebox, boilerLiquidFirebox, boilerSteamOutput,
-			boilerMonitor, boilerPressureMonitor, boilerPressureValve;
+			boilerWaterGauge, boilerSteamGauge, boilerPressureMonitor, boilerPressureValve;
 	public static Block steamTurbine, mechanicalOutput, steamInput, turbineFrame;
 	public static Block furnaceCasing, furnaceItemInput, furnaceItemOutput, furnaceSteamInput, furnaceMonitor;
 	public static Block alloyFurnaceController, itemInput, alloyFurnaceFrame, alloyFurnaceHardFrame,
@@ -129,8 +130,10 @@ public class ModuleSteam extends ModuleBase {
 		blockRegistry.register(boilerSolidFirebox);
 		boilerLiquidFirebox = new BlockBoilerLiquidFirebox(Material.IRON, "boiler_liquid_firebox");
 		blockRegistry.register(boilerLiquidFirebox);
-		boilerMonitor = new BlockBoilerFluidMonitor(Material.IRON, "boiler_controller");
-		blockRegistry.register(boilerMonitor);
+		boilerWaterGauge = new BlockBoilerWaterGauge(Material.IRON, "boiler_water_gauge");
+		blockRegistry.register(boilerWaterGauge);
+		boilerSteamGauge = new BlockBoilerSteamGauge(Material.IRON, "boiler_steam_gauge");
+		blockRegistry.register(boilerSteamGauge);
 		boilerPressureMonitor = new BlockBoilerPressureMonitor(Material.IRON, "boiler_pressuremonitor");
 		blockRegistry.register(boilerPressureMonitor);
 		boilerPressureValve = new BlockBoilerPressureValve(Material.IRON, "boiler_pressurevalve");

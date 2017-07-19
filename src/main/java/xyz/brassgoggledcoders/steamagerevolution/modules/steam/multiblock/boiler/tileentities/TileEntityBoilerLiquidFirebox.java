@@ -18,7 +18,7 @@ public class TileEntityBoilerLiquidFirebox extends TileEntityBoilerPart {
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
 			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
-					.cast(this.getMultiblockController().liquidFuelInventory);
+					.cast(this.getMultiblockController().liquidFuelTank);
 		return super.getCapability(capability, facing);
 	}
 

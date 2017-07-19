@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks;
 
 import com.teamacronymcoders.base.blocks.BlockTEBase;
 
@@ -13,25 +13,37 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityBasicFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPart;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerSteamGauge;
 import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtil;
 
-public class BlockBasicFluidTank extends BlockTEBase<TileEntityBasicFluidTank> {
-	public BlockBasicFluidTank(Material material, String name) {
+public class BlockBoilerSteamGauge extends BlockTEBase<TileEntityBoilerSteamGauge> {
+
+	public BlockBoilerSteamGauge(Material material, String name) {
 		super(material, name);
 	}
 
 	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		TileEntityBoilerPart te = getTileEntity(worldIn, pos);
+		if(te != null && te.isConnected()) {
+			playerIn.sendStatusMessage(TextUtil.representTankContents(te.getMultiblockController().steamTank), true);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
 	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityBasicFluidTank.class;
+		return TileEntityBoilerSteamGauge.class;
 	}
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityBasicFluidTank();
+		return new TileEntityBoilerSteamGauge();
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -61,19 +73,4 @@ public class BlockBasicFluidTank extends BlockTEBase<TileEntityBasicFluidTank> {
 		return EnumBlockRenderType.MODEL;
 	}
 
-	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		TileEntityBasicFluidTank te = getTileEntity(worldIn, pos);
-		if(!worldIn.isRemote && te != null) {
-			if(playerIn.isSneaking()) {
-				playerIn.sendStatusMessage(TextUtil.representTankContents(te.tank), true);
-				return true;
-			}
-			else {
-				return FluidUtil.interactWithFluidHandler(playerIn, hand, worldIn, pos, facing);
-			}
-		}
-		return false;
-	}
 }

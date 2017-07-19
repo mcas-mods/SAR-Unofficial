@@ -34,7 +34,7 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase implem
 	public static final float maxPressure = 3.0F;
 
 	public ItemStackHandler solidFuelInventory = new ItemStackHandler(3);
-	public FluidTank liquidFuelInventory = new FluidTank(Fluid.BUCKET_VOLUME * 16);
+	public FluidTank liquidFuelTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
 	public FluidTankSingleSmart waterTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "water", this);
 	public FluidTankSingleSmart steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this);
 
@@ -80,9 +80,9 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase implem
 					return true;
 				}
 			}
-			if(liquidFuelInventory.getFluidAmount() != 0) {
+			if(liquidFuelTank.getFluidAmount() != 0) {
 				// TODO
-				if(liquidFuelInventory.getFluid().getFluid() == FluidRegistry.LAVA) {
+				if(liquidFuelTank.getFluid().getFluid() == FluidRegistry.LAVA) {
 					currentBurnTime = 1000;
 					return true;
 				}
@@ -200,7 +200,7 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase implem
 		solidFuelInventory.deserializeNBT(data.getCompoundTag("fuelinv"));
 		waterTank.readFromNBT(data.getCompoundTag("wtank"));
 		steamTank.readFromNBT(data.getCompoundTag("stank"));
-		liquidFuelInventory.readFromNBT(data.getCompoundTag("liquidfuelinv"));
+		liquidFuelTank.readFromNBT(data.getCompoundTag("liquidfuelinv"));
 	}
 
 	@Override
@@ -210,7 +210,7 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase implem
 		data.setTag("fuelinv", solidFuelInventory.serializeNBT());
 		data.setTag("wtank", waterTank.writeToNBT(new NBTTagCompound()));
 		data.setTag("stank", steamTank.writeToNBT(new NBTTagCompound()));
-		data.setTag("liquidfuelinv", liquidFuelInventory.writeToNBT(new NBTTagCompound()));
+		data.setTag("liquidfuelinv", liquidFuelTank.writeToNBT(new NBTTagCompound()));
 	}
 
 	@Override
