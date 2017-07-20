@@ -44,26 +44,6 @@ public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase 
 	protected boolean updateServer() {
 		boolean flag = false;
 
-		// // Maintain logic
-		// if(temperature > 0) {
-		// if(steamTank.getFluidAmount() >= steamUsePerMaintain) {
-		// steamTank.drain(steamUsePerMaintain, true);
-		// }
-		// else {
-		// temperature -= 5;
-		// }
-		// flag = true;
-		// }
-		//
-		// // Heating logic
-		// if(temperature < maxTemperature) {
-		// if(steamTank.getFluidAmount() >= steamUsePerHeat) {
-		// temperature++;
-		// steamTank.drain(steamUsePerHeat, true);
-		// flag = true;
-		// }
-		// }
-
 		boolean hasFirstFluid = inputTank1.getFluid() != null;
 		boolean hasSecondFluid = inputTank2.getFluid() != null;
 		boolean hasItems = !inputSolid.getStackInSlot(0).isEmpty();
@@ -211,7 +191,7 @@ public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase 
 
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		data.setBoolean("hardened", isHardened);
+		isHardened = data.getBoolean("hardened");
 		inputSolid.deserializeNBT(data.getCompoundTag("solidInput"));
 		inputTank1.readFromNBT(data.getCompoundTag("fluidInput1"));
 		inputTank2.readFromNBT(data.getCompoundTag("fluidInput2"));

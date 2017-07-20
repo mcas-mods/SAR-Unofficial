@@ -6,6 +6,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.tileentities.TileEntityFurnaceMonitor;
 
 public class GuiFurnaceMonitor extends GuiContainer {
 
@@ -30,7 +31,6 @@ public class GuiFurnaceMonitor extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		this.drawString(fontRenderer, "Steam Level: " + c.steamTank.getFluidAmount(), 10, 50, Color.WHITE.value());
 		// this.drawString(fontRendererObj, "Temperature: " + c.temperature, 10, 70, Color.WHITE.value());
-		this.drawString(fontRenderer, "Pressure: " + c.pressure, 10, 90, Color.WHITE.value());
 		this.drawString(fontRenderer, "Cook Time: " + c.currentCookTime, 10, 110, Color.WHITE.value());
 	}
 

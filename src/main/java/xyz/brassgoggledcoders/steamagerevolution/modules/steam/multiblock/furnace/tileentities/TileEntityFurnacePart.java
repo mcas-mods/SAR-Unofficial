@@ -1,8 +1,10 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.tileentities;
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.ControllerSteamFurnace;
 
 public abstract class TileEntityFurnacePart extends RectangularMultiblockTileEntityBase<ControllerSteamFurnace> {
 

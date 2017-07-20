@@ -4,6 +4,7 @@ import com.teamacronymcoders.base.containers.ContainerBase;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.items.SlotItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.tileentities.TileEntityFurnaceMonitor;
 
 public class ContainerFurnaceMonitor extends ContainerBase {
 	public ContainerFurnaceMonitor(EntityPlayer player, TileEntityFurnaceMonitor tile) {

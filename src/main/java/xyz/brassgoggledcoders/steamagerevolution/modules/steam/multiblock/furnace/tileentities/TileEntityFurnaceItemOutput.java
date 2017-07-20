@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.tileentities;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -8,6 +8,7 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.ControllerSteamFurnace;
 
 public class TileEntityFurnaceItemOutput extends TileEntityFurnacePart {
 

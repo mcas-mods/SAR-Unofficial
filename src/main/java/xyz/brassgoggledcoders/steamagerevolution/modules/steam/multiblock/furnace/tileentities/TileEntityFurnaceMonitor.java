@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.tileentities;
 
 import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
@@ -8,6 +8,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.ContainerFurnaceMonitor;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.GuiFurnaceMonitor;
 
 public class TileEntityFurnaceMonitor extends TileEntityFurnacePart implements IHasGui {
 	@Override

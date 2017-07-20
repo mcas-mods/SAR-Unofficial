@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.tileentities;
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
