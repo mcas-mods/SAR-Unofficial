@@ -12,9 +12,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ISmartTankCallback;
 
@@ -26,6 +26,7 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 
 	int temperature = 0;
 	int currentCookTime = 0;
+	private boolean isHeating = true;
 
 	private static final int thresholdTemperature = 200;
 	// private static final int unstableTemperature = 500; // TODO
@@ -52,33 +53,30 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 	protected boolean updateServer() {
 		boolean flag = false;
 
-		FMLLog.warning("" + temperature);
-
 		// Heating logic
-		if(steamTank.getFluidAmount() >= steamUsePerHeat) {
-			temperature++;
-			steamTank.drain(steamUsePerHeat, true);
-			flag = true;
+		if(isHeating) {
+			if(steamTank.getFluidAmount() >= steamUsePerHeat) {
+				temperature++;
+				steamTank.drain(steamUsePerHeat, true);
+				flag = true;
+			}
+			else if(temperature > 0) {
+				temperature--;
+				flag = true;
+			}
 		}
-
-		// Maintain logic
-		// if(temperature > 0) {
-		// if(steamTank.getFluidAmount() >= steamUsePerMaintain) {
-		// steamTank.drain(steamUsePerMaintain, true);
-		// flag = true;
-		// }
-		// else {
-		// // Cannot maintain, start cooling rapidly
-		// if(temperature == 5)
-		// temperature = 0;
-		// else {
-		// temperature -= 5;
-		// }
-		// flag = true;
-		// }
-		// }
-		// else furnace is cold so no need to maintain, and not enough steam to heat
-
+		else {
+			if(temperature > 0) {
+				if(steamTank.getFluidAmount() >= steamUsePerMaintain) {
+					steamTank.drain(steamUsePerMaintain, true);
+					flag = true;
+				}
+				else {
+					temperature--;
+					flag = true;
+				}
+			}
+		}
 		// If temp exceeds max, start risking melting down
 		if(temperature > maxTemperature) {
 			if(WORLD.rand.nextInt(10) == 0) {
@@ -162,6 +160,7 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
+		isHeating = data.getBoolean("mode");
 		temperature = data.getInteger("temperature");
 		currentCookTime = data.getInteger("cookTime");
 		inputInventory.deserializeNBT(data.getCompoundTag("inputinv"));
@@ -171,6 +170,7 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
+		data.setBoolean("mode", isHeating);
 		data.setInteger("temperature", temperature);
 		data.setInteger("cookTime", currentCookTime);
 		data.setTag("inputinv", inputInventory.serializeNBT());
@@ -254,6 +254,15 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 	public void readFromDisk(NBTTagCompound data) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public static void toggleMode(ControllerSteamFurnace controller) {
+		SteamAgeRevolution.instance.getLogger().devInfo("Furnace mode toggled");
+		controller.isHeating = !controller.isHeating;
+	}
+
+	public boolean isHeating() {
+		return isHeating;
 	}
 
 }

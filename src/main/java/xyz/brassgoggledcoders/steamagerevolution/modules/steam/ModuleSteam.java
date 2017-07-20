@@ -45,7 +45,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnac
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.blocks.BlockFurnaceCasing;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.blocks.BlockFurnaceItemInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.blocks.BlockFurnaceItemOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.blocks.BlockFurnaceMonitor;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.blocks.BlockFurnaceModeToggle;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.blocks.BlockFurnaceSteamInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.BlockSteamHammerAnvil;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.BlockSteamHammerFrame;
@@ -163,7 +163,7 @@ public class ModuleSteam extends ModuleBase {
 		blockRegistry.register(furnaceItemOutput);
 		furnaceSteamInput = new BlockFurnaceSteamInput(Material.IRON, "furnace_steaminput");
 		blockRegistry.register(furnaceSteamInput);
-		furnaceMonitor = new BlockFurnaceMonitor(Material.IRON, "furnace_monitor");
+		furnaceMonitor = new BlockFurnaceModeToggle(Material.IRON, "furnace_monitor");
 		blockRegistry.register(furnaceMonitor);
 
 		// steamTurbine = new BlockTurbine(Material.IRON, "steam_turbine");
