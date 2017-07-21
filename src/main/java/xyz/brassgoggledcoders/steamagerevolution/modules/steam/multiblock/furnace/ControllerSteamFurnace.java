@@ -11,6 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
@@ -263,6 +264,12 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 
 	public boolean isHeating() {
 		return isHeating;
+	}
+
+	@Override
+	public void updateFluid(FluidStack fluid) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

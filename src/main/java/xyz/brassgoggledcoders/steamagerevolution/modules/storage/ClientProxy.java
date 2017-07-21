@@ -10,6 +10,8 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.MultiblockTankRenderer;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.TileEntityTankCasing;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.renderers.TileEntityBasicFluidTankRenderer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.renderers.TileEntityTrunkRenderer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityBasicFluidTank;
@@ -29,6 +31,7 @@ public class ClientProxy implements IModuleProxy {
 				new ModelResourceLocation("steamagerevolution:trunk", "normal"));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBasicFluidTank.class,
 				new TileEntityBasicFluidTankRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTankCasing.class, new MultiblockTankRenderer());
 
 		// ModelLoaderRegistry.registerLoader(ModelCanister.LoaderDynBucketz.instance);
 	}

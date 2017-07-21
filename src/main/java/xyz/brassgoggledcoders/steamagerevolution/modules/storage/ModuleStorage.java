@@ -15,11 +15,14 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockFlu
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockFluidIO;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockTrunk;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.items.ItemCanister;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.BlockTankCasing;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.BlockTankValve;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleStorage extends ModuleBase {
 
 	public static Block trunk, fluidIO, basicFluidTank, fluidHopper;
+	public static Block tankCasing, tankValve;
 	public static Item canister;
 
 	@Override
@@ -37,6 +40,11 @@ public class ModuleStorage extends ModuleBase {
 		blockRegistry.register(basicFluidTank);
 		fluidHopper = new BlockFluidHopper(Material.IRON, "fluid_hopper");
 		blockRegistry.register(fluidHopper);
+
+		tankCasing = new BlockTankCasing(Material.GLASS, "tank_casing");
+		blockRegistry.register(tankCasing);
+		tankValve = new BlockTankValve(Material.IRON, "tank_valve");
+		blockRegistry.register(tankValve);
 	}
 
 	@Override

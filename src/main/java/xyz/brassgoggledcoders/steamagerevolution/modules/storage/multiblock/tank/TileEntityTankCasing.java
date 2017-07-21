@@ -1,10 +1,10 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.crucible.tileentities;
+package xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank;
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-public class TileEntityCrucibleCasing extends TileEntityCruciblePart {
+public class TileEntityTankCasing extends TileEntityTankPart {
 
-	public TileEntityCrucibleCasing() {
+	public TileEntityTankCasing() {
 
 	}
 
@@ -21,6 +21,7 @@ public class TileEntityCrucibleCasing extends TileEntityCruciblePart {
 
 	@Override
 	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
+
 		return true;
 	}
 

@@ -253,6 +253,7 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase implem
 				WORLD.provider.getDimension());
 	}
 
+	@Override
 	public void updateFluid(FluidStack fluid) {
 		if(fluid.getFluid().equals(FluidRegistry.WATER))
 			waterTank.setFluid(fluid);

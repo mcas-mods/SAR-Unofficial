@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.crucible;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
@@ -18,6 +20,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 
 public class ControllerCrucible extends RectangularMultiblockControllerBase implements ISmartTankCallback {
 
@@ -112,30 +115,10 @@ public class ControllerCrucible extends RectangularMultiblockControllerBase impl
 	// FIXME Caching
 	@Override
 	protected void onMachineAssembled() {
-		// TODO Move to Utils
-		BlockPos minimumCoord = this.getMinimumCoord();
-		BlockPos maximumCoord = this.getMaximumCoord();
-		// FMLLog.warning(minimumCoord.toString());
-		// FMLLog.warning(maximumCoord.toString());
-
-		int minX = minimumCoord.getX();
-		int minY = minimumCoord.getY();
-		int minZ = minimumCoord.getZ();
-		int maxX = maximumCoord.getX();
-		int maxY = maximumCoord.getY();
-		int maxZ = maximumCoord.getZ();
-
-		// TODO Can this be simplified. I can't quite visualise what I'm doing here.
-		int interiorMinX = (int) Math.copySign(Math.abs(minX) + Math.signum(minX), minX);
-		int interiorMinY = minY + 1;// Y cannot be negative
-		int interiorMinZ = (int) Math.copySign(Math.abs(minZ) + Math.signum(minZ), minZ);
-
-		int interiorMaxX = (int) Math.copySign(Math.abs(maxX) - Math.signum(maxX), maxX);
-		int interiorMaxY = maxY - 1;
-		int interiorMaxZ = (int) Math.copySign(Math.abs(maxZ) - Math.signum(maxZ), maxZ);
-
-		minimumInteriorPos = new BlockPos(interiorMinX, interiorMinY, interiorMinZ);
-		maximumInteriorPos = new BlockPos(interiorMaxX, interiorMaxY, interiorMaxZ);
+		Pair<BlockPos, BlockPos> interiorPositions =
+				PositionUtils.shrinkPositionCubeBy(this.getMinimumCoord(), this.getMaximumCoord(), 1);
+		this.minimumInteriorPos = interiorPositions.getLeft();
+		this.maximumInteriorPos = interiorPositions.getRight();
 
 		int blocksInside = 0;
 		// TODO Expensive for loop just to increment an integer
@@ -243,6 +226,12 @@ public class ControllerCrucible extends RectangularMultiblockControllerBase impl
 
 	@Override
 	public void onTankContentsChanged(FluidTank tank) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void updateFluid(FluidStack fluid) {
 		// TODO Auto-generated method stub
 
 	}

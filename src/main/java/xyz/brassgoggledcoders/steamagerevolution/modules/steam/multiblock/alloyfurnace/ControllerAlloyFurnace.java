@@ -236,4 +236,10 @@ public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase 
 
 	}
 
+	@Override
+	public void updateFluid(FluidStack fluid) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

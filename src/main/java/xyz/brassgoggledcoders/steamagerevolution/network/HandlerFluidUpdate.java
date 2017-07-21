@@ -1,15 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.network;
 
+import com.teamacronymcoders.base.multiblock.MultiblockTileEntityBase;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.ControllerBoiler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPart;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBench;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityBasicFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 
 public class HandlerFluidUpdate implements IMessageHandler<PacketFluidUpdate, IMessage> {
 	public HandlerFluidUpdate() {
@@ -30,17 +29,13 @@ public class HandlerFluidUpdate implements IMessageHandler<PacketFluidUpdate, IM
 
 	private void processMessage(WorldClient worldClient, PacketFluidUpdate message) {
 		TileEntity te = worldClient.getTileEntity(message.pos);
-		if(te instanceof TileEntityBasicFluidTank) {
-			TileEntityBasicFluidTank tile = (TileEntityBasicFluidTank) te;
+		if(te instanceof ISmartTankCallback) {
+			ISmartTankCallback tile = (ISmartTankCallback) te;
 			tile.updateFluid(message.fluid);
 		}
-		else if(te instanceof TileEntityCastingBench) {
-			TileEntityCastingBench tile = (TileEntityCastingBench) te;
-			tile.updateFluid(message.fluid);
-		}
-		else if(te instanceof TileEntityBoilerPart) {
-			TileEntityBoilerPart tile = (TileEntityBoilerPart) te;
-			ControllerBoiler controller = tile.getMultiblockController();
+		else {
+			MultiblockTileEntityBase<?> tile = (MultiblockTileEntityBase<?>) te;
+			ISmartTankCallback controller = (ISmartTankCallback) tile.getMultiblockController();
 			controller.updateFluid(message.fluid);
 		}
 	}

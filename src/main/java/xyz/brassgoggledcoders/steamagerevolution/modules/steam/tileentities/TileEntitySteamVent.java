@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
@@ -64,6 +65,12 @@ public class TileEntitySteamVent extends TileEntitySlowTick implements ISmartTan
 
 	@Override
 	public void onTankContentsChanged(FluidTank tank) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void updateFluid(FluidStack fluid) {
 		// TODO Auto-generated method stub
 
 	}
