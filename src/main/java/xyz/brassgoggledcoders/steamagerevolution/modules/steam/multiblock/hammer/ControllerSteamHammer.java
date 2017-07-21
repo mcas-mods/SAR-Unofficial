@@ -16,8 +16,8 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 
 public class ControllerSteamHammer extends RectangularMultiblockControllerBase implements ISmartTankCallback {
 

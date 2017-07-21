@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam;
+package xyz.brassgoggledcoders.steamagerevolution.utils;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,7 +9,6 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.utils.GuiUtils;
 
 @SideOnly(Side.CLIENT)
 public class GuiSingleTank extends GuiContainer {

@@ -14,12 +14,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBench;
+import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 
 public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase implements ISmartTankCallback {
 
@@ -66,7 +65,7 @@ public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase 
 			if(hasItems) {
 				AlloyFurnaceRecipe r =
 						AlloyFurnaceRecipe.getRecipe(Pair.of(inputTank1.getFluid(), inputSolid.getStackInSlot(0)));
-				FMLLog.warning(String.valueOf(r != null));
+				// FMLLog.warning(String.valueOf(r != null));
 				if(r != null && (!r.requiresHardCase || isHardened)) {
 					int count = ((ItemStack) r.input.getRight()).getCount();
 					if(inputTank1.drain(r.input.getLeft(), false) != null

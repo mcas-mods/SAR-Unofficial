@@ -41,6 +41,8 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerSteamOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerWaterGauge;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerWaterInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.crucible.blocks.BlockCrucibleCasing;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.crucible.blocks.BlockCrucibleItemInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.SteamFurnaceRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.blocks.BlockFurnaceCasing;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.blocks.BlockFurnaceItemInput;
@@ -66,6 +68,7 @@ public class ModuleSteam extends ModuleBase {
 	public static Block alloyFurnaceController, itemInput, alloyFurnaceFrame, alloyFurnaceHardFrame,
 			alloyFurnaceCoalInput, alloyFurnaceIronInput, alloyFurnaceSteelOutput;
 	public static Block castingBench;
+	public static Block crucibleCasing, crucibleItemInput;
 	public static Block steamhammerHammer, steamhammerAnvil, steamhammerFrame, steamhammerShielding;
 	public static Block steamVent;
 
@@ -177,6 +180,11 @@ public class ModuleSteam extends ModuleBase {
 
 		castingBench = new BlockCastingBench(Material.ANVIL, "casting_bench");
 		blockRegistry.register(castingBench);
+
+		crucibleCasing = new BlockCrucibleCasing(Material.IRON, "crucible_casing");
+		blockRegistry.register(crucibleCasing);
+		crucibleItemInput = new BlockCrucibleItemInput(Material.IRON, "crucible_item_input");
+		blockRegistry.register(crucibleItemInput);
 
 		steamhammerFrame = new BlockSteamHammerFrame(Material.IRON, "steamhammer_frame");
 		blockRegistry.register(steamhammerFrame);

@@ -58,7 +58,7 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 		return super.getCapability(capability, facing);
 	}
 
-	public int getValueFromName(String name) {
+	public static int getValueFromName(String name) {
 		switch(name) {
 			case "ingot":
 				return VALUE_INGOT;

@@ -19,14 +19,13 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureMonitor;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureValve;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 
-// TODO NBT
 public class ControllerBoiler extends RectangularMultiblockControllerBase implements ISmartTankCallback {
 
 	public static final int fuelDivisor = 3;

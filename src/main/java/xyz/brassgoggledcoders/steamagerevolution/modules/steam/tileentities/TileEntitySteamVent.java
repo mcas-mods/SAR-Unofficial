@@ -14,9 +14,9 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteamVent;
+import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 
 public class TileEntitySteamVent extends TileEntitySlowTick implements ISmartTankCallback {
 
