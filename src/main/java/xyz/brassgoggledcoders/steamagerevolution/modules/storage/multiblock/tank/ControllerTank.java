@@ -16,10 +16,12 @@ import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockControllerInfo;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 
-public class ControllerTank extends RectangularMultiblockControllerBase implements ISmartTankCallback {
+public class ControllerTank extends RectangularMultiblockControllerBase
+		implements ISmartTankCallback, IMultiblockControllerInfo {
 
 	public BlockPos minimumInteriorPos;
 	public BlockPos maximumInteriorPos;
@@ -186,6 +188,27 @@ public class ControllerTank extends RectangularMultiblockControllerBase implemen
 	public void updateFluid(FluidStack fluid) {
 		// FMLLog.warning("Fluid was updated");
 		tank.setFluid(fluid);
+	}
+
+	@Override
+	public String getName() {
+		return "Tank";
+	}
+
+	@Override
+	public int getMaxXSize() {
+		return this.getMaximumXSize();
+	}
+
+	@Override
+	public int getMaxYSize() {
+		// TODO Auto-generated method stub
+		return this.getMaximumYSize();
+	}
+
+	@Override
+	public int getMaxZSize() {
+		return this.getMaximumZSize();
 	}
 
 }

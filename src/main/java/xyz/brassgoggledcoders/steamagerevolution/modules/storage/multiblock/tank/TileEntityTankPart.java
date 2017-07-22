@@ -3,7 +3,11 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tan
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 
-public abstract class TileEntityTankPart extends RectangularMultiblockTileEntityBase<ControllerTank> {
+import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockControllerInfo;
+import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockTileInfo;
+
+public abstract class TileEntityTankPart extends RectangularMultiblockTileEntityBase<ControllerTank>
+		implements IMultiblockTileInfo {
 
 	@Override
 	public Class<? extends MultiblockControllerBase> getMultiblockControllerType() {
@@ -19,5 +23,21 @@ public abstract class TileEntityTankPart extends RectangularMultiblockTileEntity
 	@Override
 	public MultiblockControllerBase createNewMultiblock() {
 		return new ControllerTank(getWorld());
+	}
+
+	@Override
+	public IMultiblockControllerInfo getControllerInfo() {
+		return new ControllerTank(null);
+	}
+
+	@Override
+	public boolean[] getValidPositions() {
+		return new boolean[] {isGoodForFrame(null), isGoodForSides(null), isGoodForTop(null), isGoodForBottom(null),
+				isGoodForInterior(null)};
+	}
+
+	@Override
+	public String getPartFunction() {
+		return null;
 	}
 }
