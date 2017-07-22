@@ -2,9 +2,9 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tan
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.steamagerevolution.utils.RenderUtil;
 
 public class MultiblockTankRenderer extends TileEntitySpecialRenderer<TileEntityTankCasing> {
@@ -20,16 +20,20 @@ public class MultiblockTankRenderer extends TileEntitySpecialRenderer<TileEntity
 			ControllerTank t = tile.getMultiblockController();
 			FluidTank tank = t.tank;
 			FluidStack fluid = tank.getFluid();
+			double x1 = t.minimumInteriorPos.getX() - tile.getPos().getX();
+			double y1 = t.minimumInteriorPos.getY() - tile.getPos().getY();
+			double z1 = t.minimumInteriorPos.getZ() - tile.getPos().getZ();
+
+			double x2 = t.maximumInteriorPos.getX() - tile.getPos().getX();
+			double z2 = t.maximumInteriorPos.getZ() - tile.getPos().getZ();
 
 			if(fluid != null) {
-				// FMLLog.warning("Fluid is not null");
+				BlockPos minPos = new BlockPos(x1, y1, z1);
+				BlockPos maxPos = new BlockPos(x2, y1, z2);
 				float d = RenderUtil.FLUID_OFFSET;
-				int yd = 1 + Math.max(0, t.maximumInteriorPos.getY() - t.maximumInteriorPos.getY());
-				int height = yd * 1000 - (int) (d * 2000d);
-				FMLLog.warning("Trying render" + height);
-				RenderUtil.renderStackedFluidCuboid(fluid, x, y, z, tile.getPos(), t.minimumInteriorPos,
-						t.maximumInteriorPos, d, height);
-				// RenderUtil.renderFluidCuboid(liquid, tile.getPos(), x, y, z, d, d, d, 1d - d, height - d, 1d - d);
+				int yd = 1 + Math.max(0, t.maximumInteriorPos.getY() - t.minimumInteriorPos.getY());
+				double height = (((float) fluid.amount / (float) tank.getCapacity())) / yd;
+				RenderUtil.renderStackedFluidCuboid(fluid, x, y, z, tile.getPos(), minPos, maxPos, d, height - d);
 			}
 		}
 	}
