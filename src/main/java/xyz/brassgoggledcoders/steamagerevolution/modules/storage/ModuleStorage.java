@@ -17,12 +17,13 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockTru
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.items.ItemCanister;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.BlockTankCasing;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.BlockTankValve;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.BlockTankWindow;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleStorage extends ModuleBase {
 
 	public static Block trunk, fluidIO, basicFluidTank, fluidHopper;
-	public static Block tankCasing, tankValve;
+	public static Block tankCasing, tankValve, tankWindow;
 	public static Item canister;
 
 	@Override
@@ -41,10 +42,12 @@ public class ModuleStorage extends ModuleBase {
 		fluidHopper = new BlockFluidHopper(Material.IRON, "fluid_hopper");
 		blockRegistry.register(fluidHopper);
 
-		tankCasing = new BlockTankCasing(Material.GLASS, "tank_casing");
+		tankCasing = new BlockTankCasing(Material.ROCK, "tank_casing");
 		blockRegistry.register(tankCasing);
 		tankValve = new BlockTankValve(Material.IRON, "tank_valve");
 		blockRegistry.register(tankValve);
+		tankWindow = new BlockTankWindow(Material.GLASS, "tank_window");
+		blockRegistry.register(tankWindow);
 	}
 
 	@Override

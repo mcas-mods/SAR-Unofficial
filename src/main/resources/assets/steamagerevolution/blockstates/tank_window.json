@@ -2,7 +2,7 @@
     "forge_marker": 1,
     "defaults": {
         "model": "cube_all",
-        "textures": { "all": "minecraft:blocks/iron_block", "particle": "#all" },
+        "textures": { "all": "minecraft:blocks/glass", "particle": "#all" },
         "transform": "forge:default-block"
     },
     "variants": {
