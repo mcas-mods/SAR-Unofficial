@@ -16,6 +16,7 @@ import com.teamacronymcoders.base.modulesystem.ModuleBase;
 
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.MaterialPartMetalBlock;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleMaterials extends ModuleBase {
@@ -38,10 +39,10 @@ public class ModuleMaterials extends ModuleBase {
 
 			SAR.registerPartsForMaterial(steel, alloyParts);
 			// SAR.registerMaterialPart(moltenSteel);
-			SAR.registerMaterialPart(new MaterialPart(SAR, brass, storageMetal));
+			SAR.registerMaterialPart(new MaterialPartMetalBlock(SAR, brass, storageMetal));
 			SAR.registerPartsForMaterial(brass, alloyParts);
 			// SAR.registerMaterialPart(moltenBrass);
-			SAR.registerMaterialPart(new MaterialPart(SAR, steel, storageMetal));
+			SAR.registerMaterialPart(new MaterialPartMetalBlock(SAR, steel, storageMetal));
 		}
 		catch(MaterialException e) {
 			// TODO Auto-generated catch block
