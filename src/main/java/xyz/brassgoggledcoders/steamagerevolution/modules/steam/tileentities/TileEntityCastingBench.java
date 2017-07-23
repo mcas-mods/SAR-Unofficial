@@ -19,6 +19,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
@@ -98,63 +99,72 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable 
 					new PacketFluidUpdate(getPos(), tank.getFluid()), getPos(), getWorld().provider.getDimension());
 			lastFluidValue = this.tank.getFluidAmount();
 		}
-
-		ItemStack stack = this.internal.getStackInSlot(0);
-
-		// Melting Logic TODO Cache this check
-		if(getWorld().getBlockState(getPos().down()).getMaterial() == Material.LAVA) {
-			if(!stack.isEmpty()) {
-				String[] splitName = null;
-				// TODO Caching. This *should* never change at runtime.
-				for(int oreId : OreDictionary.getOreIDs(stack)) {
-					splitName = OreDictionary.getOreName(oreId).split("(?=[A-Z])");
-					if(splitName.length != 2)
-						return;
-					if(FluidRegistry.isFluidRegistered(splitName[1].toLowerCase())) {
-						break;
-					}
+		if(stateChangeTime == 0) {
+			// Melting Logic TODO Cache this check
+			if(getWorld().getBlockState(getPos().down()).getMaterial() == Material.LAVA) {
+				if(meltMetal(internal, tank)) {
+					stateChangeTime = 2400;
 				}
-				if(splitName != null) {
-					if(stateChangeTime == 0) {
-						Fluid fluid = FluidRegistry.getFluid(splitName[1].toLowerCase());
-						int value = getValueFromName(splitName[0].toLowerCase()) * stack.getCount();
-						if(value != 0) {
-							FluidStack toInsert = new FluidStack(fluid, value);
-							if(tank.fill(toInsert, false) == value) {
-								tank.fill(toInsert, true);
-								stack.shrink(1);
-							}
-						}
-					}
-					else {
-						stateChangeTime--;
-					}
+			}
+			// Cooling Logic
+			else {
+				if(solidifyMetal(tank, internal)) {
+					stateChangeTime = 2400;
 				}
 			}
 		}
-		// Cooling Logic
 		else {
-			if(this.tank.getFluid() != null && this.tank.drain(VALUE_BLOCK, false).amount == VALUE_BLOCK
-					&& stack.isEmpty()) {
-				String oreName = "block" + StringUtils.capitalize(FluidRegistry.getFluidName(this.tank.getFluid()));
-				if(OreDictionary.doesOreNameExist(oreName)) {
-					if(stateChangeTime == 0) {
-						this.tank.drain(VALUE_BLOCK, true);
-						ItemStack toInsert = OreDictionary.getOres(oreName).get(0);
-						toInsert.setCount(1);
-						this.internal.insertItem(0, toInsert, false);
-						stateChangeTime = 2400;
-					}
-					else {
-						stateChangeTime--;
-					}
-				}
-			}
+			stateChangeTime--;
 		}
 	}
 
 	@SideOnly(Side.CLIENT)
 	public void updateFluid(FluidStack fluid) {
 		this.tank.setFluid(fluid);
+	}
+
+	public static boolean meltMetal(ItemStackHandler source, FluidTank destination) {
+		for(int i = 0; i < source.getSlots(); i++) {
+			ItemStack stack = source.getStackInSlot(0);
+			if(!stack.isEmpty()) {
+				String[] splitName = null;
+				// TODO Caching. This *should* never change at runtime.
+				for(int oreId : OreDictionary.getOreIDs(stack)) {
+					splitName = OreDictionary.getOreName(oreId).split("(?=[A-Z])");
+					if(splitName.length != 2)
+						return false;
+					if(FluidRegistry.isFluidRegistered(splitName[1].toLowerCase())) {
+						break;
+					}
+				}
+				if(splitName != null) {
+					Fluid fluid = FluidRegistry.getFluid(splitName[1].toLowerCase());
+					int value = getValueFromName(splitName[0].toLowerCase()) * stack.getCount();
+					if(value != 0) {
+						FluidStack toInsert = new FluidStack(fluid, value);
+						if(destination.fill(toInsert, false) == value) {
+							destination.fill(toInsert, true);
+							stack.shrink(1);
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	public static boolean solidifyMetal(FluidTank source, ItemStackHandler destination) {
+		if(source.getFluid() != null && source.getFluidAmount() >= VALUE_BLOCK) {
+			String oreName = "block" + StringUtils.capitalize(FluidRegistry.getFluidName(source.getFluid()));
+			if(OreDictionary.doesOreNameExist(oreName)) {
+				source.drain(VALUE_BLOCK, true);
+				ItemStack toInsert = OreDictionary.getOres(oreName).get(0);
+				toInsert.setCount(1);
+				ItemHandlerHelper.insertItemStacked(destination, toInsert, false);
+				return true;
+			}
+		}
+		return false;
 	}
 }

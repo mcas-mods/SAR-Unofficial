@@ -1,5 +1,10 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+
 import com.teamacronymcoders.base.blocks.BlockFluidBase;
 import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.modulesystem.Module;
@@ -15,12 +20,16 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockCastingBench;
@@ -74,6 +83,8 @@ public class ModuleSteam extends ModuleBase {
 
 	public static Item charcoalPowder;
 
+	public static List<String> knownMetalTypes = new ArrayList<String>();
+
 	@Override
 	public String getName() {
 		return "Steam";
@@ -82,6 +93,11 @@ public class ModuleSteam extends ModuleBase {
 	@Override
 	public String getClientProxyPath() {
 		return "xyz.brassgoggledcoders.steamagerevolution.modules.steam.ClientProxy";
+	}
+
+	@Override
+	public void preInit(FMLPreInitializationEvent event) {
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
@@ -203,5 +219,29 @@ public class ModuleSteam extends ModuleBase {
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
 		charcoalPowder = new ItemBase("charcoal_powder");
 		itemRegistry.register(charcoalPowder);
+	}
+
+	@Override
+	public void postInit(FMLPostInitializationEvent event) {
+		for(String metal : knownMetalTypes) {
+			if(FluidRegistry.isFluidRegistered(metal)) {
+				for(ItemStack metalBlock : OreDictionary.getOres("block" + StringUtils.capitalize(metal), false)) {
+					MoltenMetalRecipe.addMelting(metalBlock, FluidRegistry.getFluid(metal));
+				}
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public void onOreRegistered(OreDictionary.OreRegisterEvent event) {
+		String name = event.getName();
+		String[] splitName = name.split("(?=[A-Z])");
+		if(splitName.length == 2) {
+			if(splitName[1].equals("ingot")) {
+				String metalType = splitName[0].toLowerCase();
+				if(!knownMetalTypes.contains(metalType))
+					knownMetalTypes.add(metalType);
+			}
+		}
 	}
 }
