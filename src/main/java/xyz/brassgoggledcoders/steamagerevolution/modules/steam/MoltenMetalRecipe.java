@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public class MoltenMetalRecipe {
 	public final ItemStack solid;
@@ -17,6 +18,8 @@ public class MoltenMetalRecipe {
 	private static ArrayList<MoltenMetalRecipe> recipeList = new ArrayList<MoltenMetalRecipe>();
 
 	public static void addMelting(ItemStack metal, Fluid fluid) {
+		SteamAgeRevolution.instance.getLogger()
+				.devInfo("Registering melting for " + metal.getDisplayName() + " " + fluid.getName());
 		metal.setCount(1);
 		recipeList.add(new MoltenMetalRecipe(metal, fluid));
 	}

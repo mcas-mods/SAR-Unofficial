@@ -70,8 +70,8 @@ dependencies {
     //deobfCompile "MCMultiPart:MCMultiPart-experimental:${mcmultipart_version}:universal"
     //deobfCompile "com.enderio.core:EnderCore:${minecraft_version}-${ecore_version}"
     //deobfCompile "com.enderio:EnderIO:${minecraft_version}-${eio_version}"
-    //deobfCompile "slimeknights:TConstruct:${minecraft_version}-${tinkers_version}"
-    //deobfCompile "slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}"
+    deobfCompile "slimeknights:TConstruct:${minecraft_version}-${tinkers_version}"
+    deobfCompile "slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}"
     //deobfCompile "team.chisel:Chisel:MC1.10.2-0.0.7.7"
 }
 

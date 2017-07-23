@@ -21,7 +21,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -68,7 +67,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer
 public class ModuleSteam extends ModuleBase {
 
 	public static Fluid steam;
-	public static BlockFluidClassic steamBlock;
+	public static BlockFluidBase steamBlock;
 
 	public static Block boilerCasing, boilerWaterInput, boilerSolidFirebox, boilerLiquidFirebox, boilerSteamOutput,
 			boilerWaterGauge, boilerSteamGauge, boilerPressureMonitor, boilerPressureValve;
@@ -98,6 +97,7 @@ public class ModuleSteam extends ModuleBase {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(this);
+		super.preInit(event);
 	}
 
 	@Override
@@ -116,9 +116,9 @@ public class ModuleSteam extends ModuleBase {
 		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.COBBLESTONE), new ItemStack(Blocks.GRAVEL));
 		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.DIRT), new ItemStack(Items.DIAMOND), "test");
 
-		AlloyFurnaceRecipe.addAlloyFurnaceRecipe(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME),
-				new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME),
-				new FluidStack(FluidRegistry.getFluid("steam"), Fluid.BUCKET_VOLUME));
+		// AlloyFurnaceRecipe.addAlloyFurnaceRecipe(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME),
+		// new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME),
+		// new FluidStack(FluidRegistry.getFluid("steam"), Fluid.BUCKET_VOLUME));
 		AlloyFurnaceRecipe.addAlloyFurnaceRecipe(new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME),
 				new ItemStack(Items.COAL), new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME));
 
@@ -137,9 +137,9 @@ public class ModuleSteam extends ModuleBase {
 		if(!(FluidRegistry.isFluidRegistered(steam))) { // Soft registration
 			FluidRegistry.registerFluid(steam);
 			FluidRegistry.addBucketForFluid(steam);
-			steamBlock = new BlockFluidBase("steam", steam, Material.LAVA);
-			blockRegistry.register(steamBlock);
 		}
+		steamBlock = new BlockFluidBase("steam", steam, Material.LAVA);
+		blockRegistry.register(steamBlock);
 
 		boilerCasing = new BlockBoilerCasing(Material.IRON, "boiler_casing");
 		blockRegistry.register(boilerCasing);
@@ -230,6 +230,7 @@ public class ModuleSteam extends ModuleBase {
 				}
 			}
 		}
+		super.postInit(event);
 	}
 
 	@SubscribeEvent
@@ -237,10 +238,12 @@ public class ModuleSteam extends ModuleBase {
 		String name = event.getName();
 		String[] splitName = name.split("(?=[A-Z])");
 		if(splitName.length == 2) {
-			if(splitName[1].equals("ingot")) {
-				String metalType = splitName[0].toLowerCase();
-				if(!knownMetalTypes.contains(metalType))
+			if(splitName[0].equals("ingot")) {
+				String metalType = splitName[1].toLowerCase();
+				if(!knownMetalTypes.contains(metalType)) {
 					knownMetalTypes.add(metalType);
+					SteamAgeRevolution.instance.getLogger().devInfo("Metal type detected: " + metalType);
+				}
 			}
 		}
 	}
