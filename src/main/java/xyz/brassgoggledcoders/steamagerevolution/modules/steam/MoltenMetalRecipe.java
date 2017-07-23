@@ -30,13 +30,13 @@ public class MoltenMetalRecipe {
 				return r.solid;
 			}
 		}
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	public static Fluid getMoltenFromSolid(ItemStack solid) {
 		solid.setCount(1);
 		for(MoltenMetalRecipe r : recipeList) {
-			if(ItemStack.areItemStacksEqual(solid, r.solid)) {
+			if(solid.isItemEqual(r.solid)) {
 				return r.melted;
 			}
 		}
