@@ -5,5 +5,7 @@ public interface IMultiblockTileInfo {
 
 	public boolean[] getValidPositions();
 
-	public String getPartFunction();
+	public default String getPartFunction() {
+		return null;
+	}
 }
