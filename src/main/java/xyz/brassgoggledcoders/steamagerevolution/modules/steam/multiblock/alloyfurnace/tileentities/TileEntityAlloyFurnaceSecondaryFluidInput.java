@@ -10,19 +10,19 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.ControllerAlloyFurnace;
 
-public class TileEntityAlloyFurnaceFluidOutput extends TileEntityAlloyFurnacePart {
+public class TileEntityAlloyFurnaceSecondaryFluidInput extends TileEntityAlloyFurnacePart {
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-		return (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+		return (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.isConnected())
 				|| super.hasCapability(capability, facing);
 	}
 
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.isConnected()) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
-					.cast(((ControllerAlloyFurnace) this.getMultiblockController()).outputTank);
+					.cast(((ControllerAlloyFurnace) this.getMultiblockController()).secondaryTank);
 		}
 		return super.getCapability(capability, facing);
 	}
@@ -41,4 +41,5 @@ public class TileEntityAlloyFurnaceFluidOutput extends TileEntityAlloyFurnacePar
 	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
 		return true;
 	}
+
 }

@@ -16,7 +16,7 @@ import com.teamacronymcoders.base.modulesystem.ModuleBase;
 
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.MaterialPartMetalBlock;
+import xyz.brassgoggledcoders.steamagerevolution.utils.MaterialPartMetalBlock;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleMaterials extends ModuleBase {

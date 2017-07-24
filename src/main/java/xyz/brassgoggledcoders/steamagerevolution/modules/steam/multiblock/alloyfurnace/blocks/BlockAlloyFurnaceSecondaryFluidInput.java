@@ -4,23 +4,24 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.tileentities.TileEntityAlloyFurnaceHardFrame;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.tileentities.TileEntityAlloyFurnaceSecondaryFluidInput;
 import xyz.brassgoggledcoders.steamagerevolution.utils.BlockMultiblockBase;
 
-public class BlockAlloyFurnaceHardFrame extends BlockMultiblockBase<TileEntityAlloyFurnaceHardFrame> {
+public class BlockAlloyFurnaceSecondaryFluidInput
+		extends BlockMultiblockBase<TileEntityAlloyFurnaceSecondaryFluidInput> {
 
-	public BlockAlloyFurnaceHardFrame(Material material, String name) {
+	public BlockAlloyFurnaceSecondaryFluidInput(Material material, String name) {
 		super(material, name);
 	}
 
 	@Override
 	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityAlloyFurnaceHardFrame.class;
+		return TileEntityAlloyFurnaceSecondaryFluidInput.class;
 	}
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityAlloyFurnaceHardFrame();
+		return new TileEntityAlloyFurnaceSecondaryFluidInput();
 	}
 
 }

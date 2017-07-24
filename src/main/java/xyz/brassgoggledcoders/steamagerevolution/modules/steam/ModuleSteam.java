@@ -23,7 +23,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -35,11 +34,12 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockCasti
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteamVent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.AlloyFurnaceRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceController;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFluidInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFluidOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceHardFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceItemInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnacePrimaryFluidInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceSecondaryFluidInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerCasing;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerLiquidFirebox;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerPressureMonitor;
@@ -62,6 +62,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.BlockSteamHammerHammer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.BlockSteamHammerShielding;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.SteamHammerRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBench;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleSteam extends ModuleBase {
@@ -73,8 +74,8 @@ public class ModuleSteam extends ModuleBase {
 			boilerWaterGauge, boilerSteamGauge, boilerPressureMonitor, boilerPressureValve;
 	public static Block steamTurbine, mechanicalOutput, steamInput, turbineFrame;
 	public static Block furnaceCasing, furnaceItemInput, furnaceItemOutput, furnaceSteamInput, furnaceMonitor;
-	public static Block alloyFurnaceController, itemInput, alloyFurnaceFrame, alloyFurnaceHardFrame,
-			alloyFurnaceCoalInput, alloyFurnaceIronInput, alloyFurnaceSteelOutput;
+	public static Block alloyFurnaceController, alloyFurnaceFrame, alloyFurnaceHardFrame, alloyFurnaceItemInput,
+			alloyFurnacePrimaryFluidInput, alloyFurnaceSecondaryFluidInput, alloyFurnaceFluidOutput;
 	public static Block castingBench;
 	public static Block crucibleCasing, crucibleItemInput;
 	public static Block steamhammerHammer, steamhammerAnvil, steamhammerFrame, steamhammerShielding;
@@ -116,11 +117,11 @@ public class ModuleSteam extends ModuleBase {
 		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.COBBLESTONE), new ItemStack(Blocks.GRAVEL));
 		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.DIRT), new ItemStack(Items.DIAMOND), "test");
 
-		// AlloyFurnaceRecipe.addAlloyFurnaceRecipe(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME),
-		// new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME),
-		// new FluidStack(FluidRegistry.getFluid("steam"), Fluid.BUCKET_VOLUME));
-		AlloyFurnaceRecipe.addAlloyFurnaceRecipe(new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME),
-				new ItemStack(Items.COAL), new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME));
+		// AlloyFurnaceRecipe.addAlloyFurnaceRecipe(FluidRegistry.getFluid("copper"), FluidRegistry.getFluid("zinc"),
+		// output);
+		AlloyFurnaceRecipe.addUpgradedAlloyFurnaceRecipe(
+				FluidRegistry.getFluidStack("iron", TileEntityCastingBench.VALUE_INGOT), new ItemStack(Items.COAL, 2),
+				FluidRegistry.getFluidStack("steel", TileEntityCastingBench.VALUE_INGOT));
 
 		OreDictionary.registerOre("dustCharcoal", charcoalPowder);
 		super.init(event);
@@ -167,12 +168,16 @@ public class ModuleSteam extends ModuleBase {
 		blockRegistry.register(alloyFurnaceFrame);
 		alloyFurnaceHardFrame = new BlockAlloyFurnaceHardFrame(Material.ROCK, "alloy_furnace_hard_frame");
 		blockRegistry.register(alloyFurnaceHardFrame);
-		alloyFurnaceCoalInput = new BlockAlloyFurnaceItemInput(Material.ROCK, "alloy_furnace_item_input");
-		blockRegistry.register(alloyFurnaceCoalInput);
-		alloyFurnaceIronInput = new BlockAlloyFurnaceFluidInput(Material.ROCK, "alloy_furnace_fluid_input");
-		blockRegistry.register(alloyFurnaceIronInput);
-		alloyFurnaceSteelOutput = new BlockAlloyFurnaceFluidOutput(Material.ROCK, "alloy_furnace_fluid_output");
-		blockRegistry.register(alloyFurnaceSteelOutput);
+		alloyFurnaceItemInput = new BlockAlloyFurnaceItemInput(Material.ROCK, "alloy_furnace_item_input");
+		blockRegistry.register(alloyFurnaceItemInput);
+		alloyFurnacePrimaryFluidInput =
+				new BlockAlloyFurnacePrimaryFluidInput(Material.ROCK, "alloy_furnace_primary_fluid_input");
+		blockRegistry.register(alloyFurnacePrimaryFluidInput);
+		alloyFurnaceSecondaryFluidInput =
+				new BlockAlloyFurnaceSecondaryFluidInput(Material.ROCK, "alloy_furnace_secondary_fluid_input");
+		blockRegistry.register(alloyFurnaceSecondaryFluidInput);
+		alloyFurnaceFluidOutput = new BlockAlloyFurnaceFluidOutput(Material.ROCK, "alloy_furnace_fluid_output");
+		blockRegistry.register(alloyFurnaceFluidOutput);
 
 		furnaceCasing = new BlockFurnaceCasing(Material.IRON, "furnace_casing");
 		blockRegistry.register(furnaceCasing);
