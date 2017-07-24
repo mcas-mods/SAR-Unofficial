@@ -49,6 +49,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerSteamOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerWaterGauge;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerWaterInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.crucible.MoltenMetalRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.crucible.blocks.BlockCrucibleCasing;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.crucible.blocks.BlockCrucibleItemInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.SteamFurnaceRecipe;

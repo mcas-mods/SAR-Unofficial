@@ -17,9 +17,11 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockControllerInfo;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 
-public class ControllerSteamFurnace extends RectangularMultiblockControllerBase implements ISmartTankCallback {
+public class ControllerSteamFurnace extends RectangularMultiblockControllerBase
+		implements ISmartTankCallback, IMultiblockControllerInfo {
 
 	public ItemStackHandler inputInventory = new ItemStackHandler(1);
 	public ItemStackHandler outputInventory = new ItemStackHandler(3);
@@ -270,6 +272,26 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase 
 	public void updateFluid(FluidStack fluid) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public String getName() {
+		return "Steam Furnace";
+	}
+
+	@Override
+	public int getMaxXSize() {
+		return this.getMaximumXSize();
+	}
+
+	@Override
+	public int getMaxYSize() {
+		return this.getMaximumYSize();
+	}
+
+	@Override
+	public int getMaxZSize() {
+		return this.getMaximumZSize();
 	}
 
 }

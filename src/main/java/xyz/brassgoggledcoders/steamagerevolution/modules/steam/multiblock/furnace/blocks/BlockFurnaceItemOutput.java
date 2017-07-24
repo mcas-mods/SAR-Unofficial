@@ -1,14 +1,13 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.blocks;
 
-import com.teamacronymcoders.base.blocks.BlockTEBase;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.tileentities.TileEntityFurnaceItemOutput;
+import xyz.brassgoggledcoders.steamagerevolution.utils.BlockMultiblockBase;
 
-public class BlockFurnaceItemOutput extends BlockTEBase<TileEntityFurnaceItemOutput> {
+public class BlockFurnaceItemOutput extends BlockMultiblockBase<TileEntityFurnaceItemOutput> {
 
 	public BlockFurnaceItemOutput(Material material, String name) {
 		super(material, name);

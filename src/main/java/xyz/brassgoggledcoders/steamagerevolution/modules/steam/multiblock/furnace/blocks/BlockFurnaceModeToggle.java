@@ -1,7 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.blocks;
 
 import com.sun.xml.internal.ws.util.StringUtils;
-import com.teamacronymcoders.base.blocks.BlockTEBase;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -14,8 +13,9 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.ControllerSteamFurnace;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.tileentities.TileEntityFurnaceModeToggle;
+import xyz.brassgoggledcoders.steamagerevolution.utils.BlockMultiblockBase;
 
-public class BlockFurnaceModeToggle extends BlockTEBase<TileEntityFurnaceModeToggle> {
+public class BlockFurnaceModeToggle extends BlockMultiblockBase<TileEntityFurnaceModeToggle> {
 
 	public BlockFurnaceModeToggle(Material material, String name) {
 		super(material, name);

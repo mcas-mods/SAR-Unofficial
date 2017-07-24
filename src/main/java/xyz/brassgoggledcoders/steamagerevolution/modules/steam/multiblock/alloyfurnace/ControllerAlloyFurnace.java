@@ -11,7 +11,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
@@ -76,7 +75,6 @@ public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase
 								primaryTank.drain(r.primaryInput.amount, true);
 								inputSolid.extractItem(0, r.secondaryInput.getCount(), false);
 								outputTank.fill(r.output, true);
-								FMLLog.warning("" + outputTank.getFluidAmount());
 								flag = true;
 							}
 						}

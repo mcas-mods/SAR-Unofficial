@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.crucible;
 
 import java.util.ArrayList;
 

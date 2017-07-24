@@ -5,12 +5,26 @@ import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTi
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.ControllerSteamFurnace;
+import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockControllerInfo;
+import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockTileInfo;
 
-public abstract class TileEntityFurnacePart extends RectangularMultiblockTileEntityBase<ControllerSteamFurnace> {
+public abstract class TileEntityFurnacePart extends RectangularMultiblockTileEntityBase<ControllerSteamFurnace>
+		implements IMultiblockTileInfo {
 
 	@Override
 	public Class<ControllerSteamFurnace> getMultiblockControllerType() {
 		return ControllerSteamFurnace.class;
+	}
+
+	@Override
+	public boolean[] getValidPositions() {
+		return new boolean[] {isGoodForFrame(null), isGoodForSides(null), isGoodForTop(null), isGoodForBottom(null),
+				isGoodForInterior(null)};
+	}
+
+	@Override
+	public IMultiblockControllerInfo getControllerInfo() {
+		return new ControllerSteamFurnace(null);
 	}
 
 	@Override
