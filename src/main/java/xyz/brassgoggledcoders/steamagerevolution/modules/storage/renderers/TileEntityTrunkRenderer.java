@@ -1,7 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.renderers;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -18,15 +16,15 @@ public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntit
 	private final ModelChest simpleChest = new ModelChest();
 
 	@Override
-	public void renderTileEntityFast(@Nonnull TileEntityTrunk te, double x, double y, double z, float partialTicks,
-			int destroyStage, float partial, net.minecraft.client.renderer.BufferBuilder buffer) {
+	public void render(TileEntityTrunk tile, double x, double y, double z, float partialTicks, int destroyStage,
+			float alpha) {
 		GlStateManager.enableDepth();
 		GlStateManager.depthFunc(515);
 		GlStateManager.depthMask(true);
 		int i;
 
-		if(te != null && te.hasWorld()) {
-			i = te.getBlockMetadata();
+		if(tile != null && tile.hasWorld()) {
+			i = tile.getBlockMetadata();
 		}
 		else
 			i = 0;
@@ -69,8 +67,8 @@ public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntit
 		GlStateManager.rotate(j, 0.0F, 1.0F, 0.0F);
 		GlStateManager.translate(-0.5F, -0.5F, -0.5F);
 		float f = 0;
-		if(te != null) {
-			f = te.prevLidAngle + (te.lidAngle - te.prevLidAngle) * partialTicks;
+		if(tile != null) {
+			f = tile.prevLidAngle + (tile.lidAngle - tile.prevLidAngle) * partialTicks;
 		}
 
 		f = 1.0F - f;
