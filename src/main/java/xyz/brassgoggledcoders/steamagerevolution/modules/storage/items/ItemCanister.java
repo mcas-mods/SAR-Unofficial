@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.teamacronymcoders.base.items.IHasSubItems;
 import com.teamacronymcoders.base.items.ItemBase;
 
@@ -41,7 +43,7 @@ public class ItemCanister extends ItemBase implements IHasSubItems {
 			tooltip.add("Empty");
 		}
 		else {
-			tooltip.add(FluidRegistry.getFluidName(fluid));
+			tooltip.add(StringUtils.capitalize(FluidRegistry.getFluidName(fluid)));
 		}
 		tooltip.add(fluid.amount + "mB/" + capacity + "mB");
 	}

@@ -1,6 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.blocks;
 
-import com.sun.xml.internal.ws.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
