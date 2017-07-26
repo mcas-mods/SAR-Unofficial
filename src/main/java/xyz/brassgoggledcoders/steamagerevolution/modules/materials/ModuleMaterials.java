@@ -38,10 +38,10 @@ public class ModuleMaterials extends ModuleBase {
 			MaterialPart moltenSteel = new MaterialPart(SAR, steel, moltenMetal);
 
 			SAR.registerPartsForMaterial(steel, alloyParts);
-			// SAR.registerMaterialPart(moltenSteel);
+			SAR.registerMaterialPart(moltenSteel);
 			SAR.registerMaterialPart(new MaterialPartMetalBlock(SAR, brass, storageMetal));
 			SAR.registerPartsForMaterial(brass, alloyParts);
-			// SAR.registerMaterialPart(moltenBrass);
+			SAR.registerMaterialPart(moltenBrass);
 			SAR.registerMaterialPart(new MaterialPartMetalBlock(SAR, steel, storageMetal));
 		}
 		catch(MaterialException e) {

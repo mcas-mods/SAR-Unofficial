@@ -4,7 +4,6 @@ import com.teamacronymcoders.base.tileentities.TileEntitySlowTick;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -13,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.ModulePneumatic;
 import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.blocks.BlockPneumaticTube;
@@ -39,12 +39,14 @@ public class TileEntitySender extends TileEntitySlowTick {
 
 		if(sendInventory != null && recieveInventory != null) {
 			// TODO Rewrite inventory handling
-			if(recieveInventory.getStackInSlot(0).isEmpty() || recieveInventory.getStackInSlot(0)
-					.getCount() < recieveInventory.getStackInSlot(0).getMaxStackSize()) {
-				if(recieveInventory.insertItem(0, sendInventory.getStackInSlot(0).splitStack(rate),
-						false) == ItemStack.EMPTY) {
+			for(int i = 0; i < sendInventory.getSlots(); i++) {
+				if(ItemHandlerHelper
+						.insertItem(recieveInventory, sendInventory.getStackInSlot(i).copy().splitStack(1), true)
+						.isEmpty()) {
 					this.getWorld().playSound(null, this.getPos(), SoundEvents.ENTITY_CAT_HISS, SoundCategory.BLOCKS, 1,
 							1);
+					ItemHandlerHelper.insertItem(recieveInventory, sendInventory.getStackInSlot(i).splitStack(1),
+							false);
 					for(int i2 = 0; i2 < maxDistance; i2++) {
 						if(tubePositions[i2] != null) {
 							SteamAgeRevolution.proxy.spawnSmoke(this.getPos());
