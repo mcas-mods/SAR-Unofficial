@@ -229,6 +229,8 @@ public class ModuleSteam extends ModuleBase {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
+		knownMetalTypes.add("iron");
+		knownMetalTypes.add("gold");
 		for(String metal : knownMetalTypes) {
 			if(FluidRegistry.isFluidRegistered(metal)) {
 				for(ItemStack metalBlock : OreDictionary.getOres("block" + StringUtils.capitalize(metal), false)) {
