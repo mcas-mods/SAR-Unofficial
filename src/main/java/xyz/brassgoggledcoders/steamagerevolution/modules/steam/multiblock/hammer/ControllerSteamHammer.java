@@ -17,7 +17,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
@@ -149,7 +148,6 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase
 						WORLD.playSound(null, center.getX() + .5F, center.getY(), center.getZ() + .5F,
 								SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1F, 1F);
 						SteamAgeRevolution.proxy.spawnFX(EnumParticleTypes.FLAME, center);
-						FMLLog.warning(new AxisAlignedBB(center).expand(1, 2, 1).toString());
 						for(EntityLivingBase entity : WORLD.getEntitiesWithinAABB(EntityLivingBase.class,
 								new AxisAlignedBB(center).expand(1, 2, 1))) {
 							entity.attackEntityFrom(ModuleSteam.hammer, entity.getMaxHealth());
