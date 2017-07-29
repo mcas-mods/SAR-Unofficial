@@ -19,6 +19,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
@@ -86,6 +87,9 @@ public class ModuleSteam extends ModuleBase {
 	public static Item charcoalPowder, die;
 
 	public static List<String> knownMetalTypes = new ArrayList<String>();
+
+	public static DamageSource hammer =
+			new DamageSource("hammer").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
 
 	@Override
 	public String getName() {

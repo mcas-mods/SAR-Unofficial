@@ -49,9 +49,6 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 			serverSide = "xyz.brassgoggledcoders.steamagerevolution.proxies.CommonProxy")
 	public static xyz.brassgoggledcoders.steamagerevolution.proxies.CommonProxy proxy;
 
-	// public static DamageSource belt =
-	// new DamageSource("belt").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
-
 	@Override
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {

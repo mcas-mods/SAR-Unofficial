@@ -5,18 +5,22 @@ import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockControllerInfo;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
@@ -28,6 +32,7 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase
 	public FluidTank tank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this);
 	public String dieType = "";
 	private int progress = 0;
+	BlockPos center = null;
 
 	public ControllerSteamHammer(World world) {
 		super(world);
@@ -54,8 +59,7 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase
 
 	@Override
 	protected void onMachineAssembled() {
-		// TODO Auto-generated method stub
-
+		center = this.getReferenceCoord().up().east().south();
 	}
 
 	@Override
@@ -142,11 +146,14 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase
 						inventory.insertItem(1, result, false);
 						progress = 0;
 
-						BlockPos center = this.getReferenceCoord().up(2).east().south(); // TODO
 						WORLD.playSound(null, center.getX() + .5F, center.getY(), center.getZ() + .5F,
 								SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1F, 1F);
 						SteamAgeRevolution.proxy.spawnFX(EnumParticleTypes.FLAME, center);
-						// TODO Entity damage
+						FMLLog.warning(new AxisAlignedBB(center).expand(1, 2, 1).toString());
+						for(EntityLivingBase entity : WORLD.getEntitiesWithinAABB(EntityLivingBase.class,
+								new AxisAlignedBB(center).expand(1, 2, 1))) {
+							entity.attackEntityFrom(ModuleSteam.hammer, entity.getMaxHealth());
+						}
 
 						return true;
 					}
