@@ -1,7 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraftforge.fluids.FluidStack;
@@ -13,8 +11,8 @@ public class TileEntityCastingBenchRenderer extends TileEntitySpecialRenderer<Ti
 	protected static Minecraft mc = Minecraft.getMinecraft();
 
 	@Override
-	public void renderTileEntityFast(@Nonnull TileEntityCastingBench tile, double x, double y, double z,
-			float partialTicks, int destroyStage, float partial, net.minecraft.client.renderer.BufferBuilder buffer) {
+	public void render(TileEntityCastingBench tile, double x, double y, double z, float partialTicks, int destroyStage,
+			float alpha) {
 		FluidTank tank = tile.tank;
 		FluidStack liquid = tank.getFluid();
 
