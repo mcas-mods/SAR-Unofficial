@@ -58,11 +58,11 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnac
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.blocks.BlockFurnaceItemOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.blocks.BlockFurnaceModeToggle;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.blocks.BlockFurnaceSteamInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.BlockSteamHammerAnvil;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.BlockSteamHammerFrame;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.BlockSteamHammerHammer;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.BlockSteamHammerShielding;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.SteamHammerRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.blocks.BlockSteamHammerAnvil;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.blocks.BlockSteamHammerFrame;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.blocks.BlockSteamHammerHammer;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.blocks.BlockSteamHammerShielding;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBench;
 
 @Module(value = SteamAgeRevolution.MODID)

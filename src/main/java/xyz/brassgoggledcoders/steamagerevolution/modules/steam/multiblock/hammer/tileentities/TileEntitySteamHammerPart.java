@@ -1,10 +1,15 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.tileentities;
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-public class TileEntitySteamHammerPart extends RectangularMultiblockTileEntityBase<ControllerSteamHammer> {
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.ControllerSteamHammer;
+import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockControllerInfo;
+import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockTileInfo;
+
+public class TileEntitySteamHammerPart extends RectangularMultiblockTileEntityBase<ControllerSteamHammer>
+		implements IMultiblockTileInfo {
 
 	@Override
 	public Class<? extends MultiblockControllerBase> getMultiblockControllerType() {
@@ -58,6 +63,17 @@ public class TileEntitySteamHammerPart extends RectangularMultiblockTileEntityBa
 	public MultiblockControllerBase createNewMultiblock() {
 		// TODO Auto-generated method stub
 		return new ControllerSteamHammer(getWorld());
+	}
+
+	@Override
+	public boolean[] getValidPositions() {
+		return new boolean[] {isGoodForFrame(null), isGoodForSides(null), isGoodForTop(null), isGoodForBottom(null),
+				isGoodForInterior(null)};
+	}
+
+	@Override
+	public IMultiblockControllerInfo getControllerInfo() {
+		return new ControllerSteamHammer(null);
 	}
 
 }

@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.tileentities;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -9,13 +9,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class TileEntitySteamHammerHammer extends TileEntitySteamHammerPart {
+public class TileEntitySteamHammerAnvil extends TileEntitySteamHammerPart {
 	@Override
-	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
+	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
 		return true;
 	}
 
-	// TODO This doesn't make sense. Should be in the anvil. But must be vanilla useable...
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
 		return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.isConnected())

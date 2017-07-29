@@ -35,8 +35,8 @@ public class ModulePneumatic extends ModuleBase {
 		blockRegistry.register(router);
 
 		sorterInputBuffer = new BlockInputBuffer(Material.IRON, "sorter_inputbuffer");
-		blockRegistry.register(sorterInputBuffer);
+		// blockRegistry.register(sorterInputBuffer);
 		sorterOutputBuffer = new BlockOutputBuffer(Material.IRON, "sorter_outputbuffer");
-		blockRegistry.register(sorterOutputBuffer);
+		// blockRegistry.register(sorterOutputBuffer);
 	}
 }

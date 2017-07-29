@@ -1,13 +1,13 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer;
-
-import com.teamacronymcoders.base.blocks.BlockTEBase;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.blocks;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.tileentities.TileEntitySteamHammerFrame;
+import xyz.brassgoggledcoders.steamagerevolution.utils.BlockMultiblockBase;
 
-public class BlockSteamHammerFrame extends BlockTEBase<TileEntitySteamHammerFrame> {
+public class BlockSteamHammerFrame extends BlockMultiblockBase<TileEntitySteamHammerFrame> {
 
 	public BlockSteamHammerFrame(Material material, String name) {
 		super(material, name);

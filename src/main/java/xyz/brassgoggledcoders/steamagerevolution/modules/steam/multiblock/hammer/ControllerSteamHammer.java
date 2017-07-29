@@ -18,23 +18,26 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockControllerInfo;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 
-public class ControllerSteamHammer extends RectangularMultiblockControllerBase implements ISmartTankCallback {
+public class ControllerSteamHammer extends RectangularMultiblockControllerBase
+		implements ISmartTankCallback, IMultiblockControllerInfo {
 
 	public ItemStackHandler inventory = new ItemStackHandler(2);
 	public FluidTank tank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this);
 	protected String dieType = "";
 	private int progress = 0;
 
-	protected ControllerSteamHammer(World world) {
+	public ControllerSteamHammer(World world) {
 		super(world);
 	}
 
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
+		tank.readFromNBT(data.getCompoundTag("tank"));
+		dieType = data.getString("dieType");
+		progress = data.getInteger("progress");
 	}
 
 	@Override
@@ -96,20 +99,20 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase i
 		return 4;
 	}
 
-	// @Override
-	// protected int getMinimumXSize() {
-	// return 3;
-	// }
-	//
-	// @Override
-	// protected int getMinimumZSize() {
-	// return 3;
-	// }
-	//
-	// @Override
-	// protected int getMinimumYSize() {
-	// return 4;
-	// }
+	@Override
+	protected int getMinimumXSize() {
+		return 3;
+	}
+
+	@Override
+	protected int getMinimumZSize() {
+		return 3;
+	}
+
+	@Override
+	protected int getMinimumYSize() {
+		return 4;
+	}
 
 	@Override
 	protected void onAssimilate(MultiblockControllerBase assimilated) {
@@ -183,16 +186,14 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase i
 
 	@Override
 	public void readFromDisk(NBTTagCompound data) {
-		data.setTag("tank", tank.writeToNBT(new NBTTagCompound()));
-		data.setString("dieType", dieType);
-		data.setInteger("progress", progress);
+
 	}
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
-		tank.readFromNBT(data.getCompoundTag("tank"));
-		dieType = data.getString("dieType");
-		progress = data.getInteger("progress");
+		data.setTag("tank", tank.writeToNBT(new NBTTagCompound()));
+		data.setString("dieType", dieType);
+		data.setInteger("progress", progress);
 	}
 
 	@Override
@@ -205,6 +206,26 @@ public class ControllerSteamHammer extends RectangularMultiblockControllerBase i
 	public void updateFluid(FluidStack fluid) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public String getName() {
+		return "Steam Hammer";
+	}
+
+	@Override
+	public int getMaxXSize() {
+		return this.getMaximumXSize();
+	}
+
+	@Override
+	public int getMaxYSize() {
+		return this.getMaximumYSize();
+	}
+
+	@Override
+	public int getMaxZSize() {
+		return this.getMaximumZSize();
 	}
 
 }

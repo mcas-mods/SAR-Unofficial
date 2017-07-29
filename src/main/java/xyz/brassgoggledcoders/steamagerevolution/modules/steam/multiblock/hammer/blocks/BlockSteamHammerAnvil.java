@@ -1,6 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer;
-
-import com.teamacronymcoders.base.blocks.BlockTEBase;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.blocks;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -12,8 +10,10 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.tileentities.TileEntitySteamHammerAnvil;
+import xyz.brassgoggledcoders.steamagerevolution.utils.BlockMultiblockBase;
 
-public class BlockSteamHammerAnvil extends BlockTEBase<TileEntitySteamHammerAnvil> {
+public class BlockSteamHammerAnvil extends BlockMultiblockBase<TileEntitySteamHammerAnvil> {
 
 	public BlockSteamHammerAnvil(Material material, String name) {
 		super(material, name);
