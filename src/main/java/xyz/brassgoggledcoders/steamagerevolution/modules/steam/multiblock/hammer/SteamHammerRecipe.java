@@ -34,7 +34,7 @@ public class SteamHammerRecipe {
 	@Nullable
 	public static ItemStack getResult(ItemStack input, String dieType) {
 		for(SteamHammerRecipe r : recipeList) {
-			if(dieType.isEmpty() || r.dieType.equals(dieType)) {
+			if(dieType.isEmpty() || r.dieType.equalsIgnoreCase(dieType)) {
 				if(OreDictionary.itemMatches(r.input, input, false)) {
 					return r.output;
 				}

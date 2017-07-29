@@ -32,6 +32,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteamVent;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.items.ItemDie;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.AlloyFurnaceRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFluidOutput;
@@ -82,7 +83,7 @@ public class ModuleSteam extends ModuleBase {
 	public static Block steamhammerHammer, steamhammerAnvil, steamhammerFrame, steamhammerShielding;
 	public static Block steamVent;
 
-	public static Item charcoalPowder;
+	public static Item charcoalPowder, die;
 
 	public static List<String> knownMetalTypes = new ArrayList<String>();
 
@@ -115,7 +116,10 @@ public class ModuleSteam extends ModuleBase {
 		SteamFurnaceRecipe.addSteamFurnaceRecipe(new ItemStack(Items.COOKED_RABBIT),
 				new ItemStack(ModuleSteam.charcoalPowder));
 
+		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.STONE), new ItemStack(Blocks.COBBLESTONE));
 		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.COBBLESTONE), new ItemStack(Blocks.GRAVEL));
+		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.GRAVEL), new ItemStack(Blocks.SAND));
+
 		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.DIRT), new ItemStack(Items.DIAMOND), "test");
 
 		// AlloyFurnaceRecipe.addAlloyFurnaceRecipe(FluidRegistry.getFluid("copper"), FluidRegistry.getFluid("zinc"),
@@ -225,6 +229,8 @@ public class ModuleSteam extends ModuleBase {
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
 		charcoalPowder = new ItemBase("charcoal_powder");
 		itemRegistry.register(charcoalPowder);
+		die = new ItemDie();
+		itemRegistry.register(die);
 	}
 
 	@Override

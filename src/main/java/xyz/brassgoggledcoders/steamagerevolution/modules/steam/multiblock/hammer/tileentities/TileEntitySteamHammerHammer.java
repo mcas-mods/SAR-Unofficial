@@ -15,7 +15,6 @@ public class TileEntitySteamHammerHammer extends TileEntitySteamHammerPart {
 		return true;
 	}
 
-	// TODO This doesn't make sense. Should be in the anvil. But must be vanilla useable...
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
 		return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.isConnected())
