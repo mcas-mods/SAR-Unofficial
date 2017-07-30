@@ -110,16 +110,9 @@ public class ModuleSteam extends ModuleBase {
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-		SteamFurnaceRecipe.addSteamFurnaceRecipe(new ItemStack(Items.COOKED_CHICKEN),
-				new ItemStack(ModuleSteam.charcoalPowder));
-		SteamFurnaceRecipe.addSteamFurnaceRecipe(new ItemStack(Items.COOKED_BEEF),
-				new ItemStack(ModuleSteam.charcoalPowder));
-		SteamFurnaceRecipe.addSteamFurnaceRecipe(new ItemStack(Items.COOKED_FISH),
-				new ItemStack(ModuleSteam.charcoalPowder));
-		SteamFurnaceRecipe.addSteamFurnaceRecipe(new ItemStack(Items.COOKED_MUTTON),
-				new ItemStack(ModuleSteam.charcoalPowder));
-		SteamFurnaceRecipe.addSteamFurnaceRecipe(new ItemStack(Items.COOKED_RABBIT),
-				new ItemStack(ModuleSteam.charcoalPowder));
+		for(ItemStack cooked : OreDictionary.getOres("listAllmeatcooked")) {
+			SteamFurnaceRecipe.addSteamFurnaceRecipe(cooked, new ItemStack(ModuleSteam.charcoalPowder));
+		}
 
 		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.STONE), new ItemStack(Blocks.COBBLESTONE));
 		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.COBBLESTONE), new ItemStack(Blocks.GRAVEL));

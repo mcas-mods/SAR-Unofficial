@@ -103,8 +103,7 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase
 				flag = true;
 			}
 			else {
-				ItemStack r = SteamFurnaceRecipe.getResult(inputInventory.getStackInSlot(0));
-				ItemStack resultItem = new ItemStack(r.getItem(), 1, r.getItemDamage());
+				ItemStack resultItem = SteamFurnaceRecipe.getResult(inputInventory.getStackInSlot(0));
 				if(ItemHandlerHelper.insertItem(outputInventory, resultItem, true) == null) {
 					if(inputInventory.extractItem(0, resultItem.getCount(), true) != null) {
 						inputInventory.extractItem(0, resultItem.getCount(), false);
