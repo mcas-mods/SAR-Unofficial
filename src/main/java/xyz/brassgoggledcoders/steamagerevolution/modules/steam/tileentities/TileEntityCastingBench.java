@@ -2,7 +2,6 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities;
 
 import com.teamacronymcoders.base.tileentities.TileEntityBase;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -90,22 +89,14 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable,
 	public void update() {
 		if(this.getWorld().isRemote)
 			return;
-		if(stateChangeTime == 0) {
-			// Melting Logic TODO Cache this check
-			if(getWorld().getBlockState(getPos().down()).getMaterial() == Material.LAVA) {
-				if(meltMetal(internal, tank)) {
-					stateChangeTime = 2400;
-				}
+
+		if(solidifyMetal(tank, internal)) {
+			if(stateChangeTime == 0) {
+				stateChangeTime = 2400;
 			}
-			// Cooling Logic
 			else {
-				if(solidifyMetal(tank, internal)) {
-					stateChangeTime = 2400;
-				}
+				stateChangeTime--;
 			}
-		}
-		else {
-			stateChangeTime--;
 		}
 	}
 

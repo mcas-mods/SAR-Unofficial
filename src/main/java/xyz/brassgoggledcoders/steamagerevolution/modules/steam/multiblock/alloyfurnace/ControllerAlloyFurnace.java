@@ -48,32 +48,15 @@ public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase
 
 		// Can't do anything without a base for the alloy
 		if(hasFirstFluid) {
-			// if(hasSecondFluid) {
-			// AlloyFurnaceRecipe r =
-			// AlloyFurnaceRecipe.getRecipe(Pair.of(primaryTank.getFluid(), secondaryTank.getFluid()));
-			// if(r != null && (!r.requiresHardCase || isHardened)) {
-			// if(primaryTank.drain(r.input.getLeft(), false) != null
-			// && secondaryTank.drain((FluidStack) r.input.getRight(), false) != null
-			// && outputTank.fill(r.output, false) == r.output.amount) {
-			// primaryTank.drain(r.input.getLeft(), true);
-			// secondaryTank.drain((FluidStack) r.input.getRight(), true);
-			// outputTank.fill(r.output, true);
-			// }
-			// }
-			// }
-			if(hasItems) {
-				AlloyFurnaceRecipe r =
-						AlloyFurnaceRecipe.getRecipe(primaryTank.getFluid(), inputSolid.getStackInSlot(0));
+			// TODO cleanup logic - a lot is repeated between recipe 'types'
+			if(hasSecondFluid) {
+				AlloyFurnaceRecipe r = AlloyFurnaceRecipe.getRecipe(primaryTank.getFluid(), secondaryTank.getFluid());
 				if(r != null && (!r.requiresHardCase || isHardened)) {
 					if(primaryTank.getFluidAmount() >= r.primaryInput.amount) {
-						// FMLLog.warning("Current: " + inputSolid.getStackInSlot(0).getCount());
-						// FMLLog.warning("Desired: " + r.secondaryInput.getCount());
-						if(inputSolid.getStackInSlot(0).getCount() >= r.secondaryInput.getCount()) {
-							// FMLLog.warning("C2");
+						if(secondaryTank.getFluidAmount() >= r.secondaryInputFluid.amount) {
 							if(outputTank.fill(r.output, false) == r.output.amount) {
-								// FMLLog.warning("C3");
 								primaryTank.drain(r.primaryInput.amount, true);
-								inputSolid.extractItem(0, r.secondaryInput.getCount(), false);
+								secondaryTank.drain(r.secondaryInputFluid.amount, true);
 								outputTank.fill(r.output, true);
 								flag = true;
 							}
@@ -81,9 +64,27 @@ public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase
 					}
 				}
 			}
-			// else do nothing, can't make a recipe with one fluid
 		}
-
+		if(hasItems) {
+			AlloyFurnaceRecipe r = AlloyFurnaceRecipe.getRecipe(primaryTank.getFluid(), inputSolid.getStackInSlot(0));
+			if(r != null && (!r.requiresHardCase || isHardened)) {
+				if(primaryTank.getFluidAmount() >= r.primaryInput.amount) {
+					// FMLLog.warning("Current: " + inputSolid.getStackInSlot(0).getCount());
+					// FMLLog.warning("Desired: " + r.secondaryInput.getCount());
+					if(inputSolid.getStackInSlot(0).getCount() >= r.secondaryInputItem.getCount()) {
+						// FMLLog.warning("C2");
+						if(outputTank.fill(r.output, false) == r.output.amount) {
+							// FMLLog.warning("C3");
+							primaryTank.drain(r.primaryInput.amount, true);
+							inputSolid.extractItem(0, r.secondaryInputItem.getCount(), false);
+							outputTank.fill(r.output, true);
+							flag = true;
+						}
+					}
+				}
+			}
+		}
+		// else do nothing, can't make a recipe with one fluid
 		return flag;
 	}
 

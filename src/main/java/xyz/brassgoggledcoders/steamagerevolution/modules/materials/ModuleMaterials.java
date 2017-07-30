@@ -14,9 +14,12 @@ import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
+import com.teamacronymcoders.base.util.OreDictUtils;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
@@ -88,6 +91,13 @@ public class ModuleMaterials extends ModuleBase {
 			e.printStackTrace();
 		}
 		super.preInit(event);
+	}
+
+	@Override
+	public void init(FMLInitializationEvent event) {
+		FurnaceRecipes.instance().addSmeltingRecipe(OreDictUtils.getPreferredItemStack("dustBrass"),
+				OreDictUtils.getPreferredItemStack("ingotBrass"), 0.7f);
+		super.init(event);
 	}
 
 	@Override

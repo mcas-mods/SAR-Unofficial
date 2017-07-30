@@ -3,8 +3,6 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.teamacronymcoders.base.blocks.BlockFluidBase;
 import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.modulesystem.Module;
@@ -12,6 +10,7 @@ import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
+import com.teamacronymcoders.base.util.OreDictUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -24,7 +23,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -120,8 +118,10 @@ public class ModuleSteam extends ModuleBase {
 
 		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.DIRT), new ItemStack(Items.DIAMOND), "test");
 
-		// AlloyFurnaceRecipe.addAlloyFurnaceRecipe(FluidRegistry.getFluid("copper"), FluidRegistry.getFluid("zinc"),
-		// output);
+		AlloyFurnaceRecipe.addAlloyFurnaceRecipe(
+				FluidRegistry.getFluidStack("copper", TileEntityCastingBench.VALUE_INGOT),
+				FluidRegistry.getFluidStack("zinc", TileEntityCastingBench.VALUE_INGOT),
+				FluidRegistry.getFluidStack("brass", TileEntityCastingBench.VALUE_INGOT));
 		AlloyFurnaceRecipe.addUpgradedAlloyFurnaceRecipe(
 				FluidRegistry.getFluidStack("iron", TileEntityCastingBench.VALUE_INGOT), new ItemStack(Items.COAL, 2),
 				FluidRegistry.getFluidStack("steel", TileEntityCastingBench.VALUE_INGOT));
@@ -233,12 +233,21 @@ public class ModuleSteam extends ModuleBase {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		knownMetalTypes.add("iron");
-		knownMetalTypes.add("gold");
+		knownMetalTypes.add("Iron");
+		knownMetalTypes.add("Gold");
 		for(String metal : knownMetalTypes) {
 			if(FluidRegistry.isFluidRegistered(metal)) {
-				for(ItemStack metalBlock : OreDictionary.getOres("block" + StringUtils.capitalize(metal), false)) {
-					MoltenMetalRecipe.addMelting(metalBlock, FluidRegistry.getFluid(metal));
+				for(ItemStack metalBlock : OreDictionary.getOres("block" + metal, false)) {
+					MoltenMetalRecipe.addMelting(metalBlock, FluidRegistry.getFluid(metal.toLowerCase()));
+				}
+			}
+			for(ItemStack ingot : OreDictionary.getOres("ingot" + metal, false)) {
+				if(OreDictionary.doesOreNameExist("plate" + metal)) {
+					SteamHammerRecipe.addSteamHammerRecipe(ingot, OreDictUtils.getPreferredItemStack("plate" + metal));
+				}
+				if(OreDictionary.doesOreNameExist("gear" + metal)) {
+					SteamHammerRecipe.addSteamHammerRecipe(ingot, OreDictUtils.getPreferredItemStack("gear" + metal),
+							"gear");
 				}
 			}
 		}
@@ -248,11 +257,10 @@ public class ModuleSteam extends ModuleBase {
 	@SubscribeEvent
 	public void onOreRegistered(OreDictionary.OreRegisterEvent event) {
 		String name = event.getName();
-		FMLLog.warning(name);
 		String[] splitName = name.split("(?=[A-Z])");
 		if(splitName.length == 2) {
 			if(splitName[0].equals("ingot")) {
-				String metalType = splitName[1].toLowerCase();
+				String metalType = splitName[1];
 				if(!knownMetalTypes.contains(metalType)) {
 					knownMetalTypes.add(metalType);
 					SteamAgeRevolution.instance.getLogger().devInfo("Metal type detected: " + metalType);
