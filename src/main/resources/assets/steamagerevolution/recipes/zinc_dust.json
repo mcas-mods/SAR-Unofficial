@@ -8,11 +8,10 @@
         },
         {
             "type": "forge:ore_dict",
-            "ore": "oreGold"
+            "ore": "oreZinc"
         }
     ],
     "result": {
-        "item": "steamagerevolution:material_part",
-        "data": 59
+        "ore": "dustZinc"
     }
 }

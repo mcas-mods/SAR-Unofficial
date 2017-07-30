@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils;
 
 import com.google.gson.JsonObject;
+import com.teamacronymcoders.base.util.OreDictUtils;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -12,17 +13,15 @@ import net.minecraft.util.JsonUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.IRecipeFactory;
 import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMaterials;
 
 /**
  * Original @author Choonster
  */
-public class ShapelessHammerRecipe extends ShapelessOreRecipe {
+public class ShapelessHammerRecipe extends ShapelessOreResultRecipe {
 
 	public ShapelessHammerRecipe(ResourceLocation group, NonNullList<Ingredient> input, ItemStack result) {
 		super(group, input, result);
@@ -69,7 +68,8 @@ public class ShapelessHammerRecipe extends ShapelessOreRecipe {
 		public IRecipe parse(final JsonContext context, final JsonObject json) {
 			final String group = JsonUtils.getString(json, "group", "");
 			final NonNullList<Ingredient> ingredients = RecipeUtil.parseShapeless(context, json);
-			final ItemStack result = CraftingHelper.getItemStack(JsonUtils.getJsonObject(json, "result"), context);
+			final ItemStack result = OreDictUtils
+					.getPreferredItemStack(JsonUtils.getString(JsonUtils.getJsonObject(json, "result"), "ore"));
 
 			return new ShapelessHammerRecipe(group.isEmpty() ? null : new ResourceLocation(group), ingredients, result);
 		}

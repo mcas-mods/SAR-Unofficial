@@ -1,9 +1,10 @@
 {
-    "type": "forge:ore_shapeless",
+    "type": "steamagerevolution:hammer_shapeless",
     "group": "steamagerevolution:materials",
     "ingredients": [
     {
-            "item": "steamagerevolution:hammer"
+            "item": "steamagerevolution:hammer",
+            "data": 32767
         },
         {
             "type": "forge:ore_dict",
@@ -11,7 +12,6 @@
         }
     ],
     "result": {
-        "type": "forge:ore_dict",
         "ore": "dustCopper"
     }
 }
