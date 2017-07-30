@@ -1,0 +1,18 @@
+{
+    "type": "steamagerevolution:hammer_shapeless",
+    "group": "steamagerevolution:materials",
+    "ingredients": [
+    {
+            "item": "steamagerevolution:hammer",
+            "data": 32767
+        },
+        {
+            "type": "forge:ore_dict",
+            "ore": "oreGold"
+        }
+    ],
+    "result": {
+        "item": "steamagerevolution:material_part",
+        "data": 59
+    }
+}

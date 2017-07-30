@@ -1,0 +1,28 @@
+{
+"display": {
+		"icon": {
+			"item": "steamagerevolution:hammer"
+		},
+		"title": {
+			"translate": "advancement.steamagerevolution:first_steps"
+		},
+		"description": {
+			"translate": "advancement.steamagerevolution:first_steps.desc"
+		},
+		"background": "steamagerevolution:textures/blocks/brass_frame.png",
+		"show_toast": true,
+		"announce_to_chat": false
+	},
+	"criteria": {
+		"hold_hammer": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "steamagerevolution:hammer"
+					}
+				]
+			}
+		}
+}
+}

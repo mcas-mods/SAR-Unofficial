@@ -11,7 +11,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -81,13 +80,10 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 		if(!Platform.isDevEnv())
 			return null;
 		else {
-			File file = new File(
+			return new File(
 					this.getRegistry(ConfigRegistry.class, "CONFIG").getConfigFolder().getParentFile().getParentFile()
 							.getParentFile().getParentFile().getPath(),
 					"src/main/resources/assets/" + this.getID() + "/");
-			FMLLog.bigWarning(file.getAbsolutePath());
-
-			return file;
 		}
 	}
 

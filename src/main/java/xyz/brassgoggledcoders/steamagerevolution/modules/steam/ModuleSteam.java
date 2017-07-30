@@ -24,6 +24,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -254,6 +255,7 @@ public class ModuleSteam extends ModuleBase {
 	@SubscribeEvent
 	public void onOreRegistered(OreDictionary.OreRegisterEvent event) {
 		String name = event.getName();
+		FMLLog.warning(name);
 		String[] splitName = name.split("(?=[A-Z])");
 		if(splitName.length == 2) {
 			if(splitName[0].equals("ingot")) {

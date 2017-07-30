@@ -8,3 +8,10 @@ steamagerevolution.part.nugget=Nugget
 steamagerevolution.part.plate=Plate
 steamagerevolution.part.dust=Dust
 steamagerevolution.part.block=Block
+
+#Items
+item.steamagerevolution.hammer.name=Hammer
+
+#Advancements
+advancement.steamagerevolution:first_steps=Percussive Maintenance
+advancement.steamagerevolution:first_steps.desc=For fixing and breaking alike. Mostly breaking.
