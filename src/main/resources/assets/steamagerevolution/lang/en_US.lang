@@ -10,7 +10,41 @@ steamagerevolution.part.dust=Dust
 steamagerevolution.part.block=Block
 
 #Items
+item.steamagerevolution.charcoal_powder.name=Charcoal Powder
+
+item.steamagerevolution.canister.name=Fluid Canister
+
 item.steamagerevolution.hammer.name=Hammer
+
+item.steamagerevolution.die.gear.name=Gear Die
+item.steamagerevolution.die.test.name=TEST Die
+
+#Blocks
+tile.steamagerevolution.fluid_io.name=Fluid IO
+tile.steamagerevolution.casting_bench.name=Casting Block
+tile.steamagerevolution.trunk.name=Steamer Trunk
+
+tile.steamagerevolution.pneumatic_tube.name=Pneumatic Tube
+
+tile.steamagerevolution.boiler_water_input.name=Boiler Water Input
+tile.steamagerevolution.boiler_water_gauge.name=Boiler Water Gauge
+tile.steamagerevolution.boiler_pressurevalve.name=Boiler Pressure Valve
+tile.steamagerevolution.boiler_liquid_firebox.name=Boiler Liquid Firebox
+tile.steamagerevolution.boiler_steam_output.name=Boiler Steam Output
+
+tile.steamagerevolution.steamhammer_hammer.name=Steam Hammer Head
+tile.steamagerevolution.steamhammer_frame.name=Steam Hammer Structure
+
+tile.steamagerevolution.tank_casing.name=Tank Casing
+tile.steamagerevolution.tank_valve.name=Tank Valve
+
+tile.steamagerevolution.furnace_casing.name=Steam Furnace Casing
+tile.steamagerevolution.furnace_steaminput.name=Steam Furnace Injector
+
+tile.steamagerevolution.alloy_furnace_fluid_output.name=Alloy Forge Output
+tile.steamagerevolution.alloy_furnace_hard_frame.name=Alloy Forge Hardened Frame
+tile.steamagerevolution.alloy_furnace_primary_fluid_input.name=Alloy Forge Primary Fluid Input
+tile.steamagerevolution.alloy_furnace_secondary_fluid_input.name=Alloy Forge Secondary Fluid Input
 
 #Advancements
 advancement.steamagerevolution:first_steps=Percussive Maintenance
