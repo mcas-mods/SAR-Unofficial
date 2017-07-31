@@ -22,13 +22,13 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.tileentities.TileEntitySender;
+import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.tileentities.TileEntityHydraulicSender;
 
-public class BlockSender extends BlockTEBase<TileEntitySender> {
+public class BlockHydraulicSender extends BlockTEBase<TileEntityHydraulicSender> {
 
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
-	public BlockSender(Material material, String name) {
+	public BlockHydraulicSender(Material material, String name) {
 		super(material, name);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 	}
@@ -94,12 +94,12 @@ public class BlockSender extends BlockTEBase<TileEntitySender> {
 
 	@Override
 	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntitySender.class;
+		return TileEntityHydraulicSender.class;
 	}
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntitySender();
+		return new TileEntityHydraulicSender();
 	}
 
 	@Override
@@ -111,12 +111,12 @@ public class BlockSender extends BlockTEBase<TileEntitySender> {
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
 			ItemStack stack) {
-		((TileEntitySender) worldIn.getTileEntity(pos)).recalculateCache(worldIn, pos);
+		((TileEntityHydraulicSender) worldIn.getTileEntity(pos)).recalculateCache(worldIn, pos);
 	}
 
 	@Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-		((TileEntitySender) worldIn.getTileEntity(pos)).recalculateCache(worldIn, pos);
+		((TileEntityHydraulicSender) worldIn.getTileEntity(pos)).recalculateCache(worldIn, pos);
 	}
 
 }

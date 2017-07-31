@@ -15,10 +15,10 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.ModulePneumatic;
+import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.blocks.BlockPneumaticSender;
 import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.blocks.BlockPneumaticTube;
-import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.blocks.BlockSender;
 
-public class TileEntitySender extends TileEntitySlowTick {
+public class TileEntityPneumaticSender extends TileEntitySlowTick {
 
 	public static int maxDistance = 16;
 	private static int rate = 1;
@@ -41,11 +41,11 @@ public class TileEntitySender extends TileEntitySlowTick {
 			// TODO Rewrite inventory handling
 			for(int i = 0; i < sendInventory.getSlots(); i++) {
 				if(ItemHandlerHelper
-						.insertItem(recieveInventory, sendInventory.getStackInSlot(i).copy().splitStack(1), true)
+						.insertItem(recieveInventory, sendInventory.getStackInSlot(i).copy().splitStack(rate), true)
 						.isEmpty()) {
 					this.getWorld().playSound(null, this.getPos(), SoundEvents.ENTITY_CAT_HISS, SoundCategory.BLOCKS, 1,
 							1);
-					ItemHandlerHelper.insertItem(recieveInventory, sendInventory.getStackInSlot(i).splitStack(1),
+					ItemHandlerHelper.insertItem(recieveInventory, sendInventory.getStackInSlot(i).splitStack(rate),
 							false);
 					for(int i2 = 0; i2 < maxDistance; i2++) {
 						if(tubePositions[i2] != null) {
@@ -61,7 +61,7 @@ public class TileEntitySender extends TileEntitySlowTick {
 	public void recalculateCache(World worldIn, BlockPos pos) {
 		hasCache = true;
 		SteamAgeRevolution.instance.getLogger().devInfo("Recalc Cache");
-		facing = worldIn.getBlockState(pos).getValue(BlockSender.FACING);
+		facing = worldIn.getBlockState(pos).getValue(BlockPneumaticSender.FACING);
 		TileEntity behind = this.getWorld().getTileEntity(pos.offset(facing.getOpposite()));
 		if(behind != null
 				&& behind.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing.getOpposite())) {
@@ -74,7 +74,7 @@ public class TileEntitySender extends TileEntitySlowTick {
 		for(int i = 1; i < maxDistance; i++) {
 			BlockPos currentPos = pos.offset(facing, i);
 			Block block = world.getBlockState(currentPos).getBlock();
-			if(block == ModulePneumatic.router) {
+			if(block == ModulePneumatic.pneumaticRouter) {
 				recieveInventory = this.getWorld().getTileEntity(getPos().offset(facing, i))
 						.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
 				return;

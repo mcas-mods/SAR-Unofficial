@@ -13,19 +13,56 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.tileentities.TileEntityRouter;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.tileentities.TileEntityPneumaticSender;
 
-public class BlockRouter extends BlockTEBase<TileEntityRouter> {
+public class BlockPneumaticSender extends BlockTEBase<TileEntityPneumaticSender> {
 
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
-	public BlockRouter(Material material, String name) {
+	public BlockPneumaticSender(Material material, String name) {
 		super(material, name);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+	}
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		EnumFacing f = state.getValue(FACING);
+		if(f == EnumFacing.NORTH || f == EnumFacing.SOUTH)
+			return BlockPneumaticTube.Z_TUBE_AABB;
+		else if(f == EnumFacing.EAST || f == EnumFacing.WEST)
+			return BlockPneumaticTube.X_TUBE_AABB;
+		else
+			return BlockPneumaticTube.Y_TUBE_AABB;
+	}
+
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
+
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+		return false;
+	}
+
+	@Override
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.MODEL;
 	}
 
 	@Override
@@ -34,7 +71,6 @@ public class BlockRouter extends BlockTEBase<TileEntityRouter> {
 		if(!playerIn.getHeldItem(hand).isEmpty()
 				&& playerIn.getHeldItem(hand).hasCapability(Capabilities.TOOL, facing)) {
 			worldIn.setBlockState(pos, state.cycleProperty(FACING));
-			((TileEntityRouter) worldIn.getTileEntity(pos)).recalculateCache(worldIn, pos, state, null);
 			return true;
 		}
 		return false;
@@ -58,23 +94,29 @@ public class BlockRouter extends BlockTEBase<TileEntityRouter> {
 
 	@Override
 	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityRouter.class;
+		return TileEntityPneumaticSender.class;
 	}
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityRouter();
+		return new TileEntityPneumaticSender();
+	}
+
+	@Override
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY,
+			float hitZ, int meta, EntityLivingBase placer) {
+		return this.getStateFromMeta(meta).withProperty(FACING, facing);
 	}
 
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
 			ItemStack stack) {
-		((TileEntityRouter) worldIn.getTileEntity(pos)).recalculateCache(worldIn, pos, state, null);
+		((TileEntityPneumaticSender) worldIn.getTileEntity(pos)).recalculateCache(worldIn, pos);
 	}
 
 	@Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-		((TileEntityRouter) worldIn.getTileEntity(pos)).recalculateCache(worldIn, pos, state, fromPos);
+		((TileEntityPneumaticSender) worldIn.getTileEntity(pos)).recalculateCache(worldIn, pos);
 	}
 
 }

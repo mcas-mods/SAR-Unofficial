@@ -11,9 +11,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
-import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.blocks.BlockRouter;
+import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.blocks.BlockPneumaticRouter;
 
-public class TileEntityRouter extends TileEntityInventoryBase implements ITickable {
+public class TileEntityPneumaticRouter extends TileEntityInventoryBase implements ITickable {
 
 	boolean hasCache = false;
 	private IItemHandler otherHandler;
@@ -21,7 +21,7 @@ public class TileEntityRouter extends TileEntityInventoryBase implements ITickab
 	private int tickRate = 20; // Default to once a second
 	private int ticks = 0;
 
-	public TileEntityRouter() {
+	public TileEntityPneumaticRouter() {
 		super(1);
 	}
 
@@ -64,13 +64,13 @@ public class TileEntityRouter extends TileEntityInventoryBase implements ITickab
 
 	public void recalculateCache(World worldIn, BlockPos pos, IBlockState state, BlockPos fromPos) {
 		if(fromPos == null) {
-			fromPos = pos.offset(state.getValue(BlockRouter.FACING));
+			fromPos = pos.offset(state.getValue(BlockPneumaticRouter.FACING));
 		}
 		TileEntity other = getWorld().getTileEntity(fromPos);
 		if(other != null && other.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,
-				state.getValue(BlockRouter.FACING).getOpposite())) {
+				state.getValue(BlockPneumaticRouter.FACING).getOpposite())) {
 			otherHandler = other.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,
-					state.getValue(BlockRouter.FACING).getOpposite());
+					state.getValue(BlockPneumaticRouter.FACING).getOpposite());
 		}
 	}
 

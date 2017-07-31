@@ -23,16 +23,16 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.ModulePneumatic;
-import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.tileentities.TileEntityPneumaticSender;
+import xyz.brassgoggledcoders.steamagerevolution.modules.pneumatic.tileentities.TileEntityHydraulicSender;
 
-public class BlockPneumaticTube extends BlockBase {
+public class BlockHydraulicTube extends BlockBase {
 
 	public static final PropertyEnum<Axis> AXIS = PropertyEnum.<Axis> create("axis", Axis.class);
 	public static final AxisAlignedBB X_TUBE_AABB = new AxisAlignedBB(0.0D, 0.2D, 0.2D, 1.0D, 0.8D, 0.8D);
 	public static final AxisAlignedBB Y_TUBE_AABB = new AxisAlignedBB(0.2D, 0.0D, 0.2D, 0.8D, 1.0D, 0.8D);
 	public static final AxisAlignedBB Z_TUBE_AABB = new AxisAlignedBB(0.2D, 0.2D, 0.0D, 0.8D, 0.8D, 1.0D);
 
-	public BlockPneumaticTube(Material mat, String name) {
+	public BlockHydraulicTube(Material mat, String name) {
 		super(mat, name);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, Axis.X));
 	}
@@ -131,17 +131,17 @@ public class BlockPneumaticTube extends BlockBase {
 	}
 
 	private void findAndNotifySenderToRecalcCache(World worldIn, BlockPos pos, IBlockState state) {
-		for(int i = 1; i < TileEntityPneumaticSender.maxDistance; i++) {
+		for(int i = 1; i < TileEntityHydraulicSender.maxDistance; i++) {
 			BlockPos checkPos =
 					pos.offset(EnumFacing.getFacingFromAxis(AxisDirection.POSITIVE, state.getValue(AXIS)), i);
-			if(worldIn.getBlockState(checkPos).getBlock() == ModulePneumatic.pneumaticSender) {
-				((TileEntityPneumaticSender) worldIn.getTileEntity(checkPos)).recalculateCache(worldIn, checkPos);
+			if(worldIn.getBlockState(checkPos).getBlock() == ModulePneumatic.hydraulicSender) {
+				((TileEntityHydraulicSender) worldIn.getTileEntity(checkPos)).recalculateCache(worldIn, checkPos);
 				return;
 			}
 			BlockPos checkNeg =
 					pos.offset(EnumFacing.getFacingFromAxis(AxisDirection.NEGATIVE, state.getValue(AXIS)), i);
-			if(worldIn.getBlockState(checkNeg).getBlock() == ModulePneumatic.pneumaticSender) {
-				((TileEntityPneumaticSender) worldIn.getTileEntity(checkNeg)).recalculateCache(worldIn, checkNeg);
+			if(worldIn.getBlockState(checkNeg).getBlock() == ModulePneumatic.hydraulicSender) {
+				((TileEntityHydraulicSender) worldIn.getTileEntity(checkNeg)).recalculateCache(worldIn, checkNeg);
 				return;
 			}
 		}
