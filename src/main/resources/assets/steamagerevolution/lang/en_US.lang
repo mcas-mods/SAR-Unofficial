@@ -34,6 +34,7 @@ tile.steamagerevolution.boiler_steam_output.name=Boiler Steam Output
 
 tile.steamagerevolution.steamhammer_hammer.name=Steam Hammer Head
 tile.steamagerevolution.steamhammer_frame.name=Steam Hammer Structure
+tile.steamagerevolution.steamhammer_anvil.name=Steam Hammer Anvil
 
 tile.steamagerevolution.tank_casing.name=Tank Casing
 tile.steamagerevolution.tank_valve.name=Tank Valve
@@ -49,3 +50,6 @@ tile.steamagerevolution.alloy_furnace_secondary_fluid_input.name=Alloy Forge Sec
 #Advancements
 advancement.steamagerevolution:first_steps=Percussive Maintenance
 advancement.steamagerevolution:first_steps.desc=For fixing and breaking alike. Mostly breaking.
+
+#Multiblock validation
+steamagerevolution:multiblock.validation.alloyforgeinterior=Interior of the alloy forge must be filled with lava

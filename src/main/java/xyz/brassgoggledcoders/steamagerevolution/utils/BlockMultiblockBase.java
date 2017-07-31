@@ -8,8 +8,13 @@ import com.teamacronymcoders.base.blocks.BlockTEBase;
 import com.teamacronymcoders.base.multiblock.MultiblockTileEntityBase;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -18,6 +23,17 @@ public abstract class BlockMultiblockBase<T extends MultiblockTileEntityBase> ex
 
 	public BlockMultiblockBase(Material material, String name) {
 		super(material, name);
+	}
+
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		MultiblockTileEntityBase tile = getTileEntity(worldIn, pos);
+		if(tile.isConnected() && tile.getMultiblockController().getLastError() != null) {
+			playerIn.sendStatusMessage(tile.getMultiblockController().getLastError().getChatMessage(), true);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
