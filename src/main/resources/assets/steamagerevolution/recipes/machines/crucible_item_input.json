@@ -1,0 +1,20 @@
+{
+  "type": "forge:ore_shaped",
+  "result": {
+    "item": "steamagerevolution:crucible_item_input",
+    "data": 0
+  },
+  "pattern": [
+    "PPP",
+    "PHP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "#plateCopper"
+    },
+    "H": {
+    	"item": "minecraft:hopper"
+    }
+  }
+}

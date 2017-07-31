@@ -52,7 +52,9 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerWaterInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.crucible.MoltenMetalRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.crucible.blocks.BlockCrucibleCasing;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.crucible.blocks.BlockCrucibleFluidOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.crucible.blocks.BlockCrucibleItemInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.crucible.blocks.BlockCrucibleSteamInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.SteamFurnaceRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.blocks.BlockFurnaceCasing;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furnace.blocks.BlockFurnaceItemInput;
@@ -79,7 +81,7 @@ public class ModuleSteam extends ModuleBase {
 	public static Block alloyFurnaceController, alloyFurnaceFrame, alloyFurnaceHardFrame, alloyFurnaceItemInput,
 			alloyFurnacePrimaryFluidInput, alloyFurnaceSecondaryFluidInput, alloyFurnaceFluidOutput;
 	public static Block castingBench;
-	public static Block crucibleCasing, crucibleItemInput;
+	public static Block crucibleCasing, crucibleItemInput, crucibleSteamInput, crucibleFluidOutput;
 	public static Block steamhammerHammer, steamhammerAnvil, steamhammerFrame, steamhammerShielding;
 	public static Block steamVent;
 
@@ -209,6 +211,10 @@ public class ModuleSteam extends ModuleBase {
 		blockRegistry.register(crucibleCasing);
 		crucibleItemInput = new BlockCrucibleItemInput(Material.IRON, "crucible_item_input");
 		blockRegistry.register(crucibleItemInput);
+		crucibleSteamInput = new BlockCrucibleSteamInput(Material.IRON, "crucible_steam_input");
+		blockRegistry.register(crucibleSteamInput);
+		crucibleFluidOutput = new BlockCrucibleFluidOutput(Material.IRON, "crucible_fluid_output");
+		blockRegistry.register(crucibleFluidOutput);
 
 		steamhammerFrame = new BlockSteamHammerFrame(Material.IRON, "steamhammer_frame");
 		blockRegistry.register(steamhammerFrame);

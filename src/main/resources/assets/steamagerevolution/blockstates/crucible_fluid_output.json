@@ -2,7 +2,7 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "all": "minecraft:nether_brick"
+      "all": "steamagerevolution:blocks/crucible_fluid_output"
     },
     "model": "cube_all",
     "uvlock": true,
