@@ -35,6 +35,7 @@ maven {
     maven { url = "http://maven.cil.li/" }
     maven { url = "http://maven.ic2.player.to" }
     maven { url = "http://maven.epoxide.xyz" }
+    maven { url 'http://tehnut.info/maven/' }
     ivy {
         url "http://ae-mod.info/builds"
         layout "pattern", {
@@ -74,6 +75,7 @@ dependencies {
     deobfCompile "slimeknights:TConstruct:${minecraft_version}-${tinkers_version}"
     deobfCompile "slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}"
     //deobfCompile "team.chisel:Chisel:MC1.10.2-0.0.7.7"
+    deobfCompile "info.amerifrance.guideapi:Guide-API:${minecraft_version}-${guideapi_version}"
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8

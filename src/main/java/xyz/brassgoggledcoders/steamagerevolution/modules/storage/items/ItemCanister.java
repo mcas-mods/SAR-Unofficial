@@ -39,13 +39,13 @@ public class ItemCanister extends ItemBase implements IHasSubItems {
 	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
 		FluidStack fluid = ((FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)).getFluid();
-		if(fluid.getFluid() == null) {
-			tooltip.add("Empty");
+		if(fluid == null) {
+			tooltip.add("0mB/" + capacity + "mB");
 		}
 		else {
 			tooltip.add(StringUtils.capitalize(FluidRegistry.getFluidName(fluid)));
+			tooltip.add(fluid.amount + "mB/" + capacity + "mB");
 		}
-		tooltip.add(fluid.amount + "mB/" + capacity + "mB");
 	}
 
 	@Override

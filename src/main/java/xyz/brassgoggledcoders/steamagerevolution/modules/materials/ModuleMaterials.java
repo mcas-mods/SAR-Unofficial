@@ -31,6 +31,7 @@ public class ModuleMaterials extends ModuleBase {
 	String[] vanillaParts = new String[] {"ore", "plate", "dust", "fluid"};
 	String[] metalParts = new String[] {"ore", "ingot", "nugget", "plate", "dust", "block", "fluid"};
 	// String[] alloyParts = new String[] {"ingot", "nugget", "plate", "dust", "block", "fluid"};
+	public static Color brassColor = new Color(56, 51, 43);
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -47,7 +48,7 @@ public class ModuleMaterials extends ModuleBase {
 
 			Material steel =
 					new MaterialBuilder().setName("Steel").setColor(Color.DARK_GRAY).setHasEffect(false).build();
-			Material brass = new MaterialBuilder().setName("Brass").setColor(Color.ORANGE).setHasEffect(false).build();
+			Material brass = new MaterialBuilder().setName("Brass").setColor(brassColor).setHasEffect(false).build();
 
 			for(MaterialPart part : SAR.registerPartsForMaterial(iron, vanillaParts)) {
 				if(part.getPartType() instanceof OrePartType) {
