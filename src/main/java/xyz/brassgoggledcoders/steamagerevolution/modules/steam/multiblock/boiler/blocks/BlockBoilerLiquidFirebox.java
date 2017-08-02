@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerLiquidFirebox;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtil;
+import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 
 public class BlockBoilerLiquidFirebox extends BlockTEBase<TileEntityBoilerLiquidFirebox> {
 
@@ -25,7 +25,7 @@ public class BlockBoilerLiquidFirebox extends BlockTEBase<TileEntityBoilerLiquid
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		TileEntityBoilerPart te = getTileEntity(worldIn, pos);
 		if(te != null && te.isConnected()) {
-			playerIn.sendStatusMessage(TextUtil.representTankContents(te.getMultiblockController().liquidFuelTank), true);
+			playerIn.sendStatusMessage(TextUtils.representTankContents(te.getMultiblockController().liquidFuelTank), true);
 			return true;
 		}
 		return false;

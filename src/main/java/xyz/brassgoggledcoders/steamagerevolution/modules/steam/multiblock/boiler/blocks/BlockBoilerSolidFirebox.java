@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPart;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerSolidFirebox;
-import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtil;
+import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 
 public class BlockBoilerSolidFirebox extends BlockTEBase<TileEntityBoilerSolidFirebox> {
 
@@ -26,7 +26,7 @@ public class BlockBoilerSolidFirebox extends BlockTEBase<TileEntityBoilerSolidFi
 		TileEntityBoilerPart te = getTileEntity(worldIn, pos);
 		if(te != null && te.isConnected()) {
 			playerIn.sendStatusMessage(
-					TextUtil.representInventoryContents(te.getMultiblockController().solidFuelInventory), true);
+					TextUtils.representInventoryContents(te.getMultiblockController().solidFuelInventory), true);
 			return true;
 		}
 		return false;

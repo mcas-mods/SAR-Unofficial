@@ -17,7 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPart;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerWaterGauge;
-import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtil;
+import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 
 public class BlockBoilerWaterGauge extends BlockTEBase<TileEntityBoilerWaterGauge> {
 
@@ -30,7 +30,7 @@ public class BlockBoilerWaterGauge extends BlockTEBase<TileEntityBoilerWaterGaug
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		TileEntityBoilerPart te = getTileEntity(worldIn, pos);
 		if(te != null && te.isConnected()) {
-			playerIn.sendStatusMessage(TextUtil.representTankContents(te.getMultiblockController().waterTank), true);
+			playerIn.sendStatusMessage(TextUtils.representTankContents(te.getMultiblockController().waterTank), true);
 			return true;
 		}
 		return false;

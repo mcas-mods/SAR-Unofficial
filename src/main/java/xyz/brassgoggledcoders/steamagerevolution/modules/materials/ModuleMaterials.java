@@ -31,7 +31,7 @@ public class ModuleMaterials extends ModuleBase {
 	String[] vanillaParts = new String[] {"ore", "plate", "dust", "fluid"};
 	String[] metalParts = new String[] {"ore", "ingot", "nugget", "plate", "dust", "block", "fluid"};
 	// String[] alloyParts = new String[] {"ingot", "nugget", "plate", "dust", "block", "fluid"};
-	public static Color brassColor = new Color(56, 51, 43);
+	public static Color brassColor = new Color(251, 194, 99);
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {

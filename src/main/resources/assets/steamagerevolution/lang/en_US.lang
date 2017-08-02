@@ -53,3 +53,15 @@ advancement.steamagerevolution:first_steps.desc=For fixing and breaking alike. M
 
 #Multiblock validation
 steamagerevolution:multiblock.validation.alloyforgeinterior=Interior of the alloy forge must be filled with lava
+
+#Guide
+guide.steamagerevolution.name=Steam Age Revolution Guidebook
+guide.steamagerevolution.title=Book of Steam and Brass
+guide.steamagerevolution.welcome=The world of steam:
+guide.steamagerevolution.category.basics=Getting started
+guide.steamagerevolution.entry.basics.hammer=Rockbreaker
+guide.steamagerevolution.entry.basics.hammer.info=The hammer is used to break down materials into their constituent parts. In other words, smashing things to bits. Particularly useful for pulverising ores into dusts that can then be combined to allow creation of alloys. Soon, you will be able to build a machine that automates this repetitive rock breaking.
+guide.steamagerevolution.entry.basics.ore=Dig dug
+guide.steamagerevolution.entry.basics.ore.info=Several new materials will be used in the creation of the machines to come. Copper can be found in the upper layers of the world, while Zinc is to be found slightly lower. /cutBoth materials are fairly abundant. They may be directly smelted into ingots, or the hammer can break them into dust.
+guide.steamagerevolution.entry.basics.alloy=Down to brass tacks
+guide.steamagerevolution.entry.basics.alloy.info=Combining copper and zinc gives an important new material - brass. Brass is strong while also being easy to machine. It is also quite conductive and ductile. A jack of all trades, master of none kind of alloy if you will. Initially, brass can be created by mixing copper and zinc powder to give brass powder that is then smelted into brass ingots. 

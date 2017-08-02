@@ -17,7 +17,7 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityBasicFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtil;
+import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 
 public class BlockBasicFluidTank extends BlockTEBase<TileEntityBasicFluidTank> {
 	public BlockBasicFluidTank(Material material, String name) {
@@ -67,7 +67,7 @@ public class BlockBasicFluidTank extends BlockTEBase<TileEntityBasicFluidTank> {
 		TileEntityBasicFluidTank te = getTileEntity(worldIn, pos);
 		if(!worldIn.isRemote && te != null) {
 			if(playerIn.isSneaking()) {
-				playerIn.sendStatusMessage(TextUtil.representTankContents(te.tank), true);
+				playerIn.sendStatusMessage(TextUtils.representTankContents(te.tank), true);
 				return true;
 			}
 			else {

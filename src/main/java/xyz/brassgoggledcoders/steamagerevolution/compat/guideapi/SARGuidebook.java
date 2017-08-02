@@ -1,0 +1,64 @@
+package xyz.brassgoggledcoders.steamagerevolution.compat.guideapi;
+
+import javax.annotation.Nonnull;
+
+import amerifrance.guideapi.api.GuideAPI;
+import amerifrance.guideapi.api.GuideBook;
+import amerifrance.guideapi.api.IGuideBook;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.category.CategoryItemStack;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMaterials;
+
+@GuideBook
+@ObjectHolder(SteamAgeRevolution.MODID)
+public class SARGuidebook implements IGuideBook {
+
+	public static final Item hammer = null;
+
+	public static Book sarGuide;
+
+	@Nonnull
+	@Override
+	public Book buildBook() {
+		// Setup the book's base information
+		sarGuide = new Book();
+		sarGuide.setTitle("guide." + SteamAgeRevolution.MODID + ".title");
+		sarGuide.setDisplayName("guide." + SteamAgeRevolution.MODID + ".name");
+		sarGuide.setWelcomeMessage("guide." + SteamAgeRevolution.MODID + ".welcome");
+		sarGuide.setAuthor("warlordjones");
+		sarGuide.setColor(ModuleMaterials.brassColor);
+		sarGuide.setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "guidebook"));
+		sarGuide.setCreativeTab(SteamAgeRevolution.tab);
+		return sarGuide;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void handleModel(ItemStack bookStack) {
+		// Use the default GuideAPI model
+		GuideAPI.setModel(sarGuide);
+	}
+
+	@Override
+	public void handlePost(ItemStack bookStack) {
+		if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+			sarGuide.addCategory(new CategoryItemStack(CategoryBasics.buildCategory(),
+					"guide.steamagerevolution.category.basics", new ItemStack(hammer)));
+		}
+		// TODO
+		GameRegistry.addShapelessRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "guidebook"),
+				new ResourceLocation(SteamAgeRevolution.MODID, "other"), bookStack,
+				new Ingredient[] {Ingredient.fromItem(Items.BOOK), Ingredient.fromItem(Items.COAL)});
+	}
+}
