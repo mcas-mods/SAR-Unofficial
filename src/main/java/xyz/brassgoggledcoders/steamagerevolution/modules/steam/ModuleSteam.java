@@ -69,6 +69,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.blocks.BlockSteamHammerHammer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.blocks.BlockSteamHammerShielding;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBench;
+import xyz.brassgoggledcoders.steamagerevolution.utils.RecipesIngotToPlate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.RecipesOreToDust;
 
 @Module(value = SteamAgeRevolution.MODID)
@@ -259,6 +260,11 @@ public class ModuleSteam extends ModuleBase {
 							"gear");
 				}
 			}
+			for(ItemStack ore : OreDictionary.getOres("ore" + metal, false)) {
+				if(OreDictionary.doesOreNameExist("dust" + metal)) {
+					SteamHammerRecipe.addSteamHammerRecipe(ore, OreDictUtils.getPreferredItemStack("dust" + metal));
+				}
+			}
 		}
 		super.postInit(event);
 	}
@@ -267,6 +273,8 @@ public class ModuleSteam extends ModuleBase {
 	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 		event.getRegistry().register(
 				new RecipesOreToDust().setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "ore_to_dust")));
+		event.getRegistry().register(new RecipesIngotToPlate()
+				.setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "ingot_to_plate")));
 	}
 
 	@SubscribeEvent
