@@ -38,6 +38,10 @@ public class CategoryProduction {
 		List<IPage> crucibleEntry = new ArrayList<IPage>();
 		crucibleEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "crucible.info")));
 		crucibleEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_casing")));
+		crucibleEntry
+				.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_fluid_output")));
+		crucibleEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_item_input")));
+		crucibleEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_steam_input")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_entry"),
 				new EntryItemStack(crucibleEntry, keyBase + "crucible", new ItemStack(crucible_casing)));
 

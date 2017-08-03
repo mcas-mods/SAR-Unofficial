@@ -1,6 +1,5 @@
 {
 	"recipes": {
-		"hammer_shapeless": "xyz.brassgoggledcoders.steamagerevolution.utils.ShapelessHammerRecipe$Factory",
 		"oreresult_shapeless": "xyz.brassgoggledcoders.steamagerevolution.utils.ShapelessOreResultRecipe$Factory"
 	}
 }
