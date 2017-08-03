@@ -7,6 +7,7 @@ import amerifrance.guideapi.api.GuideBook;
 import amerifrance.guideapi.api.IGuideBook;
 import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.category.CategoryItemStack;
+import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -25,6 +26,8 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMateria
 public class SARGuidebook implements IGuideBook {
 
 	public static final Item hammer = null;
+	public static final Item canister = null;
+	public static final Block steamhammer_anvil = null;
 
 	public static Book sarGuide;
 
@@ -55,6 +58,10 @@ public class SARGuidebook implements IGuideBook {
 		if(FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			sarGuide.addCategory(new CategoryItemStack(CategoryBasics.buildCategory(),
 					"guide.steamagerevolution.category.basics", new ItemStack(hammer)));
+			sarGuide.addCategory(new CategoryItemStack(CategoryProduction.buildCategory(),
+					"guide.steamagerevolution.category.production", new ItemStack(steamhammer_anvil)));
+			sarGuide.addCategory(new CategoryItemStack(CategoryUtilities.buildCategory(),
+					"guide.steamagerevolution.category.utils", new ItemStack(canister)));
 		}
 		// TODO
 		GameRegistry.addShapelessRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "guidebook"),

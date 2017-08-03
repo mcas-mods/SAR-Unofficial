@@ -9,6 +9,7 @@ import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
+import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockBasicFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockFluidHopper;
@@ -52,7 +53,7 @@ public class ModuleStorage extends ModuleBase {
 
 	@Override
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
-		canister = new ItemCanister("canister", 10000);
+		canister = new ItemCanister("canister", Fluid.BUCKET_VOLUME * 8);
 		itemRegistry.register(canister);
 	}
 

@@ -43,8 +43,7 @@ public class TileEntityCrucibleItemInput extends TileEntityCruciblePart {
 
 	@Override
 	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
-
-		return false;
+		return true;
 	}
 
 	@Override
