@@ -62,7 +62,7 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase implem
 			}
 		}
 
-		if(pressure > maxPressure) {
+		if(ModuleSteam.enableDestruction && pressure > maxPressure) {
 			// Whoopsyboom
 			this.WORLD.createExplosion(null, this.getReferenceCoord().getX(), getReferenceCoord().getY(),
 					getReferenceCoord().getZ(), 10 * pressure, true);

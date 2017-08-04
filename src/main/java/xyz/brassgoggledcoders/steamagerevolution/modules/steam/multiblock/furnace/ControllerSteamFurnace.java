@@ -16,6 +16,7 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockControllerInfo;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
@@ -81,7 +82,7 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase
 			}
 		}
 		// If temp exceeds max, start risking melting down
-		if(temperature > maxTemperature) {
+		if(ModuleSteam.enableDestruction && temperature > maxTemperature) {
 			if(WORLD.rand.nextInt(10) == 0) {
 				for(BlockPos machineBlock : BlockPos.getAllInBox(getMinimumCoord(), getMaximumCoord())) {
 					if(WORLD.rand.nextBoolean()) {

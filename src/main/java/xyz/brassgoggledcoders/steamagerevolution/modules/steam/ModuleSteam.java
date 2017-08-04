@@ -9,6 +9,7 @@ import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
+import com.teamacronymcoders.base.registrysystem.config.ConfigEntry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import com.teamacronymcoders.base.util.OreDictUtils;
 
@@ -22,6 +23,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Property.Type;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -96,6 +98,8 @@ public class ModuleSteam extends ModuleBase {
 	public static DamageSource hammer =
 			new DamageSource("hammer").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
 
+	public static boolean enableDestruction;
+
 	@Override
 	public String getName() {
 		return "Steam";
@@ -108,6 +112,9 @@ public class ModuleSteam extends ModuleBase {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
+		this.getConfigRegistry().addEntry("enableDestruction",
+				new ConfigEntry("general", "enableDestruction", Type.BOOLEAN, "false"));
+		enableDestruction = this.getConfigRegistry().getBoolean("enableDestruction", false);
 		MinecraftForge.EVENT_BUS.register(this);
 		super.preInit(event);
 	}
