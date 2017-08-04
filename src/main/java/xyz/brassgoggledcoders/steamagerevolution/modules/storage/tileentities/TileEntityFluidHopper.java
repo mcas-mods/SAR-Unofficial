@@ -1,6 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities;
 
-import com.teamacronymcoders.base.tileentities.TileEntitySlowTick;
 import com.teamacronymcoders.base.util.PositionUtils;
 
 import net.minecraft.block.state.IBlockState;
@@ -16,8 +15,9 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockFluidHopper;
+import xyz.brassgoggledcoders.steamagerevolution.utils.TileEntityHasCache;
 
-public class TileEntityFluidHopper extends TileEntitySlowTick {
+public class TileEntityFluidHopper extends TileEntityHasCache {
 
 	private FluidTank buffer = new FluidTank(Fluid.BUCKET_VOLUME);
 	private boolean hasFrom = false;
@@ -38,10 +38,9 @@ public class TileEntityFluidHopper extends TileEntitySlowTick {
 
 	@Override
 	public void updateTile() {
+		super.updateTile();
 		if(world.isRemote)
 			return;
-		if(!hasCache)
-			recalculateCache(getWorld(), getPos(), this.getWorld().getBlockState(getPos()), null);
 
 		if(BlockFluidHopper.isEnabled(this.getBlockMetadata())) {
 			if(toPos != null) {
@@ -76,7 +75,7 @@ public class TileEntityFluidHopper extends TileEntitySlowTick {
 	}
 
 	public void recalculateCache(World worldIn, BlockPos pos, IBlockState state, BlockPos fromPos) {
-		hasCache = true;
+		super.recalculateCache(worldIn, pos, state, fromPos);
 
 		boolean flag = !worldIn.isBlockPowered(pos);
 
