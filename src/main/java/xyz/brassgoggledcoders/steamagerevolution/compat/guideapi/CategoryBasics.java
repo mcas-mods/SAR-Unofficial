@@ -39,7 +39,7 @@ public class CategoryBasics {
 		oreEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "ore.info"),
 				OreDictUtils.getPreferredItemStack("oreCopper")));
 		// BookUtils.fromJson is edited to handle custom recipe factories
-		oreEntry.add(BookUtils.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "copper_dust")));
+		// oreEntry.add(BookUtils.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "copper_dust")));
 		// TODO Recipe handling
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "ore_entry"),
 				new EntryItemStack(oreEntry, keyBase + "ore", OreDictUtils.getPreferredItemStack("oreZinc")));
