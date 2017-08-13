@@ -28,10 +28,12 @@ public abstract class BlockMultiblockBase<T extends MultiblockTileEntityBase> ex
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		MultiblockTileEntityBase tile = getTileEntity(worldIn, pos);
-		if(tile.isConnected() && tile.getMultiblockController().getLastError() != null) {
-			playerIn.sendStatusMessage(tile.getMultiblockController().getLastError().getChatMessage(), true);
-			return true;
+		if(playerIn.isSneaking()) {
+			MultiblockTileEntityBase tile = getTileEntity(worldIn, pos);
+			if(tile.isConnected() && tile.getMultiblockController().getLastError() != null) {
+				playerIn.sendStatusMessage(tile.getMultiblockController().getLastError().getChatMessage(), true);
+				return true;
+			}
 		}
 		return false;
 	}
@@ -44,9 +46,13 @@ public abstract class BlockMultiblockBase<T extends MultiblockTileEntityBase> ex
 
 		// TODO Localisation
 		tooltip.add("Multiblock: " + controller.getName());
-		if(controller.getMaxXSize() != -1) {
-			tooltip.add("Maximum Size (XYZ): " + controller.getMaxXSize() + "x" + controller.getMaxYSize() + "x"
-					+ controller.getMaxZSize());
+		if(controller.getMinimumYSize() > 1) {
+			tooltip.add("Minimum Size (XYZ): " + controller.getMinimumXSize() + "x" + controller.getMinimumYSize() + "x"
+					+ controller.getMinimumZSize());
+		}
+		if(controller.getMaximumXSize() != -1) { // TODO
+			tooltip.add("Maximum Size (XYZ): " + controller.getMaximumXSize() + "x" + controller.getMaximumYSize() + "x"
+					+ controller.getMaximumZSize());
 		}
 		if(tile.getPartFunction() != null) {
 			tooltip.add("Part function: " + tile.getPartFunction());

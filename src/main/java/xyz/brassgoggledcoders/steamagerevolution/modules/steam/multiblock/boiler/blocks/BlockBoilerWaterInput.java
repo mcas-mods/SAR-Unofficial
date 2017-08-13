@@ -5,9 +5,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerWaterInput;
-import xyz.brassgoggledcoders.steamagerevolution.utils.BlockGUIBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.BlockMultiblockBase;
 
-public class BlockBoilerWaterInput extends BlockGUIBase<TileEntityBoilerWaterInput> {
+public class BlockBoilerWaterInput extends BlockMultiblockBase<TileEntityBoilerWaterInput> {
 
 	public BlockBoilerWaterInput(Material material, String name) {
 		super(material, name);

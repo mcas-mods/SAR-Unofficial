@@ -1,7 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks;
 
-import com.teamacronymcoders.base.blocks.BlockTEBase;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,9 +10,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPart;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerSolidFirebox;
+import xyz.brassgoggledcoders.steamagerevolution.utils.BlockMultiblockBase;
 import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 
-public class BlockBoilerSolidFirebox extends BlockTEBase<TileEntityBoilerSolidFirebox> {
+public class BlockBoilerSolidFirebox extends BlockMultiblockBase<TileEntityBoilerSolidFirebox> {
 
 	public BlockBoilerSolidFirebox(Material material, String name) {
 		super(material, name);

@@ -14,4 +14,6 @@ public class CommonProxy {
 
 	public void spawnFX(EnumParticleTypes type, BlockPos pos) {}
 
+	public void spawnMultiblockAssemblyFX(BlockPos min, BlockPos max) {}
+
 }

@@ -4,7 +4,6 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
-import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,12 +15,11 @@ import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockControllerInfo;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
+import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
 
-public class ControllerTank extends RectangularMultiblockControllerBase
-		implements ISmartTankCallback, IMultiblockControllerInfo {
+public class ControllerTank extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
 	public BlockPos minimumInteriorPos;
 	public BlockPos maximumInteriorPos;
@@ -93,19 +91,19 @@ public class ControllerTank extends RectangularMultiblockControllerBase
 	}
 
 	@Override
-	protected int getMaximumXSize() {
+	public int getMaximumXSize() {
 		// TODO Auto-generated method stub
 		return 10;
 	}
 
 	@Override
-	protected int getMaximumZSize() {
+	public int getMaximumZSize() {
 		// TODO Auto-generated method stub
 		return 10;
 	}
 
 	@Override
-	protected int getMaximumYSize() {
+	public int getMaximumYSize() {
 		// TODO Auto-generated method stub
 		return 10;
 	}
@@ -193,22 +191,6 @@ public class ControllerTank extends RectangularMultiblockControllerBase
 	@Override
 	public String getName() {
 		return "Tank";
-	}
-
-	@Override
-	public int getMaxXSize() {
-		return this.getMaximumXSize();
-	}
-
-	@Override
-	public int getMaxYSize() {
-		// TODO Auto-generated method stub
-		return this.getMaximumYSize();
-	}
-
-	@Override
-	public int getMaxZSize() {
-		return this.getMaximumZSize();
 	}
 
 }

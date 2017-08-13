@@ -2,7 +2,6 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.furna
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
-import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.init.Blocks;
@@ -18,11 +17,10 @@ import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockControllerInfo;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
 
-public class ControllerSteamFurnace extends RectangularMultiblockControllerBase
-		implements ISmartTankCallback, IMultiblockControllerInfo {
+public class ControllerSteamFurnace extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
 	public ItemStackHandler inputInventory = new ItemStackHandler(1);
 	public ItemStackHandler outputInventory = new ItemStackHandler(3);
@@ -132,32 +130,32 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase
 	}
 
 	@Override
-	protected int getMinimumXSize() {
+	public int getMinimumXSize() {
 		return 3;
 	}
 
 	@Override
-	protected int getMinimumZSize() {
+	public int getMinimumZSize() {
 		return 3;
 	}
 
 	@Override
-	protected int getMinimumYSize() {
+	public int getMinimumYSize() {
 		return 3;
 	}
 
 	@Override
-	protected int getMaximumXSize() {
+	public int getMaximumXSize() {
 		return 6;
 	}
 
 	@Override
-	protected int getMaximumZSize() {
+	public int getMaximumZSize() {
 		return 6;
 	}
 
 	@Override
-	protected int getMaximumYSize() {
+	public int getMaximumYSize() {
 		return 6;
 	}
 
@@ -277,21 +275,6 @@ public class ControllerSteamFurnace extends RectangularMultiblockControllerBase
 	@Override
 	public String getName() {
 		return "Steam Furnace";
-	}
-
-	@Override
-	public int getMaxXSize() {
-		return this.getMaximumXSize();
-	}
-
-	@Override
-	public int getMaxYSize() {
-		return this.getMaximumYSize();
-	}
-
-	@Override
-	public int getMaxZSize() {
-		return this.getMaximumZSize();
 	}
 
 }

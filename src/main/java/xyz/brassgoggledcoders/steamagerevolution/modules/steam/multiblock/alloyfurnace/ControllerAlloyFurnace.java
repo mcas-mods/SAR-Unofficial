@@ -2,7 +2,6 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloy
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
-import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.multiblock.validation.ValidationError;
 
@@ -15,14 +14,14 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockControllerInfo;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
 
-public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase
-		implements ISmartTankCallback, IMultiblockControllerInfo {
+public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
 	public FluidTank steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
 	public FluidTank primaryTank = new FluidTankSmart(TileEntityCastingBench.VALUE_BLOCK * 16, this);
@@ -38,7 +37,7 @@ public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase
 	// public static final int maxTemperature = 1000;
 
 	public ControllerAlloyFurnace(World world) {
-		super(world);
+		super(world, ModuleSteam.alloyFurnaceFluidOutput);
 	}
 
 	@Override
@@ -105,38 +104,38 @@ public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase
 		}
 		else {
 			validatorCallback
-					.setLastError(new ValidationError("steamagerevolution:multiblock.validation.alloyforgeinterior"));
+					.setLastError(new ValidationError("steamagerevolution.multiblock.validation.alloyforgeinterior"));
 			return false;
 		}
 	}
 
 	@Override
-	protected int getMinimumXSize() {
+	public int getMinimumXSize() {
 		return 5;
 	}
 
 	@Override
-	protected int getMinimumZSize() {
+	public int getMinimumZSize() {
 		return 5;
 	}
 
 	@Override
-	protected int getMinimumYSize() {
+	public int getMinimumYSize() {
 		return 6;
 	}
 
 	@Override
-	protected int getMaximumXSize() {
+	public int getMaximumXSize() {
 		return 5;
 	}
 
 	@Override
-	protected int getMaximumZSize() {
+	public int getMaximumZSize() {
 		return 5;
 	}
 
 	@Override
-	protected int getMaximumYSize() {
+	public int getMaximumYSize() {
 		return 6;
 	}
 
@@ -149,11 +148,6 @@ public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase
 	@Override
 	protected void onBlockRemoved(IMultiblockPart oldPart) {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void onMachineAssembled() {
 
 	}
 
@@ -257,20 +251,4 @@ public class ControllerAlloyFurnace extends RectangularMultiblockControllerBase
 	public String getName() {
 		return "Alloy Forge";
 	}
-
-	@Override
-	public int getMaxXSize() {
-		return this.getMaximumXSize();
-	}
-
-	@Override
-	public int getMaxYSize() {
-		return this.getMaximumYSize();
-	}
-
-	@Override
-	public int getMaxZSize() {
-		return this.getMaximumZSize();
-	}
-
 }

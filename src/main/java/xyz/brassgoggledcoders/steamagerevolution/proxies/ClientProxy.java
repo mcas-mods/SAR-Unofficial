@@ -37,10 +37,12 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void spawnFX(EnumParticleTypes type, BlockPos pos) {
 		World world = Minecraft.getMinecraft().world;
-		if(type == EnumParticleTypes.PORTAL)
-			for(int j = 0; j < 70; ++j)
+		if(type == EnumParticleTypes.PORTAL) {
+			for(int j = 0; j < 70; ++j) {
 				world.spawnParticle(type, pos.getX() + (-0.2 + world.rand.nextDouble()), pos.getY(),
 						pos.getZ() + (-0.2 + world.rand.nextDouble()), 0, 0, 0);
+			}
+		}
 		else if(type == EnumParticleTypes.FLAME) {
 			for(int j = 0; j < 5; ++j)
 				world.spawnParticle(EnumParticleTypes.LAVA, pos.getX() + (-0.2 + world.rand.nextDouble()), pos.getY(),
@@ -50,6 +52,17 @@ public class ClientProxy extends CommonProxy {
 				world.spawnParticle(EnumParticleTypes.LAVA, pos.getX() + (-0.2 + world.rand.nextDouble()), pos.getY(),
 						pos.getZ() + (-0.2 + world.rand.nextDouble()), -world.rand.nextGaussian(),
 						-world.rand.nextGaussian(), -world.rand.nextGaussian());
+		}
+	}
+
+	@Override
+	public void spawnMultiblockAssemblyFX(BlockPos min, BlockPos max) {
+		World world = Minecraft.getMinecraft().world;
+		for(BlockPos pos : BlockPos.getAllInBox(min, max)) {
+			for(int i = 0; i < 7; i++) {
+				world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, pos.getX() + 0.5F + world.rand.nextGaussian(),
+						pos.getY() + 0.5F, pos.getZ() + 0.5F + world.rand.nextGaussian(), 0, 0, 0);
+			}
 		}
 	}
 }

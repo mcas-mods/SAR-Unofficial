@@ -5,7 +5,6 @@ import java.util.Set;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
-import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.item.ItemStack;
@@ -25,8 +24,9 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
 
-public class ControllerBoiler extends RectangularMultiblockControllerBase implements ISmartTankCallback {
+public class ControllerBoiler extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
 	public static final int fuelDivisor = 3;
 	public static final int fluidConversionPerTick = 5;
@@ -112,17 +112,17 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase implem
 	}
 
 	@Override
-	protected int getMaximumXSize() {
+	public int getMaximumXSize() {
 		return 3;
 	}
 
 	@Override
-	protected int getMaximumZSize() {
+	public int getMaximumZSize() {
 		return 3;
 	}
 
 	@Override
-	protected int getMaximumYSize() {
+	public int getMaximumYSize() {
 		return 3;
 	}
 
@@ -265,5 +265,10 @@ public class ControllerBoiler extends RectangularMultiblockControllerBase implem
 	public void readFromDisk(NBTTagCompound data) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public String getName() {
+		return "Boiler";
 	}
 }

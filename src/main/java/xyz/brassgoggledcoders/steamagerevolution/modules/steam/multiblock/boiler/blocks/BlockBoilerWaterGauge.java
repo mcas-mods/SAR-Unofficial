@@ -1,7 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks;
 
-import com.teamacronymcoders.base.blocks.BlockTEBase;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,9 +15,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPart;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerWaterGauge;
+import xyz.brassgoggledcoders.steamagerevolution.utils.BlockMultiblockBase;
 import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 
-public class BlockBoilerWaterGauge extends BlockTEBase<TileEntityBoilerWaterGauge> {
+public class BlockBoilerWaterGauge extends BlockMultiblockBase<TileEntityBoilerWaterGauge> {
 
 	public BlockBoilerWaterGauge(Material material, String name) {
 		super(material, name);

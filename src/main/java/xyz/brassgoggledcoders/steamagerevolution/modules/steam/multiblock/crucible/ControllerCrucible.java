@@ -4,7 +4,6 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
-import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,12 +19,11 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.Tile
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockControllerInfo;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
+import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
 
-public class ControllerCrucible extends RectangularMultiblockControllerBase
-		implements ISmartTankCallback, IMultiblockControllerInfo {
+public class ControllerCrucible extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
 	BlockPos minimumInteriorPos;
 	BlockPos maximumInteriorPos;
@@ -117,17 +115,17 @@ public class ControllerCrucible extends RectangularMultiblockControllerBase
 	}
 
 	@Override
-	protected int getMaximumXSize() {
+	public int getMaximumXSize() {
 		return 5;
 	}
 
 	@Override
-	protected int getMaximumZSize() {
+	public int getMaximumZSize() {
 		return 5;
 	}
 
 	@Override
-	protected int getMaximumYSize() {
+	public int getMaximumYSize() {
 		return 5;
 	}
 
@@ -201,20 +199,4 @@ public class ControllerCrucible extends RectangularMultiblockControllerBase
 	public String getName() {
 		return "Crucible";
 	}
-
-	@Override
-	public int getMaxXSize() {
-		return this.getMaximumXSize();
-	}
-
-	@Override
-	public int getMaxYSize() {
-		return this.getMaximumYSize();
-	}
-
-	@Override
-	public int getMaxZSize() {
-		return this.getMaximumZSize();
-	}
-
 }

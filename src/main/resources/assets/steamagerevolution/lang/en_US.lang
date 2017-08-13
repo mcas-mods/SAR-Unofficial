@@ -52,7 +52,8 @@ advancement.steamagerevolution:first_steps=Percussive Maintenance
 advancement.steamagerevolution:first_steps.desc=For fixing and breaking alike. Mostly breaking.
 
 #Multiblock validation
-steamagerevolution:multiblock.validation.alloyforgeinterior=Interior of the alloy forge must be filled with lava
+steamagerevolution.multiblock.validation.missingrequired=Multiblock is missing required part: %s
+steamagerevolution.multiblock.validation.alloyforgeinterior=Interior of the alloy forge must be filled with lava
 
 #Guide
 guide.steamagerevolution.name=Steam Age Revolution Guidebook
