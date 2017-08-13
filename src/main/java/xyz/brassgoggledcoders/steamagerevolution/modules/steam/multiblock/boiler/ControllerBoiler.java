@@ -44,7 +44,7 @@ public class ControllerBoiler extends SARRectangularMultiblockControllerBase imp
 	Set<BlockPos> attachedValves;
 
 	public ControllerBoiler(World world) {
-		super(world);
+		super(world, ModuleSteam.boilerWaterInput, ModuleSteam.boilerSteamOutput);
 		attachedMonitors = new HashSet<BlockPos>();
 		attachedValves = new HashSet<BlockPos>();
 	}
