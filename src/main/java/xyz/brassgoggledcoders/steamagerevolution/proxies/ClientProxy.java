@@ -58,10 +58,12 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void spawnMultiblockAssemblyFX(BlockPos min, BlockPos max) {
 		World world = Minecraft.getMinecraft().world;
-		for(BlockPos pos : BlockPos.getAllInBox(min, max)) {
-			for(int i = 0; i < 7; i++) {
-				world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, pos.getX() + 0.5F + world.rand.nextGaussian(),
-						pos.getY() + 0.5F, pos.getZ() + 0.5F + world.rand.nextGaussian(), 0, 0, 0);
+		if(world != null) {
+			for(BlockPos pos : BlockPos.getAllInBox(min, max)) {
+				for(int i = 0; i < 7; i++) {
+					world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, pos.getX() + 0.5F + world.rand.nextGaussian(),
+							pos.getY() + 0.5F, pos.getZ() + 0.5F + world.rand.nextGaussian(), 0, 0, 0);
+				}
 			}
 		}
 	}

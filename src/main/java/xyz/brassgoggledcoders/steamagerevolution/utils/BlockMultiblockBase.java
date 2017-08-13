@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -30,8 +31,13 @@ public abstract class BlockMultiblockBase<T extends MultiblockTileEntityBase> ex
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if(playerIn.isSneaking()) {
 			MultiblockTileEntityBase tile = getTileEntity(worldIn, pos);
-			if(tile.isConnected() && tile.getMultiblockController().getLastError() != null) {
-				playerIn.sendStatusMessage(tile.getMultiblockController().getLastError().getChatMessage(), true);
+			if(tile.isConnected()) {
+				if(tile.getMultiblockController().getLastError() != null) {
+					playerIn.sendStatusMessage(tile.getMultiblockController().getLastError().getChatMessage(), true);
+				}
+				else {
+					playerIn.sendStatusMessage(new TextComponentString("Multiblock is assembled"), true);
+				}
 				return true;
 			}
 		}

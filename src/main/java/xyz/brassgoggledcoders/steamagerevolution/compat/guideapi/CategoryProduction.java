@@ -29,6 +29,11 @@ public class CategoryProduction {
 		Map<ResourceLocation, EntryAbstract> entries = new LinkedHashMap<ResourceLocation, EntryAbstract>();
 		String keyBase = "guide." + SteamAgeRevolution.MODID + ".entry.production.";
 
+		List<IPage> conceptEntry = new ArrayList<IPage>();
+		conceptEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "concepts.info")));
+		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "concepts_entry"),
+				new EntryItemStack(conceptEntry, keyBase + "concepts", new ItemStack(boiler_casing)));
+
 		List<IPage> boilerEntry = new ArrayList<IPage>();
 		boilerEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "boiler.info")));
 		boilerEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "boiler_casing")));
