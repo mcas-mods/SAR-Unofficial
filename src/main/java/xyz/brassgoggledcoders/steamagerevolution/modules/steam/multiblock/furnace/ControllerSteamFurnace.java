@@ -18,11 +18,12 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
 
 public class ControllerSteamFurnace extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
-	public ItemStackHandler inputInventory = new ItemStackHandler(1);
+	public ItemStackHandler inputInventory = new ItemStackHandlerFuel(1);
 	public ItemStackHandler outputInventory = new ItemStackHandler(3);
 	public FluidTankSingleSmart steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
 

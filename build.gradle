@@ -55,7 +55,7 @@ group= "xyz.brassgoggledcoders.steamagerevolution"
 archivesBaseName = "${mod_name}"
 
 minecraft {
-    version = "${minecraft_version}-${forge_version}"
+    version = "${forge_version}"
 
     mappings = "${mappings_version}"
     runDir = "run/"

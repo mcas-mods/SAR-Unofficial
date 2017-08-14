@@ -20,6 +20,7 @@ import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.ItemStackHandlerFiltered.ItemStackHandlerCrucible;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
 
@@ -27,7 +28,7 @@ public class ControllerCrucible extends SARRectangularMultiblockControllerBase i
 
 	BlockPos minimumInteriorPos;
 	BlockPos maximumInteriorPos;
-	public ItemStackHandler solid = new ItemStackHandler();
+	public ItemStackHandler solid = new ItemStackHandlerCrucible();
 	public FluidTankSmart tank = new FluidTankSmart(0, this);
 	public FluidTankSingleSmart steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this);
 

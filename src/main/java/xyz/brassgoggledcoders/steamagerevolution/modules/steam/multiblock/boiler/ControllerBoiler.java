@@ -24,6 +24,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
 
 public class ControllerBoiler extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
@@ -32,7 +33,7 @@ public class ControllerBoiler extends SARRectangularMultiblockControllerBase imp
 	public static final int fluidConversionPerTick = 5;
 	public static final float maxPressure = 3.0F;
 
-	public ItemStackHandler solidFuelInventory = new ItemStackHandler(3);
+	public ItemStackHandler solidFuelInventory = new ItemStackHandlerFuel(3);
 	public FluidTank liquidFuelTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
 	public FluidTankSingleSmart waterTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "water", this);
 	public FluidTankSingleSmart steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this);
