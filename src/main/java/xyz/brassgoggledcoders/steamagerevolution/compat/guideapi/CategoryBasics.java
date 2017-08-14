@@ -17,6 +17,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 
@@ -32,6 +33,10 @@ public class CategoryBasics {
 		List<IPage> hammerEntry = new ArrayList<IPage>();
 		hammerEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "hammer.info")));
 		hammerEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "hammer")));
+		hammerEntry.add(new PageIRecipe(new ShapelessOreRecipe(null, OreDictUtils.getPreferredItemStack("dustCopper"),
+				OreDictUtils.getPreferredItemStack("oreCopper"), hammer)));
+		hammerEntry.add(new PageIRecipe(new ShapelessOreRecipe(null, OreDictUtils.getPreferredItemStack("plateCopper"),
+				OreDictUtils.getPreferredItemStack("ingotCopper"), hammer)));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "hammer_entry"),
 				new EntryItemStack(hammerEntry, keyBase + "hammer", new ItemStack(hammer)));
 
