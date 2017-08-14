@@ -1,57 +1,60 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.steelworks;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
-import com.teamacronymcoders.base.multiblock.validation.ValidationError;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
+import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBench;
-import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
 
-public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
+public class ControllerSteelworks extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
-	public FluidTank primaryTank = new FluidTankSmart(TileEntityCastingBench.VALUE_BLOCK * 16, this);
-	public FluidTank secondaryTank = new FluidTankSmart(TileEntityCastingBench.VALUE_BLOCK * 16, this);
-	public FluidTank outputTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
+	public FluidTank steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
+	public FluidTank ironTank = new FluidTankSingleSmart(TileEntityCastingBench.VALUE_BLOCK * 16, "iron", this);
+	public ItemStackHandler inputSolid = new ItemStackHandler();
+	public FluidTank outputTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steel", this);
 
-	public ControllerAlloyFurnace(World world) {
-		super(world, ModuleSteam.alloyFurnaceFluidOutput, ModuleSteam.alloyFurnacePrimaryFluidInput,
-				ModuleSteam.alloyFurnaceSecondaryFluidInput);
+	public static final int workingPoolLevel = TileEntityCastingBench.VALUE_BLOCK * 9;
+	public static final int conversionPerOperation = TileEntityCastingBench.VALUE_NUGGET;
+	public static final int steamUsePerOperation = Fluid.BUCKET_VOLUME / 10;
+	public static final int carbonPerOperation = 1;
+
+	public ControllerSteelworks(World world) {
+		super(world);
 	}
 
 	@Override
 	protected boolean updateServer() {
 		boolean flag = false;
 
-		boolean hasFirstFluid = primaryTank.getFluid() != null;
-		boolean hasSecondFluid = secondaryTank.getFluid() != null;
+		boolean hasIron = ironTank.getFluid() != null;
+		boolean hasItems = !inputSolid.getStackInSlot(0).isEmpty();
 
 		// Can't do anything without a base for the alloy
-		if(hasFirstFluid && hasSecondFluid) {
-			AlloyFurnaceRecipe r = AlloyFurnaceRecipe.getRecipe(primaryTank.getFluid(), secondaryTank.getFluid());
-			if(r != null) {
-				if(primaryTank.getFluidAmount() >= r.primaryInput.amount) {
-					if(secondaryTank.getFluidAmount() >= r.secondaryInputFluid.amount) {
-						if(outputTank.fill(r.output, false) == r.output.amount) {
-							primaryTank.drain(r.primaryInput.amount, true);
-							secondaryTank.drain(r.secondaryInputFluid.amount, true);
-							outputTank.fill(r.output, true);
-							flag = true;
-						}
+		if(hasIron && hasItems) {
+			if(ironTank.getFluidAmount() >= workingPoolLevel) {
+				if(inputSolid.getStackInSlot(0).getCount() >= carbonPerOperation
+						&& steamTank.getFluidAmount() >= steamUsePerOperation) {
+					if((outputTank.getCapacity() - outputTank.getFluidAmount()) >= conversionPerOperation) {
+						ironTank.drain(conversionPerOperation, true);
+						steamTank.drain(steamUsePerOperation, true);
+						inputSolid.extractItem(0, carbonPerOperation, false);
+						outputTank.fill(new FluidStack(FluidRegistry.getFluid("steel"), conversionPerOperation), true);
+						flag = true;
 					}
 				}
 			}
+
 		}
 		// else do nothing, can't make a recipe with one fluid
 		return flag;
@@ -61,19 +64,6 @@ public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBa
 	protected int getMinimumNumberOfBlocksForAssembledMachine() {
 		// TODO
 		return 1;
-	}
-
-	@Override
-	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
-		if(block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) {
-			return true;
-		}
-		else {
-			validatorCallback
-					.setLastError(new ValidationError("steamagerevolution.multiblock.validation.alloyforgeinterior"));
-			return false;
-		}
 	}
 
 	@Override
@@ -88,22 +78,7 @@ public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBa
 
 	@Override
 	public int getMinimumYSize() {
-		return 6;
-	}
-
-	@Override
-	public int getMaximumXSize() {
-		return 5;
-	}
-
-	@Override
-	public int getMaximumZSize() {
-		return 5;
-	}
-
-	@Override
-	public int getMaximumYSize() {
-		return 6;
+		return 9;
 	}
 
 	@Override
@@ -162,15 +137,15 @@ public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBa
 
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		primaryTank.readFromNBT(data.getCompoundTag("fluidInput1"));
-		secondaryTank.readFromNBT(data.getCompoundTag("fluidInput2"));
+		inputSolid.deserializeNBT(data.getCompoundTag("solidInput"));
+		ironTank.readFromNBT(data.getCompoundTag("fluidInput1"));
 		outputTank.readFromNBT(data.getCompoundTag("output"));
 	}
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
-		data.setTag("fluidInput1", primaryTank.writeToNBT(new NBTTagCompound()));
-		data.setTag("fluidInput2", secondaryTank.writeToNBT(new NBTTagCompound()));
+		data.setTag("solidInput", inputSolid.serializeNBT());
+		data.setTag("fluidInput1", ironTank.writeToNBT(new NBTTagCompound()));
 		data.setTag("output", outputTank.writeToNBT(new NBTTagCompound()));
 	}
 
@@ -212,6 +187,26 @@ public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBa
 
 	@Override
 	public String getName() {
-		return "Alloy Forge";
+		return "Steelworks";
+	}
+
+	@Override
+	public int getMaximumXSize() {
+		return this.getMinimumXSize();
+	}
+
+	@Override
+	public int getMaximumZSize() {
+		return this.getMinimumZSize();
+	}
+
+	@Override
+	public int getMaximumYSize() {
+		return this.getMinimumYSize();
+	}
+
+	@Override
+	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		return world.isAirBlock(new BlockPos(x, y, z));
 	}
 }

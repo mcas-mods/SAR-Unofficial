@@ -1,8 +1,9 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.tileentities;
+package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.steelworks;
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-public class TileEntityAlloyFurnaceHardFrame extends TileEntityAlloyFurnacePart {
+public class TileEntitySteelworksFrame extends TileEntitySteelworksPart {
+
 	@Override
 	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
 		return true;

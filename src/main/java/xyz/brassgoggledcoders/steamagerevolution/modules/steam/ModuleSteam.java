@@ -41,8 +41,6 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyf
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceController;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFluidOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFrame;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceHardFrame;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceItemInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnacePrimaryFluidInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceSecondaryFluidInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerCasing;
@@ -70,6 +68,11 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.blocks.BlockSteamHammerFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.blocks.BlockSteamHammerHammer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.blocks.BlockSteamHammerShielding;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.steelworks.BlockSteelworksCarbonInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.steelworks.BlockSteelworksFrame;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.steelworks.BlockSteelworksIronInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.steelworks.BlockSteelworksSteamInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.steelworks.BlockSteelworksSteelOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.utils.RecipesIngotToPlate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.RecipesOreToDust;
@@ -84,8 +87,8 @@ public class ModuleSteam extends ModuleBase {
 			boilerWaterGauge, boilerSteamGauge, boilerPressureMonitor, boilerPressureValve;
 	public static Block steamTurbine, mechanicalOutput, steamInput, turbineFrame;
 	public static Block furnaceCasing, furnaceItemInput, furnaceItemOutput, furnaceSteamInput, furnaceMonitor;
-	public static Block alloyFurnaceController, alloyFurnaceFrame, alloyFurnaceHardFrame, alloyFurnaceItemInput,
-			alloyFurnacePrimaryFluidInput, alloyFurnaceSecondaryFluidInput, alloyFurnaceFluidOutput;
+	public static Block alloyFurnaceController, alloyFurnaceFrame, alloyFurnacePrimaryFluidInput,
+			alloyFurnaceSecondaryFluidInput, alloyFurnaceFluidOutput;
 	public static Block castingBench;
 	public static Block crucibleCasing, crucibleItemInput, crucibleSteamInput, crucibleFluidOutput;
 	public static Block steamhammerHammer, steamhammerAnvil, steamhammerFrame, steamhammerShielding;
@@ -135,9 +138,6 @@ public class ModuleSteam extends ModuleBase {
 				FluidRegistry.getFluidStack("copper", TileEntityCastingBench.VALUE_INGOT),
 				FluidRegistry.getFluidStack("zinc", TileEntityCastingBench.VALUE_INGOT),
 				FluidRegistry.getFluidStack("brass", TileEntityCastingBench.VALUE_INGOT));
-		AlloyFurnaceRecipe.addUpgradedAlloyFurnaceRecipe(
-				FluidRegistry.getFluidStack("iron", TileEntityCastingBench.VALUE_INGOT), new ItemStack(Items.COAL, 2),
-				FluidRegistry.getFluidStack("steel", TileEntityCastingBench.VALUE_INGOT));
 
 		OreDictionary.registerOre("dustCharcoal", charcoalPowder);
 		super.init(event);
@@ -182,10 +182,6 @@ public class ModuleSteam extends ModuleBase {
 		// blockRegistry.register(alloyFurnaceController);
 		alloyFurnaceFrame = new BlockAlloyFurnaceFrame(Material.ROCK, "alloy_furnace_frame");
 		blockRegistry.register(alloyFurnaceFrame);
-		alloyFurnaceHardFrame = new BlockAlloyFurnaceHardFrame(Material.ROCK, "alloy_furnace_hard_frame");
-		blockRegistry.register(alloyFurnaceHardFrame);
-		alloyFurnaceItemInput = new BlockAlloyFurnaceItemInput(Material.ROCK, "alloy_furnace_item_input");
-		blockRegistry.register(alloyFurnaceItemInput);
 		alloyFurnacePrimaryFluidInput =
 				new BlockAlloyFurnacePrimaryFluidInput(Material.ROCK, "alloy_furnace_primary_fluid_input");
 		blockRegistry.register(alloyFurnacePrimaryFluidInput);
@@ -194,6 +190,12 @@ public class ModuleSteam extends ModuleBase {
 		blockRegistry.register(alloyFurnaceSecondaryFluidInput);
 		alloyFurnaceFluidOutput = new BlockAlloyFurnaceFluidOutput(Material.ROCK, "alloy_furnace_fluid_output");
 		blockRegistry.register(alloyFurnaceFluidOutput);
+
+		blockRegistry.register(new BlockSteelworksFrame(Material.ROCK, "steelworks_frame"));
+		blockRegistry.register(new BlockSteelworksIronInput(Material.ROCK, "steelworks_iron_input"));
+		blockRegistry.register(new BlockSteelworksCarbonInput(Material.ROCK, "steelworks_carbon_input"));
+		blockRegistry.register(new BlockSteelworksSteamInput(Material.ROCK, "steelworks_steam_input"));
+		blockRegistry.register(new BlockSteelworksSteelOutput(Material.ROCK, "steelworks_steel_output"));
 
 		furnaceCasing = new BlockFurnaceCasing(Material.IRON, "furnace_casing");
 		blockRegistry.register(furnaceCasing);
@@ -205,15 +207,6 @@ public class ModuleSteam extends ModuleBase {
 		blockRegistry.register(furnaceSteamInput);
 		furnaceMonitor = new BlockFurnaceModeToggle(Material.IRON, "furnace_monitor");
 		blockRegistry.register(furnaceMonitor);
-
-		// steamTurbine = new BlockTurbine(Material.IRON, "steam_turbine");
-		// blockRegistry.register(steamTurbine);
-		// mechanicalOutput = new BlockMechanicalOutput(Material.IRON, "mechanical_output");
-		// blockRegistry.register(mechanicalOutput);
-		// steamInput = new BlockSteamInput(Material.IRON, "steam_input");
-		// blockRegistry.register(steamInput);
-		// turbineFrame = new BlockTurbineFrame(Material.IRON, "turbine_frame");
-		// blockRegistry.register(turbineFrame);
 
 		castingBench = new BlockCastingBench(Material.ANVIL, "casting_bench");
 		blockRegistry.register(castingBench);

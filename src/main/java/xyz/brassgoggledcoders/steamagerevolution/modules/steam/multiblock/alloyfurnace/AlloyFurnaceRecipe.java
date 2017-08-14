@@ -13,34 +13,18 @@ public class AlloyFurnaceRecipe {
 	public final ItemStack secondaryInputItem;
 	public final FluidStack secondaryInputFluid;
 	public final FluidStack output;
-	public final boolean requiresHardCase;
 
-	private AlloyFurnaceRecipe(FluidStack primaryInput, ItemStack secondaryInput, FluidStack output,
-			boolean requiresHardCase) {
-		this.primaryInput = primaryInput;
-		this.secondaryInputItem = secondaryInput;
-		this.secondaryInputFluid = null;
-		this.output = output;
-		this.requiresHardCase = requiresHardCase;
-	}
-
-	private AlloyFurnaceRecipe(FluidStack primaryInput, FluidStack secondaryInput, FluidStack output,
-			boolean requiresHardCase) {
+	private AlloyFurnaceRecipe(FluidStack primaryInput, FluidStack secondaryInput, FluidStack output) {
 		this.primaryInput = primaryInput;
 		this.secondaryInputItem = null;
 		this.secondaryInputFluid = secondaryInput;
 		this.output = output;
-		this.requiresHardCase = requiresHardCase;
 	}
 
 	private static ArrayList<AlloyFurnaceRecipe> recipeList = new ArrayList<AlloyFurnaceRecipe>();
 
-	public static void addAlloyFurnaceRecipe(FluidStack input1, FluidStack input2, FluidStack output) {
-		recipeList.add(new AlloyFurnaceRecipe(input1, input2, output, false));
-	}
-
-	public static void addUpgradedAlloyFurnaceRecipe(FluidStack input1, ItemStack input2, FluidStack output) {
-		recipeList.add(new AlloyFurnaceRecipe(input1, input2, output, true));
+	public static void addAlloyFurnaceRecipe(FluidStack primaryInput, FluidStack secondaryInput, FluidStack output) {
+		recipeList.add(new AlloyFurnaceRecipe(primaryInput, secondaryInput, output));
 	}
 
 	@Nullable

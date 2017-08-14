@@ -23,6 +23,7 @@ public class CategoryProduction {
 	public static final Block boiler_casing = null;
 	public static final Block crucible_casing = null;
 	public static final Block alloy_furnace_frame = null;
+	public static final Block steelworks_frame = null;
 	public static final Block steamhammer_frame = null;
 
 	public static Map<ResourceLocation, EntryAbstract> buildCategory() {
@@ -56,6 +57,11 @@ public class CategoryProduction {
 				.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "alloy_furnace_frame")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "alloy_forge_entry"),
 				new EntryItemStack(alloyForgeEntry, keyBase + "alloy_forge", new ItemStack(alloy_furnace_frame)));
+
+		List<IPage> steelworksEntry = new ArrayList<IPage>();
+		steelworksEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "steelworks.info")));
+		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "steelworks_entry"),
+				new EntryItemStack(alloyForgeEntry, keyBase + "steelworks", new ItemStack(steelworks_frame)));
 
 		List<IPage> hammerEntry = new ArrayList<IPage>();
 		hammerEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "steam_hammer.info")));
