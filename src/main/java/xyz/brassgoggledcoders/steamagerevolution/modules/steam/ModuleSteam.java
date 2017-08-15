@@ -28,7 +28,6 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -68,6 +67,10 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.blocks.BlockSteamHammerFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.blocks.BlockSteamHammerHammer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.hammer.blocks.BlockSteamHammerShielding;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.kiln.BlockKilnDoor;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.kiln.BlockKilnFrame;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.kiln.BlockKilnSteamInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.kiln.BlockKilnWindow;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.steelworks.BlockSteelworksCarbonInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.steelworks.BlockSteelworksFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.steelworks.BlockSteelworksIronInput;
@@ -160,7 +163,6 @@ public class ModuleSteam extends ModuleBase {
 
 		boilerCasing = new BlockBoilerCasing(Material.IRON, "boiler_casing");
 		blockRegistry.register(boilerCasing);
-		FMLInterModComms.sendMessage("chisel", "variation:add", "brass_frame|SteamAgeRevolution:brass_frame|0");
 		boilerWaterInput = new BlockBoilerWaterInput(Material.IRON, "boiler_water_input");
 		blockRegistry.register(boilerWaterInput);
 		boilerSteamOutput = new BlockBoilerSteamOutput(Material.IRON, "boiler_steam_output");
@@ -196,6 +198,11 @@ public class ModuleSteam extends ModuleBase {
 		blockRegistry.register(new BlockSteelworksCarbonInput(Material.ROCK, "steelworks_carbon_input"));
 		blockRegistry.register(new BlockSteelworksSteamInput(Material.ROCK, "steelworks_steam_input"));
 		blockRegistry.register(new BlockSteelworksSteelOutput(Material.ROCK, "steelworks_steel_output"));
+
+		blockRegistry.register(new BlockKilnFrame(Material.ROCK, "kiln_frame"));
+		blockRegistry.register(new BlockKilnSteamInput(Material.ROCK, "kiln_steam_input"));
+		blockRegistry.register(new BlockKilnWindow(Material.GLASS, "kiln_window"));
+		blockRegistry.register(new BlockKilnDoor(Material.IRON, "kiln_door"));
 
 		furnaceCasing = new BlockFurnaceCasing(Material.IRON, "furnace_casing");
 		blockRegistry.register(furnaceCasing);

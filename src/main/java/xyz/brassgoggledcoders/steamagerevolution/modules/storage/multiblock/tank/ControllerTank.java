@@ -65,6 +65,7 @@ public class ControllerTank extends SARRectangularMultiblockControllerBase imple
 		// Size internal tank accordingly
 		tank = new FluidTankSmart(tank.getFluid(), blocksInside * Fluid.BUCKET_VOLUME * 16, this);
 		// FMLLog.warning("" + tank.getCapacity());
+		super.onMachineAssembled();
 	}
 
 	@Override

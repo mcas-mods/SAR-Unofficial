@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.materials;
 
 import java.awt.Color;
 
+import com.teamacronymcoders.base.blocks.BlockBase;
 import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.materialsystem.MaterialException;
 import com.teamacronymcoders.base.materialsystem.MaterialUser;
@@ -12,21 +13,27 @@ import com.teamacronymcoders.base.materialsystem.materials.MaterialBuilder;
 import com.teamacronymcoders.base.materialsystem.parttype.OrePartType;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
+import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import com.teamacronymcoders.base.util.OreDictUtils;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
+import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
+@ObjectHolder(SteamAgeRevolution.MODID)
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleMaterials extends ModuleBase {
 
 	public static Item hammer;
+	public static final Block charcoal_block = null;
 
 	String[] vanillaParts = new String[] {"ore", "plate", "dust", "fluid"};
 	String[] metalParts = new String[] {"ore", "ingot", "nugget", "plate", "dust", "block", "fluid"};
@@ -98,7 +105,13 @@ public class ModuleMaterials extends ModuleBase {
 	public void init(FMLInitializationEvent event) {
 		FurnaceRecipes.instance().addSmeltingRecipe(OreDictUtils.getPreferredItemStack("dustBrass"),
 				OreDictUtils.getPreferredItemStack("ingotBrass"), 0.7f);
+		OreDictionary.registerOre("blockCharcoal", charcoal_block);
 		super.init(event);
+	}
+
+	@Override
+	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
+		blockRegistry.register(new BlockBase(net.minecraft.block.material.Material.ROCK, "charcoal_block"));
 	}
 
 	@Override
