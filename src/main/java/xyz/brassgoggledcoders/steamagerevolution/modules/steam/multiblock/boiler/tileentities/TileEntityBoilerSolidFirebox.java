@@ -10,7 +10,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.ControllerBoiler;
 
 public class TileEntityBoilerSolidFirebox extends TileEntityBoilerPart implements IOnSlotChanged {
 
@@ -29,7 +28,7 @@ public class TileEntityBoilerSolidFirebox extends TileEntityBoilerPart implement
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-					.cast(((ControllerBoiler) this.getMultiblockController()).solidFuelInventory);
+					.cast(this.getMultiblockController().solidFuelInventory);
 		}
 		return super.getCapability(capability, facing);
 	}

@@ -1,6 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 
-import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
@@ -14,9 +13,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
-@Module(value = SteamAgeRevolution.MODID)
+// @Module(value = SteamAgeRevolution.MODID)
 public class ModuleArmory extends ModuleBase {
 
 	@Override

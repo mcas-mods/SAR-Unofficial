@@ -16,12 +16,10 @@ import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
-import com.teamacronymcoders.base.util.OreDictUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
@@ -34,6 +32,7 @@ public class ModuleMaterials extends ModuleBase {
 
 	public static Item hammer;
 	public static final Block charcoal_block = null;
+	public static final Item charcoal_powder = null;
 
 	String[] vanillaParts = new String[] {"ore", "plate", "dust", "fluid"};
 	String[] metalParts = new String[] {"ore", "ingot", "nugget", "plate", "dust", "block", "fluid"};
@@ -103,9 +102,11 @@ public class ModuleMaterials extends ModuleBase {
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-		FurnaceRecipes.instance().addSmeltingRecipe(OreDictUtils.getPreferredItemStack("dustBrass"),
-				OreDictUtils.getPreferredItemStack("ingotBrass"), 0.7f);
+		// TODO
+		// FurnaceRecipes.instance().addSmeltingRecipe(OreDictUtils.getPreferredItemStack("dustBrass"),
+		// OreDictUtils.getPreferredItemStack("ingotBrass"), 0.7f);
 		OreDictionary.registerOre("blockCharcoal", charcoal_block);
+		OreDictionary.registerOre("dustCharcoal", charcoal_powder);
 		super.init(event);
 	}
 
@@ -118,6 +119,7 @@ public class ModuleMaterials extends ModuleBase {
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
 		hammer = new ItemBase("hammer").setMaxStackSize(1).setMaxDamage(ToolMaterial.IRON.getMaxUses());
 		itemRegistry.register(hammer);
+		itemRegistry.register(new ItemBase("charcoal_powder"));
 	}
 
 	@Override

@@ -13,8 +13,6 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.renderers.TileEntityBoilerWaterGaugeRenderer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerSteamGauge;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerWaterGauge;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBench;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityCastingBenchRenderer;
 
 public class ClientProxy implements IModuleProxy {
 
@@ -25,8 +23,6 @@ public class ClientProxy implements IModuleProxy {
 	public void init(FMLInitializationEvent event) {
 		Base.instance.getLibProxy().registerFluidModel(ModuleSteam.steamBlock,
 				new ResourceLocation(SteamAgeRevolution.MODID, "steam"));
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCastingBench.class,
-				new TileEntityCastingBenchRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBoilerWaterGauge.class,
 				new TileEntityBoilerWaterGaugeRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBoilerSteamGauge.class,

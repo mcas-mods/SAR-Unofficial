@@ -34,6 +34,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.Ti
 
 public class BlockFluidHopper extends BlockTEBase<TileEntityFluidHopper> {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>() {
+		@Override
 		public boolean apply(@Nullable EnumFacing p_apply_1_) {
 			return p_apply_1_ != EnumFacing.UP;
 		}
@@ -149,9 +150,9 @@ public class BlockFluidHopper extends BlockTEBase<TileEntityFluidHopper> {
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		int i = 0;
-		i = i | ((EnumFacing) state.getValue(FACING)).getIndex();
+		i = i | state.getValue(FACING).getIndex();
 
-		if(!((Boolean) state.getValue(ENABLED)).booleanValue()) {
+		if(!state.getValue(ENABLED).booleanValue()) {
 			i |= 8;
 		}
 

@@ -74,12 +74,13 @@ public class TileEntityFluidHopper extends TileEntityHasCache {
 		return tag;
 	}
 
+	@Override
 	public void recalculateCache(World worldIn, BlockPos pos, IBlockState state, BlockPos fromPos) {
 		super.recalculateCache(worldIn, pos, state, fromPos);
 
 		boolean flag = !worldIn.isBlockPowered(pos);
 
-		if(flag != ((Boolean) state.getValue(BlockFluidHopper.ENABLED)).booleanValue()) {
+		if(flag != state.getValue(BlockFluidHopper.ENABLED).booleanValue()) {
 			worldIn.setBlockState(pos, state.withProperty(BlockFluidHopper.ENABLED, Boolean.valueOf(flag)), 4);
 		}
 

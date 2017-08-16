@@ -5,7 +5,7 @@ import javax.annotation.Nonnull;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.crucible.MoltenMetalRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.MoltenMetalRecipe;
 
 public abstract class ItemStackHandlerFiltered extends ItemStackHandler {
 

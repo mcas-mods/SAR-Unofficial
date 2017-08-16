@@ -20,6 +20,7 @@ public class HandlerFluidUpdate implements IMessageHandler<PacketFluidUpdate, IM
 		Minecraft minecraft = Minecraft.getMinecraft();
 		final WorldClient worldClient = minecraft.world;
 		minecraft.addScheduledTask(new Runnable() {
+			@Override
 			public void run() {
 				processMessage(worldClient, message);
 			}

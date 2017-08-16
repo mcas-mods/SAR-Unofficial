@@ -45,6 +45,7 @@ public class TileEntityBasicFluidTank extends TileEntityBase implements ISmartTa
 		return tank.writeToNBT(tag);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void updateFluid(FluidStack fluid) {
 		this.tank.setFluid(fluid);

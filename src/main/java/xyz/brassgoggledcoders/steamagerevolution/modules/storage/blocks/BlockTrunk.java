@@ -67,7 +67,7 @@ public class BlockTrunk extends BlockGUIBase<TileEntityTrunk> {
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
 			ItemStack stack) {
 		EnumFacing enumfacing =
-				EnumFacing.getHorizontal(MathHelper.floor((double) (placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3)
+				EnumFacing.getHorizontal(MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3)
 						.getOpposite();
 		state = state.withProperty(FACING, enumfacing);
 		BlockPos blockpos = pos.north();
@@ -119,7 +119,7 @@ public class BlockTrunk extends BlockGUIBase<TileEntityTrunk> {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((EnumFacing) state.getValue(FACING)).getIndex();
+		return state.getValue(FACING).getIndex();
 	}
 
 	@Override
