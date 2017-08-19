@@ -22,7 +22,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.ModulePneumatic;
+import xyz.brassgoggledcoders.steamagerevolution.modules.transport.ModuleTransport;
 import xyz.brassgoggledcoders.steamagerevolution.modules.transport.tileentities.TileEntityHydraulicSender;
 
 public class BlockHydraulicTube extends BlockBase {
@@ -134,13 +134,13 @@ public class BlockHydraulicTube extends BlockBase {
 		for(int i = 1; i < TileEntityHydraulicSender.maxDistance; i++) {
 			BlockPos checkPos =
 					pos.offset(EnumFacing.getFacingFromAxis(AxisDirection.POSITIVE, state.getValue(AXIS)), i);
-			if(worldIn.getBlockState(checkPos).getBlock() == ModulePneumatic.hydraulicSender) {
+			if(worldIn.getBlockState(checkPos).getBlock() == ModuleTransport.hydraulicSender) {
 				((TileEntityHydraulicSender) worldIn.getTileEntity(checkPos)).recalculateCache(worldIn, checkPos);
 				return;
 			}
 			BlockPos checkNeg =
 					pos.offset(EnumFacing.getFacingFromAxis(AxisDirection.NEGATIVE, state.getValue(AXIS)), i);
-			if(worldIn.getBlockState(checkNeg).getBlock() == ModulePneumatic.hydraulicSender) {
+			if(worldIn.getBlockState(checkNeg).getBlock() == ModuleTransport.hydraulicSender) {
 				((TileEntityHydraulicSender) worldIn.getTileEntity(checkNeg)).recalculateCache(worldIn, checkNeg);
 				return;
 			}

@@ -14,7 +14,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.ModulePneumatic;
+import xyz.brassgoggledcoders.steamagerevolution.modules.transport.ModuleTransport;
 import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockPneumaticSender;
 import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockPneumaticTube;
 
@@ -74,12 +74,12 @@ public class TileEntityPneumaticSender extends TileEntitySlowTick {
 		for(int i = 1; i < maxDistance; i++) {
 			BlockPos currentPos = pos.offset(facing, i);
 			Block block = world.getBlockState(currentPos).getBlock();
-			if(block == ModulePneumatic.pneumaticRouter) {
+			if(block == ModuleTransport.pneumaticRouter) {
 				recieveInventory = this.getWorld().getTileEntity(getPos().offset(facing, i))
 						.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
 				return;
 			}
-			else if(block == ModulePneumatic.pneumaticTube && this.getWorld().getBlockState(currentPos)
+			else if(block == ModuleTransport.pneumaticTube && this.getWorld().getBlockState(currentPos)
 					.getValue(BlockPneumaticTube.AXIS) == facing.getAxis()) {
 				tubePositions[i] = currentPos;
 				continue;

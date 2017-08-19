@@ -33,10 +33,10 @@ public class ModuleProcessing extends ModuleBase {
 		blockRegistry.register(new BlockKilnDoor(Material.IRON, "kiln_door"));
 
 		blockRegistry.register(new BlockFurnaceCasing(Material.IRON, "furnace_casing"));
-		blockRegistry.register(new BlockFurnaceItemInput(Material.IRON, "furnace_iteminput"));
-		blockRegistry.register(new BlockFurnaceItemOutput(Material.IRON, "furnace_itemoutput"));
-		blockRegistry.register(new BlockFurnaceSteamInput(Material.IRON, "furnace_steaminput"));
-		blockRegistry.register(new BlockFurnaceModeToggle(Material.IRON, "furnace_monitor"));
+		blockRegistry.register(new BlockFurnaceItemInput(Material.IRON, "furnace_item_input"));
+		blockRegistry.register(new BlockFurnaceItemOutput(Material.IRON, "furnace_item_output"));
+		blockRegistry.register(new BlockFurnaceSteamInput(Material.IRON, "furnace_steam_input"));
+		blockRegistry.register(new BlockFurnaceModeToggle(Material.IRON, "furnace_mode_toggle"));
 	}
 
 }

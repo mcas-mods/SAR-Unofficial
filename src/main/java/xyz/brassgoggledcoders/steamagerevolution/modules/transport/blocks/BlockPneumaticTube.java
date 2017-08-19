@@ -22,7 +22,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.ModulePneumatic;
+import xyz.brassgoggledcoders.steamagerevolution.modules.transport.ModuleTransport;
 import xyz.brassgoggledcoders.steamagerevolution.modules.transport.tileentities.TileEntityPneumaticSender;
 
 public class BlockPneumaticTube extends BlockBase {
@@ -134,13 +134,13 @@ public class BlockPneumaticTube extends BlockBase {
 		for(int i = 1; i < TileEntityPneumaticSender.maxDistance; i++) {
 			BlockPos checkPos =
 					pos.offset(EnumFacing.getFacingFromAxis(AxisDirection.POSITIVE, state.getValue(AXIS)), i);
-			if(worldIn.getBlockState(checkPos).getBlock() == ModulePneumatic.pneumaticSender) {
+			if(worldIn.getBlockState(checkPos).getBlock() == ModuleTransport.pneumaticSender) {
 				((TileEntityPneumaticSender) worldIn.getTileEntity(checkPos)).recalculateCache(worldIn, checkPos);
 				return;
 			}
 			BlockPos checkNeg =
 					pos.offset(EnumFacing.getFacingFromAxis(AxisDirection.NEGATIVE, state.getValue(AXIS)), i);
-			if(worldIn.getBlockState(checkNeg).getBlock() == ModulePneumatic.pneumaticSender) {
+			if(worldIn.getBlockState(checkNeg).getBlock() == ModuleTransport.pneumaticSender) {
 				((TileEntityPneumaticSender) worldIn.getTileEntity(checkNeg)).recalculateCache(worldIn, checkNeg);
 				return;
 			}

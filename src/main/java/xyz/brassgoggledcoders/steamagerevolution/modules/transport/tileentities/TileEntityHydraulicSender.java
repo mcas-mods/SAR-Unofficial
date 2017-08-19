@@ -14,7 +14,7 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.ModulePneumatic;
+import xyz.brassgoggledcoders.steamagerevolution.modules.transport.ModuleTransport;
 import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockHydraulicSender;
 import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockHydraulicTube;
 
@@ -61,12 +61,12 @@ public class TileEntityHydraulicSender extends TileEntitySlowTick {
 		for(int i = 1; i < maxDistance; i++) {
 			BlockPos currentPos = pos.offset(facing, i);
 			Block block = world.getBlockState(currentPos).getBlock();
-			if(block == ModulePneumatic.hydraulicRouter) {
+			if(block == ModuleTransport.hydraulicRouter) {
 				recieveInventory = this.getWorld().getTileEntity(getPos().offset(facing, i))
 						.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing);
 				return;
 			}
-			else if(block == ModulePneumatic.hydraulicTube && this.getWorld().getBlockState(currentPos)
+			else if(block == ModuleTransport.hydraulicTube && this.getWorld().getBlockState(currentPos)
 					.getValue(BlockHydraulicTube.AXIS) == facing.getAxis()) {
 				tubePositions[i] = currentPos;
 				continue;

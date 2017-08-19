@@ -30,7 +30,6 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleMaterials extends ModuleBase {
 
-	public static Item hammer;
 	public static final Block charcoal_block = null;
 	public static final Item charcoal_powder = null;
 
@@ -117,13 +116,12 @@ public class ModuleMaterials extends ModuleBase {
 
 	@Override
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
-		hammer = new ItemBase("hammer").setMaxStackSize(1).setMaxDamage(ToolMaterial.IRON.getMaxUses());
-		itemRegistry.register(hammer);
+		itemRegistry.register(new ItemBase("hammer").setMaxStackSize(1).setMaxDamage(ToolMaterial.IRON.getMaxUses()));
 		itemRegistry.register(new ItemBase("charcoal_powder"));
 	}
 
 	@Override
 	public String getName() {
-		return "Core";
+		return "Materials";
 	}
 }

@@ -18,7 +18,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.transport.multiblock.so
 import xyz.brassgoggledcoders.steamagerevolution.modules.transport.multiblock.sorter.BlockOutputBuffer;
 
 @Module(value = SteamAgeRevolution.MODID)
-public class ModulePneumatic extends ModuleBase {
+public class ModuleTransport extends ModuleBase {
 
 	public static Block pneumaticTube, pneumaticSender, pneumaticRouter;
 	public static Block hydraulicTube, hydraulicSender, hydraulicRouter;

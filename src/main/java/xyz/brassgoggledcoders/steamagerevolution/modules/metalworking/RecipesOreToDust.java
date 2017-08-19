@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils;
+package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking;
 
 import com.teamacronymcoders.base.util.OreDictUtils;
 
@@ -15,8 +15,6 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMaterials;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 
 @ObjectHolder(SteamAgeRevolution.MODID)
 public class RecipesOreToDust extends net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe>
@@ -83,7 +81,7 @@ public class RecipesOreToDust extends net.minecraftforge.registries.IForgeRegist
 		for(int i = 0; i < remainingItems.size(); ++i) {
 			final ItemStack itemstack = inv.getStackInSlot(i);
 
-			if(!itemstack.isEmpty() && itemstack.getItem() == ModuleMaterials.hammer) {
+			if(!itemstack.isEmpty() && itemstack.getItem() == hammer) {
 				remainingItems.set(i, damageItem(itemstack.copy()));
 			}
 			else {

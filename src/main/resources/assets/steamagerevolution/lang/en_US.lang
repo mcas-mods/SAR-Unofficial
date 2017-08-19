@@ -23,6 +23,7 @@ item.steamagerevolution.die.test.name=TEST Die
 tile.steamagerevolution.fluid_io.name=Fluid IO
 tile.steamagerevolution.casting_bench.name=Casting Block
 tile.steamagerevolution.trunk.name=Steamer Trunk
+tile.steamagerevolution.steam_vent.name=Steam Vent
 
 tile.steamagerevolution.pneumatic_tube.name=Pneumatic Tube
 
@@ -45,7 +46,19 @@ tile.steamagerevolution.furnace_steaminput.name=Steam Furnace Injector
 tile.steamagerevolution.alloy_furnace_fluid_output.name=Alloy Forge Output
 tile.steamagerevolution.alloy_furnace_hard_frame.name=Alloy Forge Hardened Frame
 tile.steamagerevolution.alloy_furnace_primary_fluid_input.name=Alloy Forge Primary Fluid Input
-tile.steamagerevolution.alloy_furnace_secondary_fluid_input.name=Alloy Forge Secondary Fluid Input
+tile.steamagerevolution.alloy_furnace_secondary_fluid_input.name=Alloy Forge Secondary Fluid 
+Input
+
+tile.steamagerevolution.furnace_casing=Steam Furnace Casing
+tile.steamagerevolution.furnace_item_input=Steam Furnace Item Input
+tile.steamagerevolution.furnace_item_output=Steam Furnace Item Output
+tile.steamagerevolution.furnace_steam_input=Steam Furnace Steam Input
+tile.steamagerevolution.furnace_mode_toggle=Steam Furnace Mode Toggle
+
+tile.steamagerevolution.crucible_fluid_output=Crucible Fluid Output
+
+tile.steamagerevolution.kiln_steam_input.name=Kiln Steam Input
+
 
 #Advancements
 advancement.steamagerevolution:first_steps=Percussive Maintenance

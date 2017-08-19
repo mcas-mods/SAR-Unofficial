@@ -46,14 +46,13 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.cru
 import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.blocks.BlockCrucibleFluidOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.blocks.BlockCrucibleItemInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.blocks.BlockCrucibleSteamInput;
-import xyz.brassgoggledcoders.steamagerevolution.utils.RecipesIngotToPlate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.RecipesOreToDust;
 
 @Module(value = SteamAgeRevolution.MODID)
 @ObjectHolder(SteamAgeRevolution.MODID)
 public class ModuleMetalworking extends ModuleBase {
 
 	public static final Item charcoal_powder = null;
+	public static final Item die = null;
 
 	public static List<String> knownMetalTypes = new ArrayList<String>();
 
