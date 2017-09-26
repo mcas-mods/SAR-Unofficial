@@ -50,6 +50,7 @@ public class ItemCanister extends ItemBase implements IHasSubItems {
 
 	@Override
 	public List<ItemStack> getAllSubItems(List<ItemStack> itemStacks) {
+		itemStacks.add(new ItemStack(ModuleStorage.canister));
 		for(Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
 			ItemStack filledStack = new ItemStack(ModuleStorage.canister);
 			filledStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)

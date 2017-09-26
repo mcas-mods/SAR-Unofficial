@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -14,6 +15,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.DamageSource;
@@ -53,10 +55,11 @@ public class ModuleMetalworking extends ModuleBase {
 
 	public static final Item charcoal_powder = null;
 	public static final Item die = null;
+	public static final Item hammer = null;
 
 	public static List<String> knownMetalTypes = new ArrayList<String>();
 
-	public static DamageSource hammer =
+	public static DamageSource damageSourceHammer =
 			new DamageSource("hammer").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
 
 	@Override
@@ -122,6 +125,7 @@ public class ModuleMetalworking extends ModuleBase {
 
 	@Override
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
+		itemRegistry.register(new ItemBase("hammer").setMaxStackSize(1).setMaxDamage(ToolMaterial.IRON.getMaxUses()));
 		itemRegistry.register(new ItemDie());
 	}
 

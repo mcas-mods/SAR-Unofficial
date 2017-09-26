@@ -49,16 +49,20 @@ tile.steamagerevolution.alloy_furnace_primary_fluid_input.name=Alloy Forge Prima
 tile.steamagerevolution.alloy_furnace_secondary_fluid_input.name=Alloy Forge Secondary Fluid 
 Input
 
-tile.steamagerevolution.furnace_casing=Steam Furnace Casing
-tile.steamagerevolution.furnace_item_input=Steam Furnace Item Input
-tile.steamagerevolution.furnace_item_output=Steam Furnace Item Output
-tile.steamagerevolution.furnace_steam_input=Steam Furnace Steam Input
-tile.steamagerevolution.furnace_mode_toggle=Steam Furnace Mode Toggle
+tile.steamagerevolution.furnace_casing.name=Steam Furnace Casing
+tile.steamagerevolution.furnace_item_input.name=Steam Furnace Item Input
+tile.steamagerevolution.furnace_item_output.name=Steam Furnace Item Output
+tile.steamagerevolution.furnace_steam_input.name=Steam Furnace Steam Input
+tile.steamagerevolution.furnace_mode_toggle.name=Steam Furnace Mode Toggle
 
-tile.steamagerevolution.crucible_fluid_output=Crucible Fluid Output
+tile.steamagerevolution.crucible_fluid_output.name=Crucible Fluid Output
 
 tile.steamagerevolution.kiln_steam_input.name=Kiln Steam Input
 
+tile.steamagerevolution.fluid_hopper.name=Fluid Hopper
+tile.steamagerevolution.charcoal_block.name=Charcoal Block
+tile.steamagerevolution.steam_vent.name=Steam Vent
+tile.steamagerevolution.basic_fluid_tank.name=Basic Fluid Tank
 
 #Advancements
 advancement.steamagerevolution:first_steps=Percussive Maintenance
@@ -67,6 +71,9 @@ advancement.steamagerevolution:first_steps.desc=For fixing and breaking alike. M
 #Multiblock validation
 steamagerevolution.multiblock.validation.missingrequired=Multiblock is missing required part: %s
 steamagerevolution.multiblock.validation.alloyforgeinterior=Interior of the alloy forge must be filled with lava
+
+#Other
+fluid.steam=Steam
 
 #Guide
 guide.steamagerevolution.name=Steam Age Revolution Guidebook

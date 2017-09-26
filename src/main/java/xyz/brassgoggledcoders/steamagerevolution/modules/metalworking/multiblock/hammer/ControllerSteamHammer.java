@@ -148,7 +148,7 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 						SteamAgeRevolution.proxy.spawnFX(EnumParticleTypes.FLAME, center);
 						for(EntityLivingBase entity : WORLD.getEntitiesWithinAABB(EntityLivingBase.class,
 								new AxisAlignedBB(center).expand(1, 2, 1))) {
-							entity.attackEntityFrom(ModuleMetalworking.hammer, entity.getMaxHealth());
+							entity.attackEntityFrom(ModuleMetalworking.damageSourceHammer, entity.getMaxHealth());
 						}
 
 						return true;

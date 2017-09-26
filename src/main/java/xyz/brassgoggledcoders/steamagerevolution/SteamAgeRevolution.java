@@ -7,8 +7,6 @@ import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import com.teamacronymcoders.base.util.Platform;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -19,6 +17,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 
@@ -95,7 +94,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 
 		@Override
 		public ItemStack getTabIconItem() {
-			return new ItemStack(Item.getItemFromBlock(Blocks.SPONGE));
+			return new ItemStack(ModuleMetalworking.hammer);
 		}
 
 	}

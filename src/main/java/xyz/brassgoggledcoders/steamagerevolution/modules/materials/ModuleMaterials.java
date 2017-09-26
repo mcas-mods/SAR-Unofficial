@@ -7,9 +7,9 @@ import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.materialsystem.MaterialException;
 import com.teamacronymcoders.base.materialsystem.MaterialUser;
 import com.teamacronymcoders.base.materialsystem.materialparts.MaterialPart;
-import com.teamacronymcoders.base.materialsystem.materialparts.MaterialPartData;
 import com.teamacronymcoders.base.materialsystem.materials.Material;
 import com.teamacronymcoders.base.materialsystem.materials.MaterialBuilder;
+import com.teamacronymcoders.base.materialsystem.partdata.MaterialPartData;
 import com.teamacronymcoders.base.materialsystem.parttype.OrePartType;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
@@ -19,7 +19,6 @@ import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.Item.ToolMaterial;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
@@ -116,7 +115,6 @@ public class ModuleMaterials extends ModuleBase {
 
 	@Override
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
-		itemRegistry.register(new ItemBase("hammer").setMaxStackSize(1).setMaxDamage(ToolMaterial.IRON.getMaxUses()));
 		itemRegistry.register(new ItemBase("charcoal_powder"));
 	}
 
