@@ -109,5 +109,7 @@ guide.steamagerevolution.entry.utils.canister=Canisters
 guide.steamagerevolution.entry.utils.canister.info=The Steampunk's premier portable fluid storage method. Holds the equivalent of eight buckets of fluid in a safely enclosed capsule.
 guide.steamagerevolution.entry.utils.fluid_hopper=Fluid Hopper
 guide.steamagerevolution.entry.utils.fluid_hopper.info=Acts exactly like the hopper you're used to, but transports fluids instead of items. It does so at a rate of a bucket per second.
+guide.steamagerevolution.entry.utils.steam_vent=Steam Vent
+guide.steamagerevolution.entry.utils.steam_vent.info=On a redstone signal, consumes steam to shoot a hot steam jet in the direction it is facing, scalding all in its path. Right click with a wrench to adjust facing direction. 
 guide.steamagerevolution.entry.utils.aesthetic=Decorative items
 guide.steamagerevolution.entry.utils.aesthetic.info=Items designed to give a steampunk twist to your home decor. Our range currently includes the Steamer Trunk, equivalent to a single chest.
