@@ -25,6 +25,7 @@ public class CategoryUtilities {
 	public static final Block fluid_hopper = null;
 	public static final Block trunk = null;
 	public static final Item canister = null;
+	public static final Block steam_vent = null;
 
 	public static Map<ResourceLocation, EntryAbstract> buildCategory() {
 		Map<ResourceLocation, EntryAbstract> entries = new LinkedHashMap<ResourceLocation, EntryAbstract>();
@@ -48,6 +49,12 @@ public class CategoryUtilities {
 		fluidHopperEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "fluid_hopper")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "alloy_entry"),
 				new EntryItemStack(fluidHopperEntry, keyBase + "fluid_hopper", new ItemStack(fluid_hopper)));
+
+		List<IPage> steamVentEntry = new ArrayList<IPage>();
+		steamVentEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "steam_vent.info")));
+		steamVentEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "steam_vent")));
+		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "steaM_vent"),
+				new EntryItemStack(steamVentEntry, keyBase + "steam_vent", new ItemStack(steam_vent)));
 
 		List<IPage> aestheticEntry = new ArrayList<IPage>();
 		aestheticEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "aesthetic.info")));
