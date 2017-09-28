@@ -24,6 +24,8 @@ public class CategoryTransportStorage {
 	public static final Block fluid_hopper = null;
 	public static final Item canister = null;
 	public static final Block pneumatic_tube = null;
+	public static final Block basic_fluid_tank = null;
+	public static final Block tank_valve = null;
 
 	public static Map<ResourceLocation, EntryAbstract> buildCategory() {
 		Map<ResourceLocation, EntryAbstract> entries = new LinkedHashMap<ResourceLocation, EntryAbstract>();
@@ -46,6 +48,16 @@ public class CategoryTransportStorage {
 		pneumaticsEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "pneumatics.info")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "pneumatics_entry"),
 				new EntryItemStack(pneumaticsEntry, keyBase + "pneumatics", new ItemStack(pneumatic_tube)));
+
+		List<IPage> basicTankEntry = new ArrayList<IPage>();
+		basicTankEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "basic_tank.info")));
+		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "basic_tank_entry"),
+				new EntryItemStack(basicTankEntry, keyBase + "basic_tank", new ItemStack(basic_fluid_tank)));
+
+		List<IPage> tankEntry = new ArrayList<IPage>();
+		tankEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "tank.info")));
+		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "tank_entry"),
+				new EntryItemStack(tankEntry, keyBase + "tank", new ItemStack(tank_valve)));
 
 		for(EntryAbstract entry : entries.values()) {
 			PageHelper.setPagesToUnicode(entry.pageList);
