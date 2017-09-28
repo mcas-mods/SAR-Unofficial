@@ -28,6 +28,7 @@ public class SARGuidebook implements IGuideBook {
 	public static final Item hammer = null;
 	public static final Item canister = null;
 	public static final Block steamhammer_anvil = null;
+	public static final Block trunk = null;
 
 	public static Book sarGuide;
 
@@ -60,8 +61,10 @@ public class SARGuidebook implements IGuideBook {
 					"guide.steamagerevolution.category.basics", new ItemStack(hammer)));
 			sarGuide.addCategory(new CategoryItemStack(CategoryProduction.buildCategory(),
 					"guide.steamagerevolution.category.production", new ItemStack(steamhammer_anvil)));
+			sarGuide.addCategory(new CategoryItemStack(CategoryTransportStorage.buildCategory(),
+					"guide.steamagerevolution.category.transportstorage", new ItemStack(canister)));
 			sarGuide.addCategory(new CategoryItemStack(CategoryUtilities.buildCategory(),
-					"guide.steamagerevolution.category.utils", new ItemStack(canister)));
+					"guide.steamagerevolution.category.utils", new ItemStack(trunk)));
 		}
 		// TODO
 		GameRegistry.addShapelessRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "guidebook"),

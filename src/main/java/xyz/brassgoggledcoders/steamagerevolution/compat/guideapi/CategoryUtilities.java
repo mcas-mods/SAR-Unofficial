@@ -11,7 +11,6 @@ import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.page.PageIRecipe;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
@@ -22,9 +21,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 public class CategoryUtilities {
 
 	public static final Block fluid_io = null;
-	public static final Block fluid_hopper = null;
 	public static final Block trunk = null;
-	public static final Item canister = null;
 	public static final Block steam_vent = null;
 
 	public static Map<ResourceLocation, EntryAbstract> buildCategory() {
@@ -36,19 +33,6 @@ public class CategoryUtilities {
 		ioEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "fluid_io")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "fluid_io_entry"),
 				new EntryItemStack(ioEntry, keyBase + "fluid_io", new ItemStack(fluid_io)));
-
-		List<IPage> canisterEntry = new ArrayList<IPage>();
-		canisterEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "canister.info")));
-		canisterEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "canister")));
-		// TODO Recipe handling
-		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "canister_entry"),
-				new EntryItemStack(canisterEntry, keyBase + "canister", new ItemStack(canister)));
-
-		List<IPage> fluidHopperEntry = new ArrayList<IPage>();
-		fluidHopperEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "fluid_hopper.info")));
-		fluidHopperEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "fluid_hopper")));
-		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "alloy_entry"),
-				new EntryItemStack(fluidHopperEntry, keyBase + "fluid_hopper", new ItemStack(fluid_hopper)));
 
 		List<IPage> steamVentEntry = new ArrayList<IPage>();
 		steamVentEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "steam_vent.info")));
