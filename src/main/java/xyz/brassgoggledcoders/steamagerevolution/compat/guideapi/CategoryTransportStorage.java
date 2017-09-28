@@ -23,6 +23,7 @@ public class CategoryTransportStorage {
 
 	public static final Block fluid_hopper = null;
 	public static final Item canister = null;
+	public static final Block pneumatic_tube = null;
 
 	public static Map<ResourceLocation, EntryAbstract> buildCategory() {
 		Map<ResourceLocation, EntryAbstract> entries = new LinkedHashMap<ResourceLocation, EntryAbstract>();
@@ -40,6 +41,11 @@ public class CategoryTransportStorage {
 		fluidHopperEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "fluid_hopper")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "fluid_hopper_entry"),
 				new EntryItemStack(fluidHopperEntry, keyBase + "fluid_hopper", new ItemStack(fluid_hopper)));
+
+		List<IPage> pneumaticsEntry = new ArrayList<IPage>();
+		pneumaticsEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "pneumatics.info")));
+		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "pneumatics_entry"),
+				new EntryItemStack(pneumaticsEntry, keyBase + "pneumatics", new ItemStack(pneumatic_tube)));
 
 		for(EntryAbstract entry : entries.values()) {
 			PageHelper.setPagesToUnicode(entry.pageList);
