@@ -37,6 +37,10 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnacePrimaryFluidInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceSecondaryFluidInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.SteamHammerRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerAnvil;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerFrame;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerHammer;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerShielding;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.BlockSteelworksCarbonInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.BlockSteelworksFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.BlockSteelworksIronInput;
@@ -114,6 +118,11 @@ public class ModuleMetalworking extends ModuleBase {
 		blockRegistry.register(new BlockSteelworksCarbonInput(Material.ROCK, "steelworks_carbon_input"));
 		blockRegistry.register(new BlockSteelworksSteamInput(Material.ROCK, "steelworks_steam_input"));
 		blockRegistry.register(new BlockSteelworksSteelOutput(Material.ROCK, "steelworks_steel_output"));
+
+		blockRegistry.register(new BlockSteamHammerAnvil(Material.ANVIL, "steamhammer_anvil"));
+		blockRegistry.register(new BlockSteamHammerFrame(Material.IRON, "steamhammer_frame"));
+		blockRegistry.register(new BlockSteamHammerHammer(Material.IRON, "steamhammer_hammer"));
+		blockRegistry.register(new BlockSteamHammerShielding(Material.IRON, "steamhammer_shielding"));
 
 		blockRegistry.register(new BlockCastingBench(Material.ANVIL, "casting_bench"));
 

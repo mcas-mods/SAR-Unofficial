@@ -23,6 +23,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
+import scala.actors.threadpool.Arrays;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 @ObjectHolder(SteamAgeRevolution.MODID)
@@ -32,9 +33,9 @@ public class ModuleMaterials extends ModuleBase {
 	public static final Block charcoal_block = null;
 	public static final Item charcoal_powder = null;
 
-	String[] vanillaParts = new String[] {"ore", "plate", "dust", "fluid"};
-	String[] metalParts = new String[] {"ore", "ingot", "nugget", "plate", "dust", "block", "fluid"};
-	// String[] alloyParts = new String[] {"ingot", "nugget", "plate", "dust", "block", "fluid"};
+	String[] vanillaParts = new String[] {"ore", "plate", "dust", "molten"};
+	String[] metalParts = new String[] {"ore", "ingot", "nugget", "plate", "dust", "block", "molten"};
+	String[] alloyParts = (String[]) Arrays.copyOfRange(metalParts, 1, metalParts.length);
 	public static Color brassColor = new Color(251, 194, 99);
 
 	@Override
@@ -78,13 +79,13 @@ public class ModuleMaterials extends ModuleBase {
 					data.addDataValue("variants", "stone,gravel,sand");
 				}
 			}
-			for(MaterialPart part : SAR.registerPartsForMaterial(steel, metalParts)) {
+			for(MaterialPart part : SAR.registerPartsForMaterial(steel, alloyParts)) {
 				if(part.getPartType() instanceof OrePartType) {
 					MaterialPartData data = part.getData();
 					data.addDataValue("variants", "sand");
 				}
 			}
-			for(MaterialPart part : SAR.registerPartsForMaterial(brass, metalParts)) {
+			for(MaterialPart part : SAR.registerPartsForMaterial(brass, alloyParts)) {
 				if(part.getPartType() instanceof OrePartType) {
 					MaterialPartData data = part.getData();
 					data.addDataValue("variants", "sand");

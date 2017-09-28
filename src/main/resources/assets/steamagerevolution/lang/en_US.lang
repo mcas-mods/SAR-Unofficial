@@ -25,7 +25,9 @@ tile.steamagerevolution.casting_bench.name=Casting Block
 tile.steamagerevolution.trunk.name=Steamer Trunk
 tile.steamagerevolution.steam_vent.name=Steam Vent
 
+tile.steamagerevolution.pneumatic_sender.name=Pneumatic Sender
 tile.steamagerevolution.pneumatic_tube.name=Pneumatic Tube
+tile.steamagerevolution.pneumatic_router.name=Pneumatic Router
 
 tile.steamagerevolution.boiler_water_input.name=Boiler Water Input
 tile.steamagerevolution.boiler_water_gauge.name=Boiler Water Gauge
