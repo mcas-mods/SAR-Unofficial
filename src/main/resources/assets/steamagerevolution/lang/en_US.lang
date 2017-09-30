@@ -31,20 +31,26 @@ tile.steamagerevolution.pneumatic_router.name=Pneumatic Router
 
 tile.steamagerevolution.boiler_water_input.name=Boiler Water Input
 tile.steamagerevolution.boiler_water_gauge.name=Boiler Water Gauge
+tile.steamagerevolution.boiler_pressuremonitor.name=Boiler Pressure Monitor
 tile.steamagerevolution.boiler_pressurevalve.name=Boiler Pressure Valve
+tile.steamagerevolution.boiler_solid_fixebox.name=Boiler Solid Firebox
 tile.steamagerevolution.boiler_liquid_firebox.name=Boiler Liquid Firebox
 tile.steamagerevolution.boiler_steam_output.name=Boiler Steam Output
+tile.steamagerevolution.boiler_steam_gauge.name=Boiler Steam Gauge
 
 tile.steamagerevolution.steamhammer_hammer.name=Steam Hammer Head
 tile.steamagerevolution.steamhammer_frame.name=Steam Hammer Structure
 tile.steamagerevolution.steamhammer_anvil.name=Steam Hammer Anvil
+tile.steamagerevolution.steamhammer_shielding.name=Steam Hammer Shielding
 
 tile.steamagerevolution.tank_casing.name=Tank Casing
 tile.steamagerevolution.tank_valve.name=Tank Valve
+tile.steamagerevolution.tank_window.name=Tank Window
 
 tile.steamagerevolution.furnace_casing.name=Steam Furnace Casing
 tile.steamagerevolution.furnace_steaminput.name=Steam Furnace Injector
 
+tile.steamagerevolution.alloy_furnace_frame.name=Alloy Furnace Frame
 tile.steamagerevolution.alloy_furnace_fluid_output.name=Alloy Forge Output
 tile.steamagerevolution.alloy_furnace_hard_frame.name=Alloy Forge Hardened Frame
 tile.steamagerevolution.alloy_furnace_primary_fluid_input.name=Alloy Forge Primary Fluid Input
@@ -57,9 +63,20 @@ tile.steamagerevolution.furnace_item_output.name=Steam Furnace Item Output
 tile.steamagerevolution.furnace_steam_input.name=Steam Furnace Steam Input
 tile.steamagerevolution.furnace_mode_toggle.name=Steam Furnace Mode Toggle
 
+tile.steamagerevolution.crucible_item_input.name=Crucible Item Input
+tile.steamagerevolution.crucible_steam_input.name=Crucible Steam Input
 tile.steamagerevolution.crucible_fluid_output.name=Crucible Fluid Output
+tile.steamagerevolution.crucible_casing.name=Crucible Casing
 
+tile.steamagerevolution.steelworks_frame.name=Steelworks Frame
+tile.steamagerevolution.steelworks_carbon_input.name=Steelworks Carbon Input
+tile.steamagerevolution.steelworks_iron_input.name=Steelworks Iron Input
+tile.steamagerevolution.steelworks_steel_output.name=Steelworks Output
+
+tile.steamagerevolution.kiln_frame.name=Kiln Frame
+tile.steamagerevolution.kiln_door.name=Kiln Door
 tile.steamagerevolution.kiln_steam_input.name=Kiln Steam Input
+tile.steamagerevolution.kiln_window.name=Kiln Window
 
 tile.steamagerevolution.fluid_hopper.name=Fluid Hopper
 tile.steamagerevolution.charcoal_block.name=Charcoal Block
@@ -102,7 +119,7 @@ guide.steamagerevolution.entry.production.alloy_forge.info=The alloy forge is a 
 guide.steamagerevolution.entry.production.steelworks=Steelworks
 guide.steamagerevolution.entry.production.steelworks.info=While brass is an extremely versatile material, some applications require more strength. Constructing a machine from heat-resistant materials found in the Nether allows you to safely attain the high temperatures required for the production of steel. Given a working pool of molten iron equivalent to nine blocks (11664mB) and provided with carbon and injected steam, molten steel will be output at a rate of one nugget per operation.
 guide.steamagerevolution.entry.production.steam_hammer=Steam Hammer
-guide.steamagerevolution.entry.production.steam_hammer.info=The Steam Hammer, much like its smaller handheld brother, smashes things. It replaces the function of said handheld brother, and can also pulverise stone into cobblestone, and then further into sand and gravel. Further to this, the hammer can also be used to reshape objects rather than simply 'deconstructing' them. Plates of metal flatted from ingots can undergo further shaping by placing the appropriate 'die' on the hammer head (right click).
+guide.steamagerevolution.entry.production.steam_hammer.info=The Steam Hammer, much like its smaller handheld brother, smashes things. It replaces the function of said handheld brother, and can also pulverise stone into cobblestone, and then further into sand and gravel. Further to this, the hammer can also be used to reshape objects rather than simply 'deconstructing' them. Plates of metal flatted from ingots can undergo further shaping by placing the appropriate 'die' on the hammer head (right click). Shielding can optionally be placed into the sides of the hammer to prevent things wandering into the crush zone. 
 ##Transport and Storage
 guide.steamagerevolution.category.transportstorage=Transport/Storage
 guide.steamagerevolution.entry.transportstorage.canister=Canisters
