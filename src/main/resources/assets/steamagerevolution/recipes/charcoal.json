@@ -4,8 +4,7 @@
     "ingredients": [{
     	"type": "forge:ore_dict",
     	"ore": "blockCharcoal"
-    }]
-  },
+    }],
     "result": {
         "item": "minecraft:coal",
         "data": 1,

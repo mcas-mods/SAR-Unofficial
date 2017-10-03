@@ -12,10 +12,6 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.f
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.BlockFurnaceItemOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.BlockFurnaceModeToggle;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.BlockFurnaceSteamInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.kiln.BlockKilnDoor;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.kiln.BlockKilnFrame;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.kiln.BlockKilnSteamInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.kiln.BlockKilnWindow;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleProcessing extends ModuleBase {
@@ -27,10 +23,10 @@ public class ModuleProcessing extends ModuleBase {
 
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
-		blockRegistry.register(new BlockKilnFrame(Material.ROCK, "kiln_frame"));
-		blockRegistry.register(new BlockKilnSteamInput(Material.ROCK, "kiln_steam_input"));
-		blockRegistry.register(new BlockKilnWindow(Material.GLASS, "kiln_window"));
-		blockRegistry.register(new BlockKilnDoor(Material.IRON, "kiln_door"));
+		// blockRegistry.register(new BlockKilnFrame(Material.ROCK, "kiln_frame"));
+		// blockRegistry.register(new BlockKilnSteamInput(Material.ROCK, "kiln_steam_input"));
+		// blockRegistry.register(new BlockKilnWindow(Material.GLASS, "kiln_window"));
+		// blockRegistry.register(new BlockKilnDoor(Material.IRON, "kiln_door"));
 
 		blockRegistry.register(new BlockFurnaceCasing(Material.IRON, "furnace_casing"));
 		blockRegistry.register(new BlockFurnaceItemInput(Material.IRON, "furnace_item_input"));

@@ -1,15 +1,17 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "textures": {
-      "all": "steamagerevolution:blocks/boiler_liquid_firebox"
+    "forge_marker": 1,
+    "defaults": {
+        "model": "cube_bottom_top",
+        "textures": { 
+        	"top": "steamagerevolution:blocks/solid_firebox_top", 
+        	"bottom": "steamagerevolution:blocks/solid_firebox_bottom",
+        	"side": "steamagerevolution:blocks/liquid_firebox_side",
+        	"particle": "#side" 
+        },
+        "transform": "forge:default-block"
     },
-    "model": "cube_all",
-    "uvlock": true,
-    "transform": "forge:default-block"
-  },
-  "variants": {
-    "normal": [{}],
-    "inventory": [{}]
-  }
-}
+    "variants": {
+    	"normal": [{}],
+    	"inventory": [{}]
+    }
+} 	

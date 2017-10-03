@@ -33,7 +33,7 @@ tile.steamagerevolution.boiler_water_input.name=Boiler Water Input
 tile.steamagerevolution.boiler_water_gauge.name=Boiler Water Gauge
 tile.steamagerevolution.boiler_pressuremonitor.name=Boiler Pressure Monitor
 tile.steamagerevolution.boiler_pressurevalve.name=Boiler Pressure Valve
-tile.steamagerevolution.boiler_solid_fixebox.name=Boiler Solid Firebox
+tile.steamagerevolution.boiler_solid_firebox.name=Boiler Solid Firebox
 tile.steamagerevolution.boiler_liquid_firebox.name=Boiler Liquid Firebox
 tile.steamagerevolution.boiler_steam_output.name=Boiler Steam Output
 tile.steamagerevolution.boiler_steam_gauge.name=Boiler Steam Gauge
@@ -54,8 +54,7 @@ tile.steamagerevolution.alloy_furnace_frame.name=Alloy Furnace Frame
 tile.steamagerevolution.alloy_furnace_fluid_output.name=Alloy Forge Output
 tile.steamagerevolution.alloy_furnace_hard_frame.name=Alloy Forge Hardened Frame
 tile.steamagerevolution.alloy_furnace_primary_fluid_input.name=Alloy Forge Primary Fluid Input
-tile.steamagerevolution.alloy_furnace_secondary_fluid_input.name=Alloy Forge Secondary Fluid 
-Input
+tile.steamagerevolution.alloy_furnace_secondary_fluid_input.name=Alloy Forge Secondary Fluid Input
 
 tile.steamagerevolution.furnace_casing.name=Steam Furnace Casing
 tile.steamagerevolution.furnace_item_input.name=Steam Furnace Item Input
@@ -72,6 +71,7 @@ tile.steamagerevolution.steelworks_frame.name=Steelworks Frame
 tile.steamagerevolution.steelworks_carbon_input.name=Steelworks Carbon Input
 tile.steamagerevolution.steelworks_iron_input.name=Steelworks Iron Input
 tile.steamagerevolution.steelworks_steel_output.name=Steelworks Output
+tile.steamagerevolution.steelworks_steam_input.name=Steelworks Steam Input
 
 tile.steamagerevolution.kiln_frame.name=Kiln Frame
 tile.steamagerevolution.kiln_door.name=Kiln Door
