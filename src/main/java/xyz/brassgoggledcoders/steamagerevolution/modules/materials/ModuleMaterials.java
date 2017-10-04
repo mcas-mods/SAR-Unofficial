@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.materials;
 
 import java.awt.Color;
+import java.util.Arrays;
 
 import com.teamacronymcoders.base.blocks.BlockBase;
 import com.teamacronymcoders.base.items.ItemBase;
@@ -23,7 +24,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
-import scala.actors.threadpool.Arrays;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 @ObjectHolder(SteamAgeRevolution.MODID)

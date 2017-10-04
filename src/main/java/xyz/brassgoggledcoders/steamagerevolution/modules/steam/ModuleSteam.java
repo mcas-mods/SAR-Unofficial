@@ -9,6 +9,7 @@ import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Property.Type;
 import net.minecraftforge.fluids.Fluid;
@@ -30,7 +31,6 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler
 public class ModuleSteam extends ModuleBase {
 
 	public static Fluid steam;
-	public static BlockFluidBase steamBlock;
 
 	public static Block boilerCasing, boilerWaterInput, boilerSolidFirebox, boilerLiquidFirebox, boilerSteamOutput,
 			boilerWaterGauge, boilerSteamGauge, boilerPressureMonitor, boilerPressureValve;
@@ -68,8 +68,12 @@ public class ModuleSteam extends ModuleBase {
 			FluidRegistry.registerFluid(steam);
 			FluidRegistry.addBucketForFluid(steam);
 		}
-		steamBlock = new BlockFluidBase("steam", steam, Material.LAVA);
-		blockRegistry.register(steamBlock);
+		blockRegistry.register(new BlockFluidBase("steam", FluidRegistry.getFluid("steam"), Material.LAVA) {
+			@Override
+			public ResourceLocation getResourceLocation(IBlockState blockState) {
+				return new ResourceLocation(SteamAgeRevolution.MODID, "steam");
+			}
+		});
 
 		boilerCasing = new BlockBoilerCasing(Material.IRON, "boiler_casing");
 		blockRegistry.register(boilerCasing);
