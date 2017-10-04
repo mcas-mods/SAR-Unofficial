@@ -39,14 +39,14 @@ public class CategoryUtilities {
 		List<IPage> steamVentEntry = new ArrayList<IPage>();
 		steamVentEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "steam_vent.info")));
 		steamVentEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "steam_vent")));
-		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "steaM_vent"),
+		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "steam_vent"),
 				new EntryItemStack(steamVentEntry, keyBase + "steam_vent", new ItemStack(steam_vent)));
 
 		List<IPage> clockworkWingsEntry = new ArrayList<IPage>();
 		clockworkWingsEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "clockwork_wings.info")));
 		clockworkWingsEntry
 				.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "clockwork_wings")));
-		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "steaM_vent"),
+		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "clockwork_wings"),
 				new EntryItemStack(clockworkWingsEntry, keyBase + "clockwork_wings", new ItemStack(clockwork_wings)));
 
 		List<IPage> aestheticEntry = new ArrayList<IPage>();
