@@ -29,7 +29,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMateria
 
 @Optional.Interface(iface = "amerifrance.guideapi.api.GuideAPI", modid = "guideapi", striprefs = true)
 @GuideBook
-@ObjectHolder(SteamAgeRevolution.MODI	D)
+@ObjectHolder(SteamAgeRevolution.MODID)
 public class SARGuidebook implements IGuideBook {
 
 	public static final Item hammer = null;
