@@ -3,22 +3,20 @@
     "group": "steamagerevolution:other",
     "pattern": [
     "BBB",
-    "BGB",
+    "BCB",
     "BBB"
   	],
     "key": {
     "B": {
       "type": "forge:ore_dict",
-      "ore": "plateIron"
+      "ore": "plateBrass"
     },
-    "G": {
-      "type": "forge:ore_dict",
-      "ore": "blockGlass"
+    "C": {
+      "item": "minecraft:comparator"
     }
   },
     "result": {
-        "item": "steamagerevolution:tank_window",
-        "data": 0,
-        "count": 2
+        "item": "steamagerevolution:boiler_pressuremonitor",
+        "data": 0
     }
 }

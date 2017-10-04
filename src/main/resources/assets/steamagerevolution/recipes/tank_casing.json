@@ -3,22 +3,22 @@
     "group": "steamagerevolution:other",
     "pattern": [
     "BBB",
-    "BGB",
+    "BIB",
     "BBB"
   	],
     "key": {
     "B": {
       "type": "forge:ore_dict",
-      "ore": "plateIron"
+      "ore": "plateBrass"
     },
-    "G": {
-      "type": "forge:ore_dict",
-      "ore": "blockGlass"
+    "I": {
+     "type": "forge:ore_dict",
+      "ore": "blockIron"
     }
   },
     "result": {
-        "item": "steamagerevolution:tank_window",
+        "item": "steamagerevolution:tank_casing",
         "data": 0,
-        "count": 2
+        "count": 4
     }
 }

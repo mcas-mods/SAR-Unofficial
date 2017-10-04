@@ -2,9 +2,9 @@
     "type": "forge:ore_shaped",
     "group": "steamagerevolution:other",
     "pattern": [
-    "BBB",
+    "GBG",
     "BGB",
-    "BBB"
+    "GBG"
   	],
     "key": {
     "B": {
@@ -12,13 +12,12 @@
       "ore": "plateIron"
     },
     "G": {
-      "type": "forge:ore_dict",
-      "ore": "blockGlass"
+    	"type": "forge:ore_dict",
+    	"ore": "blockGlass"
     }
   },
     "result": {
-        "item": "steamagerevolution:tank_window",
-        "data": 0,
-        "count": 2
+        "item": "steamagerevolution:steamhammer_shielding",
+        "data": 0
     }
 }

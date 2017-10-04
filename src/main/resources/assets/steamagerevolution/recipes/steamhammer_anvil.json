@@ -3,7 +3,7 @@
     "group": "steamagerevolution:other",
     "pattern": [
     "BBB",
-    "BGB",
+    "BAB",
     "BBB"
   	],
     "key": {
@@ -11,14 +11,13 @@
       "type": "forge:ore_dict",
       "ore": "plateIron"
     },
-    "G": {
-      "type": "forge:ore_dict",
-      "ore": "blockGlass"
+    "A": {
+    	"item": "minecraft:anvil",
+    	"data": 0
     }
   },
     "result": {
-        "item": "steamagerevolution:tank_window",
-        "data": 0,
-        "count": 2
+        "item": "steamagerevolution:steamhammer_anvil",
+        "data": 0
     }
 }

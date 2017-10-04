@@ -2,23 +2,22 @@
     "type": "forge:ore_shaped",
     "group": "steamagerevolution:other",
     "pattern": [
-    "BBB",
-    "BGB",
-    "BBB"
+    "BPB",
+    "PPP",
+    "BPB"
   	],
     "key": {
     "B": {
       "type": "forge:ore_dict",
-      "ore": "plateIron"
-    },
-    "G": {
-      "type": "forge:ore_dict",
       "ore": "blockGlass"
+    },
+    "P": {
+    	"type": "forge:ore_dict",
+      "ore": "paneGlass"
     }
   },
     "result": {
-        "item": "steamagerevolution:tank_window",
-        "data": 0,
-        "count": 2
+        "item": "steamagerevolution:basic_fluid_tank",
+        "data": 0
     }
 }

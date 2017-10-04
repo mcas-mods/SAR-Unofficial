@@ -29,6 +29,7 @@ tile.steamagerevolution.pneumatic_sender.name=Pneumatic Sender
 tile.steamagerevolution.pneumatic_tube.name=Pneumatic Tube
 tile.steamagerevolution.pneumatic_router.name=Pneumatic Router
 
+tile.steamagerevolution.boiler_casing.name=Boiler Casing
 tile.steamagerevolution.boiler_water_input.name=Boiler Water Input
 tile.steamagerevolution.boiler_water_gauge.name=Boiler Water Gauge
 tile.steamagerevolution.boiler_pressuremonitor.name=Boiler Pressure Monitor
@@ -53,8 +54,7 @@ tile.steamagerevolution.furnace_steaminput.name=Steam Furnace Injector
 tile.steamagerevolution.alloy_furnace_frame.name=Alloy Furnace Frame
 tile.steamagerevolution.alloy_furnace_fluid_output.name=Alloy Forge Output
 tile.steamagerevolution.alloy_furnace_hard_frame.name=Alloy Forge Hardened Frame
-tile.steamagerevolution.alloy_furnace_primary_fluid_input.name=Alloy Forge Primary Fluid Input
-tile.steamagerevolution.alloy_furnace_secondary_fluid_input.name=Alloy Forge Secondary Fluid Input
+tile.steamagerevolution.alloy_furnace_fluid_input.name=Alloy Forge Fluid Input
 
 tile.steamagerevolution.furnace_casing.name=Steam Furnace Casing
 tile.steamagerevolution.furnace_item_input.name=Steam Furnace Item Input
