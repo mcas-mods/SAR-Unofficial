@@ -20,6 +20,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockC
 
 public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
+	public FluidTank inputBuffer = new FluidTankSmart(TileEntityCastingBench.VALUE_BLOCK, this);
 	public FluidTank primaryTank = new FluidTankSmart(TileEntityCastingBench.VALUE_BLOCK * 16, this);
 	public FluidTank secondaryTank = new FluidTankSmart(TileEntityCastingBench.VALUE_BLOCK * 16, this);
 	public FluidTank outputTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
@@ -31,6 +32,20 @@ public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBa
 	@Override
 	protected boolean updateServer() {
 		boolean flag = false;
+
+		if(inputBuffer.getFluidAmount() > 0) {
+			FluidStack input = inputBuffer.getFluid();
+			int amount = inputBuffer.getFluidAmount();
+			if(primaryTank.fill(input, false) == amount) {
+				primaryTank.fill(input, true);
+				inputBuffer.drain(input, true);
+			}
+			else if(secondaryTank.fill(input, false) == amount) {
+				secondaryTank.fill(input, true);
+				inputBuffer.drain(input, true);
+			}
+			// TODO else freeze machine/clear buffer
+		}
 
 		boolean hasFirstFluid = primaryTank.getFluid() != null;
 		boolean hasSecondFluid = secondaryTank.getFluid() != null;

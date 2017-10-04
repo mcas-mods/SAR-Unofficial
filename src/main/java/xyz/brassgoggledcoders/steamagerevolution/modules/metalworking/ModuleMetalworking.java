@@ -32,10 +32,9 @@ import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemDie;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.AlloyFurnaceRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFluidInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFluidOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFrame;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnacePrimaryFluidInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceSecondaryFluidInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.SteamHammerRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerAnvil;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerFrame;
@@ -107,10 +106,7 @@ public class ModuleMetalworking extends ModuleBase {
 		// new BlockAlloyFurnaceController(Material.ANVIL, "alloy_furnace_controller");
 		// blockRegistry.register(alloyFurnaceController);
 		blockRegistry.register(new BlockAlloyFurnaceFrame(Material.ROCK, "alloy_furnace_frame"));
-		blockRegistry
-				.register(new BlockAlloyFurnacePrimaryFluidInput(Material.ROCK, "alloy_furnace_primary_fluid_input"));
-		blockRegistry.register(
-				new BlockAlloyFurnaceSecondaryFluidInput(Material.ROCK, "alloy_furnace_secondary_fluid_input"));
+		blockRegistry.register(new BlockAlloyFurnaceFluidInput(Material.ROCK, "alloy_furnace_fluid_input"));
 		blockRegistry.register(new BlockAlloyFurnaceFluidOutput(Material.ROCK, "alloy_furnace_fluid_output"));
 
 		blockRegistry.register(new BlockSteelworksFrame(Material.ROCK, "steelworks_frame"));

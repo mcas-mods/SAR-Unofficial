@@ -12,11 +12,12 @@
       "ore": "ingotBrick"
     },
     "F": {
-      "item": "steamagerevolution:fluid_hopper"
+      "item": "steamagerevolution:fluid_hopper",
+      "data": 0
     }
   },
     "result": {
-        "item": "steamagerevolution:alloy_furnace_secondary_fluid_input",
+        "item": "steamagerevolution:alloy_furnace_fluid_input",
         "data": 0
     }
 }
