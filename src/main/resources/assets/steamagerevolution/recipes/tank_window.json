@@ -1,0 +1,23 @@
+{
+    "type": "forge:ore_shaped",
+    "group": "steamagerevolution:other",
+    "pattern": [
+    "BBB",
+    "BGB",
+    "BBB"
+  	],
+    "key": {
+    "B": {
+      "type": "forge:ore_dict",
+      "ore": "plateIron"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "blockGlass"
+    }
+  },
+    "result": {
+        "item": "steamagerevolution:tank_window",
+        "data": 0
+    }
+}
