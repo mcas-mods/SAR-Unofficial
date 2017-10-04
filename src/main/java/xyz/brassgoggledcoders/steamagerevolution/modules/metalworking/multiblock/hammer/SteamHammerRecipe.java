@@ -42,4 +42,8 @@ public class SteamHammerRecipe {
 		}
 		return null;
 	}
+
+	public static ArrayList<SteamHammerRecipe> getRecipeList() {
+		return recipeList;
+	}
 }
