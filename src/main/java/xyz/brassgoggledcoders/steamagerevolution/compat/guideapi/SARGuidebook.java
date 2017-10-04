@@ -1,13 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.guideapi;
 
-import java.awt.print.Book;
-
 import javax.annotation.Nonnull;
 
 import amerifrance.guideapi.api.GuideAPI;
 import amerifrance.guideapi.api.GuideBook;
 import amerifrance.guideapi.api.IGuideBook;
 import amerifrance.guideapi.api.IPage;
+import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.category.CategoryItemStack;
