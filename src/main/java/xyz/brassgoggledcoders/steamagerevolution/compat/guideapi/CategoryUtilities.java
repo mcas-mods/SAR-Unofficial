@@ -11,6 +11,7 @@ import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.page.PageIRecipe;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
@@ -23,6 +24,7 @@ public class CategoryUtilities {
 	public static final Block fluid_io = null;
 	public static final Block trunk = null;
 	public static final Block steam_vent = null;
+	public static final Item clockwork_wings = null;
 
 	public static Map<ResourceLocation, EntryAbstract> buildCategory() {
 		Map<ResourceLocation, EntryAbstract> entries = new LinkedHashMap<ResourceLocation, EntryAbstract>();
@@ -39,6 +41,13 @@ public class CategoryUtilities {
 		steamVentEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "steam_vent")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "steaM_vent"),
 				new EntryItemStack(steamVentEntry, keyBase + "steam_vent", new ItemStack(steam_vent)));
+
+		List<IPage> clockworkWingsEntry = new ArrayList<IPage>();
+		clockworkWingsEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "clockwork_wings.info")));
+		clockworkWingsEntry
+				.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "clockwork_wings")));
+		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "steaM_vent"),
+				new EntryItemStack(clockworkWingsEntry, keyBase + "clockwork_wings", new ItemStack(clockwork_wings)));
 
 		List<IPage> aestheticEntry = new ArrayList<IPage>();
 		aestheticEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "aesthetic.info")));

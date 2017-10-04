@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
+package xyz.brassgoggledcoders.steamagerevolution.modules.armory.expandablearmor;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;

@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
+package xyz.brassgoggledcoders.steamagerevolution.modules.armory.expandablearmor;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;

@@ -14,7 +14,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMaterials;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
@@ -51,7 +50,6 @@ public class ControllerKiln extends SARRectangularMultiblockControllerBase imple
 		if(steamTank.getFluidAmount() >= steamPerOperation) {
 			for(BlockPos pos : BlockPos.getAllInBox(minimumInteriorPos, maximumInteriorPos)) {
 				if(!WORLD.isAirBlock(pos)) {
-					FMLLog.warning("Working");
 					WORLD.setBlockState(pos, ModuleMaterials.charcoal_block.getDefaultState());
 					flag = true;
 					continue;

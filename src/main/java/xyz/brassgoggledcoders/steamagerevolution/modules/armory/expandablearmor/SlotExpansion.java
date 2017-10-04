@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
+package xyz.brassgoggledcoders.steamagerevolution.modules.armory.expandablearmor;
 
 import com.teamacronymcoders.base.containers.slots.SlotChanged;
 import com.teamacronymcoders.base.tileentities.IOnSlotChanged;

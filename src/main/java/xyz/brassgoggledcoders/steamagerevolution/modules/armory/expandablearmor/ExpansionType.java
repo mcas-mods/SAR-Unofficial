@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
+package xyz.brassgoggledcoders.steamagerevolution.modules.armory.expandablearmor;
 
 public enum ExpansionType {
 	LEGGINGS,

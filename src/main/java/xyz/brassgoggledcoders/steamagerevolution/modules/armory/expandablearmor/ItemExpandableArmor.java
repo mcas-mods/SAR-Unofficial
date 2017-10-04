@@ -1,4 +1,6 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
+package xyz.brassgoggledcoders.steamagerevolution.modules.armory.expandablearmor;
+
+import com.teamacronymcoders.base.items.ItemArmorBase;
 
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -14,7 +16,7 @@ public class ItemExpandableArmor extends ItemArmorBase {
 	static Capability<IExpansionContainer> EXPANSION_CONTAINER_CAP = null;
 
 	public ItemExpandableArmor(ArmorMaterial mat, EntityEquipmentSlot slot, String name) {
-		super(mat, slot, name, "expandable");
+		super(mat, slot);
 	}
 
 	@Override
