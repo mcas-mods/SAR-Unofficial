@@ -13,6 +13,7 @@ import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.page.PageFurnaceRecipe;
 import amerifrance.guideapi.page.PageIRecipe;
+import amerifrance.guideapi.page.PageJsonRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -32,7 +33,7 @@ public class CategoryBasics {
 
 		List<IPage> hammerEntry = new ArrayList<IPage>();
 		hammerEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "hammer.info")));
-		hammerEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "hammer")));
+		hammerEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "hammer")));
 		hammerEntry.add(new PageIRecipe(new ShapelessOreRecipe(null, OreDictUtils.getPreferredItemStack("dustCopper"),
 				OreDictUtils.getPreferredItemStack("oreCopper"), hammer)));
 		hammerEntry.add(new PageIRecipe(new ShapelessOreRecipe(null, OreDictUtils.getPreferredItemStack("plateCopper"),

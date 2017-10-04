@@ -9,7 +9,7 @@ import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.entry.EntryItemStack;
-import amerifrance.guideapi.page.PageIRecipe;
+import amerifrance.guideapi.page.PageJsonRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -32,26 +32,25 @@ public class CategoryUtilities {
 
 		List<IPage> ioEntry = new ArrayList<IPage>();
 		ioEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "fluid_io.info")));
-		ioEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "fluid_io")));
+		ioEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "fluid_io")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "fluid_io_entry"),
 				new EntryItemStack(ioEntry, keyBase + "fluid_io", new ItemStack(fluid_io)));
 
 		List<IPage> steamVentEntry = new ArrayList<IPage>();
 		steamVentEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "steam_vent.info")));
-		steamVentEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "steam_vent")));
+		steamVentEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "steam_vent")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "steam_vent"),
 				new EntryItemStack(steamVentEntry, keyBase + "steam_vent", new ItemStack(steam_vent)));
 
 		List<IPage> clockworkWingsEntry = new ArrayList<IPage>();
 		clockworkWingsEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "clockwork_wings.info")));
-		clockworkWingsEntry
-				.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "clockwork_wings")));
+		clockworkWingsEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "clockwork_wings")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "clockwork_wings"),
 				new EntryItemStack(clockworkWingsEntry, keyBase + "clockwork_wings", new ItemStack(clockwork_wings)));
 
 		List<IPage> aestheticEntry = new ArrayList<IPage>();
 		aestheticEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "aesthetic.info")));
-		aestheticEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "trunk")));
+		aestheticEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "trunk")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "aesthetic_entry"),
 				new EntryItemStack(aestheticEntry, keyBase + "aesthetic", new ItemStack(trunk)));
 

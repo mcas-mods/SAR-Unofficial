@@ -9,7 +9,7 @@ import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.entry.EntryItemStack;
-import amerifrance.guideapi.page.PageIRecipe;
+import amerifrance.guideapi.page.PageJsonRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -33,14 +33,14 @@ public class CategoryTransportStorage {
 
 		List<IPage> canisterEntry = new ArrayList<IPage>();
 		canisterEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "canister.info")));
-		canisterEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "canister")));
+		canisterEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "canister")));
 		// TODO Recipe handling
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "canister_entry"),
 				new EntryItemStack(canisterEntry, keyBase + "canister", new ItemStack(canister)));
 
 		List<IPage> fluidHopperEntry = new ArrayList<IPage>();
 		fluidHopperEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "fluid_hopper.info")));
-		fluidHopperEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "fluid_hopper")));
+		fluidHopperEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "fluid_hopper")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "fluid_hopper_entry"),
 				new EntryItemStack(fluidHopperEntry, keyBase + "fluid_hopper", new ItemStack(fluid_hopper)));
 

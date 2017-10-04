@@ -5,8 +5,12 @@ import javax.annotation.Nonnull;
 import amerifrance.guideapi.api.GuideAPI;
 import amerifrance.guideapi.api.GuideBook;
 import amerifrance.guideapi.api.IGuideBook;
+import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.category.CategoryItemStack;
+import amerifrance.guideapi.page.PageJsonRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -70,5 +74,16 @@ public class SARGuidebook implements IGuideBook {
 		GameRegistry.addShapelessRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "guidebook"),
 				new ResourceLocation(SteamAgeRevolution.MODID, "other"), bookStack,
 				new Ingredient[] {Ingredient.fromItem(Items.BOOK), Ingredient.fromItem(Items.COAL)});
+		// TODO Copied from GuideAPI since their implementation does not appear to work.
+		for(CategoryAbstract cat : sarGuide.getCategoryList()) {
+			for(EntryAbstract entry : cat.entries.values()) {
+				for(IPage page : entry.pageList) {
+					if(page instanceof PageJsonRecipe) {
+						((PageJsonRecipe) page).init();
+					}
+				}
+			}
+		}
 	}
+
 }

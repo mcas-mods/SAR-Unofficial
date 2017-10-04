@@ -9,7 +9,7 @@ import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.entry.EntryItemStack;
-import amerifrance.guideapi.page.PageIRecipe;
+import amerifrance.guideapi.page.PageJsonRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -37,24 +37,22 @@ public class CategoryProduction {
 
 		List<IPage> boilerEntry = new ArrayList<IPage>();
 		boilerEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "boiler.info")));
-		boilerEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "boiler_casing")));
+		boilerEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "boiler_casing")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "boiler_entry"),
 				new EntryItemStack(boilerEntry, keyBase + "boiler", new ItemStack(boiler_casing)));
 
 		List<IPage> crucibleEntry = new ArrayList<IPage>();
 		crucibleEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "crucible.info")));
-		crucibleEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_casing")));
-		crucibleEntry
-				.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_fluid_output")));
-		crucibleEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_item_input")));
-		crucibleEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_steam_input")));
+		crucibleEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_casing")));
+		crucibleEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_fluid_output")));
+		crucibleEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_item_input")));
+		crucibleEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_steam_input")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_entry"),
 				new EntryItemStack(crucibleEntry, keyBase + "crucible", new ItemStack(crucible_casing)));
 
 		List<IPage> alloyForgeEntry = new ArrayList<IPage>();
 		alloyForgeEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "alloy_forge.info")));
-		alloyForgeEntry
-				.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "alloy_furnace_frame")));
+		alloyForgeEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "alloy_furnace_frame")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "alloy_forge_entry"),
 				new EntryItemStack(alloyForgeEntry, keyBase + "alloy_forge", new ItemStack(alloy_furnace_frame)));
 
@@ -65,7 +63,7 @@ public class CategoryProduction {
 
 		List<IPage> hammerEntry = new ArrayList<IPage>();
 		hammerEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "steam_hammer.info")));
-		hammerEntry.add(PageIRecipe.fromJson(new ResourceLocation(SteamAgeRevolution.MODID, "steamhammer_frame")));
+		hammerEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "steamhammer_frame")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "steam_hammer_entry"),
 				new EntryItemStack(hammerEntry, keyBase + "steam_hammer", new ItemStack(steamhammer_frame)));
 
