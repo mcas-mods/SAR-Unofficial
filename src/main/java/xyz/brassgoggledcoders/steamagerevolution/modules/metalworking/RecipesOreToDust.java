@@ -55,7 +55,9 @@ public class RecipesOreToDust extends net.minecraftforge.registries.IForgeRegist
 				for(int id : OreDictionary.getOreIDs(itemstack)) {
 					String name = OreDictionary.getOreName(id);
 					if(name.contains("ore")) {
-						return OreDictUtils.getPreferredItemStack("dust" + name.substring(3));
+						ItemStack dust = OreDictUtils.getPreferredItemStack("dust" + name.substring(3));
+						dust.setCount(ModuleMetalworking.dustCount);
+						return dust;
 					}
 				}
 			}

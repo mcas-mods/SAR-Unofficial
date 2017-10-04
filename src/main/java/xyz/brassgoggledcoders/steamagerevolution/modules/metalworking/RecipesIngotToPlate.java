@@ -55,7 +55,9 @@ public class RecipesIngotToPlate extends net.minecraftforge.registries.IForgeReg
 				for(int id : OreDictionary.getOreIDs(itemstack)) {
 					String name = OreDictionary.getOreName(id);
 					if(name.contains("ingot")) {
-						return OreDictUtils.getPreferredItemStack("plate" + name.substring(5));
+						ItemStack plate = OreDictUtils.getPreferredItemStack("plate" + name.substring(5));
+						plate.setCount(ModuleMetalworking.plateCount);
+						return plate;
 					}
 				}
 			}

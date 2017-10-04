@@ -8,6 +8,7 @@ import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
+import com.teamacronymcoders.base.registrysystem.config.ConfigEntry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import com.teamacronymcoders.base.util.OreDictUtils;
 
@@ -21,6 +22,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Property.Type;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -65,9 +67,16 @@ public class ModuleMetalworking extends ModuleBase {
 	public static DamageSource damageSourceHammer =
 			new DamageSource("hammer").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
 
+	public static int plateCount, dustCount;
+
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(this);
+		this.getConfigRegistry().addEntry("plateCount", new ConfigEntry("balance", "plateCount", Type.INTEGER, "1"));
+		plateCount = this.getConfigRegistry().getInt("plateCount", 1);
+		this.getConfigRegistry().addEntry("dustCount", new ConfigEntry("balance", "dustCount", Type.INTEGER, "1"));
+		dustCount = this.getConfigRegistry().getInt("dustCount", 1);
+		this.getConfigRegistry().addCategoryComment("balance", "Adjust number of items produced in recipes", "General");
 		super.preInit(event);
 	}
 
@@ -146,7 +155,9 @@ public class ModuleMetalworking extends ModuleBase {
 			}
 			for(ItemStack ingot : OreDictionary.getOres("ingot" + metal, false)) {
 				if(OreDictionary.doesOreNameExist("plate" + metal)) {
-					SteamHammerRecipe.addSteamHammerRecipe(ingot, OreDictUtils.getPreferredItemStack("plate" + metal));
+					ItemStack plate = OreDictUtils.getPreferredItemStack("plate" + metal);
+					plate.setCount(plateCount);
+					SteamHammerRecipe.addSteamHammerRecipe(ingot, plate);
 				}
 				if(OreDictionary.doesOreNameExist("gear" + metal)) {
 					SteamHammerRecipe.addSteamHammerRecipe(ingot, OreDictUtils.getPreferredItemStack("gear" + metal),
@@ -155,7 +166,9 @@ public class ModuleMetalworking extends ModuleBase {
 			}
 			for(ItemStack ore : OreDictionary.getOres("ore" + metal, false)) {
 				if(OreDictionary.doesOreNameExist("dust" + metal)) {
-					SteamHammerRecipe.addSteamHammerRecipe(ore, OreDictUtils.getPreferredItemStack("dust" + metal));
+					ItemStack dust = OreDictUtils.getPreferredItemStack("dust" + metal);
+					dust.setCount(dustCount);
+					SteamHammerRecipe.addSteamHammerRecipe(ore, dust);
 				}
 			}
 		}
