@@ -14,18 +14,13 @@ import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.page.PageFurnaceRecipe;
 import amerifrance.guideapi.page.PageIRecipe;
 import amerifrance.guideapi.page.PageJsonRecipe;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 
-@ObjectHolder(SteamAgeRevolution.MODID)
 public class CategoryBasics {
-
-	public static final Item hammer = null;
 
 	public static Map<ResourceLocation, EntryAbstract> buildCategory() {
 		Map<ResourceLocation, EntryAbstract> entries = new LinkedHashMap<ResourceLocation, EntryAbstract>();
@@ -35,11 +30,11 @@ public class CategoryBasics {
 		hammerEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "hammer.info")));
 		hammerEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "hammer")));
 		hammerEntry.add(new PageIRecipe(new ShapelessOreRecipe(null, OreDictUtils.getPreferredItemStack("dustCopper"),
-				OreDictUtils.getPreferredItemStack("oreCopper"), hammer)));
+				OreDictUtils.getPreferredItemStack("oreCopper"), BookObjectHolder.hammer)));
 		hammerEntry.add(new PageIRecipe(new ShapelessOreRecipe(null, OreDictUtils.getPreferredItemStack("plateCopper"),
-				OreDictUtils.getPreferredItemStack("ingotCopper"), hammer)));
+				OreDictUtils.getPreferredItemStack("ingotCopper"), BookObjectHolder.hammer)));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "hammer_entry"),
-				new EntryItemStack(hammerEntry, keyBase + "hammer", new ItemStack(hammer)));
+				new EntryItemStack(hammerEntry, keyBase + "hammer", new ItemStack(BookObjectHolder.hammer)));
 
 		List<IPage> oreEntry = new ArrayList<IPage>();
 		oreEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "ore.info"),
