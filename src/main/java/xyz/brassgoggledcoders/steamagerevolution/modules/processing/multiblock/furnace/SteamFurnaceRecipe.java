@@ -2,11 +2,15 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.
 
 import java.util.ArrayList;
 
+import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class SteamFurnaceRecipe {
+@Optional.Interface(iface = "mezz.jei.api.IRecipeWrapper", modid = "jei", striprefs = true)
+public class SteamFurnaceRecipe implements IRecipeWrapper {
 
 	public final ItemStack input;
 	public final ItemStack output;
@@ -35,5 +39,12 @@ public class SteamFurnaceRecipe {
 			}
 		}
 		return ItemStack.EMPTY;
+	}
+
+	@Optional.Method(modid = "jei")
+	@Override
+	public void getIngredients(IIngredients ingredients) {
+		ingredients.setInput(ItemStack.class, input);
+		ingredients.setOutput(ItemStack.class, output);
 	}
 }

@@ -17,7 +17,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.MoltenMetalRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.CrucibleRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
@@ -110,8 +110,8 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable,
 		for(int i = 0; i < source.getSlots(); i++) {
 			ItemStack stack = source.getStackInSlot(i);
 			if(!stack.isEmpty()) {
-				if(MoltenMetalRecipe.getMoltenFromSolid(stack) != null) {
-					FluidStack molten = new FluidStack(MoltenMetalRecipe.getMoltenFromSolid(stack), VALUE_BLOCK);
+				if(CrucibleRecipe.getMoltenFromSolid(stack) != null) {
+					FluidStack molten = new FluidStack(CrucibleRecipe.getMoltenFromSolid(stack), VALUE_BLOCK);
 					if(destination.fill(molten, false) == VALUE_BLOCK) {
 						destination.fill(molten, true);
 						stack.shrink(1);
@@ -125,7 +125,7 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable,
 
 	public static boolean solidifyMetal(FluidTank source, ItemStackHandler destination) {
 		if(source.getFluid() != null && source.getFluidAmount() >= VALUE_BLOCK) {
-			ItemStack solid = MoltenMetalRecipe.getSolidFromMolten(source.getFluid().getFluid());
+			ItemStack solid = CrucibleRecipe.getSolidFromMolten(source.getFluid().getFluid());
 			if(!solid.isEmpty()) {
 				if(ItemHandlerHelper.insertItem(destination, solid, true) == ItemStack.EMPTY) {
 					ItemHandlerHelper.insertItem(destination, solid, false);

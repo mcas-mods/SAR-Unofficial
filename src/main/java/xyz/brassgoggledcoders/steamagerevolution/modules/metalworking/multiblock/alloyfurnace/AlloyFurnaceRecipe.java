@@ -4,10 +4,14 @@ import java.util.ArrayList;
 
 import javax.annotation.Nullable;
 
+import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.common.Optional;
 
-public class AlloyFurnaceRecipe {
+@Optional.Interface(iface = "mezz.jei.api.IRecipeWrapper", modid = "jei", striprefs = true)
+public class AlloyFurnaceRecipe implements IRecipeWrapper {
 
 	public final FluidStack primaryInput;
 	public final ItemStack secondaryInputItem;
@@ -51,5 +55,19 @@ public class AlloyFurnaceRecipe {
 
 		}
 		return null;
+	}
+
+	public static ArrayList<AlloyFurnaceRecipe> getRecipeList() {
+		return recipeList;
+	}
+
+	@Optional.Method(modid = "jei")
+	@Override
+	public void getIngredients(IIngredients ingredients) {
+		ArrayList<FluidStack> inputs = new ArrayList<FluidStack>();
+		inputs.add(primaryInput);
+		inputs.add(secondaryInputFluid);
+		ingredients.setInputs(FluidStack.class, inputs);
+		ingredients.setOutput(FluidStack.class, output);
 	}
 }

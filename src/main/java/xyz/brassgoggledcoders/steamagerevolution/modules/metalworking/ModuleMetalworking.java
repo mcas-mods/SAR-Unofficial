@@ -148,6 +148,7 @@ public class ModuleMetalworking extends ModuleBase {
 		knownMetalTypes.add("Iron");
 		knownMetalTypes.add("Gold");
 		for(String metal : knownMetalTypes) {
+			// TODO Change crucible recipes to use fluidstacks
 			if(FluidRegistry.isFluidRegistered(metal.toLowerCase())) {
 				for(ItemStack metalBlock : OreDictionary.getOres("block" + metal, false)) {
 					CrucibleRecipe.addMelting(metalBlock, FluidRegistry.getFluid(metal.toLowerCase()));

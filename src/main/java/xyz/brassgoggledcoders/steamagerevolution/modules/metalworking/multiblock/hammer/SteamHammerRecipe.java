@@ -1,14 +1,20 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IRecipeWrapper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class SteamHammerRecipe {
+@Optional.Interface(iface = "mezz.jei.api.IRecipeWrapper", modid = "jei", striprefs = true)
+public class SteamHammerRecipe implements IRecipeWrapper {
 
 	public final ItemStack input;
 	public final ItemStack output;
@@ -45,5 +51,21 @@ public class SteamHammerRecipe {
 
 	public static ArrayList<SteamHammerRecipe> getRecipeList() {
 		return recipeList;
+	}
+
+	@Optional.Method(modid = "jei")
+	@Override
+	public void getIngredients(IIngredients ingredients) {
+		ingredients.setInput(ItemStack.class, input);
+		ingredients.setOutput(ItemStack.class, output);
+	}
+
+	@Override
+	@Optional.Method(modid = "jei")
+	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
+		if(!dieType.isEmpty()) {
+			minecraft.fontRenderer.drawString("Requires die: " + dieType, recipeWidth / 2, recipeHeight / 2,
+					Color.gray.getRGB());
+		}
 	}
 }

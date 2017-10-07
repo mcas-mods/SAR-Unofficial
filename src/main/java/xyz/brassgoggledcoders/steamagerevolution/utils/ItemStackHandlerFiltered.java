@@ -5,7 +5,7 @@ import javax.annotation.Nonnull;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.MoltenMetalRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.CrucibleRecipe;
 
 public abstract class ItemStackHandlerFiltered extends ItemStackHandler {
 
@@ -41,7 +41,7 @@ public abstract class ItemStackHandlerFiltered extends ItemStackHandler {
 
 		@Override
 		protected boolean canInsertItem(int slot, ItemStack stack) {
-			return MoltenMetalRecipe.getMoltenFromSolid(stack) != null;
+			return CrucibleRecipe.getMoltenFromSolid(stack) != null;
 		}
 
 	}
