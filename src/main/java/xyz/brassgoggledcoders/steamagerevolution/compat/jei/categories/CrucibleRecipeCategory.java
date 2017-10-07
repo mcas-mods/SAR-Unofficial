@@ -2,11 +2,13 @@ package xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
+import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.CrucibleRecipe;
@@ -14,15 +16,18 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.cru
 public class CrucibleRecipeCategory implements IRecipeCategory<CrucibleRecipe> {
 
 	private final IGuiHelper helper;
+	private final IDrawableStatic flame;
 
 	public CrucibleRecipeCategory(IGuiHelper helper) {
 		this.helper = helper;
+		flame = helper.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/spritesheet.png"),
+				32, 0, 32, 32);
 	}
 
 	@Override
 	public void drawExtras(Minecraft minecraft) {
 		helper.getSlotDrawable().draw(minecraft, 100, 100);
-		helper.getSlotDrawable().draw(minecraft, 160, 100);
+		flame.draw(minecraft);
 	}
 
 	@Override

@@ -23,8 +23,9 @@ public class SteamFurnaceRecipe implements IRecipeWrapper {
 	private static ArrayList<SteamFurnaceRecipe> recipeList = new ArrayList<SteamFurnaceRecipe>();
 
 	public static void addSteamFurnaceRecipe(ItemStack input, ItemStack output) {
-		if(!input.isEmpty())
+		if(!input.isEmpty()) {
 			recipeList.add(new SteamFurnaceRecipe(input, output));
+		}
 	}
 
 	public static ItemStack getResult(ItemStack input) {
@@ -46,5 +47,9 @@ public class SteamFurnaceRecipe implements IRecipeWrapper {
 	public void getIngredients(IIngredients ingredients) {
 		ingredients.setInput(ItemStack.class, input);
 		ingredients.setOutput(ItemStack.class, output);
+	}
+
+	public static ArrayList<SteamFurnaceRecipe> getRecipeList() {
+		return recipeList;
 	}
 }

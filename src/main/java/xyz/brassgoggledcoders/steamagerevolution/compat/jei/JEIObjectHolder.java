@@ -10,4 +10,5 @@ public class JEIObjectHolder {
 	public static final Block alloy_furnace_frame = null;
 	public static final Block steelworks_frame = null;
 	public static final Block crucible_casing = null;
+	public static final Block furnace_casing = null;
 }

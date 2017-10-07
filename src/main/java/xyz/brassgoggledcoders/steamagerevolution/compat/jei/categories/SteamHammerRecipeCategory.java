@@ -19,8 +19,8 @@ public class SteamHammerRecipeCategory implements IRecipeCategory<SteamHammerRec
 
 	public SteamHammerRecipeCategory(IGuiHelper helper) {
 		this.helper = helper;
-		hammer = helper.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/hammer.png"), 0, 0,
-				32, 32, 32, 32);
+		hammer = helper.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/spritesheet.png"),
+				0, 0, 32, 32);
 	}
 
 	@Override

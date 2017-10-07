@@ -1,11 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
@@ -69,5 +72,13 @@ public class AlloyFurnaceRecipe implements IRecipeWrapper {
 		inputs.add(secondaryInputFluid);
 		ingredients.setInputs(FluidStack.class, inputs);
 		ingredients.setOutput(FluidStack.class, output);
+	}
+
+	@Override
+	@Optional.Method(modid = "jei")
+	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
+		minecraft.fontRenderer.drawString(primaryInput.amount + "mB", 56, 130, Color.gray.getRGB());
+		minecraft.fontRenderer.drawString(secondaryInputFluid.amount + "mB", 110, 130, Color.gray.getRGB());
+		minecraft.fontRenderer.drawString(output.amount + "mB", 170, 130, Color.gray.getRGB());
 	}
 }
