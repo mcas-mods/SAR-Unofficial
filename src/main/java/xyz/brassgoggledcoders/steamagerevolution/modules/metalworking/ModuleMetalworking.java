@@ -48,7 +48,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.BlockSteelworksSteamInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.BlockSteelworksSteelOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.SteamFurnaceRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.MoltenMetalRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.CrucibleRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.blocks.BlockCrucibleCasing;
 import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.blocks.BlockCrucibleFluidOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.blocks.BlockCrucibleItemInput;
@@ -148,9 +148,9 @@ public class ModuleMetalworking extends ModuleBase {
 		knownMetalTypes.add("Iron");
 		knownMetalTypes.add("Gold");
 		for(String metal : knownMetalTypes) {
-			if(FluidRegistry.isFluidRegistered(metal)) {
+			if(FluidRegistry.isFluidRegistered(metal.toLowerCase())) {
 				for(ItemStack metalBlock : OreDictionary.getOres("block" + metal, false)) {
-					MoltenMetalRecipe.addMelting(metalBlock, FluidRegistry.getFluid(metal.toLowerCase()));
+					CrucibleRecipe.addMelting(metalBlock, FluidRegistry.getFluid(metal.toLowerCase()));
 				}
 			}
 			for(ItemStack ingot : OreDictionary.getOres("ingot" + metal, false)) {
