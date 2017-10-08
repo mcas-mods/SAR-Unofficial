@@ -20,7 +20,7 @@ public class SteamHammerRecipe implements IRecipeWrapper {
 	public final ItemStack output;
 	public final String dieType;
 
-	private SteamHammerRecipe(ItemStack input, ItemStack output, String dieType) {
+	public SteamHammerRecipe(ItemStack input, ItemStack output, String dieType) {
 		this.input = input;
 		this.output = output;
 		this.dieType = dieType;

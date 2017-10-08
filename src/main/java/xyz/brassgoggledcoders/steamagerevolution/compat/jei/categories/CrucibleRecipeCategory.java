@@ -26,8 +26,8 @@ public class CrucibleRecipeCategory implements IRecipeCategory<CrucibleRecipe> {
 
 	@Override
 	public void drawExtras(Minecraft minecraft) {
-		helper.getSlotDrawable().draw(minecraft, 100, 100);
-		flame.draw(minecraft);
+		helper.getSlotDrawable().draw(minecraft, 80, 80);
+		flame.draw(minecraft, 130, 90);
 	}
 
 	@Override
@@ -52,8 +52,8 @@ public class CrucibleRecipeCategory implements IRecipeCategory<CrucibleRecipe> {
 
 	@Override
 	public void setRecipe(IRecipeLayout recipeLayout, CrucibleRecipe recipeWrapper, IIngredients ingredients) {
-		recipeLayout.getItemStacks().init(0, true, 100, 100);
-		recipeLayout.getFluidStacks().init(1, false, 160, 100);
+		recipeLayout.getItemStacks().init(0, true, 80, 80);
+		recipeLayout.getFluidStacks().init(1, false, 170, 80);
 
 		recipeLayout.getItemStacks().set(0, ingredients.getInputs(ItemStack.class).get(0));
 		recipeLayout.getFluidStacks().set(1, ingredients.getOutputs(FluidStack.class).get(0));

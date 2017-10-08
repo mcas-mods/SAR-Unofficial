@@ -15,7 +15,7 @@ public class SteamFurnaceRecipe implements IRecipeWrapper {
 	public final ItemStack input;
 	public final ItemStack output;
 
-	private SteamFurnaceRecipe(ItemStack input, ItemStack output) {
+	public SteamFurnaceRecipe(ItemStack input, ItemStack output) {
 		this.input = input;
 		this.output = output;
 	}

@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import xyz.brassgoggledcoders.steamagerevolution.compat.minetweaker.SARMinetweaker;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
@@ -50,6 +51,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 	@Override
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		SARMinetweaker.preInit();
 		CapabilityHandler.init();
 		super.preInit(event);
 		proxy.registerModels();
