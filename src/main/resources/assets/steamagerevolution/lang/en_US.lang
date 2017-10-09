@@ -21,6 +21,12 @@ item.steamagerevolution.die.test.name=TEST Die
 
 item.steamagerevolution.clockwork_wings.name=Clockwork Wings
 
+item.steamagerevolution.steam_sword.name=Steam-Powered Sword
+item.steamagerevolution.steam_pickaxe.name=Steam-Powered Pickaxe
+item.steamagerevolution.steam_shovel.name=Steam-Powered Shovel
+item.steamagerevolution.steam_axe.name=Steam-Powered Axe
+item.steamagerevolution.steam_hoe.name=Steam-Powered Hoe
+
 #Blocks
 tile.steamagerevolution.fluid_io.name=Fluid IO
 tile.steamagerevolution.casting_bench.name=Casting Block
@@ -142,5 +148,7 @@ guide.steamagerevolution.entry.utils.steam_vent=Steam Vent
 guide.steamagerevolution.entry.utils.steam_vent.info=On a redstone signal, consumes steam to shoot a hot steam jet in the direction it is facing, scalding all in its path. Right click with a wrench to adjust facing direction. 
 guide.steamagerevolution.entry.utils.clockwork_wings=Clockwork Wings
 guide.steamagerevolution.entry.utils.clockwork_wings.info=§oDon't fly too close to the sun, Icarus§r The clockwork wings provide a very rudimentary form of flight. By repeatedly tapping the jump key the player can move vertically, and then holding shift will allow them to glide downwards. The process is slower than Elytra. Furthermore, the player cannot boost themselves above Y160, and the process of manually flapping the wings is very labour intensive meaning it will drain hunger very fast. Provided the player has energy left, the wings will also protect the player from fall damage. 
+guide.steamagerevolution.entry.utils.steam_tools=Steam-Powered Tools
+guide.steamagerevolution.entry.utils.steam_tools.info=Unbreakable tools fuelled by harnessing the raw power of steam. Fill the tool's internal buffer with a Fluid IO or equivalent, and use like any other tool. When the internal tank empties and the tool stops functioning, simply re-fill. Easy. 
 guide.steamagerevolution.entry.utils.aesthetic=Decorative items
 guide.steamagerevolution.entry.utils.aesthetic.info=Items designed to give a steampunk twist to your home decor. Our range currently includes the Steamer Trunk, equivalent to a single chest.

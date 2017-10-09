@@ -39,6 +39,16 @@ public class CategoryUtilities {
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "clockwork_wings"), new EntryItemStack(
 				clockworkWingsEntry, keyBase + "clockwork_wings", new ItemStack(BookObjectHolder.clockwork_wings)));
 
+		List<IPage> steamToolsEntry = new ArrayList<IPage>();
+		steamToolsEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "steam_tools.info")));
+		steamToolsEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "steam_sword")));
+		steamToolsEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "steam_pickaxe")));
+		steamToolsEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "steam_axe")));
+		steamToolsEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "steam_shovel")));
+		steamToolsEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "steam_hoe")));
+		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "steam_tools"), new EntryItemStack(steamToolsEntry,
+				keyBase + "steam_tools", new ItemStack(BookObjectHolder.steam_pickaxe)));
+
 		List<IPage> aestheticEntry = new ArrayList<IPage>();
 		aestheticEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "aesthetic.info")));
 		aestheticEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "trunk")));

@@ -23,4 +23,5 @@ public class BookObjectHolder {
 	public static final Block fluid_io = null;
 	public static final Block steam_vent = null;
 	public static final Item clockwork_wings = null;
+	public static final Item steam_pickaxe = null;
 }
