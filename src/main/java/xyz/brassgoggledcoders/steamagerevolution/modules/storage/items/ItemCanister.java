@@ -27,6 +27,8 @@ public class ItemCanister extends ItemBase implements IHasSubItems {
 
 	private int capacity;
 
+	FluidHandlerItemStack internal;
+
 	public ItemCanister(String name, int capacity) {
 		super(name);
 		this.setMaxStackSize(1);
@@ -37,8 +39,7 @@ public class ItemCanister extends ItemBase implements IHasSubItems {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
-		FluidStack fluid = ((FluidHandlerItemStack) stack
-				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)).getFluid();
+		FluidStack fluid = internal.getFluid();
 		if(fluid == null) {
 			tooltip.add("0mB/" + capacity + "mB");
 		}
@@ -62,6 +63,21 @@ public class ItemCanister extends ItemBase implements IHasSubItems {
 
 	@Override
 	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
-		return new FluidHandlerItemStack(stack, capacity);
+		return internal = new FluidHandlerItemStack(stack, capacity);
+	}
+
+	@Override
+	public double getDurabilityForDisplay(ItemStack stack) {
+		if(internal.getFluid() != null) {
+			return 1.0D - ((double) internal.getFluid().amount / capacity);
+		}
+		else {
+			return 1.0D;
+		}
+	}
+
+	@Override
+	public boolean showDurabilityBar(ItemStack stack) {
+		return true;
 	}
 }
