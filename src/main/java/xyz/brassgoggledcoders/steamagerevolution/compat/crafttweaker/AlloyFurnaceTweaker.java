@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.compat.minetweaker;
+package xyz.brassgoggledcoders.steamagerevolution.compat.crafttweaker;
 
 import java.util.ArrayList;
 
