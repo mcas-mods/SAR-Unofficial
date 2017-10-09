@@ -68,16 +68,12 @@ public class ItemCanister extends ItemBase implements IHasSubItems {
 
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
-		if(internal.getFluid() != null) {
-			return 1.0D - ((double) internal.getFluid().amount / capacity);
-		}
-		else {
-			return 1.0D;
-		}
+		return 1.0D - ((double) internal.getFluid().amount / capacity);
+
 	}
 
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
-		return true;
+		return internal.getFluid() != null;
 	}
 }
