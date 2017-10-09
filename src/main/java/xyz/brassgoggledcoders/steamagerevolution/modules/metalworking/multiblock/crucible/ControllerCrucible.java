@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible;
+package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible;
 
 import org.apache.commons.lang3.tuple.Pair;
 

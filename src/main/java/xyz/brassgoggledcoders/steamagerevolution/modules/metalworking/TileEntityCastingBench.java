@@ -17,21 +17,16 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.CrucibleRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.processing.CastingBlockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 
 public class TileEntityCastingBench extends TileEntityBase implements ITickable, ISmartTankCallback {
 
-	// Same as TiCon
-	public static final int VALUE_INGOT = 144;
-	public static final int VALUE_NUGGET = VALUE_INGOT / 9;
-	public static final int VALUE_BLOCK = VALUE_INGOT * 9;
-	// public static final int VALUE_ORE = VALUE_INGOT * 2; // TODO Config
-
 	protected ItemStackHandler internal = new ItemStackHandler();
-	public FluidTankSmart tank = new FluidTankSmart(VALUE_BLOCK, this);
+	public FluidTankSmart tank = new FluidTankSmart(ModuleMetalworking.VALUE_BLOCK, this);
 	public int stateChangeTime = 2400;
 
 	@Override
@@ -58,13 +53,13 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable,
 	public static int getValueFromName(String name) {
 		switch(name) {
 			case "ingot":
-				return VALUE_INGOT;
+				return ModuleMetalworking.VALUE_INGOT;
 			case "block":
-				return VALUE_BLOCK;
+				return ModuleMetalworking.VALUE_BLOCK;
 			case "nugget":
-				return VALUE_NUGGET;
+				return ModuleMetalworking.VALUE_NUGGET;
 			case "ore":
-				return VALUE_INGOT;
+				return ModuleMetalworking.VALUE_INGOT;
 			default:
 				return 0;
 		}
@@ -110,11 +105,12 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable,
 		for(int i = 0; i < source.getSlots(); i++) {
 			ItemStack stack = source.getStackInSlot(i);
 			if(!stack.isEmpty()) {
-				if(CrucibleRecipe.getMoltenFromSolid(stack) != null) {
-					FluidStack molten = new FluidStack(CrucibleRecipe.getMoltenFromSolid(stack), VALUE_BLOCK);
-					if(destination.fill(molten, false) == VALUE_BLOCK) {
+				CrucibleRecipe r = CrucibleRecipe.getRecipe(stack);
+				if(r != null) {
+					FluidStack molten = r.output;
+					if(destination.fill(molten, false) == molten.amount) {
 						destination.fill(molten, true);
-						stack.shrink(1);
+						stack.shrink(r.input.getCount());
 						return true;
 					}
 				}
@@ -124,12 +120,16 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable,
 	}
 
 	public static boolean solidifyMetal(FluidTank source, ItemStackHandler destination) {
-		if(source.getFluid() != null && source.getFluidAmount() >= VALUE_BLOCK) {
-			ItemStack solid = CrucibleRecipe.getSolidFromMolten(source.getFluid().getFluid());
+		if(source.getFluid() != null && source.getFluidAmount() >= ModuleMetalworking.VALUE_BLOCK) {
+			CastingBlockRecipe r = CastingBlockRecipe.getRecipe(source.getFluid());
+			ItemStack solid = r.output;
 			if(!solid.isEmpty()) {
-				if(ItemHandlerHelper.insertItem(destination, solid, true) == ItemStack.EMPTY) {
+				// TODO Cleanup
+				if(ItemHandlerHelper.insertItem(destination, solid, true) == ItemStack.EMPTY
+						&& (source.drain(r.input.amount, false) != null
+								&& source.drain(r.input.amount, false).amount == r.input.amount)) {
 					ItemHandlerHelper.insertItem(destination, solid, false);
-					source.drain(VALUE_BLOCK, true);
+					source.drain(r.input.amount, true);
 					return true;
 				}
 			}

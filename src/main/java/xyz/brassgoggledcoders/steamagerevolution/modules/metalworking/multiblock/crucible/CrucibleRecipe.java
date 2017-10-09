@@ -1,5 +1,6 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible;
+package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.annotation.Nonnull;
@@ -8,7 +9,6 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
@@ -16,36 +16,25 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 @Optional.Interface(iface = "mezz.jei.api.IRecipeWrapper", modid = "jei", striprefs = true)
 public class CrucibleRecipe implements IRecipeWrapper {
 	public final ItemStack input;
-	public final Fluid output;
+	public final FluidStack output;
 
-	public CrucibleRecipe(ItemStack metal, Fluid melted) {
+	public CrucibleRecipe(ItemStack metal, FluidStack fluid) {
 		this.input = metal;
-		this.output = melted;
+		this.output = fluid;
 	}
 
 	private static ArrayList<CrucibleRecipe> recipeList = new ArrayList<CrucibleRecipe>();
 
-	public static void addMelting(ItemStack metal, Fluid fluid) {
+	public static void addRecipe(ItemStack metal, FluidStack fluid) {
 		SteamAgeRevolution.instance.getLogger()
-				.devInfo("Registering melting for " + metal.getDisplayName() + " " + fluid.getName());
-		metal.setCount(1);
+				.devInfo("Registering melting for " + metal.getDisplayName() + " into " + fluid.getLocalizedName());
 		recipeList.add(new CrucibleRecipe(metal, fluid));
 	}
 
-	public static ItemStack getSolidFromMolten(Fluid melted) {
-		for(CrucibleRecipe r : recipeList) {
-			if(r.output == melted) {
-				return r.input;
-			}
-		}
-		return ItemStack.EMPTY;
-	}
-
-	public static Fluid getMoltenFromSolid(ItemStack solid) {
-		solid.setCount(1);
+	public static CrucibleRecipe getRecipe(ItemStack solid) {
 		for(CrucibleRecipe r : recipeList) {
 			if(solid.isItemEqual(r.input)) {
-				return r.output;
+				return r;
 			}
 		}
 		return null;
@@ -59,12 +48,12 @@ public class CrucibleRecipe implements IRecipeWrapper {
 	@Override
 	public void getIngredients(IIngredients ingredients) {
 		ingredients.setInput(ItemStack.class, input);
-		ingredients.setOutput(FluidStack.class, new FluidStack(output, 1)); // FIXME
+		ingredients.setOutput(FluidStack.class, output);
 	}
 
 	@Override
 	@Optional.Method(modid = "jei")
 	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-		// minecraft.fontRenderer.drawString(ouput.amount + "mB", 170, 130, Color.gray.getRGB()); TODO
+		minecraft.fontRenderer.drawString(output.amount + "mB", 170, 130, Color.gray.getRGB());
 	}
 }

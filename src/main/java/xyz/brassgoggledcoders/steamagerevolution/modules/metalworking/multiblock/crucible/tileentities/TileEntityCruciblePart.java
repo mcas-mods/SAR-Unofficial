@@ -1,9 +1,9 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.tileentities;
+package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.tileentities;
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 
-import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.ControllerCrucible;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.ControllerCrucible;
 import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockControllerInfo;
 import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockTileInfo;
 

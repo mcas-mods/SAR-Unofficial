@@ -25,6 +25,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Property.Type;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -37,6 +38,11 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFluidInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFluidOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFrame;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.BlockCrucibleCasing;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.BlockCrucibleFluidOutput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.BlockCrucibleItemInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.BlockCrucibleSteamInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.SteamHammerRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerAnvil;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerFrame;
@@ -47,12 +53,8 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.BlockSteelworksIronInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.BlockSteelworksSteamInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.BlockSteelworksSteelOutput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.processing.CastingBlockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.SteamFurnaceRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.CrucibleRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.blocks.BlockCrucibleCasing;
-import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.blocks.BlockCrucibleFluidOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.blocks.BlockCrucibleItemInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.blocks.BlockCrucibleSteamInput;
 
 @Module(value = SteamAgeRevolution.MODID)
 @ObjectHolder(SteamAgeRevolution.MODID)
@@ -61,6 +63,12 @@ public class ModuleMetalworking extends ModuleBase {
 	public static final Item charcoal_powder = null;
 	public static final Item die = null;
 	public static final Item hammer = null;
+
+	// Same as TiCon. Cannot be final because ObjectHolder tries to map to them o.O
+	public static int VALUE_INGOT = 144;
+	public static int VALUE_NUGGET = VALUE_INGOT / 9;
+	public static int VALUE_BLOCK = VALUE_INGOT * 9;
+	// public static final int VALUE_ORE = VALUE_INGOT * 2;
 
 	public static List<String> knownMetalTypes = new ArrayList<String>();
 
@@ -92,10 +100,8 @@ public class ModuleMetalworking extends ModuleBase {
 
 		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.DIRT), new ItemStack(Items.DIAMOND), "test");
 
-		AlloyFurnaceRecipe.addAlloyFurnaceRecipe(
-				FluidRegistry.getFluidStack("copper", TileEntityCastingBench.VALUE_INGOT),
-				FluidRegistry.getFluidStack("zinc", TileEntityCastingBench.VALUE_INGOT),
-				FluidRegistry.getFluidStack("brass", TileEntityCastingBench.VALUE_INGOT));
+		AlloyFurnaceRecipe.addAlloyFurnaceRecipe(FluidRegistry.getFluidStack("copper", VALUE_INGOT),
+				FluidRegistry.getFluidStack("zinc", VALUE_INGOT), FluidRegistry.getFluidStack("brass", VALUE_INGOT));
 		super.init(event);
 	}
 
@@ -148,10 +154,11 @@ public class ModuleMetalworking extends ModuleBase {
 		knownMetalTypes.add("Iron");
 		knownMetalTypes.add("Gold");
 		for(String metal : knownMetalTypes) {
-			// TODO Change crucible recipes to use fluidstacks
 			if(FluidRegistry.isFluidRegistered(metal.toLowerCase())) {
-				for(ItemStack metalBlock : OreDictionary.getOres("block" + metal, false)) {
-					CrucibleRecipe.addMelting(metalBlock, FluidRegistry.getFluid(metal.toLowerCase()));
+				for(ItemStack ingot : OreDictionary.getOres("ingot" + metal, false)) {
+					FluidStack molten = FluidRegistry.getFluidStack(metal.toLowerCase(), VALUE_INGOT);
+					CrucibleRecipe.addRecipe(ingot, molten);
+					CastingBlockRecipe.addRecipe(molten, ingot);
 				}
 			}
 			for(ItemStack ingot : OreDictionary.getOres("ingot" + metal, false)) {

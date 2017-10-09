@@ -13,16 +13,16 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.TileEntityCastingBench;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
 
 public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
-	public FluidTank inputBuffer = new FluidTankSmart(TileEntityCastingBench.VALUE_BLOCK, this);
-	public FluidTank primaryTank = new FluidTankSmart(TileEntityCastingBench.VALUE_BLOCK * 16, this);
-	public FluidTank secondaryTank = new FluidTankSmart(TileEntityCastingBench.VALUE_BLOCK * 16, this);
+	public FluidTank inputBuffer = new FluidTankSmart(ModuleMetalworking.VALUE_BLOCK, this);
+	public FluidTank primaryTank = new FluidTankSmart(ModuleMetalworking.VALUE_BLOCK * 16, this);
+	public FluidTank secondaryTank = new FluidTankSmart(ModuleMetalworking.VALUE_BLOCK * 16, this);
 	public FluidTank outputTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
 
 	public ControllerAlloyFurnace(World world) {

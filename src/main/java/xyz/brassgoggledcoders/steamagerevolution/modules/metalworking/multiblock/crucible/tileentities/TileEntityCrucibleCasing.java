@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.tileentities;
+package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.tileentities;
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 

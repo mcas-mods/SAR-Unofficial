@@ -10,15 +10,15 @@ import crafttweaker.api.liquid.ILiquidStack;
 import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import xyz.brassgoggledcoders.steamagerevolution.modules.smelting.multiblock.crucible.CrucibleRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
 
 @ZenClass("mods.steamagerevolution.Crucible")
 public class CrucibleTweaker {
 
 	@ZenMethod
 	public static void addRecipe(IItemStack input, ILiquidStack output) {
-		CrucibleRecipe r = new CrucibleRecipe(CraftTweakerHelper.toStack(input),
-				CraftTweakerHelper.toFluidStack(output).getFluid());
+		CrucibleRecipe r =
+				new CrucibleRecipe(CraftTweakerHelper.toStack(input), CraftTweakerHelper.toFluidStack(output));
 		CraftTweakerAPI.apply(new Add(r));
 	}
 
@@ -36,7 +36,7 @@ public class CrucibleTweaker {
 
 		@Override
 		public String describe() {
-			return "Adding Crucible Recipe for " + recipe.output.getLocalizedName(new FluidStack(recipe.output, 1));
+			return "Adding Crucible Recipe for " + recipe.output.getLocalizedName();
 		}
 	}
 

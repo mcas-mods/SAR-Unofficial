@@ -12,7 +12,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.TileEntityCastingBench;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
@@ -20,12 +20,12 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockC
 public class ControllerSteelworks extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
 	public FluidTank steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
-	public FluidTank ironTank = new FluidTankSingleSmart(TileEntityCastingBench.VALUE_BLOCK * 16, "iron", this);
+	public FluidTank ironTank = new FluidTankSingleSmart(ModuleMetalworking.VALUE_BLOCK * 16, "iron", this);
 	public ItemStackHandler inputSolid = new ItemStackHandler();
 	public FluidTank outputTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steel", this);
 
-	public static final int workingPoolLevel = TileEntityCastingBench.VALUE_BLOCK * 9;
-	public static final int conversionPerOperation = TileEntityCastingBench.VALUE_NUGGET;
+	public static final int workingPoolLevel = ModuleMetalworking.VALUE_BLOCK * 9;
+	public static final int conversionPerOperation = ModuleMetalworking.VALUE_NUGGET;
 	public static final int steamUsePerOperation = Fluid.BUCKET_VOLUME / 10;
 	public static final int carbonPerOperation = 1;
 
