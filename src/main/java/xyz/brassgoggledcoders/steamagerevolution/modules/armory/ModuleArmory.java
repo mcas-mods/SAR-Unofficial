@@ -6,11 +6,15 @@ import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
+import net.minecraft.item.Item.ToolMaterial;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleArmory extends ModuleBase {
+
+	public static final ToolMaterial STEAM = EnumHelper.addToolMaterial("TOOL_STEAM", 2, -1, 12.0F, 3.0F, 0);
 
 	@Override
 	public void preInit(FMLPreInitializationEvent fmlPreInitializationEvent) {
@@ -50,6 +54,8 @@ public class ModuleArmory extends ModuleBase {
 		// itemRegistry.register(new ItemExpandableArmor(ArmorMaterial.CHAIN, EntityEquipmentSlot.HEAD,
 		// "brass_helmet"));
 		itemRegistry.register(new ItemClockworkWings());
+
+		itemRegistry.register(new ItemSteamPickaxe("steam_pickaxe", 1000));
 	}
 
 	@Override
