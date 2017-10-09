@@ -54,7 +54,7 @@ public class ItemSteamAxe extends ItemAxe implements IHasModel, IModAware {
 		return new FluidHandlerItemStack(stack, capacity) {
 			@Override
 			public boolean canFillFluidType(FluidStack fluid) {
-				return FluidRegistry.getFluidName(fluid) == "steam";
+				return FluidRegistry.getFluidName(fluid).equals("steam");
 			}
 		};
 	}

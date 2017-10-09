@@ -6,6 +6,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.teamacronymcoders.base.IBaseMod;
@@ -60,17 +61,18 @@ public class ItemSteamSword extends ItemSword implements IHasModel, IModAware {
 	// TODO apply to other tools
 	@Override
 	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(slot);
+
+		Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier> create();
 
 		FluidHandlerItemStack internal =
 				(FluidHandlerItemStack) stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 
-		if(internal.getFluid() != null) {
+		if(slot == EntityEquipmentSlot.MAINHAND && internal.getFluid() != null) {
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
-					new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.getAttackDamage(), 0));
+					new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 3.0F + getAttackDamage(), 0));
+			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
+					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.4000000953674316D, 0));
 		}
-		multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
-				new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.4000000953674316D, 0));
 
 		return multimap;
 	}
@@ -86,7 +88,7 @@ public class ItemSteamSword extends ItemSword implements IHasModel, IModAware {
 		return new FluidHandlerItemStack(stack, capacity) {
 			@Override
 			public boolean canFillFluidType(FluidStack fluid) {
-				return FluidRegistry.getFluidName(fluid) == "steam";
+				return FluidRegistry.getFluidName(fluid).equals("steam");
 			}
 		};
 	}

@@ -54,7 +54,7 @@ public class ItemSteamPickaxe extends ItemPickaxe implements IHasModel, IModAwar
 		return new FluidHandlerItemStack(stack, capacity) {
 			@Override
 			public boolean canFillFluidType(FluidStack fluid) {
-				return FluidRegistry.getFluidName(fluid) == "steam";
+				return FluidRegistry.getFluidName(fluid).equals("steam");
 			}
 		};
 	}
