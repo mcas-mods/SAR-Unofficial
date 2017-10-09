@@ -16,6 +16,6 @@ public class SlotFluidContainer extends SlotChanged {
 
 	@Override
 	public boolean isItemValid(@Nullable ItemStack stack) {
-		return stack != null && stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+		return stack != null && stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 	}
 }

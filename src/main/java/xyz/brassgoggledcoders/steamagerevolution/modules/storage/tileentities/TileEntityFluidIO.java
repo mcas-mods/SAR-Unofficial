@@ -15,15 +15,23 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 
-public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGui, IOnSlotChanged, ITickable {
+public class TileEntityFluidIO extends TileEntityInventoryBase
+		implements IHasGui, IOnSlotChanged, ITickable, ISmartTankCallback {
 
-	public FluidTank buffer = new FluidTank(Fluid.BUCKET_VOLUME * 10);
+	public FluidTank buffer = new FluidTankSmart(Fluid.BUCKET_VOLUME * 10, this);
 	private int fluidTransferRate = 20;
 
 	public TileEntityFluidIO() {
@@ -35,7 +43,7 @@ public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGu
 		IItemHandler handler = this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 		if(!handler.getStackInSlot(0).isEmpty()) {
 			IFluidHandler itemFluid =
-					handler.getStackInSlot(0).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+					handler.getStackInSlot(0).getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 			if(buffer.fill(itemFluid.drain(fluidTransferRate, false), false) == fluidTransferRate) {
 				buffer.fill(itemFluid.drain(fluidTransferRate, true), true);
 				this.markDirty();
@@ -44,7 +52,7 @@ public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGu
 		}
 		if(!handler.getStackInSlot(1).isEmpty()) {
 			IFluidHandler itemFluid =
-					handler.getStackInSlot(1).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+					handler.getStackInSlot(1).getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 			if(itemFluid.fill(buffer.drain(fluidTransferRate, false), false) == fluidTransferRate) {
 				itemFluid.fill(buffer.drain(fluidTransferRate, true), true);
 				this.markDirty();
@@ -87,6 +95,19 @@ public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGu
 	@Override
 	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
 		return new ContainerFluidIO(entityPlayer, this);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void updateFluid(FluidStack fluid) {
+		this.buffer.setFluid(fluid);
+	}
+
+	@Override
+	public void onTankContentsChanged(FluidTank tank) {
+		this.markDirty();
+		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(new PacketFluidUpdate(getPos(), tank.getFluid()),
+				getPos(), getWorld().provider.getDimension());
 	}
 
 }
