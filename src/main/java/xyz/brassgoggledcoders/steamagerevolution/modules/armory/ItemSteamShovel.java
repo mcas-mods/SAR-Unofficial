@@ -22,6 +22,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 
@@ -49,7 +51,12 @@ public class ItemSteamShovel extends ItemSpade implements IHasModel, IModAware {
 
 	@Override
 	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
-		return new FluidHandlerItemStack(stack, capacity);
+		return new FluidHandlerItemStack(stack, capacity) {
+			@Override
+			public boolean canFillFluidType(FluidStack fluid) {
+				return FluidRegistry.getFluidName(fluid) == "steam";
+			}
+		};
 	}
 
 	@Override

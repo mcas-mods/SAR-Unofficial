@@ -23,6 +23,8 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 
@@ -63,12 +65,14 @@ public class ItemSteamSword extends ItemSword implements IHasModel, IModAware {
 		FluidHandlerItemStack internal =
 				(FluidHandlerItemStack) stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 
-		if(internal.getFluid() == null) {
+		if(internal.getFluid() != null) {
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
-					new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 0, 0));
+					new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.getAttackDamage(), 0));
 		}
+		multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
+				new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.4000000953674316D, 0));
 
-		return this.getItemAttributeModifiers(slot);
+		return multimap;
 	}
 
 	@Override
@@ -79,7 +83,12 @@ public class ItemSteamSword extends ItemSword implements IHasModel, IModAware {
 
 	@Override
 	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
-		return new FluidHandlerItemStack(stack, capacity);
+		return new FluidHandlerItemStack(stack, capacity) {
+			@Override
+			public boolean canFillFluidType(FluidStack fluid) {
+				return FluidRegistry.getFluidName(fluid) == "steam";
+			}
+		};
 	}
 
 	@Override
