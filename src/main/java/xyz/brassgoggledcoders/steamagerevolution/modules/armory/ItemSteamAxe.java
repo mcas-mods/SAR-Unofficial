@@ -15,7 +15,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemPickaxe;
+import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
@@ -25,7 +25,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 
-public class ItemSteamPickaxe extends ItemPickaxe implements IHasModel, IModAware {
+public class ItemSteamAxe extends ItemAxe implements IHasModel, IModAware {
 
 	boolean creativeTabSet = false;
 	private IBaseMod mod;
@@ -34,8 +34,8 @@ public class ItemSteamPickaxe extends ItemPickaxe implements IHasModel, IModAwar
 
 	public static final int steamUsePerBlock = 10;
 
-	protected ItemSteamPickaxe(String name, int capacity) {
-		super(ModuleArmory.STEAM);
+	protected ItemSteamAxe(String name, int capacity) {
+		super(ModuleArmory.STEAM, ModuleArmory.STEAM.getAttackDamage(), -3.0F);
 		this.setUnlocalizedName(name);
 		this.capacity = capacity;
 		this.name = name;

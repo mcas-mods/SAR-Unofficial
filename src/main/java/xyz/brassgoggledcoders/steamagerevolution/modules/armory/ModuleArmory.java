@@ -56,6 +56,10 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemClockworkWings());
 
 		itemRegistry.register(new ItemSteamPickaxe("steam_pickaxe", 1000));
+		itemRegistry.register(new ItemSteamAxe("steam_axe", 1000));
+		itemRegistry.register(new ItemSteamShovel("steam_shovel", 1000));
+		itemRegistry.register(new ItemSteamHoe("steam_hoe", 1000));
+		itemRegistry.register(new ItemSteamSword("steam_sword", 1000));
 	}
 
 	@Override

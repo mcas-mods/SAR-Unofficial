@@ -7,25 +7,26 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
 import com.teamacronymcoders.base.IBaseMod;
 import com.teamacronymcoders.base.IModAware;
 import com.teamacronymcoders.base.client.models.IHasModel;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 
-public class ItemSteamPickaxe extends ItemPickaxe implements IHasModel, IModAware {
+public class ItemSteamSword extends ItemSword implements IHasModel, IModAware {
 
 	boolean creativeTabSet = false;
 	private IBaseMod mod;
@@ -34,11 +35,40 @@ public class ItemSteamPickaxe extends ItemPickaxe implements IHasModel, IModAwar
 
 	public static final int steamUsePerBlock = 10;
 
-	protected ItemSteamPickaxe(String name, int capacity) {
+	protected ItemSteamSword(String name, int capacity) {
 		super(ModuleArmory.STEAM);
 		this.setUnlocalizedName(name);
 		this.capacity = capacity;
 		this.name = name;
+	}
+
+	@Override
+	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+		FluidHandlerItemStack internal =
+				(FluidHandlerItemStack) stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
+			internal.drain(steamUsePerBlock, true);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	// TODO apply to other tools
+	@Override
+	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(slot);
+
+		FluidHandlerItemStack internal =
+				(FluidHandlerItemStack) stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+
+		if(internal.getFluid() == null) {
+			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
+					new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 0, 0));
+		}
+
+		return this.getItemAttributeModifiers(slot);
 	}
 
 	@Override
@@ -50,31 +80,6 @@ public class ItemSteamPickaxe extends ItemPickaxe implements IHasModel, IModAwar
 	@Override
 	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
 		return new FluidHandlerItemStack(stack, capacity);
-	}
-
-	@Override
-	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-		FluidHandlerItemStack internal =
-				(FluidHandlerItemStack) stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock)
-			return super.getDestroySpeed(stack, state);
-		else {
-			return 0.0F;
-		}
-	}
-
-	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos,
-			EntityLivingBase entityLiving) {
-		FluidHandlerItemStack internal =
-				(FluidHandlerItemStack) stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
-			internal.drain(steamUsePerBlock, true);
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 
 	@Override
