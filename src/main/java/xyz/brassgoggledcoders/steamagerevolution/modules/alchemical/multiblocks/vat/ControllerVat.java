@@ -1,5 +1,10 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat;
 
+import java.util.Arrays;
+import java.util.Optional;
+
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
@@ -18,6 +23,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
 
 public class ControllerVat extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
@@ -67,33 +73,46 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 			}
 		}
 
-		for(VatRecipe r : VatRecipe.getRecipeList()) {
-			int successfulMatches = 0;
-			for(FluidStack recipe_fluid : r.fluidInputs) {
-				for(int i = 0; i < inputs.length; i++)
-					if(recipe_fluid.isFluidEqual(this.inputs[0].getFluid())
-							&& this.inputs[0].getFluidAmount() >= recipe_fluid.amount) {
-						successfulMatches++;
-					}
-			}
-			if(successfulMatches == r.fluidInputs.length) {
-				for(ItemStack recipe_stack : r.itemInputs) {
-					for(int i = 0; i < itemInput.getSlots(); i++)
-						if(recipe_stack.isItemEqual(itemInput.getStackInSlot(i))
-								&& this.itemInput.getStackInSlot(i).getCount() >= recipe_stack.getCount()) {
-							successfulMatches++;
-						}
-				}
+		Optional<VatRecipe> r = VatRecipe.getRecipeList().parallelStream().filter(this::hasRequiredFluids)
+				.filter(this::hasRequiredItems).findFirst();
 
+		if(r.isPresent()) {
+			FluidStack output = r.get().output;
+			if(this.output.fill(output, false) == output.amount) {
+				this.output.fill(output, true);
 			}
-			if(successfulMatches == (r.fluidInputs.length + r.itemInputs.length)) {
-				if(this.output.fill(r.output, false) == r.output.amount) {
-					this.output.fill(r.output, true);
-				}
-			}
+			flag = true;
 		}
 
 		return flag;
+	}
+
+	private boolean hasRequiredFluids(VatRecipe recipe) {
+		return Arrays.stream(recipe.fluidInputs).map(this::tanksHaveFluid).reduce((a, b) -> a && b).get();
+	}
+
+	private boolean tanksHaveFluid(FluidStack stack) {
+		for(FluidTank tank : inputs) {
+			if(tank.getFluid() != null && tank.getFluid().isFluidEqual(stack)
+					&& tank.getFluidAmount() >= stack.amount) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean hasRequiredItems(VatRecipe recipe) {
+		return Arrays.stream(recipe.itemInputs).map(this::handlerHasItems).reduce((a, b) -> a && b).get();
+	}
+
+	private boolean handlerHasItems(ItemStack stack) {
+		for(int i = 0; i < itemInput.getSlots(); i++) {
+			if(itemInput.getStackInSlot(i).isItemEqual(stack)
+					&& itemInput.getStackInSlot(i).getCount() >= stack.getCount()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -119,6 +138,10 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 
 	@Override
 	protected void onMachineAssembled() {
+		Pair<BlockPos, BlockPos> interiorPositions =
+				PositionUtils.shrinkPositionCubeBy(this.getMinimumCoord(), this.getMaximumCoord(), 1);
+		this.minimumInteriorPos = interiorPositions.getLeft();
+		this.maximumInteriorPos = interiorPositions.getRight();
 		this.bounds = new AxisAlignedBB(this.getMinimumCoord(), this.getMaximumCoord());
 		super.onMachineAssembled();
 	}
@@ -253,5 +276,4 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 			}
 		}
 	}
-
 }
