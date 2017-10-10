@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities;
 import com.teamacronymcoders.base.containers.ContainerBase;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 public class ContainerFluidIO extends ContainerBase {
@@ -17,6 +18,10 @@ public class ContainerFluidIO extends ContainerBase {
 	@Override
 	public boolean canInteractWith(EntityPlayer playerIn) {
 		return true;
+	}
+
+	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
+		return ItemStack.EMPTY;
 	}
 
 }
