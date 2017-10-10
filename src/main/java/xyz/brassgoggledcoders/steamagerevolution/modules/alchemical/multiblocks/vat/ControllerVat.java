@@ -1,13 +1,16 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -88,31 +91,21 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 	}
 
 	private boolean hasRequiredFluids(VatRecipe recipe) {
-		return Arrays.stream(recipe.fluidInputs).map(this::tanksHaveFluid).reduce((a, b) -> a && b).get();
+		return Arrays.stream(recipe.fluidInputs).map(this::tanksHaveFluid).reduce((a, b) -> a && b).orElse(false);
 	}
 
 	private boolean tanksHaveFluid(FluidStack stack) {
-		for(FluidTank tank : inputs) {
-			if(tank.getFluid() != null && tank.getFluid().isFluidEqual(stack)
-					&& tank.getFluidAmount() >= stack.amount) {
-				return true;
-			}
-		}
-		return false;
+		return Arrays.stream(inputs).filter(Objects::nonNull).filter(tank -> tank.getFluid().containsFluid(stack))
+				.findAny().isPresent();
 	}
 
 	private boolean hasRequiredItems(VatRecipe recipe) {
-		return Arrays.stream(recipe.itemInputs).map(this::handlerHasItems).reduce((a, b) -> a && b).get();
+		return Arrays.stream(recipe.itemInputs).map(this::handlerHasItems).reduce((a, b) -> a && b).orElse(false);
 	}
 
 	private boolean handlerHasItems(ItemStack stack) {
-		for(int i = 0; i < itemInput.getSlots(); i++) {
-			if(itemInput.getStackInSlot(i).isItemEqual(stack)
-					&& itemInput.getStackInSlot(i).getCount() >= stack.getCount()) {
-				return true;
-			}
-		}
-		return false;
+		return IntStream.range(0, itemInput.getSlots()).mapToObj(slotNum -> itemInput.getStackInSlot(slotNum))
+				.filter(inputStack -> ItemStackUtils.containsItemStack(stack, inputStack)).findAny().isPresent();
 	}
 
 	@Override
