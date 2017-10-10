@@ -4,6 +4,7 @@ import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
+import com.teamacronymcoders.base.util.Platform;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Items;
@@ -20,6 +21,11 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleAlchemical extends ModuleBase {
+
+	@Override
+	public boolean getActiveDefault() {
+		return Platform.isDevEnv();
+	}
 
 	@Override
 	public String getName() {
