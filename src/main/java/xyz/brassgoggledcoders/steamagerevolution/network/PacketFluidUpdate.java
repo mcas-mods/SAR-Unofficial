@@ -11,6 +11,7 @@ public class PacketFluidUpdate implements IMessage {
 
 	public BlockPos pos;
 	public FluidStack fluid;
+	public int id = 0;
 
 	public PacketFluidUpdate() {}
 
@@ -19,11 +20,17 @@ public class PacketFluidUpdate implements IMessage {
 		this.fluid = fluid;
 	}
 
+	public PacketFluidUpdate(BlockPos pos, FluidStack fluid, int id) {
+		this(pos, fluid);
+		this.id = id;
+	}
+
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		pos = BlockPos.fromLong(buf.readLong());
 		NBTTagCompound tag = ByteBufUtils.readTag(buf);
 		fluid = FluidStack.loadFluidStackFromNBT(tag);
+		id = buf.readInt();
 	}
 
 	@Override
@@ -34,6 +41,7 @@ public class PacketFluidUpdate implements IMessage {
 			fluid.writeToNBT(tag);
 		}
 		ByteBufUtils.writeTag(buf, tag);
+		buf.writeInt(id);
 	}
 
 }

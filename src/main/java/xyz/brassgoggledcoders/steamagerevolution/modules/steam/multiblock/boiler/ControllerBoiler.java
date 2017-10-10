@@ -255,11 +255,11 @@ public class ControllerBoiler extends SARRectangularMultiblockControllerBase imp
 	}
 
 	@Override
-	public void updateFluid(FluidStack fluid) {
-		if(fluid.getFluid().equals(FluidRegistry.WATER))
-			waterTank.setFluid(fluid);
+	public void updateFluid(PacketFluidUpdate message) {
+		if(message.fluid.getFluid().equals(FluidRegistry.WATER))
+			waterTank.setFluid(message.fluid);
 		else
-			steamTank.setFluid(fluid);
+			steamTank.setFluid(message.fluid);
 	}
 
 	@Override

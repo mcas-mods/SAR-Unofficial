@@ -6,7 +6,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -47,8 +46,8 @@ public class TileEntityBasicFluidTank extends TileEntityBase implements ISmartTa
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void updateFluid(FluidStack fluid) {
-		this.tank.setFluid(fluid);
+	public void updateFluid(PacketFluidUpdate message) {
+		this.tank.setFluid(message.fluid);
 	}
 
 	@Override

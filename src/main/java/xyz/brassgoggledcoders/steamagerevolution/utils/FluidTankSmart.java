@@ -8,6 +8,7 @@ import net.minecraftforge.fluids.FluidTank;
 
 public class FluidTankSmart extends FluidTank {
 
+	int id;
 	MultiblockControllerBase parent = null;
 
 	public FluidTankSmart(int capacity, TileEntity parent) {
@@ -16,13 +17,22 @@ public class FluidTankSmart extends FluidTank {
 	}
 
 	public FluidTankSmart(int capacity, MultiblockControllerBase parent) {
+		this(capacity, parent, 0);
+	}
+
+	public FluidTankSmart(int capacity, MultiblockControllerBase parent, int id) {
 		super(capacity);
 		this.parent = parent;
+		this.id = id;
 	}
 
 	public FluidTankSmart(FluidStack fluid, int capacity, MultiblockControllerBase parent) {
 		super(fluid, capacity);
 		this.parent = parent;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	@Override

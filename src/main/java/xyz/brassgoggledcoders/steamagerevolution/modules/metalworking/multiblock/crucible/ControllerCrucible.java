@@ -11,7 +11,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
@@ -189,11 +188,11 @@ public class ControllerCrucible extends SARRectangularMultiblockControllerBase i
 	}
 
 	@Override
-	public void updateFluid(FluidStack fluid) {
-		if(fluid.getFluid().equals(FluidRegistry.getFluid("steam")))
-			steamTank.setFluid(fluid);
+	public void updateFluid(PacketFluidUpdate message) {
+		if(message.fluid.getFluid().equals(FluidRegistry.getFluid("steam")))
+			steamTank.setFluid(message.fluid);
 		else
-			tank.setFluid(fluid);
+			tank.setFluid(message.fluid);
 	}
 
 	@Override

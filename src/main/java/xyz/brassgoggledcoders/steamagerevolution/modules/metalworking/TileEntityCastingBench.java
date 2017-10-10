@@ -97,8 +97,8 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable,
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void updateFluid(FluidStack fluid) {
-		this.tank.setFluid(fluid);
+	public void updateFluid(PacketFluidUpdate message) {
+		this.tank.setFluid(message.fluid);
 	}
 
 	public static boolean meltMetal(ItemStackHandler source, FluidTank destination) {

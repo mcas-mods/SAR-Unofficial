@@ -10,7 +10,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
@@ -182,9 +181,8 @@ public class ControllerTank extends SARRectangularMultiblockControllerBase imple
 	}
 
 	@Override
-	public void updateFluid(FluidStack fluid) {
-		// FMLLog.warning("Fluid was updated");
-		tank.setFluid(fluid);
+	public void updateFluid(PacketFluidUpdate message) {
+		tank.setFluid(message.fluid);
 	}
 
 	@Override

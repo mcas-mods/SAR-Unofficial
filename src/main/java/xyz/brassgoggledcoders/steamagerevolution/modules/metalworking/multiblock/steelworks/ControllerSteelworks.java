@@ -13,6 +13,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
@@ -180,7 +181,7 @@ public class ControllerSteelworks extends SARRectangularMultiblockControllerBase
 	}
 
 	@Override
-	public void updateFluid(FluidStack fluid) {
+	public void updateFluid(PacketFluidUpdate fluid) {
 		// TODO Auto-generated method stub
 
 	}

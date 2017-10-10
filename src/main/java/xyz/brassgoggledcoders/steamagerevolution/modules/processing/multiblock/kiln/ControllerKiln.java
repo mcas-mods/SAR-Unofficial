@@ -12,15 +12,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMaterials;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
 
-public class ControllerKiln extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
+public class ControllerKiln extends SARRectangularMultiblockControllerBase {
 
 	public BlockPos minimumInteriorPos;
 	public BlockPos maximumInteriorPos;
@@ -171,19 +169,7 @@ public class ControllerKiln extends SARRectangularMultiblockControllerBase imple
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTank tank) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void readFromDisk(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void updateFluid(FluidStack fluid) {
 		// TODO Auto-generated method stub
 
 	}

@@ -14,6 +14,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
@@ -39,10 +40,12 @@ public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBa
 			if(primaryTank.fill(input, false) == amount) {
 				primaryTank.fill(input, true);
 				inputBuffer.drain(input, true);
+				flag = true;
 			}
 			else if(secondaryTank.fill(input, false) == amount) {
 				secondaryTank.fill(input, true);
 				inputBuffer.drain(input, true);
+				flag = true;
 			}
 			// TODO else freeze machine/clear buffer
 		}
@@ -218,7 +221,7 @@ public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBa
 	}
 
 	@Override
-	public void updateFluid(FluidStack fluid) {
+	public void updateFluid(PacketFluidUpdate fluid) {
 		// TODO Auto-generated method stub
 
 	}

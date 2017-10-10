@@ -11,15 +11,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteamVent;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 
-public class TileEntitySteamVent extends TileEntitySlowTick implements ISmartTankCallback {
+public class TileEntitySteamVent extends TileEntitySlowTick {
 
 	public FluidTank tank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 6, "steam", this);
 
@@ -61,18 +59,6 @@ public class TileEntitySteamVent extends TileEntitySlowTick implements ISmartTan
 	@Override
 	public void readFromDisk(NBTTagCompound tag) {
 		tank.readFromNBT(tag.getCompoundTag("tank"));
-	}
-
-	@Override
-	public void onTankContentsChanged(FluidTank tank) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void updateFluid(FluidStack fluid) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

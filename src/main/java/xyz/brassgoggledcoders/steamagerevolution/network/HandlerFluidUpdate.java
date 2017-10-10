@@ -32,12 +32,12 @@ public class HandlerFluidUpdate implements IMessageHandler<PacketFluidUpdate, IM
 		TileEntity te = worldClient.getTileEntity(message.pos);
 		if(te instanceof ISmartTankCallback) {
 			ISmartTankCallback tile = (ISmartTankCallback) te;
-			tile.updateFluid(message.fluid);
+			tile.updateFluid(message);
 		}
 		else {
 			MultiblockTileEntityBase<?> tile = (MultiblockTileEntityBase<?>) te;
 			ISmartTankCallback controller = (ISmartTankCallback) tile.getMultiblockController();
-			controller.updateFluid(message.fluid);
+			controller.updateFluid(message);
 		}
 	}
 }
