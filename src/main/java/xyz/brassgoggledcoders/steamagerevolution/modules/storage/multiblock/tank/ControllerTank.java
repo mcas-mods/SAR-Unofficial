@@ -33,8 +33,7 @@ public class ControllerTank extends SARRectangularMultiblockControllerBase imple
 
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
+		tank.readFromNBT(data);
 	}
 
 	@Override
@@ -165,8 +164,7 @@ public class ControllerTank extends SARRectangularMultiblockControllerBase imple
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
+		tank.writeToNBT(data);
 	}
 
 	@Override
