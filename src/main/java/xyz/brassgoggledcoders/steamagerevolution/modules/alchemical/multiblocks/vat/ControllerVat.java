@@ -12,7 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
@@ -93,7 +92,6 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 				}
 			}
 		}
-		FMLLog.warning("" + this.output.getFluidAmount());
 
 		return flag;
 	}
