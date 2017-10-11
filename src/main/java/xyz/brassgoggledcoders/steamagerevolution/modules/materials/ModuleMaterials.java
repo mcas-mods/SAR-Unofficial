@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.Arrays;
 
 import com.teamacronymcoders.base.blocks.BlockBase;
+import com.teamacronymcoders.base.blocks.BlockFluidBase;
 import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.materialsystem.MaterialException;
 import com.teamacronymcoders.base.materialsystem.MaterialUser;
@@ -19,7 +20,15 @@ import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
@@ -38,6 +47,9 @@ public class ModuleMaterials extends ModuleBase {
 	String[] alloyParts = (String[]) Arrays.copyOfRange(metalParts, 1, metalParts.length);
 	public static Color brassColor = new Color(251, 194, 99);
 
+	public static DamageSource damageSourceAcid =
+			new DamageSource("acid").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
+
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		try {
@@ -54,6 +66,11 @@ public class ModuleMaterials extends ModuleBase {
 			Material steel =
 					new MaterialBuilder().setName("Steel").setColor(Color.DARK_GRAY).setHasEffect(false).build();
 			Material brass = new MaterialBuilder().setName("Brass").setColor(brassColor).setHasEffect(false).build();
+
+			Material sulphur = new MaterialBuilder().setName("Sulphur").setColor(new Color(200, 200, 60))
+					.setHasEffect(false).build();
+
+			SAR.registerPartsForMaterial(sulphur, "ore", "dust", "crystal");
 
 			for(MaterialPart part : SAR.registerPartsForMaterial(iron, vanillaParts)) {
 				if(part.getPartType() instanceof OrePartType) {
@@ -96,6 +113,7 @@ public class ModuleMaterials extends ModuleBase {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		super.preInit(event);
 	}
 
@@ -112,11 +130,35 @@ public class ModuleMaterials extends ModuleBase {
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
 		blockRegistry.register(new BlockBase(net.minecraft.block.material.Material.ROCK, "charcoal_block"));
+
+		Fluid sulphuric_acid =
+				new Fluid("sulphuric_acid", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/sulphuric_acid"),
+						new ResourceLocation(SteamAgeRevolution.MODID, "blocks/sulphuric_acid_flow")).setViscosity(500);
+		FluidRegistry.registerFluid(sulphuric_acid);
+		FluidRegistry.addBucketForFluid(sulphuric_acid);
+
+		blockRegistry.register(new BlockFluidBase("sulphuric_acid", FluidRegistry.getFluid("sulphuric_acid"),
+				net.minecraft.block.material.Material.WATER) {
+			@Override
+			public ResourceLocation getResourceLocation(IBlockState blockState) {
+				return new ResourceLocation(SteamAgeRevolution.MODID, "sulphuric_acid");
+			}
+
+			@Override
+			public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+				entityIn.attackEntityFrom(damageSourceAcid, 3);
+			}
+		});
 	}
 
 	@Override
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
 		itemRegistry.register(new ItemBase("charcoal_powder"));
+	}
+
+	@Override
+	public String getClientProxyPath() {
+		return "xyz.brassgoggledcoders.steamagerevolution.modules.materials.ClientProxy";
 	}
 
 	@Override

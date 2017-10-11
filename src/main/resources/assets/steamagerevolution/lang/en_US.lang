@@ -101,6 +101,10 @@ steamagerevolution.multiblock.validation.alloyforgeinterior=Interior of the allo
 
 #Other
 fluid.steam=Steam
+fluid.sulphuric_acid=Sulphuric Acid
+
+death.attack.hammer=%1$s was flattened.
+death.attack.acid=%1$s became a part of the solution.
 
 #Guide
 guide.steamagerevolution.name=Steam Age Revolution Guidebook

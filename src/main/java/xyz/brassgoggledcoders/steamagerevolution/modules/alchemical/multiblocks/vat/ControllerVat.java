@@ -12,6 +12,8 @@ import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.util.ItemStackUtils;
 
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -68,11 +70,18 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 			// TODO else freeze machine/clear buffer
 		}
 
-		// TODO change to a layer of dummy blocks in the top of the machine
-		for(EntityItem item : WORLD.getEntitiesWithinAABB(EntityItem.class, bounds)) {
-			if(ItemHandlerHelper.insertItem(itemInput, item.getItem(), true).isEmpty()) {
-				ItemHandlerHelper.insertItem(itemInput, item.getItem(), false);
-				item.setDead();
+		for(Entity entity : WORLD.getEntitiesWithinAABB(Entity.class, bounds)) {
+			if(entity instanceof EntityItem) {
+				EntityItem item = (EntityItem) entity;
+				if(ItemHandlerHelper.insertItem(itemInput, item.getItem(), true).isEmpty()) {
+					ItemHandlerHelper.insertItem(itemInput, item.getItem(), false);
+					item.setDead();
+				}
+			}
+			// Simulate contact with fluid in vat when an entity falls in. TODO change BB based on fluid fill level
+			if(this.output.getFluid() != null) {
+				Block fluidBlock = this.output.getFluid().getFluid().getBlock();
+				fluidBlock.onEntityCollidedWithBlock(WORLD, getReferenceCoord(), fluidBlock.getDefaultState(), entity);
 			}
 		}
 
@@ -80,9 +89,9 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 				.filter(this::hasRequiredItems).findFirst();
 
 		if(r.isPresent()) {
-			FluidStack output = r.get().output;
-			if(this.output.fill(output, false) == output.amount) {
-				this.output.fill(output, true);
+			FluidStack result = r.get().output;
+			if(this.output.fill(result, false) == result.amount) {
+				this.output.fill(result, true);
 			}
 			flag = true;
 		}
@@ -95,8 +104,8 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 	}
 
 	private boolean tanksHaveFluid(FluidStack stack) {
-		return Arrays.stream(inputs).filter(Objects::nonNull).filter(tank -> tank.getFluid().containsFluid(stack))
-				.findAny().isPresent();
+		return Arrays.stream(inputs).filter(Objects::nonNull).filter(tank -> Objects.nonNull(tank.getFluid()))
+				.filter(tank -> tank.getFluid().containsFluid(stack)).findAny().isPresent();
 	}
 
 	private boolean hasRequiredItems(VatRecipe recipe) {

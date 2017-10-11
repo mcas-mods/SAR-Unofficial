@@ -12,6 +12,8 @@ import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.CastingBl
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.CrucibleRecipeCategory;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.SteamFurnaceRecipeCategory;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.SteamHammerRecipeCategory;
+import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.VatRecipeCategory;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.AlloyFurnaceRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.SteamHammerRecipe;
@@ -28,7 +30,8 @@ public class SARJEIPlugin implements IModPlugin {
 				new AlloyFurnaceRecipeCategory(jeiHelper.getGuiHelper()),
 				new CrucibleRecipeCategory(jeiHelper.getGuiHelper()),
 				new SteamFurnaceRecipeCategory(jeiHelper.getGuiHelper()),
-				new CastingBlockRecipeCategory(jeiHelper.getGuiHelper()));
+				new CastingBlockRecipeCategory(jeiHelper.getGuiHelper()),
+				new VatRecipeCategory(jeiHelper.getGuiHelper()));
 	}
 
 	@Override
@@ -52,6 +55,8 @@ public class SARJEIPlugin implements IModPlugin {
 		registry.addRecipes(CastingBlockRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":casting_block");
 		registry.addRecipeCatalyst(new ItemStack(JEIObjectHolder.casting_bench),
 				SteamAgeRevolution.MODID + ":casting_block");
+
+		registry.addRecipes(VatRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":vat");
 	}
 
 }
