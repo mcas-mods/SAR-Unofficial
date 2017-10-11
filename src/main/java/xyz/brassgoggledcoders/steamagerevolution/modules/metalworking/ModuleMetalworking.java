@@ -58,7 +58,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.f
 
 @Module(value = SteamAgeRevolution.MODID)
 @ObjectHolder(SteamAgeRevolution.MODID)
-@EventBusSubscriber
+@EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class ModuleMetalworking extends ModuleBase {
 
 	public static final Item charcoal_powder = null;
@@ -155,7 +155,7 @@ public class ModuleMetalworking extends ModuleBase {
 	}
 
 	@SubscribeEvent
-	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 		event.getRegistry().register(
 				new RecipesOreToDust().setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "ore_to_dust")));
 		event.getRegistry().register(new RecipesIngotToPlate()
@@ -192,7 +192,7 @@ public class ModuleMetalworking extends ModuleBase {
 	}
 
 	@SubscribeEvent
-	public void onOreRegistered(OreDictionary.OreRegisterEvent event) {
+	public static void onOreRegistered(OreDictionary.OreRegisterEvent event) {
 		String name = event.getName();
 		String[] splitName = name.split("(?=[A-Z])");
 		if(splitName.length == 2) {
