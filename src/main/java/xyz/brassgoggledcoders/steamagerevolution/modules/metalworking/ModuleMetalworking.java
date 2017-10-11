@@ -21,11 +21,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Property.Type;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -58,6 +58,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.f
 
 @Module(value = SteamAgeRevolution.MODID)
 @ObjectHolder(SteamAgeRevolution.MODID)
+@EventBusSubscriber
 public class ModuleMetalworking extends ModuleBase {
 
 	public static final Item charcoal_powder = null;
@@ -79,7 +80,6 @@ public class ModuleMetalworking extends ModuleBase {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		MinecraftForge.EVENT_BUS.register(this);
 		this.getConfigRegistry().addEntry("plateCount", new ConfigEntry("balance", "plateCount", Type.INTEGER, "1"));
 		plateCount = this.getConfigRegistry().getInt("plateCount", 1);
 		this.getConfigRegistry().addEntry("dustCount", new ConfigEntry("balance", "dustCount", Type.INTEGER, "1"));
@@ -151,6 +151,15 @@ public class ModuleMetalworking extends ModuleBase {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
+		super.postInit(event);
+	}
+
+	@SubscribeEvent
+	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+		event.getRegistry().register(
+				new RecipesOreToDust().setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "ore_to_dust")));
+		event.getRegistry().register(new RecipesIngotToPlate()
+				.setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "ingot_to_plate")));
 		knownMetalTypes.add("Iron");
 		knownMetalTypes.add("Gold");
 		for(String metal : knownMetalTypes) {
@@ -180,15 +189,6 @@ public class ModuleMetalworking extends ModuleBase {
 				}
 			}
 		}
-		super.postInit(event);
-	}
-
-	@SubscribeEvent
-	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-		event.getRegistry().register(
-				new RecipesOreToDust().setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "ore_to_dust")));
-		event.getRegistry().register(new RecipesIngotToPlate()
-				.setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "ingot_to_plate")));
 	}
 
 	@SubscribeEvent

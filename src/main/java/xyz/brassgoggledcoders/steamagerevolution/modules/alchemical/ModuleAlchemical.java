@@ -8,9 +8,12 @@ import com.teamacronymcoders.base.util.OreDictUtils;
 import com.teamacronymcoders.base.util.Platform;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.BlockVatFluidInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.BlockVatFrame;
@@ -18,6 +21,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe.VatRecipeBuilder;
 
 @Module(value = SteamAgeRevolution.MODID)
+@EventBusSubscriber
 public class ModuleAlchemical extends ModuleBase {
 
 	@Override
@@ -35,9 +39,8 @@ public class ModuleAlchemical extends ModuleBase {
 		return "xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.ClientProxy";
 	}
 
-	@Override
-	public void init(FMLInitializationEvent event) {
-		super.init(event);
+	@SubscribeEvent
+	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 		new VatRecipeBuilder().setOutput(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME))
 				.setFluids(FluidRegistry.getFluidStack("water", Fluid.BUCKET_VOLUME))
 				.setItems(OreDictUtils.getPreferredItemStack("crystalSulphur")).build();
