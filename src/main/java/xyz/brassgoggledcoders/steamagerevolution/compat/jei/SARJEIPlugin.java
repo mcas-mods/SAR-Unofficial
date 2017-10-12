@@ -5,6 +5,7 @@ import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.ItemStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.EvaporatorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.AlloyFurnaceRecipe;
@@ -25,7 +26,8 @@ public class SARJEIPlugin implements IModPlugin {
 				new SteamFurnaceRecipeCategory(jeiHelper.getGuiHelper()),
 				new CastingBlockRecipeCategory(jeiHelper.getGuiHelper()),
 				new VatRecipeCategory(jeiHelper.getGuiHelper()),
-				new FumeCollectorRecipeCategory(jeiHelper.getGuiHelper()));
+				new FumeCollectorRecipeCategory(jeiHelper.getGuiHelper()),
+				new EvaporatorRecipeCategory(jeiHelper.getGuiHelper()));
 	}
 
 	@Override
@@ -53,6 +55,8 @@ public class SARJEIPlugin implements IModPlugin {
 		registry.addRecipes(VatRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":vat");
 
 		registry.addRecipes(FumeCollectorRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":fume_collector");
+
+		registry.addRecipes(EvaporatorRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":evaporator");
 	}
 
 }

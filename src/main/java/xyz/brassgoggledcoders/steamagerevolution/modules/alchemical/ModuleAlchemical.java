@@ -1,5 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical;
 
+import com.teamacronymcoders.base.blocks.BlockFluidBase;
 import com.teamacronymcoders.base.materialsystem.MaterialSystem;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
@@ -8,6 +9,9 @@ import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import com.teamacronymcoders.base.util.Platform;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -19,6 +23,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe.VatRecipeBuilder;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
+import xyz.brassgoggledcoders.steamagerevolution.modules.processing.CastingBlockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.BlockDamagingFluid;
 
 @Module(value = SteamAgeRevolution.MODID)
@@ -26,12 +32,10 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.BlockDamagingFluid;
 public class ModuleAlchemical extends ModuleBase {
 
 	// TODO Don't bypass armour, deal extra damage to it
-	public static DamageSource damageSourceGas = new DamageSource("gas").setDifficultyScaled()
-			.setDamageBypassesArmor()
-			.setDamageIsAbsolute();
-	public static DamageSource damageSourceAcid = new DamageSource("acid").setDifficultyScaled()
-			.setDamageBypassesArmor()
-			.setDamageIsAbsolute();
+	public static DamageSource damageSourceGas =
+			new DamageSource("gas").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
+	public static DamageSource damageSourceAcid =
+			new DamageSource("acid").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
 
 	@Override
 	public boolean getActiveDefault() {
@@ -54,8 +58,13 @@ public class ModuleAlchemical extends ModuleBase {
 				.setFluids(FluidRegistry.getFluidStack("sulphur_dioxide", Fluid.BUCKET_VOLUME),
 						FluidRegistry.getFluidStack("water", Fluid.BUCKET_VOLUME))
 				.build();
-		FumeCollectorRecipe.addRecipe(MaterialSystem.getMaterialPart("sulphur_crystal")
-				.getItemStack(), FluidRegistry.getFluidStack("sulphur_dioxide", Fluid.BUCKET_VOLUME), 0.1f);
+		new VatRecipeBuilder().setOutput(FluidRegistry.getFluidStack("liquid_glowstone", Fluid.BUCKET_VOLUME))
+				.setFluids(FluidRegistry.getFluidStack("lava", Fluid.BUCKET_VOLUME))
+				.setItems(new ItemStack(Items.REDSTONE, 4)).build();
+		FumeCollectorRecipe.addRecipe(MaterialSystem.getMaterialPart("sulphur_crystal").getItemStack(),
+				FluidRegistry.getFluidStack("sulphur_dioxide", Fluid.BUCKET_VOLUME), 0.1f);
+		CastingBlockRecipe.addRecipe(FluidRegistry.getFluidStack("liquid_glowstone", ModuleMetalworking.VALUE_BLOCK),
+				new ItemStack(Blocks.GLOWSTONE));
 		// TODO Proper oredict support
 	}
 
@@ -66,6 +75,7 @@ public class ModuleAlchemical extends ModuleBase {
 		blockRegistry.register(new BlockVatOutput(Material.IRON, "vat_output"));
 
 		blockRegistry.register(new BlockFumeCollector(Material.IRON, "fume_collector"));
+		blockRegistry.register(new BlockEvaporator(Material.IRON, "evaporator"));
 
 		Fluid sulphur_dioxide =
 				new Fluid("sulphur_dioxide", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/sulphur_dioxide"),
@@ -76,6 +86,7 @@ public class ModuleAlchemical extends ModuleBase {
 
 		blockRegistry.register(new BlockDamagingFluid("sulphur_dioxide", FluidRegistry.getFluid("sulphur_dioxide"),
 				Material.WATER, damageSourceGas, 2));
+
 		Fluid sulphuric_acid =
 				new Fluid("sulphuric_acid", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/sulphuric_acid"),
 						new ResourceLocation(SteamAgeRevolution.MODID, "blocks/sulphuric_acid_flow")).setViscosity(500);
@@ -84,6 +95,17 @@ public class ModuleAlchemical extends ModuleBase {
 
 		blockRegistry.register(new BlockDamagingFluid("sulphuric_acid", FluidRegistry.getFluid("sulphuric_acid"),
 				Material.WATER, damageSourceAcid, 4));
+
+		// TODO Needs to emit light. TE compat?
+		Fluid liquid_glowstone =
+				new Fluid("liquid_glowstone", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/liquid_glowstone"),
+						new ResourceLocation(SteamAgeRevolution.MODID, "blocks/liquid_glowstone_flow"))
+								.setViscosity(2000).setGaseous(true);
+		FluidRegistry.registerFluid(liquid_glowstone);
+		FluidRegistry.addBucketForFluid(liquid_glowstone);
+
+		blockRegistry.register(
+				new BlockFluidBase("liquid_glowstone", FluidRegistry.getFluid("liquid_glowstone"), Material.LAVA));
 	}
 
 }

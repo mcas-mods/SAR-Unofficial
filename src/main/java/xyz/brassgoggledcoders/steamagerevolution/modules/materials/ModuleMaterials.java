@@ -39,6 +39,9 @@ public class ModuleMaterials extends ModuleBase {
 		try {
 			MaterialUser SAR = SteamAgeRevolution.instance.getMaterialUser();
 
+			// Part slurry = new PartBuilder().setOwnerId(SAR.getId()).setName("Ore Slurry")
+			// .setPartType(MaterialSystem.getPartType("fluid")).build();
+
 			Material iron = new MaterialBuilder().setName("Iron").setColor(Color.GRAY).setHasEffect(false).build();
 			Material gold = new MaterialBuilder().setName("Gold").setColor(Color.YELLOW).setHasEffect(false).build();
 
