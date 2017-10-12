@@ -3,11 +3,8 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
@@ -65,13 +62,7 @@ public class VatRecipe implements IRecipeWrapper {
 	@Override
 	public void getIngredients(IIngredients ingredients) {
 		ingredients.setInputs(FluidStack.class, Arrays.asList(fluidInputs));
-		ingredients.setInputs(ItemStack.class, Arrays.asList(itemInputs));
+		// ingredients.setInputs(ItemStack.class, Arrays.asList(itemInputs));
 		ingredients.setOutput(FluidStack.class, output);
-	}
-
-	@Override
-	@Optional.Method(modid = "jei")
-	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-
 	}
 }
