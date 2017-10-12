@@ -1,8 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical;
 
-import com.teamacronymcoders.base.materialsystem.MaterialSystem;
 import com.teamacronymcoders.base.tileentities.TileEntitySlowTick;
-import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -34,15 +32,16 @@ public class TileEntityFumeCollector extends TileEntitySlowTick implements ISmar
 		if(world.isRemote)
 			return;
 		BlockPos below = getPos().down();
-		TileEntity te = this.getWorld().getTileEntity(below);
+		TileEntity te = this.getWorld()
+				.getTileEntity(below);
 		if(te != null && te instanceof TileEntityFurnace) {
 			TileEntityFurnace furnace = (TileEntityFurnace) te;
 			if(furnace.isBurning()) {
 				ItemStack fuel = furnace.getStackInSlot(1);
-				if(!fuel.isEmpty() && ItemStackUtils.doItemsMatch(fuel,
-						MaterialSystem.getMaterialPart("sulphur:crystal").getItemStack().getItem())) {
-					if(getWorld().rand.nextBoolean()) {
-						FluidStack fume = FluidRegistry.getFluidStack("sulphur_dioxide", Fluid.BUCKET_VOLUME / 10);
+				if(!fuel.isEmpty()) {
+					FumeCollectorRecipe r = FumeCollectorRecipe.getRecipe(fuel);
+					if(getWorld().rand.nextFloat() < r.chance) {
+						FluidStack fume = r.output;
 						if(tank.fill(fume, false) == fume.amount) {
 							tank.fill(fume, true);
 						}
@@ -83,7 +82,8 @@ public class TileEntityFumeCollector extends TileEntitySlowTick implements ISmar
 	@Override
 	public void onTankContentsChanged(FluidTank tank) {
 		this.markDirty();
-		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(new PacketFluidUpdate(getPos(), tank.getFluid()),
-				getPos(), getWorld().provider.getDimension());
+		SteamAgeRevolution.instance.getPacketHandler()
+				.sendToAllAround(new PacketFluidUpdate(getPos(), tank.getFluid()), getPos(),
+						getWorld().provider.getDimension());
 	}
 }

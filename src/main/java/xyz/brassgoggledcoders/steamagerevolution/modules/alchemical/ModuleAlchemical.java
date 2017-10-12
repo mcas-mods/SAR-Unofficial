@@ -1,5 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical;
 
+import com.teamacronymcoders.base.materialsystem.MaterialSystem;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -53,6 +54,8 @@ public class ModuleAlchemical extends ModuleBase {
 				.setFluids(FluidRegistry.getFluidStack("sulphur_dioxide", Fluid.BUCKET_VOLUME),
 						FluidRegistry.getFluidStack("water", Fluid.BUCKET_VOLUME))
 				.build();
+		FumeCollectorRecipe.addRecipe(MaterialSystem.getMaterialPart("sulphur_crystal")
+				.getItemStack(), FluidRegistry.getFluidStack("sulphur_dioxide", Fluid.BUCKET_VOLUME), 0.1f);
 		// TODO Proper oredict support
 	}
 

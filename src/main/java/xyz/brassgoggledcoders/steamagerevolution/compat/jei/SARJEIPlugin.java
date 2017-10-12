@@ -1,18 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.jei;
 
-import mezz.jei.api.IJeiHelpers;
-import mezz.jei.api.IModPlugin;
-import mezz.jei.api.IModRegistry;
-import mezz.jei.api.JEIPlugin;
+import mezz.jei.api.*;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.ItemStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.AlloyFurnaceRecipeCategory;
-import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.CastingBlockRecipeCategory;
-import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.CrucibleRecipeCategory;
-import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.SteamFurnaceRecipeCategory;
-import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.SteamHammerRecipeCategory;
-import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.VatRecipeCategory;
+import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.AlloyFurnaceRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
@@ -31,7 +24,8 @@ public class SARJEIPlugin implements IModPlugin {
 				new CrucibleRecipeCategory(jeiHelper.getGuiHelper()),
 				new SteamFurnaceRecipeCategory(jeiHelper.getGuiHelper()),
 				new CastingBlockRecipeCategory(jeiHelper.getGuiHelper()),
-				new VatRecipeCategory(jeiHelper.getGuiHelper()));
+				new VatRecipeCategory(jeiHelper.getGuiHelper()),
+				new FumeCollectorRecipeCategory(jeiHelper.getGuiHelper()));
 	}
 
 	@Override
@@ -57,6 +51,8 @@ public class SARJEIPlugin implements IModPlugin {
 				SteamAgeRevolution.MODID + ":casting_block");
 
 		registry.addRecipes(VatRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":vat");
+
+		registry.addRecipes(FumeCollectorRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":fume_collector");
 	}
 
 }
