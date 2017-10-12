@@ -26,33 +26,20 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemDie;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.AlloyFurnaceRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFluidInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFluidOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFrame;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.BlockCrucibleCasing;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.BlockCrucibleFluidOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.BlockCrucibleItemInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.BlockCrucibleSteamInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.SteamHammerRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerAnvil;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerFrame;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerHammer;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerShielding;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.BlockSteelworksCarbonInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.BlockSteelworksFrame;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.BlockSteelworksIronInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.BlockSteelworksSteamInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.BlockSteelworksSteelOutput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.CastingBlockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.SteamFurnaceRecipe;
 
@@ -184,6 +171,10 @@ public class ModuleMetalworking extends ModuleBase {
 			for(ItemStack ore : OreDictionary.getOres("ore" + metal, false)) {
 				if(OreDictionary.doesOreNameExist("dust" + metal)) {
 					ItemStack dust = OreDictUtils.getPreferredItemStack("dust" + metal);
+					GameRegistry.addSmelting(ore, OreDictUtils.getPreferredItemStack("ingot" + metal), 0.5F);
+					if(OreDictionary.doesOreNameExist("ingot" + metal)) {
+						GameRegistry.addSmelting(dust, OreDictUtils.getPreferredItemStack("ingot" + metal), 0.5F);
+					}
 					dust.setCount(dustCount);
 					SteamHammerRecipe.addSteamHammerRecipe(ore, dust);
 				}

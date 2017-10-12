@@ -7,11 +7,7 @@ import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
 import net.minecraft.block.material.Material;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.BlockFurnaceCasing;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.BlockFurnaceItemInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.BlockFurnaceItemOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.BlockFurnaceModeToggle;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.BlockFurnaceSteamInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.*;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleProcessing extends ModuleBase {
