@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical;
+package xyz.brassgoggledcoders.steamagerevolution.utils;
 
 import com.teamacronymcoders.base.blocks.BlockFluidBase;
 

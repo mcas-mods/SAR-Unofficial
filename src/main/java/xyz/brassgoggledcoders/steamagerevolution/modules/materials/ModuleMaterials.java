@@ -55,20 +55,20 @@ public class ModuleMaterials extends ModuleBase {
 					.setHasEffect(false).build();
 
 			SAR.registerPartsForMaterial(sulphur, "ore", "dust", "crystal");
-			MaterialSystem.getMaterialPart("sulphur:crystal").getData().addDataValue("burn", "1800");
-			MaterialSystem.getMaterialPart("sulphur:ore").getData().addDataValue("drops", "ore:crystalSulphur");
+			MaterialSystem.getMaterialPart("sulphur_crystal").getData().addDataValue("burn", "1800");
+			MaterialSystem.getMaterialPart("sulphur_ore").getData().addDataValue("drops", "ore:crystalSulphur");
 
 			SAR.registerPartsForMaterial(iron, vanillaParts);
-			MaterialSystem.getMaterialPart("iron:ore").getData().addDataValue("variants", "gravel,sand");
+			MaterialSystem.getMaterialPart("iron_ore").getData().addDataValue("variants", "gravel,sand");
 
 			SAR.registerPartsForMaterial(gold, vanillaParts);
-			MaterialSystem.getMaterialPart("gold:ore").getData().addDataValue("variants", "gravel,sand");
+			MaterialSystem.getMaterialPart("gold_ore").getData().addDataValue("variants", "gravel,sand");
 
 			SAR.registerPartsForMaterial(copper, metalParts);
-			MaterialSystem.getMaterialPart("copper:ore").getData().addDataValue("variants", "stone,gravel,sand");
+			MaterialSystem.getMaterialPart("copper_ore").getData().addDataValue("variants", "stone,gravel,sand");
 
 			SAR.registerPartsForMaterial(zinc, metalParts);
-			MaterialSystem.getMaterialPart("zinc:ore").getData().addDataValue("variants", "stone,gravel,sand");
+			MaterialSystem.getMaterialPart("zinc_ore").getData().addDataValue("variants", "stone,gravel,sand");
 
 			SAR.registerPartsForMaterial(steel, alloyParts);
 

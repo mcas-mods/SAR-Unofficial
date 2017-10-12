@@ -7,8 +7,6 @@ import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import com.teamacronymcoders.base.util.Platform;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -20,16 +18,19 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe.VatRecipeBuilder;
+import xyz.brassgoggledcoders.steamagerevolution.utils.BlockDamagingFluid;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class ModuleAlchemical extends ModuleBase {
 
 	// TODO Don't bypass armour, deal extra damage to it
-	public static DamageSource damageSourceGas =
-			new DamageSource("gas").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
-	public static DamageSource damageSourceAcid =
-			new DamageSource("acid").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
+	public static DamageSource damageSourceGas = new DamageSource("gas").setDifficultyScaled()
+			.setDamageBypassesArmor()
+			.setDamageIsAbsolute();
+	public static DamageSource damageSourceAcid = new DamageSource("acid").setDifficultyScaled()
+			.setDamageBypassesArmor()
+			.setDamageIsAbsolute();
 
 	@Override
 	public boolean getActiveDefault() {
@@ -51,7 +52,7 @@ public class ModuleAlchemical extends ModuleBase {
 		new VatRecipeBuilder().setOutput(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME))
 				.setFluids(FluidRegistry.getFluidStack("sulphur_dioxide", Fluid.BUCKET_VOLUME),
 						FluidRegistry.getFluidStack("water", Fluid.BUCKET_VOLUME))
-				.setItems(new ItemStack(Items.APPLE)).build();
+				.build();
 		// TODO Proper oredict support
 	}
 

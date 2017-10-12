@@ -1,7 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat;
 
-import java.util.Arrays;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.IntStream;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -22,7 +21,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
@@ -35,13 +33,13 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 	AxisAlignedBB bounds;
 
 	public MultiFluidTank fluidInput;
-	public ItemStackHandler itemInput;
+	public ItemStackHandlerExtractSpecific itemInput;
 	public FluidTankSmart output;
 
 	protected ControllerVat(World world) {
 		super(world);
 		fluidInput = new MultiFluidTank(30000, this);
-		itemInput = new ItemStackHandler(3);
+		itemInput = new ItemStackHandlerExtractSpecific(3);
 		output = new FluidTankSmart(30000, this, 4);
 	}
 
@@ -53,25 +51,47 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 		for(Entity entity : WORLD.getEntitiesWithinAABB(Entity.class, bounds)) {
 			if(entity instanceof EntityItem) {
 				EntityItem item = (EntityItem) entity;
-				if(ItemHandlerHelper.insertItem(itemInput, item.getItem(), true).isEmpty()) {
+				if(ItemHandlerHelper.insertItem(itemInput, item.getItem(), true)
+						.isEmpty()) {
 					ItemHandlerHelper.insertItem(itemInput, item.getItem(), false);
 					item.setDead();
 				}
 			}
 			// Simulate contact with fluid in vat when an entity falls in. TODO change bounds based on fluid fill level
 			if(this.output.getFluid() != null) {
-				Block fluidBlock = this.output.getFluid().getFluid().getBlock();
+				Block fluidBlock = this.output.getFluid()
+						.getFluid()
+						.getBlock();
+				fluidBlock.onEntityCollidedWithBlock(WORLD, getReferenceCoord(), fluidBlock.getDefaultState(), entity);
+			}
+			else if(this.fluidInput.fluids.get(0) != null) {
+				Block fluidBlock = this.fluidInput.fluids.get(0)
+						.getFluid()
+						.getBlock();
 				fluidBlock.onEntityCollidedWithBlock(WORLD, getReferenceCoord(), fluidBlock.getDefaultState(), entity);
 			}
 		}
 
-		Optional<VatRecipe> r = VatRecipe.getRecipeList().parallelStream().filter(this::hasRequiredFluids)
-				.filter(this::hasRequiredItems).findFirst();
+		Optional<VatRecipe> r = VatRecipe.getRecipeList()
+				.parallelStream()
+				.filter(this::hasRequiredFluids)
+				.filter(this::hasRequiredItems)
+				.findFirst();
 
 		if(r.isPresent()) {
-			FluidStack result = r.get().output;
+			VatRecipe recipe = r.get();
+			FluidStack result = recipe.output;
 			if(this.output.fill(result, false) == result.amount) {
 				this.output.fill(result, true);
+				for(FluidStack stack : recipe.fluidInputs) {
+					this.fluidInput.drain(stack, true);
+				}
+				// TODO Test
+				if(recipe.itemInputs != null) {
+					for(ItemStack stack : recipe.itemInputs) {
+						this.itemInput.extractStack(stack);
+					}
+				}
 			}
 			flag = true;
 		}
@@ -80,21 +100,42 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 	}
 
 	private boolean hasRequiredFluids(VatRecipe recipe) {
-		return Arrays.stream(recipe.fluidInputs).map(this::tanksHaveFluid).reduce((a, b) -> a && b).orElse(false);
+		// Stream the fluid stacks
+		return Arrays.stream(recipe.fluidInputs)
+				// Apply tanksHaveFluid to each element and output result to stream
+				.map(this::tanksHaveFluid)
+				// Reduce list of booleans into one - so will only evaluate true if every boolean is true
+				.reduce((a, b) -> a && b)
+				.orElse(false);
 	}
 
 	private boolean tanksHaveFluid(FluidStack stack) {
-		return IntStream.range(0, fluidInput.getFluidTypes()).mapToObj(num -> fluidInput.fluids.get(num))
-				.filter(fluid -> fluid.containsFluid(stack)).findAny().isPresent();
+		return fluidInput.fluids.stream()
+				.filter(Objects::nonNull)
+				.filter(fluid -> fluid.containsFluid(stack))
+				.findAny()
+				.isPresent();
 	}
 
 	private boolean hasRequiredItems(VatRecipe recipe) {
-		return Arrays.stream(recipe.itemInputs).map(this::handlerHasItems).reduce((a, b) -> a && b).orElse(false);
+		// No doubt Sky will slap me with a way to integrate this into the stream shortly
+		if(recipe.itemInputs != null) {
+			return Arrays.stream(recipe.itemInputs)
+					.map(this::handlerHasItems)
+					.reduce((a, b) -> a && b)
+					.orElse(false);
+		}
+		else {
+			return true;
+		}
 	}
 
 	private boolean handlerHasItems(ItemStack stack) {
-		return IntStream.range(0, itemInput.getSlots()).mapToObj(slotNum -> itemInput.getStackInSlot(slotNum))
-				.filter(inputStack -> ItemStackUtils.containsItemStack(stack, inputStack)).findAny().isPresent();
+		return IntStream.range(0, itemInput.getSlots())
+				.mapToObj(slotNum -> itemInput.getStackInSlot(slotNum))
+				.filter(inputStack -> ItemStackUtils.containsItemStack(stack, inputStack))
+				.findAny()
+				.isPresent();
 	}
 
 	@Override
@@ -233,14 +274,14 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 	@Override
 	public void onTankContentsChanged(FluidTank tank) {
 		if(tank instanceof MultiFluidTank) {
-			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketMultiFluidUpdate(this.getReferenceCoord(), ((MultiFluidTank) tank)),
-					this.getReferenceCoord(), WORLD.provider.getDimension());
+			SteamAgeRevolution.instance.getPacketHandler()
+					.sendToAllAround(new PacketMultiFluidUpdate(this.getReferenceCoord(), ((MultiFluidTank) tank)),
+							this.getReferenceCoord(), WORLD.provider.getDimension());
 		}
 		else {
-			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid()), this.getReferenceCoord(),
-					WORLD.provider.getDimension());
+			SteamAgeRevolution.instance.getPacketHandler()
+					.sendToAllAround(new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid()),
+							this.getReferenceCoord(), WORLD.provider.getDimension());
 		}
 	}
 
