@@ -1,7 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -26,10 +25,8 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
-import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 
 public class ControllerVat extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
@@ -37,16 +34,13 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 	BlockPos maximumInteriorPos;
 	AxisAlignedBB bounds;
 
-	public FluidTankSmart inputBuffer;
-	public FluidTankSmart[] inputs;
+	public MultiFluidTank fluidInput;
 	public ItemStackHandler itemInput;
 	public FluidTankSmart output;
 
 	protected ControllerVat(World world) {
 		super(world);
-		inputBuffer = new FluidTankSmart(1000, this, 0);
-		inputs = new FluidTankSmart[] {new FluidTankSmart(10000, this, 1), new FluidTankSmart(10000, this, 2),
-				new FluidTankSmart(10000, this, 3)};
+		fluidInput = new MultiFluidTank(30000, this);
 		itemInput = new ItemStackHandler(3);
 		output = new FluidTankSmart(30000, this, 4);
 	}
@@ -56,20 +50,6 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 
 		boolean flag = false;
 
-		if(inputBuffer.getFluidAmount() > 0) {
-			FluidStack input = inputBuffer.getFluid();
-			int amount = inputBuffer.getFluidAmount();
-			for(FluidTank tank : inputs) {
-				if(tank.fill(input, false) == amount) {
-					tank.fill(input, true);
-					inputBuffer.drain(input, true);
-					flag = true;
-					break;
-				}
-			}
-			// TODO else freeze machine/clear buffer
-		}
-
 		for(Entity entity : WORLD.getEntitiesWithinAABB(Entity.class, bounds)) {
 			if(entity instanceof EntityItem) {
 				EntityItem item = (EntityItem) entity;
@@ -78,7 +58,7 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 					item.setDead();
 				}
 			}
-			// Simulate contact with fluid in vat when an entity falls in. TODO change BB based on fluid fill level
+			// Simulate contact with fluid in vat when an entity falls in. TODO change bounds based on fluid fill level
 			if(this.output.getFluid() != null) {
 				Block fluidBlock = this.output.getFluid().getFluid().getBlock();
 				fluidBlock.onEntityCollidedWithBlock(WORLD, getReferenceCoord(), fluidBlock.getDefaultState(), entity);
@@ -104,8 +84,8 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 	}
 
 	private boolean tanksHaveFluid(FluidStack stack) {
-		return Arrays.stream(inputs).filter(Objects::nonNull).filter(tank -> Objects.nonNull(tank.getFluid()))
-				.filter(tank -> tank.getFluid().containsFluid(stack)).findAny().isPresent();
+		return IntStream.range(0, fluidInput.getFluidTypes()).mapToObj(num -> fluidInput.fluids.get(num))
+				.filter(fluid -> fluid.containsFluid(stack)).findAny().isPresent();
 	}
 
 	private boolean hasRequiredItems(VatRecipe recipe) {
@@ -119,9 +99,7 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		for(int i = 0; i < inputs.length; i++) {
-			inputs[i].readFromNBT(data.getCompoundTag("input" + i));
-		}
+		fluidInput.readFromNBT(data.getCompoundTag("fluids"));
 		itemInput.deserializeNBT(data.getCompoundTag("items"));
 		output.readFromNBT(data.getCompoundTag("output"));
 	}
@@ -202,8 +180,7 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 
 	@Override
 	protected void updateClient() {
-		// TODO Auto-generated method stub
-
+		// FMLLog.warning(this.fluidInput.fluids.toString());
 	}
 
 	@Override
@@ -243,9 +220,7 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
-		for(int i = 0; i < inputs.length; i++) {
-			data.setTag("input" + i, inputs[i].writeToNBT(new NBTTagCompound()));
-		}
+		data.setTag("fluids", fluidInput.writeToNBT(new NBTTagCompound()));
 		data.setTag("items", itemInput.serializeNBT());
 		data.setTag("output", output.writeToNBT(new NBTTagCompound()));
 	}
@@ -257,25 +232,26 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 
 	@Override
 	public void onTankContentsChanged(FluidTank tank) {
-		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-				new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid(), ((FluidTankSmart) tank).getId()),
-				this.getReferenceCoord(), WORLD.provider.getDimension());
+		if(tank instanceof MultiFluidTank) {
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+					new PacketMultiFluidUpdate(this.getReferenceCoord(), ((MultiFluidTank) tank)),
+					this.getReferenceCoord(), WORLD.provider.getDimension());
+		}
+		else {
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+					new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid()), this.getReferenceCoord(),
+					WORLD.provider.getDimension());
+		}
 	}
 
 	@Override
 	public void updateFluid(PacketFluidUpdate message) {
-		if(message.id == output.getId()) {
-			output.setFluid(message.fluid);
-		}
-		else if(message.id == inputBuffer.getId()) {
-			inputBuffer.setFluid(message.fluid);
-		}
-		else {
-			for(int i = 0; i < inputs.length; i++) {
-				if(message.id == inputs[i].getId()) {
-					inputs[i].setFluid(message.fluid);
-				}
-			}
-		}
+		output.setFluid(message.fluid);
+	}
+
+	@Override
+	public void updateFluid(PacketMultiFluidUpdate message) {
+		fluidInput.fluids.clear();
+		fluidInput.fluids.addAll(message.tank.fluids);
 	}
 }

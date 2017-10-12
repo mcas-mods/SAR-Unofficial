@@ -20,7 +20,7 @@ public class TileEntityVatFluidInput extends TileEntityVatPart {
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.getMultiblockController().inputBuffer);
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.getMultiblockController().fluidInput);
 		}
 		return super.getCapability(capability, facing);
 	}

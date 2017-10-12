@@ -64,7 +64,7 @@ public class VatRecipe implements IRecipeWrapper {
 	@Optional.Method(modid = "jei")
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		// ingredients.setInputs(FluidStack.class, Arrays.asList(fluidInputs));
+		ingredients.setInputs(FluidStack.class, Arrays.asList(fluidInputs));
 		ingredients.setInputs(ItemStack.class, Arrays.asList(itemInputs));
 		ingredients.setOutput(FluidStack.class, output);
 	}

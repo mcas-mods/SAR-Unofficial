@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.utils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -10,6 +11,14 @@ public class TextUtils {
 
 	public static String localize(String input, Object... format) {
 		return I18n.translateToLocalFormatted(input, format);
+	}
+
+	public static TextComponentString representFluidStack(FluidStack stack) {
+		if(stack != null) {
+			return new TextComponentString(stack.getLocalizedName() + ": " + stack.amount + "mB");
+
+		}
+		return new TextComponentString("No fluid");
 	}
 
 	public static TextComponentString representTankContents(FluidTank tank) {
