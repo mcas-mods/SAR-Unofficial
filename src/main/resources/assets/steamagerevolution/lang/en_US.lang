@@ -103,6 +103,7 @@ steamagerevolution.multiblock.validation.alloyforgeinterior=Interior of the allo
 fluid.steam=Steam
 fluid.sulphur_dioxide=Sulphur Dioxide
 fluid.sulphuric_acid=Sulphuric Acid
+fluid.liquid_glowstone=Liquid Glowstone
 
 death.attack.hammer=%1$s was flattened.
 death.attack.gas=%1$s's lungs dissolved.

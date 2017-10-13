@@ -8,7 +8,7 @@ import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.EvaporatorRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.EvaporatorRecipe;
 
 public class EvaporatorRecipeCategory implements IRecipeCategory<EvaporatorRecipe> {
 

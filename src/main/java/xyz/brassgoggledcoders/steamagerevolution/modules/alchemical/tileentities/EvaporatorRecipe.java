@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical;
+package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities;
 
 import java.awt.Color;
 import java.util.ArrayList;

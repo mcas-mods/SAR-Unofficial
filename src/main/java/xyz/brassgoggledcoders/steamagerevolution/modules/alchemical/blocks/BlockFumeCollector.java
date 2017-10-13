@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical;
+package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.blocks;
 
 import com.teamacronymcoders.base.blocks.BlockTEBase;
 
@@ -11,31 +11,31 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.TileEntityFumeCollector;
 import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 
-public class BlockEvaporator extends BlockTEBase<TileEntityEvaporator> {
-	public BlockEvaporator(Material material, String name) {
+public class BlockFumeCollector extends BlockTEBase<TileEntityFumeCollector> {
+	public BlockFumeCollector(Material material, String name) {
 		super(material, name);
 	}
 
 	@Override
 	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityEvaporator.class;
+		return TileEntityFumeCollector.class;
 	}
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityEvaporator();
+		return new TileEntityFumeCollector();
 	}
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		TileEntityEvaporator te = getTileEntity(worldIn, pos);
+		TileEntityFumeCollector te = getTileEntity(worldIn, pos);
 		if(!worldIn.isRemote && te != null) {
 			if(playerIn.isSneaking()) {
-				playerIn.sendStatusMessage(TextUtils.representTankContents(te.input), true);
-				playerIn.sendStatusMessage(TextUtils.representTankContents(te.output), true);
+				playerIn.sendStatusMessage(TextUtils.representTankContents(te.tank), true);
 				return true;
 			}
 			else {

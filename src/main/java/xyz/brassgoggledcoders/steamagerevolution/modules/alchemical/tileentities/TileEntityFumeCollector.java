@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical;
+package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities;
 
 import com.teamacronymcoders.base.tileentities.TileEntitySlowTick;
 
