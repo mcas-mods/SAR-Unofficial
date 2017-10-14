@@ -19,9 +19,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 
 public class ControllerSteamHammer extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
@@ -44,7 +42,6 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 
 	@Override
 	protected void onBlockAdded(IMultiblockPart newPart) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -57,6 +54,7 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 	@Override
 	protected void onMachineAssembled() {
 		center = this.getReferenceCoord().up().east().south();
+		super.onMachineAssembled();
 	}
 
 	@Override

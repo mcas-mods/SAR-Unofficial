@@ -12,6 +12,7 @@ import com.teamacronymcoders.base.registrysystem.config.ConfigEntry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import com.teamacronymcoders.base.util.OreDictUtils;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -51,6 +52,7 @@ public class ModuleMetalworking extends ModuleBase {
 	public static final Item charcoal_powder = null;
 	public static final Item die = null;
 	public static final Item hammer = null;
+	public static final Block steamhammer_frame = null;
 
 	// Same as TiCon. Cannot be final because ObjectHolder tries to map to them o.O
 	public static int VALUE_INGOT = 144;
@@ -104,7 +106,6 @@ public class ModuleMetalworking extends ModuleBase {
 
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
-
 		// new BlockAlloyFurnaceController(Material.ANVIL, "alloy_furnace_controller");
 		// blockRegistry.register(alloyFurnaceController);
 		blockRegistry.register(new BlockAlloyFurnaceFrame(Material.ROCK, "alloy_furnace_frame"));

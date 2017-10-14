@@ -1,16 +1,44 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks;
 
+import com.teamacronymcoders.base.multiblock.rectangular.PartPosition;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.tileentities.TileEntitySteamHammerFrame;
 import xyz.brassgoggledcoders.steamagerevolution.utils.BlockMultiblockBase;
 
 public class BlockSteamHammerFrame extends BlockMultiblockBase<TileEntitySteamHammerFrame> {
 
+	public static final PropertyEnum position = PartPosition.createProperty("position");
+
 	public BlockSteamHammerFrame(Material material, String name) {
 		super(material, name);
+		this.setDefaultState(this.blockState.getBaseState().withProperty(position, PartPosition.UNKNOWN));
+	}
+
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, position);
+	}
+
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+		return state.withProperty(position, this.getTileEntity(worldIn, pos).getPartPosition());
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return 0;
 	}
 
 	@Override
@@ -22,4 +50,26 @@ public class BlockSteamHammerFrame extends BlockMultiblockBase<TileEntitySteamHa
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
 		return new TileEntitySteamHammerFrame();
 	}
+
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
+
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+		return false;
+	}
+
+	@Override
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.MODEL;
+	}
+
 }
