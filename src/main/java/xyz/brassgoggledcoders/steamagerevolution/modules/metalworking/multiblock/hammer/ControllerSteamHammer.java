@@ -19,18 +19,22 @@ import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 
-public class ControllerSteamHammer extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
+public class ControllerSteamHammer extends SARRectangularMultiblockControllerBase
+		implements ISmartTankCallback, ISmartStackCallback {
 
-	public ItemStackHandler inventory = new ItemStackHandler(2);
-	public FluidTank tank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this);
+	public ItemStackHandler inventory;
+	public FluidTank tank;
 	public String dieType = "";
 	private int progress = 0;
 	BlockPos center = null;
 
 	public ControllerSteamHammer(World world) {
 		super(world);
+		inventory = new SmartItemStackHandler(2, this);
+		tank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this);
 	}
 
 	@Override
@@ -158,7 +162,9 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 	}
 
 	@Override
-	protected void updateClient() {}
+	protected void updateClient() {
+		// FMLLog.warning(TextUtils.representInventoryContents(inventory).getUnformattedComponentText());
+	}
 
 	@Override
 	protected boolean isBlockGoodForFrame(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
@@ -212,5 +218,19 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 	@Override
 	public String getName() {
 		return "Steam Hammer";
+	}
+
+	@Override
+	public void onContentsChanged(int slot) {
+		if(WORLD.isRemote)
+			return;
+		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+				new PacketItemUpdate(this.getReferenceCoord(), inventory.getStackInSlot(slot), slot),
+				this.getReferenceCoord(), WORLD.provider.getDimension());
+	}
+
+	@Override
+	public void updateStack(PacketItemUpdate message) {
+		this.inventory.setStackInSlot(message.slot, message.item);
 	}
 }
