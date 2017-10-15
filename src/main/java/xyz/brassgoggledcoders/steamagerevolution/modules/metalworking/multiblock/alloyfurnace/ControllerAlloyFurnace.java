@@ -10,66 +10,48 @@ import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 
 public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
-	public FluidTank inputBuffer = new FluidTankSmart(ModuleMetalworking.VALUE_BLOCK, this);
-	public FluidTank primaryTank = new FluidTankSmart(ModuleMetalworking.VALUE_BLOCK * 16, this);
-	public FluidTank secondaryTank = new FluidTankSmart(ModuleMetalworking.VALUE_BLOCK * 16, this);
-	public FluidTank outputTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
+	public MultiFluidTank primaryTank;
+	public FluidTank outputTank;
 
 	public ControllerAlloyFurnace(World world) {
 		super(world);
+		primaryTank = new MultiFluidTank(ModuleMetalworking.VALUE_BLOCK * 16, this);
+		outputTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
 	}
 
 	@Override
 	protected boolean updateServer() {
 		boolean flag = false;
 
-		if(inputBuffer.getFluidAmount() > 0) {
-			FluidStack input = inputBuffer.getFluid();
-			int amount = inputBuffer.getFluidAmount();
-			if(primaryTank.fill(input, false) == amount) {
-				primaryTank.fill(input, true);
-				inputBuffer.drain(input, true);
-				flag = true;
-			}
-			else if(secondaryTank.fill(input, false) == amount) {
-				secondaryTank.fill(input, true);
-				inputBuffer.drain(input, true);
-				flag = true;
-			}
-			// TODO else freeze machine/clear buffer
-		}
+		if(primaryTank.fluids.size() == 2) {
+			FluidStack firstFluid = primaryTank.fluids.get(0);
+			FluidStack secondFluid = primaryTank.fluids.get(1);
 
-		boolean hasFirstFluid = primaryTank.getFluid() != null;
-		boolean hasSecondFluid = secondaryTank.getFluid() != null;
-
-		// Can't do anything without a base for the alloy
-		if(hasFirstFluid && hasSecondFluid) {
-			AlloyFurnaceRecipe r = AlloyFurnaceRecipe.getRecipe(primaryTank.getFluid(), secondaryTank.getFluid());
-			if(r != null) {
-				if(primaryTank.getFluidAmount() >= r.primaryInput.amount) {
-					if(secondaryTank.getFluidAmount() >= r.secondaryInputFluid.amount) {
-						if(outputTank.fill(r.output, false) == r.output.amount) {
-							primaryTank.drain(r.primaryInput.amount, true);
-							secondaryTank.drain(r.secondaryInputFluid.amount, true);
-							outputTank.fill(r.output, true);
-							flag = true;
+			// Can't do anything without a base for the alloy
+			if(firstFluid != null && secondFluid != null) {
+				AlloyFurnaceRecipe r = AlloyFurnaceRecipe.getRecipe(firstFluid, secondFluid);
+				if(r != null) {
+					if(firstFluid.amount >= r.primaryInput.amount) {
+						if(secondFluid.amount >= r.secondaryInputFluid.amount) {
+							if(outputTank.fill(r.output, false) == r.output.amount) {
+								primaryTank.drain(r.primaryInput, true);
+								primaryTank.drain(r.secondaryInputFluid, true);
+								outputTank.fill(r.output, true);
+								flag = true;
+							}
 						}
 					}
 				}
 			}
+			// else do nothing, can't make a recipe with one fluid
 		}
-		// else do nothing, can't make a recipe with one fluid
 		return flag;
 	}
 
@@ -178,15 +160,13 @@ public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBa
 
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		primaryTank.readFromNBT(data.getCompoundTag("fluidInput1"));
-		secondaryTank.readFromNBT(data.getCompoundTag("fluidInput2"));
+		primaryTank.readFromNBT(data.getCompoundTag("input"));
 		outputTank.readFromNBT(data.getCompoundTag("output"));
 	}
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
-		data.setTag("fluidInput1", primaryTank.writeToNBT(new NBTTagCompound()));
-		data.setTag("fluidInput2", secondaryTank.writeToNBT(new NBTTagCompound()));
+		data.setTag("input", primaryTank.writeToNBT(new NBTTagCompound()));
 		data.setTag("output", outputTank.writeToNBT(new NBTTagCompound()));
 	}
 
