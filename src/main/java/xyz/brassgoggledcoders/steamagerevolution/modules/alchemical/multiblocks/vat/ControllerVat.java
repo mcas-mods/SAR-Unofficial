@@ -175,7 +175,22 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 
 	@Override
 	protected int getMinimumNumberOfBlocksForAssembledMachine() {
-		return 0;
+		return 40;
+	}
+
+	@Override
+	public int getMinimumXSize() {
+		return 4;
+	}
+
+	@Override
+	public int getMinimumYSize() {
+		return 3;
+	}
+
+	@Override
+	public int getMinimumZSize() {
+		return 4;
 	}
 
 	@Override
