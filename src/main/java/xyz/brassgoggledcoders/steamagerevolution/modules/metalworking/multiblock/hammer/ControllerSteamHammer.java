@@ -5,6 +5,7 @@ import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,6 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
@@ -30,6 +32,7 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 	public String dieType = "";
 	private int progress = 0;
 	BlockPos center = null;
+	AxisAlignedBB interior = null;
 
 	public ControllerSteamHammer(World world) {
 		super(world);
@@ -58,6 +61,7 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 	@Override
 	protected void onMachineAssembled() {
 		center = this.getReferenceCoord().up().east().south();
+		interior = new AxisAlignedBB(center).expand(1, 2, 1);
 		super.onMachineAssembled();
 	}
 
@@ -131,6 +135,13 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 
 	@Override
 	protected boolean updateServer() {
+
+		for(EntityItem item : WORLD.getEntitiesWithinAABB(EntityItem.class, interior)) {
+			if(ItemHandlerHelper.insertItem(inventory, item.getItem(), true).isEmpty()) {
+				ItemHandlerHelper.insertItem(inventory, item.getItem(), false);
+			}
+		}
+
 		if(tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
 			if(progress < 10) {
 				this.progress++;
@@ -148,10 +159,8 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 						WORLD.playSound(null, center.getX() + .5F, center.getY(), center.getZ() + .5F,
 								SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1F, 1F);
 						SteamAgeRevolution.proxy.spawnFX(EnumParticleTypes.FLAME, center);
-						for(EntityLivingBase entity : WORLD.getEntitiesWithinAABB(EntityLivingBase.class,
-								new AxisAlignedBB(center).expand(1, 2, 1))) {
-							entity.attackEntityFrom(ModuleMetalworking.damageSourceHammer, entity.getMaxHealth());
-						}
+						WORLD.getEntitiesWithinAABB(EntityLivingBase.class, interior).forEach(entity -> entity
+								.attackEntityFrom(ModuleMetalworking.damageSourceHammer, entity.getMaxHealth()));
 
 						return true;
 					}
