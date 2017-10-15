@@ -6,6 +6,7 @@ import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
+import com.teamacronymcoders.base.util.OreDictUtils;
 import com.teamacronymcoders.base.util.Platform;
 
 import net.minecraft.block.Block;
@@ -74,6 +75,14 @@ public class ModuleAlchemical extends ModuleBase {
 				.setFluids(FluidRegistry.getFluidStack("sulphur_dioxide", Fluid.BUCKET_VOLUME),
 						FluidRegistry.getFluidStack("water", Fluid.BUCKET_VOLUME))
 				.build();
+
+		new VatRecipeBuilder()
+				.setOutput(FluidRegistry.getFluidStack("copperslurry", ModuleMetalworking.VALUE_NUGGET * 4))
+				.setFluids(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 4))
+				.setItems(OreDictUtils.getPreferredItemStack("crushedOreCopper")).build();
+		DistillerRecipe.addRecipe(FluidRegistry.getFluidStack("copperslurry", ModuleMetalworking.VALUE_NUGGET),
+				FluidRegistry.getFluidStack("coppersolution", ModuleMetalworking.VALUE_NUGGET), 20);
+
 		new VatRecipeBuilder().setOutput(FluidRegistry.getFluidStack("liquid_glowstone", Fluid.BUCKET_VOLUME))
 				.setFluids(FluidRegistry.getFluidStack("lava", Fluid.BUCKET_VOLUME))
 				.setItems(new ItemStack(Items.REDSTONE, 4)).build();

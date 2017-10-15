@@ -8,6 +8,7 @@ import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.materialsystem.*;
 import com.teamacronymcoders.base.materialsystem.materials.Material;
 import com.teamacronymcoders.base.materialsystem.materials.MaterialBuilder;
+import com.teamacronymcoders.base.materialsystem.parts.PartBuilder;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -16,6 +17,7 @@ import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
@@ -24,14 +26,16 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 @ObjectHolder(SteamAgeRevolution.MODID)
 @Module(value = SteamAgeRevolution.MODID)
+@EventBusSubscriber
 public class ModuleMaterials extends ModuleBase {
 
 	public static final Block charcoal_block = null;
 	public static final Item charcoal_powder = null;
 
-	String[] vanillaParts = new String[] {"ore", "plate", "dust", "molten"};
-	String[] metalParts = new String[] {"ore", "ingot", "nugget", "plate", "dust", "block", "molten"};
-	String[] alloyParts = (String[]) Arrays.copyOfRange(metalParts, 1, metalParts.length);
+	String[] vanillaParts = new String[] {"ore", "plate", "dust", "molten", "crushed_ore"};
+	String[] metalParts = new String[] {"ore", "ore_slurry", "crushed_ore", "ore_solution", "ingot", "nugget", "plate",
+			"dust", "block", "molten"};
+	String[] alloyParts = (String[]) Arrays.copyOfRange(metalParts, 4, metalParts.length);
 	public static Color brassColor = new Color(251, 194, 99);
 
 	@Override
@@ -39,8 +43,10 @@ public class ModuleMaterials extends ModuleBase {
 		try {
 			MaterialUser SAR = SteamAgeRevolution.instance.getMaterialUser();
 
-			// Part slurry = new PartBuilder().setOwnerId(SAR.getId()).setName("Ore Slurry")
-			// .setPartType(MaterialSystem.getPartType("fluid")).build();
+			new PartBuilder().setOwnerId(SAR.getId()).setName("Ore Slurry").setOreDictName("slurry")
+					.setPartType(MaterialSystem.getPartType("fluid")).build();
+			new PartBuilder().setOwnerId(SAR.getId()).setName("Ore Solution").setOreDictName("solution")
+					.setPartType(MaterialSystem.getPartType("fluid")).build();
 
 			Material iron = new MaterialBuilder().setName("Iron").setColor(Color.GRAY).setHasEffect(false).build();
 			Material gold = new MaterialBuilder().setName("Gold").setColor(Color.YELLOW).setHasEffect(false).build();

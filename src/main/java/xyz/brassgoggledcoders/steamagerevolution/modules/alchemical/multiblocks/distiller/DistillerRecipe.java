@@ -54,6 +54,6 @@ public class DistillerRecipe implements IRecipeWrapper {
 	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		minecraft.fontRenderer.drawString(input.amount + "mB", 100, 130, Color.gray.getRGB());
 		minecraft.fontRenderer.drawString(output.amount + "mB", 170, 130, Color.gray.getRGB());
-		minecraft.fontRenderer.drawString(ticksToProcess + " ticks to evaporate", 170, 140, Color.red.getRGB());
+		minecraft.fontRenderer.drawString(ticksToProcess + " ticks to distil", 170, 140, Color.red.getRGB());
 	}
 }

@@ -10,11 +10,11 @@ import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.DistillerRecipe;
 
-public class EvaporatorRecipeCategory implements IRecipeCategory<DistillerRecipe> {
+public class DistillerRecipeCategory implements IRecipeCategory<DistillerRecipe> {
 
 	private final IGuiHelper helper;
 
-	public EvaporatorRecipeCategory(IGuiHelper helper) {
+	public DistillerRecipeCategory(IGuiHelper helper) {
 		this.helper = helper;
 	}
 
@@ -25,12 +25,12 @@ public class EvaporatorRecipeCategory implements IRecipeCategory<DistillerRecipe
 
 	@Override
 	public String getUid() {
-		return SteamAgeRevolution.MODID + ":evaporator";
+		return SteamAgeRevolution.MODID + ":distiller";
 	}
 
 	@Override
 	public String getTitle() {
-		return "Evaporator";
+		return "Distiller";
 	}
 
 	@Override

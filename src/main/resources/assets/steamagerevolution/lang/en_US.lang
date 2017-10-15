@@ -1,13 +1,8 @@
 itemGroup.steamagerevolution=Steam Age Revolution
 
 # Parts
-steamagerevolution.part.ore=Ore
-steamagerevolution.part.ingot=Ingot
-steamagerevolution.part.gear=Gear
-steamagerevolution.part.nugget=Nugget
-steamagerevolution.part.plate=Plate
-steamagerevolution.part.dust=Dust
-steamagerevolution.part.block=Block
+steamagerevolution.part.ore_slurry=%s Ore Slurry
+steamagerevolution.part.ore_solution=%s Ore Solution
 
 #Items
 item.steamagerevolution.charcoal_powder.name=Charcoal Powder

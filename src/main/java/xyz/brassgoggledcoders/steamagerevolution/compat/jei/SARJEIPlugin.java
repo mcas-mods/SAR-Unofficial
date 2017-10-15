@@ -27,7 +27,7 @@ public class SARJEIPlugin implements IModPlugin {
 				new CastingBlockRecipeCategory(jeiHelper.getGuiHelper()),
 				new VatRecipeCategory(jeiHelper.getGuiHelper()),
 				new FumeCollectorRecipeCategory(jeiHelper.getGuiHelper()),
-				new EvaporatorRecipeCategory(jeiHelper.getGuiHelper()));
+				new DistillerRecipeCategory(jeiHelper.getGuiHelper()));
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class SARJEIPlugin implements IModPlugin {
 
 		registry.addRecipes(FumeCollectorRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":fume_collector");
 
-		registry.addRecipes(DistillerRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":evaporator");
+		registry.addRecipes(DistillerRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":distiller");
 	}
 
 }
