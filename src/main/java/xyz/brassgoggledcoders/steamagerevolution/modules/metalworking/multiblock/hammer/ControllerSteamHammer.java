@@ -139,6 +139,7 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 		for(EntityItem item : WORLD.getEntitiesWithinAABB(EntityItem.class, interior)) {
 			if(ItemHandlerHelper.insertItem(inventory, item.getItem(), true).isEmpty()) {
 				ItemHandlerHelper.insertItem(inventory, item.getItem(), false);
+				item.setDead();
 			}
 		}
 

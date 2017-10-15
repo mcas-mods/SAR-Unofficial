@@ -16,27 +16,15 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.RenderUtil;
 public class TileEntitySteamHammerAnvilRenderer extends TileEntitySpecialRenderer<TileEntitySteamHammerAnvil> {
 
 	protected static Minecraft mc = Minecraft.getMinecraft();
-	protected float yMin = 4 / 16f;
-	protected float yMax = 1f;
-	protected float xzMin = 2 / 16f;
-	protected float xzMax = 14 / 16f;
-
-	protected float yScale;
-	protected float xzScale = 0.751f;
-	protected float yOffset;
-	protected float xzOffset;
 
 	// TODO Scaling
 	@Override
 	public void render(TileEntitySteamHammerAnvil tile, double x, double y, double z, float partialTicks,
 			int destroyStage, float alpha) {
-
-		this.yOffset = yMin + (yMax - yMin) / 2f;
-		this.xzOffset = xzMin + (xzMax - xzMin) / 2f;
-
-		this.xzScale = (this.xzMax - this.xzMin);
-		this.yScale = xzScale;
 		// Stolen from TiCon :)
+		if(!tile.isConnected() || !tile.getMultiblockController().isAssembled()) {
+			return;
+		}
 		ItemStack stack = tile.getMultiblockController().inventory.getStackInSlot(0);
 		if(stack.isEmpty()) {
 			stack = tile.getMultiblockController().inventory.getStackInSlot(1);
@@ -47,8 +35,8 @@ public class TileEntitySteamHammerAnvilRenderer extends TileEntitySpecialRendere
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, brightness % 0x10000 / 1f,
 					brightness / 0x10000 / 1f);
 
-			GlStateManager.translate(xzOffset, yOffset + 1f, xzOffset);
-			GlStateManager.scale(xzScale, yScale, xzScale);
+			GlStateManager.translate(0.5f, 1.5f, 0.5f);
+			GlStateManager.scale(0.5f, 0.5f, 0.5f);
 
 			if(!(stack.getItem() instanceof ItemBlock)
 					|| Block.getBlockFromItem(stack.getItem()) instanceof BlockPane) {
