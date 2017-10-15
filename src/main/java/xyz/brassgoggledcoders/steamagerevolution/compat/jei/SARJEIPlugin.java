@@ -5,8 +5,8 @@ import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.ItemStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.DistillerRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.EvaporatorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.AlloyFurnaceRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
@@ -56,7 +56,7 @@ public class SARJEIPlugin implements IModPlugin {
 
 		registry.addRecipes(FumeCollectorRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":fume_collector");
 
-		registry.addRecipes(EvaporatorRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":evaporator");
+		registry.addRecipes(DistillerRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":evaporator");
 	}
 
 }

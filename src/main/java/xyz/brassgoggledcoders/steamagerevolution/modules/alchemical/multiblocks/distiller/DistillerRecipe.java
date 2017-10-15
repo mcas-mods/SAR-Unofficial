@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities;
+package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -12,25 +12,25 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
 
 @Optional.Interface(iface = "mezz.jei.api.IRecipeWrapper", modid = "jei", striprefs = true)
-public class EvaporatorRecipe implements IRecipeWrapper {
+public class DistillerRecipe implements IRecipeWrapper {
 	public final FluidStack input;
 	public final FluidStack output;
 	public final int ticksToProcess;
 
-	public EvaporatorRecipe(FluidStack input, FluidStack output, int ticksToProcess) {
+	public DistillerRecipe(FluidStack input, FluidStack output, int ticksToProcess) {
 		this.input = input;
 		this.output = output;
 		this.ticksToProcess = ticksToProcess;
 	}
 
-	private static ArrayList<EvaporatorRecipe> recipeList = new ArrayList<EvaporatorRecipe>();
+	private static ArrayList<DistillerRecipe> recipeList = new ArrayList<DistillerRecipe>();
 
 	public static void addRecipe(FluidStack input, FluidStack output, int ticksToProcess) {
-		recipeList.add(new EvaporatorRecipe(input, output, ticksToProcess));
+		recipeList.add(new DistillerRecipe(input, output, ticksToProcess));
 	}
 
-	public static EvaporatorRecipe getRecipe(FluidStack input) {
-		for(EvaporatorRecipe r : recipeList) {
+	public static DistillerRecipe getRecipe(FluidStack input) {
+		for(DistillerRecipe r : recipeList) {
 			if(r.input.isFluidEqual(input)) {
 				return r;
 			}
@@ -38,7 +38,7 @@ public class EvaporatorRecipe implements IRecipeWrapper {
 		return null;
 	}
 
-	public static ArrayList<EvaporatorRecipe> getRecipeList() {
+	public static ArrayList<DistillerRecipe> getRecipeList() {
 		return recipeList;
 	}
 

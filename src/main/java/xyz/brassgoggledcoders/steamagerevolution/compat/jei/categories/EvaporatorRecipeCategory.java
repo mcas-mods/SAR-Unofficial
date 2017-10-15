@@ -8,9 +8,9 @@ import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.EvaporatorRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.DistillerRecipe;
 
-public class EvaporatorRecipeCategory implements IRecipeCategory<EvaporatorRecipe> {
+public class EvaporatorRecipeCategory implements IRecipeCategory<DistillerRecipe> {
 
 	private final IGuiHelper helper;
 
@@ -44,7 +44,7 @@ public class EvaporatorRecipeCategory implements IRecipeCategory<EvaporatorRecip
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, EvaporatorRecipe recipeWrapper, IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, DistillerRecipe recipeWrapper, IIngredients ingredients) {
 		recipeLayout.getFluidStacks().init(0, true, 80, 80);
 		recipeLayout.getFluidStacks().init(1, false, 170, 80);
 

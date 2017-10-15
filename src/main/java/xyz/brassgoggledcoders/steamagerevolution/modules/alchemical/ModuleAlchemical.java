@@ -8,6 +8,7 @@ import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import com.teamacronymcoders.base.util.Platform;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -27,9 +28,10 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.blocks.BlockEvaporator;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.blocks.BlockFumeCollector;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe.VatRecipeBuilder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
@@ -39,7 +41,11 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.BlockDamagingFluid;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
+@ObjectHolder(SteamAgeRevolution.MODID)
 public class ModuleAlchemical extends ModuleBase {
+
+	public static final Block distiller_radiator = null;
+	public static final Block distiller_hotplate = null;
 
 	// TODO Don't bypass armour, deal extra damage to it
 	public static DamageSource damageSourceGas =
@@ -85,7 +91,12 @@ public class ModuleAlchemical extends ModuleBase {
 		blockRegistry.register(new BlockVatOutput(Material.IRON, "vat_output"));
 
 		blockRegistry.register(new BlockFumeCollector(Material.IRON, "fume_collector"));
-		blockRegistry.register(new BlockEvaporator(Material.IRON, "evaporator"));
+
+		blockRegistry.register(new BlockDistillerFluidInput(Material.IRON, "distiller_fluid_input"));
+		blockRegistry.register(new BlockDistillerFluidOutput(Material.IRON, "distiller_fluid_output"));
+		blockRegistry.register(new BlockDistillerFrame(Material.IRON, "distiller_frame"));
+		blockRegistry.register(new BlockDistillerHotplate(Material.IRON, "distiller_hotplate"));
+		blockRegistry.register(new BlockDistillerRadiator(Material.IRON, "distiller_radiator"));
 
 		Fluid sulphur_dioxide =
 				new Fluid("sulphur_dioxide", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/sulphur_dioxide"),
