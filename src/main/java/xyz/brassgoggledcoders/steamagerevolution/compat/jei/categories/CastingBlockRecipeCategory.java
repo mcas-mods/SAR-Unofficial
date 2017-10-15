@@ -9,7 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.CastingBlockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlockRecipe;
 
 public class CastingBlockRecipeCategory implements IRecipeCategory<CastingBlockRecipe> {
 

@@ -18,7 +18,6 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.CastingBlockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;

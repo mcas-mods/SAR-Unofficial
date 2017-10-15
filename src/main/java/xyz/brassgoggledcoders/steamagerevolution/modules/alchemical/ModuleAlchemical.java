@@ -36,8 +36,8 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe.VatRecipeBuilder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.CastingBlockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.BlockDamagingFluid;
 
 @Module(value = SteamAgeRevolution.MODID)

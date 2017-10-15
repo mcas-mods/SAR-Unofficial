@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.processing;
+package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking;
 
 import java.awt.Color;
 import java.util.ArrayList;

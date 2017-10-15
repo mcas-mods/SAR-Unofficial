@@ -42,7 +42,6 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.SteamHammerRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.*;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.CastingBlockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.SteamFurnaceRecipe;
 
 @Module(value = SteamAgeRevolution.MODID)

@@ -10,8 +10,8 @@ import crafttweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.CastingBlockRecipe;
 
 @ZenClass("mods.steamagerevolution.CastingBlock")
 public class CastingBlockTweaker {
