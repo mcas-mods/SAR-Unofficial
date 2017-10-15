@@ -18,8 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
@@ -51,32 +50,31 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 		for(Entity entity : WORLD.getEntitiesWithinAABB(Entity.class, bounds)) {
 			if(entity instanceof EntityItem) {
 				EntityItem item = (EntityItem) entity;
-				if(ItemHandlerHelper.insertItem(itemInput, item.getItem(), true)
-						.isEmpty()) {
+				if(ItemHandlerHelper.insertItem(itemInput, item.getItem(), true).isEmpty()) {
 					ItemHandlerHelper.insertItem(itemInput, item.getItem(), false);
 					item.setDead();
 				}
 			}
 			// Simulate contact with fluid in vat when an entity falls in. TODO change bounds based on fluid fill level
+			Fluid fluid = null;
 			if(this.output.getFluid() != null) {
-				Block fluidBlock = this.output.getFluid()
-						.getFluid()
-						.getBlock();
-				fluidBlock.onEntityCollidedWithBlock(WORLD, getReferenceCoord(), fluidBlock.getDefaultState(), entity);
+				fluid = this.output.getFluid().getFluid();
 			}
 			else if(this.fluidInput.fluids.get(0) != null) {
-				Block fluidBlock = this.fluidInput.fluids.get(0)
-						.getFluid()
-						.getBlock();
+				fluid = this.fluidInput.fluids.get(0).getFluid();
+			}
+			if(fluid != null && fluid.getBlock() != null) {
+				if(fluid.getTemperature() >= FluidRegistry.LAVA.getTemperature()) {
+					entity.setFire(5);
+				}
+				Block fluidBlock = fluid.getBlock();
 				fluidBlock.onEntityCollidedWithBlock(WORLD, getReferenceCoord(), fluidBlock.getDefaultState(), entity);
+
 			}
 		}
 
-		Optional<VatRecipe> r = VatRecipe.getRecipeList()
-				.parallelStream()
-				.filter(this::hasRequiredFluids)
-				.filter(this::hasRequiredItems)
-				.findFirst();
+		Optional<VatRecipe> r = VatRecipe.getRecipeList().parallelStream().filter(this::hasRequiredFluids)
+				.filter(this::hasRequiredItems).findFirst();
 
 		if(r.isPresent()) {
 			VatRecipe recipe = r.get();
@@ -105,25 +103,18 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 				// Apply tanksHaveFluid to each element and output result to stream
 				.map(this::tanksHaveFluid)
 				// Reduce list of booleans into one - so will only evaluate true if every boolean is true
-				.reduce((a, b) -> a && b)
-				.orElse(false);
+				.reduce((a, b) -> a && b).orElse(false);
 	}
 
 	private boolean tanksHaveFluid(FluidStack stack) {
-		return fluidInput.fluids.stream()
-				.filter(Objects::nonNull)
-				.filter(fluid -> fluid.containsFluid(stack))
-				.findAny()
+		return fluidInput.fluids.stream().filter(Objects::nonNull).filter(fluid -> fluid.containsFluid(stack)).findAny()
 				.isPresent();
 	}
 
 	private boolean hasRequiredItems(VatRecipe recipe) {
 		// No doubt Sky will slap me with a way to integrate this into the stream shortly
 		if(recipe.itemInputs != null) {
-			return Arrays.stream(recipe.itemInputs)
-					.map(this::handlerHasItems)
-					.reduce((a, b) -> a && b)
-					.orElse(false);
+			return Arrays.stream(recipe.itemInputs).map(this::handlerHasItems).reduce((a, b) -> a && b).orElse(false);
 		}
 		else {
 			return true;
@@ -131,11 +122,8 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 	}
 
 	private boolean handlerHasItems(ItemStack stack) {
-		return IntStream.range(0, itemInput.getSlots())
-				.mapToObj(slotNum -> itemInput.getStackInSlot(slotNum))
-				.filter(inputStack -> ItemStackUtils.containsItemStack(stack, inputStack))
-				.findAny()
-				.isPresent();
+		return IntStream.range(0, itemInput.getSlots()).mapToObj(slotNum -> itemInput.getStackInSlot(slotNum))
+				.filter(inputStack -> ItemStackUtils.containsItemStack(stack, inputStack)).findAny().isPresent();
 	}
 
 	@Override
@@ -274,14 +262,14 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 	@Override
 	public void onTankContentsChanged(FluidTank tank) {
 		if(tank instanceof MultiFluidTank) {
-			SteamAgeRevolution.instance.getPacketHandler()
-					.sendToAllAround(new PacketMultiFluidUpdate(this.getReferenceCoord(), ((MultiFluidTank) tank)),
-							this.getReferenceCoord(), WORLD.provider.getDimension());
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+					new PacketMultiFluidUpdate(this.getReferenceCoord(), ((MultiFluidTank) tank)),
+					this.getReferenceCoord(), WORLD.provider.getDimension());
 		}
 		else {
-			SteamAgeRevolution.instance.getPacketHandler()
-					.sendToAllAround(new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid()),
-							this.getReferenceCoord(), WORLD.provider.getDimension());
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+					new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid()), this.getReferenceCoord(),
+					WORLD.provider.getDimension());
 		}
 	}
 
