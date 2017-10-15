@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+import com.teamacronymcoders.base.multiblock.validation.ValidationError;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
@@ -37,7 +38,6 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 		return "Distiller";
 	}
 
-	// TODO Custom validation errors
 	@Override
 	protected boolean isMachineWhole(IMultiblockValidator validatorCallback) {
 		BlockPos first = this.getMinimumCoord();
@@ -47,12 +47,16 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 		// Get all blocks in bottom layer of machine & check they're radiators
 		for(BlockPos pos : BlockPos.getAllInBox(first, second)) {
 			if(WORLD.getBlockState(pos).getBlock() != ModuleAlchemical.distiller_radiator) {
+				validatorCallback.setLastError(
+						new ValidationError("steamagerevolution.multiblock.validation.distiller_radiator"));
 				return false;
 			}
 		}
 		// Same for second layer, check they're hotplates
 		for(BlockPos pos : BlockPos.getAllInBox(first.up(), second.up())) {
 			if(WORLD.getBlockState(pos).getBlock() != ModuleAlchemical.distiller_hotplate) {
+				validatorCallback.setLastError(
+						new ValidationError("steamagerevolution.multiblock.validation.distiller_hotplate"));
 				return false;
 			}
 		}

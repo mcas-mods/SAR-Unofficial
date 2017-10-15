@@ -93,6 +93,8 @@ advancement.steamagerevolution:first_steps.desc=For fixing and breaking alike. M
 #Multiblock validation
 steamagerevolution.multiblock.validation.missingrequired=Multiblock is missing required part: %s
 steamagerevolution.multiblock.validation.alloyforgeinterior=Interior of the alloy forge must be filled with lava
+steamagerevolution.multiblock.validation.distiller_radiator=Bottom layer of the Distiller must be composed entirely of radiator blocks
+steamagerevolution.multiblock.validation.distiller_hotplate=Second-from-bottom layer of the Distiller must be composed entirely of hotplate blocks
 
 #Other
 fluid.steam=Steam
