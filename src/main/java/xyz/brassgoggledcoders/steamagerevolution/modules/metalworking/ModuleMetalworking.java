@@ -148,34 +148,42 @@ public class ModuleMetalworking extends ModuleBase {
 		knownMetalTypes.add("Iron");
 		knownMetalTypes.add("Gold");
 		for(String metal : knownMetalTypes) {
-			if(FluidRegistry.isFluidRegistered(metal.toLowerCase())) {
-				for(ItemStack ingot : OreDictionary.getOres("ingot" + metal, false)) {
-					FluidStack molten = FluidRegistry.getFluidStack(metal.toLowerCase(), VALUE_INGOT);
-					CrucibleRecipe.addRecipe(ingot, molten);
-					CastingBlockRecipe.addRecipe(molten, ingot);
-				}
+
+			// Known to be non-null because it is how metal types are known
+			ItemStack ingot = OreDictUtils.getPreferredItemStack("ingot" + metal);
+
+			ItemStack ore = OreDictUtils.getPreferredItemStack("ore" + metal);
+			ItemStack gear = OreDictUtils.getPreferredItemStack("gear" + metal);
+			ItemStack plate = OreDictUtils.getPreferredItemStack("plate" + metal);
+			ItemStack crushedOre = OreDictUtils.getPreferredItemStack("crushedOre" + metal);
+			ItemStack nugget = OreDictUtils.getPreferredItemStack("nugget" + metal);
+			ItemStack dust = OreDictUtils.getPreferredItemStack("dust" + metal);
+			FluidStack molten = FluidRegistry.getFluidStack(metal.toLowerCase(), VALUE_INGOT);
+			if(molten != null) {
+				CrucibleRecipe.addRecipe(ingot, molten);
+				CastingBlockRecipe.addRecipe(molten, ingot);
 			}
-			for(ItemStack ingot : OreDictionary.getOres("ingot" + metal, false)) {
-				if(OreDictionary.doesOreNameExist("plate" + metal)) {
-					ItemStack plate = OreDictUtils.getPreferredItemStack("plate" + metal);
-					plate.setCount(plateCount);
-					SteamHammerRecipe.addSteamHammerRecipe(ingot, plate);
-				}
-				if(OreDictionary.doesOreNameExist("gear" + metal)) {
-					SteamHammerRecipe.addSteamHammerRecipe(ingot, OreDictUtils.getPreferredItemStack("gear" + metal),
-							"gear");
-				}
+			if(!plate.isEmpty()) {
+				ItemStack plateCopy = plate.copy();
+				plateCopy.setCount(plateCount);
+				SteamHammerRecipe.addSteamHammerRecipe(ingot, plateCopy);
 			}
-			for(ItemStack ore : OreDictionary.getOres("ore" + metal, false)) {
-				if(OreDictionary.doesOreNameExist("dust" + metal)) {
-					ItemStack dust = OreDictUtils.getPreferredItemStack("dust" + metal);
-					GameRegistry.addSmelting(ore, OreDictUtils.getPreferredItemStack("ingot" + metal), 0.5F);
-					if(OreDictionary.doesOreNameExist("ingot" + metal)) {
-						GameRegistry.addSmelting(dust, OreDictUtils.getPreferredItemStack("ingot" + metal), 0.5F);
-					}
-					dust.setCount(dustCount);
-					SteamHammerRecipe.addSteamHammerRecipe(ore, dust);
-				}
+			if(!gear.isEmpty()) {
+				SteamHammerRecipe.addSteamHammerRecipe(ingot, gear, "gear");
+			}
+			if(!ore.isEmpty()) {
+				GameRegistry.addSmelting(ore, ingot, 0.5F);
+			}
+			if(!dust.isEmpty()) {
+				GameRegistry.addSmelting(dust, ingot, 0.5F);
+			}
+			if(!crushedOre.isEmpty()) {
+				ItemStack nuggetCopy = nugget.copy();
+				nuggetCopy.setCount(3);
+				GameRegistry.addSmelting(crushedOre, nuggetCopy, 0.1f);
+				ItemStack crushedOreCopy = crushedOre.copy();
+				crushedOreCopy.setCount(4);
+				SteamHammerRecipe.addSteamHammerRecipe(ore, crushedOreCopy);
 			}
 		}
 	}
