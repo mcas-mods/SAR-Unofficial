@@ -80,7 +80,7 @@ public class ModuleAlchemical extends ModuleBase {
 				.setOutput(FluidRegistry.getFluidStack("coppersolution", ModuleMetalworking.VALUE_NUGGET * 4))
 				.setFluids(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 4))
 				.setItems(OreDictUtils.getPreferredItemStack("crushedOreCopper")).build();
-		DistillerRecipe.addRecipe(FluidRegistry.getFluidStack("coppersolution", ModuleMetalworking.VALUE_NUGGET),
+		DistillerRecipe.addRecipe(FluidRegistry.getFluidStack("coppersolution", ModuleMetalworking.VALUE_NUGGET * 4),
 				FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 6),
 				OreDictUtils.getPreferredItemStack("crystalCopper"), 20);
 

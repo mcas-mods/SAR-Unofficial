@@ -158,7 +158,9 @@ public class ModuleMetalworking extends ModuleBase {
 			ItemStack crushedOre = OreDictUtils.getPreferredItemStack("crushedOre" + metal);
 			ItemStack nugget = OreDictUtils.getPreferredItemStack("nugget" + metal);
 			ItemStack dust = OreDictUtils.getPreferredItemStack("dust" + metal);
+			ItemStack crystal = OreDictUtils.getPreferredItemStack("crystal" + metal);
 			FluidStack molten = FluidRegistry.getFluidStack(metal.toLowerCase(), VALUE_INGOT);
+
 			if(molten != null) {
 				CrucibleRecipe.addRecipe(ingot, molten);
 				CastingBlockRecipe.addRecipe(molten, ingot);
@@ -184,6 +186,9 @@ public class ModuleMetalworking extends ModuleBase {
 				ItemStack crushedOreCopy = crushedOre.copy();
 				crushedOreCopy.setCount(4);
 				SteamHammerRecipe.addSteamHammerRecipe(ore, crushedOreCopy);
+			}
+			if(!crystal.isEmpty()) {
+				GameRegistry.addSmelting(crystal, nugget, 0.3f);
 			}
 		}
 	}
