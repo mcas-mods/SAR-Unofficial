@@ -1,8 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
@@ -60,7 +60,7 @@ public class ModuleMetalworking extends ModuleBase {
 	public static int VALUE_BLOCK = VALUE_INGOT * 9;
 	// public static final int VALUE_ORE = VALUE_INGOT * 2;
 
-	public static List<String> knownMetalTypes = new ArrayList<String>();
+	public static List<String> knownMetalTypes = Lists.newArrayList();
 
 	public static DamageSource damageSourceHammer =
 			new DamageSource("hammer").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
@@ -74,6 +74,8 @@ public class ModuleMetalworking extends ModuleBase {
 		this.getConfigRegistry().addEntry("dustCount", new ConfigEntry("balance", "dustCount", Type.INTEGER, "1"));
 		dustCount = this.getConfigRegistry().getInt("dustCount", 1);
 		this.getConfigRegistry().addCategoryComment("balance", "Adjust number of items produced in recipes", "General");
+		knownMetalTypes.add("Iron");
+		knownMetalTypes.add("Gold");
 		super.preInit(event);
 	}
 
@@ -145,8 +147,6 @@ public class ModuleMetalworking extends ModuleBase {
 		AlloyFurnaceRecipe.addAlloyFurnaceRecipe(FluidRegistry.getFluidStack("copper", VALUE_INGOT),
 				FluidRegistry.getFluidStack("zinc", VALUE_INGOT), FluidRegistry.getFluidStack("brass", VALUE_INGOT));
 
-		knownMetalTypes.add("Iron");
-		knownMetalTypes.add("Gold");
 		for(String metal : knownMetalTypes) {
 
 			// Known to be non-null because it is how metal types are known

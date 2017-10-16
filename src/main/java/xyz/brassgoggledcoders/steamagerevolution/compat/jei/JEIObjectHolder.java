@@ -14,4 +14,5 @@ public class JEIObjectHolder {
 	public static final Block casting_bench = null;
 	public static final Block distiller_frame = null;
 	public static final Block vat_output = null;
+	public static final Block fume_collector = null;
 }

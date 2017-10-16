@@ -28,38 +28,34 @@ public class SARJEIPlugin implements IModPlugin {
 	public void registerCategories(IRecipeCategoryRegistration registry) {
 		IJeiHelpers jeiHelper = registry.getJeiHelpers();
 		SARRecipeCategory.setGuiHelper(jeiHelper.getGuiHelper());
-		registry.addRecipeCategories(new SteamHammerRecipeCategory(jeiHelper.getGuiHelper()),
-				new AlloyForgeRecipeCategory(), new CrucibleRecipeCategory(jeiHelper.getGuiHelper()),
-				new SteamFurnaceRecipeCategory(jeiHelper.getGuiHelper()),
-				new CastingBlockRecipeCategory(jeiHelper.getGuiHelper()), new VatRecipeCategory(),
-				new FumeCollectorRecipeCategory(jeiHelper.getGuiHelper()), new DistillerRecipeCategory());
+		registry.addRecipeCategories(new SteamHammerRecipeCategory(), new AlloyForgeRecipeCategory(),
+				new CrucibleRecipeCategory(), new SteamFurnaceRecipeCategory(jeiHelper.getGuiHelper()),
+				new CastingBlockRecipeCategory(), new VatRecipeCategory(), new FumeCollectorRecipeCategory(),
+				new DistillerRecipeCategory());
 	}
 
 	@Override
 	public void register(IModRegistry registry) {
-		registry.addRecipes(SteamHammerRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":steamhammer");
-		registry.addRecipeCatalyst(new ItemStack(JEIObjectHolder.steamhammer_anvil),
-				SteamAgeRevolution.MODID + ":steamhammer");
+		add(registry, SteamHammerRecipe.getRecipeList(), SteamHammerRecipeCategory.uid,
+				new ItemStack(JEIObjectHolder.steamhammer_anvil));
 
 		add(registry, AlloyFurnaceRecipe.getRecipeList(), AlloyForgeRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.alloy_furnace_frame));
 
-		registry.addRecipes(CrucibleRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":crucible");
-		registry.addRecipeCatalyst(new ItemStack(JEIObjectHolder.crucible_casing),
-				SteamAgeRevolution.MODID + ":crucible");
+		add(registry, CrucibleRecipe.getRecipeList(), CrucibleRecipeCategory.uid,
+				new ItemStack(JEIObjectHolder.crucible_casing));
 
 		registry.addRecipes(SteamFurnaceRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":steamfurnace");
 		registry.addRecipeCatalyst(new ItemStack(JEIObjectHolder.furnace_casing),
 				SteamAgeRevolution.MODID + ":steamfurnace");
 
-		registry.addRecipes(CastingBlockRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":casting_block");
-		registry.addRecipeCatalyst(new ItemStack(JEIObjectHolder.casting_bench),
-				SteamAgeRevolution.MODID + ":casting_block");
+		add(registry, CastingBlockRecipe.getRecipeList(), CastingBlockRecipeCategory.uid,
+				new ItemStack(JEIObjectHolder.casting_bench));
 
-		add(registry, VatRecipe.getRecipeList(), VatRecipeCategory.uid,
-				new ItemStack(JEIObjectHolder.vat_output));
+		add(registry, VatRecipe.getRecipeList(), VatRecipeCategory.uid, new ItemStack(JEIObjectHolder.vat_output));
 
-		registry.addRecipes(FumeCollectorRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":fume_collector");
+		add(registry, FumeCollectorRecipe.getRecipeList(), FumeCollectorRecipeCategory.uid,
+				new ItemStack(JEIObjectHolder.fume_collector));
 
 		add(registry, DistillerRecipe.getRecipeList(), DistillerRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.distiller_frame));

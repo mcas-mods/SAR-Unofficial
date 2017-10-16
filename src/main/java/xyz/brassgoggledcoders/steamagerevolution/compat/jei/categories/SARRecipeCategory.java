@@ -11,10 +11,12 @@ public abstract class SARRecipeCategory<T extends IRecipeWrapper> implements IRe
 
 	String uid, name;
 	protected static IGuiHelper helper;
+	ResourceLocation background;
 
 	public SARRecipeCategory(String uid, String name) {
 		this.uid = uid;
 		this.name = name;
+		background = new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/jei/" + uid + ".png");
 	}
 
 	public static void setGuiHelper(IGuiHelper helper) {
@@ -23,8 +25,7 @@ public abstract class SARRecipeCategory<T extends IRecipeWrapper> implements IRe
 
 	@Override
 	public IDrawable getBackground() {
-		return helper.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/jei/" + uid + ".png"),
-				0, 0, 133, 65);
+		return helper.createDrawable(background, 0, 0, 134, 65);
 	}
 
 	@Override

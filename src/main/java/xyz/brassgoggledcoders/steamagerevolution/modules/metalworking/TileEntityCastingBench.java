@@ -13,9 +13,7 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
@@ -24,8 +22,9 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 
 public class TileEntityCastingBench extends TileEntityBase implements ITickable, ISmartTankCallback {
 
+	public static int inputCapacity = ModuleMetalworking.VALUE_BLOCK;
 	protected ItemStackHandler internal = new ItemStackHandler();
-	public FluidTankSmart tank = new FluidTankSmart(ModuleMetalworking.VALUE_BLOCK, this);
+	public FluidTankSmart tank = new FluidTankSmart(inputCapacity, this);
 	public int stateChangeTime = 2400;
 
 	@Override

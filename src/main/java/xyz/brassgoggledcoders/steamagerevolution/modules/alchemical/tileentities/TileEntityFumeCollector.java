@@ -19,21 +19,21 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 
 public class TileEntityFumeCollector extends TileEntitySlowTick implements ISmartTankCallback {
+	public static int outputCapacity = Fluid.BUCKET_VOLUME * 16;
 	public FluidTank tank;
 
 	public TileEntityFumeCollector() {
 		super();
-		tank = new FluidTankSmart(Fluid.BUCKET_VOLUME * 16, this);
+		tank = new FluidTankSmart(outputCapacity, this);
 	}
 
-	// TODO this probably really doesn't need to be ticking. Also jimmy in 'recipe' support.
+	// TODO this probably really doesn't need to be ticking.
 	@Override
 	public void updateTile() {
 		if(world.isRemote)
 			return;
 		BlockPos below = getPos().down();
-		TileEntity te = this.getWorld()
-				.getTileEntity(below);
+		TileEntity te = this.getWorld().getTileEntity(below);
 		if(te != null && te instanceof TileEntityFurnace) {
 			TileEntityFurnace furnace = (TileEntityFurnace) te;
 			if(furnace.isBurning()) {
@@ -82,8 +82,7 @@ public class TileEntityFumeCollector extends TileEntitySlowTick implements ISmar
 	@Override
 	public void onTankContentsChanged(FluidTank tank) {
 		this.markDirty();
-		SteamAgeRevolution.instance.getPacketHandler()
-				.sendToAllAround(new PacketFluidUpdate(getPos(), tank.getFluid()), getPos(),
-						getWorld().provider.getDimension());
+		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(new PacketFluidUpdate(getPos(), tank.getFluid()),
+				getPos(), getWorld().provider.getDimension());
 	}
 }

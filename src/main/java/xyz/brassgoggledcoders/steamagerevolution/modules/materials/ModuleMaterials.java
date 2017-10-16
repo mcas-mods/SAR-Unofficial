@@ -32,10 +32,11 @@ public class ModuleMaterials extends ModuleBase {
 	public static final Block charcoal_block = null;
 	public static final Item charcoal_powder = null;
 
-	String[] vanillaParts = new String[] {"ore", "plate", "dust", "molten", "crushed_ore"};
+	String[] vanillaParts = new String[] {"ore", "plate", "dust", "molten", "crushed_ore", "solution", "crystal"};
 	String[] metalParts = new String[] {"ore", "crushed_ore", "solution", "crystal", "ingot", "nugget", "plate", "dust",
 			"block", "molten"};
-	String[] alloyParts = (String[]) Arrays.copyOfRange(metalParts, 4, metalParts.length);
+	String[] alloyParts = Arrays.copyOfRange(metalParts, 4, metalParts.length);
+	String[] compatParts = new String[] {"crushed_ore", "solution", "crystal"};
 	public static Color brassColor = new Color(251, 194, 99);
 
 	@Override
@@ -61,6 +62,8 @@ public class ModuleMaterials extends ModuleBase {
 			Material sulphur = new MaterialBuilder().setName("Sulphur").setColor(new Color(200, 200, 60))
 					.setHasEffect(false).build();
 
+			Material tin = new MaterialBuilder().setName("Tin").setColor(Color.LIGHT_GRAY).setHasEffect(false).build();
+
 			SAR.registerPartsForMaterial(sulphur, "ore", "dust", "crystal");
 			MaterialSystem.getMaterialPart("sulphur_crystal").getData().addDataValue("burn", "1800");
 			MaterialSystem.getMaterialPart("sulphur_ore").getData().addDataValue("drops", "ore:crystalSulphur");
@@ -80,6 +83,8 @@ public class ModuleMaterials extends ModuleBase {
 			SAR.registerPartsForMaterial(steel, alloyParts);
 
 			SAR.registerPartsForMaterial(brass, alloyParts);
+
+			SAR.registerPartsForMaterial(tin, compatParts);
 
 		}
 		catch(MaterialException e) {

@@ -57,6 +57,5 @@ public class FumeCollectorRecipe implements IRecipeWrapper {
 	@Optional.Method(modid = "jei")
 	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		minecraft.fontRenderer.drawString((chance * 100) + "% chance (each second)", 170, 160, Color.red.getRGB());
-		minecraft.fontRenderer.drawString(output.amount + "mB", 170, 130, Color.gray.getRGB());
 	}
 }

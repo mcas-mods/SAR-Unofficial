@@ -8,6 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.ControllerVat;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe;
 
 public class VatRecipeCategory extends SARRecipeCategory<VatRecipe> {
@@ -37,7 +38,7 @@ public class VatRecipeCategory extends SARRecipeCategory<VatRecipe> {
 	public IDrawable getBackground() {
 		// 144, 122
 		return helper.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/jei/vat.png"), 0, 0,
-				144, 125);
+				146, 125);
 	}
 
 	@Override
@@ -45,7 +46,8 @@ public class VatRecipeCategory extends SARRecipeCategory<VatRecipe> {
 		for(int i = 0; i < recipeWrapper.fluidInputs.length; i++) {
 			FluidStack stack = recipeWrapper.fluidInputs[i];
 			if(stack != null) {
-				recipeLayout.getFluidStacks().init(i, true, 1 + (i * 39), 45);
+				recipeLayout.getFluidStacks().init(i, true, 1 + (i * 39), 1, 20, 60,
+						ControllerVat.inputCapacity / recipeWrapper.fluidInputs.length, true, null);
 				recipeLayout.getFluidStacks().set(i, recipeWrapper.fluidInputs[i]);
 			}
 		}
@@ -58,7 +60,7 @@ public class VatRecipeCategory extends SARRecipeCategory<VatRecipe> {
 				}
 			}
 		}
-		recipeLayout.getFluidStacks().init(6, false, 124, 94);
+		recipeLayout.getFluidStacks().init(6, false, 124, 50, 20, 60, ControllerVat.outputCapacity, true, null);
 		recipeLayout.getFluidStacks().set(6, ingredients.getOutputs(FluidStack.class).get(0));
 
 		recipeLayout.getFluidStacks().addTooltipCallback(SARJEIPlugin.fluidTooltipCallback);

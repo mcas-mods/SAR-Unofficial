@@ -17,13 +17,15 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 
 public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
+	public static int inputCapacity = ModuleMetalworking.VALUE_BLOCK * 16;
+	public static int outputCapacity = Fluid.BUCKET_VOLUME * 16;
 	public MultiFluidTank primaryTank;
 	public FluidTank outputTank;
 
 	public ControllerAlloyFurnace(World world) {
 		super(world);
-		primaryTank = new MultiFluidTank(ModuleMetalworking.VALUE_BLOCK * 16, this);
-		outputTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
+		primaryTank = new MultiFluidTank(inputCapacity, this);
+		outputTank = new FluidTank(outputCapacity);
 	}
 
 	@Override
