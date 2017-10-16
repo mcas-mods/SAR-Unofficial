@@ -1,8 +1,7 @@
 itemGroup.steamagerevolution=Steam Age Revolution
 
 # Parts
-steamagerevolution.part.ore_slurry=%s Ore Slurry
-steamagerevolution.part.ore_solution=%s Ore Solution
+steamagerevolution.part.solution=%s Solution
 
 #Items
 item.steamagerevolution.charcoal_powder.name=Charcoal Powder

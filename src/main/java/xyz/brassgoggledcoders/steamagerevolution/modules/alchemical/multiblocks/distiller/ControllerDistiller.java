@@ -10,6 +10,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.ModuleAlchemical;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.*;
@@ -18,6 +20,7 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 
 	public FluidTankSmart fluidInput;
 	public MultiFluidTank fluidOutput;
+	public ItemStackHandler itemOutput;
 	public FluidTankSingleSmart steamTank;
 	int ticks = 0;
 	// int temperature = 0;
@@ -30,6 +33,7 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 		super(world);
 		fluidInput = new FluidTankSmart(10000, this);
 		fluidOutput = new MultiFluidTank(30000, this);
+		itemOutput = new ItemStackHandler();
 		steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
 	}
 
@@ -68,6 +72,7 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
 		fluidInput.readFromNBT(data.getCompoundTag("input"));
 		fluidOutput.readFromNBT(data.getCompoundTag("output"));
+		itemOutput.deserializeNBT(data.getCompoundTag("itemOutput"));
 		ticks = data.getInteger("progress");
 		// temperature = data.getInteger("temperature");
 	}
@@ -163,10 +168,14 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 			}
 			else {
 				if(ticks == currentRecipe.ticksToProcess) {
-					if(fluidOutput.fill(currentRecipe.output, false) == currentRecipe.output.amount) {
+					if(fluidOutput.fill(currentRecipe.output, false) == currentRecipe.output.amount
+							&& ItemHandlerHelper.insertItem(itemOutput, currentRecipe.itemOutput, true).isEmpty()) {
 						fluidOutput.fill(currentRecipe.output, true);
 						fluidInput.drain(currentRecipe.input, true);
-						currentRecipe = null;
+						ItemHandlerHelper.insertItem(itemOutput, currentRecipe.itemOutput, false);
+						if(fluidOutput.getFluidAmount() == 0) {
+							currentRecipe = null;
+						}
 						return true;
 					}
 				}
@@ -219,6 +228,7 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 	public void writeToDisk(NBTTagCompound data) {
 		data.setTag("input", fluidInput.writeToNBT(new NBTTagCompound()));
 		data.setTag("output", fluidOutput.writeToNBT(new NBTTagCompound()));
+		data.setTag("itemOutput", itemOutput.serializeNBT());
 		data.setInteger("progress", ticks);
 		// data.setInteger("temperature", temperature);
 	}

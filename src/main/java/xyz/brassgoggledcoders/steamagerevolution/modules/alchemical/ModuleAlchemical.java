@@ -77,11 +77,12 @@ public class ModuleAlchemical extends ModuleBase {
 				.build();
 
 		new VatRecipeBuilder()
-				.setOutput(FluidRegistry.getFluidStack("copperslurry", ModuleMetalworking.VALUE_NUGGET * 4))
+				.setOutput(FluidRegistry.getFluidStack("coppersolution", ModuleMetalworking.VALUE_NUGGET * 4))
 				.setFluids(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 4))
 				.setItems(OreDictUtils.getPreferredItemStack("crushedOreCopper")).build();
-		DistillerRecipe.addRecipe(FluidRegistry.getFluidStack("copperslurry", ModuleMetalworking.VALUE_NUGGET),
-				FluidRegistry.getFluidStack("coppersolution", ModuleMetalworking.VALUE_NUGGET), 20);
+		DistillerRecipe.addRecipe(FluidRegistry.getFluidStack("coppersolution", ModuleMetalworking.VALUE_NUGGET),
+				FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 6),
+				OreDictUtils.getPreferredItemStack("crystalCopper"), 20);
 
 		new VatRecipeBuilder().setOutput(FluidRegistry.getFluidStack("liquid_glowstone", Fluid.BUCKET_VOLUME))
 				.setFluids(FluidRegistry.getFluidStack("lava", Fluid.BUCKET_VOLUME))

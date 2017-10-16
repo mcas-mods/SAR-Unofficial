@@ -21,6 +21,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.f
 @JEIPlugin
 public class SARJEIPlugin implements IModPlugin {
 
+	// TODO JEI Should display amounts automatically?
 	public static ITooltipCallback<FluidStack> fluidTooltipCallback = new SARFluidTooltipCallback();
 
 	@Override

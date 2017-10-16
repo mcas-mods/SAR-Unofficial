@@ -33,8 +33,8 @@ public class ModuleMaterials extends ModuleBase {
 	public static final Item charcoal_powder = null;
 
 	String[] vanillaParts = new String[] {"ore", "plate", "dust", "molten", "crushed_ore"};
-	String[] metalParts = new String[] {"ore", "ore_slurry", "crushed_ore", "ore_solution", "ingot", "nugget", "plate",
-			"dust", "block", "molten"};
+	String[] metalParts = new String[] {"ore", "crushed_ore", "solution", "crystal", "ingot", "nugget", "plate", "dust",
+			"block", "molten"};
 	String[] alloyParts = (String[]) Arrays.copyOfRange(metalParts, 4, metalParts.length);
 	public static Color brassColor = new Color(251, 194, 99);
 
@@ -43,9 +43,7 @@ public class ModuleMaterials extends ModuleBase {
 		try {
 			MaterialUser SAR = SteamAgeRevolution.instance.getMaterialUser();
 
-			new PartBuilder().setOwnerId(SAR.getId()).setName("Ore Slurry").setOreDictName("slurry")
-					.setPartType(MaterialSystem.getPartType("fluid")).build();
-			new PartBuilder().setOwnerId(SAR.getId()).setName("Ore Solution").setOreDictName("solution")
+			new PartBuilder().setOwnerId(SAR.getId()).setName("Solution").setOreDictName("solution")
 					.setPartType(MaterialSystem.getPartType("fluid")).build();
 
 			Material iron = new MaterialBuilder().setName("Iron").setColor(Color.GRAY).setHasEffect(false).build();
