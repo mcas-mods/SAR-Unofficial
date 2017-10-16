@@ -17,7 +17,7 @@ public class AlloyForgeRecipeCategory extends SARRecipeCategory<AlloyFurnaceReci
 
 	@Override
 	public void setRecipe(IRecipeLayout recipeLayout, AlloyFurnaceRecipe recipeWrapper, IIngredients ingredients) {
-		recipeLayout.getFluidStacks().init(0, true, 0, 45);
+		recipeLayout.getFluidStacks().init(0, true, 1, 45);
 		recipeLayout.getFluidStacks().init(1, true, 57, 45);
 		recipeLayout.getFluidStacks().init(2, false, 113, 45);
 

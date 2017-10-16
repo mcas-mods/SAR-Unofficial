@@ -18,9 +18,9 @@ public class DistillerRecipeCategory extends SARRecipeCategory<DistillerRecipe> 
 
 	@Override
 	public void setRecipe(IRecipeLayout recipeLayout, DistillerRecipe recipeWrapper, IIngredients ingredients) {
-		recipeLayout.getFluidStacks().init(0, true, 80, 80);
-		recipeLayout.getFluidStacks().init(1, false, 170, 80);
-		recipeLayout.getItemStacks().init(2, false, 3, 30);
+		recipeLayout.getFluidStacks().init(0, true, 1, 45);
+		recipeLayout.getFluidStacks().init(1, false, 57, 45);
+		recipeLayout.getItemStacks().init(2, false, 111, 23);
 
 		recipeLayout.getFluidStacks().set(0, ingredients.getInputs(FluidStack.class).get(0));
 		recipeLayout.getFluidStacks().set(1, ingredients.getOutputs(FluidStack.class).get(0));

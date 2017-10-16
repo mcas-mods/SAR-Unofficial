@@ -21,7 +21,7 @@ public abstract class SARRecipeCategory<T extends IRecipeWrapper> implements IRe
 	@Override
 	public IDrawable getBackground() {
 		return helper.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/jei/" + uid + ".png"),
-				0, 0, 133, 61);
+				0, 0, 133, 65);
 	}
 
 	@Override

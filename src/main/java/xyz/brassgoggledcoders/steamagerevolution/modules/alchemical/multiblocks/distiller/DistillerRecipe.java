@@ -56,6 +56,7 @@ public class DistillerRecipe implements IRecipeWrapper {
 	@Override
 	@Optional.Method(modid = "jei")
 	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-		minecraft.fontRenderer.drawString(ticksToProcess + " ticks to distil", 170, 140, Color.red.getRGB());
+		minecraft.fontRenderer.drawString(ticksToProcess + " ticks to distil", recipeWidth - 52, recipeHeight - 5,
+				Color.red.getRGB());
 	}
 }
