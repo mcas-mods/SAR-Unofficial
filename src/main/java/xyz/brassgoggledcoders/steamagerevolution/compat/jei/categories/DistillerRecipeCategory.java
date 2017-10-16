@@ -1,6 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories;
 
-import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.item.ItemStack;
@@ -12,8 +11,8 @@ public class DistillerRecipeCategory extends SARRecipeCategory<DistillerRecipe> 
 
 	public static final String uid = "distiller";
 
-	public DistillerRecipeCategory(IGuiHelper helper) {
-		super(helper, uid, "Distiller");
+	public DistillerRecipeCategory() {
+		super(uid, "Distiller");
 	}
 
 	@Override

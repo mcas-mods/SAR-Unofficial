@@ -27,14 +27,12 @@ public class SARJEIPlugin implements IModPlugin {
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registry) {
 		IJeiHelpers jeiHelper = registry.getJeiHelpers();
+		SARRecipeCategory.setGuiHelper(jeiHelper.getGuiHelper());
 		registry.addRecipeCategories(new SteamHammerRecipeCategory(jeiHelper.getGuiHelper()),
-				new AlloyForgeRecipeCategory(jeiHelper.getGuiHelper()),
-				new CrucibleRecipeCategory(jeiHelper.getGuiHelper()),
+				new AlloyForgeRecipeCategory(), new CrucibleRecipeCategory(jeiHelper.getGuiHelper()),
 				new SteamFurnaceRecipeCategory(jeiHelper.getGuiHelper()),
-				new CastingBlockRecipeCategory(jeiHelper.getGuiHelper()),
-				new VatRecipeCategory(jeiHelper.getGuiHelper()),
-				new FumeCollectorRecipeCategory(jeiHelper.getGuiHelper()),
-				new DistillerRecipeCategory(jeiHelper.getGuiHelper()));
+				new CastingBlockRecipeCategory(jeiHelper.getGuiHelper()), new VatRecipeCategory(),
+				new FumeCollectorRecipeCategory(jeiHelper.getGuiHelper()), new DistillerRecipeCategory());
 	}
 
 	@Override
@@ -58,11 +56,13 @@ public class SARJEIPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(JEIObjectHolder.casting_bench),
 				SteamAgeRevolution.MODID + ":casting_block");
 
-		registry.addRecipes(VatRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":vat");
+		add(registry, VatRecipe.getRecipeList(), VatRecipeCategory.uid,
+				new ItemStack(JEIObjectHolder.vat_output));
 
 		registry.addRecipes(FumeCollectorRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":fume_collector");
 
-		registry.addRecipes(DistillerRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":distiller");
+		add(registry, DistillerRecipe.getRecipeList(), DistillerRecipeCategory.uid,
+				new ItemStack(JEIObjectHolder.distiller_frame));
 	}
 
 	private void add(IModRegistry registry, Collection<?> recipeList, String id, ItemStack catalyst) {

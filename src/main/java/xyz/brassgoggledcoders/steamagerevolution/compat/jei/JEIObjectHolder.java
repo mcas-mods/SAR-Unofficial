@@ -12,4 +12,6 @@ public class JEIObjectHolder {
 	public static final Block crucible_casing = null;
 	public static final Block furnace_casing = null;
 	public static final Block casting_bench = null;
+	public static final Block distiller_frame = null;
+	public static final Block vat_output = null;
 }

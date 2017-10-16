@@ -1,6 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories;
 
-import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import net.minecraftforge.fluids.FluidStack;
@@ -11,8 +10,8 @@ public class AlloyForgeRecipeCategory extends SARRecipeCategory<AlloyFurnaceReci
 
 	public static final String uid = "alloyforge";
 
-	public AlloyForgeRecipeCategory(IGuiHelper helper) {
-		super(helper, uid, "Alloy Forge");
+	public AlloyForgeRecipeCategory() {
+		super(uid, "Alloy Forge");
 	}
 
 	@Override
