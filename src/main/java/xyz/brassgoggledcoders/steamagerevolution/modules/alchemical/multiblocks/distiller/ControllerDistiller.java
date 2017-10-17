@@ -14,7 +14,6 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.ModuleAlchemical;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
@@ -250,6 +249,17 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 	public void updateFluid(PacketFluidUpdate message) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	protected FluidTank getTank(String toWrap) {
+		if(toWrap.equals("input")) {
+			return fluidInput;
+		}
+		else if(toWrap.equals("output")) {
+			return fluidOutput;
+		}
+		return steamTank;
 	}
 
 }
