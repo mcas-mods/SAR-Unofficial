@@ -14,8 +14,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.init.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
@@ -92,10 +91,21 @@ public class ModuleAlchemical extends ModuleBase {
 				new ItemStack(Blocks.GLOWSTONE));
 		// TODO Proper oredict support
 
-		PotionHelper.POTION_TYPE_CONVERSIONS.forEach(potion -> new VatRecipeBuilder()
-				.setOutput(getPotionFluidStack(potion.output.getRegistryName().getResourcePath(), Fluid.BUCKET_VOLUME))
-				.setFluids(getPotionFluidStack(potion.input.getRegistryName().getResourcePath(), Fluid.BUCKET_VOLUME))
-				.setItems(potion.reagent.getMatchingStacks()[0]).build());
+		// TODO Tooltip/Color for fluid (when IE not present) & potion deriving name from vanilla
+		new VatRecipeBuilder()
+				.setOutput(getPotionFluidStack(PotionTypes.AWKWARD.getRegistryName().getResourcePath(),
+						Fluid.BUCKET_VOLUME))
+				.setFluids(FluidRegistry.getFluidStack("water", Fluid.BUCKET_VOLUME))
+				.setItems(new ItemStack(Items.NETHER_WART)).build();
+		PotionHelper.POTION_TYPE_CONVERSIONS.stream()
+				.filter(mix -> mix.output != PotionTypes.AWKWARD && mix.output != PotionTypes.MUNDANE
+						&& mix.output != PotionTypes.THICK)
+				.forEach(potion -> new VatRecipeBuilder()
+						.setOutput(getPotionFluidStack(potion.output.getRegistryName().getResourcePath(),
+								Fluid.BUCKET_VOLUME))
+						.setFluids(getPotionFluidStack(potion.input.getRegistryName().getResourcePath(),
+								Fluid.BUCKET_VOLUME))
+						.setItems(potion.reagent.getMatchingStacks()[0]).build());
 	}
 
 	@Override
@@ -170,6 +180,7 @@ public class ModuleAlchemical extends ModuleBase {
 			}
 		};
 		FluidRegistry.registerFluid(potion);
+		FluidRegistry.addBucketForFluid(potion);
 	}
 
 	public static FluidStack getPotionFluidStack(String potionType, int amount) {

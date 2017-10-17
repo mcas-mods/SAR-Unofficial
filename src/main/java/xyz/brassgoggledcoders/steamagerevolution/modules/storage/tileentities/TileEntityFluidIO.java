@@ -1,13 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities;
 
 import com.teamacronymcoders.base.guisystem.IHasGui;
-import com.teamacronymcoders.base.tileentities.IOnSlotChanged;
 import com.teamacronymcoders.base.tileentities.TileEntityInventoryBase;
 
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.Slot;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
@@ -27,8 +25,7 @@ import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
 
-public class TileEntityFluidIO extends TileEntityInventoryBase
-		implements IHasGui, IOnSlotChanged, ITickable, ISmartTankCallback {
+public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGui, ITickable, ISmartTankCallback {
 
 	public FluidTank buffer = new FluidTankSmart(Fluid.BUCKET_VOLUME * 10, this);
 	private int fluidTransferRate = 20;
@@ -84,16 +81,13 @@ public class TileEntityFluidIO extends TileEntityInventoryBase
 	}
 
 	@Override
-	public void onSlotChanged(Slot slot) {}
-
-	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiFluidIO(entityPlayer, this);
+		return new GuiFluidIO(entityPlayer, (TileEntityFluidIO) world.getTileEntity(blockPos));
 	}
 
 	@Override
 	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new ContainerFluidIO(entityPlayer, this);
+		return new ContainerFluidIO(entityPlayer, (TileEntityFluidIO) world.getTileEntity(blockPos));
 	}
 
 	@Override

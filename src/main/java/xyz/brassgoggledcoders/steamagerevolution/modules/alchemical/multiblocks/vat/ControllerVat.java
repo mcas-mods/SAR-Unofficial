@@ -12,9 +12,11 @@ import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -41,7 +43,7 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 		super(world);
 		fluidInput = new MultiFluidTank(inputCapacity, this);
 		itemInput = new ItemStackHandlerExtractSpecific(3);
-		output = new FluidTankSmart(outputCapacity, this, 4);
+		output = new FluidTankSmart(outputCapacity, this);
 	}
 
 	@Override
@@ -58,18 +60,23 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 				}
 			}
 			// Simulate contact with fluid in vat when an entity falls in. TODO change bounds based on fluid fill level
-			Fluid fluid = null;
+			FluidStack fluid = null;
 			if(this.output.getFluid() != null) {
-				fluid = this.output.getFluid().getFluid();
+				fluid = this.output.getFluid();
 			}
 			else if(this.fluidInput.fluids.get(0) != null) {
-				fluid = this.fluidInput.fluids.get(0).getFluid();
+				fluid = this.fluidInput.fluids.get(0);
 			}
-			if(fluid != null && fluid.getBlock() != null) {
-				if(fluid.getTemperature() >= FluidRegistry.LAVA.getTemperature()) {
+			if(fluid != null && fluid.getFluid() != null && fluid.getFluid().getBlock() != null) {
+				if(fluid.getFluid() == FluidRegistry.getFluid("potion") && entity instanceof EntityLiving) {
+					EntityLiving living = (EntityLiving) entity;
+					PotionType.getPotionTypeForName(fluid.tag.getString("Potion")).getEffects()
+							.forEach(effect -> living.addPotionEffect(effect));
+				}
+				if(fluid.getFluid().getTemperature() >= FluidRegistry.LAVA.getTemperature()) {
 					entity.setFire(5);
 				}
-				Block fluidBlock = fluid.getBlock();
+				Block fluidBlock = fluid.getFluid().getBlock();
 				fluidBlock.onEntityCollidedWithBlock(WORLD, getReferenceCoord(), fluidBlock.getDefaultState(), entity);
 
 			}
@@ -86,7 +93,6 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 				for(FluidStack stack : recipe.fluidInputs) {
 					this.fluidInput.drain(stack, true);
 				}
-				// TODO Test
 				if(recipe.itemInputs != null) {
 					for(ItemStack stack : recipe.itemInputs) {
 						this.itemInput.extractStack(stack);

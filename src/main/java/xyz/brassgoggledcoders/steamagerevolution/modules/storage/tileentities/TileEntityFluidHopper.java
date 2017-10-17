@@ -1,5 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities;
 
+import com.teamacronymcoders.base.tileentities.TileEntitySlowTick;
 import com.teamacronymcoders.base.util.PositionUtils;
 
 import net.minecraft.block.state.IBlockState;
@@ -9,15 +10,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockFluidHopper;
-import xyz.brassgoggledcoders.steamagerevolution.utils.TileEntityHasCache;
 
-public class TileEntityFluidHopper extends TileEntityHasCache {
+public class TileEntityFluidHopper extends TileEntitySlowTick {
 
 	private FluidTank buffer = new FluidTank(Fluid.BUCKET_VOLUME);
 	private boolean hasFrom = false;
@@ -41,6 +39,10 @@ public class TileEntityFluidHopper extends TileEntityHasCache {
 		super.updateTile();
 		if(world.isRemote)
 			return;
+
+		if(!hasCache) {
+			recalculateCache(getWorld(), getPos(), getWorld().getBlockState(getPos()), null);
+		}
 
 		if(BlockFluidHopper.isEnabled(this.getBlockMetadata())) {
 			if(toPos != null) {
@@ -74,10 +76,8 @@ public class TileEntityFluidHopper extends TileEntityHasCache {
 		return tag;
 	}
 
-	@Override
 	public void recalculateCache(World worldIn, BlockPos pos, IBlockState state, BlockPos fromPos) {
-		super.recalculateCache(worldIn, pos, state, fromPos);
-
+		this.hasCache = true;
 		boolean flag = !worldIn.isBlockPowered(pos);
 
 		if(flag != state.getValue(BlockFluidHopper.ENABLED).booleanValue()) {
@@ -85,7 +85,7 @@ public class TileEntityFluidHopper extends TileEntityHasCache {
 		}
 
 		if(fromPos == null) {
-			fromPos = pos.offset(state.getValue(BlockFluidHopper.FACING));
+			fromPos = pos.up();
 		}
 		EnumFacing facing = PositionUtils.getFacingFromPositions(pos, fromPos);
 		if(facing == EnumFacing.DOWN) {
