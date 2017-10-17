@@ -18,7 +18,7 @@ public class CrucibleRecipeCategory extends SARRecipeCategory<CrucibleRecipe> {
 	@Override
 	public void setRecipe(IRecipeLayout recipeLayout, CrucibleRecipe recipeWrapper, IIngredients ingredients) {
 		recipeLayout.getItemStacks().init(0, true, 2, 23);
-		recipeLayout.getFluidStacks().init(1, false, 55, 1, 20, 60, Fluid.BUCKET_VOLUME * 16, true, null);
+		recipeLayout.getFluidStacks().init(1, false, 55, 1, 20, 60, Fluid.BUCKET_VOLUME * 8, true, null);
 
 		recipeLayout.getItemStacks().set(0, ingredients.getInputs(ItemStack.class).get(0));
 		recipeLayout.getFluidStacks().set(1, ingredients.getOutputs(FluidStack.class).get(0));

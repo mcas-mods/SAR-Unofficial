@@ -8,8 +8,6 @@ import net.minecraftforge.fluids.FluidStack;
 public class SARFluidTooltipCallback implements ITooltipCallback<FluidStack> {
 	@Override
 	public void onTooltip(int slotIndex, boolean input, FluidStack ingredient, List<String> tooltip) {
-		if(ingredient != null) {
-			tooltip.add("Amount: " + ingredient.amount + "mB");
-		}
+
 	}
 }

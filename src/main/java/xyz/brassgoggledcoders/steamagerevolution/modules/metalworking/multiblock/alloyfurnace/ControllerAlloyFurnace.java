@@ -17,8 +17,8 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 
 public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
-	public static int inputCapacity = ModuleMetalworking.VALUE_BLOCK * 16;
-	public static int outputCapacity = Fluid.BUCKET_VOLUME * 16;
+	public static int inputCapacity = ModuleMetalworking.VALUE_BLOCK * 8;
+	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
 	public MultiFluidTank primaryTank;
 	public FluidTank outputTank;
 

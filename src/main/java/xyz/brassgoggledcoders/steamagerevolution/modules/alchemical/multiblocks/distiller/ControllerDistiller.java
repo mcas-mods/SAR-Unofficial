@@ -18,8 +18,10 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 
 public class ControllerDistiller extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
+	public static int tankCapacity = Fluid.BUCKET_VOLUME * 8;
+
 	public FluidTankSmart fluidInput;
-	public MultiFluidTank fluidOutput;
+	public FluidTankSmart fluidOutput;
 	public ItemStackHandler itemOutput;
 	public FluidTankSingleSmart steamTank;
 	int ticks = 0;
@@ -31,8 +33,8 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 
 	protected ControllerDistiller(World world) {
 		super(world);
-		fluidInput = new FluidTankSmart(10000, this);
-		fluidOutput = new MultiFluidTank(30000, this);
+		fluidInput = new FluidTankSmart(tankCapacity, this);
+		fluidOutput = new FluidTankSmart(tankCapacity, this);
 		itemOutput = new ItemStackHandler();
 		steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
 	}

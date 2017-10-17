@@ -27,8 +27,8 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 
 public class ControllerVat extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
-	public static int inputCapacity = 30000;
-	public static int outputCapacity = 30000;
+	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
+	public static int inputCapacity = outputCapacity * 3;
 	BlockPos minimumInteriorPos;
 	BlockPos maximumInteriorPos;
 	AxisAlignedBB bounds;
