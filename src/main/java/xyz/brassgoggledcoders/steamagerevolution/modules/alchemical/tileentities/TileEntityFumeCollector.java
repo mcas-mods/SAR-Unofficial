@@ -15,8 +15,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 
 public class TileEntityFumeCollector extends TileEntitySlowTick implements ISmartTankCallback {
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 16;

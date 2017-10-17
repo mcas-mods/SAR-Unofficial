@@ -24,6 +24,9 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
 public class ControllerVat extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
@@ -303,5 +306,15 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 	public void updateFluid(PacketMultiFluidUpdate message) {
 		fluidInput.fluids.clear();
 		fluidInput.fluids.addAll(message.tank.fluids);
+	}
+
+	@Override
+	protected FluidTank getTank(String toWrap) {
+		if(toWrap.equals("input")) {
+			return fluidInput;
+		}
+		else {
+			return output;
+		}
 	}
 }

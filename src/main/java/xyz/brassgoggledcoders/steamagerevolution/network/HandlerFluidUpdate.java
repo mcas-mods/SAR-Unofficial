@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 
 public class HandlerFluidUpdate implements IMessageHandler<PacketFluidUpdate, IMessage> {
 	public HandlerFluidUpdate() {

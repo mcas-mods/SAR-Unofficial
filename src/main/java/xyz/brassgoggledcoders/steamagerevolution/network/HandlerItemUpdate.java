@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartStackCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
 
 public class HandlerItemUpdate implements IMessageHandler<PacketItemUpdate, IMessage> {
 	public HandlerItemUpdate() {

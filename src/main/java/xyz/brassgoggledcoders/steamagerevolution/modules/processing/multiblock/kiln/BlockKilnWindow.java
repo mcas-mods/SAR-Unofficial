@@ -11,7 +11,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.utils.BlockMultiblockBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
 public class BlockKilnWindow extends BlockMultiblockBase<TileEntityKilnWindow> {
 

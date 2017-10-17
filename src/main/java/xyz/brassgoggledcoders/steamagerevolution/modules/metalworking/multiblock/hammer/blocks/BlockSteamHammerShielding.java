@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.tileentities.TileEntitySteamHammerShielding;
-import xyz.brassgoggledcoders.steamagerevolution.utils.BlockMultiblockBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
 public class BlockSteamHammerShielding extends BlockMultiblockBase<TileEntitySteamHammerShielding> {
 

@@ -10,8 +10,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerLiquidFirebox;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.BlockMultiblockBase;
 import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
 public class BlockBoilerLiquidFirebox extends BlockMultiblockBase<TileEntityBoilerLiquidFirebox> {
 

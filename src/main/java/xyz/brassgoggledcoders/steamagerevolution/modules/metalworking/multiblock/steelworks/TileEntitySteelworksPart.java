@@ -4,8 +4,8 @@ import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockControllerInfo;
-import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockTileInfo;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockControllerInfo;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockTileInfo;
 
 public abstract class TileEntitySteelworksPart extends RectangularMultiblockTileEntityBase<ControllerSteelworks>
 		implements IMultiblockTileInfo {

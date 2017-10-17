@@ -13,10 +13,10 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
-import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
 public class ControllerTank extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 

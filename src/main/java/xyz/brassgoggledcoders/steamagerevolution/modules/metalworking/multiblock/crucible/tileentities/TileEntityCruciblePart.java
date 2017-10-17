@@ -4,8 +4,8 @@ import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.ControllerCrucible;
-import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockControllerInfo;
-import xyz.brassgoggledcoders.steamagerevolution.utils.IMultiblockTileInfo;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockControllerInfo;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockTileInfo;
 
 public abstract class TileEntityCruciblePart extends RectangularMultiblockTileEntityBase<ControllerCrucible>
 		implements IMultiblockTileInfo {

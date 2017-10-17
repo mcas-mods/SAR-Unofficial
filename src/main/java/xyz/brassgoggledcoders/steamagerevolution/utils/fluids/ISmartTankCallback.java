@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils;
+package xyz.brassgoggledcoders.steamagerevolution.utils.fluids;
 
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;

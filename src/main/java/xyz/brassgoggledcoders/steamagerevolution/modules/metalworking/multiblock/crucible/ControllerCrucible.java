@@ -15,7 +15,9 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.TileEntityCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ItemStackHandlerFiltered.ItemStackHandlerCrucible;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerCrucible;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
 public class ControllerCrucible extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 

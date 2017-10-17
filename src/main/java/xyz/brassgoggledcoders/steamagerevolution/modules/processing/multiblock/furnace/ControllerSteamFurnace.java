@@ -16,10 +16,10 @@ import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ItemStackHandlerFiltered.ItemStackHandlerFuel;
-import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
 public class ControllerSteamFurnace extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 

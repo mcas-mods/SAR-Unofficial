@@ -14,7 +14,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.utils.BlockMultiblockBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
 public class BlockKilnDoor extends BlockMultiblockBase<TileEntityKilnDoor> {
 

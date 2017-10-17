@@ -13,7 +13,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.ControllerSteamFurnace;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.tileentities.TileEntityFurnaceModeToggle;
-import xyz.brassgoggledcoders.steamagerevolution.utils.BlockMultiblockBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
 public class BlockFurnaceModeToggle extends BlockMultiblockBase<TileEntityFurnaceModeToggle> {
 

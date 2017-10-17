@@ -14,6 +14,9 @@ import net.minecraftforge.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
 public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 

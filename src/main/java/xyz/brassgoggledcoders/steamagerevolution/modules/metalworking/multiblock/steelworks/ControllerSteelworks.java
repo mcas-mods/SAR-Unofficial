@@ -14,9 +14,9 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
 public class ControllerSteelworks extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 

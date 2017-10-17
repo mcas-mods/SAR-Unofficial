@@ -22,10 +22,10 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureMonitor;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureValve;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ItemStackHandlerFiltered.ItemStackHandlerFuel;
-import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
 public class ControllerBoiler extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 

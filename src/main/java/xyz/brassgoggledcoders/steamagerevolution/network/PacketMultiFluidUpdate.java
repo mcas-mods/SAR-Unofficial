@@ -5,7 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import xyz.brassgoggledcoders.steamagerevolution.utils.MultiFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 
 public class PacketMultiFluidUpdate implements IMessage {
 

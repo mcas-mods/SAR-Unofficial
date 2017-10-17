@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils;
+package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,7 @@ import com.teamacronymcoders.base.multiblock.validation.ValidationError;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public abstract class SARRectangularMultiblockControllerBase extends RectangularMultiblockControllerBase
@@ -21,6 +22,10 @@ public abstract class SARRectangularMultiblockControllerBase extends Rectangular
 		for(Block required : requiredBlocks) {
 			this.requiredBlocks.add(required);
 		}
+	}
+
+	protected FluidTank getTank(String toWrap) {
+		return null;
 	}
 
 	@Override

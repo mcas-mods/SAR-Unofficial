@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 
 public class HandlerMultiFluidUpdate implements IMessageHandler<PacketMultiFluidUpdate, IMessage> {
 	public HandlerMultiFluidUpdate() {

@@ -15,8 +15,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPart;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerWaterGauge;
-import xyz.brassgoggledcoders.steamagerevolution.utils.BlockMultiblockBase;
 import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
 public class BlockBoilerWaterGauge extends BlockMultiblockBase<TileEntityBoilerWaterGauge> {
 

@@ -23,6 +23,11 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMeta
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
 public class ControllerSteamHammer extends SARRectangularMultiblockControllerBase
 		implements ISmartTankCallback, ISmartStackCallback {
@@ -36,7 +41,7 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 
 	public ControllerSteamHammer(World world) {
 		super(world);
-		inventory = new SmartItemStackHandler(2, this);
+		inventory = new ItemStackHandlerSmart(2, this);
 		tank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this);
 	}
 

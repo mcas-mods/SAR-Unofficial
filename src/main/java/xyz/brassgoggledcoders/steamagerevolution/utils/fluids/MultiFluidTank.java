@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils;
+package xyz.brassgoggledcoders.steamagerevolution.utils.fluids;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,6 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.capability.FluidTankPropertiesWrapper;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
 /**
@@ -83,9 +84,13 @@ public class MultiFluidTank extends FluidTankSmart {
 		return new FluidTankInfo(fs, capacity);
 	}
 
+	// FIXME
 	@Override
 	public IFluidTankProperties[] getTankProperties() {
-		return new IFluidTankProperties[0];
+		if(this.tankProperties == null) {
+			this.tankProperties = new IFluidTankProperties[] {new FluidTankPropertiesWrapper(this)};
+		}
+		return this.tankProperties;
 	}
 
 	@Override

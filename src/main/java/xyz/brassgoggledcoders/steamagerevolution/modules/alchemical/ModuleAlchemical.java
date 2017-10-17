@@ -16,6 +16,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.init.*;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
@@ -47,6 +48,7 @@ public class ModuleAlchemical extends ModuleBase {
 
 	public static final Block distiller_radiator = null;
 	public static final Block distiller_hotplate = null;
+	public static final Item plant_ash = null;
 
 	// TODO Don't bypass armour, deal extra damage to it
 	public static DamageSource damageSourceGas =
@@ -108,11 +110,25 @@ public class ModuleAlchemical extends ModuleBase {
 						.setFluids(getPotionFluidStack(potion.input.getRegistryName().getResourcePath(),
 								Fluid.BUCKET_VOLUME))
 						.setItems(potion.reagent.getMatchingStacks()[0]).build());
+
+		// new VatRecipeBuilder().setFluids(FluidRegistry.getFluidStack("water", Fluid.BUCKET_VOLUME))
+		// .setItems(new ItemStack(plant_ash), new ItemStack(Items.COAL, 1, 1),
+		// OreDictUtils.getPreferredItemStack("crystalSulphur"))
+		// .setOutput(FluidRegistry.getFluidStack("liquid_explosive", Fluid.BUCKET_VOLUME)).build();
+		// DistillerRecipe.addRecipe(FluidRegistry.getFluidStack("liquid_explosive", Fluid.BUCKET_VOLUME), null,
+		// new ItemStack(Items.GUNPOWDER), 200);
+
+		new VatRecipeBuilder().setFluids(FluidRegistry.getFluidStack("water", Fluid.BUCKET_VOLUME))
+				.setItems(new ItemStack(Blocks.DIRT), new ItemStack(Items.ROTTEN_FLESH), new ItemStack(Items.SUGAR))
+				.setOutput(FluidRegistry.getFluidStack("slime", Fluid.BUCKET_VOLUME)).build();
+		DistillerRecipe.addRecipe(FluidRegistry.getFluidStack("slime", Fluid.BUCKET_VOLUME), null,
+				new ItemStack(Blocks.SLIME_BLOCK), 200);
 	}
 
 	@Override
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry registry) {
 		registry.register(new ItemFlask("flask", Fluid.BUCKET_VOLUME * 3));
+		// registry.register(new ItemBase("plant_ash"));
 	}
 
 	@Override
@@ -188,6 +204,14 @@ public class ModuleAlchemical extends ModuleBase {
 		};
 		FluidRegistry.registerFluid(potion);
 		FluidRegistry.addBucketForFluid(potion);
+
+		// Fluid liquid_explosive =
+		// new Fluid("liquid_explosive", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/liquid_explosive"),
+		// new ResourceLocation(SteamAgeRevolution.MODID, "blocks/liquid_explosive"));
+		// FluidRegistry.registerFluid(liquid_explosive);
+
+		FluidRegistry.registerFluid(new Fluid("slime", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/slime"),
+				new ResourceLocation(SteamAgeRevolution.MODID, "blocks/slime")));
 	}
 
 	public static FluidStack getPotionFluidStack(String potionType, int amount) {

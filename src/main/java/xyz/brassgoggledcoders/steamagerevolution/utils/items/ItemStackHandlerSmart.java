@@ -1,13 +1,13 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils;
+package xyz.brassgoggledcoders.steamagerevolution.utils.items;
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
 import net.minecraftforge.items.ItemStackHandler;
 
-public class SmartItemStackHandler extends ItemStackHandler {
+public class ItemStackHandlerSmart extends ItemStackHandler {
 	private MultiblockControllerBase controller;
 
-	public SmartItemStackHandler(int size, MultiblockControllerBase controller) {
+	public ItemStackHandlerSmart(int size, MultiblockControllerBase controller) {
 		super(size);
 		this.controller = controller;
 	}

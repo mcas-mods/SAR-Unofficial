@@ -14,9 +14,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMaterials;
-import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
-import xyz.brassgoggledcoders.steamagerevolution.utils.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
 public class ControllerKiln extends SARRectangularMultiblockControllerBase {
 

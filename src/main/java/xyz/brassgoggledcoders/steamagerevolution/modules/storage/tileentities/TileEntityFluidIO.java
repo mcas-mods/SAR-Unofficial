@@ -22,8 +22,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 
 public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGui, ITickable, ISmartTankCallback {
 

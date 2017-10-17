@@ -17,8 +17,8 @@ import net.minecraftforge.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 
 public class TileEntityCastingBench extends TileEntityBase implements ITickable, ISmartTankCallback {
 
