@@ -5,6 +5,7 @@ import com.teamacronymcoders.base.materialsystem.MaterialSystem;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
+import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import com.teamacronymcoders.base.util.OreDictUtils;
 import com.teamacronymcoders.base.util.Platform;
@@ -30,6 +31,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.blocks.BlockFumeCollector;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.items.ItemFlask;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe.VatRecipeBuilder;
@@ -106,6 +108,11 @@ public class ModuleAlchemical extends ModuleBase {
 						.setFluids(getPotionFluidStack(potion.input.getRegistryName().getResourcePath(),
 								Fluid.BUCKET_VOLUME))
 						.setItems(potion.reagent.getMatchingStacks()[0]).build());
+	}
+
+	@Override
+	public void registerItems(ConfigRegistry configRegistry, ItemRegistry registry) {
+		registry.register(new ItemFlask("flask", Fluid.BUCKET_VOLUME * 3));
 	}
 
 	@Override

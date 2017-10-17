@@ -12,11 +12,9 @@ import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.PotionType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -64,15 +62,15 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 			if(this.output.getFluid() != null) {
 				fluid = this.output.getFluid();
 			}
-			else if(this.fluidInput.fluids.get(0) != null) {
+			else if(!this.fluidInput.fluids.isEmpty() && this.fluidInput.fluids.get(0) != null) {
 				fluid = this.fluidInput.fluids.get(0);
 			}
 			if(fluid != null && fluid.getFluid() != null && fluid.getFluid().getBlock() != null) {
-				if(fluid.getFluid() == FluidRegistry.getFluid("potion") && entity instanceof EntityLiving) {
-					EntityLiving living = (EntityLiving) entity;
-					PotionType.getPotionTypeForName(fluid.tag.getString("Potion")).getEffects()
-							.forEach(effect -> living.addPotionEffect(effect));
-				}
+				// if(fluid.getFluid() == FluidRegistry.getFluid("potion") && entity instanceof EntityLiving) {
+				// EntityLiving living = (EntityLiving) entity;
+				// PotionType.getPotionTypeForName(fluid.tag.getString("Potion")).getEffects()
+				// .forEach(effect -> living.addPotionEffect(effect));
+				// }
 				if(fluid.getFluid().getTemperature() >= FluidRegistry.LAVA.getTemperature()) {
 					entity.setFire(5);
 				}
