@@ -27,16 +27,12 @@ public class VatRecipe implements IRecipeWrapper {
 		public FluidStack output;
 
 		public VatRecipeBuilder setFluids(FluidStack... fluids) {
-			if(fluids.length < 3) {
-				this.fluidInputs = fluids;
-			}
+			this.fluidInputs = fluids;
 			return this;
 		}
 
 		public VatRecipeBuilder setItems(ItemStack... items) {
-			if(items.length < 3) {
-				this.itemInputs = items;
-			}
+			this.itemInputs = items;
 			return this;
 		}
 
@@ -46,9 +42,25 @@ public class VatRecipe implements IRecipeWrapper {
 		}
 
 		public VatRecipe build() {
+			this.validate();
 			VatRecipe r = new VatRecipe(fluidInputs, itemInputs, output);
 			recipeList.add(r);
 			return r;
+		}
+
+		private void validate() {
+			if(output == null) {
+				throw new NullPointerException("Recipe output cannot be null");
+			}
+			if(this.fluidInputs == null) {
+				throw new NullPointerException("Recipe must have at least one fluid input");
+			}
+			else if(this.fluidInputs.length > 3) {
+				throw new IllegalArgumentException("Recipe cannot have more than three fluid inputs");
+			}
+			if(this.itemInputs != null && this.itemInputs.length > 3) {
+				throw new IllegalArgumentException("Recipe cannot have more than three item inputs");
+			}
 		}
 	}
 

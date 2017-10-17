@@ -55,7 +55,7 @@ public class VatRecipeCategory extends SARRecipeCategory<VatRecipe> {
 			for(int i2 = 0; i2 < recipeWrapper.itemInputs.length; i2++) {
 				ItemStack stack = recipeWrapper.itemInputs[i2];
 				if(stack != null && !stack.isEmpty()) {
-					recipeLayout.getItemStacks().init(i2 + 3, true, 2 + (i2 * 21), 105);
+					recipeLayout.getItemStacks().init(i2 + 3, true, 2 + (i2 * 40) - i2, 105);
 					recipeLayout.getItemStacks().set(i2 + 3, recipeWrapper.itemInputs[i2]);
 				}
 			}
