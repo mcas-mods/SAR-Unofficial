@@ -24,6 +24,7 @@ import net.minecraft.potion.*;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.*;
@@ -190,16 +191,17 @@ public class ModuleAlchemical extends ModuleBase {
 					}
 				}.setLightLevel(0.8F));
 
-		Fluid potion = new Fluid("potion", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/potion"),
-				new ResourceLocation(SteamAgeRevolution.MODID, "blocks/potion")) {
+		Fluid potion = new Fluid("potion", new ResourceLocation(SteamAgeRevolution.MODID, "fluids/solution"),
+				new ResourceLocation(SteamAgeRevolution.MODID, "fluids/solution_flowing")) {
 			@Override
-			public String getUnlocalizedName(FluidStack stack) {
-				if(stack.tag.hasKey("type")) {
-					return "fluid." + this.unlocalizedName + "." + stack.tag.getString("type");
-				}
-				else {
-					return getUnlocalizedName();
-				}
+			public String getLocalizedName(FluidStack stack) {
+				return I18n.translateToLocal(
+						PotionUtils.getPotionTypeFromNBT(stack.tag).getNamePrefixed("potion.effect."));
+			}
+
+			@Override
+			public int getColor(FluidStack stack) {
+				return PotionUtils.getPotionColorFromEffectList(PotionUtils.getEffectsFromTag(stack.tag));
 			}
 		};
 		FluidRegistry.registerFluid(potion);
