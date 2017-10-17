@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical;
 
+import java.awt.Color;
+
 import com.teamacronymcoders.base.blocks.BlockFluidBase;
 import com.teamacronymcoders.base.materialsystem.MaterialSystem;
 import com.teamacronymcoders.base.modulesystem.Module;
@@ -212,8 +214,14 @@ public class ModuleAlchemical extends ModuleBase {
 		// new ResourceLocation(SteamAgeRevolution.MODID, "blocks/liquid_explosive"));
 		// FluidRegistry.registerFluid(liquid_explosive);
 
-		FluidRegistry.registerFluid(new Fluid("slime", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/slime"),
-				new ResourceLocation(SteamAgeRevolution.MODID, "blocks/slime")));
+		FluidRegistry
+				.registerFluid(new Fluid("slime", new ResourceLocation(SteamAgeRevolution.MODID, "fluids/solution"),
+						new ResourceLocation(SteamAgeRevolution.MODID, "fluids/solution")) {
+					@Override
+					public int getColor() {
+						return Color.GREEN.getRGB();
+					}
+				});
 	}
 
 	public static FluidStack getPotionFluidStack(String potionType, int amount) {
