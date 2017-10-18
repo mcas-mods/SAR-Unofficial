@@ -13,43 +13,36 @@ public class TileEntitySteamHammerPart extends RectangularMultiblockTileEntityBa
 
 	@Override
 	public Class<? extends MultiblockControllerBase> getMultiblockControllerType() {
-		// TODO Auto-generated method stub
 		return ControllerSteamHammer.class;
 	}
 
 	@Override
 	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	public void onMachineActivated() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -75,5 +68,4 @@ public class TileEntitySteamHammerPart extends RectangularMultiblockTileEntityBa
 	public IMultiblockControllerInfo getControllerInfo() {
 		return new ControllerSteamHammer(null);
 	}
-
 }

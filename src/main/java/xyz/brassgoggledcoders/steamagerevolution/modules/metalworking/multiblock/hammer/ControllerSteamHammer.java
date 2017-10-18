@@ -22,7 +22,6 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
@@ -53,9 +52,7 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 	}
 
 	@Override
-	protected void onBlockAdded(IMultiblockPart newPart) {
-
-	}
+	protected void onBlockAdded(IMultiblockPart newPart) {}
 
 	@Override
 	protected void onBlockRemoved(IMultiblockPart oldPart) {
@@ -67,6 +64,7 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 	protected void onMachineAssembled() {
 		center = this.getReferenceCoord().up().east().south();
 		interior = new AxisAlignedBB(center).expand(1, 2, 1);
+		WORLD.markBlockRangeForRenderUpdate(getMinimumCoord(), getMaximumCoord());
 		super.onMachineAssembled();
 	}
 
