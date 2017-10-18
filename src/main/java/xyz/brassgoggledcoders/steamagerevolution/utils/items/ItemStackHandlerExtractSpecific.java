@@ -1,9 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.items;
 
-import com.teamacronymcoders.base.util.ItemStackUtils;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemStackHandlerExtractSpecific extends ItemStackHandler {
 
@@ -12,11 +11,15 @@ public class ItemStackHandlerExtractSpecific extends ItemStackHandler {
 	}
 
 	public void extractStack(ItemStack stack) {
-		for(ItemStack internalStack : stacks) {
-			if(ItemStackUtils.containsItemStack(internalStack, stack)) {
-				internalStack.shrink(stack.getCount());
+		for(int i = 0; i < stacks.size(); i++) {
+			if(containsItemStack(stacks.get(i), stack)) {
+				this.extractItem(i, stack.getCount(), false);
 			}
 		}
+	}
+
+	public static boolean containsItemStack(ItemStack stack, ItemStack inputStack) {
+		return OreDictionary.itemMatches(stack, inputStack, false) && inputStack.getCount() >= stack.getCount();
 	}
 
 }
