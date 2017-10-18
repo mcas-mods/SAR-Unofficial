@@ -4,6 +4,7 @@ import java.io.File;
 
 import com.teamacronymcoders.base.BaseModFoundation;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
+import com.teamacronymcoders.base.util.OreDictUtils;
 import com.teamacronymcoders.base.util.Platform;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -28,6 +29,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 
 	public SteamAgeRevolution() {
 		super(MODID, MODNAME, MODVERSION, tab, true);
+		OreDictUtils.addDefaultModId(MODID);
 	}
 
 	@Instance("steamagerevolution")

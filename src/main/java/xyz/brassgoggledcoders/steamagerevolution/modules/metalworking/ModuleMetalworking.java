@@ -24,8 +24,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Property.Type;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -34,6 +33,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.DistillerRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe.VatRecipeBuilder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemDie;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.AlloyFurnaceRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.*;
@@ -160,6 +161,7 @@ public class ModuleMetalworking extends ModuleBase {
 			ItemStack dust = OreDictUtils.getPreferredItemStack("dust" + metal);
 			ItemStack crystal = OreDictUtils.getPreferredItemStack("crystal" + metal);
 			FluidStack molten = FluidRegistry.getFluidStack(metal.toLowerCase(), VALUE_INGOT);
+			FluidStack solution = FluidRegistry.getFluidStack(metal.toLowerCase() + "_solution", VALUE_NUGGET * 4);
 
 			if(molten != null) {
 				CrucibleRecipe.addRecipe(ingot, molten);
@@ -188,7 +190,16 @@ public class ModuleMetalworking extends ModuleBase {
 				SteamHammerRecipe.addSteamHammerRecipe(ore, crushedOreCopy);
 			}
 			if(!crystal.isEmpty()) {
-				GameRegistry.addSmelting(crystal, nugget, 0.3f);
+				if(!nugget.isEmpty()) {
+					GameRegistry.addSmelting(crystal, nugget, 0.3f);
+				}
+				if(solution != null) {
+					new VatRecipeBuilder().setOutput(solution)
+							.setFluids(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 4))
+							.setItems(crushedOre).build();
+					DistillerRecipe.addRecipe(solution,
+							FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 6), crystal, 20);
+				}
 			}
 		}
 	}

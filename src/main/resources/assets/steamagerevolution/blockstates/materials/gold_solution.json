@@ -3,7 +3,7 @@
   "defaults": {
     "model": "forge:fluid",
     "custom": {
-      "fluid": "goldsolution"
+      "fluid": "gold_solution"
     }
   },
   "variants": {

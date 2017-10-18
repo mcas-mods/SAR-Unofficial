@@ -9,7 +9,6 @@ import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
-import com.teamacronymcoders.base.util.OreDictUtils;
 import com.teamacronymcoders.base.util.Platform;
 
 import net.minecraft.block.Block;
@@ -59,6 +58,8 @@ public class ModuleAlchemical extends ModuleBase {
 	public static DamageSource damageSourceAcid =
 			new DamageSource("acid").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
 
+	public static int VALUE_BOTTLE = 250;
+
 	@Override
 	public boolean getActiveDefault() {
 		return Platform.isDevEnv();
@@ -80,14 +81,6 @@ public class ModuleAlchemical extends ModuleBase {
 				.setFluids(FluidRegistry.getFluidStack("sulphur_dioxide", Fluid.BUCKET_VOLUME),
 						FluidRegistry.getFluidStack("water", Fluid.BUCKET_VOLUME))
 				.build();
-
-		new VatRecipeBuilder()
-				.setOutput(FluidRegistry.getFluidStack("coppersolution", ModuleMetalworking.VALUE_NUGGET * 4))
-				.setFluids(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 4))
-				.setItems(OreDictUtils.getPreferredItemStack("crushedOreCopper")).build();
-		DistillerRecipe.addRecipe(FluidRegistry.getFluidStack("coppersolution", ModuleMetalworking.VALUE_NUGGET * 4),
-				FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 6),
-				OreDictUtils.getPreferredItemStack("crystalCopper"), 20);
 
 		new VatRecipeBuilder().setOutput(FluidRegistry.getFluidStack("liquid_glowstone", Fluid.BUCKET_VOLUME))
 				.setFluids(FluidRegistry.getFluidStack("lava", Fluid.BUCKET_VOLUME))
