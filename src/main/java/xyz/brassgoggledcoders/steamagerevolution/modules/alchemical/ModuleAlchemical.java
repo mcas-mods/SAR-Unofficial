@@ -40,7 +40,6 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe.VatRecipeBuilder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlockRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.utils.BlockDamagingFluid;
 
 @Module(value = SteamAgeRevolution.MODID)
@@ -87,7 +86,7 @@ public class ModuleAlchemical extends ModuleBase {
 				.setItems(new ItemStack(Items.REDSTONE, 4)).build();
 		FumeCollectorRecipe.addRecipe(MaterialSystem.getMaterialPart("sulphur_crystal").getItemStack(),
 				FluidRegistry.getFluidStack("sulphur_dioxide", Fluid.BUCKET_VOLUME), 0.1f);
-		CastingBlockRecipe.addRecipe(FluidRegistry.getFluidStack("liquid_glowstone", ModuleMetalworking.VALUE_BLOCK),
+		CastingBlockRecipe.addRecipe(FluidRegistry.getFluidStack("liquid_glowstone", Fluid.BUCKET_VOLUME),
 				new ItemStack(Blocks.GLOWSTONE));
 		// TODO Proper oredict support
 
