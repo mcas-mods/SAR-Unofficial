@@ -195,6 +195,7 @@ public class ModuleAlchemical extends ModuleBase {
 
 		Fluid potion = new Fluid("potion", new ResourceLocation(SteamAgeRevolution.MODID, "fluids/solution"),
 				new ResourceLocation(SteamAgeRevolution.MODID, "fluids/solution_flowing")) {
+			@SuppressWarnings("deprecation")
 			@Override
 			public String getLocalizedName(FluidStack stack) {
 				return I18n.translateToLocal(

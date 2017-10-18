@@ -2,10 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.compat.guideapi;
 
 import javax.annotation.Nonnull;
 
-import amerifrance.guideapi.api.GuideAPI;
-import amerifrance.guideapi.api.GuideBook;
-import amerifrance.guideapi.api.IGuideBook;
-import amerifrance.guideapi.api.IPage;
+import amerifrance.guideapi.api.*;
 import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
@@ -58,6 +55,8 @@ public class SARGuidebook implements IGuideBook {
 					"guide.steamagerevolution.category.production", new ItemStack(BookObjectHolder.steamhammer_anvil)));
 			sarGuide.addCategory(new CategoryItemStack(CategoryTransportStorage.buildCategory(),
 					"guide.steamagerevolution.category.transportstorage", new ItemStack(BookObjectHolder.canister)));
+			sarGuide.addCategory(new CategoryItemStack(CategoryAlchemical.buildCategory(),
+					"guide.steamagerevolution.category.alchemical", new ItemStack(BookObjectHolder.vat_output)));
 			sarGuide.addCategory(new CategoryItemStack(CategoryUtilities.buildCategory(),
 					"guide.steamagerevolution.category.utils", new ItemStack(BookObjectHolder.trunk)));
 		}

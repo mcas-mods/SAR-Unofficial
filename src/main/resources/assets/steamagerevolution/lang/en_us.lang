@@ -144,6 +144,16 @@ guide.steamagerevolution.entry.transportstorage.basic_tank=Basic Fluid Tank
 guide.steamagerevolution.entry.transportstorage.basic_tank.info=The basic fluid tank holds sixteen buckets of fluid. Shift right clicking will display the current fluid level of the tank in mB.
 guide.steamagerevolution.entry.transportstorage.tank=Fluid Tank
 guide.steamagerevolution.entry.transportstorage.tank.info=The larger brother of the basic fluid tank. Must be built as a complete hollow cuboid, and the tank's capacity is determined by its interior volume. 
+##Alchemical
+guide.steamagerevolution.category.alchemical=Alchemical
+guide.steamagerevolution.entry.alchemical.vats=Creating vats
+guide.steamagerevolution.entry.alchemical.vats.info=The vat is a large open tank designed for mixing fluids and items. One of the vat's main functions is making ore processing more effective via the use of sulphuric acid. Sulphuric acid dissolves the ore into solution which can then be distilled to return some of the sulphuric acid and crystalline metal. This crystalline metal must then be smelted to make it less brittle.
+guide.steamagerevolution.entry.alchemical.acid=Sulphuric acid
+guide.steamagerevolution.entry.alchemical.acid.info=Sulphuric acid is created from sulphur dioxide and water in a vat. Sulphur dioxide is collected by the Fume Collector when placed on top of a vanilla furnace and sulphur crystals are used as fuel for that furnace. 
+guide.steamagerevolution.entry.alchemical.potions=Industrial Potions
+guide.steamagerevolution.entry.alchemical.potions.info=Potions can be brewed at an industrial scale using vats. Fill the vat with water and then throw in nether wart to make the Awkward Solution. Any potion may be created by this method. To consume these potions, a FluidIO can place them into a Flask, which will hold three buckets worth of the potion. Potions are drunk a bucket at a time.
+guide.steamagerevolution.entry.alchemical.synth=Material Synthesis
+guide.steamagerevolution.entry.alchemical.synth.info=Vats may also be used to synthesise uncommon materials. Combining lava and redstone dust will produce liquid glowstone, which can then be solidified in the casting block. Combining water, sugar, dirt and rotten flesh will synthesise slime which may then be distilled into its solid form. 
 ##Other
 guide.steamagerevolution.category.utils=Other Utilities
 guide.steamagerevolution.entry.utils.fluid_io=Fluid IO
