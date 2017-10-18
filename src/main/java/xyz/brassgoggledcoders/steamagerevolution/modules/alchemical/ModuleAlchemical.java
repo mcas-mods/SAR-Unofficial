@@ -93,18 +93,15 @@ public class ModuleAlchemical extends ModuleBase {
 
 		// TODO Tooltip/Color for fluid (when IE not present) & potion deriving name from vanilla
 		new VatRecipeBuilder()
-				.setOutput(getPotionFluidStack(PotionTypes.AWKWARD.getRegistryName().getResourcePath(),
-						Fluid.BUCKET_VOLUME))
-				.setFluids(FluidRegistry.getFluidStack("water", Fluid.BUCKET_VOLUME))
+				.setOutput(getPotionFluidStack(PotionTypes.AWKWARD.getRegistryName().getResourcePath(), VALUE_BOTTLE))
+				.setFluids(FluidRegistry.getFluidStack("water", VALUE_BOTTLE))
 				.setItems(new ItemStack(Items.NETHER_WART)).build();
 		PotionHelper.POTION_TYPE_CONVERSIONS.stream()
 				.filter(mix -> mix.output != PotionTypes.AWKWARD && mix.output != PotionTypes.MUNDANE
 						&& mix.output != PotionTypes.THICK)
 				.forEach(potion -> new VatRecipeBuilder()
-						.setOutput(getPotionFluidStack(potion.output.getRegistryName().getResourcePath(),
-								Fluid.BUCKET_VOLUME))
-						.setFluids(getPotionFluidStack(potion.input.getRegistryName().getResourcePath(),
-								Fluid.BUCKET_VOLUME))
+						.setOutput(getPotionFluidStack(potion.output.getRegistryName().getResourcePath(), VALUE_BOTTLE))
+						.setFluids(getPotionFluidStack(potion.input.getRegistryName().getResourcePath(), VALUE_BOTTLE))
 						.setItems(potion.reagent.getMatchingStacks()[0]).build());
 
 		// new VatRecipeBuilder().setFluids(FluidRegistry.getFluidStack("water", Fluid.BUCKET_VOLUME))

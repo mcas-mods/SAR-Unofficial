@@ -19,11 +19,13 @@ import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.ModuleAlchemical;
 
 public class ItemFlask extends ItemBase implements IHasSubItems {
 
@@ -44,7 +46,7 @@ public class ItemFlask extends ItemBase implements IHasSubItems {
 			if(!worldIn.isRemote) {
 				FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 						.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-				if(internal.getFluid() != null && internal.getFluid().amount >= Fluid.BUCKET_VOLUME) {
+				if(internal.getFluid() != null && internal.getFluid().amount >= ModuleAlchemical.VALUE_BOTTLE) {
 					for(PotionEffect potioneffect : PotionUtils.getEffectsFromTag(internal.getFluid().tag)) {
 						if(potioneffect.getPotion().isInstant()) {
 							potioneffect.getPotion().affectEntity(entityplayer, entityplayer, entityLiving,
@@ -55,7 +57,7 @@ public class ItemFlask extends ItemBase implements IHasSubItems {
 						}
 					}
 					if(!entityplayer.capabilities.isCreativeMode) {
-						internal.drain(Fluid.BUCKET_VOLUME, true);
+						internal.drain(ModuleAlchemical.VALUE_BOTTLE, true);
 					}
 				}
 			}
