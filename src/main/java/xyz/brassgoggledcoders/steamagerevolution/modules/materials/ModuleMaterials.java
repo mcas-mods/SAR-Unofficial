@@ -63,6 +63,9 @@ public class ModuleMaterials extends ModuleBase {
 					.setHasEffect(false).build();
 
 			Material tin = new MaterialBuilder().setName("Tin").setColor(Color.LIGHT_GRAY).setHasEffect(false).build();
+			Material aluminum =
+					new MaterialBuilder().setName("Aluminum").setColor(Color.WHITE).setHasEffect(false).build();
+			Material lead = new MaterialBuilder().setName("Lead").setColor(Color.BLACK).setHasEffect(false).build();
 
 			SAR.registerPartsForMaterial(sulphur, "ore", "dust", "crystal");
 			MaterialSystem.getMaterialPart("sulphur_crystal").getData().addDataValue("burn", "1800");
@@ -85,7 +88,8 @@ public class ModuleMaterials extends ModuleBase {
 			SAR.registerPartsForMaterial(brass, alloyParts);
 
 			SAR.registerPartsForMaterial(tin, compatParts);
-
+			SAR.registerPartsForMaterial(aluminum, compatParts);
+			SAR.registerPartsForMaterial(lead, compatParts);
 		}
 		catch(MaterialException e) {
 			e.printStackTrace();
