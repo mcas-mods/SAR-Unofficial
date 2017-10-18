@@ -17,7 +17,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.init.*;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
@@ -49,7 +48,7 @@ public class ModuleAlchemical extends ModuleBase {
 
 	public static final Block distiller_radiator = null;
 	public static final Block distiller_hotplate = null;
-	public static final Item plant_ash = null;
+	// public static final Item plant_ash = null;
 
 	// TODO Don't bypass armour, deal extra damage to it
 	public static DamageSource damageSourceGas =
@@ -73,6 +72,12 @@ public class ModuleAlchemical extends ModuleBase {
 	public String getClientProxyPath() {
 		return "xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.ClientProxy";
 	}
+
+	// @Override
+	// public void preInit(FMLPreInitializationEvent event) {
+	// super.preInit(event);
+	// DataSerializers.registerSerializer(OPTIONAL_FLUID_STACK);
+	// }
 
 	@SubscribeEvent
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
@@ -221,4 +226,31 @@ public class ModuleAlchemical extends ModuleBase {
 		return potion;
 	}
 
+	// Lifted from IE
+	// public static DataSerializer<Optional<FluidStack>> OPTIONAL_FLUID_STACK =
+	// new DataSerializer<Optional<FluidStack>>() {
+	// @Override
+	// public void write(PacketBuffer buf, Optional<FluidStack> value) {
+	// buf.writeBoolean(value.isPresent());
+	// FluidStack fs = value.orNull();
+	// if(fs != null)
+	// buf.writeCompoundTag(fs.writeToNBT(new NBTTagCompound()));
+	// }
+	//
+	// @Override
+	// public Optional<FluidStack> read(PacketBuffer buf) throws IOException {
+	// FluidStack fs = !buf.readBoolean() ? null : FluidStack.loadFluidStackFromNBT(buf.readCompoundTag());
+	// return Optional.fromNullable(fs);
+	// }
+	//
+	// @Override
+	// public DataParameter<Optional<FluidStack>> createKey(int id) {
+	// return new DataParameter<Optional<FluidStack>>(id, this);
+	// }
+	//
+	// @Override
+	// public Optional<FluidStack> copyValue(Optional<FluidStack> value) {
+	// return value.isPresent() ? Optional.of(value.get().copy()) : Optional.absent();
+	// }
+	// };
 }

@@ -94,9 +94,11 @@ public class ItemFlask extends ItemBase implements IHasSubItems {
 		}
 		else {
 			tooltip.add(fluid.getLocalizedName());
-			ItemStack dummy = new ItemStack(Blocks.BEDROCK);
-			dummy.setTagInfo("Potion", fluid.tag.getTag("Potion"));
-			PotionUtils.addPotionTooltip(dummy, tooltip, 1.0F);
+			if(fluid.tag != null && fluid.tag.hasKey("Potion")) {
+				ItemStack dummy = new ItemStack(Blocks.BEDROCK);
+				dummy.setTagInfo("Potion", fluid.tag.getTag("Potion"));
+				PotionUtils.addPotionTooltip(dummy, tooltip, 1.0F);
+			}
 			tooltip.add(fluid.amount + "mB/" + capacity + "mB");
 		}
 	}
