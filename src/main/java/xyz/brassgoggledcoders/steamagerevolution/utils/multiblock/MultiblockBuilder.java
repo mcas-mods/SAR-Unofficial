@@ -25,10 +25,11 @@ public class MultiblockBuilder<C extends SARRectangularMultiblockControllerBase>
 		this.controllerCreator = controllerCreator;
 	}
 
-	public void addNewPart(String name, boolean[] validPositions) {
-		parts.add(new BlockMultiblockBase(controller,
+	public MultiblockBuilder<C> addNewPart(String name, boolean[] validPositions) {
+		parts.add(new BlockMultiblockBase<C>(
 				world -> new TileEntityMultiblockBase<C>(validPositions, controller, controllerCreator), material,
 				name));
+		return this;
 	}
 
 	public void build() {

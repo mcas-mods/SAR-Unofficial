@@ -25,19 +25,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockMultiblockBase<C extends SARRectangularMultiblockControllerBase>
 		extends BlockTEBase<TileEntityMultiblockBase<C>> {
 
-	private Class<TileEntityMultiblockBase<C>> tileEntityClass;
 	private Function<World, TileEntityMultiblockBase<C>> tileEntityCreator;
 
-	public BlockMultiblockBase(Class<TileEntityMultiblockBase<C>> tileEntityClass,
-			Function<World, TileEntityMultiblockBase<C>> tileEntityCreator, Material material, String name) {
+	public BlockMultiblockBase(Function<World, TileEntityMultiblockBase<C>> tileEntityCreator, Material material,
+			String name) {
 		super(material, name);
-		this.tileEntityClass = tileEntityClass;
 		this.tileEntityCreator = tileEntityCreator;
 	}
 
 	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return tileEntityClass;
+	public Class<TileEntityMultiblockBase> getTileEntityClass() {
+		return TileEntityMultiblockBase.class;
 	}
 
 	@Override
@@ -49,7 +47,7 @@ public class BlockMultiblockBase<C extends SARRectangularMultiblockControllerBas
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if(playerIn.isSneaking()) {
-			MultiblockTileEntityBase tile = getTileEntity(worldIn, pos);
+			MultiblockTileEntityBase<C> tile = getTileEntity(worldIn, pos);
 			if(tile.isConnected()) {
 				if(tile.getMultiblockController().getLastError() != null) {
 					playerIn.sendStatusMessage(tile.getMultiblockController().getLastError().getChatMessage(), true);

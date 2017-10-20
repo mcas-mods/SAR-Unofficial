@@ -1,15 +1,13 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.processing;
 
-import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
 import net.minecraft.block.material.Material;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.*;
 
-@Module(value = SteamAgeRevolution.MODID)
+// @Module(value = SteamAgeRevolution.MODID)
 public class ModuleProcessing extends ModuleBase {
 
 	@Override

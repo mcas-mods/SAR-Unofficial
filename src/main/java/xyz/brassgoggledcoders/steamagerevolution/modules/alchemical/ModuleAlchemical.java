@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import com.teamacronymcoders.base.blocks.BlockFluidBase;
 import com.teamacronymcoders.base.materialsystem.MaterialSystem;
-import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
@@ -41,7 +40,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.BlockDamagingFluid;
 
-@Module(value = SteamAgeRevolution.MODID)
+// @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 @ObjectHolder(SteamAgeRevolution.MODID)
 public class ModuleAlchemical extends ModuleBase {

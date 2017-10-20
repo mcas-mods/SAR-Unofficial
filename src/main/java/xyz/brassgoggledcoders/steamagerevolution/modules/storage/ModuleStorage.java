@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage;
 
+import java.util.Arrays;
+
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -11,14 +13,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockBasicFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockFluidHopper;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockFluidIO;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockTrunk;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.items.ItemCanister;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.BlockTankCasing;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.BlockTankValve;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.BlockTankWindow;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.ControllerTank;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockBuilder;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleStorage extends ModuleBase {
@@ -43,12 +41,10 @@ public class ModuleStorage extends ModuleBase {
 		fluidHopper = new BlockFluidHopper(Material.IRON, "fluid_hopper");
 		blockRegistry.register(fluidHopper);
 
-		tankCasing = new BlockTankCasing(Material.ROCK, "tank_casing");
-		blockRegistry.register(tankCasing);
-		tankValve = new BlockTankValve(Material.IRON, "tank_valve");
-		blockRegistry.register(tankValve);
-		tankWindow = new BlockTankWindow(Material.GLASS, "tank_window");
-		blockRegistry.register(tankWindow);
+		boolean[] allButInterior = new boolean[5];
+		Arrays.fill(allButInterior, 0, 4, true);
+		new MultiblockBuilder<ControllerTank>(blockRegistry, ControllerTank.class, ControllerTank::new, Material.IRON)
+				.addNewPart("tank_casing", allButInterior).addNewPart("tank_valve", allButInterior).build();
 	}
 
 	@Override

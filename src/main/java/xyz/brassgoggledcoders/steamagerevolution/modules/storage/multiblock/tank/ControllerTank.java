@@ -13,7 +13,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
@@ -24,7 +24,7 @@ public class ControllerTank extends SARRectangularMultiblockControllerBase imple
 	public BlockPos maximumInteriorPos;
 	public FluidTankSmart tank;
 
-	protected ControllerTank(World world) {
+	public ControllerTank(World world) {
 		super(world);
 		tank = new FluidTankSmart(0, this);
 		// TODO Auto-generated constructor stub

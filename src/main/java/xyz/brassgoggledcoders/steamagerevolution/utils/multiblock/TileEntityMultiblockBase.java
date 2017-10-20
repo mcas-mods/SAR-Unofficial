@@ -3,13 +3,13 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 import java.util.function.Function;
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
-import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
 
-public class TileEntityMultiblockBase<T extends RectangularMultiblockControllerBase>
+public class TileEntityMultiblockBase<T extends SARRectangularMultiblockControllerBase>
 		extends RectangularMultiblockTileEntityBase<T> implements IMultiblockTileInfo {
 
 	private Class<T> controllerClass;
@@ -30,7 +30,7 @@ public class TileEntityMultiblockBase<T extends RectangularMultiblockControllerB
 
 	@Override
 	public IMultiblockControllerInfo getControllerInfo() {
-		return (IMultiblockControllerInfo) controllerCreator.apply(null);
+		return (IMultiblockControllerInfo) controllerCreator.apply(Minecraft.getMinecraft().world);
 	}
 
 	@Override
@@ -69,15 +69,9 @@ public class TileEntityMultiblockBase<T extends RectangularMultiblockControllerB
 	}
 
 	@Override
-	public void onMachineActivated() {
-		// TODO Auto-generated method stub
-
-	}
+	public void onMachineActivated() {}
 
 	@Override
-	public void onMachineDeactivated() {
-		// TODO Auto-generated method stub
-
-	}
+	public void onMachineDeactivated() {}
 
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.items.ItemBase;
-import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
@@ -45,7 +44,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.SteamFurnaceRecipe;
 
-@Module(value = SteamAgeRevolution.MODID)
+// @Module(value = SteamAgeRevolution.MODID)
 @ObjectHolder(SteamAgeRevolution.MODID)
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class ModuleMetalworking extends ModuleBase {
