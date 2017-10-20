@@ -32,7 +32,7 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 	// private static final int temperatureThreshold = 110;
 	private static final int steamPerHeat = Fluid.BUCKET_VOLUME / 4;
 
-	protected ControllerDistiller(World world) {
+	public ControllerDistiller(World world) {
 		super(world);
 		fluidInput = new FluidTankSmart(tankCapacity, this);
 		fluidOutput = new FluidTankSmart(tankCapacity, this);

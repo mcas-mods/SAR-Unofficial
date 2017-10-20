@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller;
+package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
 import java.util.function.Function;
 
@@ -8,16 +8,17 @@ import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTi
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockControllerInfo;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockTileInfo;
 
-public abstract class TileEntityDistillerPart<T extends RectangularMultiblockControllerBase>
+public class TileEntityMultiblockBase<T extends RectangularMultiblockControllerBase>
 		extends RectangularMultiblockTileEntityBase<T> implements IMultiblockTileInfo {
 
 	private Class<T> controllerClass;
 	private Function<World, MultiblockControllerBase> controllerCreator;
+	private boolean[] validPositions;
 
-	public TileEntityDistillerPart(Class<T> controllerClass, Function<World, MultiblockControllerBase> controllerCreator) {
+	public TileEntityMultiblockBase(boolean[] validPositions, Class<T> controllerClass,
+			Function<World, MultiblockControllerBase> controllerCreator) {
+		this.validPositions = validPositions;
 		this.controllerClass = controllerClass;
 		this.controllerCreator = controllerCreator;
 	}
@@ -34,33 +35,32 @@ public abstract class TileEntityDistillerPart<T extends RectangularMultiblockCon
 
 	@Override
 	public boolean[] getValidPositions() {
-		return new boolean[] {isGoodForFrame(null), isGoodForSides(null), isGoodForTop(null), isGoodForBottom(null),
-				isGoodForInterior(null)};
+		return validPositions;
 	}
 
 	@Override
 	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
-		return false;
+		return validPositions[0];
 	}
 
 	@Override
 	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
-		return false;
+		return validPositions[1];
 	}
 
 	@Override
 	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
-		return false;
+		return validPositions[2];
 	}
 
 	@Override
 	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
-		return false;
+		return validPositions[3];
 	}
 
 	@Override
 	public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
-		return false;
+		return validPositions[4];
 	}
 
 	@Override
