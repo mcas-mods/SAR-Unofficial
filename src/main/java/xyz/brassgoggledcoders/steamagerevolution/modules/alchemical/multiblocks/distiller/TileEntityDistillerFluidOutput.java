@@ -10,7 +10,12 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockTankWrapper;
 
-public class TileEntityDistillerFluidOutput extends TileEntityDistillerPart {
+public class TileEntityDistillerFluidOutput extends TileEntityDistillerPart<ControllerDistiller> {
+	public TileEntityDistillerFluidOutput() {
+		super(ControllerDistiller.class);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
 		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);

@@ -51,25 +51,27 @@ public abstract class BlockMultiblockBase<T extends MultiblockTileEntityBase> ex
 		IMultiblockControllerInfo controller = tile.getControllerInfo();
 
 		// TODO Localisation
-		tooltip.add("Multiblock: " + controller.getName());
-		if(controller.getMinimumYSize() > 1) {
-			tooltip.add("Minimum Size (XYZ): " + controller.getMinimumXSize() + "x" + controller.getMinimumYSize() + "x"
-					+ controller.getMinimumZSize());
+		if(controller != null) {
+			tooltip.add("Multiblock: " + controller.getName());
+			if(controller.getMinimumYSize() > 1) {
+				tooltip.add("Minimum Size (XYZ): " + controller.getMinimumXSize() + "x" + controller.getMinimumYSize()
+						+ "x" + controller.getMinimumZSize());
+			}
+			if(controller.getMaximumXSize() != -1) { // TODO
+				tooltip.add("Maximum Size (XYZ): " + controller.getMaximumXSize() + "x" + controller.getMaximumYSize()
+						+ "x" + controller.getMaximumZSize());
+			}
+			if(tile.getPartFunction() != null) {
+				tooltip.add("Part function: " + tile.getPartFunction());
+			}
+			String[] positions = new String[] {"Frame", "Sides", "Top", "Bottom", "Interior"};
+			String valid = "Valid part positions: ";
+			for(int possiblePositions = 0; possiblePositions < 5; possiblePositions++) {
+				if(tile.getValidPositions()[possiblePositions])
+					valid += positions[possiblePositions] + ",";
+			}
+			tooltip.add(valid.substring(0, valid.length() - 1));
 		}
-		if(controller.getMaximumXSize() != -1) { // TODO
-			tooltip.add("Maximum Size (XYZ): " + controller.getMaximumXSize() + "x" + controller.getMaximumYSize() + "x"
-					+ controller.getMaximumZSize());
-		}
-		if(tile.getPartFunction() != null) {
-			tooltip.add("Part function: " + tile.getPartFunction());
-		}
-		String[] positions = new String[] {"Frame", "Sides", "Top", "Bottom", "Interior"};
-		String valid = "Valid part positions: ";
-		for(int possiblePositions = 0; possiblePositions < 5; possiblePositions++) {
-			if(tile.getValidPositions()[possiblePositions])
-				valid += positions[possiblePositions] + ",";
-		}
-		tooltip.add(valid.substring(0, valid.length() - 1));
 		super.addInformation(stack, player, tooltip, advanced);
 	}
 }

@@ -1,29 +1,41 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller;
 
+import java.util.function.Function;
+
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
+import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockControllerInfo;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockTileInfo;
 
-public abstract class TileEntityDistillerPart extends RectangularMultiblockTileEntityBase<ControllerDistiller>
-		implements IMultiblockTileInfo {
+public abstract class TileEntityDistillerPart<T extends RectangularMultiblockControllerBase>
+		extends RectangularMultiblockTileEntityBase<T> implements IMultiblockTileInfo {
+
+	private Class<T> clazz;
+	private Function<World, MultiblockControllerBase> create;
+
+	public TileEntityDistillerPart(Class<T> clazz, Function<World, MultiblockControllerBase> create) {
+		this.clazz = clazz;
+		this.create = create;
+	}
 
 	@Override
-	public void onMachineActivated() {}
-
-	@Override
-	public void onMachineDeactivated() {}
-
-	@Override
-	public Class<ControllerDistiller> getMultiblockControllerType() {
-		return ControllerDistiller.class;
+	public Class<T> getMultiblockControllerType() {
+		return clazz;
 	}
 
 	@Override
 	public IMultiblockControllerInfo getControllerInfo() {
-		return new ControllerDistiller(null);
+		// try {
+		// return (IMultiblockControllerInfo) clazz.newInstance();
+		// }
+		// catch(InstantiationException | IllegalAccessException e) {
+		// e.printStackTrace();
+		// }
+		return null;
 	}
 
 	@Override
@@ -59,7 +71,7 @@ public abstract class TileEntityDistillerPart extends RectangularMultiblockTileE
 
 	@Override
 	public MultiblockControllerBase createNewMultiblock() {
-		return new ControllerDistiller(getWorld());
+		return create.apply(getWorld());
 	}
 
 }

@@ -2,7 +2,12 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-public class TileEntityDistillerFrame extends TileEntityDistillerPart {
+public class TileEntityDistillerFrame extends TileEntityDistillerPart<ControllerDistiller> {
+
+	public TileEntityDistillerFrame() {
+		super(ControllerDistiller.class);
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
