@@ -22,13 +22,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockMultiblockBase<T extends TileEntityMultiblockBase> extends BlockTEBase<T> {
+public class BlockMultiblockBase<C extends SARRectangularMultiblockControllerBase>
+		extends BlockTEBase<TileEntityMultiblockBase<C>> {
 
-	private Class<T> tileEntityClass;
-	private Function<World, T> tileEntityCreator;
+	private Class<TileEntityMultiblockBase<C>> tileEntityClass;
+	private Function<World, TileEntityMultiblockBase<C>> tileEntityCreator;
 
-	public BlockMultiblockBase(Class<T> tileEntityClass, Function<World, T> tileEntityCreator, Material material,
-			String name) {
+	public BlockMultiblockBase(Class<TileEntityMultiblockBase<C>> tileEntityClass,
+			Function<World, TileEntityMultiblockBase<C>> tileEntityCreator, Material material, String name) {
 		super(material, name);
 		this.tileEntityClass = tileEntityClass;
 		this.tileEntityCreator = tileEntityCreator;

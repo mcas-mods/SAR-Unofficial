@@ -13,11 +13,11 @@ public class TileEntityMultiblockBase<T extends RectangularMultiblockControllerB
 		extends RectangularMultiblockTileEntityBase<T> implements IMultiblockTileInfo {
 
 	private Class<T> controllerClass;
-	private Function<World, MultiblockControllerBase> controllerCreator;
+	private Function<World, SARRectangularMultiblockControllerBase> controllerCreator;
 	private boolean[] validPositions;
 
 	public TileEntityMultiblockBase(boolean[] validPositions, Class<T> controllerClass,
-			Function<World, MultiblockControllerBase> controllerCreator) {
+			Function<World, SARRectangularMultiblockControllerBase> controllerCreator) {
 		this.validPositions = validPositions;
 		this.controllerClass = controllerClass;
 		this.controllerCreator = controllerCreator;
@@ -66,6 +66,18 @@ public class TileEntityMultiblockBase<T extends RectangularMultiblockControllerB
 	@Override
 	public MultiblockControllerBase createNewMultiblock() {
 		return controllerCreator.apply(getWorld());
+	}
+
+	@Override
+	public void onMachineActivated() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onMachineDeactivated() {
+		// TODO Auto-generated method stub
+
 	}
 
 }
