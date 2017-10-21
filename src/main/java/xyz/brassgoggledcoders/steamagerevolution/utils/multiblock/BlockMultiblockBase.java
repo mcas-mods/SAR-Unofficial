@@ -26,16 +26,23 @@ public class BlockMultiblockBase<C extends SARRectangularMultiblockControllerBas
 		extends BlockTEBase<TileEntityMultiblockBase<C>> {
 
 	private Function<World, TileEntityMultiblockBase<C>> tileEntityCreator;
+	private Class<TileEntityMultiblockBase<C>> tileClass;
 
 	public BlockMultiblockBase(Function<World, TileEntityMultiblockBase<C>> tileEntityCreator, Material material,
 			String name) {
+		this(TileEntityMultiblockBase.class, tileEntityCreator, material, name);
+	}
+
+	public BlockMultiblockBase(Class tileClass, Function<World, TileEntityMultiblockBase<C>> tileEntityCreator,
+			Material material, String name) {
 		super(material, name);
 		this.tileEntityCreator = tileEntityCreator;
+		this.tileClass = tileClass;
 	}
 
 	@Override
-	public Class<TileEntityMultiblockBase> getTileEntityClass() {
-		return TileEntityMultiblockBase.class;
+	public Class<TileEntityMultiblockBase<C>> getTileEntityClass() {
+		return tileClass;
 	}
 
 	@Override

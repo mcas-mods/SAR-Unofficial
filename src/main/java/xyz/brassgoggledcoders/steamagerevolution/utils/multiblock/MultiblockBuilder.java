@@ -39,14 +39,18 @@ public class MultiblockBuilder<C extends SARRectangularMultiblockControllerBase>
 	}
 
 	public MultiblockBuilder<C> addNewFluidWrapperPart(String name, boolean[] validPositions, String tankName) {
-		parts.add(new BlockMultiblockBase<C>(world -> new TileEntityMultiblockFluidWrapper<C>(tankName, validPositions,
-				controller, controllerCreator), material, name));
+		parts.add(new BlockMultiblockBase<C>(TileEntityMultiblockFluidWrapper.class,
+				world -> new TileEntityMultiblockFluidWrapper<C>(tankName, validPositions, controller,
+						controllerCreator),
+				material, name));
 		return this;
 	}
 
 	public MultiblockBuilder<C> addNewItemWrapperPart(String name, boolean[] validPositions, String handlerName) {
-		parts.add(new BlockMultiblockBase<C>(world -> new TileEntityMultiblockItemWrapper<C>(handlerName,
-				validPositions, controller, controllerCreator), material, name));
+		parts.add(new BlockMultiblockBase<C>(TileEntityMultiblockItemWrapper.class,
+				world -> new TileEntityMultiblockItemWrapper<C>(handlerName, validPositions, controller,
+						controllerCreator),
+				material, name));
 		return this;
 	}
 
