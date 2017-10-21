@@ -64,6 +64,7 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 	protected void onMachineAssembled() {
 		center = this.getReferenceCoord().up().east().south();
 		interior = new AxisAlignedBB(center).expand(1, 2, 1);
+		// Make sure the frame displays correctly
 		WORLD.markBlockRangeForRenderUpdate(getMinimumCoord(), getMaximumCoord());
 		super.onMachineAssembled();
 	}

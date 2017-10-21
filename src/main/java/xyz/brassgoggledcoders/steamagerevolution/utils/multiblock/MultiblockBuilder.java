@@ -61,6 +61,20 @@ public class MultiblockBuilder<C extends SARRectangularMultiblockControllerBase>
 		return this;
 	}
 
+	public MultiblockBuilder<C> addNewPositionalPart(String name, boolean[] validPositions) {
+		parts.add(new BlockMultiblockPositional<C>(
+				world -> new TileEntityMultiblockBase<C>(validPositions, controller, controllerCreator), material,
+				name));
+		return this;
+	}
+
+	public MultiblockBuilder<C> addNewPositionalFluidWrapperPart(String name, boolean[] validPositions,
+			String tankName) {
+		parts.add(new BlockMultiblockPositional<C>(world -> new TileEntityMultiblockFluidWrapper<C>(tankName,
+				validPositions, controller, controllerCreator), material, name));
+		return this;
+	}
+
 	public void build() {
 		parts.forEach(part -> registry.register(part));
 	}

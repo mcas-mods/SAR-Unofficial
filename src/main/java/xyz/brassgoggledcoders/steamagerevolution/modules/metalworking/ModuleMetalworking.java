@@ -113,7 +113,7 @@ public class ModuleMetalworking extends ModuleBase {
 		new MultiblockBuilder<ControllerSteamHammer>(blockRegistry, ControllerSteamHammer.class,
 				ControllerSteamHammer::new, Material.ANVIL)
 						.addNewItemWrapperPart("steamhammmer_anvil", bottomOnly, "output")
-						.addNewFluidWrapperPart("steamhammer_frame", allButInterior/* TODO */, "steam")
+						.addNewPositionalFluidWrapperPart("steamhammer_frame", allButInterior/* TODO */, "steam")
 						.addNewTransparentPart("steamhammer_shielding", sidesOnly)
 						.addNewItemWrapperPart("steamhammer_hammer", topOnly, "input").build();
 
