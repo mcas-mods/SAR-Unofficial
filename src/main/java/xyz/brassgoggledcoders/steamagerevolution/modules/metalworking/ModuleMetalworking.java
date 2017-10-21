@@ -1,9 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking;
 
+import static xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockBuilder.*;
+
 import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.items.ItemBase;
+import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
@@ -36,15 +39,16 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe.VatRecipeBuilder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemDie;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.AlloyFurnaceRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.ControllerAlloyFurnace;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.ControllerCrucible;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.ControllerSteamHammer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.SteamHammerRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.*;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.ControllerSteelworks;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.SteamFurnaceRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockBuilder;
 
-// @Module(value = SteamAgeRevolution.MODID)
+@Module(value = SteamAgeRevolution.MODID)
 @ObjectHolder(SteamAgeRevolution.MODID)
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class ModuleMetalworking extends ModuleBase {
@@ -91,29 +95,35 @@ public class ModuleMetalworking extends ModuleBase {
 
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
-		// new BlockAlloyFurnaceController(Material.ANVIL, "alloy_furnace_controller");
-		// blockRegistry.register(alloyFurnaceController);
-		blockRegistry.register(new BlockAlloyFurnaceFrame(Material.ROCK, "alloy_furnace_frame"));
-		blockRegistry.register(new BlockAlloyFurnaceFluidInput(Material.ROCK, "alloy_furnace_fluid_input"));
-		blockRegistry.register(new BlockAlloyFurnaceFluidOutput(Material.ROCK, "alloy_furnace_fluid_output"));
 
-		blockRegistry.register(new BlockSteelworksFrame(Material.ROCK, "steelworks_frame"));
-		blockRegistry.register(new BlockSteelworksIronInput(Material.ROCK, "steelworks_iron_input"));
-		blockRegistry.register(new BlockSteelworksCarbonInput(Material.ROCK, "steelworks_carbon_input"));
-		blockRegistry.register(new BlockSteelworksSteamInput(Material.ROCK, "steelworks_steam_input"));
-		blockRegistry.register(new BlockSteelworksSteelOutput(Material.ROCK, "steelworks_steel_output"));
+		new MultiblockBuilder<ControllerAlloyFurnace>(blockRegistry, ControllerAlloyFurnace.class,
+				ControllerAlloyFurnace::new, Material.IRON)
+						.addNewFluidWrapperPart("alloy_furnace_fluid_input", allButInterior, "input")
+						.addNewFluidWrapperPart("alloy_furnace_fluid_output", allButInterior, "output")
+						.addNewPart("alloy_furnace_frame", allButInterior).build();
 
-		blockRegistry.register(new BlockSteamHammerAnvil(Material.ANVIL, "steamhammer_anvil"));
-		blockRegistry.register(new BlockSteamHammerFrame(Material.IRON, "steamhammer_frame"));
-		blockRegistry.register(new BlockSteamHammerHammer(Material.IRON, "steamhammer_hammer"));
-		blockRegistry.register(new BlockSteamHammerShielding(Material.IRON, "steamhammer_shielding"));
+		new MultiblockBuilder<ControllerSteelworks>(blockRegistry, ControllerSteelworks.class,
+				ControllerSteelworks::new, Material.ROCK)
+						.addNewItemWrapperPart("steelworks_item_input", allButInterior, "coal")
+						.addNewPart("steelworks_frame", allButInterior)
+						.addNewFluidWrapperPart("steelworks_iron_input", allButInterior, "iron")
+						.addNewFluidWrapperPart("steelworks_steel_output", allButInterior, "steel")
+						.addNewFluidWrapperPart("steelworks_steam_input", allButInterior, "steam").build();
+
+		new MultiblockBuilder<ControllerSteamHammer>(blockRegistry, ControllerSteamHammer.class,
+				ControllerSteamHammer::new, Material.ANVIL)
+						.addNewItemWrapperPart("steamhammmer_anvil", bottomOnly, "output")
+						.addNewFluidWrapperPart("steamhammer_frame", allButInterior/* TODO */, "steam")
+						.addNewTransparentPart("steamhammer_shielding", sidesOnly)
+						.addNewItemWrapperPart("steamhammer_hammer", topOnly, "input").build();
 
 		blockRegistry.register(new BlockCastingBench(Material.ANVIL, "casting_bench"));
 
-		blockRegistry.register(new BlockCrucibleCasing(Material.IRON, "crucible_casing"));
-		blockRegistry.register(new BlockCrucibleItemInput(Material.IRON, "crucible_item_input"));
-		blockRegistry.register(new BlockCrucibleSteamInput(Material.IRON, "crucible_steam_input"));
-		blockRegistry.register(new BlockCrucibleFluidOutput(Material.IRON, "crucible_fluid_output"));
+		new MultiblockBuilder<ControllerCrucible>(blockRegistry, ControllerCrucible.class, ControllerCrucible::new,
+				Material.IRON).addNewPart("crucible_casing", allButInterior)
+						.addNewFluidWrapperPart("crucible_fluid_output", allButInterior, "output")
+						.addNewFluidWrapperPart("crucible_steam_input", sidesOnly, "steam")
+						.addNewItemWrapperPart("crucible_item_input", allFaces, "item").build();
 	}
 
 	@Override

@@ -7,10 +7,7 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
@@ -20,10 +17,10 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangular
 
 public class ControllerSteelworks extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
-	public FluidTank steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
-	public FluidTank ironTank = new FluidTankSingleSmart(ModuleMetalworking.VALUE_BLOCK * 16, "iron", this);
-	public ItemStackHandler inputSolid = new ItemStackHandler();
-	public FluidTank outputTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steel", this);
+	public FluidTank steamTank;
+	public FluidTank ironTank;
+	public ItemStackHandler inputSolid;
+	public FluidTank outputTank;
 
 	public static final int workingPoolLevel = ModuleMetalworking.VALUE_BLOCK * 9;
 	public static final int conversionPerOperation = ModuleMetalworking.VALUE_NUGGET;
@@ -32,6 +29,10 @@ public class ControllerSteelworks extends SARRectangularMultiblockControllerBase
 
 	public ControllerSteelworks(World world) {
 		super(world);
+		steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
+		ironTank = new FluidTankSingleSmart(ModuleMetalworking.VALUE_BLOCK * 16, "iron", this);
+		inputSolid = new ItemStackHandler();
+		outputTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steel", this);
 	}
 
 	@Override
@@ -209,5 +210,22 @@ public class ControllerSteelworks extends SARRectangularMultiblockControllerBase
 	@Override
 	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
 		return world.isAirBlock(new BlockPos(x, y, z));
+	}
+
+	@Override
+	protected FluidTank getTank(String tankName) {
+		if(tankName.equals("steel")) {
+			return outputTank;
+		}
+		else if(tankName.equals("steam")) {
+			return steamTank;
+		}
+		return ironTank;
+	}
+
+	@Override
+	public ItemStackHandler getInventory(String toWrap) {
+		// TODO Auto-generated method stub
+		return inputSolid;
 	}
 }

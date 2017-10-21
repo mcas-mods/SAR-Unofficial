@@ -278,4 +278,18 @@ public class ControllerSteamFurnace extends SARRectangularMultiblockControllerBa
 		return "Steam Furnace";
 	}
 
+	@Override
+	protected FluidTank getTank(String tankName) {
+		// TODO Auto-generated method stub
+		return steamTank;
+	}
+
+	@Override
+	public ItemStackHandler getInventory(String toWrap) {
+		if(toWrap.equals("input")) {
+			return this.inputInventory;
+		}
+		return this.outputInventory;
+	}
+
 }

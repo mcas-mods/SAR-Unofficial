@@ -1,32 +1,22 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.kiln;
+package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
+
+import java.util.function.Function;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
-public class BlockKilnWindow extends BlockMultiblockBase<TileEntityKilnWindow> {
+public class BlockMultiblockTransparent<C extends SARRectangularMultiblockControllerBase>
+		extends BlockMultiblockBase<C> {
 
-	public BlockKilnWindow(Material material, String name) {
-		super(material, name);
-	}
-
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityKilnWindow.class;
-	}
-
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityKilnWindow();
+	public BlockMultiblockTransparent(Function<World, TileEntityMultiblockBase<C>> tileEntityCreator, Material material,
+			String name) {
+		super(tileEntityCreator, material, name);
 	}
 
 	@SideOnly(Side.CLIENT)

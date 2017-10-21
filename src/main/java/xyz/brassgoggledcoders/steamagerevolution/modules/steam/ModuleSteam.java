@@ -17,23 +17,14 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteamVent;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerCasing;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerLiquidFirebox;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerPressureMonitor;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerPressureValve;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerSolidFirebox;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerSteamGauge;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerSteamOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerWaterGauge;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.BlockBoilerWaterInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.ControllerBoiler;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockBuilder;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleSteam extends ModuleBase {
 
 	public static Fluid steam;
 
-	public static Block boilerCasing, boilerWaterInput, boilerSolidFirebox, boilerLiquidFirebox, boilerSteamOutput,
-			boilerWaterGauge, boilerSteamGauge, boilerPressureMonitor, boilerPressureValve;
 	public static Block steamVent;
 
 	public static boolean enableDestruction;
@@ -75,24 +66,14 @@ public class ModuleSteam extends ModuleBase {
 			}
 		});
 
-		boilerCasing = new BlockBoilerCasing(Material.IRON, "boiler_casing");
-		blockRegistry.register(boilerCasing);
-		boilerWaterInput = new BlockBoilerWaterInput(Material.IRON, "boiler_water_input");
-		blockRegistry.register(boilerWaterInput);
-		boilerSteamOutput = new BlockBoilerSteamOutput(Material.IRON, "boiler_steam_output");
-		blockRegistry.register(boilerSteamOutput);
-		boilerSolidFirebox = new BlockBoilerSolidFirebox(Material.IRON, "boiler_solid_firebox");
-		blockRegistry.register(boilerSolidFirebox);
-		boilerLiquidFirebox = new BlockBoilerLiquidFirebox(Material.IRON, "boiler_liquid_firebox");
-		blockRegistry.register(boilerLiquidFirebox);
-		boilerWaterGauge = new BlockBoilerWaterGauge(Material.IRON, "boiler_water_gauge");
-		blockRegistry.register(boilerWaterGauge);
-		boilerSteamGauge = new BlockBoilerSteamGauge(Material.IRON, "boiler_steam_gauge");
-		blockRegistry.register(boilerSteamGauge);
-		boilerPressureMonitor = new BlockBoilerPressureMonitor(Material.IRON, "boiler_pressuremonitor");
-		blockRegistry.register(boilerPressureMonitor);
-		boilerPressureValve = new BlockBoilerPressureValve(Material.IRON, "boiler_pressurevalve");
-		blockRegistry.register(boilerPressureValve);
+		new MultiblockBuilder<ControllerBoiler>(blockRegistry, ControllerBoiler.class, ControllerBoiler::new,
+				Material.IRON).addNewPart("boiler_casing", MultiblockBuilder.allButInterior)
+						.addNewFluidWrapperPart("boiler_steam_output", MultiblockBuilder.allFaces, "steam")
+						.addNewFluidWrapperPart("boiler_liquid_firebox", MultiblockBuilder.bottomOnly, "firebox")
+						.addNewFluidWrapperPart("boiler_water_input", MultiblockBuilder.allFaces, "water")
+						.addNewItemWrapperPart("boiler_solid_firebox", MultiblockBuilder.bottomOnly, "firebox")
+						.addNewTransparentPart("boiler_steam_gauge", MultiblockBuilder.allFaces)
+						.addNewTransparentPart("boiler_water_gauge", MultiblockBuilder.allFaces).build();
 
 		steamVent = new BlockSteamVent(Material.IRON, "steam_vent");
 		blockRegistry.register(steamVent);

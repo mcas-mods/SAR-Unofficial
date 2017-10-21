@@ -1,9 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical;
 
+import static xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockBuilder.*;
+
 import java.awt.Color;
 
 import com.teamacronymcoders.base.blocks.BlockFluidBase;
 import com.teamacronymcoders.base.materialsystem.MaterialSystem;
+import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
@@ -33,14 +36,16 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.blocks.BlockFumeCollector;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.items.ItemFlask;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.*;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.ControllerDistiller;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.DistillerRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.ControllerVat;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe.VatRecipeBuilder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.BlockDamagingFluid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockBuilder;
 
-// @Module(value = SteamAgeRevolution.MODID)
+@Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 @ObjectHolder(SteamAgeRevolution.MODID)
 public class ModuleAlchemical extends ModuleBase {
@@ -129,17 +134,17 @@ public class ModuleAlchemical extends ModuleBase {
 
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
-		blockRegistry.register(new BlockVatFrame(Material.IRON, "vat_frame"));
-		blockRegistry.register(new BlockVatFluidInput(Material.IRON, "vat_fluid_input"));
-		blockRegistry.register(new BlockVatOutput(Material.IRON, "vat_output"));
+		new MultiblockBuilder<ControllerVat>(blockRegistry, ControllerVat.class, ControllerVat::new, Material.IRON)
+				.addNewPart("vat_casing", allButInterior).addNewFluidWrapperPart("vat_input", sidesOnly, "input")
+				.addNewFluidWrapperPart("vat_output", allFaces, "output").build();
 
 		blockRegistry.register(new BlockFumeCollector(Material.IRON, "fume_collector"));
 
-		blockRegistry.register(new BlockDistillerFluidInput(Material.IRON, "distiller_fluid_input"));
-		blockRegistry.register(new BlockDistillerFluidOutput(Material.IRON, "distiller_fluid_output"));
-		blockRegistry.register(new BlockDistillerFrame(Material.IRON, "distiller_frame"));
-		blockRegistry.register(new BlockDistillerHotplate(Material.IRON, "distiller_hotplate"));
-		blockRegistry.register(new BlockDistillerRadiator(Material.IRON, "distiller_radiator"));
+		new MultiblockBuilder<ControllerDistiller>(blockRegistry, ControllerDistiller.class, ControllerDistiller::new,
+				Material.IRON).addNewFluidWrapperPart("distiller_fluid_input", allFaces, "input")
+						.addNewFluidWrapperPart("distiller_fluid_output", allFaces, "input")
+						.addNewPart("distiller_frame", allButInterior).addNewPart("distiller_hotplate", allButInterior)
+						.addNewFluidWrapperPart("distiller_radiator", allButInterior, "steam").build();
 
 		Fluid sulphur_dioxide =
 				new Fluid("sulphur_dioxide", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/sulphur_dioxide"),

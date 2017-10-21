@@ -14,7 +14,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.TileEntityCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerCrucible;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
@@ -194,5 +194,21 @@ public class ControllerCrucible extends SARRectangularMultiblockControllerBase i
 	@Override
 	public String getName() {
 		return "Crucible";
+	}
+
+	@Override
+	protected FluidTank getTank(String tankName) {
+		if(tankName.equals("steam")) {
+			return steamTank;
+		}
+		else {
+			return tank;
+		}
+	}
+
+	@Override
+	public ItemStackHandler getInventory(String toWrap) {
+		// TODO Auto-generated method stub
+		return solid;
 	}
 }

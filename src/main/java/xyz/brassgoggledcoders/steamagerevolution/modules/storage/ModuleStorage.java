@@ -1,7 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage;
 
-import java.util.Arrays;
-
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -41,10 +39,10 @@ public class ModuleStorage extends ModuleBase {
 		fluidHopper = new BlockFluidHopper(Material.IRON, "fluid_hopper");
 		blockRegistry.register(fluidHopper);
 
-		boolean[] allButInterior = new boolean[5];
-		Arrays.fill(allButInterior, 0, 4, true);
 		new MultiblockBuilder<ControllerTank>(blockRegistry, ControllerTank.class, ControllerTank::new, Material.IRON)
-				.addNewPart("tank_casing", allButInterior).addNewPart("tank_valve", allButInterior).build();
+				.addNewPart("tank_casing", MultiblockBuilder.allButInterior)
+				.addNewFluidWrapperPart("tank_valve", MultiblockBuilder.allFaces, "tank")
+				.addNewTransparentPart("tank_window", MultiblockBuilder.allFaces).build();
 	}
 
 	@Override

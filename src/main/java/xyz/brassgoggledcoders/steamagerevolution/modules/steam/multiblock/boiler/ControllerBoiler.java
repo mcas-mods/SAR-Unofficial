@@ -12,15 +12,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureMonitor;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureValve;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
@@ -33,10 +28,10 @@ public class ControllerBoiler extends SARRectangularMultiblockControllerBase imp
 	public static final int fluidConversionPerTick = 5;
 	public static final float maxPressure = 3.0F;
 
-	public ItemStackHandler solidFuelInventory = new ItemStackHandlerFuel(3);
-	public FluidTank liquidFuelTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
-	public FluidTankSingleSmart waterTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "water", this);
-	public FluidTankSingleSmart steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this);
+	public ItemStackHandler solidFuelInventory;
+	public FluidTank liquidFuelTank;
+	public FluidTankSingleSmart waterTank;
+	public FluidTankSingleSmart steamTank;
 
 	public float pressure = 1.0F;
 	public int currentBurnTime = 0;
@@ -45,9 +40,13 @@ public class ControllerBoiler extends SARRectangularMultiblockControllerBase imp
 	Set<BlockPos> attachedValves;
 
 	public ControllerBoiler(World world) {
-		super(world, ModuleSteam.boilerWaterInput, ModuleSteam.boilerSteamOutput);
+		super(world);
 		attachedMonitors = new HashSet<BlockPos>();
 		attachedValves = new HashSet<BlockPos>();
+		solidFuelInventory = new ItemStackHandlerFuel(3);
+		liquidFuelTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
+		waterTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "water", this);
+		steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this);
 	}
 
 	@Override
@@ -222,28 +221,28 @@ public class ControllerBoiler extends SARRectangularMultiblockControllerBase imp
 
 	@Override
 	protected void onBlockAdded(IMultiblockPart newPart) {
-		if(newPart instanceof TileEntityBoilerPressureMonitor) {
-			attachedMonitors.add(newPart.getWorldPosition());
-		}
-		else if(newPart instanceof TileEntityBoilerPressureValve) {
-			attachedValves.add(newPart.getWorldPosition());
-		}
+		// if(newPart instanceof TileEntityBoilerPressureMonitor) {
+		// attachedMonitors.add(newPart.getWorldPosition());
+		// }
+		// else if(newPart instanceof TileEntityBoilerPressureValve) {
+		// attachedValves.add(newPart.getWorldPosition());
+		// }
 	}
 
 	@Override
 	protected void onBlockRemoved(IMultiblockPart oldPart) {
-		if(oldPart instanceof TileEntityBoilerPressureMonitor) {
-			attachedMonitors.remove(oldPart.getWorldPosition());
-		}
-		else if(oldPart instanceof TileEntityBoilerPressureValve) {
-			attachedValves.remove(oldPart.getWorldPosition());
-		}
+		// if(oldPart instanceof TileEntityBoilerPressureMonitor) {
+		// attachedMonitors.remove(oldPart.getWorldPosition());
+		// }
+		// else if(oldPart instanceof TileEntityBoilerPressureValve) {
+		// attachedValves.remove(oldPart.getWorldPosition());
+		// }
 	}
 
 	private void updateRedstoneOutputLevels() {
 		for(BlockPos pos : attachedMonitors) {
 			// FMLLog.warning(pos.toString());
-			WORLD.updateComparatorOutputLevel(pos, ModuleSteam.boilerPressureMonitor);
+			// WORLD.updateComparatorOutputLevel(pos, ModuleSteam.boilerPressureMonitor);
 		}
 	}
 
@@ -271,5 +270,22 @@ public class ControllerBoiler extends SARRectangularMultiblockControllerBase imp
 	@Override
 	public String getName() {
 		return "Boiler";
+	}
+
+	@Override
+	protected FluidTank getTank(String tankName) {
+		if(tankName.equals("steam"))
+			return steamTank;
+		else if(tankName.equals("water")) {
+			return waterTank;
+		}
+		else
+			return liquidFuelTank;
+	}
+
+	@Override
+	public ItemStackHandler getInventory(String toWrap) {
+		// TODO Auto-generated method stub
+		return solidFuelInventory;
 	}
 }

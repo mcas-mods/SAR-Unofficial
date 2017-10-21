@@ -20,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
@@ -40,7 +41,7 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 	public ItemStackHandlerExtractSpecific itemInput;
 	public FluidTankSmart output;
 
-	protected ControllerVat(World world) {
+	public ControllerVat(World world) {
 		super(world);
 		fluidInput = new MultiFluidTank(inputCapacity, this);
 		itemInput = new ItemStackHandlerExtractSpecific(3);
@@ -316,5 +317,10 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 		else {
 			return output;
 		}
+	}
+
+	@Override
+	public ItemStackHandler getInventory(String toWrap) {
+		return itemInput;
 	}
 }

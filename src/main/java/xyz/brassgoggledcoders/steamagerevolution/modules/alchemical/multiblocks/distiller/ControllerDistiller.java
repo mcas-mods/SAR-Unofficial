@@ -262,4 +262,9 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 		return steamTank;
 	}
 
+	@Override
+	public ItemStackHandler getInventory(String toWrap) {
+		return itemOutput;
+	}
+
 }

@@ -4,6 +4,7 @@ import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockCo
 
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public abstract class SARRectangularMultiblockControllerBase extends RectangularMultiblockControllerBase
@@ -13,9 +14,7 @@ public abstract class SARRectangularMultiblockControllerBase extends Rectangular
 		super(world);
 	}
 
-	protected FluidTank getTank(String toWrap) {
-		return null;
-	}
+	protected abstract FluidTank getTank(String tankName);
 
 	// @Override
 	// protected boolean isMachineWhole(IMultiblockValidator validatorCallback) {
@@ -55,4 +54,6 @@ public abstract class SARRectangularMultiblockControllerBase extends Rectangular
 		SteamAgeRevolution.instance.getLogger().devInfo("Machine Assembled");
 		SteamAgeRevolution.proxy.spawnMultiblockAssemblyFX(this.getMinimumCoord(), this.getMaximumCoord());
 	}
+
+	public abstract ItemStackHandler getInventory(String toWrap);
 }

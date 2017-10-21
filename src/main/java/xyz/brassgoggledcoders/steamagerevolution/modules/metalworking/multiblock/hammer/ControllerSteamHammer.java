@@ -246,4 +246,15 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 	public void updateStack(PacketItemUpdate message) {
 		this.inventory.setStackInSlot(message.slot, message.item);
 	}
+
+	@Override
+	protected FluidTank getTank(String tankName) {
+		// TODO Auto-generated method stub
+		return tank;
+	}
+
+	@Override
+	public ItemStackHandler getInventory(String toWrap) {
+		return inventory;
+	}
 }
