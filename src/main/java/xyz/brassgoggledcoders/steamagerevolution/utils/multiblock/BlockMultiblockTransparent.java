@@ -14,9 +14,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockMultiblockTransparent<C extends SARRectangularMultiblockControllerBase>
 		extends BlockMultiblockBase<C> {
 
-	public BlockMultiblockTransparent(Function<World, TileEntityMultiblockBase<C>> tileEntityCreator, Material material,
-			String name) {
-		super(tileEntityCreator, material, name);
+	public BlockMultiblockTransparent(Class<? extends TileEntityMultiblockBase> tileClass,
+			Function<World, TileEntityMultiblockBase<C>> tileEntityCreator, Material material, String name) {
+		super(tileClass, tileEntityCreator, material, name);
 	}
 
 	@SideOnly(Side.CLIENT)

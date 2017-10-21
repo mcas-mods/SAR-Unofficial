@@ -21,9 +21,9 @@ public class BlockMultiblockPositional<C extends SARRectangularMultiblockControl
 
 	public static final PropertyEnum<PartPosition> position = PartPosition.createProperty("position");
 
-	public BlockMultiblockPositional(Function<World, TileEntityMultiblockBase<C>> tileEntityCreator, Material material,
-			String name) {
-		super(tileEntityCreator, material, name);
+	public BlockMultiblockPositional(Class<? extends TileEntityMultiblockBase> tileClass,
+			Function<World, TileEntityMultiblockBase<C>> tileEntityCreator, Material material, String name) {
+		super(tileClass, tileEntityCreator, material, name);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(position, PartPosition.UNKNOWN));
 	}
 

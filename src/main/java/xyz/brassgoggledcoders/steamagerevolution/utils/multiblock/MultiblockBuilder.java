@@ -32,7 +32,7 @@ public class MultiblockBuilder<C extends SARRectangularMultiblockControllerBase>
 	}
 
 	public MultiblockBuilder<C> addNewPart(String name, boolean[] validPositions) {
-		parts.add(new BlockMultiblockBase<C>(
+		parts.add(new BlockMultiblockBase<C>(TileEntityMultiblockBase.class,
 				world -> new TileEntityMultiblockBase<C>(validPositions, controller, controllerCreator), material,
 				name));
 		return this;
@@ -55,14 +55,14 @@ public class MultiblockBuilder<C extends SARRectangularMultiblockControllerBase>
 	}
 
 	public MultiblockBuilder<C> addNewTransparentPart(String name, boolean[] validPositions) {
-		parts.add(new BlockMultiblockTransparent<C>(
+		parts.add(new BlockMultiblockTransparent<C>(TileEntityMultiblockBase.class,
 				world -> new TileEntityMultiblockBase<C>(validPositions, controller, controllerCreator), material,
 				name));
 		return this;
 	}
 
 	public MultiblockBuilder<C> addNewPositionalPart(String name, boolean[] validPositions) {
-		parts.add(new BlockMultiblockPositional<C>(
+		parts.add(new BlockMultiblockPositional<C>(TileEntityMultiblockBase.class,
 				world -> new TileEntityMultiblockBase<C>(validPositions, controller, controllerCreator), material,
 				name));
 		return this;
@@ -70,8 +70,10 @@ public class MultiblockBuilder<C extends SARRectangularMultiblockControllerBase>
 
 	public MultiblockBuilder<C> addNewPositionalFluidWrapperPart(String name, boolean[] validPositions,
 			String tankName) {
-		parts.add(new BlockMultiblockPositional<C>(world -> new TileEntityMultiblockFluidWrapper<C>(tankName,
-				validPositions, controller, controllerCreator), material, name));
+		parts.add(new BlockMultiblockPositional<C>(TileEntityMultiblockBase.class,
+				world -> new TileEntityMultiblockFluidWrapper<C>(tankName, validPositions, controller,
+						controllerCreator),
+				material, name));
 		return this;
 	}
 

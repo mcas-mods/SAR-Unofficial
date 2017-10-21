@@ -14,6 +14,8 @@ public class TileEntityMultiblockItemWrapper<T extends SARRectangularMultiblockC
 		extends TileEntityMultiblockBase<T> {
 	String toWrap;
 
+	public TileEntityMultiblockItemWrapper() {}
+
 	public TileEntityMultiblockItemWrapper(String toWrap, boolean[] validPositions, Class<T> controllerClass,
 			Function<World, SARRectangularMultiblockControllerBase> controllerCreator) {
 		super(validPositions, controllerClass, controllerCreator);

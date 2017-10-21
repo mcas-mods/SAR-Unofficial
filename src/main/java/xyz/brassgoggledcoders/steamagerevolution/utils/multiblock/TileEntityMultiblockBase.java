@@ -16,11 +16,23 @@ public class TileEntityMultiblockBase<T extends SARRectangularMultiblockControll
 	private Function<World, SARRectangularMultiblockControllerBase> controllerCreator;
 	private boolean[] validPositions;
 
+	public TileEntityMultiblockBase() {}
+
 	public TileEntityMultiblockBase(boolean[] validPositions, Class<T> controllerClass,
 			Function<World, SARRectangularMultiblockControllerBase> controllerCreator) {
 		this.validPositions = validPositions;
 		this.controllerClass = controllerClass;
 		this.controllerCreator = controllerCreator;
+	}
+
+	// FIXME Hackity hack...
+	@Override
+	public void onLoad() {
+		if(((TileEntityMultiblockBase) getWorld().getTileEntity(getPos())).controllerClass == null) {
+			getWorld().setTileEntity(getPos(),
+					((BlockMultiblockBase) this.getWorld().getBlockState(getPos()).getBlock())
+							.createTileEntity(getWorld(), this.getWorld().getBlockState(getPos())));
+		}
 	}
 
 	@Override
