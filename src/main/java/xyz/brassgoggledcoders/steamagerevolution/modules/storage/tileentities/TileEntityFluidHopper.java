@@ -85,7 +85,7 @@ public class TileEntityFluidHopper extends TileEntitySlowTick {
 		}
 
 		if(fromPos == null) {
-			fromPos = pos.up();
+			fromPos = pos.offset(state.getValue(BlockFluidHopper.FACING));
 		}
 		EnumFacing facing = PositionUtils.getFacingFromPositions(pos, fromPos);
 		if(facing == EnumFacing.DOWN) {
