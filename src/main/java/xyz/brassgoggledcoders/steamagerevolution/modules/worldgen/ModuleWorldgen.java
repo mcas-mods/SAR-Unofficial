@@ -30,6 +30,9 @@ public class ModuleWorldgen extends ModuleBase {
 		this.getConfigRegistry().addEntry(new ConfigEntry("Generation", "doZincOreGen", Type.BOOLEAN, "true"));
 		OreGenerator.oresToGenerate
 				.add(new OreEntry("Zinc", 10, 40, 6, system.getSubBlock("zinc_ore_stone").getBlockState()));
+		this.getConfigRegistry().addEntry(new ConfigEntry("Generation", "doSulphurOreGen", Type.BOOLEAN, "true"));
+		OreGenerator.oresToGenerate
+				.add(new OreEntry("Sulphur", 6, 55, 4, system.getSubBlock("sulphur_ore").getBlockState()));
 		super.init(event);
 	}
 
