@@ -2,37 +2,57 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
 import java.util.function.Function;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.items.CapabilityItemHandler;
 
-public class TileEntityMultiblockBase<T extends SARRectangularMultiblockControllerBase>
+public abstract class TileEntityMultiblockBase<T extends SARRectangularMultiblockControllerBase>
 		extends RectangularMultiblockTileEntityBase<T> implements IMultiblockTileInfo {
 
+	private BlockMultiblockBase<T> block;
 	private Class<T> controllerClass;
 	private Function<World, SARRectangularMultiblockControllerBase> controllerCreator;
-	private boolean[] validPositions;
 
-	public TileEntityMultiblockBase() {}
-
-	public TileEntityMultiblockBase(boolean[] validPositions, Class<T> controllerClass,
+	public TileEntityMultiblockBase(Class<T> controllerClass,
 			Function<World, SARRectangularMultiblockControllerBase> controllerCreator) {
-		this.validPositions = validPositions;
+		this.block = (BlockMultiblockBase<T>) getBlockType();
 		this.controllerClass = controllerClass;
 		this.controllerCreator = controllerCreator;
 	}
 
-	// FIXME Hackity hack...
 	@Override
-	public void onLoad() {
-		if(((TileEntityMultiblockBase) getWorld().getTileEntity(getPos())).controllerClass == null) {
-			getWorld().setTileEntity(getPos(),
-					((BlockMultiblockBase) this.getWorld().getBlockState(getPos()).getBlock())
-							.createTileEntity(getWorld(), this.getWorld().getBlockState(getPos())));
+	protected void setWorldCreate(World worldIn) {
+		block = (BlockMultiblockBase<T>) worldIn.getBlockState(pos).getBlock();
+	}
+
+	@Override
+	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && block.tankToWrap != null
+				|| capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && block.inventoryToWrap != null;
+	}
+
+	@Override
+	@Nonnull
+	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
+					.cast(new MultiblockTankWrapper(this, block.tankToWrap));
 		}
+		else if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+					.cast(new MultiblockInventoryWrapper(this, block.inventoryToWrap));
+		}
+		return super.getCapability(capability, facing);
 	}
 
 	@Override
@@ -47,32 +67,32 @@ public class TileEntityMultiblockBase<T extends SARRectangularMultiblockControll
 
 	@Override
 	public boolean[] getValidPositions() {
-		return validPositions;
+		return block.validPositions;
 	}
 
 	@Override
 	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
-		return validPositions[0];
+		return block.validPositions[0];
 	}
 
 	@Override
 	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
-		return validPositions[1];
+		return block.validPositions[1];
 	}
 
 	@Override
 	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
-		return validPositions[2];
+		return block.validPositions[2];
 	}
 
 	@Override
 	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
-		return validPositions[3];
+		return block.validPositions[3];
 	}
 
 	@Override
 	public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
-		return validPositions[4];
+		return block.validPositions[4];
 	}
 
 	@Override

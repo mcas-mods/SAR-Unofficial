@@ -11,6 +11,7 @@ import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import net.minecraft.block.material.Material;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.ControllerSteamFurnace;
+import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.TileEntitySteamFurnacePart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockBuilder;
 
 @Module(value = SteamAgeRevolution.MODID)
@@ -28,11 +29,11 @@ public class ModuleProcessing extends ModuleBase {
 		// blockRegistry.register(new BlockKilnWindow(Material.GLASS, "kiln_window"));
 		// blockRegistry.register(new BlockKilnDoor(Material.IRON, "kiln_door"));
 
-		new MultiblockBuilder<ControllerSteamFurnace>(blockRegistry, ControllerSteamFurnace.class,
-				ControllerSteamFurnace::new, Material.ANVIL).addNewPart("furnace_casing", allButInterior)
-						.addNewItemWrapperPart("furnace_item_input", allFaces, "input")
-						.addNewItemWrapperPart("furnace_item_output", allFaces, "output")
-						.addNewFluidWrapperPart("furnace_steam_input", allFaces, "steam").build();
+		new MultiblockBuilder<ControllerSteamFurnace>(blockRegistry, TileEntitySteamFurnacePart.class, Material.ANVIL)
+				.addNewPart("furnace_casing", allButInterior)
+				.addNewItemWrapperPart("furnace_item_input", allFaces, "input")
+				.addNewItemWrapperPart("furnace_item_output", allFaces, "output")
+				.addNewFluidWrapperPart("furnace_steam_input", allFaces, "steam").build();
 	}
 
 }

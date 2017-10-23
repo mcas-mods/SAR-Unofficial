@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteamVent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.ControllerBoiler;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.TileEntityBoilerPart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockBuilder;
 
 @Module(value = SteamAgeRevolution.MODID)
@@ -66,14 +67,14 @@ public class ModuleSteam extends ModuleBase {
 			}
 		});
 
-		new MultiblockBuilder<ControllerBoiler>(blockRegistry, ControllerBoiler.class, ControllerBoiler::new,
-				Material.IRON).addNewPart("boiler_casing", MultiblockBuilder.allButInterior)
-						.addNewFluidWrapperPart("boiler_steam_output", MultiblockBuilder.allFaces, "steam")
-						.addNewFluidWrapperPart("boiler_liquid_firebox", MultiblockBuilder.bottomOnly, "firebox")
-						.addNewFluidWrapperPart("boiler_water_input", MultiblockBuilder.allFaces, "water")
-						.addNewItemWrapperPart("boiler_solid_firebox", MultiblockBuilder.bottomOnly, "firebox")
-						.addNewTransparentPart("boiler_steam_gauge", MultiblockBuilder.allFaces)
-						.addNewTransparentPart("boiler_water_gauge", MultiblockBuilder.allFaces).build();
+		new MultiblockBuilder<ControllerBoiler>(blockRegistry, TileEntityBoilerPart.class, Material.IRON)
+				.addNewPart("boiler_casing", MultiblockBuilder.allButInterior)
+				.addNewFluidWrapperPart("boiler_steam_output", MultiblockBuilder.allFaces, "steam")
+				.addNewFluidWrapperPart("boiler_liquid_firebox", MultiblockBuilder.bottomOnly, "firebox")
+				.addNewFluidWrapperPart("boiler_water_input", MultiblockBuilder.allFaces, "water")
+				.addNewItemWrapperPart("boiler_solid_firebox", MultiblockBuilder.bottomOnly, "firebox")
+				.addNewTransparentPart("boiler_steam_gauge", MultiblockBuilder.allFaces)
+				.addNewTransparentPart("boiler_water_gauge", MultiblockBuilder.allFaces).build();
 
 		steamVent = new BlockSteamVent(Material.IRON, "steam_vent");
 		blockRegistry.register(steamVent);

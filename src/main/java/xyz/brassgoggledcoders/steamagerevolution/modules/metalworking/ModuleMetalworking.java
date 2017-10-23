@@ -38,13 +38,11 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.DistillerRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe.VatRecipeBuilder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemDie;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.AlloyFurnaceRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.ControllerAlloyFurnace;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.ControllerCrucible;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.ControllerSteamHammer;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.SteamHammerRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.ControllerSteelworks;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.TileEntitySteelworksPart;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.SteamFurnaceRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockBuilder;
 
@@ -96,34 +94,31 @@ public class ModuleMetalworking extends ModuleBase {
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
 
-		new MultiblockBuilder<ControllerAlloyFurnace>(blockRegistry, ControllerAlloyFurnace.class,
-				ControllerAlloyFurnace::new, Material.IRON)
-						.addNewFluidWrapperPart("alloy_furnace_fluid_input", allButInterior, "input")
-						.addNewFluidWrapperPart("alloy_furnace_fluid_output", allButInterior, "output")
-						.addNewPart("alloy_furnace_frame", allButInterior).build();
+		new MultiblockBuilder<ControllerAlloyFurnace>(blockRegistry, TileEntityAlloyFurnacePart.class, Material.IRON)
+				.addNewFluidWrapperPart("alloy_furnace_fluid_input", allButInterior, "input")
+				.addNewFluidWrapperPart("alloy_furnace_fluid_output", allButInterior, "output")
+				.addNewPart("alloy_furnace_frame", allButInterior).build();
 
-		new MultiblockBuilder<ControllerSteelworks>(blockRegistry, ControllerSteelworks.class,
-				ControllerSteelworks::new, Material.ROCK)
-						.addNewItemWrapperPart("steelworks_item_input", allButInterior, "coal")
-						.addNewPart("steelworks_frame", allButInterior)
-						.addNewFluidWrapperPart("steelworks_iron_input", allButInterior, "iron")
-						.addNewFluidWrapperPart("steelworks_steel_output", allButInterior, "steel")
-						.addNewFluidWrapperPart("steelworks_steam_input", allButInterior, "steam").build();
+		new MultiblockBuilder<ControllerSteelworks>(blockRegistry, TileEntitySteelworksPart.class, Material.ROCK)
+				.addNewItemWrapperPart("steelworks_item_input", allButInterior, "coal")
+				.addNewPart("steelworks_frame", allButInterior)
+				.addNewFluidWrapperPart("steelworks_iron_input", allButInterior, "iron")
+				.addNewFluidWrapperPart("steelworks_steel_output", allButInterior, "steel")
+				.addNewFluidWrapperPart("steelworks_steam_input", allButInterior, "steam").build();
 
-		new MultiblockBuilder<ControllerSteamHammer>(blockRegistry, ControllerSteamHammer.class,
-				ControllerSteamHammer::new, Material.ANVIL)
-						.addNewItemWrapperPart("steamhammmer_anvil", bottomOnly, "output")
-						.addNewPositionalFluidWrapperPart("steamhammer_frame", allButInterior/* TODO */, "steam")
-						.addNewTransparentPart("steamhammer_shielding", sidesOnly)
-						.addNewItemWrapperPart("steamhammer_hammer", topOnly, "input").build();
+		new MultiblockBuilder<ControllerSteamHammer>(blockRegistry, TileEntitySteamHammerPart.class, Material.ANVIL)
+				.addNewItemWrapperPart("steamhammmer_anvil", bottomOnly, "output")
+				.addNewPositionalFluidWrapperPart("steamhammer_frame", allButInterior/* TODO */, "steam")
+				.addNewTransparentPart("steamhammer_shielding", sidesOnly)
+				.addNewItemWrapperPart("steamhammer_hammer", topOnly, "input").build();
 
 		blockRegistry.register(new BlockCastingBench(Material.ANVIL, "casting_bench"));
 
-		new MultiblockBuilder<ControllerCrucible>(blockRegistry, ControllerCrucible.class, ControllerCrucible::new,
-				Material.IRON).addNewPart("crucible_casing", allButInterior)
-						.addNewFluidWrapperPart("crucible_fluid_output", allButInterior, "output")
-						.addNewFluidWrapperPart("crucible_steam_input", sidesOnly, "steam")
-						.addNewItemWrapperPart("crucible_item_input", allFaces, "item").build();
+		new MultiblockBuilder<ControllerCrucible>(blockRegistry, TileEntityCruciblePart.class, Material.IRON)
+				.addNewPart("crucible_casing", allButInterior)
+				.addNewFluidWrapperPart("crucible_fluid_output", allButInterior, "output")
+				.addNewFluidWrapperPart("crucible_steam_input", sidesOnly, "steam")
+				.addNewItemWrapperPart("crucible_item_input", allFaces, "item").build();
 	}
 
 	@Override

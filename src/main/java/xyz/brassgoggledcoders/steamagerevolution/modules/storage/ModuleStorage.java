@@ -14,6 +14,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.items.ItemCanister;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.ControllerTank;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.TileEntityTankPart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockBuilder;
 
 @Module(value = SteamAgeRevolution.MODID)
@@ -39,7 +40,7 @@ public class ModuleStorage extends ModuleBase {
 		fluidHopper = new BlockFluidHopper(Material.IRON, "fluid_hopper");
 		blockRegistry.register(fluidHopper);
 
-		new MultiblockBuilder<ControllerTank>(blockRegistry, ControllerTank.class, ControllerTank::new, Material.IRON)
+		new MultiblockBuilder<ControllerTank>(blockRegistry, TileEntityTankPart.class, Material.IRON)
 				.addNewPart("tank_casing", MultiblockBuilder.allButInterior)
 				.addNewFluidWrapperPart("tank_valve", MultiblockBuilder.allFaces, "tank")
 				.addNewTransparentPart("tank_window", MultiblockBuilder.allFaces).build();

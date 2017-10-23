@@ -1,23 +1,25 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
 import java.util.List;
-import java.util.function.Function;
 
 import javax.annotation.Nullable;
 
 import com.teamacronymcoders.base.blocks.BlockTEBase;
 import com.teamacronymcoders.base.multiblock.MultiblockTileEntityBase;
+import com.teamacronymcoders.base.multiblock.rectangular.PartPosition;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -25,14 +27,57 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockMultiblockBase<C extends SARRectangularMultiblockControllerBase>
 		extends BlockTEBase<TileEntityMultiblockBase<C>> {
 
-	private Function<World, TileEntityMultiblockBase<C>> tileEntityCreator;
 	private Class<? extends TileEntityMultiblockBase> tileClass;
+	private boolean isTransparent, isPositional;
+	protected boolean[] validPositions;
+	protected String tankToWrap, inventoryToWrap;
+	protected static final PropertyEnum<PartPosition> position = PartPosition.createProperty("position");
 
-	public BlockMultiblockBase(Class<? extends TileEntityMultiblockBase> tileClass,
-			Function<World, TileEntityMultiblockBase<C>> tileEntityCreator, Material material, String name) {
+	public BlockMultiblockBase(Class<? extends TileEntityMultiblockBase> tileClass, Material material, String name,
+			boolean[] validPositions, String tankToWrap, String inventoryToWrap, boolean isTransparent,
+			boolean isPositional) {
 		super(material, name);
-		this.tileEntityCreator = tileEntityCreator;
 		this.tileClass = tileClass;
+		this.validPositions = validPositions;
+		this.tankToWrap = tankToWrap;
+		this.inventoryToWrap = inventoryToWrap;
+		this.isTransparent = isTransparent;
+		this.isPositional = isPositional;
+		this.setDefaultState(this.blockState.getBaseState().withProperty(position, PartPosition.UNKNOWN));
+	}
+
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, position);
+	}
+
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+		if(isPositional) {
+			return state.withProperty(position, this.getTileEntity(worldIn, pos).getPartPosition());
+		}
+		return super.getActualState(state, worldIn, pos);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return 0;
+	}
+
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
+		return !isTransparent;
+	}
+
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return !isTransparent;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public BlockRenderLayer getBlockLayer() {
+		return isTransparent ? BlockRenderLayer.CUTOUT : super.getBlockLayer();
 	}
 
 	@Override
@@ -42,7 +87,13 @@ public class BlockMultiblockBase<C extends SARRectangularMultiblockControllerBas
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return tileEntityCreator.apply(world);
+		try {
+			return tileClass.newInstance();
+		}
+		catch(InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
@@ -80,16 +131,16 @@ public class BlockMultiblockBase<C extends SARRectangularMultiblockControllerBas
 				tooltip.add("Maximum Size (XYZ): " + controller.getMaximumXSize() + "x" + controller.getMaximumYSize()
 						+ "x" + controller.getMaximumZSize());
 			}
-			if(tile.getPartFunction() != null) {
-				tooltip.add("Part function: " + tile.getPartFunction());
-			}
-			String[] positions = new String[] {"Frame", "Sides", "Top", "Bottom", "Interior"};
-			String valid = "Valid part positions: ";
-			for(int possiblePositions = 0; possiblePositions < 5; possiblePositions++) {
-				if(tile.getValidPositions()[possiblePositions])
-					valid += positions[possiblePositions] + ",";
-			}
-			tooltip.add(valid.substring(0, valid.length() - 1));
+			// if(tile.getPartFunction() != null) {
+			// tooltip.add("Part function: " + tile.getPartFunction());
+			// }
+			// String[] positions = new String[] {"Frame", "Sides", "Top", "Bottom", "Interior"};
+			// String valid = "Valid part positions: ";
+			// for(int possiblePositions = 0; possiblePositions < 5; possiblePositions++) {
+			// if(tile.getValidPositions()[possiblePositions])
+			// valid += positions[possiblePositions] + ",";
+			// }
+			// tooltip.add(valid.substring(0, valid.length() - 1));
 		}
 		super.addInformation(stack, player, tooltip, advanced);
 	}

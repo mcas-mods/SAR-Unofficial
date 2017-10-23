@@ -36,9 +36,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.blocks.BlockFumeCollector;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.items.ItemFlask;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.ControllerDistiller;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.DistillerRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.ControllerVat;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.TileEntityVatPart;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe.VatRecipeBuilder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlockRecipe;
@@ -134,17 +134,17 @@ public class ModuleAlchemical extends ModuleBase {
 
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
-		new MultiblockBuilder<ControllerVat>(blockRegistry, ControllerVat.class, ControllerVat::new, Material.IRON)
+		new MultiblockBuilder<ControllerVat>(blockRegistry, TileEntityVatPart.class, Material.IRON)
 				.addNewPart("vat_casing", allButInterior).addNewFluidWrapperPart("vat_input", sidesOnly, "input")
 				.addNewFluidWrapperPart("vat_output", allFaces, "output").build();
 
 		blockRegistry.register(new BlockFumeCollector(Material.IRON, "fume_collector"));
 
-		new MultiblockBuilder<ControllerDistiller>(blockRegistry, ControllerDistiller.class, ControllerDistiller::new,
-				Material.IRON).addNewFluidWrapperPart("distiller_fluid_input", allFaces, "input")
-						.addNewFluidWrapperPart("distiller_fluid_output", allFaces, "input")
-						.addNewPart("distiller_frame", allButInterior).addNewPart("distiller_hotplate", allButInterior)
-						.addNewFluidWrapperPart("distiller_radiator", allButInterior, "steam").build();
+		new MultiblockBuilder<ControllerDistiller>(blockRegistry, TileEntityDistillerPart.class, Material.IRON)
+				.addNewFluidWrapperPart("distiller_fluid_input", allFaces, "input")
+				.addNewFluidWrapperPart("distiller_fluid_output", allFaces, "input")
+				.addNewPart("distiller_frame", allButInterior).addNewPart("distiller_hotplate", allButInterior)
+				.addNewFluidWrapperPart("distiller_radiator", allButInterior, "steam").build();
 
 		Fluid sulphur_dioxide =
 				new Fluid("sulphur_dioxide", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/sulphur_dioxide"),
