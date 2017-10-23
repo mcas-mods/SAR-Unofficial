@@ -1,6 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.Comparator;
 
 import com.teamacronymcoders.base.BaseModFoundation;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
@@ -8,6 +10,7 @@ import com.teamacronymcoders.base.util.Platform;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -15,6 +18,7 @@ import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.*;
 
@@ -96,6 +100,21 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 		@Override
 		public ItemStack getTabIconItem() {
 			return new ItemStack(ModuleMetalworking.hammer);
+		}
+
+		@Override
+		@SideOnly(Side.CLIENT)
+		public void displayAllRelevantItems(NonNullList<ItemStack> items) {
+			super.displayAllRelevantItems(items);
+			Collections.sort(items, new StackComparator());
+		}
+
+		class StackComparator implements Comparator<ItemStack> {
+
+			@Override
+			public int compare(ItemStack o1, ItemStack o2) {
+				return o1.getDisplayName().compareToIgnoreCase(o2.getDisplayName());
+			}
 		}
 
 	}
