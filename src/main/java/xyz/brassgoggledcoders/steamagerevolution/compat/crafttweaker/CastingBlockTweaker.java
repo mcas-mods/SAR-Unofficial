@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlockRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
 
 @ZenClass("mods.steamagerevolution.CastingBlock")
 public class CastingBlockTweaker {
@@ -60,7 +59,7 @@ public class CastingBlockTweaker {
 					toRemove.add(r);
 				}
 			}
-			CrucibleRecipe.getRecipeList().removeAll(toRemove);
+			CastingBlockRecipe.getRecipeList().removeAll(toRemove);
 		}
 
 		@Override
