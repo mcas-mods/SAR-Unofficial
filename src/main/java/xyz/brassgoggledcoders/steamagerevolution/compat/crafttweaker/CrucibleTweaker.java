@@ -2,7 +2,6 @@ package xyz.brassgoggledcoders.steamagerevolution.compat.crafttweaker;
 
 import java.util.ArrayList;
 
-import blusunrize.immersiveengineering.common.util.compat.crafttweaker.CraftTweakerHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.api.item.IItemStack;
@@ -17,8 +16,7 @@ public class CrucibleTweaker {
 
 	@ZenMethod
 	public static void addRecipe(IItemStack input, ILiquidStack output) {
-		CrucibleRecipe r =
-				new CrucibleRecipe(CraftTweakerHelper.toStack(input), CraftTweakerHelper.toFluidStack(output));
+		CrucibleRecipe r = new CrucibleRecipe(CTHelper.toItemStack(input), CTHelper.toFluidStack(output));
 		CraftTweakerAPI.apply(new Add(r));
 	}
 
@@ -42,7 +40,7 @@ public class CrucibleTweaker {
 
 	@ZenMethod
 	public static void removeRecipe(ILiquidStack output) {
-		CraftTweakerAPI.apply(new Remove(CraftTweakerHelper.toFluidStack(output)));
+		CraftTweakerAPI.apply(new Remove(CTHelper.toFluidStack(output)));
 	}
 
 	private static class Remove implements IAction {

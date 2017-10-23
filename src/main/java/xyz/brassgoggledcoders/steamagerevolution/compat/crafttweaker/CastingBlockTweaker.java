@@ -2,7 +2,6 @@ package xyz.brassgoggledcoders.steamagerevolution.compat.crafttweaker;
 
 import java.util.ArrayList;
 
-import blusunrize.immersiveengineering.common.util.compat.crafttweaker.CraftTweakerHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.api.item.IItemStack;
@@ -18,8 +17,7 @@ public class CastingBlockTweaker {
 
 	@ZenMethod
 	public static void addRecipe(ILiquidStack input, IItemStack output) {
-		CastingBlockRecipe r =
-				new CastingBlockRecipe(CraftTweakerHelper.toFluidStack(input), CraftTweakerHelper.toStack(output));
+		CastingBlockRecipe r = new CastingBlockRecipe(CTHelper.toFluidStack(input), CTHelper.toItemStack(output));
 		CraftTweakerAPI.apply(new Add(r));
 	}
 
@@ -43,7 +41,7 @@ public class CastingBlockTweaker {
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
-		CraftTweakerAPI.apply(new Remove(CraftTweakerHelper.toStack(output)));
+		CraftTweakerAPI.apply(new Remove(CTHelper.toItemStack(output)));
 	}
 
 	private static class Remove implements IAction {

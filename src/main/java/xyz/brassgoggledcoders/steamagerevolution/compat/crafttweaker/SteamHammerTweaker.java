@@ -2,7 +2,6 @@ package xyz.brassgoggledcoders.steamagerevolution.compat.crafttweaker;
 
 import java.util.ArrayList;
 
-import blusunrize.immersiveengineering.common.util.compat.crafttweaker.CraftTweakerHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.api.item.IItemStack;
@@ -21,8 +20,7 @@ public class SteamHammerTweaker {
 
 	@ZenMethod
 	public static void addRecipe(IItemStack input, IItemStack output, String dieType) {
-		SteamHammerRecipe r =
-				new SteamHammerRecipe(CraftTweakerHelper.toStack(input), CraftTweakerHelper.toStack(output), dieType);
+		SteamHammerRecipe r = new SteamHammerRecipe(CTHelper.toItemStack(input), CTHelper.toItemStack(output), dieType);
 		CraftTweakerAPI.apply(new Add(r));
 	}
 
@@ -46,7 +44,7 @@ public class SteamHammerTweaker {
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
-		CraftTweakerAPI.apply(new Remove(CraftTweakerHelper.toStack(output)));
+		CraftTweakerAPI.apply(new Remove(CTHelper.toItemStack(output)));
 	}
 
 	private static class Remove implements IAction {

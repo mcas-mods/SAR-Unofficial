@@ -2,7 +2,6 @@ package xyz.brassgoggledcoders.steamagerevolution.compat.crafttweaker;
 
 import java.util.ArrayList;
 
-import blusunrize.immersiveengineering.common.util.compat.crafttweaker.CraftTweakerHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.api.liquid.ILiquidStack;
@@ -15,8 +14,8 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock
 public class AlloyFurnaceTweaker {
 	@ZenMethod
 	public static void addRecipe(ILiquidStack first, ILiquidStack second, ILiquidStack output) {
-		AlloyFurnaceRecipe r = new AlloyFurnaceRecipe(CraftTweakerHelper.toFluidStack(first),
-				CraftTweakerHelper.toFluidStack(second), CraftTweakerHelper.toFluidStack(output));
+		AlloyFurnaceRecipe r = new AlloyFurnaceRecipe(CTHelper.toFluidStack(first), CTHelper.toFluidStack(second),
+				CTHelper.toFluidStack(output));
 		CraftTweakerAPI.apply(new Add(r));
 	}
 
@@ -40,7 +39,7 @@ public class AlloyFurnaceTweaker {
 
 	@ZenMethod
 	public static void removeRecipe(ILiquidStack output) {
-		CraftTweakerAPI.apply(new Remove(CraftTweakerHelper.toFluidStack(output)));
+		CraftTweakerAPI.apply(new Remove(CTHelper.toFluidStack(output)));
 	}
 
 	private static class Remove implements IAction {
