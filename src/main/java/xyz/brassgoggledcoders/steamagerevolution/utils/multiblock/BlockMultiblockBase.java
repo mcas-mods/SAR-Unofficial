@@ -6,11 +6,8 @@ import javax.annotation.Nullable;
 
 import com.teamacronymcoders.base.blocks.BlockTEBase;
 import com.teamacronymcoders.base.multiblock.MultiblockTileEntityBase;
-import com.teamacronymcoders.base.multiblock.rectangular.PartPosition;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +16,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -28,40 +24,18 @@ public class BlockMultiblockBase<C extends SARRectangularMultiblockControllerBas
 		extends BlockTEBase<TileEntityMultiblockBase<C>> {
 
 	private Class<? extends TileEntityMultiblockBase> tileClass;
-	private boolean isTransparent, isPositional;
+	private boolean isTransparent;
 	protected boolean[] validPositions;
 	protected String tankToWrap, inventoryToWrap;
-	protected static final PropertyEnum<PartPosition> position = PartPosition.createProperty("position");
 
 	public BlockMultiblockBase(Class<? extends TileEntityMultiblockBase> tileClass, Material material, String name,
-			boolean[] validPositions, String tankToWrap, String inventoryToWrap, boolean isTransparent,
-			boolean isPositional) {
+			boolean[] validPositions, String tankToWrap, String inventoryToWrap, boolean isTransparent) {
 		super(material, name);
 		this.tileClass = tileClass;
 		this.validPositions = validPositions;
 		this.tankToWrap = tankToWrap;
 		this.inventoryToWrap = inventoryToWrap;
 		this.isTransparent = isTransparent;
-		this.isPositional = isPositional;
-		this.setDefaultState(this.blockState.getBaseState().withProperty(position, PartPosition.UNKNOWN));
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, position);
-	}
-
-	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		if(isPositional) {
-			return state.withProperty(position, this.getTileEntity(worldIn, pos).getPartPosition());
-		}
-		return super.getActualState(state, worldIn, pos);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return 0;
 	}
 
 	@Override

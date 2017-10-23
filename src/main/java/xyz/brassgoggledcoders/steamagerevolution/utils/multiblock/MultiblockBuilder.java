@@ -28,39 +28,38 @@ public class MultiblockBuilder<C extends SARRectangularMultiblockControllerBase>
 	}
 
 	public MultiblockBuilder<C> addNewPart(String name, boolean[] validPositions) {
-		parts.add(new BlockMultiblockBase<C>(tileClass, material, name, validPositions, null, null, false, false));
+		parts.add(new BlockMultiblockBase<C>(tileClass, material, name, validPositions, null, null, false));
 		return this;
 	}
 
 	public MultiblockBuilder<C> addNewFluidWrapperPart(String name, boolean[] validPositions, String tankName) {
-		parts.add(new BlockMultiblockBase<C>(tileClass, material, name, validPositions, tankName, null, false, false));
+		parts.add(new BlockMultiblockBase<C>(tileClass, material, name, validPositions, tankName, null, false));
 		return this;
 	}
 
 	public MultiblockBuilder<C> addNewItemWrapperPart(String name, boolean[] validPositions, String handlerName) {
-		parts.add(
-				new BlockMultiblockBase<C>(tileClass, material, name, validPositions, null, handlerName, false, false));
+		parts.add(new BlockMultiblockBase<C>(tileClass, material, name, validPositions, null, handlerName, false));
 		return this;
 	}
 
 	public MultiblockBuilder<C> addNewTransparentPart(String name, boolean[] validPositions) {
-		parts.add(new BlockMultiblockBase<C>(tileClass, material, name, validPositions, null, null, true, false));
+		parts.add(new BlockMultiblockBase<C>(tileClass, material, name, validPositions, null, null, true));
 		return this;
 	}
 
 	public MultiblockBuilder<C> addNewPositionalPart(String name, boolean[] validPositions) {
-		parts.add(new BlockMultiblockBase<C>(tileClass, material, name, validPositions, null, null, true, true));
+		parts.add(new BlockMultiblockPositional<C>(tileClass, material, name, validPositions, null, null, true));
 		return this;
 	}
 
-	public MultiblockBuilder<C> addNewCustomPartPart(BlockMultiblockBase block) {
+	public MultiblockBuilder<C> addNewCustomPartPart(BlockMultiblockBase<C> block) {
 		parts.add(block);
 		return this;
 	}
 
 	public MultiblockBuilder<C> addNewPositionalFluidWrapperPart(String name, boolean[] validPositions,
 			String tankName) {
-		parts.add(new BlockMultiblockBase<C>(tileClass, material, name, validPositions, tankName, null, true, true));
+		parts.add(new BlockMultiblockPositional<C>(tileClass, material, name, validPositions, tankName, null, true));
 		return this;
 	}
 
