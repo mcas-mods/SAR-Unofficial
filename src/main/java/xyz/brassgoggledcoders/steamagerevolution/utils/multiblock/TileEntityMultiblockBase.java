@@ -10,6 +10,7 @@ import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTi
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -19,38 +20,65 @@ import net.minecraftforge.items.CapabilityItemHandler;
 public abstract class TileEntityMultiblockBase<T extends SARRectangularMultiblockControllerBase>
 		extends RectangularMultiblockTileEntityBase<T> implements IMultiblockTileInfo {
 
-	private BlockMultiblockBase<T> block;
 	private Class<T> controllerClass;
 	private Function<World, SARRectangularMultiblockControllerBase> controllerCreator;
+	protected boolean[] validPositions;
+	protected String tankToWrap, inventoryToWrap;
 
 	public TileEntityMultiblockBase(Class<T> controllerClass,
 			Function<World, SARRectangularMultiblockControllerBase> controllerCreator) {
-		this.block = (BlockMultiblockBase<T>) getBlockType();
 		this.controllerClass = controllerClass;
 		this.controllerCreator = controllerCreator;
+		BlockMultiblockBase block = (BlockMultiblockBase) this.getBlockType();
+		if(block != null) {
+			if(block.inventoryToWrap != null)
+				inventoryToWrap = block.inventoryToWrap;
+			if(block.tankToWrap != null)
+				tankToWrap = block.tankToWrap;
+
+			validPositions = block.validPositions;
+		}
 	}
 
 	@Override
-	protected void setWorldCreate(World worldIn) {
-		block = (BlockMultiblockBase<T>) worldIn.getBlockState(pos).getBlock();
+	public void readFromNBT(NBTTagCompound data) {
+		tankToWrap = data.getString("tankToWrap");
+		inventoryToWrap = data.getString("inventoryToWrap");
+		validPositions = new boolean[5];
+		for(int i = 0; i < 5; i++) {
+			validPositions[i] = data.getBoolean("p" + i);
+		}
+		super.readFromNBT(data);
+	}
+
+	@Override
+	@Nonnull
+	public NBTTagCompound writeToNBT(NBTTagCompound data) {
+		if(inventoryToWrap != null)
+			data.setString("inventoryToWrap", inventoryToWrap);
+		if(tankToWrap != null)
+			data.setString("tankToWrap", tankToWrap);
+		for(int i = 0; i < 5; i++) {
+			data.setBoolean("p" + i, validPositions[i]);
+		}
+		return super.writeToNBT(data);
 	}
 
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && block.tankToWrap != null
-				|| capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && block.inventoryToWrap != null;
+		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && tankToWrap != null
+				|| capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && inventoryToWrap != null;
 	}
 
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
-					.cast(new MultiblockTankWrapper(this, block.tankToWrap));
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockTankWrapper(this, tankToWrap));
 		}
 		else if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-					.cast(new MultiblockInventoryWrapper(this, block.inventoryToWrap));
+					.cast(new MultiblockInventoryWrapper(this, inventoryToWrap));
 		}
 		return super.getCapability(capability, facing);
 	}
@@ -67,32 +95,32 @@ public abstract class TileEntityMultiblockBase<T extends SARRectangularMultibloc
 
 	@Override
 	public boolean[] getValidPositions() {
-		return block.validPositions;
+		return validPositions;
 	}
 
 	@Override
 	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
-		return block.validPositions[0];
+		return validPositions[0];
 	}
 
 	@Override
 	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
-		return block.validPositions[1];
+		return validPositions[1];
 	}
 
 	@Override
 	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
-		return block.validPositions[2];
+		return validPositions[2];
 	}
 
 	@Override
 	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
-		return block.validPositions[3];
+		return validPositions[3];
 	}
 
 	@Override
 	public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
-		return block.validPositions[4];
+		return validPositions[4];
 	}
 
 	@Override

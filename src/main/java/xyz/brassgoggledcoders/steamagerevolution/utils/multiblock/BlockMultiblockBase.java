@@ -1,17 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import com.teamacronymcoders.base.blocks.BlockTEBase;
 import com.teamacronymcoders.base.multiblock.MultiblockTileEntityBase;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -62,7 +56,16 @@ public class BlockMultiblockBase<C extends SARRectangularMultiblockControllerBas
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
 		try {
-			return tileClass.newInstance();
+			TileEntityMultiblockBase tile = tileClass.newInstance();
+			BlockMultiblockBase block = (BlockMultiblockBase) blockState.getBlock();
+			if(block.inventoryToWrap != null)
+				tile.inventoryToWrap = block.inventoryToWrap;
+			if(block.tankToWrap != null)
+				tile.tankToWrap = block.tankToWrap;
+
+			tile.validPositions = block.validPositions;
+
+			return tile;
 		}
 		catch(InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
@@ -88,34 +91,35 @@ public class BlockMultiblockBase<C extends SARRectangularMultiblockControllerBas
 		return false;
 	}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
-		IMultiblockTileInfo tile = (IMultiblockTileInfo) this.createTileEntity(player, null);
-		IMultiblockControllerInfo controller = tile.getControllerInfo();
-
-		// TODO Localisation
-		if(controller != null) {
-			tooltip.add("Multiblock: " + controller.getName());
-			if(controller.getMinimumYSize() > 1) {
-				tooltip.add("Minimum Size (XYZ): " + controller.getMinimumXSize() + "x" + controller.getMinimumYSize()
-						+ "x" + controller.getMinimumZSize());
-			}
-			if(controller.getMaximumXSize() != -1) { // TODO
-				tooltip.add("Maximum Size (XYZ): " + controller.getMaximumXSize() + "x" + controller.getMaximumYSize()
-						+ "x" + controller.getMaximumZSize());
-			}
-			// if(tile.getPartFunction() != null) {
-			// tooltip.add("Part function: " + tile.getPartFunction());
-			// }
-			// String[] positions = new String[] {"Frame", "Sides", "Top", "Bottom", "Interior"};
-			// String valid = "Valid part positions: ";
-			// for(int possiblePositions = 0; possiblePositions < 5; possiblePositions++) {
-			// if(tile.getValidPositions()[possiblePositions])
-			// valid += positions[possiblePositions] + ",";
-			// }
-			// tooltip.add(valid.substring(0, valid.length() - 1));
-		}
-		super.addInformation(stack, player, tooltip, advanced);
-	}
+	// @Override
+	// @SideOnly(Side.CLIENT)
+	// public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced)
+	// {
+	// IMultiblockTileInfo tile = (IMultiblockTileInfo) this.createTileEntity(player, null);
+	// IMultiblockControllerInfo controller = tile.getControllerInfo();
+	//
+	// // TODO Localisation
+	// if(controller != null) {
+	// tooltip.add("Multiblock: " + controller.getName());
+	// if(controller.getMinimumYSize() > 1) {
+	// tooltip.add("Minimum Size (XYZ): " + controller.getMinimumXSize() + "x" + controller.getMinimumYSize()
+	// + "x" + controller.getMinimumZSize());
+	// }
+	// if(controller.getMaximumXSize() != -1) { // TODO
+	// tooltip.add("Maximum Size (XYZ): " + controller.getMaximumXSize() + "x" + controller.getMaximumYSize()
+	// + "x" + controller.getMaximumZSize());
+	// }
+	// // if(tile.getPartFunction() != null) {
+	// // tooltip.add("Part function: " + tile.getPartFunction());
+	// // }
+	// // String[] positions = new String[] {"Frame", "Sides", "Top", "Bottom", "Interior"};
+	// // String valid = "Valid part positions: ";
+	// // for(int possiblePositions = 0; possiblePositions < 5; possiblePositions++) {
+	// // if(tile.getValidPositions()[possiblePositions])
+	// // valid += positions[possiblePositions] + ",";
+	// // }
+	// // tooltip.add(valid.substring(0, valid.length() - 1));
+	// }
+	// super.addInformation(stack, player, tooltip, advanced);
+	// }
 }
