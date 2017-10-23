@@ -9,7 +9,6 @@ import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
-import com.teamacronymcoders.base.util.Platform;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -57,11 +56,6 @@ public class ModuleAlchemical extends ModuleBase {
 			new DamageSource("acid").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
 
 	public static int VALUE_BOTTLE = 250;
-
-	@Override
-	public boolean getActiveDefault() {
-		return Platform.isDevEnv();
-	}
 
 	@Override
 	public String getName() {
