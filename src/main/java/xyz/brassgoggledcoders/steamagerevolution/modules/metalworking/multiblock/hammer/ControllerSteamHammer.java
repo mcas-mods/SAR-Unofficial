@@ -45,6 +45,16 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 	}
 
 	@Override
+	protected FluidTank getTank(String toWrap) {
+		return tank;
+	}
+
+	@Override
+	public ItemStackHandler getInventory(String toWrap) {
+		return inventory;
+	}
+
+	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
 		tank.readFromNBT(data.getCompoundTag("tank"));
 		dieType = data.getString("dieType");

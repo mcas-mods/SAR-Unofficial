@@ -7,10 +7,7 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
@@ -32,6 +29,22 @@ public class ControllerSteelworks extends SARRectangularMultiblockControllerBase
 
 	public ControllerSteelworks(World world) {
 		super(world);
+	}
+
+	@Override
+	protected FluidTank getTank(String toWrap) {
+		if(toWrap.equals("iron")) {
+			return ironTank;
+		}
+		else if(toWrap.equals("steel")) {
+			return outputTank;
+		}
+		return steamTank;
+	}
+
+	@Override
+	public ItemStackHandler getInventory(String toWrap) {
+		return inputSolid;
 	}
 
 	@Override

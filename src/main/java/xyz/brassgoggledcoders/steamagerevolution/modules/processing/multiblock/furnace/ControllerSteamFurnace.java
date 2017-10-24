@@ -43,6 +43,20 @@ public class ControllerSteamFurnace extends SARRectangularMultiblockControllerBa
 	}
 
 	@Override
+	protected FluidTank getTank(String toWrap) {
+		return steamTank;
+	}
+
+	@Override
+	public ItemStackHandler getInventory(String toWrap) {
+		if(toWrap.equals("input")) {
+			return inputInventory;
+		}
+
+		return outputInventory;
+	}
+
+	@Override
 	protected void onBlockAdded(IMultiblockPart newPart) {
 
 	}

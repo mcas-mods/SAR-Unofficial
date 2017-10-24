@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.tileentities;
+package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -10,8 +10,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockInventoryWrapper;
 
-public class TileEntityFurnaceItemOutput extends TileEntityFurnacePart {
-
+public class TileEntityDistillerItemOutput extends TileEntityDistillerPart {
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
 		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
@@ -21,14 +20,9 @@ public class TileEntityFurnaceItemOutput extends TileEntityFurnacePart {
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new MultiblockInventoryWrapper(this, "output"));
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new MultiblockInventoryWrapper(this, ""));
 		}
 		return super.getCapability(capability, facing);
-	}
-
-	@Override
-	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
-		return true;
 	}
 
 	@Override
@@ -36,13 +30,4 @@ public class TileEntityFurnaceItemOutput extends TileEntityFurnacePart {
 		return true;
 	}
 
-	@Override
-	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
-		return true;
-	}
-
-	@Override
-	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
-		return true;
-	}
 }

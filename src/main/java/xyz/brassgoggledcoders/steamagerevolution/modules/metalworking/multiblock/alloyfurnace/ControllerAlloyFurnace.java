@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
@@ -29,6 +28,14 @@ public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBa
 		super(world);
 		primaryTank = new MultiFluidTank(inputCapacity, this);
 		outputTank = new FluidTank(outputCapacity);
+	}
+
+	@Override
+	protected FluidTank getTank(String toWrap) {
+		if(toWrap.equals("output")) {
+			return outputTank;
+		}
+		return primaryTank;
 	}
 
 	@Override

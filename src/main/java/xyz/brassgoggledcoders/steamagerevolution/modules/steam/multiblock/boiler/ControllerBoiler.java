@@ -12,10 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
@@ -48,6 +45,22 @@ public class ControllerBoiler extends SARRectangularMultiblockControllerBase imp
 		super(world, ModuleSteam.boilerWaterInput, ModuleSteam.boilerSteamOutput);
 		attachedMonitors = new HashSet<BlockPos>();
 		attachedValves = new HashSet<BlockPos>();
+	}
+
+	@Override
+	protected FluidTank getTank(String toWrap) {
+		if(toWrap.equals("water")) {
+			return waterTank;
+		}
+		else if(toWrap.equals("liquid")) {
+			return liquidFuelTank;
+		}
+		return steamTank;
+	}
+
+	@Override
+	public ItemStackHandler getInventory(String toWrap) {
+		return solidFuelInventory;
 	}
 
 	@Override

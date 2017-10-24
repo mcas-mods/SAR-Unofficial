@@ -11,6 +11,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockInventoryWrapper;
 
 public class TileEntitySteamHammerAnvil extends TileEntitySteamHammerPart {
 	@Override
@@ -20,15 +21,14 @@ public class TileEntitySteamHammerAnvil extends TileEntitySteamHammerPart {
 
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-		return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.isConnected())
-				|| super.hasCapability(capability, facing);
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
 	}
 
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(this.getMultiblockController().inventory);
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new MultiblockInventoryWrapper(this, ""));
 		}
 		return super.getCapability(capability, facing);
 	}

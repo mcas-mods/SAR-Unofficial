@@ -135,6 +135,7 @@ public class ModuleAlchemical extends ModuleBase {
 		blockRegistry.register(new BlockDistillerFrame(Material.IRON, "distiller_frame"));
 		blockRegistry.register(new BlockDistillerHotplate(Material.IRON, "distiller_hotplate"));
 		blockRegistry.register(new BlockDistillerRadiator(Material.IRON, "distiller_radiator"));
+		blockRegistry.register(new BlockDistillerItemOutput(Material.IRON, "distiller_item_output"));
 
 		Fluid sulphur_dioxide =
 				new Fluid("sulphur_dioxide", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/sulphur_dioxide"),
