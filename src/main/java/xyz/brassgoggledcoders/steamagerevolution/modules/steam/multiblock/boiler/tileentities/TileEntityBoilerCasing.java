@@ -30,10 +30,4 @@ public class TileEntityBoilerCasing extends TileEntityBoilerPart {
 
 		return true;
 	}
-
-	@Override
-	public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
-
-		return false;
-	}
 }

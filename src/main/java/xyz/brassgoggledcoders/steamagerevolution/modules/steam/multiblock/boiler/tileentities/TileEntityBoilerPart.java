@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boile
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
+import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.ControllerBoiler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockControllerInfo;
@@ -13,6 +14,31 @@ public abstract class TileEntityBoilerPart extends RectangularMultiblockTileEnti
 	@Override
 	public Class<? extends MultiblockControllerBase> getMultiblockControllerType() {
 		return ControllerBoiler.class;
+	}
+
+	@Override
+	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
+		return false;
+	}
+
+	@Override
+	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
+		return false;
+	}
+
+	@Override
+	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
+		return false;
+	}
+
+	@Override
+	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
+		return false;
+	}
+
+	@Override
+	public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
+		return false;
 	}
 
 	@Override

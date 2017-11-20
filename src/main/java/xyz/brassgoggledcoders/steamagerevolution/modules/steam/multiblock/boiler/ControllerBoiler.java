@@ -147,34 +147,7 @@ public class ControllerBoiler extends SARRectangularMultiblockControllerBase imp
 
 	@Override
 	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		if(world.isAirBlock(new BlockPos(x, y, z)))
-			return true;
-		else
-			return false;
-	}
-
-	@Override
-	protected void onMachineAssembled() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void onMachineRestored() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void onMachinePaused() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void onMachineDisassembled() {
-		// TODO Auto-generated method stub
-
+		return world.isAirBlock(new BlockPos(x, y, z));
 	}
 
 	@Override
@@ -284,5 +257,23 @@ public class ControllerBoiler extends SARRectangularMultiblockControllerBase imp
 	@Override
 	public String getName() {
 		return "Boiler";
+	}
+
+	@Override
+	protected void onMachineRestored() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onMachinePaused() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onMachineDisassembled() {
+		// TODO Auto-generated method stub
+
 	}
 }

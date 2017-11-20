@@ -33,31 +33,8 @@ public class TileEntityBoilerSolidFirebox extends TileEntityBoilerPart implement
 	}
 
 	@Override
-	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
-		return false;
-	}
-
-	@Override
-	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
 		return true;
-	}
-
-	@Override
-	public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
-		return false;
 	}
 
 	@Override
