@@ -7,15 +7,12 @@ import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraftforge.common.MinecraftForge;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockHydraulicRouter;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockHydraulicSender;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockHydraulicTube;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockPneumaticRouter;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockPneumaticSender;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockPneumaticTube;
+import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.transport.multiblock.sorter.BlockInputBuffer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.transport.multiblock.sorter.BlockOutputBuffer;
+import xyz.brassgoggledcoders.steamagerevolution.modules.transport.pipenetwork.*;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleTransport extends ModuleBase {
@@ -50,4 +47,14 @@ public class ModuleTransport extends ModuleBase {
 		sorterOutputBuffer = new BlockOutputBuffer(Material.IRON, "sorter_outputbuffer");
 		// blockRegistry.register(sorterOutputBuffer);
 	}
+
+	public static IPipeNetworkRegistry initNetworkRegistry() {
+
+		if(null == handler)
+			MinecraftForge.EVENT_BUS.register(handler = new PipeNetworkEventHandler());
+
+		return PipeNetworkRegistry.INSTANCE;
+	}
+
+	private static PipeNetworkEventHandler handler = null;
 }
