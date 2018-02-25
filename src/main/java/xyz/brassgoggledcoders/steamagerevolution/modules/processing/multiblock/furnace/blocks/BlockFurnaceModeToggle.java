@@ -34,7 +34,7 @@ public class BlockFurnaceModeToggle extends BlockMultiblockBase<TileEntityFurnac
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		TileEntityFurnaceModeToggle te = getTileEntity(worldIn, pos);
+		TileEntityFurnaceModeToggle te = getTileEntity(worldIn, pos).get();
 		if(te != null && te.isConnected() && te.getMultiblockController().isAssembled()) {
 			ControllerSteamFurnace.toggleMode(te.getMultiblockController());
 			playerIn.sendStatusMessage(new TextComponentString("Changing heating mode to: "

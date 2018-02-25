@@ -34,7 +34,7 @@ public class BlockHydraulicRouter extends BlockTEBase<TileEntityHydraulicRouter>
 		if(!playerIn.getHeldItem(hand).isEmpty()
 				&& playerIn.getHeldItem(hand).hasCapability(Capabilities.TOOL, facing)) {
 			worldIn.setBlockState(pos, state.cycleProperty(FACING));
-			getTileEntity(worldIn, pos).recalculateCache(worldIn, pos, state, null);
+			getTileEntity(worldIn, pos).get().recalculateCache(worldIn, pos, state, null);
 			return true;
 		}
 		return false;

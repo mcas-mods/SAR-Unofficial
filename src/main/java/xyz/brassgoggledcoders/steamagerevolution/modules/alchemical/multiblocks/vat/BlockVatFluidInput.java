@@ -32,7 +32,7 @@ public class BlockVatFluidInput extends BlockMultiblockBase<TileEntityVatFluidIn
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if(worldIn.isRemote)
 			return false;
-		TileEntityVatFluidInput te = getTileEntity(worldIn, pos);
+		TileEntityVatFluidInput te = getTileEntity(worldIn, pos).get();
 		if(te != null && te.isConnected()) {
 			for(int i = 0; i < te.getMultiblockController().fluidInput.getFluidTypes(); i++) {
 				playerIn.sendStatusMessage(

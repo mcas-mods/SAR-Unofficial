@@ -30,8 +30,8 @@ public abstract class BlockMultiblockBase<T extends MultiblockTileEntityBase> ex
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if(playerIn.isSneaking()) {
-			MultiblockTileEntityBase tile = getTileEntity(worldIn, pos);
-			if(tile.isConnected()) {
+			MultiblockTileEntityBase<?> tile = getTileEntity(worldIn, pos).get();
+			if(tile != null && tile.isConnected()) {
 				if(tile.getMultiblockController().getLastError() != null) {
 					playerIn.sendStatusMessage(tile.getMultiblockController().getLastError().getChatMessage(), true);
 				}

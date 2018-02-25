@@ -32,7 +32,7 @@ public class BlockFumeCollector extends BlockTEBase<TileEntityFumeCollector> {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		TileEntityFumeCollector te = getTileEntity(worldIn, pos);
+		TileEntityFumeCollector te = getTileEntity(worldIn, pos).get();
 		if(!worldIn.isRemote && te != null) {
 			if(playerIn.isSneaking()) {
 				playerIn.sendStatusMessage(TextUtils.representTankContents(te.tank), true);

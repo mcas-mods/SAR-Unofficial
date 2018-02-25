@@ -22,7 +22,7 @@ public class BlockBoilerLiquidFirebox extends BlockMultiblockBase<TileEntityBoil
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		TileEntityBoilerPart te = getTileEntity(worldIn, pos);
+		TileEntityBoilerPart te = getTileEntity(worldIn, pos).get();
 		if(te != null && te.isConnected()) {
 			playerIn.sendStatusMessage(TextUtils.representTankContents(te.getMultiblockController().liquidFuelTank),
 					true);

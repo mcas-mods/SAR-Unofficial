@@ -30,7 +30,7 @@ public class BlockSteamHammerFrame extends BlockMultiblockBase<TileEntitySteamHa
 
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		return state.withProperty(position, this.getTileEntity(worldIn, pos).getPartPosition());
+		return state.withProperty(position, this.getTileEntity(worldIn, pos).get().getPartPosition());
 	}
 
 	@Override
