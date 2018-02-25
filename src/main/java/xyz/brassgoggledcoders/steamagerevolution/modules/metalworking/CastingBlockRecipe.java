@@ -13,7 +13,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
-@Optional.Interface(iface = "mezz.jei.api.IRecipeWrapper", modid = "jei", striprefs = true)
+@Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei", striprefs = true)
 public class CastingBlockRecipe implements IRecipeWrapper {
 	public final FluidStack input;
 	public final ItemStack output;

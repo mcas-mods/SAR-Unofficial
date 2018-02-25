@@ -13,7 +13,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
-@Optional.Interface(iface = "mezz.jei.api.IRecipeWrapper", modid = "jei", striprefs = true)
+@Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei", striprefs = true)
 public class CrucibleRecipe implements IRecipeWrapper {
 	public final ItemStack input;
 	public final FluidStack output;
