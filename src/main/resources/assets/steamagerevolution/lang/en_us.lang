@@ -92,6 +92,7 @@ tile.steamagerevolution.distiller_hotplate.name=Distiller Hotplate
 tile.steamagerevolution.distiller_fluid_output.name=Distiller Fluid Output
 tile.steamagerevolution.distiller_frame.name=Distiller Tank
 tile.steamagerevolution.distiller_fluid_input.name=Distiller Fluid Input
+tile.steamagerevolution.distiller_item_output.name=Distiller Item Output
 
 tile.steamagerevolution.fluid_hopper.name=Fluid Hopper
 tile.steamagerevolution.charcoal_block.name=Charcoal Block
