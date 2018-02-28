@@ -8,6 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.utils.BlockGUIBase;
 
@@ -31,11 +32,17 @@ public class BlockSorterBuffer extends BlockGUIBase<TileEntitySorterBuffer> {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		ItemStack held = playerIn.getHeldItem(hand);
-		if(!held.isEmpty() && held.getItem() instanceof ItemDye) {
-			getTileEntity(worldIn, pos).get().color = EnumDyeColor.byDyeDamage(held.getMetadata()).getColorValue();
-			return true;
+		TileEntitySorterBuffer te = getTileEntity(worldIn, pos).get();
+		if(te != null && te.isConnected()) {
+			playerIn.sendStatusMessage(new TextComponentString(EnumDyeColor.byDyeDamage(te.color).getDyeColorName()),
+					true);
+			ItemStack held = playerIn.getHeldItem(hand);
+			if(!held.isEmpty() && held.getItem() instanceof ItemDye) {
+				getTileEntity(worldIn, pos).get().color = EnumDyeColor.byDyeDamage(held.getMetadata()).getColorValue();
+				return true;
+			}
 		}
+
 		return false;
 	}
 

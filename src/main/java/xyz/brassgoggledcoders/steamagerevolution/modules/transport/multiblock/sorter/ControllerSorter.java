@@ -35,6 +35,18 @@ public class ControllerSorter extends RectangularMultiblockControllerBase {
 			}
 		}
 
+		// TODO: Take this out of tick loop
+		for(IMultiblockPart part : this.connectedParts) {
+			if(part instanceof TileEntitySorterBuffer) {
+				TileEntitySorterBuffer buffer = (TileEntitySorterBuffer) part;
+				if(buffer.color != 0) {
+					if(!bufferPositions.containsValue(buffer.color)) {
+						bufferPositions.put(buffer.getWorldPosition(), buffer.color);
+					}
+				}
+			}
+		}
+
 		for(int i = 0; i < inventory.getSlots(); i++) {
 			ItemStack card = inventory.getStackInSlot(i);
 			if(card.hasTagCompound()) {
@@ -42,6 +54,9 @@ public class ControllerSorter extends RectangularMultiblockControllerBase {
 				int toColour = card.getTagCompound().getInteger("to");
 				BlockPos fromPosition = bufferPositions.inverse().get(fromColour);
 				BlockPos toPosition = bufferPositions.inverse().get(toColour);
+				if(fromPosition == null || toPosition == null || WORLD.getTileEntity(toPosition) == null
+						|| WORLD.getTileEntity(toPosition) == null)
+					return false;
 				TileEntitySorterBuffer in = (TileEntitySorterBuffer) WORLD.getTileEntity(fromPosition);
 				TileEntitySorterBuffer out = (TileEntitySorterBuffer) WORLD.getTileEntity(toPosition);
 
@@ -66,10 +81,7 @@ public class ControllerSorter extends RectangularMultiblockControllerBase {
 
 	@Override
 	protected void onBlockAdded(IMultiblockPart newPart) {
-		if(newPart instanceof TileEntitySorterBuffer) {
-			bufferPositions.put(newPart.getWorldPosition(), ((TileEntitySorterBuffer) newPart).color);
-		}
-		else if(newPart instanceof TileEntitySorterRateUpgrade) {
+		if(newPart instanceof TileEntitySorterRateUpgrade) {
 			numberOfRateUpgrades++;
 		}
 	}
