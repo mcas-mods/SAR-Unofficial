@@ -7,12 +7,12 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class ContainerCodeSelector extends ContainerBase {
+public class ContainerSorterBrain extends ContainerBase {
 
-	public ContainerCodeSelector(ItemStackHandler codeInv, InventoryPlayer playerInv) {
-		this.addSlotToContainer(new SlotItemHandler(codeInv, 0, 30, 30));
-		this.addSlotToContainer(new SlotItemHandler(codeInv, 1, 60, 30));
-		this.addSlotToContainer(new SlotItemHandler(codeInv, 2, 90, 30));
+	public ContainerSorterBrain(ItemStackHandler codeInv, InventoryPlayer playerInv) {
+		for(int i = 0; i < 8; i++) {
+			this.addSlotToContainer(new SlotItemHandler(codeInv, i, 30 + 3 * i, 30));
+		}
 		this.createPlayerSlots(playerInv);
 	}
 

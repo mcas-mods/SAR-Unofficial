@@ -1,29 +1,28 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.transport.multiblock.sorter;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
-import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class ControllerSorter extends RectangularMultiblockControllerBase {
 
-	private Set<TileEntityInputBuffer> attachedInputs;
-	private Set<TileEntityOutputBuffer> attachedOutputs;
+	public ItemStackHandler inventory = new ItemStackHandler(8);
 	private int numberOfRateUpgrades = 0;
+	private BiMap<BlockPos, Integer> bufferPositions;
 
 	protected ControllerSorter(World world) {
 		super(world);
-		attachedInputs = new HashSet<TileEntityInputBuffer>();
-		attachedOutputs = new HashSet<TileEntityOutputBuffer>();
+		bufferPositions = HashBiMap.create();
 	}
 
 	@Override
@@ -35,16 +34,17 @@ public class ControllerSorter extends RectangularMultiblockControllerBase {
 				rate *= 2;
 			}
 		}
-		for(TileEntityInputBuffer in : attachedInputs) {
-			for(TileEntityOutputBuffer out : attachedOutputs) {
-				// Check if code matches
-				for(int i = 0; i < in.code.getSlots(); i++) {
-					if(!(out.code.getStackInSlot(i).isEmpty()) || !in.code.getStackInSlot(i).isEmpty()
-							|| (!ItemStackUtils.doItemsMatch(out.code.getStackInSlot(i),
-									in.code.getStackInSlot(i).getItem()))) {
-						return false;
-					}
-				}
+
+		for(int i = 0; i < inventory.getSlots(); i++) {
+			ItemStack card = inventory.getStackInSlot(i);
+			if(card.hasTagCompound()) {
+				int fromColour = card.getTagCompound().getInteger("from");
+				int toColour = card.getTagCompound().getInteger("to");
+				BlockPos fromPosition = bufferPositions.inverse().get(fromColour);
+				BlockPos toPosition = bufferPositions.inverse().get(toColour);
+				TileEntitySorterBuffer in = (TileEntitySorterBuffer) WORLD.getTileEntity(fromPosition);
+				TileEntitySorterBuffer out = (TileEntitySorterBuffer) WORLD.getTileEntity(toPosition);
+
 				// If so, transfer
 				for(int i2 = 0; i2 < in.inventory.getSlots(); i2++) {
 					if(!(in.inventory.getStackInSlot(i2).isEmpty())) {
@@ -58,19 +58,16 @@ public class ControllerSorter extends RectangularMultiblockControllerBase {
 						}
 					}
 				}
-				return false;
 			}
+
 		}
 		return false;
 	}
 
 	@Override
 	protected void onBlockAdded(IMultiblockPart newPart) {
-		if(newPart instanceof TileEntityInputBuffer) {
-			attachedInputs.add((TileEntityInputBuffer) newPart);
-		}
-		else if(newPart instanceof TileEntityOutputBuffer) {
-			attachedOutputs.add((TileEntityOutputBuffer) newPart);
+		if(newPart instanceof TileEntitySorterBuffer) {
+			bufferPositions.put(newPart.getWorldPosition(), ((TileEntitySorterBuffer) newPart).color);
 		}
 		else if(newPart instanceof TileEntitySorterRateUpgrade) {
 			numberOfRateUpgrades++;
@@ -79,11 +76,8 @@ public class ControllerSorter extends RectangularMultiblockControllerBase {
 
 	@Override
 	protected void onBlockRemoved(IMultiblockPart oldPart) {
-		if(oldPart instanceof TileEntityInputBuffer) {
-			attachedInputs.remove(oldPart);
-		}
-		else if(oldPart instanceof TileEntityOutputBuffer) {
-			attachedOutputs.remove(oldPart);
+		if(oldPart instanceof TileEntitySorterBuffer) {
+			bufferPositions.remove(oldPart.getWorldPosition());
 		}
 		else if(oldPart instanceof TileEntitySorterRateUpgrade) {
 			numberOfRateUpgrades--;
@@ -92,8 +86,7 @@ public class ControllerSorter extends RectangularMultiblockControllerBase {
 
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
+		inventory.deserializeNBT(data.getCompoundTag("inventory"));
 	}
 
 	@Override
@@ -200,13 +193,12 @@ public class ControllerSorter extends RectangularMultiblockControllerBase {
 
 	@Override
 	public void readFromDisk(NBTTagCompound data) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
-		// TODO Auto-generated method stub
+		data.setTag("inventory", inventory.serializeNBT());
 
 	}
 

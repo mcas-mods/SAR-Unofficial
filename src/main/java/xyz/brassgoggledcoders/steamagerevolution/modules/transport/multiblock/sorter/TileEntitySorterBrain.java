@@ -13,18 +13,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockInventoryWrapper;
 
-// TODO NBT
-public class TileEntityOutputBuffer extends TileEntitySorterPart implements IHasGui {
-	public ItemStackHandler code = new ItemStackHandler(3);
-	public ItemStackHandler inventory = new ItemStackHandler(6);
+public class TileEntitySorterBrain extends TileEntitySorterPart implements IHasGui {
 
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory);
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new MultiblockInventoryWrapper(this, "cards"));
 		}
 		return super.getCapability(capability, facing);
 	}
@@ -38,11 +35,12 @@ public class TileEntityOutputBuffer extends TileEntitySorterPart implements IHas
 
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiCodeSelector(new ContainerCodeSelector(code, entityPlayer.inventory));
+		return new GuiSorterBrain(
+				new ContainerSorterBrain(this.getMultiblockController().inventory, entityPlayer.inventory));
 	}
 
 	@Override
 	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new ContainerCodeSelector(code, entityPlayer.inventory);
+		return new ContainerSorterBrain(this.getMultiblockController().inventory, entityPlayer.inventory);
 	}
 }

@@ -3,19 +3,14 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.transport;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
+import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockHydraulicRouter;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockHydraulicSender;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockHydraulicTube;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockPneumaticRouter;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockPneumaticSender;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockPneumaticTube;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.multiblock.sorter.BlockInputBuffer;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.multiblock.sorter.BlockOutputBuffer;
+import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.transport.multiblock.sorter.*;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleTransport extends ModuleBase {
@@ -45,9 +40,14 @@ public class ModuleTransport extends ModuleBase {
 		hydraulicRouter = new BlockHydraulicRouter(Material.IRON, "hydraulic_router");
 		// blockRegistry.register(hydraulicRouter);
 
-		sorterInputBuffer = new BlockInputBuffer(Material.IRON, "sorter_inputbuffer");
-		// blockRegistry.register(sorterInputBuffer);
-		sorterOutputBuffer = new BlockOutputBuffer(Material.IRON, "sorter_outputbuffer");
-		// blockRegistry.register(sorterOutputBuffer);
+		blockRegistry.register(new BlockSorterBuffer(Material.IRON, "sorterBuffer"));
+		blockRegistry.register(new BlockSorterFrame(Material.IRON, "sorter_frame"));
+		blockRegistry.register(new BlockSorterBrain(Material.IRON, "sorter_brain"));
+
 	}
+
+	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
+		itemRegistry.register(new ItemPunchcard());
+	}
+
 }

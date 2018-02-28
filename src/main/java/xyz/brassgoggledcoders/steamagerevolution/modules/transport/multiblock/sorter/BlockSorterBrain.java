@@ -6,20 +6,20 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.utils.BlockGUIBase;
 
-public class BlockOutputBuffer extends BlockGUIBase<TileEntityOutputBuffer> {
+public class BlockSorterBrain extends BlockGUIBase<TileEntitySorterBrain> {
 
-	public BlockOutputBuffer(Material material, String name) {
+	public BlockSorterBrain(Material material, String name) {
 		super(material, name);
 	}
 
 	@Override
 	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityOutputBuffer.class;
+		return TileEntitySorterBrain.class;
 	}
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityOutputBuffer();
+		return new TileEntitySorterBrain();
 	}
 
 }

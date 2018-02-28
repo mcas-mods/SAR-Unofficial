@@ -3,9 +3,9 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.transport.multiblock.s
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 
-public class GuiCodeSelector extends GuiContainer {
+public class GuiSorterBrain extends GuiContainer {
 
-	public GuiCodeSelector(Container inventorySlotsIn) {
+	public GuiSorterBrain(Container inventorySlotsIn) {
 		super(inventorySlotsIn);
 
 	}
