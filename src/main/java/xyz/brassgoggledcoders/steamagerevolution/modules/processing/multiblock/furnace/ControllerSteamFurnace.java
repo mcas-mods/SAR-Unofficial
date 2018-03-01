@@ -196,8 +196,7 @@ public class ControllerSteamFurnace extends SARRectangularMultiblockControllerBa
 
 	@Override
 	protected void onMachineAssembled() {
-		// TODO Auto-generated method stub
-
+		super.onMachineAssembled();
 	}
 
 	@Override

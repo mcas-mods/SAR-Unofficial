@@ -40,7 +40,7 @@ public class ModuleTransport extends ModuleBase {
 		hydraulicRouter = new BlockHydraulicRouter(Material.IRON, "hydraulic_router");
 		// blockRegistry.register(hydraulicRouter);
 
-		blockRegistry.register(new BlockSorterBuffer(Material.IRON, "sorterBuffer"));
+		blockRegistry.register(new BlockSorterBuffer(Material.IRON, "sorter_buffer"));
 		blockRegistry.register(new BlockSorterFrame(Material.IRON, "sorter_frame"));
 		blockRegistry.register(new BlockSorterBrain(Material.IRON, "sorter_brain"));
 

@@ -17,6 +17,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.SteamHammerRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.SteamFurnaceRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.sawmill.SawmillRecipe;
 
 @JEIPlugin
 public class SARJEIPlugin implements IModPlugin {
@@ -31,7 +32,7 @@ public class SARJEIPlugin implements IModPlugin {
 		registry.addRecipeCategories(new SteamHammerRecipeCategory(), new AlloyForgeRecipeCategory(),
 				new CrucibleRecipeCategory(), new SteamFurnaceRecipeCategory(jeiHelper.getGuiHelper()),
 				new CastingBlockRecipeCategory(), new VatRecipeCategory(), new FumeCollectorRecipeCategory(),
-				new DistillerRecipeCategory());
+				new DistillerRecipeCategory(), new SawmillRecipeCategory());
 	}
 
 	@Override
@@ -59,6 +60,9 @@ public class SARJEIPlugin implements IModPlugin {
 
 		add(registry, DistillerRecipe.getRecipeList(), DistillerRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.distiller_frame));
+
+		add(registry, SawmillRecipe.getRecipeList(), SawmillRecipeCategory.uid,
+				new ItemStack(JEIObjectHolder.sawmill_casing));
 	}
 
 	private void add(IModRegistry registry, Collection<?> recipeList, String id, ItemStack catalyst) {
