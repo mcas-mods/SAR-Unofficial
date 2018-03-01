@@ -61,7 +61,7 @@ public class ClientProxy extends CommonProxy {
 		if(world != null) {
 			for(BlockPos pos : BlockPos.getAllInBox(min, max)) {
 				for(int i = 0; i < 7; i++) {
-					world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, pos.getX() + 0.5F + world.rand.nextGaussian(),
+					world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, pos.getX() + 0.5F + world.rand.nextGaussian(),
 							pos.getY() + 0.5F, pos.getZ() + 0.5F + world.rand.nextGaussian(), 0, 0, 0);
 				}
 			}

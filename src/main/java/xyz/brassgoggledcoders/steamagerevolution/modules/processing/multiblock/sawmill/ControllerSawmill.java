@@ -16,16 +16,20 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreDictionary;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockControllerInfo;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
 public class ControllerSawmill extends SARRectangularMultiblockControllerBase
-		implements ISmartTankCallback, IMultiblockControllerInfo {
+		implements ISmartTankCallback, IMultiblockControllerInfo, ISmartStackCallback {
 
-	public ItemStackHandler inputInventory = new ItemStackHandler(1);
+	public ItemStackHandler inputInventory = new ItemStackHandlerSmart(1, this);
 	public ItemStackHandler outputInventory = new ItemStackHandler(3);
 	public FluidTankSingleSmart steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
 
@@ -236,6 +240,20 @@ public class ControllerSawmill extends SARRectangularMultiblockControllerBase
 	@Override
 	public String getName() {
 		return "Sawmill";
+	}
+
+	@Override
+	public void onContentsChanged(int slot) {
+		if(WORLD.isRemote)
+			return;
+		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+				new PacketItemUpdate(this.getReferenceCoord(), inputInventory.getStackInSlot(slot), slot),
+				this.getReferenceCoord(), WORLD.provider.getDimension());
+	}
+
+	@Override
+	public void updateStack(PacketItemUpdate message) {
+		this.inputInventory.setStackInSlot(message.slot, message.item);
 	}
 
 }
