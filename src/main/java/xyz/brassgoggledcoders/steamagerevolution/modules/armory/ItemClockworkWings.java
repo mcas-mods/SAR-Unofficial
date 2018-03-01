@@ -24,7 +24,7 @@ public class ItemClockworkWings extends ItemArmorBase {
 	private static final float hungerPerTick = 0.5F;
 
 	public ItemClockworkWings() {
-		super(ArmorMaterial.LEATHER, EntityEquipmentSlot.CHEST);
+		super(ArmorMaterial.LEATHER, EntityEquipmentSlot.CHEST, "clockwork_wings");
 		this.setMaxDamage(0);
 		this.setUnlocalizedName("clockwork_wings");
 	}
