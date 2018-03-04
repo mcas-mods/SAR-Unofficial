@@ -1,9 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.guideapi;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
@@ -38,8 +35,8 @@ public class CategoryProduction {
 		crucibleEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_fluid_output")));
 		crucibleEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_item_input")));
 		crucibleEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_steam_input")));
-		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_entry"),
-				new EntryItemStack(crucibleEntry, keyBase + "crucible", new ItemStack(BookObjectHolder.crucible_casing)));
+		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_entry"), new EntryItemStack(crucibleEntry,
+				keyBase + "crucible", new ItemStack(BookObjectHolder.crucible_casing)));
 
 		List<IPage> alloyForgeEntry = new ArrayList<IPage>();
 		alloyForgeEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "alloy_forge.info")));
@@ -50,13 +47,13 @@ public class CategoryProduction {
 		List<IPage> steelworksEntry = new ArrayList<IPage>();
 		steelworksEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "steelworks.info")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "steelworks_entry"), new EntryItemStack(
-				alloyForgeEntry, keyBase + "steelworks", new ItemStack(BookObjectHolder.steelworks_frame)));
+				steelworksEntry, keyBase + "steelworks", new ItemStack(BookObjectHolder.steelworks_frame)));
 
 		List<IPage> hammerEntry = new ArrayList<IPage>();
 		hammerEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "steam_hammer.info")));
 		hammerEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "steamhammer_frame")));
-		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "steam_hammer_entry"),
-				new EntryItemStack(hammerEntry, keyBase + "steam_hammer", new ItemStack(BookObjectHolder.steamhammer_frame)));
+		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "steam_hammer_entry"), new EntryItemStack(
+				hammerEntry, keyBase + "steam_hammer", new ItemStack(BookObjectHolder.steamhammer_frame)));
 
 		for(EntryAbstract entry : entries.values()) {
 			PageHelper.setPagesToUnicode(entry.pageList);
