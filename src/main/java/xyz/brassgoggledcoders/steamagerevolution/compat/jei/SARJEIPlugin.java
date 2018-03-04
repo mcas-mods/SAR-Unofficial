@@ -30,9 +30,9 @@ public class SARJEIPlugin implements IModPlugin {
 		IJeiHelpers jeiHelper = registry.getJeiHelpers();
 		SARRecipeCategory.setGuiHelper(jeiHelper.getGuiHelper());
 		registry.addRecipeCategories(new SteamHammerRecipeCategory(), new AlloyForgeRecipeCategory(),
-				new CrucibleRecipeCategory(), new SteamFurnaceRecipeCategory(jeiHelper.getGuiHelper()),
-				new CastingBlockRecipeCategory(), new VatRecipeCategory(), new FumeCollectorRecipeCategory(),
-				new DistillerRecipeCategory(), new SawmillRecipeCategory());
+				new CrucibleRecipeCategory(), new SteamFurnaceRecipeCategory(), new CastingBlockRecipeCategory(),
+				new VatRecipeCategory(), new FumeCollectorRecipeCategory(), new DistillerRecipeCategory(),
+				new SawmillRecipeCategory());
 	}
 
 	@Override
@@ -46,9 +46,7 @@ public class SARJEIPlugin implements IModPlugin {
 		add(registry, CrucibleRecipe.getRecipeList(), CrucibleRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.crucible_casing));
 
-		registry.addRecipes(SteamFurnaceRecipe.getRecipeList(), SteamAgeRevolution.MODID + ":steamfurnace");
-		registry.addRecipeCatalyst(new ItemStack(JEIObjectHolder.furnace_casing),
-				SteamAgeRevolution.MODID + ":steamfurnace");
+		add(registry, SteamFurnaceRecipe.getRecipeList(), SteamFurnaceRecipeCategory.uid, new ItemStack(JEIObjectHolder.furnace_casing));
 
 		add(registry, CastingBlockRecipe.getRecipeList(), CastingBlockRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.casting_bench));

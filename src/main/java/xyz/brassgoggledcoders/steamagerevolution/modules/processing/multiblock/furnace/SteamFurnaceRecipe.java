@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -34,10 +33,10 @@ public class SteamFurnaceRecipe implements IRecipeWrapper {
 			if(OreDictionary.itemMatches(r.input, input, false)) {
 				return r.output;
 			}
-			// Then furnace ones
-			else {
-				return FurnaceRecipes.instance().getSmeltingResult(input);
-			}
+			// // Then furnace ones
+			// else {
+			// return FurnaceRecipes.instance().getSmeltingResult(input);
+			// }
 		}
 		return ItemStack.EMPTY;
 	}

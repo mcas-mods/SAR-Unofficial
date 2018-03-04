@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.processing;
 
+import java.util.Map.Entry;
+
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -7,11 +9,14 @@ import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
@@ -26,6 +31,16 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.s
 public class ModuleProcessing extends ModuleBase {
 
 	public static final Item charcoal_powder = null;
+
+	@Override
+	public void init(FMLInitializationEvent event) {
+		super.init(event);
+		OreDictionary.registerOre("listAllmeatraw", Items.CHICKEN);
+		OreDictionary.registerOre("listAllmeatraw", Items.BEEF);
+		OreDictionary.registerOre("listAllmeatraw", Items.PORKCHOP);
+		OreDictionary.registerOre("listAllmeatraw", Items.MUTTON);
+		OreDictionary.registerOre("listAllmeatraw", Items.RABBIT);
+	}
 
 	@Override
 	public String getName() {
@@ -52,8 +67,14 @@ public class ModuleProcessing extends ModuleBase {
 	@SubscribeEvent
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 
-		for(ItemStack cooked : OreDictionary.getOres("listAllmeatcooked")) {
-			SteamFurnaceRecipe.addSteamFurnaceRecipe(cooked, new ItemStack(charcoal_powder));
+		for(Entry<ItemStack, ItemStack> recipe : FurnaceRecipes.instance().getSmeltingList().entrySet()) {
+			SteamFurnaceRecipe.addSteamFurnaceRecipe(recipe.getKey(), recipe.getValue());
+
+			// FIXME
+			// if(IntStream.of(OreDictionary.getOreIDs(recipe.getKey()))
+			// .anyMatch(id -> id == OreDictionary.getOreID("listAllmeatraw"))) {
+			// SteamFurnaceRecipe.addSteamFurnaceRecipe(recipe.getKey(), new ItemStack(charcoal_powder));
+			// }
 		}
 
 		// TODO Oredict
