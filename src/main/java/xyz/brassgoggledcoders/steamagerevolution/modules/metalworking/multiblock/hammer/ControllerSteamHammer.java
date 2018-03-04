@@ -165,7 +165,7 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 			else {
 				if(!inventory.getStackInSlot(0).isEmpty()) {
 					ItemStack result = SteamHammerRecipe.getResult(inventory.getStackInSlot(0), dieType);
-					if(!result.isEmpty() && inventory.insertItem(1, result, true) == ItemStack.EMPTY) {
+					if(!result.isEmpty() && inventory.insertItem(1, result, true).isEmpty()) {
 						inventory.extractItem(0, 1, false);
 						inventory.insertItem(1, result, false);
 						progress = 0;
