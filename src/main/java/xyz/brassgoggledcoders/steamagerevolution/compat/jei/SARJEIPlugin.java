@@ -46,7 +46,8 @@ public class SARJEIPlugin implements IModPlugin {
 		add(registry, CrucibleRecipe.getRecipeList(), CrucibleRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.crucible_casing));
 
-		add(registry, SteamFurnaceRecipe.getRecipeList(), SteamFurnaceRecipeCategory.uid, new ItemStack(JEIObjectHolder.furnace_casing));
+		add(registry, SteamFurnaceRecipe.getRecipeList(), SteamFurnaceRecipeCategory.uid,
+				new ItemStack(JEIObjectHolder.furnace_casing));
 
 		add(registry, CastingBlockRecipe.getRecipeList(), CastingBlockRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.casting_bench));
