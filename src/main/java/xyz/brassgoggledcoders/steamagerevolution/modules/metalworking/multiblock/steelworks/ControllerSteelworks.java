@@ -4,28 +4,34 @@ import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
 public class ControllerSteelworks extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
 
-	public FluidTank steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
-	public FluidTank ironTank = new FluidTankSingleSmart(ModuleMetalworking.VALUE_BLOCK * 16, "iron", this);
-	public ItemStackHandler inputSolid = new ItemStackHandler();
-	public FluidTank outputTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steel", this);
+	public FluidTank steamTank = new FluidTankSmart(Fluid.BUCKET_VOLUME * 16, this);
+	public FluidTank ironTank = new FluidTankSmart(Fluid.BUCKET_VOLUME * 16, this);
+	public ItemStackHandler inputSolid = new ItemStackHandlerFuel(1);
+	public FluidTank outputTank = new FluidTankSmart(Fluid.BUCKET_VOLUME * 16, this);
 
-	public static final int workingPoolLevel = ModuleMetalworking.VALUE_BLOCK * 9;
+	// public static final int workingPoolLevel = ModuleMetalworking.VALUE_BLOCK * 9;
 	public static final int conversionPerOperation = ModuleMetalworking.VALUE_NUGGET;
 	public static final int steamUsePerOperation = Fluid.BUCKET_VOLUME / 10;
-	public static final int carbonPerOperation = 1;
+	public static final int carbonPerOperation = TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL)) / 2;
+
+	int carbonLevel = 0;
 
 	public ControllerSteelworks(World world) {
 		super(world);
@@ -51,26 +57,31 @@ public class ControllerSteelworks extends SARRectangularMultiblockControllerBase
 	protected boolean updateServer() {
 		boolean flag = false;
 
-		boolean hasIron = ironTank.getFluid() != null;
+		boolean hasIron = ironTank.getFluid() != null
+				&& ironTank.getFluid().isFluidEqual(FluidRegistry.getFluidStack("iron", conversionPerOperation));
 		boolean hasItems = !inputSolid.getStackInSlot(0).isEmpty();
 
-		// Can't do anything without a base for the alloy
-		if(hasIron && hasItems) {
-			if(ironTank.getFluidAmount() >= workingPoolLevel) {
-				if(inputSolid.getStackInSlot(0).getCount() >= carbonPerOperation
-						&& steamTank.getFluidAmount() >= steamUsePerOperation) {
-					if((outputTank.getCapacity() - outputTank.getFluidAmount()) >= conversionPerOperation) {
-						ironTank.drain(conversionPerOperation, true);
-						steamTank.drain(steamUsePerOperation, true);
-						inputSolid.extractItem(0, carbonPerOperation, false);
-						outputTank.fill(new FluidStack(FluidRegistry.getFluid("steel"), conversionPerOperation), true);
-						flag = true;
-					}
+		if(hasItems) {
+			carbonLevel += TileEntityFurnace.getItemBurnTime(inputSolid.getStackInSlot(0));
+			inputSolid.extractItem(0, 1, false);
+			flag = true;
+		}
+
+		if(hasIron && carbonLevel >= carbonPerOperation) {
+			if(ironTank.getFluidAmount() >= conversionPerOperation
+					&& steamTank.getFluidAmount() >= steamUsePerOperation) {
+				FluidStack steel = FluidRegistry.getFluidStack("steel", conversionPerOperation);
+				if(steamTank.getFluid().isFluidEqual(FluidRegistry.getFluidStack("steam", conversionPerOperation))
+						&& outputTank.fill(steel, false) == conversionPerOperation) {
+					ironTank.drain(conversionPerOperation, true);
+					steamTank.drain(steamUsePerOperation, true);
+					carbonLevel -= carbonPerOperation;
+					outputTank.fill(steel, true);
+					flag = true;
 				}
 			}
 
 		}
-		// else do nothing, can't make a recipe with one fluid
 		return flag;
 	}
 
@@ -154,6 +165,8 @@ public class ControllerSteelworks extends SARRectangularMultiblockControllerBase
 		inputSolid.deserializeNBT(data.getCompoundTag("solidInput"));
 		ironTank.readFromNBT(data.getCompoundTag("fluidInput1"));
 		outputTank.readFromNBT(data.getCompoundTag("output"));
+		steamTank.readFromNBT(data.getCompoundTag("steam"));
+		carbonLevel = data.getInteger("carbon");
 	}
 
 	@Override
@@ -161,6 +174,8 @@ public class ControllerSteelworks extends SARRectangularMultiblockControllerBase
 		data.setTag("solidInput", inputSolid.serializeNBT());
 		data.setTag("fluidInput1", ironTank.writeToNBT(new NBTTagCompound()));
 		data.setTag("output", outputTank.writeToNBT(new NBTTagCompound()));
+		data.setTag("steam", steamTank.writeToNBT(new NBTTagCompound()));
+		data.setInteger("carbon", carbonLevel);
 	}
 
 	@Override
