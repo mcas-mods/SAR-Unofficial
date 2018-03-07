@@ -1,7 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks;
 
-import com.teamacronymcoders.base.blocks.BlockTEBase;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,12 +9,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityBasicFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
+import xyz.brassgoggledcoders.steamagerevolution.utils.BlockGUIBase;
 
-public class BlockBasicFluidTank extends BlockTEBase<TileEntityBasicFluidTank> {
+public class BlockBasicFluidTank extends BlockGUIBase<TileEntityBasicFluidTank> {
 	public BlockBasicFluidTank(Material material, String name) {
 		super(material, name);
 	}
@@ -61,15 +60,12 @@ public class BlockBasicFluidTank extends BlockTEBase<TileEntityBasicFluidTank> {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		TileEntityBasicFluidTank te = getTileEntity(worldIn, pos).get();
-		if(!worldIn.isRemote && te != null) {
-			if(playerIn.isSneaking()) {
-				playerIn.sendStatusMessage(TextUtils.representTankContents(te.tank), true);
-				return true;
-			}
-			else {
-				return FluidUtil.interactWithFluidHandler(playerIn, hand, worldIn, pos, facing);
-			}
+		if(playerIn.getHeldItem(hand).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
+			getTileEntity(worldIn, pos)
+					.ifPresent(te -> FluidUtil.interactWithFluidHandler(playerIn, hand, worldIn, pos, facing));
+		}
+		else {
+			return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
 		}
 		return false;
 	}
