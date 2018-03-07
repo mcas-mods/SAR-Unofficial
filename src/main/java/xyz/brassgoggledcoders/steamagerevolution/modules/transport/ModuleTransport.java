@@ -44,6 +44,8 @@ public class ModuleTransport extends ModuleBase {
 		blockRegistry.register(new BlockSorterFrame(Material.IRON, "sorter_frame"));
 		blockRegistry.register(new BlockSorterBrain(Material.IRON, "sorter_brain"));
 
+		blockRegistry.register(new BlockCardPuncher(Material.IRON, "card_puncher"));
+
 	}
 
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {

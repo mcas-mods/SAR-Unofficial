@@ -9,7 +9,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerLiquidFirebox;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
@@ -22,12 +21,12 @@ public class BlockBoilerLiquidFirebox extends BlockMultiblockBase<TileEntityBoil
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		TileEntityBoilerPart te = getTileEntity(worldIn, pos).get();
-		if(te != null && te.isConnected()) {
-			playerIn.sendStatusMessage(TextUtils.representTankContents(te.getMultiblockController().liquidFuelTank),
-					true);
-			return true;
-		}
+		getTileEntity(worldIn, pos).ifPresent(te -> {
+			if(te != null && te.isConnected()) {
+				playerIn.sendStatusMessage(TextUtils.representTankContents(te.getMultiblockController().liquidFuelTank),
+						true);
+			}
+		});
 		return false;
 	}
 
