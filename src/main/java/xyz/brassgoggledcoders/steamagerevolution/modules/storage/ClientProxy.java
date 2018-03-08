@@ -5,14 +5,12 @@ import com.teamacronymcoders.base.modulesystem.proxies.IModuleProxy;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.MultiblockTankRenderer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.TileEntityTankCasing;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.renderers.TileEntityBasicFluidTankRenderer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.renderers.TileEntityTrunkRenderer;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityBasicFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityFluidIO;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityTrunk;
 
 public class ClientProxy implements IModuleProxy {
@@ -24,8 +22,7 @@ public class ClientProxy implements IModuleProxy {
 	public void init(FMLInitializationEvent event) {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTrunk.class, new TileEntityTrunkRenderer());
 		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModuleStorage.trunk), 0, TileEntityTrunk.class);
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBasicFluidTank.class,
-				new TileEntityBasicFluidTankRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFluidIO.class, new TileEntityBasicFluidTankRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTankCasing.class, new MultiblockTankRenderer());
 
 		// ModelLoaderRegistry.registerLoader(ModelCanister.LoaderDynBucketz.instance);

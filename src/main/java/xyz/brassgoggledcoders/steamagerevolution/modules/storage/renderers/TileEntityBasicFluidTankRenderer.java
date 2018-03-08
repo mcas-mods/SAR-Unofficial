@@ -4,17 +4,17 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityBasicFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityFluidIO;
 import xyz.brassgoggledcoders.steamagerevolution.utils.RenderUtil;
 
-public class TileEntityBasicFluidTankRenderer extends TileEntitySpecialRenderer<TileEntityBasicFluidTank> {
+public class TileEntityBasicFluidTankRenderer extends TileEntitySpecialRenderer<TileEntityFluidIO> {
 
 	protected static Minecraft mc = Minecraft.getMinecraft();
 
 	@Override
-	public void render(TileEntityBasicFluidTank tile, double x, double y, double z, float partialTicks,
-			int destroyStage, float alpha) {
-		FluidTank tank = tile.tank;
+	public void render(TileEntityFluidIO tile, double x, double y, double z, float partialTicks, int destroyStage,
+			float alpha) {
+		FluidTank tank = tile.buffer;
 		FluidStack liquid = tank.getFluid();
 
 		if(liquid != null) {

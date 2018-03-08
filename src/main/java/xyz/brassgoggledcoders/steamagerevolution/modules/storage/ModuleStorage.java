@@ -11,14 +11,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockBasicFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockFluidHopper;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockFluidIO;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockTrunk;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.items.ItemCanister;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.BlockTankCasing;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.BlockTankValve;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.BlockTankWindow;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.*;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleStorage extends ModuleBase {
@@ -38,8 +33,6 @@ public class ModuleStorage extends ModuleBase {
 		blockRegistry.register(trunk);
 		fluidIO = new BlockFluidIO();
 		blockRegistry.register(fluidIO);
-		basicFluidTank = new BlockBasicFluidTank(Material.IRON, "basic_fluid_tank");
-		blockRegistry.register(basicFluidTank);
 		fluidHopper = new BlockFluidHopper(Material.IRON, "fluid_hopper");
 		blockRegistry.register(fluidHopper);
 
