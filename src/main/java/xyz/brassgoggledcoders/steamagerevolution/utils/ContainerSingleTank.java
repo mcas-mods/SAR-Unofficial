@@ -7,7 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class ContainerSingleTank extends ContainerBase {
 	public ContainerSingleTank(EntityPlayer player, TileEntity tile) {
-
+		this.createPlayerSlots(player.inventory);
 	}
 
 	@Override

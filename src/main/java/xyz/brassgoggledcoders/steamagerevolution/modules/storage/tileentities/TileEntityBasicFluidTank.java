@@ -18,6 +18,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.utils.ContainerSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.GuiSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
@@ -72,6 +73,6 @@ public class TileEntityBasicFluidTank extends TileEntityBase implements ISmartTa
 	@Override
 	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ContainerSingleTank(entityPlayer, this);
 	}
 }

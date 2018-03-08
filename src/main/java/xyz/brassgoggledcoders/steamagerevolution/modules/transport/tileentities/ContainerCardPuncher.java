@@ -12,10 +12,19 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.transport.ItemPunchcard
 
 public class ContainerCardPuncher extends ContainerBase {
 
-	public ContainerCardPuncher(ItemStackHandler codeInv, InventoryPlayer playerInv) {
+	public ContainerCardPuncher(TileEntityCardPuncher tile, InventoryPlayer playerInv) {
+		ItemStackHandler codeInv = CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+				.cast(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null));
+		// Card in
 		this.addSlotToContainer(new SlotCard(codeInv, 0, 25, 33));
-		this.addSlotToContainer(new SlotItemHandler(codeInv, 1, 25, 45));
-		this.addSlotToContainer(new SlotCard(codeInv, 2, 134, 33));
+		// Card out
+		this.addSlotToContainer(new SlotCard(codeInv, 1, 134, 33));
+		// Dye
+		this.addSlotToContainer(new SlotItemHandler(codeInv, 2, 25, 45));
+		// Items
+		for(int i = 3; i < 13; i++) {
+			this.addSlotToContainer(new SlotItemHandler(codeInv, i, 25 + i, 45));
+		}
 		this.createPlayerSlots(playerInv);
 	}
 

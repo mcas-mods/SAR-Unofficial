@@ -60,11 +60,13 @@ public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGu
 	@Override
 	public void readFromDisk(NBTTagCompound tag) {
 		buffer.readFromNBT(tag);
+		super.readFromDisk(tag);
 	}
 
 	@Override
 	public NBTTagCompound writeToDisk(NBTTagCompound tag) {
-		return buffer.writeToNBT(tag);
+		buffer.writeToNBT(tag);
+		return super.writeToNBT(tag);
 	}
 
 	@Override
