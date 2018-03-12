@@ -36,11 +36,11 @@ public class TileEntitySorterBrain extends TileEntitySorterPart implements IHasG
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
 		return new GuiSorterBrain(
-				new ContainerSorterBrain(this.getMultiblockController().inventory, entityPlayer.inventory));
+				new ContainerSorterBrain(this.getMultiblockController().cards, entityPlayer.inventory));
 	}
 
 	@Override
 	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new ContainerSorterBrain(this.getMultiblockController().inventory, entityPlayer.inventory);
+		return new ContainerSorterBrain(this.getMultiblockController().cards, entityPlayer.inventory);
 	}
 }

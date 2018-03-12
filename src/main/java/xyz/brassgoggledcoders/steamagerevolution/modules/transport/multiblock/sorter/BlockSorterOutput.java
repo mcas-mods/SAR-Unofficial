@@ -12,27 +12,27 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.utils.BlockGUIBase;
 
-public class BlockSorterBuffer extends BlockGUIBase<TileEntitySorterBuffer> {
+public class BlockSorterOutput extends BlockGUIBase<TileEntitySorterOutput> {
 
-	public BlockSorterBuffer(Material material, String name) {
+	public BlockSorterOutput(Material material, String name) {
 		super(material, name);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntitySorterBuffer.class;
+		return TileEntitySorterOutput.class;
 	}
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntitySorterBuffer();
+		return new TileEntitySorterOutput();
 	}
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		TileEntitySorterBuffer te = getTileEntity(worldIn, pos).get();
+		TileEntitySorterOutput te = getTileEntity(worldIn, pos).get();
 		if(te != null && te.isConnected()) {
 			playerIn.sendStatusMessage(new TextComponentString(EnumDyeColor.byDyeDamage(te.color).getDyeColorName()),
 					true);

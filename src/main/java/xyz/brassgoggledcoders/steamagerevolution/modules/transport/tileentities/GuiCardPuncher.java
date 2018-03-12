@@ -4,28 +4,24 @@ import java.io.IOException;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemDye;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.NonNullList;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketCardPunch;
 
 public class GuiCardPuncher extends GuiContainer {
 
 	private static ResourceLocation guiTexture =
-			new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/fluid_io.png");
+			new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/card_puncher.png");
 	private ItemStackHandler inventory;
 	private GuiButton doneBtn;
+	private TileEntityCardPuncher tile;
 
-	public GuiCardPuncher(TileEntityCardPuncher tile, InventoryPlayer player) {
-		super(new ContainerCardPuncher(tile, player));
-		this.inventory = CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-				.cast(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null));
+	public GuiCardPuncher(TileEntityCardPuncher tile, EntityPlayer entityPlayer) {
+		super(new ContainerCardPuncher(tile, entityPlayer));
+
+		this.tile = tile;
 	}
 
 	@Override
@@ -46,34 +42,15 @@ public class GuiCardPuncher extends GuiContainer {
 	@Override
 	public void initGui() {
 		this.buttonList.clear();
-		this.doneBtn =
-				this.addButton(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120, I18n.format("gui.done")));
+		this.doneBtn = this.addButton(new GuiButton(0, 204, 90, 40, 20, "Punch"));
+		super.initGui();
 	}
 
 	// TODO JEI Ghost item support
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException {
 		if(button.enabled) {
-			ItemStack cardIn = inventory.getStackInSlot(0);
-			ItemStack cardOut = inventory.getStackInSlot(1);
-			ItemStack dye = inventory.getStackInSlot(2);
-			if(!cardIn.isEmpty() && cardOut.isEmpty()) {
-				NBTTagCompound tag = new NBTTagCompound();
-				if(dye.getItem() instanceof ItemDye) {
-					tag.setInteger("dye", dye.getMetadata());
-				}
-				// TODO This is funky - in a bad way
-				NonNullList<ItemStack> tempStacks = NonNullList.create();
-				for(int i = 3; i < 13; i++) {
-					tempStacks.add(inventory.getStackInSlot(i));
-				}
-				ItemStackHandler tempHandler = new ItemStackHandler(tempStacks);
-				tag.setTag("inventory", tempHandler.serializeNBT());
-
-				cardIn.setTagCompound(tag);
-				cardOut = cardIn;
-				cardIn.setCount(0);
-			}
+			SteamAgeRevolution.instance.getPacketHandler().sendToServer(new PacketCardPunch(tile.getPos()));
 		}
 	}
 }

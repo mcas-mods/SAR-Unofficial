@@ -10,7 +10,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 // TODO NBT
-public class TileEntitySorterBuffer extends TileEntitySorterPart {
+public class TileEntitySorterOutput extends TileEntitySorterPart {
 	public int color;
 	public ItemStackHandler inventory = new ItemStackHandler(6);
 

@@ -5,27 +5,31 @@ import javax.annotation.Nullable;
 import com.teamacronymcoders.base.containers.ContainerBase;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.transport.ItemPunchcard;
 
 public class ContainerCardPuncher extends ContainerBase {
 
-	public ContainerCardPuncher(TileEntityCardPuncher tile, InventoryPlayer playerInv) {
+	public ContainerCardPuncher(TileEntityCardPuncher tile, EntityPlayer entityPlayer) {
 		ItemStackHandler codeInv = CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
 				.cast(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null));
 		// Card in
-		this.addSlotToContainer(new SlotCard(codeInv, 0, 25, 33));
+		this.addSlotToContainer(new SlotCard(codeInv, 0, 26, 16));
 		// Card out
-		this.addSlotToContainer(new SlotCard(codeInv, 1, 134, 33));
+		this.addSlotToContainer(new SlotCard(codeInv, 1, 26, 53));
 		// Dye
-		this.addSlotToContainer(new SlotItemHandler(codeInv, 2, 25, 45));
+		this.addSlotToContainer(new SlotItemHandler(codeInv, 2, 62, 16));
 		// Items
-		for(int i = 3; i < 13; i++) {
-			this.addSlotToContainer(new SlotItemHandler(codeInv, i, 25 + i, 45));
+		int slotNum = 3;
+		for(int horizontal = 0; horizontal < 4; horizontal++) {
+			for(int vertical = 0; vertical < 4; vertical++) {
+
+				this.addSlotToContainer(
+						new SlotItemHandler(codeInv, slotNum++, 98 + (horizontal * 18), 8 + (vertical * 18)));
+			}
 		}
-		this.createPlayerSlots(playerInv);
+		this.createPlayerSlots(entityPlayer.inventory);
 	}
 
 	@Override
@@ -40,7 +44,7 @@ public class ContainerCardPuncher extends ContainerBase {
 
 		@Override
 		public boolean isItemValid(@Nullable ItemStack stack) {
-			return stack != null && stack.isEmpty() && stack.getItem() instanceof ItemPunchcard;
+			return stack != null && !stack.isEmpty() && stack.getItem() instanceof ItemPunchcard;
 		}
 	}
 
