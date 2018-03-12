@@ -11,7 +11,6 @@ import net.minecraftforge.items.ItemStackHandler;
 
 // TODO NBT
 public class TileEntitySorterOutput extends TileEntitySorterPart {
-	public int color;
 	public ItemStackHandler inventory = new ItemStackHandler(6);
 
 	@Override
@@ -32,14 +31,12 @@ public class TileEntitySorterOutput extends TileEntitySorterPart {
 
 	@Override
 	public void readFromDisk(NBTTagCompound compound) {
-		color = compound.getInteger("color");
 		inventory.deserializeNBT(compound.getCompoundTag("inventory"));
 		super.readFromDisk(compound);
 	}
 
 	@Override
 	public NBTTagCompound writeToDisk(NBTTagCompound compound) {
-		compound.setInteger("color", color);
 		compound.setTag("inventory", inventory.serializeNBT());
 		return super.writeToDisk(compound);
 	}

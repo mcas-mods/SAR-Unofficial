@@ -8,17 +8,19 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
 public class ControllerSorter extends SARRectangularMultiblockControllerBase {
 
 	public ItemStackHandler cards = new ItemStackHandler(8);
-	public ItemStackHandler buffer = new ItemStackHandler(16);
-	private int numberOfRateUpgrades = 0;
+	public ItemStackHandler buffer = new ItemStackHandler(4);
+	private int numberOfRateUpgrades = 1;
 	private BiMap<BlockPos, Integer> outputPositions;
 
 	protected ControllerSorter(World world) {
@@ -35,7 +37,7 @@ public class ControllerSorter extends SARRectangularMultiblockControllerBase {
 	protected boolean updateServer() {
 		int rate = 1;
 		if(numberOfRateUpgrades > 0) {
-			// There's probably a more efficient, mathier way to do this.
+			// TODO: Maths
 			for(int i = 0; i < numberOfRateUpgrades; i++) {
 				rate *= 2;
 			}
@@ -45,10 +47,9 @@ public class ControllerSorter extends SARRectangularMultiblockControllerBase {
 		for(IMultiblockPart part : this.connectedParts) {
 			if(part instanceof TileEntitySorterOutput) {
 				TileEntitySorterOutput buffer = (TileEntitySorterOutput) part;
-				if(buffer.color != 0) {
-					if(!outputPositions.containsValue(buffer.color)) {
-						outputPositions.put(buffer.getWorldPosition(), buffer.color);
-					}
+				if(!outputPositions.containsValue(buffer.getBlockMetadata())) {
+					outputPositions.put(buffer.getWorldPosition(), buffer.getBlockMetadata());
+					return true;
 				}
 			}
 		}
@@ -56,31 +57,26 @@ public class ControllerSorter extends SARRectangularMultiblockControllerBase {
 		for(int i = 0; i < cards.getSlots(); i++) {
 			ItemStack card = cards.getStackInSlot(i);
 			if(card.hasTagCompound()) {
-				int fromColour = card.getTagCompound().getInteger("from");
-				int toColour = card.getTagCompound().getInteger("to");
-				BlockPos fromPosition = outputPositions.inverse().get(fromColour);
-				BlockPos toPosition = outputPositions.inverse().get(toColour);
-				if(fromPosition == null || toPosition == null || WORLD.getTileEntity(toPosition) == null
-						|| WORLD.getTileEntity(toPosition) == null)
-					return false;
-				TileEntitySorterOutput in = (TileEntitySorterOutput) WORLD.getTileEntity(fromPosition);
-				TileEntitySorterOutput out = (TileEntitySorterOutput) WORLD.getTileEntity(toPosition);
-
-				// If so, transfer
-				for(int i2 = 0; i2 < in.inventory.getSlots(); i2++) {
-					if(!(in.inventory.getStackInSlot(i2).isEmpty())) {
-						ItemStack toTransfer = in.inventory.getStackInSlot(i2).copy();
-						toTransfer.shrink(rate);
-						if(in.inventory.extractItem(i2, rate, true) != null
-								&& ItemHandlerHelper.insertItem(out.inventory, toTransfer, true) == null) {
-							in.inventory.extractItem(i2, rate, false);
-							ItemHandlerHelper.insertItem(out.inventory, toTransfer, false);
-							return false; // Nothing about the multiblock *controller* has changed.
+				NBTTagCompound tag = card.getTagCompound();
+				int colorMetadata = tag.getInteger("dye");
+				if(outputPositions.containsValue(colorMetadata)) {
+					InternalInventoryHandler inventory = new InternalInventoryHandler(16);
+					inventory.deserializeNBT(tag.getCompoundTag("inventory"));
+					NonNullList<ItemStack> acceptedStacks = inventory.getStackList();
+					for(int b = 0; b < buffer.getSlots(); b++) {
+						ItemStack current = buffer.getStackInSlot(b);
+						current.setCount(rate);
+						if(OreDictionary.containsMatch(false, acceptedStacks, current)) {
+							ItemStackHandler targetOutput = ((TileEntitySorterOutput) WORLD
+									.getTileEntity(outputPositions.inverse().get(colorMetadata))).inventory;
+							if(ItemHandlerHelper.insertItem(targetOutput, current, true).isEmpty()) {
+								ItemHandlerHelper.insertItem(targetOutput, buffer.extractItem(b, rate, false), false);
+							}
+							return true;
 						}
 					}
 				}
 			}
-
 		}
 		return false;
 	}
@@ -110,8 +106,7 @@ public class ControllerSorter extends SARRectangularMultiblockControllerBase {
 
 	@Override
 	protected void onMachineAssembled() {
-		// TODO Auto-generated method stub
-
+		super.onMachineAssembled();
 	}
 
 	@Override
@@ -226,4 +221,13 @@ public class ControllerSorter extends SARRectangularMultiblockControllerBase {
 		return "Sorter";
 	}
 
+	private static class InternalInventoryHandler extends ItemStackHandler {
+		public InternalInventoryHandler(int slots) {
+			super(slots);
+		}
+
+		public NonNullList<ItemStack> getStackList() {
+			return this.stacks;
+		}
+	}
 }

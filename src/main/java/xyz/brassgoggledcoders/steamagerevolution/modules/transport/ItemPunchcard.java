@@ -17,8 +17,6 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class ItemPunchcard extends ItemBase {
 
-	public ItemStackHandler items = new ItemStackHandler(10);
-
 	public ItemPunchcard() {
 		super("punchcard");
 	}
@@ -27,6 +25,7 @@ public class ItemPunchcard extends ItemBase {
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		if(stack.hasTagCompound()) {
 			NBTTagCompound tag = stack.getTagCompound();
+			ItemStackHandler items = new ItemStackHandler(16);
 			items.deserializeNBT(tag.getCompoundTag("inventory"));
 			tooltip.add("Color: " + EnumDyeColor.byMetadata(tag.getInteger("dye")));
 			tooltip.add("Items: ");
