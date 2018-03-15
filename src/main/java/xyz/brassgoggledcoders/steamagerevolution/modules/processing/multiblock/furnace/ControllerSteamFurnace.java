@@ -118,8 +118,8 @@ public class ControllerSteamFurnace extends SARRectangularMultiblockControllerBa
 			}
 			else {
 				ItemStack resultItem = SteamFurnaceRecipe.getResult(inputInventory.getStackInSlot(0));
-				if(ItemHandlerHelper.insertItem(outputInventory, resultItem, true) == null) {
-					if(inputInventory.extractItem(0, resultItem.getCount(), true) != null) {
+				if(ItemHandlerHelper.insertItem(outputInventory, resultItem, true).isEmpty()) {
+					if(!inputInventory.extractItem(0, resultItem.getCount(), true).isEmpty()) {
 						inputInventory.extractItem(0, resultItem.getCount(), false);
 						ItemHandlerHelper.insertItem(outputInventory, resultItem, false);
 						currentCookTime = 0;

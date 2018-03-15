@@ -22,17 +22,10 @@ public class GuiSingleTank extends GuiContainer {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		String text = "Empty";
-		FluidStack containedFluid =
-				tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null).getTankProperties()[0]
-						.getContents();
-		int capacity = tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null).getTankProperties()[0]
-				.getCapacity();
-		if(containedFluid.getFluid() != null && containedFluid.amount > 0) {
-			text = containedFluid.getLocalizedName() + ": " + containedFluid.amount + "mB/" + capacity + "mB";
-		}
-		this.fontRenderer.drawString(text, this.guiLeft + 78, this.guiTop + 20, 4210752);
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		this.drawDefaultBackground();
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		this.renderHoveredToolTip(mouseX, mouseY);
 	}
 
 	@Override
