@@ -4,9 +4,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.utils.BlockGUIBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockGUIBase;
 
-public class BlockVatFluidInput extends BlockGUIBase<TileEntityVatFluidInput> {
+public class BlockVatFluidInput extends BlockMultiblockGUIBase<TileEntityVatFluidInput> {
 
 	public BlockVatFluidInput(Material material, String name) {
 		super(material, name);

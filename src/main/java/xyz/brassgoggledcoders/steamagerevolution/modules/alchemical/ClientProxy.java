@@ -3,9 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical;
 import com.teamacronymcoders.base.modulesystem.proxies.IModuleProxy;
 
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.MultiblockVatTankRenderer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.TileEntityVatFrame;
 

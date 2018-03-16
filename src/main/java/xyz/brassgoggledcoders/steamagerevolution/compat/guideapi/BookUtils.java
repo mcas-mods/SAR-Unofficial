@@ -1,13 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.guideapi;
 
 import amerifrance.guideapi.api.IRecipeRenderer;
-import amerifrance.guideapi.page.reciperenderer.ShapedOreRecipeRenderer;
-import amerifrance.guideapi.page.reciperenderer.ShapedRecipesRenderer;
-import amerifrance.guideapi.page.reciperenderer.ShapelessOreRecipeRenderer;
-import amerifrance.guideapi.page.reciperenderer.ShapelessRecipesRenderer;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
+import amerifrance.guideapi.page.reciperenderer.*;
+import net.minecraft.item.crafting.*;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ShapelessOreResultRecipe;

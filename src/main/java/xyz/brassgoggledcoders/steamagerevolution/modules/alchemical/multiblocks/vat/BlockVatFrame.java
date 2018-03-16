@@ -4,9 +4,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockGUIBase;
 
-public class BlockVatFrame extends BlockMultiblockBase<TileEntityVatFrame> {
+public class BlockVatFrame extends BlockMultiblockGUIBase<TileEntityVatFrame> {
 
 	public BlockVatFrame(Material material, String name) {
 		super(material, name);

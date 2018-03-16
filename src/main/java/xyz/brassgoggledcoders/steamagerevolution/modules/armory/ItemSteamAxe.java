@@ -2,9 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
+import javax.annotation.*;
 
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.IBaseMod;
@@ -14,9 +12,7 @@ import com.teamacronymcoders.base.client.models.IHasModel;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemAxe;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;

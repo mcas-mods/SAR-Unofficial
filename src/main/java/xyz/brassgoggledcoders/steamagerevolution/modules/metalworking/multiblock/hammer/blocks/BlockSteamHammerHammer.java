@@ -12,9 +12,9 @@ import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemDie;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.tileentities.TileEntitySteamHammerHammer;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockGUIBase;
 
-public class BlockSteamHammerHammer extends BlockMultiblockBase<TileEntitySteamHammerHammer> {
+public class BlockSteamHammerHammer extends BlockMultiblockGUIBase<TileEntitySteamHammerHammer> {
 
 	public BlockSteamHammerHammer(Material material, String name) {
 		super(material, name);

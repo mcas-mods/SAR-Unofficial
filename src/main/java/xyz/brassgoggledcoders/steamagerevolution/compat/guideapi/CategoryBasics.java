@@ -1,9 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.guideapi;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.teamacronymcoders.base.util.OreDictUtils;
 
@@ -11,9 +8,7 @@ import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.entry.EntryItemStack;
-import amerifrance.guideapi.page.PageFurnaceRecipe;
-import amerifrance.guideapi.page.PageIRecipe;
-import amerifrance.guideapi.page.PageJsonRecipe;
+import amerifrance.guideapi.page.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.ShapelessOreRecipe;

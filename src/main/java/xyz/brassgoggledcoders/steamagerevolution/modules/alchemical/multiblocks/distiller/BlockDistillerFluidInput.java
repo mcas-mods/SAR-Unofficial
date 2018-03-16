@@ -4,9 +4,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockGUIBase;
 
-public class BlockDistillerFluidInput extends BlockMultiblockBase<TileEntityDistillerFluidInput> {
+public class BlockDistillerFluidInput extends BlockMultiblockGUIBase<TileEntityDistillerFluidInput> {
 
 	public BlockDistillerFluidInput(Material material, String name) {
 		super(material, name);
