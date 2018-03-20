@@ -75,7 +75,7 @@ dependencies {
     //deobfCompile "com.enderio:EnderIO:${minecraft_version}-${eio_version}"
     //deobfCompile "slimeknights:TConstruct:${minecraft_version}-${tinkers_version}"
     //deobfCompile "slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}"
-    //deobfCompile "team.chisel:Chisel:MC1.10.2-0.0.7.7"
+    deobfCompile "team.chisel.ctm:CTM:MC1.12-0.2.3.13"
     deobfCompile "info.amerifrance.guideapi:Guide-API:${guideapi_version}"
     deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.+"
 }
