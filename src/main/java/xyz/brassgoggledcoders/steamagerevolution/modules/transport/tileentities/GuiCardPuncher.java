@@ -6,7 +6,6 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketCardPunch;
 
@@ -14,8 +13,6 @@ public class GuiCardPuncher extends GuiContainer {
 
 	private static ResourceLocation guiTexture =
 			new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/card_puncher.png");
-	private ItemStackHandler inventory;
-	private GuiButton doneBtn;
 	private TileEntityCardPuncher tile;
 
 	public GuiCardPuncher(TileEntityCardPuncher tile, EntityPlayer entityPlayer) {
@@ -42,7 +39,7 @@ public class GuiCardPuncher extends GuiContainer {
 	@Override
 	public void initGui() {
 		this.buttonList.clear();
-		this.doneBtn = this.addButton(new GuiButton(0, 204, 90, 40, 20, "Punch"));
+		this.addButton(new GuiButton(0, 204, 90, 40, 20, "Punch"));
 		super.initGui();
 	}
 

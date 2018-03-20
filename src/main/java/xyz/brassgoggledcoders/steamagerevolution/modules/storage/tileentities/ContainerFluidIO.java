@@ -20,6 +20,7 @@ public class ContainerFluidIO extends ContainerBase {
 		return true;
 	}
 
+	@Override
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
 		return ItemStack.EMPTY;
 	}

@@ -49,6 +49,7 @@ public class ModuleTransport extends ModuleBase {
 
 	}
 
+	@Override
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
 		itemRegistry.register(new ItemPunchcard());
 	}

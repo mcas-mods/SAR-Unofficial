@@ -62,7 +62,7 @@ public class BlockSorterOutput extends BlockTEBase<TileEntitySorterOutput> {
 	 */
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((EnumDyeColor) state.getValue(COLOR)).getMetadata();
+		return state.getValue(COLOR).getMetadata();
 	}
 
 	@Override

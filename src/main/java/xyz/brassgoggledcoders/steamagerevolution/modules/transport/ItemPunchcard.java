@@ -21,6 +21,7 @@ public class ItemPunchcard extends ItemBase {
 		super("punchcard");
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		if(stack.hasTagCompound()) {
