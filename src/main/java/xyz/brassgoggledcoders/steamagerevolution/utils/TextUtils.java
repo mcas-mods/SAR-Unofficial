@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class TextUtils {
@@ -21,7 +21,7 @@ public class TextUtils {
 		return new TextComponentString("No fluid");
 	}
 
-	public static TextComponentString representTankContents(FluidTank tank) {
+	public static TextComponentString representTankContents(IFluidTank tank) {
 		if(tank.getFluid() != null && tank.getFluidAmount() > 0) {
 			return new TextComponentString(tank.getFluid().getLocalizedName() + ": " + tank.getFluidAmount() + "mB/"
 					+ tank.getCapacity() + "mB");

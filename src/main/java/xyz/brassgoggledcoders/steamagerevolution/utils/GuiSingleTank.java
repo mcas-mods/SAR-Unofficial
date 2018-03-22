@@ -1,10 +1,15 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -26,6 +31,14 @@ public class GuiSingleTank extends GuiContainer {
 		this.drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		this.renderHoveredToolTip(mouseX, mouseY);
+		if(this.isPointInRegion(78, 17, 20, 49, mouseX, mouseY)) {
+			List<String> tooltip = Lists.newArrayList();
+			tooltip.add(TextUtils
+					.representTankContents(
+							(IFluidTank) tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null))
+					.getText());
+			this.drawHoveringText(tooltip, mouseX, mouseY, fontRenderer);
+		}
 	}
 
 	@Override
