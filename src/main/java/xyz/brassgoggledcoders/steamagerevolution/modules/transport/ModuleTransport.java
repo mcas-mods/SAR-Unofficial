@@ -10,7 +10,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.*;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.multiblock.sorter.*;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleTransport extends ModuleBase {
@@ -40,18 +39,18 @@ public class ModuleTransport extends ModuleBase {
 		hydraulicRouter = new BlockHydraulicRouter(Material.IRON, "hydraulic_router");
 		// blockRegistry.register(hydraulicRouter);
 
-		blockRegistry.register(new BlockSorterInput(Material.IRON, "sorter_input"));
-		blockRegistry.register(new BlockSorterOutput(Material.IRON, "sorter_output"));
-		blockRegistry.register(new BlockSorterFrame(Material.IRON, "sorter_frame"));
-		blockRegistry.register(new BlockSorterBrain(Material.IRON, "sorter_brain"));
-
-		blockRegistry.register(new BlockCardPuncher(Material.IRON, "card_puncher"));
+		// blockRegistry.register(new BlockSorterInput(Material.IRON, "sorter_input"));
+		// blockRegistry.register(new BlockSorterOutput(Material.IRON, "sorter_output"));
+		// blockRegistry.register(new BlockSorterFrame(Material.IRON, "sorter_frame"));
+		// blockRegistry.register(new BlockSorterBrain(Material.IRON, "sorter_brain"));
+		//
+		// blockRegistry.register(new BlockCardPuncher(Material.IRON, "card_puncher"));
 
 	}
 
 	@Override
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
-		itemRegistry.register(new ItemPunchcard());
+		// itemRegistry.register(new ItemPunchcard());
 	}
 
 }

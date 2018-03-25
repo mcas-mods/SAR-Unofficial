@@ -23,7 +23,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.SteamFurnaceRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.*;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.sawmill.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.sawmill.SawmillRecipe;
 
 @Module(value = SteamAgeRevolution.MODID)
 @ObjectHolder(SteamAgeRevolution.MODID)
@@ -60,8 +60,8 @@ public class ModuleProcessing extends ModuleBase {
 		blockRegistry.register(new BlockFurnaceSteamInput(Material.IRON, "furnace_steam_input"));
 		blockRegistry.register(new BlockFurnaceModeToggle(Material.IRON, "furnace_mode_toggle"));
 
-		blockRegistry.register(new BlockSawmillCasing(Material.IRON, "sawmill_casing"));
-		blockRegistry.register(new BlockSawmillAxle(Material.IRON, "sawmill_axle"));
+		// blockRegistry.register(new BlockSawmillCasing(Material.IRON, "sawmill_casing"));
+		// blockRegistry.register(new BlockSawmillAxle(Material.IRON, "sawmill_axle"));
 	}
 
 	@SubscribeEvent
