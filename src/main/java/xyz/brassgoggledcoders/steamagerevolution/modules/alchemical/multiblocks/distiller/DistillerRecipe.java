@@ -11,9 +11,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
+import xyz.brassgoggledcoders.steamagerevolution.utils.ISARMachineRecipe;
 
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei", striprefs = true)
-public class DistillerRecipe implements IRecipeWrapper {
+public class DistillerRecipe implements IRecipeWrapper, ISARMachineRecipe {
 	public final FluidStack input;
 	public final FluidStack output;
 	public final ItemStack itemOutput;
@@ -24,6 +25,10 @@ public class DistillerRecipe implements IRecipeWrapper {
 		this.output = output;
 		this.itemOutput = itemOutput;
 		this.ticksToProcess = ticksToProcess;
+	}
+
+	public int getRecipeProcessingTicks() {
+		return ticksToProcess;
 	}
 
 	private static ArrayList<DistillerRecipe> recipeList = new ArrayList<DistillerRecipe>();

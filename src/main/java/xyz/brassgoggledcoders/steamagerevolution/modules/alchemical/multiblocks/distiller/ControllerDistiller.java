@@ -24,12 +24,9 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 	public FluidTankSmart fluidInput;
 	public FluidTankSmart fluidOutput;
 	public ItemStackHandler itemOutput;
-	public FluidTankSingleSmart steamTank;
-	int ticks = 0;
-	// int temperature = 0;
+
 	DistillerRecipe currentRecipe = null;
 
-	// private static final int temperatureThreshold = 110;
 	private static final int steamPerHeat = Fluid.BUCKET_VOLUME / 4;
 
 	protected ControllerDistiller(World world) {
@@ -76,8 +73,7 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 		fluidInput.readFromNBT(data.getCompoundTag("input"));
 		fluidOutput.readFromNBT(data.getCompoundTag("output"));
 		itemOutput.deserializeNBT(data.getCompoundTag("itemOutput"));
-		ticks = data.getInteger("progress");
-		// temperature = data.getInteger("temperature");
+		super.onAttachedPartWithMultiblockData(part, data);
 	}
 
 	@Override
@@ -160,33 +156,31 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 	}
 
 	@Override
-	protected boolean updateServer() {
-		if(steamTank.getFluidAmount() >= steamPerHeat) {
-			steamTank.drain(steamPerHeat, true);
-			if(currentRecipe == null) {
-				if(fluidInput.getFluidAmount() > 0 && DistillerRecipe.getRecipe(fluidInput.getFluid()) != null) {
-					currentRecipe = DistillerRecipe.getRecipe(fluidInput.getFluid());
-					return true;
-				}
+	protected boolean canWork() {
+		return fluidInput.getFluidAmount() > 0 && DistillerRecipe.getRecipe(fluidInput.getFluid()) != null;
+	}
+
+	@Override
+	protected boolean onMachineTick() {
+		if(currentRecipe == null) {
+			currentRecipe = DistillerRecipe.getRecipe(fluidInput.getFluid());
+			ticksPerOperation = currentRecipe.ticksToProcess;
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	protected boolean onMachineFinish() {
+		if(fluidOutput.fill(currentRecipe.output, false) == currentRecipe.output.amount
+				&& ItemHandlerHelper.insertItem(itemOutput, currentRecipe.itemOutput, true).isEmpty()) {
+			fluidOutput.fill(currentRecipe.output, true);
+			fluidInput.drain(currentRecipe.input, true);
+			ItemHandlerHelper.insertItem(itemOutput, currentRecipe.itemOutput, false);
+			if(fluidOutput.getFluidAmount() == 0) {
+				currentRecipe = null;
 			}
-			else {
-				if(ticks == currentRecipe.ticksToProcess) {
-					if(fluidOutput.fill(currentRecipe.output, false) == currentRecipe.output.amount
-							&& ItemHandlerHelper.insertItem(itemOutput, currentRecipe.itemOutput, true).isEmpty()) {
-						fluidOutput.fill(currentRecipe.output, true);
-						fluidInput.drain(currentRecipe.input, true);
-						ItemHandlerHelper.insertItem(itemOutput, currentRecipe.itemOutput, false);
-						if(fluidOutput.getFluidAmount() == 0) {
-							currentRecipe = null;
-						}
-						return true;
-					}
-				}
-				else {
-					ticks++;
-					return true;
-				}
-			}
+			return true;
 		}
 		return false;
 	}
@@ -232,8 +226,7 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 		data.setTag("input", fluidInput.writeToNBT(new NBTTagCompound()));
 		data.setTag("output", fluidOutput.writeToNBT(new NBTTagCompound()));
 		data.setTag("itemOutput", itemOutput.serializeNBT());
-		data.setInteger("progress", ticks);
-		// data.setInteger("temperature", temperature);
+		super.writeToDisk(data);
 	}
 
 	@Override
