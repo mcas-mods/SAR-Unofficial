@@ -69,7 +69,7 @@ public class ModuleMaterials extends ModuleBase {
 
 			SAR.registerPartsForMaterial(sulphur, "ore", "dust", "crystal");
 			MaterialSystem.getMaterialPart("sulphur_crystal").getData().addDataValue("burn", "1800");
-			MaterialSystem.getMaterialPart("sulphur_ore").getData().addDataValue("drops", "ore:crystalSulphur");
+			MaterialSystem.getMaterialPart("sulphur_ore").getData().addDataValue("drops", "oredict:crystalSulphur");
 
 			SAR.registerPartsForMaterial(iron, vanillaParts);
 			MaterialSystem.getMaterialPart("iron_ore").getData().addDataValue("variants", "gravel,sand");
