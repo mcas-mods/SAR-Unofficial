@@ -12,7 +12,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public abstract class BlockMultiblockGUIBase<T extends MultiblockTileEntityBase> extends BlockMultiblockBase<T> {
+public abstract class BlockMultiblockGUIBase<T extends MultiblockTileEntityBase<?>> extends BlockMultiblockBase<T> {
 
 	public BlockMultiblockGUIBase(Material material, String name) {
 		super(material, name);
@@ -23,8 +23,13 @@ public abstract class BlockMultiblockGUIBase<T extends MultiblockTileEntityBase>
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		TileEntity te = getTileEntity(worldIn, pos).get();
 		if(te != null && !playerIn.isSneaking()) {
-			GuiOpener.openTileEntityGui(getMod(), playerIn, worldIn, pos);
-			return true;
+			if(te instanceof MultiblockTileEntityBase) {
+				MultiblockTileEntityBase<?> multiblockTile = (MultiblockTileEntityBase<?>) te;
+				if(multiblockTile.isConnected() && multiblockTile.getMultiblockController().isAssembled()) {
+					GuiOpener.openMultiblockGui(getMod(), playerIn, worldIn, pos);
+					return true;
+				}
+			}
 		}
 		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
 	}
