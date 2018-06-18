@@ -138,8 +138,8 @@ public class ModuleAlchemical extends ModuleBase {
 		blockRegistry.register(new BlockDistillerItemOutput(Material.IRON, "distiller_item_output"));
 
 		Fluid sulphur_dioxide =
-				new Fluid("sulphur_dioxide", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/sulphur_dioxide"),
-						new ResourceLocation(SteamAgeRevolution.MODID, "blocks/sulphur_dioxide_flow")).setViscosity(250)
+				new Fluid("sulphur_dioxide", new ResourceLocation(SteamAgeRevolution.MODID, "fluids/sulphur_dioxide"),
+						new ResourceLocation(SteamAgeRevolution.MODID, "fluids/sulphur_dioxide_flow")).setViscosity(250)
 								.setGaseous(true);
 		FluidRegistry.registerFluid(sulphur_dioxide);
 		FluidRegistry.addBucketForFluid(sulphur_dioxide);
@@ -148,8 +148,8 @@ public class ModuleAlchemical extends ModuleBase {
 				Material.WATER, damageSourceGas, 2));
 
 		Fluid sulphuric_acid =
-				new Fluid("sulphuric_acid", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/sulphuric_acid"),
-						new ResourceLocation(SteamAgeRevolution.MODID, "blocks/sulphuric_acid_flow")).setViscosity(500);
+				new Fluid("sulphuric_acid", new ResourceLocation(SteamAgeRevolution.MODID, "fluids/sulphuric_acid"),
+						new ResourceLocation(SteamAgeRevolution.MODID, "fluids/sulphuric_acid_flow")).setViscosity(500);
 		FluidRegistry.registerFluid(sulphuric_acid);
 		FluidRegistry.addBucketForFluid(sulphuric_acid);
 
@@ -158,8 +158,8 @@ public class ModuleAlchemical extends ModuleBase {
 
 		// TODO TE compat?
 		Fluid liquid_glowstone =
-				new Fluid("liquid_glowstone", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/liquid_glowstone"),
-						new ResourceLocation(SteamAgeRevolution.MODID, "blocks/liquid_glowstone_flow"))
+				new Fluid("liquid_glowstone", new ResourceLocation(SteamAgeRevolution.MODID, "fluids/liquid_glowstone"),
+						new ResourceLocation(SteamAgeRevolution.MODID, "fluids/liquid_glowstone_flow"))
 								.setViscosity(2000).setGaseous(true);
 		FluidRegistry.registerFluid(liquid_glowstone);
 		FluidRegistry.addBucketForFluid(liquid_glowstone);
@@ -200,8 +200,8 @@ public class ModuleAlchemical extends ModuleBase {
 		FluidRegistry.addBucketForFluid(potion);
 
 		// Fluid liquid_explosive =
-		// new Fluid("liquid_explosive", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/liquid_explosive"),
-		// new ResourceLocation(SteamAgeRevolution.MODID, "blocks/liquid_explosive"));
+		// new Fluid("liquid_explosive", new ResourceLocation(SteamAgeRevolution.MODID, "fluids/liquid_explosive"),
+		// new ResourceLocation(SteamAgeRevolution.MODID, "fluids/liquid_explosive"));
 		// FluidRegistry.registerFluid(liquid_explosive);
 
 		FluidRegistry
