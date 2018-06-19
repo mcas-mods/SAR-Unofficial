@@ -3,22 +3,14 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-import net.minecraft.client.gui.Gui;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ContainerSimpleSlots;
-import xyz.brassgoggledcoders.steamagerevolution.utils.GuiSimpleSlots;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockInventoryWrapper;
 
-public class TileEntityDistillerItemOutput extends TileEntityDistillerPart implements IHasGui {
+public class TileEntityDistillerItemOutput extends TileEntityDistillerPart {
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
 		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
@@ -37,17 +29,4 @@ public class TileEntityDistillerItemOutput extends TileEntityDistillerPart imple
 	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
 		return true;
 	}
-
-	@Override
-	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		// TODO Auto-generated method stub
-		return new GuiSimpleSlots(entityPlayer, this, 1);
-	}
-
-	@Override
-	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		// TODO Auto-generated method stub
-		return new ContainerSimpleSlots(entityPlayer, this, 1);
-	}
-
 }

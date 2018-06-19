@@ -1,10 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller;
 
+import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.multiblock.validation.ValidationError;
 
+import net.minecraft.client.gui.Gui;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -12,27 +16,31 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.ModuleAlchemical;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
-public class ControllerDistiller extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
+public class ControllerDistiller extends SARRectangularMultiblockControllerBase implements ISmartTankCallback, IHasGui {
 
 	public static int tankCapacity = Fluid.BUCKET_VOLUME * 8;
 
 	public FluidTankSmart fluidInput;
 	public FluidTankSmart fluidOutput;
 	public ItemStackHandler itemOutput;
-
+	public FluidTankSingleSmart steamTank;
+	int ticks = 0;
+	// int temperature = 0;
 	DistillerRecipe currentRecipe = null;
 
-	private static final int steamPerHeat = Fluid.BUCKET_VOLUME / 4;
+	// private static final int temperatureThreshold = 110;
+	private static final int steamPerHeat = Fluid.BUCKET_VOLUME / 8;
 
 	protected ControllerDistiller(World world) {
 		super(world);
-		fluidInput = new FluidTankSmart(tankCapacity, this);
-		fluidOutput = new FluidTankSmart(tankCapacity, this);
+		fluidInput = new FluidTankSmart(tankCapacity, this, 0);
+		fluidOutput = new FluidTankSmart(tankCapacity, this, 1);
 		itemOutput = new ItemStackHandler();
 		steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
 	}
@@ -70,10 +78,12 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
+		steamTank.readFromNBT(data.getCompoundTag("steam"));
 		fluidInput.readFromNBT(data.getCompoundTag("input"));
 		fluidOutput.readFromNBT(data.getCompoundTag("output"));
 		itemOutput.deserializeNBT(data.getCompoundTag("itemOutput"));
-		super.onAttachedPartWithMultiblockData(part, data);
+		ticks = data.getInteger("progress");
+		// temperature = data.getInteger("temperature");
 	}
 
 	@Override
@@ -156,31 +166,35 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 	}
 
 	@Override
-	protected boolean canWork() {
-		return fluidInput.getFluidAmount() > 0 && DistillerRecipe.getRecipe(fluidInput.getFluid()) != null;
-	}
-
-	@Override
-	protected boolean onMachineTick() {
-		if(currentRecipe == null) {
-			currentRecipe = DistillerRecipe.getRecipe(fluidInput.getFluid());
-			ticksPerOperation = currentRecipe.ticksToProcess;
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	protected boolean onMachineFinish() {
-		if(fluidOutput.fill(currentRecipe.output, false) == currentRecipe.output.amount
-				&& ItemHandlerHelper.insertItem(itemOutput, currentRecipe.itemOutput, true).isEmpty()) {
-			fluidOutput.fill(currentRecipe.output, true);
-			fluidInput.drain(currentRecipe.input, true);
-			ItemHandlerHelper.insertItem(itemOutput, currentRecipe.itemOutput, false);
-			if(fluidOutput.getFluidAmount() == 0) {
-				currentRecipe = null;
+	protected boolean updateServer() {
+		if(steamTank.getFluidAmount() >= steamPerHeat) {
+			if(currentRecipe == null) {
+				if(fluidInput.getFluidAmount() > 0 && DistillerRecipe.getRecipe(fluidInput.getFluid()) != null) {
+					currentRecipe = DistillerRecipe.getRecipe(fluidInput.getFluid());
+					return true;
+				}
 			}
-			return true;
+			else {
+				if(ticks == currentRecipe.ticksToProcess) {
+					if(ItemHandlerHelper.insertItem(itemOutput, currentRecipe.itemOutput, true).isEmpty()) {
+						if(currentRecipe.output != null
+								&& fluidOutput.fill(currentRecipe.output, false) == currentRecipe.output.amount) {
+							fluidOutput.fill(currentRecipe.output, true);
+						}
+						fluidInput.drain(currentRecipe.input, true);
+						ItemHandlerHelper.insertItem(itemOutput, currentRecipe.itemOutput, false);
+						if(fluidInput.getFluidAmount() == 0) {
+							currentRecipe = null;
+						}
+						return true;
+					}
+				}
+				else {
+					steamTank.drain(steamPerHeat, true);
+					ticks++;
+					return true;
+				}
+			}
 		}
 		return false;
 	}
@@ -223,10 +237,11 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
+		data.setTag("steam", steamTank.writeToNBT(new NBTTagCompound()));
 		data.setTag("input", fluidInput.writeToNBT(new NBTTagCompound()));
 		data.setTag("output", fluidOutput.writeToNBT(new NBTTagCompound()));
 		data.setTag("itemOutput", itemOutput.serializeNBT());
-		super.writeToDisk(data);
+		data.setInteger("progress", ticks);
 	}
 
 	@Override
@@ -234,14 +249,22 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 
 	@Override
 	public void onTankContentsChanged(FluidTank tank) {
-		// TODO Auto-generated method stub
-
+		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+				new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid(), ((FluidTankSmart) tank).getId()),
+				this.getReferenceCoord(), WORLD.provider.getDimension());
 	}
 
 	@Override
 	public void updateFluid(PacketFluidUpdate message) {
-		// TODO Auto-generated method stub
-
+		if(message.id == fluidInput.getId()) {
+			fluidInput.setFluid(message.fluid);
+		}
+		else if(message.id == fluidOutput.getId()) {
+			fluidOutput.setFluid(message.fluid);
+		}
+		else {
+			steamTank.setFluid(message.fluid);
+		}
 	}
 
 	@Override
@@ -258,6 +281,18 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 	@Override
 	public ItemStackHandler getInventory(String toWrap) {
 		return itemOutput;
+	}
+
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return new GuiDistiller(entityPlayer, this);
+	}
+
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return new ContainerDistiller(entityPlayer, this);
 	}
 
 }

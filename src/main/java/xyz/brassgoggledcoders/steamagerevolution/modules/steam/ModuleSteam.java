@@ -52,8 +52,8 @@ public class ModuleSteam extends ModuleBase {
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
 
 		// TODO Adjust properties
-		steam = new Fluid("steam", new ResourceLocation(SteamAgeRevolution.MODID, "blocks/steam"),
-				new ResourceLocation(SteamAgeRevolution.MODID, "blocks/steam_flow")).setGaseous(true)
+		steam = new Fluid("steam", new ResourceLocation(SteamAgeRevolution.MODID, "fluids/steam"),
+				new ResourceLocation(SteamAgeRevolution.MODID, "fluids/steam_flow")).setGaseous(true)
 						.setTemperature(1000).setViscosity(200);
 
 		if(!(FluidRegistry.isFluidRegistered(steam))) { // Soft registration

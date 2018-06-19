@@ -1,23 +1,30 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace;
 
+import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.multiblock.validation.ValidationError;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
-public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
+public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBase
+		implements ISmartTankCallback, IHasGui {
 
 	public static int inputCapacity = ModuleMetalworking.VALUE_BLOCK * 8;
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
@@ -201,25 +208,47 @@ public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBa
 	}
 
 	@Override
+	public void readFromDisk(NBTTagCompound data) {}
+
+	@Override
 	public void onTankContentsChanged(FluidTank tank) {
-		// TODO Auto-generated method stub
-
+		if(tank instanceof MultiFluidTank) {
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+					new PacketMultiFluidUpdate(this.getReferenceCoord(), ((MultiFluidTank) tank)),
+					this.getReferenceCoord(), WORLD.provider.getDimension());
+		}
+		else {
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+					new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid()), this.getReferenceCoord(),
+					WORLD.provider.getDimension());
+		}
 	}
 
 	@Override
-	public void readFromDisk(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
+	public void updateFluid(PacketFluidUpdate message) {
+		outputTank.setFluid(message.fluid);
 	}
 
 	@Override
-	public void updateFluid(PacketFluidUpdate fluid) {
-		// TODO Auto-generated method stub
-
+	public void updateFluid(PacketMultiFluidUpdate message) {
+		primaryTank.fluids.clear();
+		primaryTank.fluids.addAll(message.tank.fluids);
 	}
 
 	@Override
 	public String getName() {
 		return "Alloy Forge";
+	}
+
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return new GuiAlloyFurnace(entityPlayer, this);
+	}
+
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return new ContainerAlloyFurnace(entityPlayer, this);
 	}
 }

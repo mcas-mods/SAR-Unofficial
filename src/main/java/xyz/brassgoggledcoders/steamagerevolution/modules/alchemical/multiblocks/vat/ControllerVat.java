@@ -5,14 +5,18 @@ import java.util.stream.IntStream;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -28,7 +32,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
-public class ControllerVat extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
+public class ControllerVat extends SARRectangularMultiblockControllerBase implements ISmartTankCallback, IHasGui {
 
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
 	public static int inputCapacity = outputCapacity * 3;
@@ -316,5 +320,17 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 		else {
 			return output;
 		}
+	}
+
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return new GuiVat(entityPlayer, this);
+	}
+
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return new ContainerVat(entityPlayer, this);
 	}
 }

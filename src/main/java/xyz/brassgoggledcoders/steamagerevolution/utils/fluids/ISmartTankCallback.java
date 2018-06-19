@@ -15,5 +15,5 @@ public interface ISmartTankCallback {
 	@SideOnly(Side.CLIENT)
 	default void updateFluid(PacketMultiFluidUpdate message) {
 
-	};
+	}
 }
