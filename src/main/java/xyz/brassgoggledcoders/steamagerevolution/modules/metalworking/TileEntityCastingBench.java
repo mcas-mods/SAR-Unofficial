@@ -1,9 +1,13 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking;
 
+import javax.annotation.Nonnull;
+
 import com.teamacronymcoders.base.tileentities.TileEntityBase;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.ITickable;
@@ -140,5 +144,26 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable,
 		this.markDirty();
 		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(new PacketFluidUpdate(getPos(), tank.getFluid()),
 				getPos(), getWorld().provider.getDimension());
+	}
+
+	@Override
+	public SPacketUpdateTileEntity getUpdatePacket() {
+		NBTTagCompound nbttagcompound = new NBTTagCompound();
+		nbttagcompound.setTag("tank", tank.writeToNBT(new NBTTagCompound()));
+		return new SPacketUpdateTileEntity(this.pos, 3, nbttagcompound);
+	}
+
+	@Nonnull
+	@Override
+	public NBTTagCompound getUpdateTag() {
+		NBTTagCompound nbt = super.writeToNBT(new NBTTagCompound());
+		nbt.setTag("tank", tank.writeToNBT(new NBTTagCompound()));
+		return nbt;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+		tank.readFromNBT(pkt.getNbtCompound().getCompoundTag("tank"));
 	}
 }
