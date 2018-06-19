@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities;
 
+import javax.annotation.Nonnull;
+
 import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.tileentities.TileEntityInventoryBase;
 
@@ -7,6 +9,8 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
@@ -100,9 +104,29 @@ public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGu
 
 	@Override
 	public void onTankContentsChanged(FluidTank tank) {
-		this.markDirty();
 		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(new PacketFluidUpdate(getPos(), tank.getFluid()),
 				getPos(), getWorld().provider.getDimension());
+	}
+
+	@Override
+	public SPacketUpdateTileEntity getUpdatePacket() {
+		NBTTagCompound nbttagcompound = new NBTTagCompound();
+		nbttagcompound.setTag("tank", buffer.writeToNBT(new NBTTagCompound()));
+		return new SPacketUpdateTileEntity(this.pos, 3, nbttagcompound);
+	}
+
+	@Nonnull
+	@Override
+	public NBTTagCompound getUpdateTag() {
+		NBTTagCompound nbt = super.writeToNBT(new NBTTagCompound());
+		nbt.setTag("tank", buffer.writeToNBT(new NBTTagCompound()));
+		return nbt;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+		buffer.readFromNBT(pkt.getNbtCompound().getCompoundTag("tank"));
 	}
 
 }
