@@ -33,7 +33,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.DistillerRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe.VatRecipeBuilder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemDie;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.AlloyFurnaceRecipe;
@@ -191,8 +190,9 @@ public class ModuleMetalworking extends ModuleBase {
 					new VatRecipeBuilder().setOutput(solution)
 							.setFluids(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 4))
 							.setItems(crushedOre).build();
-					DistillerRecipe.addRecipe(solution,
-							FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 6), crystal, 20);
+					// DistillerRecipe.addRecipe(solution,
+					// FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 6), crystal, 20);
+					// }
 				}
 			}
 		}

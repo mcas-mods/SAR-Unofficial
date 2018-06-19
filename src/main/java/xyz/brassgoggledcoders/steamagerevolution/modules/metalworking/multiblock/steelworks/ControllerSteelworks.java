@@ -14,8 +14,8 @@ import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
@@ -237,5 +237,29 @@ public class ControllerSteelworks extends SARRectangularMultiblockControllerBase
 	@Override
 	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
 		return world.isAirBlock(new BlockPos(x, y, z));
+	}
+
+	@Override
+	public ItemStackHandler getItemInput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MultiFluidTank getFluidInputs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemStackHandlerExtractSpecific getItemOutput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MultiFluidTank getFluidOutputs() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

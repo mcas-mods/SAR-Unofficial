@@ -15,12 +15,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
+import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
 public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBase
@@ -250,5 +252,29 @@ public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBa
 	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
 		// TODO Auto-generated method stub
 		return new ContainerAlloyFurnace(entityPlayer, this);
+	}
+
+	@Override
+	public ItemStackHandler getItemInput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MultiFluidTank getFluidInputs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemStackHandlerExtractSpecific getItemOutput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MultiFluidTank getFluidOutputs() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

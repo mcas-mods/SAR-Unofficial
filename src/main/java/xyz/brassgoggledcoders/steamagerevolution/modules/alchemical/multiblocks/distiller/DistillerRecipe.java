@@ -1,7 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller;
 
 import java.awt.Color;
-import java.util.ArrayList;
 
 import javax.annotation.Nonnull;
 
@@ -11,10 +10,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ISARMachineRecipe;
 
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei", striprefs = true)
-public class DistillerRecipe implements IRecipeWrapper, ISARMachineRecipe {
+public class DistillerRecipe implements IRecipeWrapper {
 	public final FluidStack input;
 	public final FluidStack output;
 	public final ItemStack itemOutput;
@@ -25,29 +23,6 @@ public class DistillerRecipe implements IRecipeWrapper, ISARMachineRecipe {
 		this.output = output;
 		this.itemOutput = itemOutput;
 		this.ticksToProcess = ticksToProcess;
-	}
-
-	public int getRecipeProcessingTicks() {
-		return ticksToProcess;
-	}
-
-	private static ArrayList<DistillerRecipe> recipeList = new ArrayList<DistillerRecipe>();
-
-	public static void addRecipe(FluidStack input, FluidStack output, ItemStack itemOutput, int ticksToProcess) {
-		recipeList.add(new DistillerRecipe(input, output, itemOutput, ticksToProcess));
-	}
-
-	public static DistillerRecipe getRecipe(FluidStack input) {
-		for(DistillerRecipe r : recipeList) {
-			if(r.input.isFluidEqual(input)) {
-				return r;
-			}
-		}
-		return null;
-	}
-
-	public static ArrayList<DistillerRecipe> getRecipeList() {
-		return recipeList;
 	}
 
 	@Optional.Method(modid = "jei")

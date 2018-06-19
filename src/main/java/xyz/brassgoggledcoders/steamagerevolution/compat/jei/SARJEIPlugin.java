@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.*;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.DistillerRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlockRecipe;
@@ -57,8 +56,8 @@ public class SARJEIPlugin implements IModPlugin {
 		add(registry, FumeCollectorRecipe.getRecipeList(), FumeCollectorRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.fume_collector));
 
-		add(registry, DistillerRecipe.getRecipeList(), DistillerRecipeCategory.uid,
-				new ItemStack(JEIObjectHolder.distiller_frame));
+		// add(registry, RecipeRegistry.getRecipeList(), DistillerRecipeCategory.uid,
+		// new ItemStack(JEIObjectHolder.distiller_frame));
 
 		add(registry, SawmillRecipe.getRecipeList(), SawmillRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.sawmill_casing));

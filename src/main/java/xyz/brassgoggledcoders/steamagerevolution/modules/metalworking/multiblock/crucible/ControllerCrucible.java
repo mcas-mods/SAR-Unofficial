@@ -16,6 +16,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.TileEntity
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerCrucible;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
@@ -207,5 +208,47 @@ public class ControllerCrucible extends SARRectangularMultiblockControllerBase i
 	@Override
 	public String getName() {
 		return "Crucible";
+	}
+
+	@Override
+	public ItemStackHandler getItemInput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MultiFluidTank getFluidInputs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemStackHandlerExtractSpecific getItemOutput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MultiFluidTank getFluidOutputs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getMinimumXSize() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getMinimumYSize() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getMinimumZSize() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

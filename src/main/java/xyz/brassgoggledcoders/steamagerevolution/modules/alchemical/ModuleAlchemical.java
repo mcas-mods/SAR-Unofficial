@@ -16,6 +16,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.init.*;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
@@ -39,6 +40,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.BlockDamagingFluid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
@@ -112,8 +114,9 @@ public class ModuleAlchemical extends ModuleBase {
 		new VatRecipeBuilder().setFluids(FluidRegistry.getFluidStack("water", Fluid.BUCKET_VOLUME))
 				.setItems(new ItemStack(Blocks.DIRT), new ItemStack(Items.ROTTEN_FLESH), new ItemStack(Items.SUGAR))
 				.setOutput(FluidRegistry.getFluidStack("slime", Fluid.BUCKET_VOLUME)).build();
-		DistillerRecipe.addRecipe(FluidRegistry.getFluidStack("slime", Fluid.BUCKET_VOLUME), null,
-				new ItemStack(Blocks.SLIME_BLOCK), 200);
+		RecipeRegistry.addRecipe("distiller", null,
+				new FluidStack[] {FluidRegistry.getFluidStack("slime", Fluid.BUCKET_VOLUME)}, 20, 0,
+				new ItemStack[] {new ItemStack(Item.getItemFromBlock(Blocks.SLIME_BLOCK))}, null);
 	}
 
 	@Override

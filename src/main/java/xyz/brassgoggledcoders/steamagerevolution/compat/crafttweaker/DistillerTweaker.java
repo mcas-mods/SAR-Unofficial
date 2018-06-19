@@ -30,7 +30,7 @@ public class DistillerTweaker {
 
 		@Override
 		public void apply() {
-			DistillerRecipe.getRecipeList().add(recipe);
+			// RecipeRegistry.getRecipeList().add(recipe);
 		}
 
 		@Override
@@ -55,12 +55,12 @@ public class DistillerTweaker {
 		public void apply() {
 			// TODO
 			ArrayList<DistillerRecipe> toRemove = new ArrayList<DistillerRecipe>();
-			for(DistillerRecipe r : DistillerRecipe.getRecipeList()) {
-				if(output.isFluidEqual(new FluidStack(r.output, 1))) {
-					toRemove.add(r);
-				}
-			}
-			DistillerRecipe.getRecipeList().removeAll(toRemove);
+			// for(DistillerRecipe r : DistillerRecipe.getRecipeList()) {
+			// if(output.isFluidEqual(new FluidStack(r.output, 1))) {
+			// toRemove.add(r);
+			// }
+			// }
+			// DistillerRecipe.getRecipeList().removeAll(toRemove);
 		}
 
 		@Override
