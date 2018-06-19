@@ -17,7 +17,7 @@ public class FluidTankSmart extends FluidTank {
 	}
 
 	public FluidTankSmart(int capacity, MultiblockControllerBase parent) {
-		this(capacity, parent, 0);
+		this(capacity, parent, -1);
 	}
 
 	public FluidTankSmart(int capacity, MultiblockControllerBase parent, int id) {
@@ -39,9 +39,11 @@ public class FluidTankSmart extends FluidTank {
 	public void onContentsChanged() {
 		if(tile != null) {
 			((ISmartTankCallback) this.tile).onTankContentsChanged(this);
+			tile.markDirty();
 		}
 		else if(parent != null) {
 			((ISmartTankCallback) this.parent).onTankContentsChanged(this);
+			this.parent.WORLD.markChunkDirty(this.parent.getReferenceCoord(), null); // TODO
 		}
 	}
 }
