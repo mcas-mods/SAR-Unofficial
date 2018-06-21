@@ -11,27 +11,31 @@ import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public class RecipeRegistry {
-	private static HashMap<SARMachineRecipe, String> recipeMasterlist = Maps.newHashMap();
+	private static HashMap<String, ArrayList<SARMachineRecipe>> recipeMasterlist = Maps.newHashMap();
 
 	public static void addRecipe(String crafter, ItemStack[] itemInputs, FluidStack[] fluidInputs, int ticksToProcess,
 			int steamUsePerCraft, ItemStack[] itemOutputs, FluidStack[] fluidOutputs) {
 		SARMachineRecipe recipe = new SARMachineRecipe(crafter, itemInputs, fluidInputs, ticksToProcess,
 				steamUsePerCraft, itemOutputs, fluidOutputs);
-		if(recipeMasterlist.putIfAbsent(recipe, crafter) != null) {
+		if(!recipeMasterlist.containsKey(crafter)) {
+			SteamAgeRevolution.instance.getLogger().devInfo("Recipe machine " + crafter + " did not exist, creating");
+			recipeMasterlist.put(crafter, Lists.newArrayList());
+		}
+		ArrayList<SARMachineRecipe> recipeList = recipeMasterlist.get(crafter);
+		if(recipeList.contains(recipe)) {
 			SteamAgeRevolution.instance.getLogger().devError("Attempted to add duplicate recipe");
+		}
+		else {
+			recipeList.add(recipe);
 		}
 	}
 
-	public static HashMap<SARMachineRecipe, String> getRecipeMasterlist() {
+	public static HashMap<String, ArrayList<SARMachineRecipe>> getRecipeMasterlist() {
 		return recipeMasterlist;
 	}
 
 	public static ArrayList<SARMachineRecipe> getRecipesForMachine(String machineType) {
-		ArrayList<SARMachineRecipe> recipeList = Lists.newArrayList();
-		// Goodness gracious a wild stream appeared TODO Do this at runtime
-		recipeMasterlist.entrySet().parallelStream().filter(entry -> entry.getValue().equals(machineType))
-				.forEach(entry -> recipeList.add(entry.getKey()));
-		return recipeList;
+		return recipeMasterlist.get(machineType);
 	}
 
 }
