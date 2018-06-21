@@ -6,7 +6,6 @@ import java.util.stream.IntStream;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
-import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.item.ItemStack;
@@ -20,8 +19,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 
-public abstract class MultiblockLogicFramework extends RectangularMultiblockControllerBase
-		implements ISARMachine, IMultiblockControllerInfo, ISmartTankCallback {
+public abstract class MultiblockLogicFramework extends SARMultiblockBase implements ISmartTankCallback {
 
 	protected int currentTicks = 0;
 	SARMachineRecipe currentRecipe = null;
@@ -158,24 +156,8 @@ public abstract class MultiblockLogicFramework extends RectangularMultiblockCont
 		steamTank.setFluid(message.fluid);
 	}
 
+	@Override
 	protected FluidTank getTank(String toWrap) {
 		return steamTank;
 	}
-
-	// Modify from protected to public
-	@Override
-	public int getMinimumXSize() {
-		return 0;
-	}
-
-	@Override
-	public int getMinimumYSize() {
-		return 0;
-	}
-
-	@Override
-	public int getMinimumZSize() {
-		return 0;
-	}
-
 }

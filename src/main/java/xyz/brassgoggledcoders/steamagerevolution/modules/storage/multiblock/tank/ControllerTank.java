@@ -16,9 +16,9 @@ import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
-public class ControllerTank extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
+public class ControllerTank extends SARMultiblockBase implements ISmartTankCallback {
 
 	public BlockPos minimumInteriorPos;
 	public BlockPos maximumInteriorPos;

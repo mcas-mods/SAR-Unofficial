@@ -22,9 +22,9 @@ import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockControllerInfo;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
-public class ControllerSawmill extends SARRectangularMultiblockControllerBase
+public class ControllerSawmill extends SARMultiblockBase
 		implements ISmartTankCallback, IMultiblockControllerInfo, ISmartStackCallback {
 
 	public ItemStackHandler inputInventory = new ItemStackHandlerSmart(1, this);

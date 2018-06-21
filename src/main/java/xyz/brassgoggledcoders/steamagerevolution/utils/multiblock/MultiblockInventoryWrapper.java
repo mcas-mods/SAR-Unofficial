@@ -12,11 +12,11 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 public class MultiblockInventoryWrapper
 		implements IItemHandler, IItemHandlerModifiable, INBTSerializable<NBTTagCompound> {
 
-	final MultiblockTileEntityBase<SARRectangularMultiblockControllerBase> tile;
+	final MultiblockTileEntityBase<SARMultiblockBase> tile;
 	final String toWrap;
 
 	public MultiblockInventoryWrapper(RectangularMultiblockTileEntityBase<?> tile, String toWrap) {
-		this.tile = (MultiblockTileEntityBase<SARRectangularMultiblockControllerBase>) tile;
+		this.tile = (MultiblockTileEntityBase<SARMultiblockBase>) tile;
 		this.toWrap = toWrap;
 	}
 

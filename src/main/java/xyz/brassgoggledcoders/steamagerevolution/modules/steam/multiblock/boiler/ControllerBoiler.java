@@ -21,9 +21,9 @@ import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
-public class ControllerBoiler extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
+public class ControllerBoiler extends SARMultiblockBase implements ISmartTankCallback {
 
 	public static final int fuelDivisor = 3;
 	public static final int fluidConversionPerTick = 5;

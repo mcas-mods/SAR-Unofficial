@@ -20,9 +20,9 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.ModuleAlchem
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockLogicFramework;
 
-public class ControllerDistiller extends SARRectangularMultiblockControllerBase implements ISmartTankCallback, IHasGui {
+public class ControllerDistiller extends MultiblockLogicFramework implements ISmartTankCallback, IHasGui {
 
 	public static int tankCapacity = Fluid.BUCKET_VOLUME * 8;
 
@@ -218,7 +218,7 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 	}
 
 	@Override
-	protected FluidTank getTank(String toWrap) {
+	public FluidTank getTank(String toWrap) {
 		if(toWrap.equals("input")) {
 			return fluidInput;
 		}

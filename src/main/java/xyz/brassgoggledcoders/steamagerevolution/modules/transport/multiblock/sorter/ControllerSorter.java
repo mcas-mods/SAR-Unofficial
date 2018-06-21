@@ -16,9 +16,9 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
-public class ControllerSorter extends SARRectangularMultiblockControllerBase {
+public class ControllerSorter extends SARMultiblockBase {
 
 	public ItemStackHandler cards = new ItemStackHandler(8);
 	public ItemStackHandler buffer = new ItemStackHandler(4);

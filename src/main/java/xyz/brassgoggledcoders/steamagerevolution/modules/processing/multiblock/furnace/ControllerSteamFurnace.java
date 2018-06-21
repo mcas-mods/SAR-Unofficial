@@ -19,9 +19,9 @@ import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
-public class ControllerSteamFurnace extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
+public class ControllerSteamFurnace extends SARMultiblockBase implements ISmartTankCallback {
 
 	public ItemStackHandler inputInventory = new ItemStackHandlerFuel(1);
 	public ItemStackHandler outputInventory = new ItemStackHandler(3);
