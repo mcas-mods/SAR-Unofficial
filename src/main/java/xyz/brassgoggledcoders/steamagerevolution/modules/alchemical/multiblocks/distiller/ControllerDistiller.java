@@ -18,7 +18,8 @@ import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.ModuleAlchemical;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockLogicFramework;
 
@@ -26,14 +27,14 @@ public class ControllerDistiller extends MultiblockLogicFramework implements ISm
 
 	public static int tankCapacity = Fluid.BUCKET_VOLUME * 8;
 
-	public FluidTankSmart fluidInput;
-	public FluidTankSmart fluidOutput;
+	public MultiFluidTank fluidInput;
+	public MultiFluidTank fluidOutput;
 	public ItemStackHandlerExtractSpecific itemOutput;
 
 	protected ControllerDistiller(World world) {
 		super(world);
-		fluidInput = new FluidTankSmart(tankCapacity, this, 0);
-		fluidOutput = new FluidTankSmart(tankCapacity, this, 1);
+		fluidInput = new MultiFluidTank(tankCapacity, this, 0);
+		fluidOutput = new MultiFluidTank(tankCapacity, this, 1);
 		itemOutput = new ItemStackHandlerExtractSpecific(1);
 	}
 
@@ -251,9 +252,7 @@ public class ControllerDistiller extends MultiblockLogicFramework implements ISm
 
 	@Override
 	public MultiFluidTank getFluidInputs() {
-		MultiFluidTank dummy = new MultiFluidTank(Integer.MAX_VALUE, this);
-		dummy.fluids.add(this.fluidInput.getFluid());
-		return dummy;
+		return fluidInput;
 	}
 
 	@Override
@@ -263,9 +262,7 @@ public class ControllerDistiller extends MultiblockLogicFramework implements ISm
 
 	@Override
 	public MultiFluidTank getFluidOutputs() {
-		MultiFluidTank dummy = new MultiFluidTank(Integer.MAX_VALUE, this);
-		dummy.fluids.add(this.fluidOutput.getFluid());
-		return dummy;
+		return fluidOutput;
 	}
 
 }

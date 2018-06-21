@@ -33,7 +33,7 @@ public class ControllerAlloyFurnace extends SARMultiblockBase implements ISmartT
 
 	public ControllerAlloyFurnace(World world) {
 		super(world);
-		primaryTank = new MultiFluidTank(inputCapacity, this);
+		primaryTank = new MultiFluidTank(inputCapacity, this, 0);
 		outputTank = new FluidTank(outputCapacity);
 	}
 
@@ -214,7 +214,7 @@ public class ControllerAlloyFurnace extends SARMultiblockBase implements ISmartT
 	public void onTankContentsChanged(FluidTankSmart tank) {
 		if(tank instanceof MultiFluidTank) {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketMultiFluidUpdate(this.getReferenceCoord(), ((MultiFluidTank) tank)),
+					new PacketMultiFluidUpdate(this.getReferenceCoord(), ((MultiFluidTank) tank), tank.getId()),
 					this.getReferenceCoord(), WORLD.provider.getDimension());
 		}
 		else {

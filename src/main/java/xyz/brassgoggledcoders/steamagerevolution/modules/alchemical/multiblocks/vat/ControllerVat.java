@@ -19,12 +19,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockLogicFramework;
 
@@ -38,13 +36,13 @@ public class ControllerVat extends MultiblockLogicFramework implements ISmartTan
 
 	public MultiFluidTank fluidInput;
 	public ItemStackHandlerExtractSpecific itemInput;
-	public FluidTankSmart output;
+	public MultiFluidTank output;
 
 	protected ControllerVat(World world) {
 		super(world);
-		fluidInput = new MultiFluidTank(inputCapacity, this);
+		fluidInput = new MultiFluidTank(inputCapacity, this, 0);
 		itemInput = new ItemStackHandlerExtractSpecific(3);
-		output = new FluidTankSmart(outputCapacity, this);
+		output = new MultiFluidTank(outputCapacity, this, 1);
 	}
 
 	@Override
@@ -218,6 +216,7 @@ public class ControllerVat extends MultiblockLogicFramework implements ISmartTan
 		data.setTag("fluids", fluidInput.writeToNBT(new NBTTagCompound()));
 		data.setTag("items", itemInput.serializeNBT());
 		data.setTag("output", output.writeToNBT(new NBTTagCompound()));
+		super.writeToDisk(data);
 	}
 
 	@Override
@@ -226,28 +225,16 @@ public class ControllerVat extends MultiblockLogicFramework implements ISmartTan
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTankSmart tank) {
-		if(tank instanceof MultiFluidTank) {
-			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketMultiFluidUpdate(this.getReferenceCoord(), ((MultiFluidTank) tank)),
-					this.getReferenceCoord(), WORLD.provider.getDimension());
-		}
-		else {
-			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid()), this.getReferenceCoord(),
-					WORLD.provider.getDimension());
-		}
-	}
-
-	@Override
-	public void updateFluid(PacketFluidUpdate message) {
-		output.setFluid(message.fluid);
-	}
-
-	@Override
 	public void updateFluid(PacketMultiFluidUpdate message) {
-		fluidInput.fluids.clear();
-		fluidInput.fluids.addAll(message.tank.fluids);
+		if(message.id == fluidInput.getId()) {
+			fluidInput.fluids.clear();
+			fluidInput.fluids.addAll(message.tank.fluids);
+		}
+		else if(message.id == output.getId()) {
+			output.fluids.clear();
+			output.fluids.addAll(message.tank.fluids);
+		}
+		super.updateFluid(message);
 	}
 
 	@Override
@@ -273,7 +260,7 @@ public class ControllerVat extends MultiblockLogicFramework implements ISmartTan
 	}
 
 	@Override
-	public ItemStackHandler getItemInput() {
+	public ItemStackHandlerExtractSpecific getItemInput() {
 		return this.itemInput;
 	}
 
@@ -289,8 +276,6 @@ public class ControllerVat extends MultiblockLogicFramework implements ISmartTan
 
 	@Override
 	public MultiFluidTank getFluidOutputs() {
-		MultiFluidTank dummy = new MultiFluidTank(Integer.MAX_VALUE, this);
-		dummy.fluids.add(this.output.getFluid());
-		return dummy;
+		return output;
 	}
 }

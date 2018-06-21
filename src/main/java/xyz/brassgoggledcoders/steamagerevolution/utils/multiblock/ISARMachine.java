@@ -5,11 +5,11 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 public interface ISARMachine {
-	public ItemStackHandler getItemInput();
+	public ItemStackHandlerExtractSpecific getItemInput();
 
 	public MultiFluidTank getFluidInputs();
 
-	public ItemStackHandlerExtractSpecific getItemOutput();
+	public ItemStackHandler getItemOutput();
 
 	public MultiFluidTank getFluidOutputs();
 }

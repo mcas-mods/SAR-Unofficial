@@ -22,8 +22,8 @@ public class MultiFluidTank extends FluidTankSmart {
 	public ArrayList<FluidStack> fluids = new ArrayList<>();
 	private final int capacity;
 
-	public MultiFluidTank(int capacity, MultiblockControllerBase parent) {
-		super(capacity, parent);
+	public MultiFluidTank(int capacity, MultiblockControllerBase parent, int id) {
+		super(capacity, parent, id);
 		this.capacity = capacity;
 	}
 

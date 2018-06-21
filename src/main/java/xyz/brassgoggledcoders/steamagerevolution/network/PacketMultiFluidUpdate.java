@@ -11,19 +11,22 @@ public class PacketMultiFluidUpdate implements IMessage {
 
 	public BlockPos pos;
 	public MultiFluidTank tank;
+	public int id;
 
 	public PacketMultiFluidUpdate() {}
 
-	public PacketMultiFluidUpdate(BlockPos pos, MultiFluidTank tank) {
+	public PacketMultiFluidUpdate(BlockPos pos, MultiFluidTank tank, int id) {
 		this.pos = pos;
 		this.tank = tank;
+		this.id = id;
 	}
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		pos = BlockPos.fromLong(buf.readLong());
 		NBTTagCompound tag = ByteBufUtils.readTag(buf);
-		tank = new MultiFluidTank(0, null).readFromNBT(tag); // TODO
+		tank = new MultiFluidTank(0, null, id).readFromNBT(tag); // TODO
+		id = buf.readInt();
 	}
 
 	@Override
@@ -35,6 +38,7 @@ public class PacketMultiFluidUpdate implements IMessage {
 			tank.writeToNBT(tag);
 		}
 		ByteBufUtils.writeTag(buf, tag);
+		buf.writeInt(id);
 	}
 
 }

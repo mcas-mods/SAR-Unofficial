@@ -15,6 +15,7 @@ import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
@@ -65,7 +66,7 @@ public abstract class MultiblockLogicFramework extends SARMultiblockBase impleme
 		}
 		if(ArrayUtils.isNotEmpty(currentRecipe.getItemInputs())) {
 			for(ItemStack input : currentRecipe.getItemInputs()) {
-				this.getItemOutput().extractStack(input);
+				this.getItemInput().extractStack(input);
 			}
 		}
 		if(ArrayUtils.isNotEmpty(currentRecipe.getFluidInputs())) {
@@ -151,9 +152,16 @@ public abstract class MultiblockLogicFramework extends SARMultiblockBase impleme
 
 	@Override
 	public void onTankContentsChanged(FluidTankSmart tank) {
-		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-				new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid(), tank.getId()),
-				this.getReferenceCoord(), WORLD.provider.getDimension());
+		if(tank instanceof MultiFluidTank) {
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+					new PacketMultiFluidUpdate(this.getReferenceCoord(), ((MultiFluidTank) tank), tank.getId()),
+					this.getReferenceCoord(), WORLD.provider.getDimension());
+		}
+		else {
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+					new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid(), tank.getId()),
+					this.getReferenceCoord(), WORLD.provider.getDimension());
+		}
 	}
 
 	@Override
