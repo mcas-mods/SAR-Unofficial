@@ -29,14 +29,12 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 	public FluidTankSmart fluidInput;
 	public FluidTankSmart fluidOutput;
 	public ItemStackHandlerExtractSpecific itemOutput;
-	public FluidTankSingleSmart steamTank;
 
 	protected ControllerDistiller(World world) {
 		super(world);
 		fluidInput = new FluidTankSmart(tankCapacity, this, 0);
 		fluidOutput = new FluidTankSmart(tankCapacity, this, 1);
 		itemOutput = new ItemStackHandlerExtractSpecific(1);
-		steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
 	}
 
 	@Override
@@ -206,14 +204,8 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 	public void readFromDisk(NBTTagCompound data) {}
 
 	@Override
-	public void onTankContentsChanged(FluidTank tank) {
-		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-				new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid(), ((FluidTankSmart) tank).getId()),
-				this.getReferenceCoord(), WORLD.provider.getDimension());
-	}
-
-	@Override
 	public void updateFluid(PacketFluidUpdate message) {
+		SteamAgeRevolution.instance.getLogger().devInfo("Packet ID: " + message.id);
 		if(message.id == fluidInput.getId()) {
 			fluidInput.setFluid(message.fluid);
 		}
@@ -221,7 +213,7 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 			fluidOutput.setFluid(message.fluid);
 		}
 		else {
-			steamTank.setFluid(message.fluid);
+			super.updateFluid(message);
 		}
 	}
 
@@ -233,7 +225,7 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 		else if(toWrap.equals("output")) {
 			return fluidOutput;
 		}
-		return steamTank;
+		return super.getTank(toWrap);
 	}
 
 	@Override

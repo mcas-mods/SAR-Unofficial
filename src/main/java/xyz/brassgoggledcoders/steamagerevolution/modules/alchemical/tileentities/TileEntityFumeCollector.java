@@ -82,7 +82,7 @@ public class TileEntityFumeCollector extends TileEntitySlowTick implements ISmar
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTank tank) {
+	public void onTankContentsChanged(FluidTankSmart tank) {
 		this.markDirty();
 		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(new PacketFluidUpdate(getPos(), tank.getFluid()),
 				getPos(), getWorld().provider.getDimension());

@@ -14,7 +14,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureMonitor;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureValve;
@@ -231,13 +230,6 @@ public class ControllerBoiler extends SARRectangularMultiblockControllerBase imp
 			// FMLLog.warning(pos.toString());
 			WORLD.updateComparatorOutputLevel(pos, ModuleSteam.boilerPressureMonitor);
 		}
-	}
-
-	@Override
-	public void onTankContentsChanged(FluidTank tank) {
-		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-				new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid()), this.getReferenceCoord(),
-				WORLD.provider.getDimension());
 	}
 
 	@Override

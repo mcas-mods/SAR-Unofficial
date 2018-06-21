@@ -212,12 +212,6 @@ public class ControllerSawmill extends SARRectangularMultiblockControllerBase
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTank tank) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	protected void onMachineDisassembled() {
 		// TODO Auto-generated method stub
 

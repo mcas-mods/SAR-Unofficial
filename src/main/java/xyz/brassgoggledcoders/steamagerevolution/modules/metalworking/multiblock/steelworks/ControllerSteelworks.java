@@ -197,12 +197,6 @@ public class ControllerSteelworks extends SARRectangularMultiblockControllerBase
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTank tank) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void readFromDisk(NBTTagCompound data) {
 		// TODO Auto-generated method stub
 

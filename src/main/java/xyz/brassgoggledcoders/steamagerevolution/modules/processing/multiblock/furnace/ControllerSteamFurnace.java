@@ -254,12 +254,6 @@ public class ControllerSteamFurnace extends SARRectangularMultiblockControllerBa
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTank tank) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	protected void onMachineDisassembled() {
 		// TODO Auto-generated method stub
 

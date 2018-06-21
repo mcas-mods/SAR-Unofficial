@@ -20,8 +20,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
 
@@ -213,7 +212,7 @@ public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBa
 	public void readFromDisk(NBTTagCompound data) {}
 
 	@Override
-	public void onTankContentsChanged(FluidTank tank) {
+	public void onTankContentsChanged(FluidTankSmart tank) {
 		if(tank instanceof MultiFluidTank) {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
 					new PacketMultiFluidUpdate(this.getReferenceCoord(), ((MultiFluidTank) tank)),

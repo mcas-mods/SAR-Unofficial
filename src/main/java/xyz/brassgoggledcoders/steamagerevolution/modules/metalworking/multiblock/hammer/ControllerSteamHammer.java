@@ -225,12 +225,6 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTank tank) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void updateFluid(PacketFluidUpdate fluid) {
 		// TODO Auto-generated method stub
 

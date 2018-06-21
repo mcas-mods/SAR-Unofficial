@@ -140,8 +140,7 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable,
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTank tank) {
-		this.markDirty();
+	public void onTankContentsChanged(FluidTankSmart tank) {
 		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(new PacketFluidUpdate(getPos(), tank.getFluid()),
 				getPos(), getWorld().provider.getDimension());
 	}

@@ -103,7 +103,7 @@ public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGu
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTank tank) {
+	public void onTankContentsChanged(FluidTankSmart tank) {
 		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(new PacketFluidUpdate(getPos(), tank.getFluid()),
 				getPos(), getWorld().provider.getDimension());
 	}

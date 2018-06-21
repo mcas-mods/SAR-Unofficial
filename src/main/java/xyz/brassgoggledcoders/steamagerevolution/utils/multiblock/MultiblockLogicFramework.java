@@ -12,25 +12,24 @@ import com.teamacronymcoders.base.util.ItemStackUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemHandlerHelper;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 
 public abstract class MultiblockLogicFramework extends RectangularMultiblockControllerBase
-		implements ISARMachine, IMultiblockControllerInfo {
+		implements ISARMachine, IMultiblockControllerInfo, ISmartTankCallback {
 
-	protected int ticksPerCycle = 20;
 	protected int currentTicks = 0;
 	SARMachineRecipe currentRecipe = null;
+	public FluidTankSingleSmart steamTank;
 
 	protected MultiblockLogicFramework(World world) {
 		super(world);
-	}
-
-	protected MultiblockLogicFramework(World world, int ticksPerCycle) {
-		this(world);
-		this.ticksPerCycle = ticksPerCycle;
+		steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
 	}
 
 	@Override
@@ -47,8 +46,7 @@ public abstract class MultiblockLogicFramework extends RectangularMultiblockCont
 	}
 
 	protected void onActiveTick() {
-		// TODO Auto-generated method stub
-
+		// NO-OP
 	}
 
 	protected void onFinish() {
@@ -72,11 +70,13 @@ public abstract class MultiblockLogicFramework extends RectangularMultiblockCont
 				this.getFluidInputs().drain(input, true);
 			}
 		}
+		steamTank.drain(currentRecipe.getSteamUsePerCraft(), true);
 		currentTicks = 0;
+		currentRecipe = null; // TODO Only null when inputs hit zero
 	}
 
 	protected boolean canFinish() {
-		if(currentTicks >= ticksPerCycle) {
+		if(currentTicks >= currentRecipe.getTicks()) {
 			boolean roomForItems = true;
 			boolean roomForFluids = true;
 			if(ArrayUtils.isNotEmpty(currentRecipe.getItemOutputs())) {
@@ -97,9 +97,9 @@ public abstract class MultiblockLogicFramework extends RectangularMultiblockCont
 				.parallelStream().filter(this::hasRequiredFluids).filter(this::hasRequiredItems).findFirst();
 		if(recipe.isPresent()) {
 			currentRecipe = recipe.get();
-			return true;
+			return steamTank.getFluidAmount() >= currentRecipe.getSteamUsePerCraft();
 		}
-		return currentRecipe != null;
+		return currentRecipe != null && steamTank.getFluidAmount() >= currentRecipe.getSteamUsePerCraft();
 	}
 
 	private boolean hasRequiredFluids(SARMachineRecipe recipe) {
@@ -137,11 +137,29 @@ public abstract class MultiblockLogicFramework extends RectangularMultiblockCont
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
 		currentTicks = data.getInteger("progress");
+		steamTank.readFromNBT(data.getCompoundTag("steam"));
 	}
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
 		data.setInteger("progress", currentTicks);
+		data.setTag("steam", steamTank.writeToNBT(new NBTTagCompound()));
+	}
+
+	@Override
+	public void onTankContentsChanged(FluidTankSmart tank) {
+		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+				new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid(), tank.getId()),
+				this.getReferenceCoord(), WORLD.provider.getDimension());
+	}
+
+	@Override
+	public void updateFluid(PacketFluidUpdate message) {
+		steamTank.setFluid(message.fluid);
+	}
+
+	protected FluidTank getTank(String toWrap) {
+		return steamTank;
 	}
 
 	// Modify from protected to public

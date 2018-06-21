@@ -289,7 +289,7 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTank tank) {
+	public void onTankContentsChanged(FluidTankSmart tank) {
 		if(tank instanceof MultiFluidTank) {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
 					new PacketMultiFluidUpdate(this.getReferenceCoord(), ((MultiFluidTank) tank)),

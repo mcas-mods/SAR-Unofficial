@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
@@ -176,14 +175,6 @@ public class ControllerTank extends SARRectangularMultiblockControllerBase imple
 	public void readFromDisk(NBTTagCompound data) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void onTankContentsChanged(FluidTank tank) {
-		// FMLLog.warning("onContentsChanged");
-		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-				new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid()), this.getReferenceCoord(),
-				WORLD.provider.getDimension());
 	}
 
 	@Override

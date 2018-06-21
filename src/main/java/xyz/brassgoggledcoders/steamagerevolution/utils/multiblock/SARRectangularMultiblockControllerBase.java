@@ -8,7 +8,6 @@ import com.teamacronymcoders.base.multiblock.validation.ValidationError;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
@@ -21,10 +20,6 @@ public abstract class SARRectangularMultiblockControllerBase extends MultiblockL
 		for(Block required : requiredBlocks) {
 			this.requiredBlocks.add(required);
 		}
-	}
-
-	protected FluidTank getTank(String toWrap) {
-		return null;
 	}
 
 	protected boolean onMachineFinish() {

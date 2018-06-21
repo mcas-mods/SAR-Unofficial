@@ -8,8 +8,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class SARMachineRecipe {
 	@Nonnull
-	private
-	final String crafter;
+	private final String crafter;
 	@Nullable
 	protected final ItemStack[] itemInputs;
 	@Nullable
@@ -50,5 +49,13 @@ public class SARMachineRecipe {
 
 	public String getCrafter() {
 		return crafter;
+	}
+
+	public int getTicks() {
+		return ticksToProcess;
+	}
+
+	public int getSteamUsePerCraft() {
+		return steamUsePerCraft;
 	}
 }
