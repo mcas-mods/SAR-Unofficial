@@ -22,9 +22,9 @@ import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockLogicFramework;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerAlloyFurnace extends MultiblockLogicFramework implements ISmartTankCallback, IHasGui {
+public class ControllerAlloyFurnace extends SARMultiblockInventory implements ISmartTankCallback, IHasGui {
 
 	public static int inputCapacity = ModuleMetalworking.VALUE_BLOCK * 8;
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;

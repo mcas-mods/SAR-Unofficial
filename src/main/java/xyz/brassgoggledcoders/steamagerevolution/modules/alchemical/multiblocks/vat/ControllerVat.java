@@ -24,9 +24,9 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockLogicFramework;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerVat extends MultiblockLogicFramework implements ISmartTankCallback, IHasGui {
+public class ControllerVat extends SARMultiblockInventory implements ISmartTankCallback, IHasGui {
 
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
 	public static int inputCapacity = outputCapacity * 3;

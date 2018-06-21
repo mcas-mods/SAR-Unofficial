@@ -20,13 +20,13 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 
-public abstract class MultiblockLogicFramework extends SARMultiblockBase implements ISmartTankCallback, ISARMachine {
+public abstract class SARMultiblockInventory extends SARMultiblockBase implements ISmartTankCallback, ISARMachine {
 
 	protected int currentTicks = 0;
 	SARMachineRecipe currentRecipe = null;
 	public FluidTankSingleSmart steamTank;
 
-	protected MultiblockLogicFramework(World world) {
+	protected SARMultiblockInventory(World world) {
 		super(world);
 		steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
 	}

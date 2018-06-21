@@ -21,9 +21,9 @@ import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockLogicFramework;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerDistiller extends MultiblockLogicFramework implements ISmartTankCallback, IHasGui {
+public class ControllerDistiller extends SARMultiblockInventory implements ISmartTankCallback, IHasGui {
 
 	public static int tankCapacity = Fluid.BUCKET_VOLUME * 8;
 
@@ -246,7 +246,7 @@ public class ControllerDistiller extends MultiblockLogicFramework implements ISm
 	}
 
 	@Override
-	public ItemStackHandler getItemInput() {
+	public ItemStackHandlerExtractSpecific getItemInput() {
 		return null;
 	}
 

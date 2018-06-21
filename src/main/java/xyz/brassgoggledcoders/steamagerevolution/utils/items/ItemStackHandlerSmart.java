@@ -2,9 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.items;
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
-import net.minecraftforge.items.ItemStackHandler;
-
-public class ItemStackHandlerSmart extends ItemStackHandler {
+public class ItemStackHandlerSmart extends ItemStackHandlerExtractSpecific {
 	private MultiblockControllerBase controller;
 
 	public ItemStackHandlerSmart(int size, MultiblockControllerBase controller) {

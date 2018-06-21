@@ -16,8 +16,6 @@ import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMaterials;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
 public class ControllerKiln extends SARMultiblockBase {
@@ -203,29 +201,5 @@ public class ControllerKiln extends SARMultiblockBase {
 				// || OreDictionary.getOres("logWood", false).contains(new ItemStack(Item.getItemFromBlock(block)));
 				// TODO
 				|| block == Blocks.LOG || block == ModuleMaterials.charcoal_block;
-	}
-
-	@Override
-	public ItemStackHandlerExtractSpecific getItemInput() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public MultiFluidTank getFluidInputs() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ItemStackHandlerExtractSpecific getItemOutput() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public MultiFluidTank getFluidOutputs() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

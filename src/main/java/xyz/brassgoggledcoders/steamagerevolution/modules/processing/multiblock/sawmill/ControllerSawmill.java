@@ -19,8 +19,10 @@ import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockControllerInfo;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
@@ -246,30 +248,6 @@ public class ControllerSawmill extends SARMultiblockBase
 	@Override
 	public void updateStack(PacketItemUpdate message) {
 		this.inputInventory.setStackInSlot(message.slot, message.item);
-	}
-
-	@Override
-	public ItemStackHandlerExtractSpecific getItemInput() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public MultiFluidTank getFluidInputs() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ItemStackHandlerExtractSpecific getItemOutput() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public MultiFluidTank getFluidOutputs() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
