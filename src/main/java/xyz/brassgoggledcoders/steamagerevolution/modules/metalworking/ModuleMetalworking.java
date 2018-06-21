@@ -33,7 +33,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe.VatRecipeBuilder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemDie;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.AlloyFurnaceRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.*;
@@ -42,6 +41,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.SteamHammerRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe.MachineRecipeBuilder;
 
 @Module(value = SteamAgeRevolution.MODID)
 @ObjectHolder(SteamAgeRevolution.MODID)
@@ -187,9 +187,9 @@ public class ModuleMetalworking extends ModuleBase {
 					GameRegistry.addSmelting(crystal, nugget, 0.3f);
 				}
 				if(solution != null) {
-					new VatRecipeBuilder().setOutput(solution)
-							.setFluids(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 4))
-							.setItems(crushedOre).build();
+					new MachineRecipeBuilder("vat").setFluidOutputs(solution)
+							.setFluidInputs(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 4))
+							.setItemInputs(crushedOre).build();
 					// DistillerRecipe.addRecipe(solution,
 					// FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 6), crystal, 20);
 					// }

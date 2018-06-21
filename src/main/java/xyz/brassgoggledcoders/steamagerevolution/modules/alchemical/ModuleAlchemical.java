@@ -36,11 +36,10 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.blocks.Block
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.items.ItemFlask;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.*;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe.VatRecipeBuilder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.BlockDamagingFluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
+import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe.MachineRecipeBuilder;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
@@ -77,14 +76,16 @@ public class ModuleAlchemical extends ModuleBase {
 
 	@SubscribeEvent
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-		new VatRecipeBuilder().setOutput(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME))
-				.setFluids(FluidRegistry.getFluidStack("sulphur_dioxide", Fluid.BUCKET_VOLUME),
+		new MachineRecipeBuilder("vat")
+				.setFluidOutputs(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME))
+				.setFluidInputs(FluidRegistry.getFluidStack("sulphur_dioxide", Fluid.BUCKET_VOLUME),
 						FluidRegistry.getFluidStack("water", Fluid.BUCKET_VOLUME))
 				.build();
 
-		new VatRecipeBuilder().setOutput(FluidRegistry.getFluidStack("liquid_glowstone", Fluid.BUCKET_VOLUME))
-				.setFluids(FluidRegistry.getFluidStack("lava", Fluid.BUCKET_VOLUME))
-				.setItems(new ItemStack(Items.REDSTONE, 4)).build();
+		new MachineRecipeBuilder("vat")
+				.setFluidOutputs(FluidRegistry.getFluidStack("liquid_glowstone", Fluid.BUCKET_VOLUME))
+				.setFluidInputs(FluidRegistry.getFluidStack("lava", Fluid.BUCKET_VOLUME))
+				.setItemInputs(new ItemStack(Items.REDSTONE, 4)).build();
 		FumeCollectorRecipe.addRecipe(MaterialSystem.getMaterialPart("sulphur_crystal").getItemStack(),
 				FluidRegistry.getFluidStack("sulphur_dioxide", Fluid.BUCKET_VOLUME), 0.1f);
 		CastingBlockRecipe.addRecipe(FluidRegistry.getFluidStack("liquid_glowstone", Fluid.BUCKET_VOLUME),
@@ -92,17 +93,20 @@ public class ModuleAlchemical extends ModuleBase {
 		// TODO Proper oredict support
 
 		// TODO Tooltip/Color for fluid (when IE not present) & potion deriving name from vanilla
-		new VatRecipeBuilder()
-				.setOutput(getPotionFluidStack(PotionTypes.AWKWARD.getRegistryName().getResourcePath(), VALUE_BOTTLE))
-				.setFluids(FluidRegistry.getFluidStack("water", VALUE_BOTTLE))
-				.setItems(new ItemStack(Items.NETHER_WART)).build();
+		new MachineRecipeBuilder("vat")
+				.setFluidOutputs(
+						getPotionFluidStack(PotionTypes.AWKWARD.getRegistryName().getResourcePath(), VALUE_BOTTLE))
+				.setFluidInputs(FluidRegistry.getFluidStack("water", VALUE_BOTTLE))
+				.setItemInputs(new ItemStack(Items.NETHER_WART)).build();
 		PotionHelper.POTION_TYPE_CONVERSIONS.stream()
 				.filter(mix -> mix.output != PotionTypes.AWKWARD && mix.output != PotionTypes.MUNDANE
 						&& mix.output != PotionTypes.THICK)
-				.forEach(potion -> new VatRecipeBuilder()
-						.setOutput(getPotionFluidStack(potion.output.getRegistryName().getResourcePath(), VALUE_BOTTLE))
-						.setFluids(getPotionFluidStack(potion.input.getRegistryName().getResourcePath(), VALUE_BOTTLE))
-						.setItems(potion.reagent.getMatchingStacks()[0]).build());
+				.forEach(potion -> new MachineRecipeBuilder("vat")
+						.setFluidOutputs(
+								getPotionFluidStack(potion.output.getRegistryName().getResourcePath(), VALUE_BOTTLE))
+						.setFluidInputs(
+								getPotionFluidStack(potion.input.getRegistryName().getResourcePath(), VALUE_BOTTLE))
+						.setItemInputs(potion.reagent.getMatchingStacks()[0]).build());
 
 		// new VatRecipeBuilder().setFluids(FluidRegistry.getFluidStack("water", Fluid.BUCKET_VOLUME))
 		// .setItems(new ItemStack(plant_ash), new ItemStack(Items.COAL, 1, 1),
@@ -111,12 +115,12 @@ public class ModuleAlchemical extends ModuleBase {
 		// DistillerRecipe.addRecipe(FluidRegistry.getFluidStack("liquid_explosive", Fluid.BUCKET_VOLUME), null,
 		// new ItemStack(Items.GUNPOWDER), 200);
 
-		new VatRecipeBuilder().setFluids(FluidRegistry.getFluidStack("water", Fluid.BUCKET_VOLUME))
-				.setItems(new ItemStack(Blocks.DIRT), new ItemStack(Items.ROTTEN_FLESH), new ItemStack(Items.SUGAR))
-				.setOutput(FluidRegistry.getFluidStack("slime", Fluid.BUCKET_VOLUME)).build();
-		RecipeRegistry.addRecipe("distiller", null,
-				new FluidStack[] {FluidRegistry.getFluidStack("slime", Fluid.BUCKET_VOLUME)}, 20, 0,
-				new ItemStack[] {new ItemStack(Item.getItemFromBlock(Blocks.SLIME_BLOCK))}, null);
+		new MachineRecipeBuilder("vat").setFluidInputs(FluidRegistry.getFluidStack("water", Fluid.BUCKET_VOLUME))
+				.setItemInputs(new ItemStack(Blocks.DIRT), new ItemStack(Items.ROTTEN_FLESH),
+						new ItemStack(Items.SUGAR))
+				.setFluidOutputs(FluidRegistry.getFluidStack("slime", Fluid.BUCKET_VOLUME)).build();
+		new MachineRecipeBuilder("distiller").setFluidInputs(FluidRegistry.getFluidStack("slime", Fluid.BUCKET_VOLUME))
+				.setItemOutputs(new ItemStack(Item.getItemFromBlock(Blocks.SLIME_BLOCK))).setCraftTime(20).build();
 	}
 
 	@Override

@@ -1,15 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat;
 
-import java.util.*;
-import java.util.stream.IntStream;
-
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
-import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.Gui;
@@ -17,7 +13,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -53,10 +48,7 @@ public class ControllerVat extends MultiblockLogicFramework implements ISmartTan
 	}
 
 	@Override
-	protected boolean updateServer() {
-
-		boolean flag = false;
-
+	protected void onTick() {
 		for(Entity entity : WORLD.getEntitiesWithinAABB(Entity.class, bounds)) {
 			if(entity instanceof EntityItem) {
 				EntityItem item = (EntityItem) entity;
@@ -74,11 +66,6 @@ public class ControllerVat extends MultiblockLogicFramework implements ISmartTan
 				fluid = this.fluidInput.fluids.get(0);
 			}
 			if(fluid != null && fluid.getFluid() != null && fluid.getFluid().getBlock() != null) {
-				// if(fluid.getFluid() == FluidRegistry.getFluid("potion") && entity instanceof EntityLiving) {
-				// EntityLiving living = (EntityLiving) entity;
-				// PotionType.getPotionTypeForName(fluid.tag.getString("Potion")).getEffects()
-				// .forEach(effect -> living.addPotionEffect(effect));
-				// }
 				if(fluid.getFluid().getTemperature() >= FluidRegistry.LAVA.getTemperature()) {
 					entity.setFire(5);
 				}
@@ -87,57 +74,6 @@ public class ControllerVat extends MultiblockLogicFramework implements ISmartTan
 
 			}
 		}
-
-		Optional<VatRecipe> r = VatRecipe.getRecipeList().parallelStream().filter(this::hasRequiredFluids)
-				.filter(this::hasRequiredItems).findFirst();
-
-		if(r.isPresent()) {
-			VatRecipe recipe = r.get();
-			FluidStack result = recipe.output;
-			if(this.output.fill(result, false) == result.amount) {
-				this.output.fill(result, true);
-				for(FluidStack stack : recipe.fluidInputs) {
-					this.fluidInput.drain(stack, true);
-				}
-				if(recipe.itemInputs != null) {
-					for(ItemStack stack : recipe.itemInputs) {
-						this.itemInput.extractStack(stack);
-					}
-				}
-			}
-			flag = true;
-		}
-
-		return flag;
-	}
-
-	private boolean hasRequiredFluids(VatRecipe recipe) {
-		// Stream the fluid stacks
-		return Arrays.stream(recipe.fluidInputs)
-				// Apply tanksHaveFluid to each element and output result to stream
-				.map(this::tanksHaveFluid)
-				// Reduce list of booleans into one - so will only evaluate true if every boolean is true
-				.reduce((a, b) -> a && b).orElse(false);
-	}
-
-	private boolean tanksHaveFluid(FluidStack stack) {
-		return fluidInput.fluids.stream().filter(Objects::nonNull).filter(fluid -> fluid.containsFluid(stack)).findAny()
-				.isPresent();
-	}
-
-	private boolean hasRequiredItems(VatRecipe recipe) {
-		// No doubt Sky will slap me with a way to integrate this into the stream shortly
-		if(recipe.itemInputs != null) {
-			return Arrays.stream(recipe.itemInputs).map(this::handlerHasItems).reduce((a, b) -> a && b).orElse(false);
-		}
-		else {
-			return true;
-		}
-	}
-
-	private boolean handlerHasItems(ItemStack stack) {
-		return IntStream.range(0, itemInput.getSlots()).mapToObj(slotNum -> itemInput.getStackInSlot(slotNum))
-				.filter(inputStack -> ItemStackUtils.containsItemStack(stack, inputStack)).findAny().isPresent();
 	}
 
 	@Override
@@ -145,6 +81,7 @@ public class ControllerVat extends MultiblockLogicFramework implements ISmartTan
 		fluidInput.readFromNBT(data.getCompoundTag("fluids"));
 		itemInput.deserializeNBT(data.getCompoundTag("items"));
 		output.readFromNBT(data.getCompoundTag("output"));
+		super.onAttachedPartWithMultiblockData(part, data);
 	}
 
 	@Override
@@ -337,25 +274,23 @@ public class ControllerVat extends MultiblockLogicFramework implements ISmartTan
 
 	@Override
 	public ItemStackHandler getItemInput() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.itemInput;
 	}
 
 	@Override
 	public MultiFluidTank getFluidInputs() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.fluidInput;
 	}
 
 	@Override
 	public ItemStackHandlerExtractSpecific getItemOutput() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public MultiFluidTank getFluidOutputs() {
-		// TODO Auto-generated method stub
-		return null;
+		MultiFluidTank dummy = new MultiFluidTank(Integer.MAX_VALUE, this);
+		dummy.fluids.add(this.output.getFluid());
+		return dummy;
 	}
 }

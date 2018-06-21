@@ -25,18 +25,6 @@ public abstract class SARMultiblockBase extends RectangularMultiblockControllerB
 		}
 	}
 
-	protected boolean onMachineFinish() {
-		return false;
-	}
-
-	protected boolean canWork() {
-		return true;
-	}
-
-	protected boolean onMachineTick() {
-		return false;
-	}
-
 	@Override
 	protected boolean isMachineWhole(IMultiblockValidator validatorCallback) {
 		// TODO

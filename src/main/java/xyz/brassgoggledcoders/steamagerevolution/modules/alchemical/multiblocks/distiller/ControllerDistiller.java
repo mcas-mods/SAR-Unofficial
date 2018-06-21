@@ -70,11 +70,10 @@ public class ControllerDistiller extends MultiblockLogicFramework implements ISm
 
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		steamTank.readFromNBT(data.getCompoundTag("steam"));
 		fluidInput.readFromNBT(data.getCompoundTag("input"));
 		fluidOutput.readFromNBT(data.getCompoundTag("output"));
 		itemOutput.deserializeNBT(data.getCompoundTag("itemOutput"));
-		// temperature = data.getInteger("temperature");
+		super.onAttachedPartWithMultiblockData(part, data);
 	}
 
 	@Override
@@ -194,10 +193,10 @@ public class ControllerDistiller extends MultiblockLogicFramework implements ISm
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
-		data.setTag("steam", steamTank.writeToNBT(new NBTTagCompound()));
 		data.setTag("input", fluidInput.writeToNBT(new NBTTagCompound()));
 		data.setTag("output", fluidOutput.writeToNBT(new NBTTagCompound()));
 		data.setTag("itemOutput", itemOutput.serializeNBT());
+		super.writeToDisk(data);
 	}
 
 	@Override

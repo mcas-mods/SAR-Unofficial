@@ -32,6 +32,7 @@ public abstract class MultiblockLogicFramework extends SARMultiblockBase impleme
 
 	@Override
 	protected boolean updateServer() {
+		onTick();
 		if(canRun()) {
 			onActiveTick();
 			currentTicks++;
@@ -41,6 +42,10 @@ public abstract class MultiblockLogicFramework extends SARMultiblockBase impleme
 			return true; // TODO
 		}
 		return false;
+	}
+
+	protected void onTick() {
+		// NO-OP
 	}
 
 	protected void onActiveTick() {
