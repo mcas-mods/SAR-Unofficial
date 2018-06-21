@@ -249,7 +249,7 @@ public class ControllerSawmill extends SARMultiblockBase
 	}
 
 	@Override
-	public ItemStackHandler getItemInput() {
+	public ItemStackHandlerExtractSpecific getItemInput() {
 		// TODO Auto-generated method stub
 		return null;
 	}

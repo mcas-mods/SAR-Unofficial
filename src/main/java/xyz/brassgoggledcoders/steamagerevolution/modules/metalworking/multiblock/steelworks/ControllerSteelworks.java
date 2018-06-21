@@ -234,7 +234,7 @@ public class ControllerSteelworks extends SARMultiblockBase implements ISmartTan
 	}
 
 	@Override
-	public ItemStackHandler getItemInput() {
+	public ItemStackHandlerExtractSpecific getItemInput() {
 		// TODO Auto-generated method stub
 		return null;
 	}

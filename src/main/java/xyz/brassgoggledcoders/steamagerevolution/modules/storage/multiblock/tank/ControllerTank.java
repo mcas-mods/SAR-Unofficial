@@ -11,11 +11,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
 public class ControllerTank extends SARMultiblockBase implements ISmartTankCallback {
@@ -186,29 +185,4 @@ public class ControllerTank extends SARMultiblockBase implements ISmartTankCallb
 	public String getName() {
 		return "Tank";
 	}
-
-	@Override
-	public ItemStackHandler getItemInput() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public MultiFluidTank getFluidInputs() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ItemStackHandlerExtractSpecific getItemOutput() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public MultiFluidTank getFluidOutputs() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

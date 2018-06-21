@@ -41,8 +41,8 @@ public class GuiAlloyFurnace extends GuiContainer {
 		int y = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
 
-		for(int i = 0; i < controller.primaryTank.fluids.size(); i++) {
-			FluidStack containedFluid = controller.primaryTank.fluids.get(i);
+		for(int i = 0; i < controller.fluidInput.fluids.size(); i++) {
+			FluidStack containedFluid = controller.fluidInput.fluids.get(i);
 			if(containedFluid != null && containedFluid.getFluid() != null && containedFluid.amount > 0) {
 				GuiUtils.renderGuiTank(containedFluid, (ControllerAlloyFurnace.inputCapacity / 2),
 						containedFluid.amount, this.guiLeft + 22 + (i * 56), this.guiTop + 11, 20, 60);

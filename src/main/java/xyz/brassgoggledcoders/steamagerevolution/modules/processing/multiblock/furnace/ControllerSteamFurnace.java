@@ -286,7 +286,7 @@ public class ControllerSteamFurnace extends SARMultiblockBase implements ISmartT
 	}
 
 	@Override
-	public ItemStackHandler getItemInput() {
+	public ItemStackHandlerExtractSpecific getItemInput() {
 		// TODO Auto-generated method stub
 		return null;
 	}

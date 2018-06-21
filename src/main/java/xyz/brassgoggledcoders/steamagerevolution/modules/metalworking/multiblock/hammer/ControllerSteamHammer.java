@@ -26,8 +26,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
-public class ControllerSteamHammer extends SARMultiblockBase
-		implements ISmartTankCallback, ISmartStackCallback {
+public class ControllerSteamHammer extends SARMultiblockBase implements ISmartTankCallback, ISmartStackCallback {
 
 	public ItemStackHandler inventory;
 	public FluidTank tank;
@@ -250,7 +249,7 @@ public class ControllerSteamHammer extends SARMultiblockBase
 	}
 
 	@Override
-	public ItemStackHandler getItemInput() {
+	public ItemStackHandlerExtractSpecific getItemInput() {
 		// TODO Auto-generated method stub
 		return null;
 	}

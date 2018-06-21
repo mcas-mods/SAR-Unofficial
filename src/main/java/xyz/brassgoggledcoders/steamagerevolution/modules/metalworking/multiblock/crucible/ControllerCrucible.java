@@ -17,9 +17,9 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerCrucible;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockLogicFramework;
 
-public class ControllerCrucible extends SARMultiblockBase implements ISmartTankCallback {
+public class ControllerCrucible extends MultiblockLogicFramework implements ISmartTankCallback {
 
 	BlockPos minimumInteriorPos;
 	BlockPos maximumInteriorPos;
@@ -203,7 +203,7 @@ public class ControllerCrucible extends SARMultiblockBase implements ISmartTankC
 	}
 
 	@Override
-	public ItemStackHandler getItemInput() {
+	public ItemStackHandlerExtractSpecific getItemInput() {
 		// TODO Auto-generated method stub
 		return null;
 	}

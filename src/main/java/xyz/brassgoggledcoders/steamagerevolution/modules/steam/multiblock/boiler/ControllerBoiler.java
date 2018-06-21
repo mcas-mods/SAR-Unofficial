@@ -270,7 +270,7 @@ public class ControllerBoiler extends SARMultiblockBase implements ISmartTankCal
 	}
 
 	@Override
-	public ItemStackHandler getItemInput() {
+	public ItemStackHandlerExtractSpecific getItemInput() {
 		// TODO Auto-generated method stub
 		return null;
 	}

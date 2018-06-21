@@ -75,7 +75,7 @@ public abstract class TileEntityAlloyFurnacePart extends RectangularMultiblockTi
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		if(this.isConnected()) {
 			ControllerAlloyFurnace distiller = this.getMultiblockController();
-			nbttagcompound.setTag("input", distiller.primaryTank.writeToNBT(new NBTTagCompound()));
+			nbttagcompound.setTag("input", distiller.fluidInput.writeToNBT(new NBTTagCompound()));
 			nbttagcompound.setTag("output", distiller.outputTank.writeToNBT(new NBTTagCompound()));
 		}
 		return new SPacketUpdateTileEntity(this.pos, 3, nbttagcompound);
@@ -87,7 +87,7 @@ public abstract class TileEntityAlloyFurnacePart extends RectangularMultiblockTi
 		NBTTagCompound nbt = super.writeToNBT(new NBTTagCompound());
 		if(this.isConnected()) {
 			ControllerAlloyFurnace distiller = this.getMultiblockController();
-			nbt.setTag("input", distiller.primaryTank.writeToNBT(new NBTTagCompound()));
+			nbt.setTag("input", distiller.fluidInput.writeToNBT(new NBTTagCompound()));
 			nbt.setTag("output", distiller.outputTank.writeToNBT(new NBTTagCompound()));
 		}
 		return nbt;
@@ -98,7 +98,7 @@ public abstract class TileEntityAlloyFurnacePart extends RectangularMultiblockTi
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
 		if(this.isConnected()) {
 			ControllerAlloyFurnace distiller = this.getMultiblockController();
-			distiller.primaryTank.readFromNBT(pkt.getNbtCompound().getCompoundTag("input"));
+			distiller.fluidInput.readFromNBT(pkt.getNbtCompound().getCompoundTag("input"));
 			distiller.outputTank.readFromNBT(pkt.getNbtCompound().getCompoundTag("output"));
 		}
 	}
