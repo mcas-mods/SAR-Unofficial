@@ -1,7 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
 import com.teamacronymcoders.base.multiblock.MultiblockTileEntityBase;
-import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,7 +14,7 @@ public class MultiblockInventoryWrapper
 	final MultiblockTileEntityBase<SARMultiblockBase> tile;
 	final String toWrap;
 
-	public MultiblockInventoryWrapper(RectangularMultiblockTileEntityBase<?> tile, String toWrap) {
+	public MultiblockInventoryWrapper(MultiblockTileEntityBase<?> tile, String toWrap) {
 		this.tile = (MultiblockTileEntityBase<SARMultiblockBase>) tile;
 		this.toWrap = toWrap;
 	}

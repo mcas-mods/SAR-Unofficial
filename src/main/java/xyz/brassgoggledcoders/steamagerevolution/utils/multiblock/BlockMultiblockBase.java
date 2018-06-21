@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public abstract class BlockMultiblockBase<T extends MultiblockTileEntityBase> extends BlockTEBase<T> {
+public abstract class BlockMultiblockBase<T extends MultiblockTileEntityBase<?>> extends BlockTEBase<T> {
 
 	public BlockMultiblockBase(Material material, String name) {
 		super(material, name);
