@@ -15,7 +15,6 @@ import com.teamacronymcoders.base.util.OreDictUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
@@ -38,9 +37,9 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.*;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.SteamHammerRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe.MachineRecipeBuilder;
 
 @Module(value = SteamAgeRevolution.MODID)
@@ -132,11 +131,12 @@ public class ModuleMetalworking extends ModuleBase {
 		event.getRegistry().register(new RecipesIngotToPlate()
 				.setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "ingot_to_plate")));
 
-		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.STONE), new ItemStack(Blocks.COBBLESTONE));
-		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.COBBLESTONE), new ItemStack(Blocks.GRAVEL));
-		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.GRAVEL), new ItemStack(Blocks.SAND));
-
-		SteamHammerRecipe.addSteamHammerRecipe(new ItemStack(Blocks.DIRT), new ItemStack(Items.DIAMOND), "test");
+		RecipeRegistry.addRecipe("steam hammer", new MachineRecipeBuilder("steam hammer")
+				.setItemInputs(new ItemStack(Blocks.STONE)).setItemOutputs(new ItemStack(Blocks.COBBLESTONE)).build());
+		RecipeRegistry.addRecipe("steam hammer", new MachineRecipeBuilder("steam hammer")
+				.setItemInputs(new ItemStack(Blocks.COBBLESTONE)).setItemOutputs(new ItemStack(Blocks.GRAVEL)).build());
+		RecipeRegistry.addRecipe("steam hammer", new MachineRecipeBuilder("steam hammer")
+				.setItemInputs(new ItemStack(Blocks.GRAVEL)).setItemOutputs(new ItemStack(Blocks.SAND)).build());
 
 		AlloyFurnaceRecipe.addAlloyFurnaceRecipe(FluidRegistry.getFluidStack("copper", VALUE_INGOT),
 				FluidRegistry.getFluidStack("zinc", VALUE_INGOT), FluidRegistry.getFluidStack("brass", VALUE_INGOT));
@@ -163,10 +163,12 @@ public class ModuleMetalworking extends ModuleBase {
 			if(!plate.isEmpty()) {
 				ItemStack plateCopy = plate.copy();
 				plateCopy.setCount(plateCount);
-				SteamHammerRecipe.addSteamHammerRecipe(ingot, plateCopy);
+				RecipeRegistry.addRecipe("steam hammer", new MachineRecipeBuilder("steam hammer").setItemInputs(ingot)
+						.setItemOutputs(plateCopy).build());
 			}
 			if(!gear.isEmpty()) {
-				SteamHammerRecipe.addSteamHammerRecipe(ingot, gear, "gear");
+				// TODO
+				// SteamHammerRecipe.addSteamHammerRecipe(ingot, gear, "gear");
 			}
 			if(!ore.isEmpty()) {
 				GameRegistry.addSmelting(ore, ingot, 0.5F);
@@ -180,7 +182,8 @@ public class ModuleMetalworking extends ModuleBase {
 				GameRegistry.addSmelting(crushedOre, nuggetCopy, 0.1f);
 				ItemStack crushedOreCopy = crushedOre.copy();
 				crushedOreCopy.setCount(4);
-				SteamHammerRecipe.addSteamHammerRecipe(ore, crushedOreCopy);
+				RecipeRegistry.addRecipe("steam hammer", new MachineRecipeBuilder("steam hammer").setItemInputs(ore)
+						.setItemOutputs(crushedOreCopy).build());
 			}
 			if(!crystal.isEmpty()) {
 				if(!nugget.isEmpty()) {
@@ -190,9 +193,9 @@ public class ModuleMetalworking extends ModuleBase {
 					new MachineRecipeBuilder("vat").setFluidOutputs(solution)
 							.setFluidInputs(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 4))
 							.setItemInputs(crushedOre).build();
-					// DistillerRecipe.addRecipe(solution,
-					// FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 6), crystal, 20);
-					// }
+					RecipeRegistry.addRecipe("distiller", new MachineRecipeBuilder("distiller").setFluidInputs(solution)
+							.setFluidOutputs(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 6))
+							.setItemOutputs(crystal).setCraftTime(20).build());
 				}
 			}
 		}

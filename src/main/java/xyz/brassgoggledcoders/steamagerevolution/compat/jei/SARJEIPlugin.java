@@ -9,14 +9,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.*;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.VatRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlockRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.AlloyFurnaceRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.SteamHammerRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.SteamFurnaceRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.sawmill.SawmillRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
 
 @JEIPlugin
 public class SARJEIPlugin implements IModPlugin {
@@ -36,10 +34,10 @@ public class SARJEIPlugin implements IModPlugin {
 
 	@Override
 	public void register(IModRegistry registry) {
-		add(registry, SteamHammerRecipe.getRecipeList(), SteamHammerRecipeCategory.uid,
+		add(registry, RecipeRegistry.getRecipesForMachine("steam hammer"), SteamHammerRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.steamhammer_anvil));
 
-		add(registry, AlloyFurnaceRecipe.getRecipeList(), AlloyForgeRecipeCategory.uid,
+		add(registry, RecipeRegistry.getRecipesForMachine("alloyforge"), AlloyForgeRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.alloy_furnace_frame));
 
 		add(registry, CrucibleRecipe.getRecipeList(), CrucibleRecipeCategory.uid,
@@ -51,13 +49,14 @@ public class SARJEIPlugin implements IModPlugin {
 		add(registry, CastingBlockRecipe.getRecipeList(), CastingBlockRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.casting_bench));
 
-		add(registry, VatRecipe.getRecipeList(), VatRecipeCategory.uid, new ItemStack(JEIObjectHolder.vat_output));
+		add(registry, RecipeRegistry.getRecipesForMachine("vat"), VatRecipeCategory.uid,
+				new ItemStack(JEIObjectHolder.vat_output));
 
 		add(registry, FumeCollectorRecipe.getRecipeList(), FumeCollectorRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.fume_collector));
 
-		// add(registry, RecipeRegistry.getRecipeList(), DistillerRecipeCategory.uid,
-		// new ItemStack(JEIObjectHolder.distiller_frame));
+		add(registry, RecipeRegistry.getRecipesForMachine("distiller"), DistillerRecipeCategory.uid,
+				new ItemStack(JEIObjectHolder.distiller_frame));
 
 		add(registry, SawmillRecipe.getRecipeList(), SawmillRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.sawmill_casing));

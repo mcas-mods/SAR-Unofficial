@@ -134,17 +134,17 @@ public class SARMachineRecipe implements IRecipeWrapper {
 			ingredients.setInputs(ItemStack.class, Arrays.asList(itemInputs));
 		}
 		if(ArrayUtils.isNotEmpty(fluidOutputs)) {
-			ingredients.setOutput(FluidStack.class, Arrays.asList(fluidOutputs));
+			ingredients.setOutputs(FluidStack.class, Arrays.asList(fluidOutputs));
 		}
 		if(ArrayUtils.isNotEmpty(itemOutputs)) {
-			ingredients.setOutput(FluidStack.class, Arrays.asList(itemOutputs));
+			ingredients.setOutputs(ItemStack.class, Arrays.asList(itemOutputs));
 		}
 	}
 
 	@Override
 	@Optional.Method(modid = "jei")
 	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-		minecraft.fontRenderer.drawString(ticksToProcess + " ticks to distil", recipeWidth - 52, recipeHeight - 5,
+		minecraft.fontRenderer.drawString(ticksToProcess + " ticks to process", recipeWidth - 52, recipeHeight - 5,
 				Color.red.getRGB());
 	}
 }
