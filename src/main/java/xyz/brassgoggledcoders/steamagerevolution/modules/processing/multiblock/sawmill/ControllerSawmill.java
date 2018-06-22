@@ -6,6 +6,9 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,11 +26,9 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSma
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
-public class ControllerSawmill extends SARMultiblockBase
-		implements ISmartTankCallback, ISARMultiblock, ISmartStackCallback {
+public class ControllerSawmill extends SARMultiblockBase implements ISmartTankCallback, ISmartStackCallback {
 
 	public ItemStackHandler inputInventory = new ItemStackHandlerSmart(1, this);
 	public ItemStackHandler outputInventory = new ItemStackHandler(3);
@@ -248,6 +249,18 @@ public class ControllerSawmill extends SARMultiblockBase
 	@Override
 	public void updateStack(PacketItemUpdate message) {
 		this.inputInventory.setStackInSlot(message.slot, message.item);
+	}
+
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

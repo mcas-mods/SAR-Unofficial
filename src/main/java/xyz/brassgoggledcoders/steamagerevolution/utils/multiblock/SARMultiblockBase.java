@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.multiblock.validation.ValidationError;
@@ -13,8 +14,7 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
-public abstract class SARMultiblockBase extends RectangularMultiblockControllerBase
-		implements ISARMultiblock {
+public abstract class SARMultiblockBase extends RectangularMultiblockControllerBase implements ISARMultiblock, IHasGui {
 
 	List<Block> requiredBlocks = new ArrayList<Block>();
 
@@ -48,10 +48,12 @@ public abstract class SARMultiblockBase extends RectangularMultiblockControllerB
 		SteamAgeRevolution.proxy.spawnMultiblockAssemblyFX(this.getMinimumCoord(), this.getMaximumCoord());
 	}
 
+	@Deprecated
 	public ItemStackHandler getInventory(String toWrap) {
 		return null;
 	}
 
+	@Deprecated
 	protected FluidTank getTank(String toWrap) {
 		return null;
 	}

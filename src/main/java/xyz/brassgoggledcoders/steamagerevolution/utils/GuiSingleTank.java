@@ -19,11 +19,17 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 public class GuiSingleTank extends GuiContainer {
 	private static ResourceLocation guiTexture =
 			new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/single_tank.png");
-	private final TileEntity tile;
+	private final IFluidTank tank;
 
+	@Deprecated
 	public GuiSingleTank(EntityPlayer player, TileEntity tile) {
 		super(new ContainerSingleTank(player, tile));
-		this.tile = tile;
+		this.tank = (IFluidTank) tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+	}
+
+	public GuiSingleTank(EntityPlayer entityPlayer, IFluidTank tank) {
+		super(new ContainerSingleTank(entityPlayer, null));
+		this.tank = tank;
 	}
 
 	@Override
@@ -33,10 +39,7 @@ public class GuiSingleTank extends GuiContainer {
 		this.renderHoveredToolTip(mouseX, mouseY);
 		if(this.isPointInRegion(78, 17, 20, 49, mouseX, mouseY)) {
 			List<String> tooltip = Lists.newArrayList();
-			tooltip.add(TextUtils
-					.representTankContents(
-							(IFluidTank) tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null))
-					.getText());
+			tooltip.add(TextUtils.representTankContents(tank).getText());
 			this.drawHoveringText(tooltip, mouseX, mouseY, fontRenderer);
 		}
 	}
@@ -48,11 +51,8 @@ public class GuiSingleTank extends GuiContainer {
 		int y = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
 
-		FluidStack containedFluid =
-				tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null).getTankProperties()[0]
-						.getContents();
-		int capacity = tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null).getTankProperties()[0]
-				.getCapacity();
+		FluidStack containedFluid = tank.getFluid();
+		int capacity = tank.getCapacity();
 
 		if(containedFluid != null && containedFluid.getFluid() != null && containedFluid.amount > 0) {
 			GuiUtils.renderGuiTank(containedFluid, capacity, containedFluid.amount, this.guiLeft + 78, this.guiTop + 11,

@@ -11,7 +11,8 @@ import com.teamacronymcoders.base.util.ItemStackUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
@@ -20,7 +21,8 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 
-public abstract class SARMultiblockInventory extends SARMultiblockBase implements ISmartTankCallback, ISARMultiblockInventory {
+public abstract class SARMultiblockInventory extends SARMultiblockBase
+		implements ISmartTankCallback, ISARMultiblockInventory {
 
 	protected int currentTicks = 0;
 	SARMachineRecipe currentRecipe = null;
@@ -170,7 +172,7 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase implement
 	}
 
 	@Override
-	protected FluidTank getTank(String toWrap) {
-		return steamTank;
+	public FluidTankSingleSmart getSteamTank() {
+		return this.steamTank;
 	}
 }
