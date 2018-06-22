@@ -2,7 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tan
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockControllerInfo;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileBase;
 
 public abstract class TileEntityTankPart extends SARMultiblockTileBase<ControllerTank> {
@@ -18,7 +18,7 @@ public abstract class TileEntityTankPart extends SARMultiblockTileBase<Controlle
 	}
 
 	@Override
-	public IMultiblockControllerInfo getControllerInfo() {
+	public ISARMultiblock getControllerInfo() {
 		return new ControllerTank(null);
 	}
 }

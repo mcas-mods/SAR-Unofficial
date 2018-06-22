@@ -1,7 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
-public interface IMultiblockTileInfo {
-	public IMultiblockControllerInfo getControllerInfo();
+public interface ISARMultiblockTile {
+	public ISARMultiblock getControllerInfo();
 
 	public boolean[] getValidPositions();
 

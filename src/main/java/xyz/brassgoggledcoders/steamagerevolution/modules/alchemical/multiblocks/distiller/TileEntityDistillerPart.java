@@ -2,7 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockControllerInfo;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileInventory;
 
 public abstract class TileEntityDistillerPart extends SARMultiblockTileInventory<ControllerDistiller> {
@@ -13,7 +13,7 @@ public abstract class TileEntityDistillerPart extends SARMultiblockTileInventory
 	}
 
 	@Override
-	public IMultiblockControllerInfo getControllerInfo() {
+	public ISARMultiblock getControllerInfo() {
 		return new ControllerDistiller(null);
 	}
 

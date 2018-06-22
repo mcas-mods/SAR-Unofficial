@@ -4,11 +4,11 @@ import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockControllerInfo;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockTileInfo;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblockTile;
 
 public class TileEntitySawmillPart extends RectangularMultiblockTileEntityBase<ControllerSawmill>
-		implements IMultiblockTileInfo {
+		implements ISARMultiblockTile {
 
 	@Override
 	public Class<ControllerSawmill> getMultiblockControllerType() {
@@ -71,7 +71,7 @@ public class TileEntitySawmillPart extends RectangularMultiblockTileEntityBase<C
 	}
 
 	@Override
-	public IMultiblockControllerInfo getControllerInfo() {
+	public ISARMultiblock getControllerInfo() {
 		// TODO Auto-generated method stub
 		return new ControllerSawmill(null);
 	}

@@ -14,7 +14,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public abstract class SARMultiblockBase extends RectangularMultiblockControllerBase
-		implements IMultiblockControllerInfo {
+		implements ISARMultiblock {
 
 	List<Block> requiredBlocks = new ArrayList<Block>();
 

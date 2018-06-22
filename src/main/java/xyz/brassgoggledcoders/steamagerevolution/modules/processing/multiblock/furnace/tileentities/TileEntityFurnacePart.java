@@ -5,11 +5,11 @@ import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTi
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.ControllerSteamFurnace;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockControllerInfo;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockTileInfo;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblockTile;
 
 public abstract class TileEntityFurnacePart extends RectangularMultiblockTileEntityBase<ControllerSteamFurnace>
-		implements IMultiblockTileInfo {
+		implements ISARMultiblockTile {
 
 	@Override
 	public Class<ControllerSteamFurnace> getMultiblockControllerType() {
@@ -23,7 +23,7 @@ public abstract class TileEntityFurnacePart extends RectangularMultiblockTileEnt
 	}
 
 	@Override
-	public IMultiblockControllerInfo getControllerInfo() {
+	public ISARMultiblock getControllerInfo() {
 		return new ControllerSteamFurnace(null);
 	}
 

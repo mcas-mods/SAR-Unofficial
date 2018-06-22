@@ -4,11 +4,11 @@ import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockControllerInfo;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockTileInfo;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblockTile;
 
 public abstract class TileEntitySteelworksPart extends RectangularMultiblockTileEntityBase<ControllerSteelworks>
-		implements IMultiblockTileInfo {
+		implements ISARMultiblockTile {
 
 	@Override
 	public Class<ControllerSteelworks> getMultiblockControllerType() {
@@ -16,7 +16,7 @@ public abstract class TileEntitySteelworksPart extends RectangularMultiblockTile
 	}
 
 	@Override
-	public IMultiblockControllerInfo getControllerInfo() {
+	public ISARMultiblock getControllerInfo() {
 		return new ControllerSteelworks(null);
 	}
 

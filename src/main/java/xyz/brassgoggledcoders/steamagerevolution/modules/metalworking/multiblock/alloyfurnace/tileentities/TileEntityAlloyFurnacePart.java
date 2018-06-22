@@ -3,7 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multibloc
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.ControllerAlloyFurnace;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockControllerInfo;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileInventory;
 
 public abstract class TileEntityAlloyFurnacePart extends SARMultiblockTileInventory<ControllerAlloyFurnace> {
@@ -14,7 +14,7 @@ public abstract class TileEntityAlloyFurnacePart extends SARMultiblockTileInvent
 	}
 
 	@Override
-	public IMultiblockControllerInfo getControllerInfo() {
+	public ISARMultiblock getControllerInfo() {
 		return new ControllerAlloyFurnace(null);
 	}
 

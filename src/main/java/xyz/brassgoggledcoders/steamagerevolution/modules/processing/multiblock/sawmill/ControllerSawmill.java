@@ -23,11 +23,11 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSma
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockControllerInfo;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
 public class ControllerSawmill extends SARMultiblockBase
-		implements ISmartTankCallback, IMultiblockControllerInfo, ISmartStackCallback {
+		implements ISmartTankCallback, ISARMultiblock, ISmartStackCallback {
 
 	public ItemStackHandler inputInventory = new ItemStackHandlerSmart(1, this);
 	public ItemStackHandler outputInventory = new ItemStackHandler(3);

@@ -47,8 +47,8 @@ public abstract class BlockMultiblockBase<T extends MultiblockTileEntityBase<?>>
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
-		IMultiblockTileInfo tile = (IMultiblockTileInfo) this.createTileEntity(player, null);
-		IMultiblockControllerInfo controller = tile.getControllerInfo();
+		ISARMultiblockTile tile = (ISARMultiblockTile) this.createTileEntity(player, null);
+		ISARMultiblock controller = tile.getControllerInfo();
 
 		// TODO Localisation
 		tooltip.add("Multiblock: " + controller.getName());

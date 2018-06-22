@@ -4,7 +4,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
-public interface ISARMachine {
+public interface ISARMultiblockInventory {
 	public ItemStackHandlerExtractSpecific getItemInput();
 
 	public MultiFluidTank getFluidInputs();

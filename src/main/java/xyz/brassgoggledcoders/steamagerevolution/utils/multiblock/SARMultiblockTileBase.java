@@ -4,7 +4,7 @@ import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTi
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 public abstract class SARMultiblockTileBase<T extends SARMultiblockBase> extends RectangularMultiblockTileEntityBase<T>
-		implements IMultiblockTileInfo {
+		implements ISARMultiblockTile {
 
 	@Override
 	public boolean[] getValidPositions() {

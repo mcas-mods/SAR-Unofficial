@@ -6,7 +6,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.*;
 
 public abstract class TileEntityCruciblePart extends SARMultiblockTileInventory<ControllerCrucible>
-		implements IMultiblockTileInfo {
+		implements ISARMultiblockTile {
 
 	@Override
 	public Class<? extends MultiblockControllerBase> getMultiblockControllerType() {
@@ -14,7 +14,7 @@ public abstract class TileEntityCruciblePart extends SARMultiblockTileInventory<
 	}
 
 	@Override
-	public IMultiblockControllerInfo getControllerInfo() {
+	public ISARMultiblock getControllerInfo() {
 		return new ControllerCrucible(null);
 	}
 
