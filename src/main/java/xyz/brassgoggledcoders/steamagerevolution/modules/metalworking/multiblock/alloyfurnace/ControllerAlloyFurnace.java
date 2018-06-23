@@ -14,27 +14,27 @@ import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBase
-		implements ISmartTankCallback, IHasGui {
+public class ControllerAlloyFurnace extends SARMultiblockInventory implements ISmartTankCallback, IHasGui {
 
 	public static int inputCapacity = ModuleMetalworking.VALUE_BLOCK * 8;
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
-	public MultiFluidTank primaryTank;
-	public FluidTank outputTank;
+	public MultiFluidTank fluidInput;
+	public MultiFluidTank outputTank;
 
 	public ControllerAlloyFurnace(World world) {
 		super(world);
-		primaryTank = new MultiFluidTank(inputCapacity, this);
-		outputTank = new FluidTank(outputCapacity);
+		fluidInput = new MultiFluidTank(inputCapacity, this, 0);
+		outputTank = new MultiFluidTank(outputCapacity, this, 1);
 	}
 
 	@Override
@@ -42,36 +42,12 @@ public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBa
 		if(toWrap.equals("output")) {
 			return outputTank;
 		}
-		return primaryTank;
+		return fluidInput;
 	}
 
 	@Override
-	protected boolean updateServer() {
-		boolean flag = false;
-
-		if(primaryTank.fluids.size() == 2) {
-			FluidStack firstFluid = primaryTank.fluids.get(0);
-			FluidStack secondFluid = primaryTank.fluids.get(1);
-
-			// Can't do anything without a base for the alloy
-			if(firstFluid != null && secondFluid != null) {
-				AlloyFurnaceRecipe r = AlloyFurnaceRecipe.getRecipe(firstFluid, secondFluid);
-				if(r != null) {
-					if(firstFluid.amount >= r.primaryInput.amount) {
-						if(secondFluid.amount >= r.secondaryInputFluid.amount) {
-							if(outputTank.fill(r.output, false) == r.output.amount) {
-								primaryTank.drain(r.primaryInput, true);
-								primaryTank.drain(r.secondaryInputFluid, true);
-								outputTank.fill(r.output, true);
-								flag = true;
-							}
-						}
-					}
-				}
-			}
-			// else do nothing, can't make a recipe with one fluid
-		}
-		return flag;
+	protected boolean canRun() {
+		return fluidInput.fluids.size() == 2 && super.canRun();
 	}
 
 	@Override
@@ -179,14 +155,16 @@ public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBa
 
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		primaryTank.readFromNBT(data.getCompoundTag("input"));
+		fluidInput.readFromNBT(data.getCompoundTag("input"));
 		outputTank.readFromNBT(data.getCompoundTag("output"));
+		super.onAttachedPartWithMultiblockData(part, data);
 	}
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
-		data.setTag("input", primaryTank.writeToNBT(new NBTTagCompound()));
+		data.setTag("input", fluidInput.writeToNBT(new NBTTagCompound()));
 		data.setTag("output", outputTank.writeToNBT(new NBTTagCompound()));
+		super.writeToDisk(data);
 	}
 
 	@Override
@@ -211,10 +189,10 @@ public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBa
 	public void readFromDisk(NBTTagCompound data) {}
 
 	@Override
-	public void onTankContentsChanged(FluidTank tank) {
+	public void onTankContentsChanged(FluidTankSmart tank) {
 		if(tank instanceof MultiFluidTank) {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketMultiFluidUpdate(this.getReferenceCoord(), ((MultiFluidTank) tank)),
+					new PacketMultiFluidUpdate(this.getReferenceCoord(), ((MultiFluidTank) tank), tank.getId()),
 					this.getReferenceCoord(), WORLD.provider.getDimension());
 		}
 		else {
@@ -231,8 +209,15 @@ public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBa
 
 	@Override
 	public void updateFluid(PacketMultiFluidUpdate message) {
-		primaryTank.fluids.clear();
-		primaryTank.fluids.addAll(message.tank.fluids);
+		if(message.id == fluidInput.getId()) {
+			fluidInput.fluids.clear();
+			fluidInput.fluids.addAll(message.tank.fluids);
+		}
+		else if(message.id == outputTank.getId()) {
+			outputTank.fluids.clear();
+			outputTank.fluids.addAll(message.tank.fluids);
+		}
+		super.updateFluid(message);
 	}
 
 	@Override
@@ -250,5 +235,29 @@ public class ControllerAlloyFurnace extends SARRectangularMultiblockControllerBa
 	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
 		// TODO Auto-generated method stub
 		return new ContainerAlloyFurnace(entityPlayer, this);
+	}
+
+	@Override
+	public ItemStackHandlerExtractSpecific getItemInput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MultiFluidTank getFluidInputs() {
+		// TODO Auto-generated method stub
+		return this.fluidInput;
+	}
+
+	@Override
+	public ItemStackHandlerExtractSpecific getItemOutput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MultiFluidTank getFluidOutputs() {
+		// TODO Auto-generated method stub
+		return this.outputTank;
 	}
 }

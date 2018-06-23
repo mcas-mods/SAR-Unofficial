@@ -6,19 +6,21 @@ import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
+import net.minecraft.client.gui.Gui;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
+import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
-public class ControllerTank extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
+public class ControllerTank extends SARMultiblockBase implements ISmartTankCallback {
 
 	public BlockPos minimumInteriorPos;
 	public BlockPos maximumInteriorPos;
@@ -178,14 +180,6 @@ public class ControllerTank extends SARRectangularMultiblockControllerBase imple
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTank tank) {
-		// FMLLog.warning("onContentsChanged");
-		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-				new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid()), this.getReferenceCoord(),
-				WORLD.provider.getDimension());
-	}
-
-	@Override
 	public void updateFluid(PacketFluidUpdate message) {
 		tank.setFluid(message.fluid);
 	}
@@ -195,4 +189,13 @@ public class ControllerTank extends SARRectangularMultiblockControllerBase imple
 		return "Tank";
 	}
 
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		return new GuiSingleTank(entityPlayer, this.tank);
+	}
+
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		return new ContainerSingleTank(entityPlayer, null);
+	}
 }

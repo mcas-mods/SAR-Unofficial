@@ -14,35 +14,28 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.ModuleAlchemical;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerDistiller extends SARRectangularMultiblockControllerBase implements ISmartTankCallback, IHasGui {
+public class ControllerDistiller extends SARMultiblockInventory implements ISmartTankCallback, IHasGui {
 
 	public static int tankCapacity = Fluid.BUCKET_VOLUME * 8;
 
-	public FluidTankSmart fluidInput;
-	public FluidTankSmart fluidOutput;
-	public ItemStackHandler itemOutput;
-	public FluidTankSingleSmart steamTank;
-	int ticks = 0;
-	// int temperature = 0;
-	DistillerRecipe currentRecipe = null;
-
-	// private static final int temperatureThreshold = 110;
-	private static final int steamPerHeat = Fluid.BUCKET_VOLUME / 8;
+	public MultiFluidTank fluidInput;
+	public MultiFluidTank fluidOutput;
+	public ItemStackHandlerExtractSpecific itemOutput;
 
 	protected ControllerDistiller(World world) {
 		super(world);
-		fluidInput = new FluidTankSmart(tankCapacity, this, 0);
-		fluidOutput = new FluidTankSmart(tankCapacity, this, 1);
-		itemOutput = new ItemStackHandler();
-		steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
+		fluidInput = new MultiFluidTank(tankCapacity, this, 0);
+		fluidOutput = new MultiFluidTank(tankCapacity, this, 1);
+		itemOutput = new ItemStackHandlerExtractSpecific(1);
 	}
 
 	@Override
@@ -78,12 +71,10 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		steamTank.readFromNBT(data.getCompoundTag("steam"));
 		fluidInput.readFromNBT(data.getCompoundTag("input"));
 		fluidOutput.readFromNBT(data.getCompoundTag("output"));
 		itemOutput.deserializeNBT(data.getCompoundTag("itemOutput"));
-		ticks = data.getInteger("progress");
-		// temperature = data.getInteger("temperature");
+		super.onAttachedPartWithMultiblockData(part, data);
 	}
 
 	@Override
@@ -166,40 +157,6 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 	}
 
 	@Override
-	protected boolean updateServer() {
-		if(steamTank.getFluidAmount() >= steamPerHeat) {
-			if(currentRecipe == null) {
-				if(fluidInput.getFluidAmount() > 0 && DistillerRecipe.getRecipe(fluidInput.getFluid()) != null) {
-					currentRecipe = DistillerRecipe.getRecipe(fluidInput.getFluid());
-					return true;
-				}
-			}
-			else {
-				if(ticks == currentRecipe.ticksToProcess) {
-					if(ItemHandlerHelper.insertItem(itemOutput, currentRecipe.itemOutput, true).isEmpty()) {
-						if(currentRecipe.output != null
-								&& fluidOutput.fill(currentRecipe.output, false) == currentRecipe.output.amount) {
-							fluidOutput.fill(currentRecipe.output, true);
-						}
-						fluidInput.drain(currentRecipe.input, true);
-						ItemHandlerHelper.insertItem(itemOutput, currentRecipe.itemOutput, false);
-						if(fluidInput.getFluidAmount() == 0) {
-							currentRecipe = null;
-						}
-						return true;
-					}
-				}
-				else {
-					steamTank.drain(steamPerHeat, true);
-					ticks++;
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	@Override
 	protected void updateClient() {
 		// TODO Auto-generated method stub
 
@@ -237,25 +194,18 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
-		data.setTag("steam", steamTank.writeToNBT(new NBTTagCompound()));
 		data.setTag("input", fluidInput.writeToNBT(new NBTTagCompound()));
 		data.setTag("output", fluidOutput.writeToNBT(new NBTTagCompound()));
 		data.setTag("itemOutput", itemOutput.serializeNBT());
-		data.setInteger("progress", ticks);
+		super.writeToDisk(data);
 	}
 
 	@Override
 	public void readFromDisk(NBTTagCompound data) {}
 
 	@Override
-	public void onTankContentsChanged(FluidTank tank) {
-		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-				new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid(), ((FluidTankSmart) tank).getId()),
-				this.getReferenceCoord(), WORLD.provider.getDimension());
-	}
-
-	@Override
 	public void updateFluid(PacketFluidUpdate message) {
+		SteamAgeRevolution.instance.getLogger().devInfo("Packet ID: " + message.id);
 		if(message.id == fluidInput.getId()) {
 			fluidInput.setFluid(message.fluid);
 		}
@@ -263,19 +213,19 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 			fluidOutput.setFluid(message.fluid);
 		}
 		else {
-			steamTank.setFluid(message.fluid);
+			super.updateFluid(message);
 		}
 	}
 
 	@Override
-	protected FluidTank getTank(String toWrap) {
+	public FluidTank getTank(String toWrap) {
 		if(toWrap.equals("input")) {
 			return fluidInput;
 		}
 		else if(toWrap.equals("output")) {
 			return fluidOutput;
 		}
-		return steamTank;
+		return super.getTank(toWrap);
 	}
 
 	@Override
@@ -293,6 +243,26 @@ public class ControllerDistiller extends SARRectangularMultiblockControllerBase 
 	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
 		// TODO Auto-generated method stub
 		return new ContainerDistiller(entityPlayer, this);
+	}
+
+	@Override
+	public ItemStackHandlerExtractSpecific getItemInput() {
+		return null;
+	}
+
+	@Override
+	public MultiFluidTank getFluidInputs() {
+		return fluidInput;
+	}
+
+	@Override
+	public ItemStackHandlerExtractSpecific getItemOutput() {
+		return this.itemOutput;
+	}
+
+	@Override
+	public MultiFluidTank getFluidOutputs() {
+		return fluidOutput;
 	}
 
 }

@@ -1,15 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat;
 
-import java.util.*;
-import java.util.stream.IntStream;
-
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
-import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.Gui;
@@ -17,22 +13,20 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemHandlerHelper;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerVat extends SARRectangularMultiblockControllerBase implements ISmartTankCallback, IHasGui {
+public class ControllerVat extends SARMultiblockInventory implements ISmartTankCallback, IHasGui {
 
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
 	public static int inputCapacity = outputCapacity * 3;
@@ -42,20 +36,17 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 
 	public MultiFluidTank fluidInput;
 	public ItemStackHandlerExtractSpecific itemInput;
-	public FluidTankSmart output;
+	public MultiFluidTank output;
 
 	protected ControllerVat(World world) {
 		super(world);
-		fluidInput = new MultiFluidTank(inputCapacity, this);
+		fluidInput = new MultiFluidTank(inputCapacity, this, 0);
 		itemInput = new ItemStackHandlerExtractSpecific(3);
-		output = new FluidTankSmart(outputCapacity, this);
+		output = new MultiFluidTank(outputCapacity, this, 1);
 	}
 
 	@Override
-	protected boolean updateServer() {
-
-		boolean flag = false;
-
+	protected void onTick() {
 		for(Entity entity : WORLD.getEntitiesWithinAABB(Entity.class, bounds)) {
 			if(entity instanceof EntityItem) {
 				EntityItem item = (EntityItem) entity;
@@ -73,11 +64,6 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 				fluid = this.fluidInput.fluids.get(0);
 			}
 			if(fluid != null && fluid.getFluid() != null && fluid.getFluid().getBlock() != null) {
-				// if(fluid.getFluid() == FluidRegistry.getFluid("potion") && entity instanceof EntityLiving) {
-				// EntityLiving living = (EntityLiving) entity;
-				// PotionType.getPotionTypeForName(fluid.tag.getString("Potion")).getEffects()
-				// .forEach(effect -> living.addPotionEffect(effect));
-				// }
 				if(fluid.getFluid().getTemperature() >= FluidRegistry.LAVA.getTemperature()) {
 					entity.setFire(5);
 				}
@@ -86,57 +72,6 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 
 			}
 		}
-
-		Optional<VatRecipe> r = VatRecipe.getRecipeList().parallelStream().filter(this::hasRequiredFluids)
-				.filter(this::hasRequiredItems).findFirst();
-
-		if(r.isPresent()) {
-			VatRecipe recipe = r.get();
-			FluidStack result = recipe.output;
-			if(this.output.fill(result, false) == result.amount) {
-				this.output.fill(result, true);
-				for(FluidStack stack : recipe.fluidInputs) {
-					this.fluidInput.drain(stack, true);
-				}
-				if(recipe.itemInputs != null) {
-					for(ItemStack stack : recipe.itemInputs) {
-						this.itemInput.extractStack(stack);
-					}
-				}
-			}
-			flag = true;
-		}
-
-		return flag;
-	}
-
-	private boolean hasRequiredFluids(VatRecipe recipe) {
-		// Stream the fluid stacks
-		return Arrays.stream(recipe.fluidInputs)
-				// Apply tanksHaveFluid to each element and output result to stream
-				.map(this::tanksHaveFluid)
-				// Reduce list of booleans into one - so will only evaluate true if every boolean is true
-				.reduce((a, b) -> a && b).orElse(false);
-	}
-
-	private boolean tanksHaveFluid(FluidStack stack) {
-		return fluidInput.fluids.stream().filter(Objects::nonNull).filter(fluid -> fluid.containsFluid(stack)).findAny()
-				.isPresent();
-	}
-
-	private boolean hasRequiredItems(VatRecipe recipe) {
-		// No doubt Sky will slap me with a way to integrate this into the stream shortly
-		if(recipe.itemInputs != null) {
-			return Arrays.stream(recipe.itemInputs).map(this::handlerHasItems).reduce((a, b) -> a && b).orElse(false);
-		}
-		else {
-			return true;
-		}
-	}
-
-	private boolean handlerHasItems(ItemStack stack) {
-		return IntStream.range(0, itemInput.getSlots()).mapToObj(slotNum -> itemInput.getStackInSlot(slotNum))
-				.filter(inputStack -> ItemStackUtils.containsItemStack(stack, inputStack)).findAny().isPresent();
 	}
 
 	@Override
@@ -144,6 +79,7 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 		fluidInput.readFromNBT(data.getCompoundTag("fluids"));
 		itemInput.deserializeNBT(data.getCompoundTag("items"));
 		output.readFromNBT(data.getCompoundTag("output"));
+		super.onAttachedPartWithMultiblockData(part, data);
 	}
 
 	@Override
@@ -280,6 +216,7 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 		data.setTag("fluids", fluidInput.writeToNBT(new NBTTagCompound()));
 		data.setTag("items", itemInput.serializeNBT());
 		data.setTag("output", output.writeToNBT(new NBTTagCompound()));
+		super.writeToDisk(data);
 	}
 
 	@Override
@@ -288,28 +225,16 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTank tank) {
-		if(tank instanceof MultiFluidTank) {
-			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketMultiFluidUpdate(this.getReferenceCoord(), ((MultiFluidTank) tank)),
-					this.getReferenceCoord(), WORLD.provider.getDimension());
-		}
-		else {
-			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid()), this.getReferenceCoord(),
-					WORLD.provider.getDimension());
-		}
-	}
-
-	@Override
-	public void updateFluid(PacketFluidUpdate message) {
-		output.setFluid(message.fluid);
-	}
-
-	@Override
 	public void updateFluid(PacketMultiFluidUpdate message) {
-		fluidInput.fluids.clear();
-		fluidInput.fluids.addAll(message.tank.fluids);
+		if(message.id == fluidInput.getId()) {
+			fluidInput.fluids.clear();
+			fluidInput.fluids.addAll(message.tank.fluids);
+		}
+		else if(message.id == output.getId()) {
+			output.fluids.clear();
+			output.fluids.addAll(message.tank.fluids);
+		}
+		super.updateFluid(message);
 	}
 
 	@Override
@@ -332,5 +257,25 @@ public class ControllerVat extends SARRectangularMultiblockControllerBase implem
 	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
 		// TODO Auto-generated method stub
 		return new ContainerVat(entityPlayer, this);
+	}
+
+	@Override
+	public ItemStackHandlerExtractSpecific getItemInput() {
+		return this.itemInput;
+	}
+
+	@Override
+	public MultiFluidTank getFluidInputs() {
+		return this.fluidInput;
+	}
+
+	@Override
+	public ItemStackHandlerExtractSpecific getItemOutput() {
+		return null;
+	}
+
+	@Override
+	public MultiFluidTank getFluidOutputs() {
+		return output;
 	}
 }

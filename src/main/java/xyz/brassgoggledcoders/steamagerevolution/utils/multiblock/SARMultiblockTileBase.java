@@ -1,30 +1,15 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.tileentities;
+package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
-import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.ControllerSteamFurnace;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblockTile;
-
-public abstract class TileEntityFurnacePart extends RectangularMultiblockTileEntityBase<ControllerSteamFurnace>
+public abstract class SARMultiblockTileBase<T extends SARMultiblockBase> extends RectangularMultiblockTileEntityBase<T>
 		implements ISARMultiblockTile {
-
-	@Override
-	public Class<ControllerSteamFurnace> getMultiblockControllerType() {
-		return ControllerSteamFurnace.class;
-	}
 
 	@Override
 	public boolean[] getValidPositions() {
 		return new boolean[] {isGoodForFrame(null), isGoodForSides(null), isGoodForTop(null), isGoodForBottom(null),
 				isGoodForInterior(null)};
-	}
-
-	@Override
-	public ISARMultiblock getControllerInfo() {
-		return new ControllerSteamFurnace(null);
 	}
 
 	@Override
@@ -57,10 +42,4 @@ public abstract class TileEntityFurnacePart extends RectangularMultiblockTileEnt
 
 	@Override
 	public void onMachineDeactivated() {}
-
-	@Override
-	public MultiblockControllerBase createNewMultiblock() {
-		return new ControllerSteamFurnace(getWorld());
-	}
-
 }

@@ -4,35 +4,30 @@ import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
+import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemStack;
+import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerSteamHammer extends SARRectangularMultiblockControllerBase
-		implements ISmartTankCallback, ISmartStackCallback {
+public class ControllerSteamHammer extends SARMultiblockInventory implements ISmartStackCallback {
 
-	public ItemStackHandler inventory;
-	public FluidTank tank;
+	public ItemStackHandlerSmart inventory;
 	public String dieType = "";
 	private int progress = 0;
 	BlockPos center = null;
@@ -41,12 +36,6 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 	public ControllerSteamHammer(World world) {
 		super(world);
 		inventory = new ItemStackHandlerSmart(2, this);
-		tank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this);
-	}
-
-	@Override
-	protected FluidTank getTank(String toWrap) {
-		return tank;
 	}
 
 	@Override
@@ -56,9 +45,9 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		tank.readFromNBT(data.getCompoundTag("tank"));
 		dieType = data.getString("dieType");
 		progress = data.getInteger("progress");
+		super.onAttachedPartWithMultiblockData(part, data);
 	}
 
 	@Override
@@ -147,41 +136,23 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 	}
 
 	@Override
-	protected boolean updateServer() {
-
+	protected void onTick() {
 		for(EntityItem item : WORLD.getEntitiesWithinAABB(EntityItem.class, interior)) {
 			if(ItemHandlerHelper.insertItem(inventory, item.getItem(), true).isEmpty()) {
 				ItemHandlerHelper.insertItem(inventory, item.getItem(), false);
 				item.setDead();
 			}
 		}
+	}
 
-		if(tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
-			if(progress < 10) {
-				this.progress++;
-				tank.drain(Fluid.BUCKET_VOLUME, true);
-				return true;
-			}
-			else {
-				if(!inventory.getStackInSlot(0).isEmpty()) {
-					ItemStack result = SteamHammerRecipe.getResult(inventory.getStackInSlot(0), dieType);
-					if(!result.isEmpty() && inventory.insertItem(1, result, true).isEmpty()) {
-						inventory.extractItem(0, 1, false);
-						inventory.insertItem(1, result, false);
-						progress = 0;
-
-						WORLD.playSound(null, center.getX() + .5F, center.getY(), center.getZ() + .5F,
-								SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1F, 1F);
-						SteamAgeRevolution.proxy.spawnFX(EnumParticleTypes.FLAME, center);
-						WORLD.getEntitiesWithinAABB(EntityLivingBase.class, interior).forEach(entity -> entity
-								.attackEntityFrom(ModuleMetalworking.damageSourceHammer, entity.getMaxHealth()));
-
-						return true;
-					}
-				}
-			}
-		}
-		return false;
+	@Override
+	public void onFinish() {
+		super.onFinish();
+		WORLD.playSound(null, center.getX() + .5F, center.getY(), center.getZ() + .5F, SoundEvents.BLOCK_ANVIL_LAND,
+				SoundCategory.BLOCKS, 1F, 1F);
+		SteamAgeRevolution.proxy.spawnFX(EnumParticleTypes.FLAME, center);
+		WORLD.getEntitiesWithinAABB(EntityLivingBase.class, interior).forEach(
+				entity -> entity.attackEntityFrom(ModuleMetalworking.damageSourceHammer, entity.getMaxHealth()));
 	}
 
 	@Override
@@ -221,26 +192,39 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
-		data.setTag("tank", tank.writeToNBT(new NBTTagCompound()));
 		data.setString("dieType", dieType);
 		data.setInteger("progress", progress);
-	}
-
-	@Override
-	public void onTankContentsChanged(FluidTank tank) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void updateFluid(PacketFluidUpdate fluid) {
-		// TODO Auto-generated method stub
-
+		super.writeToDisk(data);
 	}
 
 	@Override
 	public String getName() {
 		return "Steam Hammer";
+	}
+
+	@Override
+	public void updateStack(PacketItemUpdate message) {
+		this.inventory.setStackInSlot(message.slot, message.item);
+	}
+
+	@Override
+	public ItemStackHandlerExtractSpecific getItemInput() {
+		return this.inventory;
+	}
+
+	@Override
+	public MultiFluidTank getFluidInputs() {
+		return null;
+	}
+
+	@Override
+	public ItemStackHandlerExtractSpecific getItemOutput() {
+		return this.inventory;
+	}
+
+	@Override
+	public MultiFluidTank getFluidOutputs() {
+		return null;
 	}
 
 	@Override
@@ -253,7 +237,14 @@ public class ControllerSteamHammer extends SARRectangularMultiblockControllerBas
 	}
 
 	@Override
-	public void updateStack(PacketItemUpdate message) {
-		this.inventory.setStackInSlot(message.slot, message.item);
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

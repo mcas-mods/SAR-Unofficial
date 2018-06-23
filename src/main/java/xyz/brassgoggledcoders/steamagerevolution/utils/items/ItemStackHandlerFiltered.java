@@ -4,10 +4,9 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
 
-public abstract class ItemStackHandlerFiltered extends ItemStackHandler {
+public abstract class ItemStackHandlerFiltered extends ItemStackHandlerExtractSpecific {
 
 	public ItemStackHandlerFiltered(int size) {
 		super(size);

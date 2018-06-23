@@ -7,6 +7,9 @@ import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
+import net.minecraft.client.gui.Gui;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
@@ -14,7 +17,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureMonitor;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureValve;
@@ -22,9 +24,9 @@ import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
-public class ControllerBoiler extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
+public class ControllerBoiler extends SARMultiblockBase implements ISmartTankCallback {
 
 	public static final int fuelDivisor = 3;
 	public static final int fluidConversionPerTick = 5;
@@ -234,13 +236,6 @@ public class ControllerBoiler extends SARRectangularMultiblockControllerBase imp
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTank tank) {
-		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-				new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid()), this.getReferenceCoord(),
-				WORLD.provider.getDimension());
-	}
-
-	@Override
 	public void updateFluid(PacketFluidUpdate message) {
 		if(message.fluid.getFluid().equals(FluidRegistry.WATER))
 			waterTank.setFluid(message.fluid);
@@ -275,5 +270,17 @@ public class ControllerBoiler extends SARRectangularMultiblockControllerBase imp
 	protected void onMachineDisassembled() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -9,11 +9,11 @@ import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
 public class MultiblockTankWrapper implements IFluidTank, IFluidHandler {
 
-	final MultiblockTileEntityBase<SARRectangularMultiblockControllerBase> tile;
+	final MultiblockTileEntityBase<SARMultiblockBase> tile;
 	final String toWrap;
 
 	public MultiblockTankWrapper(RectangularMultiblockTileEntityBase<?> tile, String toWrap) {
-		this.tile = (MultiblockTileEntityBase<SARRectangularMultiblockControllerBase>) tile;
+		this.tile = (MultiblockTileEntityBase<SARMultiblockBase>) tile;
 		this.toWrap = toWrap;
 	}
 

@@ -3,9 +3,9 @@ package xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.item.ItemStack;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.SteamFurnaceRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe;
 
-public class SteamFurnaceRecipeCategory extends SARRecipeCategory<SteamFurnaceRecipe> {
+public class SteamFurnaceRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 
 	public static final String uid = "steamfurnace";
 
@@ -14,7 +14,7 @@ public class SteamFurnaceRecipeCategory extends SARRecipeCategory<SteamFurnaceRe
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, SteamFurnaceRecipe recipeWrapper, IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, SARMachineRecipe recipeWrapper, IIngredients ingredients) {
 		recipeLayout.getItemStacks().init(0, true, 0, 0);
 		recipeLayout.getItemStacks().init(1, false, 60, 18);
 

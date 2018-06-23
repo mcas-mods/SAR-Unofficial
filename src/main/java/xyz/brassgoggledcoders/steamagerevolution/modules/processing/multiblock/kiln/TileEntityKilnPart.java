@@ -4,11 +4,11 @@ import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockControllerInfo;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.IMultiblockTileInfo;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblockTile;
 
 public abstract class TileEntityKilnPart extends RectangularMultiblockTileEntityBase<ControllerKiln>
-		implements IMultiblockTileInfo {
+		implements ISARMultiblockTile {
 
 	@Override
 	public Class<ControllerKiln> getMultiblockControllerType() {
@@ -16,7 +16,7 @@ public abstract class TileEntityKilnPart extends RectangularMultiblockTileEntity
 	}
 
 	@Override
-	public IMultiblockControllerInfo getControllerInfo() {
+	public ISARMultiblock getControllerInfo() {
 		return new ControllerKiln(null);
 	}
 

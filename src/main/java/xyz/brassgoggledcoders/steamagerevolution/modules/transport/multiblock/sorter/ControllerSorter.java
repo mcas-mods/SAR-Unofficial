@@ -6,6 +6,9 @@ import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
+import net.minecraft.client.gui.Gui;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
@@ -14,9 +17,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreDictionary;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
-public class ControllerSorter extends SARRectangularMultiblockControllerBase {
+public class ControllerSorter extends SARMultiblockBase {
 
 	public ItemStackHandler cards = new ItemStackHandler(8);
 	public ItemStackHandler buffer = new ItemStackHandler(4);
@@ -229,5 +232,17 @@ public class ControllerSorter extends SARRectangularMultiblockControllerBase {
 		public NonNullList<ItemStack> getStackList() {
 			return this.stacks;
 		}
+	}
+
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

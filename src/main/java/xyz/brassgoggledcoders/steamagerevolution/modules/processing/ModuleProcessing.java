@@ -21,9 +21,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.SteamFurnaceRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.sawmill.SawmillRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
+import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe.MachineRecipeBuilder;
 
 @Module(value = SteamAgeRevolution.MODID)
 @ObjectHolder(SteamAgeRevolution.MODID)
@@ -68,7 +69,8 @@ public class ModuleProcessing extends ModuleBase {
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 
 		for(Entry<ItemStack, ItemStack> recipe : FurnaceRecipes.instance().getSmeltingList().entrySet()) {
-			SteamFurnaceRecipe.addSteamFurnaceRecipe(recipe.getKey(), recipe.getValue());
+			RecipeRegistry.addRecipe("steam furnace", new MachineRecipeBuilder("steam furnace")
+					.setItemInputs(recipe.getKey()).setItemOutputs(recipe.getValue()).build());
 
 			// FIXME
 			// if(IntStream.of(OreDictionary.getOreIDs(recipe.getKey()))

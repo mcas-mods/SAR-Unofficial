@@ -1,6 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
-public interface IMultiblockControllerInfo {
+public interface ISARMultiblock {
 	public String getName();
 
 	public int getMaximumXSize();

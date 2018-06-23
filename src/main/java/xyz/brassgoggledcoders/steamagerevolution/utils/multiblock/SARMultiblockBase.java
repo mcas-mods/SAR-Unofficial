@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.multiblock.validation.ValidationError;
@@ -13,20 +14,15 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
-public abstract class SARRectangularMultiblockControllerBase extends RectangularMultiblockControllerBase
-		implements IMultiblockControllerInfo {
+public abstract class SARMultiblockBase extends RectangularMultiblockControllerBase implements ISARMultiblock, IHasGui {
 
 	List<Block> requiredBlocks = new ArrayList<Block>();
 
-	protected SARRectangularMultiblockControllerBase(World world, Block... requiredBlocks) {
+	protected SARMultiblockBase(World world, Block... requiredBlocks) {
 		super(world);
 		for(Block required : requiredBlocks) {
 			this.requiredBlocks.add(required);
 		}
-	}
-
-	protected FluidTank getTank(String toWrap) {
-		return null;
 	}
 
 	@Override
@@ -46,29 +42,35 @@ public abstract class SARRectangularMultiblockControllerBase extends Rectangular
 		return super.isMachineWhole(validatorCallback);
 	}
 
-	// Modify from protected to public
-	@Override
-	public int getMinimumXSize() {
-		return 1;
-	}
-
-	@Override
-	public int getMinimumYSize() {
-		return 1;
-	}
-
-	@Override
-	public int getMinimumZSize() {
-		return 1;
-	}
-
 	@Override
 	protected void onMachineAssembled() {
 		SteamAgeRevolution.instance.getLogger().devInfo("Machine Assembled");
 		SteamAgeRevolution.proxy.spawnMultiblockAssemblyFX(this.getMinimumCoord(), this.getMaximumCoord());
 	}
 
+	@Deprecated
 	public ItemStackHandler getInventory(String toWrap) {
 		return null;
+	}
+
+	@Deprecated
+	protected FluidTank getTank(String toWrap) {
+		return null;
+	}
+
+	// Modify from protected to public
+	@Override
+	public int getMinimumXSize() {
+		return 0;
+	}
+
+	@Override
+	public int getMinimumYSize() {
+		return 0;
+	}
+
+	@Override
+	public int getMinimumZSize() {
+		return 0;
 	}
 }

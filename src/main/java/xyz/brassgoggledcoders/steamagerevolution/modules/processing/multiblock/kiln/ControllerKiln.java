@@ -7,7 +7,10 @@ import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -16,9 +19,9 @@ import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMaterials;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
-public class ControllerKiln extends SARRectangularMultiblockControllerBase {
+public class ControllerKiln extends SARMultiblockBase {
 
 	public BlockPos minimumInteriorPos;
 	public BlockPos maximumInteriorPos;
@@ -201,5 +204,17 @@ public class ControllerKiln extends SARRectangularMultiblockControllerBase {
 				// || OreDictionary.getOres("logWood", false).contains(new ItemStack(Item.getItemFromBlock(block)));
 				// TODO
 				|| block == Blocks.LOG || block == ModuleMaterials.charcoal_block;
+	}
+
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

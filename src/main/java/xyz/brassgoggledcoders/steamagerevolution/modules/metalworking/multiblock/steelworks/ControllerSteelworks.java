@@ -4,7 +4,10 @@ import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
+import net.minecraft.client.gui.Gui;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
@@ -17,9 +20,9 @@ import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
-public class ControllerSteelworks extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
+public class ControllerSteelworks extends SARMultiblockBase implements ISmartTankCallback {
 
 	public FluidTank steamTank = new FluidTankSmart(Fluid.BUCKET_VOLUME * 16, this);
 	public FluidTank ironTank = new FluidTankSmart(Fluid.BUCKET_VOLUME * 16, this);
@@ -197,12 +200,6 @@ public class ControllerSteelworks extends SARRectangularMultiblockControllerBase
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTank tank) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void readFromDisk(NBTTagCompound data) {
 		// TODO Auto-generated method stub
 
@@ -237,5 +234,17 @@ public class ControllerSteelworks extends SARRectangularMultiblockControllerBase
 	@Override
 	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
 		return world.isAirBlock(new BlockPos(x, y, z));
+	}
+
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

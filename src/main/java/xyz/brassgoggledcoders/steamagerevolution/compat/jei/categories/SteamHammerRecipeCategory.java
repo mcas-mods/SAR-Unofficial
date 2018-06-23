@@ -3,9 +3,9 @@ package xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.item.ItemStack;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.SteamHammerRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe;
 
-public class SteamHammerRecipeCategory extends SARRecipeCategory<SteamHammerRecipe> {
+public class SteamHammerRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 
 	public static final String uid = "steamhammer";
 
@@ -14,7 +14,7 @@ public class SteamHammerRecipeCategory extends SARRecipeCategory<SteamHammerReci
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, SteamHammerRecipe recipeWrapper, IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, SARMachineRecipe recipeWrapper, IIngredients ingredients) {
 		recipeLayout.getItemStacks().init(0, true, 7, 23);
 		recipeLayout.getItemStacks().init(1, false, 116, 23);
 

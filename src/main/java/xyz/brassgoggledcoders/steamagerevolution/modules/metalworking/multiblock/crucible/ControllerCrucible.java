@@ -6,20 +6,23 @@ import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
+import net.minecraft.client.gui.Gui;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.TileEntityCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerCrucible;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARRectangularMultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerCrucible extends SARRectangularMultiblockControllerBase implements ISmartTankCallback {
+public class ControllerCrucible extends SARMultiblockInventory implements ISmartTankCallback {
 
 	BlockPos minimumInteriorPos;
 	BlockPos maximumInteriorPos;
@@ -190,13 +193,6 @@ public class ControllerCrucible extends SARRectangularMultiblockControllerBase i
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTank tank) {
-		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-				new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid()), this.getReferenceCoord(),
-				WORLD.provider.getDimension());
-	}
-
-	@Override
 	public void updateFluid(PacketFluidUpdate message) {
 		if(message.fluid.getFluid().equals(FluidRegistry.getFluid("steam")))
 			steamTank.setFluid(message.fluid);
@@ -207,5 +203,59 @@ public class ControllerCrucible extends SARRectangularMultiblockControllerBase i
 	@Override
 	public String getName() {
 		return "Crucible";
+	}
+
+	@Override
+	public ItemStackHandlerExtractSpecific getItemInput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MultiFluidTank getFluidInputs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemStackHandlerExtractSpecific getItemOutput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MultiFluidTank getFluidOutputs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getMinimumXSize() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getMinimumYSize() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getMinimumZSize() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

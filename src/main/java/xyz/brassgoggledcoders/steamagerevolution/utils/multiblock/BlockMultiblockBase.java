@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public abstract class BlockMultiblockBase<T extends MultiblockTileEntityBase> extends BlockTEBase<T> {
+public abstract class BlockMultiblockBase<T extends MultiblockTileEntityBase<?>> extends BlockTEBase<T> {
 
 	public BlockMultiblockBase(Material material, String name) {
 		super(material, name);
@@ -47,8 +47,8 @@ public abstract class BlockMultiblockBase<T extends MultiblockTileEntityBase> ex
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
-		IMultiblockTileInfo tile = (IMultiblockTileInfo) this.createTileEntity(player, null);
-		IMultiblockControllerInfo controller = tile.getControllerInfo();
+		ISARMultiblockTile tile = (ISARMultiblockTile) this.createTileEntity(player, null);
+		ISARMultiblock controller = tile.getControllerInfo();
 
 		// TODO Localisation
 		tooltip.add("Multiblock: " + controller.getName());
