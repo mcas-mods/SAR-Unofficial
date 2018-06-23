@@ -12,7 +12,6 @@ import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.SteamFurnaceRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.sawmill.SawmillRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
 
@@ -37,13 +36,13 @@ public class SARJEIPlugin implements IModPlugin {
 		add(registry, RecipeRegistry.getRecipesForMachine("steam hammer"), SteamHammerRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.steamhammer_anvil));
 
-		add(registry, RecipeRegistry.getRecipesForMachine("alloyforge"), AlloyForgeRecipeCategory.uid,
+		add(registry, RecipeRegistry.getRecipesForMachine("alloy forge"), AlloyForgeRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.alloy_furnace_frame));
 
 		add(registry, CrucibleRecipe.getRecipeList(), CrucibleRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.crucible_casing));
 
-		add(registry, SteamFurnaceRecipe.getRecipeList(), SteamFurnaceRecipeCategory.uid,
+		add(registry, RecipeRegistry.getRecipesForMachine("steam furnace"), SteamFurnaceRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.furnace_casing));
 
 		add(registry, CastingBlockRecipe.getRecipeList(), CastingBlockRecipeCategory.uid,

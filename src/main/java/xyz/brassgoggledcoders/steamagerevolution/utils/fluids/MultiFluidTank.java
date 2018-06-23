@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import javax.annotation.Nullable;
 
+import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,7 +20,7 @@ import net.minecraftforge.fluids.capability.IFluidTankProperties;
  */
 // FIXME
 public class MultiFluidTank extends FluidTankSmart {
-	public ArrayList<FluidStack> fluids = new ArrayList<>();
+	public ArrayList<FluidStack> fluids = Lists.newArrayList();
 	private final int capacity;
 
 	public MultiFluidTank(int capacity, MultiblockControllerBase parent, int id) {

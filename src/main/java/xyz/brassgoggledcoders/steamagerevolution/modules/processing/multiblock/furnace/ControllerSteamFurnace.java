@@ -6,29 +6,24 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerSteamFurnace extends SARMultiblockBase implements ISmartTankCallback {
+public class ControllerSteamFurnace extends SARMultiblockInventory implements ISmartTankCallback {
 
 	public ItemStackHandler inputInventory = new ItemStackHandlerFuel(1);
 	public ItemStackHandler outputInventory = new ItemStackHandler(3);
-	public FluidTankSingleSmart steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
 
 	int temperature = 0;
 	int currentCookTime = 0;
@@ -46,16 +41,10 @@ public class ControllerSteamFurnace extends SARMultiblockBase implements ISmartT
 	}
 
 	@Override
-	protected FluidTank getTank(String toWrap) {
-		return steamTank;
-	}
-
-	@Override
 	public ItemStackHandler getInventory(String toWrap) {
 		if(toWrap.equals("input")) {
 			return inputInventory;
 		}
-
 		return outputInventory;
 	}
 
@@ -70,76 +59,8 @@ public class ControllerSteamFurnace extends SARMultiblockBase implements ISmartT
 	}
 
 	@Override
-	protected boolean updateServer() {
-		boolean flag = false;
-
-		// Heating logic
-		if(isHeating) {
-			if(steamTank.getFluidAmount() >= steamUsePerHeat) {
-				temperature++;
-				steamTank.drain(steamUsePerHeat, true);
-				flag = true;
-			}
-			else if(temperature > 0) {
-				temperature--;
-				flag = true;
-			}
-		}
-		else {
-			if(temperature > 0) {
-				if(steamTank.getFluidAmount() >= steamUsePerMaintain) {
-					steamTank.drain(steamUsePerMaintain, true);
-					flag = true;
-				}
-				else {
-					temperature--;
-					flag = true;
-				}
-			}
-		}
-		// If temp exceeds max, start risking melting down
-		if(ModuleSteam.enableDestruction && temperature > maxTemperature) {
-			if(WORLD.rand.nextInt(10) == 0) {
-				for(BlockPos machineBlock : BlockPos.getAllInBox(getMinimumCoord(), getMaximumCoord())) {
-					if(WORLD.rand.nextBoolean()) {
-						this.WORLD.setBlockState(machineBlock, Blocks.FLOWING_LAVA.getDefaultState());
-					}
-					else {
-						this.WORLD.setBlockToAir(machineBlock);
-					}
-				}
-			}
-		}
-
-		// Smelting logic TODO Liquid metal output
-		if(temperature >= thresholdTemperature && !inputInventory.getStackInSlot(0).isEmpty()
-				&& !SteamFurnaceRecipe.getResult(inputInventory.getStackInSlot(0)).isEmpty()) {
-
-			if(currentCookTime < cookTime) {
-				currentCookTime += Math.floor(temperature / 10);
-				flag = true;
-			}
-			else {
-				ItemStack resultItem = SteamFurnaceRecipe.getResult(inputInventory.getStackInSlot(0));
-				if(ItemHandlerHelper.insertItem(outputInventory, resultItem, true).isEmpty()) {
-					if(!inputInventory.extractItem(0, resultItem.getCount(), true).isEmpty()) {
-						inputInventory.extractItem(0, resultItem.getCount(), false);
-						ItemHandlerHelper.insertItem(outputInventory, resultItem, false);
-						currentCookTime = 0;
-						flag = true;
-					}
-				}
-			}
-		}
-		return flag;
-	}
-
-	@Override
 	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		if(world.isAirBlock(new BlockPos(x, y, z)))
-			return true;
-		else
-			return false;
+		return world.isAirBlock(new BlockPos(x, y, z));
 	}
 
 	@Override
@@ -184,7 +105,7 @@ public class ControllerSteamFurnace extends SARMultiblockBase implements ISmartT
 		currentCookTime = data.getInteger("cookTime");
 		inputInventory.deserializeNBT(data.getCompoundTag("inputinv"));
 		outputInventory.deserializeNBT(data.getCompoundTag("outputinv"));
-		steamTank.readFromNBT(data.getCompoundTag("fluidtank"));
+		super.onAttachedPartWithMultiblockData(part, data);
 	}
 
 	@Override
@@ -194,7 +115,7 @@ public class ControllerSteamFurnace extends SARMultiblockBase implements ISmartT
 		data.setInteger("cookTime", currentCookTime);
 		data.setTag("inputinv", inputInventory.serializeNBT());
 		data.setTag("outputinv", outputInventory.serializeNBT());
-		data.setTag("fluidtank", steamTank.writeToNBT(new NBTTagCompound()));
+		super.writeToDisk(data);
 	}
 
 	@Override
@@ -296,6 +217,30 @@ public class ControllerSteamFurnace extends SARMultiblockBase implements ISmartT
 
 	@Override
 	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemStackHandlerExtractSpecific getItemInput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MultiFluidTank getFluidInputs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemStackHandler getItemOutput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MultiFluidTank getFluidOutputs() {
 		// TODO Auto-generated method stub
 		return null;
 	}
