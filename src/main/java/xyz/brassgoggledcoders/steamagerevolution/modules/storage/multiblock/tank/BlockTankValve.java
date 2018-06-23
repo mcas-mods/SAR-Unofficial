@@ -4,9 +4,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockGUIBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
-public class BlockTankValve extends BlockMultiblockGUIBase<TileEntityTankValve> {
+public class BlockTankValve extends BlockMultiblockBase<TileEntityTankValve> {
 
 	public BlockTankValve(Material material, String name) {
 		super(material, name);

@@ -5,9 +5,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.tileentities.TileEntityAlloyFurnaceFluidOutput;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockGUIBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
-public class BlockAlloyFurnaceFluidOutput extends BlockMultiblockGUIBase<TileEntityAlloyFurnaceFluidOutput> {
+public class BlockAlloyFurnaceFluidOutput extends BlockMultiblockBase<TileEntityAlloyFurnaceFluidOutput> {
 
 	public BlockAlloyFurnaceFluidOutput(Material material, String name) {
 		super(material, name);

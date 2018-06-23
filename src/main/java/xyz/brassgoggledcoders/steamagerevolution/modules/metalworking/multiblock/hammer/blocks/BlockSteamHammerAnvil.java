@@ -11,9 +11,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.tileentities.TileEntitySteamHammerAnvil;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockGUIBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
-public class BlockSteamHammerAnvil extends BlockMultiblockGUIBase<TileEntitySteamHammerAnvil> {
+public class BlockSteamHammerAnvil extends BlockMultiblockBase<TileEntitySteamHammerAnvil> {
 
 	public BlockSteamHammerAnvil(Material material, String name) {
 		super(material, name);

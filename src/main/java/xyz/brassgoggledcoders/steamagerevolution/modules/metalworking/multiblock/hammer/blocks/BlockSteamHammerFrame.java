@@ -12,9 +12,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.tileentities.TileEntitySteamHammerFrame;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockGUIBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
-public class BlockSteamHammerFrame extends BlockMultiblockGUIBase<TileEntitySteamHammerFrame> {
+public class BlockSteamHammerFrame extends BlockMultiblockBase<TileEntitySteamHammerFrame> {
 
 	public static final PropertyEnum<PartPosition> position = PartPosition.createProperty("position");
 

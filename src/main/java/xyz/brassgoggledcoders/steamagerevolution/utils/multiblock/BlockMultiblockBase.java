@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.teamacronymcoders.base.blocks.BlockTEBase;
+import com.teamacronymcoders.base.guisystem.GuiOpener;
 import com.teamacronymcoders.base.multiblock.MultiblockTileEntityBase;
 
 import net.minecraft.block.material.Material;
@@ -15,7 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -29,16 +29,17 @@ public abstract class BlockMultiblockBase<T extends MultiblockTileEntityBase<?>>
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if(playerIn.isSneaking()) {
-			MultiblockTileEntityBase<?> tile = getTileEntity(worldIn, pos).get();
-			if(tile != null && tile.isConnected()) {
+		MultiblockTileEntityBase<?> tile = getTileEntity(worldIn, pos).get();
+		if(tile != null && tile.isConnected()) {
+			if(tile.getMultiblockController().isAssembled()) {
+				GuiOpener.openMultiblockGui(getMod(), playerIn, worldIn, pos);
+				return true;
+			}
+			else {
 				if(tile.getMultiblockController().getLastError() != null) {
 					playerIn.sendStatusMessage(tile.getMultiblockController().getLastError().getChatMessage(), true);
+					return true;
 				}
-				else {
-					playerIn.sendStatusMessage(new TextComponentString("Multiblock is assembled"), true);
-				}
-				return true;
 			}
 		}
 		return false;
