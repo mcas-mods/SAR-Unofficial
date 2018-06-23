@@ -31,7 +31,7 @@ public class ControllerDistiller extends SARMultiblockInventory implements ISmar
 	public MultiFluidTank fluidOutput;
 	public ItemStackHandlerExtractSpecific itemOutput;
 
-	protected ControllerDistiller(World world) {
+	public ControllerDistiller(World world) {
 		super(world);
 		fluidInput = new MultiFluidTank(tankCapacity, this, 0);
 		fluidOutput = new MultiFluidTank(tankCapacity, this, 1);

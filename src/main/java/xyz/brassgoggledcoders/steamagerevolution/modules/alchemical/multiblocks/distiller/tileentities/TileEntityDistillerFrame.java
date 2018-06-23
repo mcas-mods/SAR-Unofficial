@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller;
+package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.tileentities;
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 

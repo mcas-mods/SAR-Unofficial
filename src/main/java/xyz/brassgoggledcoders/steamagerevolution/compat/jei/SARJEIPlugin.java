@@ -12,7 +12,6 @@ import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.sawmill.SawmillRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
 
 @JEIPlugin
@@ -57,8 +56,8 @@ public class SARJEIPlugin implements IModPlugin {
 		add(registry, RecipeRegistry.getRecipesForMachine("distiller"), DistillerRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.distiller_frame));
 
-		add(registry, SawmillRecipe.getRecipeList(), SawmillRecipeCategory.uid,
-				new ItemStack(JEIObjectHolder.sawmill_casing));
+		// add(registry, SawmillRecipe.getRecipeList(), SawmillRecipeCategory.uid,
+		// new ItemStack(JEIObjectHolder.sawmill_casing));
 	}
 
 	private void add(IModRegistry registry, Collection<?> recipeList, String id, ItemStack catalyst) {

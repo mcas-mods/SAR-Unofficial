@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller;
+package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.tileentities;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
