@@ -14,10 +14,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
 public class ControllerTank extends SARMultiblockBase implements ISmartTankCallback {
@@ -187,6 +188,20 @@ public class ControllerTank extends SARMultiblockBase implements ISmartTankCallb
 	@Override
 	public String getName() {
 		return "Tank";
+	}
+
+	@Override
+	public void onTankContentsChanged(FluidTankSmart tank) {
+		if(tank instanceof MultiFluidTank) {
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+					new PacketMultiFluidUpdate(getReferenceCoord(), ((MultiFluidTank) tank), tank.getId()),
+					getReferenceCoord(), WORLD.provider.getDimension());
+		}
+		else {
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+					new PacketFluidUpdate(getReferenceCoord(), tank.getFluid(), tank.getId()), getReferenceCoord(),
+					WORLD.provider.getDimension());
+		}
 	}
 
 	@Override

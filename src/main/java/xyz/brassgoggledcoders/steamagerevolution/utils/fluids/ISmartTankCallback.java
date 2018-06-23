@@ -6,9 +6,7 @@ import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
 
 public interface ISmartTankCallback {
-	default void onTankContentsChanged(FluidTankSmart tank) {
-		// Default op provided by MultiblockLogicFramework
-	}
+	void onTankContentsChanged(FluidTankSmart tank);
 
 	@SideOnly(Side.CLIENT)
 	void updateFluid(PacketFluidUpdate message);
