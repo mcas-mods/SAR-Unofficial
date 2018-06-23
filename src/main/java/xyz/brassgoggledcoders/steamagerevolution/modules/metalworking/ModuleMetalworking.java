@@ -59,18 +59,18 @@ public class ModuleMetalworking extends ModuleBase {
 
 	public static List<String> knownMetalTypes = Lists.newArrayList();
 
-	public static DamageSource damageSourceHammer =
-			new DamageSource("hammer").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
+	public static DamageSource damageSourceHammer = new DamageSource("hammer").setDifficultyScaled()
+			.setDamageBypassesArmor().setDamageIsAbsolute();
 
 	public static int plateCount, dustCount;
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		this.getConfigRegistry().addEntry("plateCount", new ConfigEntry("balance", "plateCount", Type.INTEGER, "1"));
-		plateCount = this.getConfigRegistry().getInt("plateCount", 1);
-		this.getConfigRegistry().addEntry("dustCount", new ConfigEntry("balance", "dustCount", Type.INTEGER, "1"));
-		dustCount = this.getConfigRegistry().getInt("dustCount", 1);
-		this.getConfigRegistry().addCategoryComment("balance", "Adjust number of items produced in recipes", "General");
+		getConfigRegistry().addEntry("plateCount", new ConfigEntry("balance", "plateCount", Type.INTEGER, "1"));
+		plateCount = getConfigRegistry().getInt("plateCount", 1);
+		getConfigRegistry().addEntry("dustCount", new ConfigEntry("balance", "dustCount", Type.INTEGER, "1"));
+		dustCount = getConfigRegistry().getInt("dustCount", 1);
+		getConfigRegistry().addCategoryComment("balance", "Adjust number of items produced in recipes", "General");
 		knownMetalTypes.add("Iron");
 		knownMetalTypes.add("Gold");
 		super.preInit(event);

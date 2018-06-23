@@ -14,22 +14,22 @@ public class GuiSimpleSlots extends GuiContainer {
 
 	public GuiSimpleSlots(EntityPlayer player, TileEntity tile, int slots) {
 		super(new ContainerSimpleSlots(player, tile, slots));
-		this.guiTexture = new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/slot_" + slots + ".png");
+		guiTexture = new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/slot_" + slots + ".png");
 	}
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		this.drawDefaultBackground();
+		drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
+		renderHoveredToolTip(mouseX, mouseY);
 	}
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		this.mc.renderEngine.bindTexture(guiTexture);
-		int x = (this.width - this.xSize) / 2;
-		int y = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
+		mc.renderEngine.bindTexture(guiTexture);
+		int x = (width - xSize) / 2;
+		int y = (height - ySize) / 2;
+		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 	}
 
 }

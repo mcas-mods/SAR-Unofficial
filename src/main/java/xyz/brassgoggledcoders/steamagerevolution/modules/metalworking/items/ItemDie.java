@@ -10,17 +10,17 @@ import net.minecraft.item.ItemStack;
 
 public class ItemDie extends ItemBase implements IHasSubItems {
 
-	public static String[] dieShapes = new String[] {"Gear", "Test"};
+	public static String[] dieShapes = new String[] { "Gear", "Test" };
 
 	public ItemDie() {
 		super("die");
-		this.setMaxStackSize(1);
+		setMaxStackSize(1);
 	}
 
 	@Override
 	public List<ItemStack> getAllSubItems(List<ItemStack> itemStacks) {
 		for(int i = 0; i < dieShapes.length; i++) {
-			itemStacks.add(new ItemStack(this.getItem(), 1, i));
+			itemStacks.add(new ItemStack(getItem(), 1, i));
 		}
 		return itemStacks;
 	}

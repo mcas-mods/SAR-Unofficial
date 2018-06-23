@@ -11,9 +11,9 @@ public class ContainerSorterBrain extends ContainerBase {
 
 	public ContainerSorterBrain(ItemStackHandler codeInv, InventoryPlayer playerInv) {
 		for(int i = 0; i < 8; i++) {
-			this.addSlotToContainer(new SlotItemHandler(codeInv, i, 30 + 3 * i, 30));
+			addSlotToContainer(new SlotItemHandler(codeInv, i, 30 + 3 * i, 30));
 		}
-		this.createPlayerSlots(playerInv);
+		createPlayerSlots(playerInv);
 	}
 
 	@Override

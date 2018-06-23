@@ -6,7 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class ContainerAlloyFurnace extends ContainerBase {
 	public ContainerAlloyFurnace(EntityPlayer player, ControllerAlloyFurnace tile) {
-		this.createPlayerSlots(player.inventory);
+		createPlayerSlots(player.inventory);
 	}
 
 	@Override

@@ -51,7 +51,8 @@ public class ControllerSteamHammer extends SARMultiblockInventory implements ISm
 	}
 
 	@Override
-	protected void onBlockAdded(IMultiblockPart newPart) {}
+	protected void onBlockAdded(IMultiblockPart newPart) {
+	}
 
 	@Override
 	protected void onBlockRemoved(IMultiblockPart oldPart) {
@@ -61,7 +62,7 @@ public class ControllerSteamHammer extends SARMultiblockInventory implements ISm
 
 	@Override
 	protected void onMachineAssembled() {
-		center = this.getReferenceCoord().up().east().south();
+		center = getReferenceCoord().up().east().south();
 		interior = new AxisAlignedBB(center).expand(1, 2, 1);
 		WORLD.markBlockRangeForRenderUpdate(getMinimumCoord(), getMaximumCoord());
 		super.onMachineAssembled();
@@ -204,12 +205,12 @@ public class ControllerSteamHammer extends SARMultiblockInventory implements ISm
 
 	@Override
 	public void updateStack(PacketItemUpdate message) {
-		this.inventory.setStackInSlot(message.slot, message.item);
+		inventory.setStackInSlot(message.slot, message.item);
 	}
 
 	@Override
 	public ItemStackHandlerExtractSpecific getItemInput() {
-		return this.inventory;
+		return inventory;
 	}
 
 	@Override
@@ -219,7 +220,7 @@ public class ControllerSteamHammer extends SARMultiblockInventory implements ISm
 
 	@Override
 	public ItemStackHandlerExtractSpecific getItemOutput() {
-		return this.inventory;
+		return inventory;
 	}
 
 	@Override
@@ -229,11 +230,12 @@ public class ControllerSteamHammer extends SARMultiblockInventory implements ISm
 
 	@Override
 	public void onContentsChanged(int slot) {
-		if(WORLD.isRemote)
+		if(WORLD.isRemote) {
 			return;
+		}
 		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-				new PacketItemUpdate(this.getReferenceCoord(), inventory.getStackInSlot(slot), slot),
-				this.getReferenceCoord(), WORLD.provider.getDimension());
+				new PacketItemUpdate(getReferenceCoord(), inventory.getStackInSlot(slot), slot), getReferenceCoord(),
+				WORLD.provider.getDimension());
 	}
 
 	@Override

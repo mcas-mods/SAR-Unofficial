@@ -24,8 +24,9 @@ public class TileEntitySorterOutput extends TileEntitySorterPart {
 
 	@Override
 	public boolean hasCapability(Capability<?> capObject, EnumFacing side) {
-		if(capObject == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.isConnected())
+		if(capObject == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && isConnected()) {
 			return true;
+		}
 		return super.hasCapability(capObject, side);
 	}
 

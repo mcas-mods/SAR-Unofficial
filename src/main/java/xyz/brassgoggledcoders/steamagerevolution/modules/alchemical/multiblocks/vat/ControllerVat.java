@@ -38,7 +38,7 @@ public class ControllerVat extends SARMultiblockInventory implements ISmartTankC
 	public ItemStackHandlerExtractSpecific itemInput;
 	public MultiFluidTank output;
 
-	protected ControllerVat(World world) {
+	public ControllerVat(World world) {
 		super(world);
 		fluidInput = new MultiFluidTank(inputCapacity, this, 0);
 		itemInput = new ItemStackHandlerExtractSpecific(3);
@@ -55,13 +55,14 @@ public class ControllerVat extends SARMultiblockInventory implements ISmartTankC
 					item.setDead();
 				}
 			}
-			// Simulate contact with fluid in vat when an entity falls in. TODO change bounds based on fluid fill level
+			// Simulate contact with fluid in vat when an entity falls in. TODO change
+			// bounds based on fluid fill level
 			FluidStack fluid = null;
-			if(this.output.getFluid() != null) {
-				fluid = this.output.getFluid();
+			if(output.getFluid() != null) {
+				fluid = output.getFluid();
 			}
-			else if(!this.fluidInput.fluids.isEmpty() && this.fluidInput.fluids.get(0) != null) {
-				fluid = this.fluidInput.fluids.get(0);
+			else if(!fluidInput.fluids.isEmpty() && fluidInput.fluids.get(0) != null) {
+				fluid = fluidInput.fluids.get(0);
 			}
 			if(fluid != null && fluid.getFluid() != null && fluid.getFluid().getBlock() != null) {
 				if(fluid.getFluid().getTemperature() >= FluidRegistry.LAVA.getTemperature()) {
@@ -96,11 +97,11 @@ public class ControllerVat extends SARMultiblockInventory implements ISmartTankC
 
 	@Override
 	protected void onMachineAssembled() {
-		Pair<BlockPos, BlockPos> interiorPositions =
-				PositionUtils.shrinkPositionCubeBy(this.getMinimumCoord(), this.getMaximumCoord(), 1);
-		this.minimumInteriorPos = interiorPositions.getLeft();
-		this.maximumInteriorPos = interiorPositions.getRight();
-		this.bounds = new AxisAlignedBB(this.getMinimumCoord(), this.getMaximumCoord());
+		Pair<BlockPos, BlockPos> interiorPositions = PositionUtils.shrinkPositionCubeBy(getMinimumCoord(),
+				getMaximumCoord(), 1);
+		minimumInteriorPos = interiorPositions.getLeft();
+		maximumInteriorPos = interiorPositions.getRight();
+		bounds = new AxisAlignedBB(getMinimumCoord(), getMaximumCoord());
 		super.onMachineAssembled();
 	}
 
@@ -261,12 +262,12 @@ public class ControllerVat extends SARMultiblockInventory implements ISmartTankC
 
 	@Override
 	public ItemStackHandlerExtractSpecific getItemInput() {
-		return this.itemInput;
+		return itemInput;
 	}
 
 	@Override
 	public MultiFluidTank getFluidInputs() {
-		return this.fluidInput;
+		return fluidInput;
 	}
 
 	@Override

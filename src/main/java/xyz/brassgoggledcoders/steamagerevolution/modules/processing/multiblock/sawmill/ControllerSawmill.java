@@ -239,16 +239,17 @@ public class ControllerSawmill extends SARMultiblockBase implements ISmartTankCa
 
 	@Override
 	public void onContentsChanged(int slot) {
-		if(WORLD.isRemote)
+		if(WORLD.isRemote) {
 			return;
+		}
 		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-				new PacketItemUpdate(this.getReferenceCoord(), inputInventory.getStackInSlot(slot), slot),
-				this.getReferenceCoord(), WORLD.provider.getDimension());
+				new PacketItemUpdate(getReferenceCoord(), inputInventory.getStackInSlot(slot), slot),
+				getReferenceCoord(), WORLD.provider.getDimension());
 	}
 
 	@Override
 	public void updateStack(PacketItemUpdate message) {
-		this.inputInventory.setStackInSlot(message.slot, message.item);
+		inputInventory.setStackInSlot(message.slot, message.item);
 	}
 
 	@Override

@@ -29,33 +29,24 @@ public class ItemTeacup extends ItemBase implements IHasSubItems {
 	}
 
 	/*
-	 * @Override
-	 * public ItemStack onItemUseFinish(ItemStack stack, World world, EntityPlayer player)
-	 * {
-	 * if(stack.getItemDamage() > 0 && !player.capabilities.isCreativeMode)
-	 * {
-	 * int damage = stack.getItemDamage();
-	 * stack.setItemDamage(damage - 1);
-	 * player.addPotionEffect(new PotionEffect(Potion.digSpeed.id, 200, 2));
-	 * }
-	 * //TODO: Proper Achievements
+	 * @Override public ItemStack onItemUseFinish(ItemStack stack, World world,
+	 * EntityPlayer player) { if(stack.getItemDamage() > 0 &&
+	 * !player.capabilities.isCreativeMode) { int damage = stack.getItemDamage();
+	 * stack.setItemDamage(damage - 1); player.addPotionEffect(new
+	 * PotionEffect(Potion.digSpeed.id, 200, 2)); } //TODO: Proper Achievements
 	 * player.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
-	 * return stack;
-	 * }
-	 * @Override
-	 * public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
-	 * {
-	 * if(stack.getItemDamage() != 0)
-	 * {
-	 * player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
-	 * }
-	 * return stack;
-	 * }
+	 * return stack; }
+	 * 
+	 * @Override public ItemStack onItemRightClick(ItemStack stack, World world,
+	 * EntityPlayer player) { if(stack.getItemDamage() != 0) {
+	 * player.setItemInUse(stack, this.getMaxItemUseDuration(stack)); } return
+	 * stack; }
 	 */
 
 	public String getSipsLeft(ItemStack stack) {
 		// if(stack.getItemDamage() < getNumberOfSubItems()) {
-		// return StatCollector.translateToLocal("desc." + getUnlocalizedName() + "." + stack.getItemDamage() +
+		// return StatCollector.translateToLocal("desc." + getUnlocalizedName() + "." +
+		// stack.getItemDamage() +
 		// "sips");
 		// }
 

@@ -25,7 +25,7 @@ public class BlockHydraulicRouter extends BlockTEBase<TileEntityHydraulicRouter>
 
 	public BlockHydraulicRouter(Material material, String name) {
 		super(material, name);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class BlockHydraulicRouter extends BlockTEBase<TileEntityHydraulicRouter>
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		EnumFacing enumfacing = EnumFacing.getFront(meta);
-		return this.getDefaultState().withProperty(FACING, enumfacing);
+		return getDefaultState().withProperty(FACING, enumfacing);
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class BlockHydraulicRouter extends BlockTEBase<TileEntityHydraulicRouter>
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] {FACING});
+		return new BlockStateContainer(this, new IProperty[] { FACING });
 	}
 
 	@Override

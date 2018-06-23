@@ -47,7 +47,7 @@ public class ControllerSorter extends SARMultiblockBase {
 		}
 
 		// TODO: Take this out of tick loop
-		for(IMultiblockPart part : this.connectedParts) {
+		for(IMultiblockPart part : connectedParts) {
 			if(part instanceof TileEntitySorterOutput) {
 				TileEntitySorterOutput buffer = (TileEntitySorterOutput) part;
 				if(!outputPositions.containsValue(buffer.getBlockMetadata())) {
@@ -230,7 +230,7 @@ public class ControllerSorter extends SARMultiblockBase {
 		}
 
 		public NonNullList<ItemStack> getStackList() {
-			return this.stacks;
+			return stacks;
 		}
 	}
 

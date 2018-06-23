@@ -31,10 +31,11 @@ public class TileEntityFumeCollector extends TileEntitySlowTick implements ISmar
 	// TODO this probably really doesn't need to be ticking.
 	@Override
 	public void updateTile() {
-		if(world.isRemote)
+		if(world.isRemote) {
 			return;
+		}
 		BlockPos below = getPos().down();
-		TileEntity te = this.getWorld().getTileEntity(below);
+		TileEntity te = getWorld().getTileEntity(below);
 		if(te != null && te.hasCapability(SARCapabilities.FUME_PRODUCER, EnumFacing.DOWN)) {
 			IFumeProducer producer = te.getCapability(SARCapabilities.FUME_PRODUCER, EnumFacing.DOWN);
 			if(producer.isBurning()) {
@@ -60,8 +61,9 @@ public class TileEntityFumeCollector extends TileEntitySlowTick implements ISmar
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
+		}
 		return super.getCapability(capability, facing);
 	}
 
@@ -78,12 +80,12 @@ public class TileEntityFumeCollector extends TileEntitySlowTick implements ISmar
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void updateFluid(PacketFluidUpdate message) {
-		this.tank.setFluid(message.fluid);
+		tank.setFluid(message.fluid);
 	}
 
 	@Override
 	public void onTankContentsChanged(FluidTankSmart tank) {
-		this.markDirty();
+		markDirty();
 		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(new PacketFluidUpdate(getPos(), tank.getFluid()),
 				getPos(), getWorld().provider.getDimension());
 	}

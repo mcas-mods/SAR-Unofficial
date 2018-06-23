@@ -18,8 +18,8 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 
 @SideOnly(Side.CLIENT)
 public class GuiFluidIO extends GuiContainer {
-	private static ResourceLocation guiTexture =
-			new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/fluid_io.png");
+	private static ResourceLocation guiTexture = new ResourceLocation(SteamAgeRevolution.MODID,
+			"textures/gui/fluid_io.png");
 	private final TileEntityFluidIO tile;
 
 	public GuiFluidIO(EntityPlayer player, TileEntityFluidIO tile) {
@@ -29,10 +29,10 @@ public class GuiFluidIO extends GuiContainer {
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		this.drawDefaultBackground();
+		drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
-		if(this.isPointInRegion(78, 17, 20, 49, mouseX, mouseY)) {
+		renderHoveredToolTip(mouseX, mouseY);
+		if(isPointInRegion(78, 17, 20, 49, mouseX, mouseY)) {
 			List<String> tooltip = Lists.newArrayList();
 			tooltip.add(TextUtils
 					.representTankContents(
@@ -44,21 +44,20 @@ public class GuiFluidIO extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		this.mc.renderEngine.bindTexture(guiTexture);
-		int x = (this.width - this.xSize) / 2;
-		int y = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
+		mc.renderEngine.bindTexture(guiTexture);
+		int x = (width - xSize) / 2;
+		int y = (height - ySize) / 2;
+		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
 		FluidStack containedFluid = tile.buffer.getFluid();
 		int capacity = tile.buffer.getCapacity();
 
 		if(containedFluid != null && containedFluid.getFluid() != null && containedFluid.amount > 0) {
-			GuiUtils.renderGuiTank(containedFluid, capacity, containedFluid.amount, this.guiLeft + 78, this.guiTop + 11,
-					20, 60);
+			GuiUtils.renderGuiTank(containedFluid, capacity, containedFluid.amount, guiLeft + 78, guiTop + 11, 20, 60);
 		}
 
-		this.mc.renderEngine.bindTexture(guiTexture);
-		this.drawTexturedModalRect(this.guiLeft + 78, this.guiTop + 17, 176, 14, 20, 49);
+		mc.renderEngine.bindTexture(guiTexture);
+		this.drawTexturedModalRect(guiLeft + 78, guiTop + 17, 176, 14, 20, 49);
 	}
 
 }

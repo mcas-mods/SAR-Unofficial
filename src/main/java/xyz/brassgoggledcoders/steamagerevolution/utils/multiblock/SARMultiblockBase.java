@@ -45,7 +45,7 @@ public abstract class SARMultiblockBase extends RectangularMultiblockControllerB
 	@Override
 	protected void onMachineAssembled() {
 		SteamAgeRevolution.instance.getLogger().devInfo("Machine Assembled");
-		SteamAgeRevolution.proxy.spawnMultiblockAssemblyFX(this.getMinimumCoord(), this.getMaximumCoord());
+		SteamAgeRevolution.proxy.spawnMultiblockAssemblyFX(getMinimumCoord(), getMaximumCoord());
 	}
 
 	@Deprecated

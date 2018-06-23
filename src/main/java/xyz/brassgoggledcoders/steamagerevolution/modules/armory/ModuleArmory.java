@@ -19,27 +19,24 @@ public class ModuleArmory extends ModuleBase {
 	@Override
 	public void preInit(FMLPreInitializationEvent fmlPreInitializationEvent) {
 		/*
-		 * CapabilityManager.INSTANCE.register(IExpansionContainer.class, new Capability.IStorage<IExpansionContainer>()
-		 * {
-		 * @Override
-		 * public NBTBase writeNBT(Capability<IExpansionContainer> capability, IExpansionContainer instance,
-		 * EnumFacing side) {
-		 * return new NBTTagCompound();
+		 * CapabilityManager.INSTANCE.register(IExpansionContainer.class, new
+		 * Capability.IStorage<IExpansionContainer>() {
+		 * 
+		 * @Override public NBTBase writeNBT(Capability<IExpansionContainer> capability,
+		 * IExpansionContainer instance, EnumFacing side) { return new NBTTagCompound();
 		 * }
-		 * @Override
-		 * public void readNBT(Capability<IExpansionContainer> capability, IExpansionContainer instance,
-		 * EnumFacing side, NBTBase nbt) {
-		 * }
-		 * }, ExpansionContainerHandler.class);
-		 * CapabilityManager.INSTANCE.register(IExpansion.class, new Capability.IStorage<IExpansion>() {
-		 * @Override
-		 * public NBTBase writeNBT(Capability<IExpansion> capability, IExpansion instance, EnumFacing side) {
-		 * return new NBTTagCompound();
-		 * }
-		 * @Override
-		 * public void readNBT(Capability<IExpansion> capability, IExpansion instance, EnumFacing side, NBTBase nbt) {
-		 * }
-		 * }, ExpansionHandler.class);
+		 * 
+		 * @Override public void readNBT(Capability<IExpansionContainer> capability,
+		 * IExpansionContainer instance, EnumFacing side, NBTBase nbt) { } },
+		 * ExpansionContainerHandler.class);
+		 * CapabilityManager.INSTANCE.register(IExpansion.class, new
+		 * Capability.IStorage<IExpansion>() {
+		 * 
+		 * @Override public NBTBase writeNBT(Capability<IExpansion> capability,
+		 * IExpansion instance, EnumFacing side) { return new NBTTagCompound(); }
+		 * 
+		 * @Override public void readNBT(Capability<IExpansion> capability, IExpansion
+		 * instance, EnumFacing side, NBTBase nbt) { } }, ExpansionHandler.class);
 		 */
 		super.preInit(fmlPreInitializationEvent);
 	}
@@ -51,7 +48,8 @@ public class ModuleArmory extends ModuleBase {
 
 	@Override
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
-		// itemRegistry.register(new ItemExpandableArmor(ArmorMaterial.CHAIN, EntityEquipmentSlot.HEAD,
+		// itemRegistry.register(new ItemExpandableArmor(ArmorMaterial.CHAIN,
+		// EntityEquipmentSlot.HEAD,
 		// "brass_helmet"));
 		itemRegistry.register(new ItemClockworkWings());
 

@@ -28,18 +28,18 @@ public class CategoryTransportStorage {
 		List<IPage> fluidHopperEntry = new ArrayList<IPage>();
 		fluidHopperEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "fluid_hopper.info")));
 		fluidHopperEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "fluid_hopper")));
-		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "fluid_hopper_entry"),
-				new EntryItemStack(fluidHopperEntry, keyBase + "fluid_hopper", new ItemStack(BookObjectHolder.fluid_hopper)));
+		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "fluid_hopper_entry"), new EntryItemStack(
+				fluidHopperEntry, keyBase + "fluid_hopper", new ItemStack(BookObjectHolder.fluid_hopper)));
 
 		List<IPage> pneumaticsEntry = new ArrayList<IPage>();
 		pneumaticsEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "pneumatics.info")));
-		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "pneumatics_entry"),
-				new EntryItemStack(pneumaticsEntry, keyBase + "pneumatics", new ItemStack(BookObjectHolder.pneumatic_tube)));
+		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "pneumatics_entry"), new EntryItemStack(
+				pneumaticsEntry, keyBase + "pneumatics", new ItemStack(BookObjectHolder.pneumatic_tube)));
 
 		List<IPage> basicTankEntry = new ArrayList<IPage>();
 		basicTankEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "basic_tank.info")));
-		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "basic_tank_entry"),
-				new EntryItemStack(basicTankEntry, keyBase + "basic_tank", new ItemStack(BookObjectHolder.basic_fluid_tank)));
+		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "basic_tank_entry"), new EntryItemStack(
+				basicTankEntry, keyBase + "basic_tank", new ItemStack(BookObjectHolder.basic_fluid_tank)));
 
 		List<IPage> tankEntry = new ArrayList<IPage>();
 		tankEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "tank.info")));

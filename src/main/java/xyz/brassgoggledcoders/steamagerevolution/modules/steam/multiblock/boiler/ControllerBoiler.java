@@ -71,16 +71,16 @@ public class ControllerBoiler extends SARMultiblockBase implements ISmartTankCal
 		// Logic must of course run before checking if it should explode...!
 		for(BlockPos pos : attachedValves) {
 			if(WORLD.isBlockPowered(pos)) {
-				this.steamTank.drain(Fluid.BUCKET_VOLUME, true);
+				steamTank.drain(Fluid.BUCKET_VOLUME, true);
 				pressure = 1.0F;
-				this.updateRedstoneOutputLevels();
+				updateRedstoneOutputLevels();
 				return true;
 			}
 		}
 
 		if(ModuleSteam.enableDestruction && pressure > maxPressure) {
 			// Whoopsyboom
-			this.WORLD.createExplosion(null, this.getReferenceCoord().getX(), getReferenceCoord().getY(),
+			WORLD.createExplosion(null, getReferenceCoord().getX(), getReferenceCoord().getY(),
 					getReferenceCoord().getZ(), 10 * pressure, true);
 			return true;
 		}
@@ -112,7 +112,7 @@ public class ControllerBoiler extends SARMultiblockBase implements ISmartTankCal
 				}
 				else {
 					pressure += 0.01F;
-					this.updateRedstoneOutputLevels();
+					updateRedstoneOutputLevels();
 				}
 				currentBurnTime--;
 				return true;
@@ -237,10 +237,12 @@ public class ControllerBoiler extends SARMultiblockBase implements ISmartTankCal
 
 	@Override
 	public void updateFluid(PacketFluidUpdate message) {
-		if(message.fluid.getFluid().equals(FluidRegistry.WATER))
+		if(message.fluid.getFluid().equals(FluidRegistry.WATER)) {
 			waterTank.setFluid(message.fluid);
-		else
+		}
+		else {
 			steamTank.setFluid(message.fluid);
+		}
 	}
 
 	@Override

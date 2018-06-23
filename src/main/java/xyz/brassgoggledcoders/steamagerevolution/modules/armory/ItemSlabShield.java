@@ -15,9 +15,9 @@ public class ItemSlabShield extends ItemBase {
 
 	public ItemSlabShield() {
 		super("slab_shield");
-		this.setMaxStackSize(1);
-		this.setMaxDamage(550);
-		this.addPropertyOverride(new ResourceLocation("blocking"), new IItemPropertyGetter() {
+		setMaxStackSize(1);
+		setMaxDamage(550);
+		addPropertyOverride(new ResourceLocation("blocking"), new IItemPropertyGetter() {
 			@Override
 			@SideOnly(Side.CLIENT)
 			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
@@ -38,7 +38,8 @@ public class ItemSlabShield extends ItemBase {
 	}
 
 	// @Override
-	// public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn,
+	// public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World
+	// worldIn, EntityPlayer playerIn,
 	// EnumHand hand) {
 	// playerIn.setActiveHand(hand);
 	// return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);

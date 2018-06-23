@@ -82,32 +82,32 @@ public class SARMachineRecipe implements IRecipeWrapper {
 		}
 
 		public MachineRecipeBuilder setFluidInputs(FluidStack... fluids) {
-			this.fluidInputs = fluids;
+			fluidInputs = fluids;
 			return this;
 		}
 
 		public MachineRecipeBuilder setItemInputs(ItemStack... items) {
-			this.itemInputs = items;
+			itemInputs = items;
 			return this;
 		}
 
 		public MachineRecipeBuilder setFluidOutputs(FluidStack... fluid) {
-			this.fluidOutputs = fluid;
+			fluidOutputs = fluid;
 			return this;
 		}
 
 		public MachineRecipeBuilder setItemOutputs(ItemStack... items) {
-			this.itemOutputs = items;
+			itemOutputs = items;
 			return this;
 		}
 
 		public MachineRecipeBuilder setCraftTime(int time) {
-			this.ticksToProcess = time;
+			ticksToProcess = time;
 			return this;
 		}
 
 		public SARMachineRecipe build() {
-			this.validate();
+			validate();
 			SARMachineRecipe recipe = new SARMachineRecipe(crafter, itemInputs, fluidInputs, ticksToProcess,
 					steamUsePerCraft, itemOutputs, fluidOutputs);
 			RecipeRegistry.addRecipe(crafter, recipe);

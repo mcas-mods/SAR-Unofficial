@@ -44,8 +44,8 @@ public class TileEntitySteamHammerAnvilRenderer extends TileEntitySpecialRendere
 			}
 
 			GL11.glDepthMask(false);
-			IBakedModel model =
-					Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, tile.getWorld(), null);
+			IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack,
+					tile.getWorld(), null);
 			Minecraft.getMinecraft().getRenderItem().renderItem(stack, model);
 			GL11.glDepthMask(true);
 			RenderUtil.post();

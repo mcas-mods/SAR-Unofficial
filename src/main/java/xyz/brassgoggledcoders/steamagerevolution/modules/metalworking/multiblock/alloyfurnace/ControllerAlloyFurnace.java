@@ -186,18 +186,19 @@ public class ControllerAlloyFurnace extends SARMultiblockInventory implements IS
 	}
 
 	@Override
-	public void readFromDisk(NBTTagCompound data) {}
+	public void readFromDisk(NBTTagCompound data) {
+	}
 
 	@Override
 	public void onTankContentsChanged(FluidTankSmart tank) {
 		if(tank instanceof MultiFluidTank) {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketMultiFluidUpdate(this.getReferenceCoord(), ((MultiFluidTank) tank), tank.getId()),
-					this.getReferenceCoord(), WORLD.provider.getDimension());
+					new PacketMultiFluidUpdate(getReferenceCoord(), ((MultiFluidTank) tank), tank.getId()),
+					getReferenceCoord(), WORLD.provider.getDimension());
 		}
 		else {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid()), this.getReferenceCoord(),
+					new PacketFluidUpdate(getReferenceCoord(), tank.getFluid()), getReferenceCoord(),
 					WORLD.provider.getDimension());
 		}
 	}
@@ -246,7 +247,7 @@ public class ControllerAlloyFurnace extends SARMultiblockInventory implements IS
 	@Override
 	public MultiFluidTank getFluidInputs() {
 		// TODO Auto-generated method stub
-		return this.fluidInput;
+		return fluidInput;
 	}
 
 	@Override
@@ -258,6 +259,6 @@ public class ControllerAlloyFurnace extends SARMultiblockInventory implements IS
 	@Override
 	public MultiFluidTank getFluidOutputs() {
 		// TODO Auto-generated method stub
-		return this.outputTank;
+		return outputTank;
 	}
 }

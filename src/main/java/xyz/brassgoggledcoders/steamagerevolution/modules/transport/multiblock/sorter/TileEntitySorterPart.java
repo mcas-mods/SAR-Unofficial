@@ -15,7 +15,7 @@ public class TileEntitySorterPart extends SARMultiblockTileBase<ControllerSorter
 
 	@Override
 	public MultiblockControllerBase createNewMultiblock() {
-		return new ControllerSorter(this.getWorld());
+		return new ControllerSorter(getWorld());
 	}
 
 	@Override

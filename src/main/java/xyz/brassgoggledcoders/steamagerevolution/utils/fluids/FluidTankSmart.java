@@ -14,7 +14,7 @@ public class FluidTankSmart extends FluidTank {
 	public FluidTankSmart(int capacity, TileEntity parent) {
 		super(capacity);
 		setTileEntity(parent);
-		this.id = -1;
+		id = -1;
 	}
 
 	public FluidTankSmart(int capacity, MultiblockControllerBase parent) {
@@ -30,7 +30,7 @@ public class FluidTankSmart extends FluidTank {
 	public FluidTankSmart(FluidStack fluid, int capacity, MultiblockControllerBase parent) {
 		super(fluid, capacity);
 		this.parent = parent;
-		this.id = -1;
+		id = -1;
 	}
 
 	public int getId() {
@@ -40,12 +40,12 @@ public class FluidTankSmart extends FluidTank {
 	@Override
 	public void onContentsChanged() {
 		if(tile != null) {
-			((ISmartTankCallback) this.tile).onTankContentsChanged(this);
+			((ISmartTankCallback) tile).onTankContentsChanged(this);
 			tile.markDirty();
 		}
 		else if(parent != null) {
-			((ISmartTankCallback) this.parent).onTankContentsChanged(this);
-			this.parent.WORLD.markChunkDirty(this.parent.getReferenceCoord(), null); // TODO
+			((ISmartTankCallback) parent).onTankContentsChanged(this);
+			parent.WORLD.markChunkDirty(parent.getReferenceCoord(), null); // TODO
 		}
 	}
 }

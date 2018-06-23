@@ -8,11 +8,11 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 public class ContainerFluidIO extends ContainerBase {
 	public ContainerFluidIO(EntityPlayer player, TileEntityFluidIO tile) {
-		this.addSlotToContainer(new SlotFluidContainer(
+		addSlotToContainer(new SlotFluidContainer(
 				tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), 0, 25, 33));
-		this.addSlotToContainer(new SlotFluidContainer(
+		addSlotToContainer(new SlotFluidContainer(
 				tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), 1, 134, 33));
-		this.createPlayerSlots(player.inventory);
+		createPlayerSlots(player.inventory);
 	}
 
 	@Override

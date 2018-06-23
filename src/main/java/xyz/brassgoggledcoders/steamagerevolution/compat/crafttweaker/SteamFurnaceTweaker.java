@@ -6,8 +6,10 @@ import stanhebben.zenscript.annotations.ZenClass;
 public class SteamFurnaceTweaker {
 	//
 	// @ZenMethod
-	// public static void addRecipe(IItemStack input, IItemStack output, String dieType) {
-	// SteamFurnaceRecipe r = new SteamFurnaceRecipe(CTHelper.toItemStack(input), CTHelper.toItemStack(output));
+	// public static void addRecipe(IItemStack input, IItemStack output, String
+	// dieType) {
+	// SteamFurnaceRecipe r = new SteamFurnaceRecipe(CTHelper.toItemStack(input),
+	// CTHelper.toItemStack(output));
 	// CraftTweakerAPI.apply(new Add(r));
 	// }
 	//

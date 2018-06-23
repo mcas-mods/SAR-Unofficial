@@ -33,7 +33,7 @@ public class ItemSteamHoe extends ItemHoe implements IHasModel, IModAware {
 
 	protected ItemSteamHoe(String name, int capacity) {
 		super(ModuleArmory.STEAM);
-		this.setUnlocalizedName(name);
+		setUnlocalizedName(name);
 		this.capacity = capacity;
 		this.name = name;
 	}
@@ -42,8 +42,8 @@ public class ItemSteamHoe extends ItemHoe implements IHasModel, IModAware {
 	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand,
 			EnumFacing facing, float hitX, float hitY, float hitZ) {
 		ItemStack stack = player.getHeldItem(hand);
-		FluidHandlerItemStack internal =
-				(FluidHandlerItemStack) stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
+				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
 			internal.drain(steamUsePerBlock, true);
 			return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
@@ -71,24 +71,24 @@ public class ItemSteamHoe extends ItemHoe implements IHasModel, IModAware {
 
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
-		FluidHandlerItemStack internal =
-				(FluidHandlerItemStack) stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
+				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		return 1.0D - ((double) internal.getFluid().amount / capacity);
 
 	}
 
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
-		FluidHandlerItemStack internal =
-				(FluidHandlerItemStack) stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
+				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		return internal.getFluid() != null;
 	}
 
 	@Override
 	@ParametersAreNonnullByDefault
 	public void getSubItems(@Nullable CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if(tab != null && tab == this.getCreativeTab() || tab == CreativeTabs.SEARCH) {
-			subItems.addAll(this.getAllSubItems(Lists.newArrayList()));
+		if(tab != null && tab == getCreativeTab() || tab == CreativeTabs.SEARCH) {
+			subItems.addAll(getAllSubItems(Lists.newArrayList()));
 		}
 	}
 
@@ -103,7 +103,7 @@ public class ItemSteamHoe extends ItemHoe implements IHasModel, IModAware {
 	public Item setCreativeTab(@Nonnull CreativeTabs tab) {
 		if(!creativeTabSet) {
 			super.setCreativeTab(tab);
-			this.creativeTabSet = true;
+			creativeTabSet = true;
 		}
 		return this;
 	}

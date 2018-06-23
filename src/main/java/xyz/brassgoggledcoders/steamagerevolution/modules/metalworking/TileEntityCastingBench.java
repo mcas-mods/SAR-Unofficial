@@ -45,10 +45,12 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable,
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
-		else if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+		}
+		else if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(internal);
+		}
 		return super.getCapability(capability, facing);
 	}
 
@@ -84,8 +86,9 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable,
 
 	@Override
 	public void update() {
-		if(this.getWorld().isRemote)
+		if(getWorld().isRemote) {
 			return;
+		}
 
 		if(solidifyMetal(tank, internal)) {
 			if(stateChangeTime == 0) {
@@ -100,7 +103,7 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable,
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void updateFluid(PacketFluidUpdate message) {
-		this.tank.setFluid(message.fluid);
+		tank.setFluid(message.fluid);
 	}
 
 	public static boolean meltMetal(ItemStackHandler source, FluidTank destination) {
@@ -149,7 +152,7 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable,
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		nbttagcompound.setTag("tank", tank.writeToNBT(new NBTTagCompound()));
-		return new SPacketUpdateTileEntity(this.pos, 3, nbttagcompound);
+		return new SPacketUpdateTileEntity(pos, 3, nbttagcompound);
 	}
 
 	@Nonnull

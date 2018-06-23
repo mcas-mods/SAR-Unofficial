@@ -22,8 +22,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.*;
 
-@Mod(modid = SteamAgeRevolution.MODID, name = SteamAgeRevolution.MODNAME, version = SteamAgeRevolution.MODVERSION,
-		dependencies = SteamAgeRevolution.DEPENDENCIES)
+@Mod(modid = SteamAgeRevolution.MODID, name = SteamAgeRevolution.MODNAME, version = SteamAgeRevolution.MODVERSION, dependencies = SteamAgeRevolution.DEPENDENCIES)
 public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 
 	static {
@@ -45,8 +44,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 
 	public static CreativeTabs tab = new SARTab();
 
-	@SidedProxy(clientSide = "xyz.brassgoggledcoders.steamagerevolution.proxies.ClientProxy",
-			serverSide = "xyz.brassgoggledcoders.steamagerevolution.proxies.CommonProxy")
+	@SidedProxy(clientSide = "xyz.brassgoggledcoders.steamagerevolution.proxies.ClientProxy", serverSide = "xyz.brassgoggledcoders.steamagerevolution.proxies.CommonProxy")
 	public static xyz.brassgoggledcoders.steamagerevolution.proxies.CommonProxy proxy;
 
 	@Override
@@ -84,13 +82,13 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 
 	@Override
 	public File getResourceFolder() {
-		if(!Platform.isDevEnv())
+		if(!Platform.isDevEnv()) {
 			return null;
+		}
 		else {
-			return new File(
-					this.getRegistry(ConfigRegistry.class, "CONFIG").getConfigFolder().getParentFile().getParentFile()
-							.getParentFile().getParentFile().getPath(),
-					"src/main/resources/assets/" + this.getID() + "/");
+			return new File(this.getRegistry(ConfigRegistry.class, "CONFIG").getConfigFolder().getParentFile()
+					.getParentFile().getParentFile().getParentFile().getPath(),
+					"src/main/resources/assets/" + getID() + "/");
 		}
 	}
 

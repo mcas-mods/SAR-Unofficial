@@ -7,7 +7,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.MultiblockTankRenderer;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.TileEntityTankCasing;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.tileentities.TileEntityTankCasing;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.renderers.TileEntityBasicFluidTankRenderer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.renderers.TileEntityTrunkRenderer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityFluidIO;
@@ -15,7 +15,8 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.Ti
 
 public class ClientProxy implements IModuleProxy {
 	@Override
-	public void preInit(FMLPreInitializationEvent event) {}
+	public void preInit(FMLPreInitializationEvent event) {
+	}
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -29,5 +30,6 @@ public class ClientProxy implements IModuleProxy {
 	}
 
 	@Override
-	public void postInit(FMLPostInitializationEvent event) {}
+	public void postInit(FMLPostInitializationEvent event) {
+	}
 }

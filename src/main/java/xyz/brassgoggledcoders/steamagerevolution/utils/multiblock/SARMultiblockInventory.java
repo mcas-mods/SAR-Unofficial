@@ -63,17 +63,17 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 		}
 		if(ArrayUtils.isNotEmpty(currentRecipe.getFluidOutputs())) {
 			for(FluidStack output : currentRecipe.getFluidOutputs()) {
-				this.getFluidOutputs().fill(output, true);
+				getFluidOutputs().fill(output, true);
 			}
 		}
 		if(ArrayUtils.isNotEmpty(currentRecipe.getItemInputs())) {
 			for(ItemStack input : currentRecipe.getItemInputs()) {
-				this.getItemInput().extractStack(input);
+				getItemInput().extractStack(input);
 			}
 		}
 		if(ArrayUtils.isNotEmpty(currentRecipe.getFluidInputs())) {
 			for(FluidStack input : currentRecipe.getFluidInputs()) {
-				this.getFluidInputs().drain(input, true);
+				getFluidInputs().drain(input, true);
 			}
 		}
 		steamTank.drain(currentRecipe.getSteamUsePerCraft(), true);
@@ -91,7 +91,7 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 			}
 			if(ArrayUtils.isNotEmpty(currentRecipe.getFluidOutputs())) {
 				roomForFluids = Arrays.asList(currentRecipe.getFluidOutputs()).parallelStream()
-						.allMatch(output -> this.getFluidOutputs().fill(output, false) == output.amount);
+						.allMatch(output -> getFluidOutputs().fill(output, false) == output.amount);
 			}
 			return roomForItems && roomForFluids;
 		}
@@ -99,7 +99,7 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	}
 
 	protected boolean canRun() {
-		Optional<SARMachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(this.getName().toLowerCase())
+		Optional<SARMachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(getName().toLowerCase())
 				.parallelStream().filter(this::hasRequiredFluids).filter(this::hasRequiredItems).findFirst();
 		if(recipe.isPresent()) {
 			currentRecipe = recipe.get();
@@ -114,14 +114,15 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 			return Arrays.stream(recipe.getFluidInputs())
 					// Apply tanksHaveFluid to each element and output result to stream
 					.map(this::tanksHaveFluid)
-					// Reduce list of booleans into one - so will only evaluate true if every boolean is true
+					// Reduce list of booleans into one - so will only evaluate true if every
+					// boolean is true
 					.reduce((a, b) -> a && b).orElse(false);
 		}
 		return true;
 	}
 
 	private boolean tanksHaveFluid(FluidStack stack) {
-		return Arrays.asList(this.getFluidInputs()).stream().filter(Objects::nonNull).filter(
+		return Arrays.asList(getFluidInputs()).stream().filter(Objects::nonNull).filter(
 				tank -> tank.fluids.stream().filter(Objects::nonNull).anyMatch(fluid -> fluid.containsFluid(stack)))
 				.findAny().isPresent();
 	}
@@ -135,8 +136,7 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	}
 
 	private boolean handlerHasItems(ItemStack stack) {
-		return IntStream.range(0, this.getItemInput().getSlots())
-				.mapToObj(slotNum -> this.getItemInput().getStackInSlot(slotNum))
+		return IntStream.range(0, getItemInput().getSlots()).mapToObj(slotNum -> getItemInput().getStackInSlot(slotNum))
 				.filter(inputStack -> ItemStackUtils.containsItemStack(stack, inputStack)).findAny().isPresent();
 	}
 
@@ -156,13 +156,13 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	public void onTankContentsChanged(FluidTankSmart tank) {
 		if(tank instanceof MultiFluidTank) {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketMultiFluidUpdate(this.getReferenceCoord(), ((MultiFluidTank) tank), tank.getId()),
-					this.getReferenceCoord(), WORLD.provider.getDimension());
+					new PacketMultiFluidUpdate(getReferenceCoord(), ((MultiFluidTank) tank), tank.getId()),
+					getReferenceCoord(), WORLD.provider.getDimension());
 		}
 		else {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketFluidUpdate(this.getReferenceCoord(), tank.getFluid(), tank.getId()),
-					this.getReferenceCoord(), WORLD.provider.getDimension());
+					new PacketFluidUpdate(getReferenceCoord(), tank.getFluid(), tank.getId()), getReferenceCoord(),
+					WORLD.provider.getDimension());
 		}
 	}
 
@@ -173,6 +173,6 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 
 	@Override
 	public FluidTankSingleSmart getSteamTank() {
-		return this.steamTank;
+		return steamTank;
 	}
 }

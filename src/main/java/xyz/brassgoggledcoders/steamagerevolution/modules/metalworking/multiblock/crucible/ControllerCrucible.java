@@ -89,10 +89,10 @@ public class ControllerCrucible extends SARMultiblockInventory implements ISmart
 	// FIXME Caching
 	@Override
 	protected void onMachineAssembled() {
-		Pair<BlockPos, BlockPos> interiorPositions =
-				PositionUtils.shrinkPositionCubeBy(this.getMinimumCoord(), this.getMaximumCoord(), 1);
-		this.minimumInteriorPos = interiorPositions.getLeft();
-		this.maximumInteriorPos = interiorPositions.getRight();
+		Pair<BlockPos, BlockPos> interiorPositions = PositionUtils.shrinkPositionCubeBy(getMinimumCoord(),
+				getMaximumCoord(), 1);
+		minimumInteriorPos = interiorPositions.getLeft();
+		maximumInteriorPos = interiorPositions.getRight();
 
 		int blocksInside = 0;
 		// TODO Expensive for loop just to increment an integer
@@ -194,10 +194,12 @@ public class ControllerCrucible extends SARMultiblockInventory implements ISmart
 
 	@Override
 	public void updateFluid(PacketFluidUpdate message) {
-		if(message.fluid.getFluid().equals(FluidRegistry.getFluid("steam")))
+		if(message.fluid.getFluid().equals(FluidRegistry.getFluid("steam"))) {
 			steamTank.setFluid(message.fluid);
-		else
+		}
+		else {
 			tank.setFluid(message.fluid);
+		}
 	}
 
 	@Override

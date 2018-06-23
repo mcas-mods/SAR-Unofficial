@@ -52,7 +52,7 @@ public class TileEntityCardPuncher extends TileEntityInventoryBase implements IH
 
 			cardIn.setTagCompound(tag);
 			inventory.insertItem(1, inventory.extractItem(0, 1, false), false);
-			this.markDirty();
+			markDirty();
 		}
 	}
 

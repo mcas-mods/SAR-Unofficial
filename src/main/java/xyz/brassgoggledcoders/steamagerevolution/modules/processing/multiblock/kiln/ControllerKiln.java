@@ -37,10 +37,10 @@ public class ControllerKiln extends SARMultiblockBase {
 
 	@Override
 	protected void onMachineAssembled() {
-		Pair<BlockPos, BlockPos> interiorPositions =
-				PositionUtils.shrinkPositionCubeBy(this.getMinimumCoord(), this.getMaximumCoord(), 1);
-		this.minimumInteriorPos = interiorPositions.getLeft();
-		this.maximumInteriorPos = interiorPositions.getRight();
+		Pair<BlockPos, BlockPos> interiorPositions = PositionUtils.shrinkPositionCubeBy(getMinimumCoord(),
+				getMaximumCoord(), 1);
+		minimumInteriorPos = interiorPositions.getLeft();
+		maximumInteriorPos = interiorPositions.getRight();
 		super.onMachineAssembled();
 	}
 
@@ -184,24 +184,25 @@ public class ControllerKiln extends SARMultiblockBase {
 
 	@Override
 	public int getMaximumXSize() {
-		return this.getMinimumXSize();
+		return getMinimumXSize();
 	}
 
 	@Override
 	public int getMaximumZSize() {
-		return this.getMinimumZSize();
+		return getMinimumZSize();
 	}
 
 	@Override
 	public int getMaximumYSize() {
-		return this.getMinimumYSize();
+		return getMinimumYSize();
 	}
 
 	@Override
 	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
 		Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
 		return world.isAirBlock(new BlockPos(x, y, z))
-				// || OreDictionary.getOres("logWood", false).contains(new ItemStack(Item.getItemFromBlock(block)));
+				// || OreDictionary.getOres("logWood", false).contains(new
+				// ItemStack(Item.getItemFromBlock(block)));
 				// TODO
 				|| block == Blocks.LOG || block == ModuleMaterials.charcoal_block;
 	}

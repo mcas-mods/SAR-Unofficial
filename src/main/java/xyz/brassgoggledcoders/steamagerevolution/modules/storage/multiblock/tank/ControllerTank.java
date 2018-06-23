@@ -26,7 +26,7 @@ public class ControllerTank extends SARMultiblockBase implements ISmartTankCallb
 	public BlockPos maximumInteriorPos;
 	public FluidTankSmart tank;
 
-	protected ControllerTank(World world) {
+	public ControllerTank(World world) {
 		super(world);
 		tank = new FluidTankSmart(0, this);
 		// TODO Auto-generated constructor stub
@@ -57,10 +57,10 @@ public class ControllerTank extends SARMultiblockBase implements ISmartTankCallb
 	// TODO Caching
 	@Override
 	protected void onMachineAssembled() {
-		Pair<BlockPos, BlockPos> interiorPositions =
-				PositionUtils.shrinkPositionCubeBy(this.getMinimumCoord(), this.getMaximumCoord(), 1);
-		this.minimumInteriorPos = interiorPositions.getLeft();
-		this.maximumInteriorPos = interiorPositions.getRight();
+		Pair<BlockPos, BlockPos> interiorPositions = PositionUtils.shrinkPositionCubeBy(getMinimumCoord(),
+				getMaximumCoord(), 1);
+		minimumInteriorPos = interiorPositions.getLeft();
+		maximumInteriorPos = interiorPositions.getRight();
 
 		int blocksInside = 0;
 		// TODO Expensive for loop just to increment an integer
@@ -191,7 +191,7 @@ public class ControllerTank extends SARMultiblockBase implements ISmartTankCallb
 
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiSingleTank(entityPlayer, this.tank);
+		return new GuiSingleTank(entityPlayer, tank);
 	}
 
 	@Override

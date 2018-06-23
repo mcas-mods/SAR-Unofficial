@@ -29,26 +29,28 @@ public class TileEntityFluidHopper extends TileEntitySlowTick {
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(buffer);
+		}
 		return super.getCapability(capability, facing);
 	}
 
 	@Override
 	public void updateTile() {
 		super.updateTile();
-		if(world.isRemote)
+		if(world.isRemote) {
 			return;
+		}
 
 		if(!hasCache) {
 			recalculateCache(getWorld(), getPos(), getWorld().getBlockState(getPos()), null);
 		}
 
-		if(BlockFluidHopper.isEnabled(this.getBlockMetadata())) {
+		if(BlockFluidHopper.isEnabled(getBlockMetadata())) {
 			if(toPos != null) {
-				IFluidHandler to =
-						getWorld().getTileEntity(toPos).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
-								PositionUtils.getFacingFromPositions(getPos(), toPos));
+				IFluidHandler to = getWorld().getTileEntity(toPos).getCapability(
+						CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
+						PositionUtils.getFacingFromPositions(getPos(), toPos));
 				FluidUtil.tryFluidTransfer(to, buffer, Fluid.BUCKET_VOLUME, true);
 			}
 			if(hasFrom) {
@@ -71,13 +73,14 @@ public class TileEntityFluidHopper extends TileEntitySlowTick {
 	public NBTTagCompound writeToDisk(NBTTagCompound tag) {
 		buffer.writeToNBT(tag);
 		tag.setBoolean("from", hasFrom);
-		if(toPos != null)
+		if(toPos != null) {
 			tag.setLong("to", toPos.toLong());
+		}
 		return tag;
 	}
 
 	public void recalculateCache(World worldIn, BlockPos pos, IBlockState state, BlockPos fromPos) {
-		this.hasCache = true;
+		hasCache = true;
 		boolean flag = !worldIn.isBlockPowered(pos);
 
 		if(flag != state.getValue(BlockFluidHopper.ENABLED).booleanValue()) {

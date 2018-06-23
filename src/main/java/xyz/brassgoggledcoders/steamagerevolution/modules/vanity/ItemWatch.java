@@ -5,16 +5,18 @@ import com.teamacronymcoders.base.items.ItemBase;
 public class ItemWatch extends ItemBase {
 	public ItemWatch() {
 		super("vanity", "watch");
-		this.setMaxStackSize(1);
+		setMaxStackSize(1);
 	}
 
 	// @Override
-	// public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn,
+	// public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World
+	// worldIn, EntityPlayer playerIn,
 	// EnumHand hand) {
 	// if(!worldIn.isRemote) {
 	// /*
 	// * final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-	// * String mcTimeMessage = StatCollector.translateToLocal("desc.item.watch.mcTime") + " " +
+	// * String mcTimeMessage =
+	// StatCollector.translateToLocal("desc.item.watch.mcTime") + " " +
 	// * worldIn.getWorldTime()
 	// * + "\n" + StatCollector.translateToLocal("desc.item.watch.rwTime") + " "
 	// * + sdf.format(Calendar.getInstance().getTime());

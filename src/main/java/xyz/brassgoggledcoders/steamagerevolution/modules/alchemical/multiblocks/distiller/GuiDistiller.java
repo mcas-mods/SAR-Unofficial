@@ -11,24 +11,26 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.GuiUtils;
 
 @SideOnly(Side.CLIENT)
 public class GuiDistiller extends GuiContainer {
-	private static ResourceLocation guiTexture =
-			new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/distiller.png");
+	private static ResourceLocation guiTexture = new ResourceLocation(SteamAgeRevolution.MODID,
+			"textures/gui/distiller.png");
 	private final ControllerDistiller controller;
 
 	public GuiDistiller(EntityPlayer player, ControllerDistiller tile) {
 		super(new ContainerDistiller(player, tile));
-		this.controller = tile;
+		controller = tile;
 	}
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		this.drawDefaultBackground();
+		drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
+		renderHoveredToolTip(mouseX, mouseY);
 		// if(this.isPointInRegion(78, 17, 20, 49, mouseX, mouseY)) {
 		// List<String> tooltip = Lists.newArrayList();
 		// tooltip.add(TextUtils.representTankContents(
-		// (IFluidTank) controller.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null))
+		// (IFluidTank)
+		// controller.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
+		// null))
 		// .getText());
 		// this.drawHoveringText(tooltip, mouseX, mouseY, fontRenderer);
 		// }
@@ -36,33 +38,33 @@ public class GuiDistiller extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		this.mc.renderEngine.bindTexture(guiTexture);
-		int x = (this.width - this.xSize) / 2;
-		int y = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
+		mc.renderEngine.bindTexture(guiTexture);
+		int x = (width - xSize) / 2;
+		int y = (height - ySize) / 2;
+		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
 		FluidStack steam = controller.steamTank.getFluid();
 		if(steam != null && steam.getFluid() != null && steam.amount > 0) {
-			GuiUtils.renderGuiTank(steam, controller.steamTank.getCapacity(), steam.amount, this.guiLeft + 10,
-					this.guiTop + 9, 20, 60);
-			this.mc.renderEngine.bindTexture(guiTexture);
-			this.drawTexturedModalRect(this.guiLeft + 10, this.guiTop + 15, 176, 14, 20, 49);
+			GuiUtils.renderGuiTank(steam, controller.steamTank.getCapacity(), steam.amount, guiLeft + 10, guiTop + 9,
+					20, 60);
+			mc.renderEngine.bindTexture(guiTexture);
+			this.drawTexturedModalRect(guiLeft + 10, guiTop + 15, 176, 14, 20, 49);
 		}
 
 		FluidStack input = controller.fluidInput.getFluid();
 		if(input != null && input.getFluid() != null && input.amount > 0) {
-			GuiUtils.renderGuiTank(input, controller.fluidInput.getCapacity(), input.amount, this.guiLeft + 41,
-					this.guiTop + 9, 20, 60);
-			this.mc.renderEngine.bindTexture(guiTexture);
-			this.drawTexturedModalRect(this.guiLeft + 41, this.guiTop + 15, 176, 14, 20, 49);
+			GuiUtils.renderGuiTank(input, controller.fluidInput.getCapacity(), input.amount, guiLeft + 41, guiTop + 9,
+					20, 60);
+			mc.renderEngine.bindTexture(guiTexture);
+			this.drawTexturedModalRect(guiLeft + 41, guiTop + 15, 176, 14, 20, 49);
 		}
 
 		FluidStack output = controller.fluidOutput.getFluid();
 		if(output != null && output.getFluid() != null && output.amount > 0) {
-			GuiUtils.renderGuiTank(output, controller.fluidOutput.getCapacity(), output.amount, this.guiLeft + 97,
-					this.guiTop + 9, 20, 60);
-			this.mc.renderEngine.bindTexture(guiTexture);
-			this.drawTexturedModalRect(this.guiLeft + 97, this.guiTop + 15, 176, 14, 20, 49);
+			GuiUtils.renderGuiTank(output, controller.fluidOutput.getCapacity(), output.amount, guiLeft + 97,
+					guiTop + 9, 20, 60);
+			mc.renderEngine.bindTexture(guiTexture);
+			this.drawTexturedModalRect(guiLeft + 97, guiTop + 15, 176, 14, 20, 49);
 		}
 	}
 

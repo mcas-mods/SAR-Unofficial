@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat;
+package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.tileentities;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -10,17 +10,18 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockTankWrapper;
 
-public class TileEntityVatFluidInput extends TileEntityVatPart {
+public class TileEntityVatOutput extends TileEntityVatPart {
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+		return (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && isConnected())
+				|| super.hasCapability(capability, facing);
 	}
 
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockTankWrapper(this, "input"));
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockTankWrapper(this, "output"));
 		}
 		return super.getCapability(capability, facing);
 	}
@@ -34,5 +35,4 @@ public class TileEntityVatFluidInput extends TileEntityVatPart {
 	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
 		return true;
 	}
-
 }

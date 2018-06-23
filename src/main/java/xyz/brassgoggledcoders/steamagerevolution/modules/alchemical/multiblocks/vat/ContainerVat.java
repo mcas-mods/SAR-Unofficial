@@ -8,9 +8,9 @@ import net.minecraftforge.items.SlotItemHandler;
 public class ContainerVat extends ContainerBase {
 	public ContainerVat(EntityPlayer player, ControllerVat tile) {
 		for(int i = 0; i < tile.itemInput.getSlots(); i++) {
-			this.addSlotToContainer(new SlotItemHandler(tile.itemInput, i, 88, 11 + (i * 21)));
+			addSlotToContainer(new SlotItemHandler(tile.itemInput, i, 88, 11 + (i * 21)));
 		}
-		this.createPlayerSlots(player.inventory);
+		createPlayerSlots(player.inventory);
 	}
 
 	@Override

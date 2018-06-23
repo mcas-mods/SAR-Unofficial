@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.tileentities.TileEntityVatFrame;
 import xyz.brassgoggledcoders.steamagerevolution.utils.RenderUtil;
 
 public class MultiblockVatTankRenderer extends TileEntitySpecialRenderer<TileEntityVatFrame> {
@@ -14,7 +15,8 @@ public class MultiblockVatTankRenderer extends TileEntitySpecialRenderer<TileEnt
 	@Override
 	public void render(TileEntityVatFrame tile, double x, double y, double z, float partialTicks, int destroyStage,
 			float alpha) {
-		// RE last check - ensures we only render once. Save delegate should be at reference coord - lowest x,y,z etc -
+		// RE last check - ensures we only render once. Save delegate should be at
+		// reference coord - lowest x,y,z etc -
 		// so should always be casing.
 		if(tile.isConnected() && tile.getMultiblockController().isAssembled() && tile.isMultiblockSaveDelegate()) {
 			ControllerVat t = tile.getMultiblockController();

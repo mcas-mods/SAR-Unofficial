@@ -43,7 +43,7 @@ public class BlockFluidHopper extends BlockTEBase<TileEntityFluidHopper> {
 
 	public BlockFluidHopper(Material material, String name) {
 		super(material, name);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(ENABLED,
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(ENABLED,
 				Boolean.valueOf(true)));
 	}
 
@@ -109,7 +109,7 @@ public class BlockFluidHopper extends BlockTEBase<TileEntityFluidHopper> {
 			enumfacing = EnumFacing.DOWN;
 		}
 
-		return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(ENABLED, Boolean.valueOf(true));
+		return getDefaultState().withProperty(FACING, enumfacing).withProperty(ENABLED, Boolean.valueOf(true));
 	}
 
 	@Override
@@ -138,7 +138,7 @@ public class BlockFluidHopper extends BlockTEBase<TileEntityFluidHopper> {
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(ENABLED,
+		return getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(ENABLED,
 				Boolean.valueOf(isEnabled(meta)));
 	}
 
@@ -156,7 +156,7 @@ public class BlockFluidHopper extends BlockTEBase<TileEntityFluidHopper> {
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] {FACING, ENABLED});
+		return new BlockStateContainer(this, new IProperty[] { FACING, ENABLED });
 	}
 
 	@Override

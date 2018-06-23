@@ -14,8 +14,9 @@ public class CTHelper {
 	}
 
 	public static ItemStack toItemStack(IItemStack iStack) {
-		if(iStack == null)
+		if(iStack == null) {
 			return ItemStack.EMPTY;
+		}
 		return (ItemStack) iStack.getInternal();
 	}
 }

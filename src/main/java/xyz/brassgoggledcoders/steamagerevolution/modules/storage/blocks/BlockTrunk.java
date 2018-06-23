@@ -26,7 +26,7 @@ public class BlockTrunk extends BlockGUIBase<TileEntityTrunk> {
 
 	public BlockTrunk(Material material, String name) {
 		super(material, name);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 	}
 
 	@Override
@@ -58,15 +58,14 @@ public class BlockTrunk extends BlockGUIBase<TileEntityTrunk> {
 	@Override
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY,
 			float hitZ, int meta, EntityLivingBase placer) {
-		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
+		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
 	}
 
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
 			ItemStack stack) {
-		EnumFacing enumfacing =
-				EnumFacing.getHorizontal(MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3)
-						.getOpposite();
+		EnumFacing enumfacing = EnumFacing
+				.getHorizontal(MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3).getOpposite();
 		state = state.withProperty(FACING, enumfacing);
 		BlockPos blockpos = pos.north();
 		BlockPos blockpos1 = pos.south();
@@ -112,7 +111,7 @@ public class BlockTrunk extends BlockGUIBase<TileEntityTrunk> {
 			enumfacing = EnumFacing.NORTH;
 		}
 
-		return this.getDefaultState().withProperty(FACING, enumfacing);
+		return getDefaultState().withProperty(FACING, enumfacing);
 	}
 
 	@Override
@@ -122,7 +121,7 @@ public class BlockTrunk extends BlockGUIBase<TileEntityTrunk> {
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] {FACING});
+		return new BlockStateContainer(this, new IProperty[] { FACING });
 	}
 
 	@Override

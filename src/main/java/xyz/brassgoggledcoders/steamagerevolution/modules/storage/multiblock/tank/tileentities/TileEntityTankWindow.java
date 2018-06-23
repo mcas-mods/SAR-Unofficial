@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank;
+package xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.tileentities;
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 

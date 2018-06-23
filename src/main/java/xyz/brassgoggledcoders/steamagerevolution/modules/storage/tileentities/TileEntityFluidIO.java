@@ -42,21 +42,21 @@ public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGu
 	public void update() {
 		IItemHandler handler = this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 		if(!handler.getStackInSlot(0).isEmpty()) {
-			IFluidHandler itemFluid =
-					handler.getStackInSlot(0).getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+			IFluidHandler itemFluid = handler.getStackInSlot(0)
+					.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 			if(buffer.fill(itemFluid.drain(fluidTransferRate, false), false) == fluidTransferRate) {
 				buffer.fill(itemFluid.drain(fluidTransferRate, true), true);
-				this.markDirty();
-				this.sendBlockUpdate();
+				markDirty();
+				sendBlockUpdate();
 			}
 		}
 		if(!handler.getStackInSlot(1).isEmpty()) {
-			IFluidHandler itemFluid =
-					handler.getStackInSlot(1).getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+			IFluidHandler itemFluid = handler.getStackInSlot(1)
+					.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 			if(itemFluid.fill(buffer.drain(fluidTransferRate, false), false) == fluidTransferRate) {
 				itemFluid.fill(buffer.drain(fluidTransferRate, true), true);
-				this.markDirty();
-				this.sendBlockUpdate();
+				markDirty();
+				sendBlockUpdate();
 			}
 		}
 	}
@@ -81,8 +81,9 @@ public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGu
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return (T) buffer;
+		}
 		return super.getCapability(capability, facing);
 	}
 
@@ -99,7 +100,7 @@ public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGu
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void updateFluid(PacketFluidUpdate message) {
-		this.buffer.setFluid(message.fluid);
+		buffer.setFluid(message.fluid);
 	}
 
 	@Override
@@ -112,7 +113,7 @@ public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGu
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		nbttagcompound.setTag("tank", buffer.writeToNBT(new NBTTagCompound()));
-		return new SPacketUpdateTileEntity(this.pos, 3, nbttagcompound);
+		return new SPacketUpdateTileEntity(pos, 3, nbttagcompound);
 	}
 
 	@Nonnull

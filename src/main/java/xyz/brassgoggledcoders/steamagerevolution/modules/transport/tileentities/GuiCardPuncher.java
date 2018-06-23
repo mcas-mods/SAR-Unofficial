@@ -11,8 +11,8 @@ import xyz.brassgoggledcoders.steamagerevolution.network.PacketCardPunch;
 
 public class GuiCardPuncher extends GuiContainer {
 
-	private static ResourceLocation guiTexture =
-			new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/card_puncher.png");
+	private static ResourceLocation guiTexture = new ResourceLocation(SteamAgeRevolution.MODID,
+			"textures/gui/card_puncher.png");
 	private TileEntityCardPuncher tile;
 
 	public GuiCardPuncher(TileEntityCardPuncher tile, EntityPlayer entityPlayer) {
@@ -23,22 +23,22 @@ public class GuiCardPuncher extends GuiContainer {
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		this.drawDefaultBackground();
+		drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
+		renderHoveredToolTip(mouseX, mouseY);
 	}
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		this.mc.renderEngine.bindTexture(guiTexture);
-		int x = (this.width - this.xSize) / 2;
-		int y = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
+		mc.renderEngine.bindTexture(guiTexture);
+		int x = (width - xSize) / 2;
+		int y = (height - ySize) / 2;
+		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 	}
 
 	@Override
 	public void initGui() {
-		this.buttonList.clear();
+		buttonList.clear();
 		this.addButton(new GuiButton(0, 204, 90, 40, 20, "Punch"));
 		super.initGui();
 	}

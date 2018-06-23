@@ -22,15 +22,17 @@ public class GuiUtils {
 	}
 
 	public static TextureAtlasSprite getStillTexture(FluidStack fluid) {
-		if(fluid == null || fluid.getFluid() == null)
+		if(fluid == null || fluid.getFluid() == null) {
 			return null;
+		}
 		return getStillTexture(fluid.getFluid());
 	}
 
 	public static TextureAtlasSprite getStillTexture(Fluid fluid) {
 		ResourceLocation iconKey = fluid.getStill();
-		if(iconKey == null)
+		if(iconKey == null) {
 			return null;
+		}
 		return Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(iconKey.toString());
 	}
 
@@ -40,12 +42,14 @@ public class GuiUtils {
 
 	public static void renderGuiTank(FluidStack fluid, int capacity, int amount, double x, double y, double width,
 			double height) {
-		if(fluid == null || fluid.getFluid() == null || fluid.amount <= 0)
+		if(fluid == null || fluid.getFluid() == null || fluid.amount <= 0) {
 			return;
+		}
 
 		TextureAtlasSprite icon = getStillTexture(fluid);
-		if(icon == null)
+		if(icon == null) {
 			return;
+		}
 
 		int renderAmount = (int) Math.max(Math.min(height, amount * height / capacity), 1);
 		int posY = (int) (y + height - renderAmount);
@@ -55,7 +59,7 @@ public class GuiUtils {
 		GL11.glColor3ub((byte) (color >> 16 & 0xFF), (byte) (color >> 8 & 0xFF), (byte) (color & 0xFF));
 
 		GlStateManager.enableBlend();
-		for(int i = 0; i < width; i += 16)
+		for(int i = 0; i < width; i += 16) {
 			for(int j = 0; j < renderAmount; j += 16) {
 				int drawWidth = (int) Math.min(width - i, 16);
 				int drawHeight = Math.min(renderAmount - j, 16);
@@ -79,6 +83,7 @@ public class GuiUtils {
 				tes.pos(drawX, drawY, 0).tex(minU, minV).endVertex();
 				tessellator.draw();
 			}
+		}
 		GlStateManager.disableBlend();
 	}
 }

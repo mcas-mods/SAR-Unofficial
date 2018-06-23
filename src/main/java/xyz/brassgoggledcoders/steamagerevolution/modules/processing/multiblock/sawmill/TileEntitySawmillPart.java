@@ -66,8 +66,8 @@ public class TileEntitySawmillPart extends RectangularMultiblockTileEntityBase<C
 
 	@Override
 	public boolean[] getValidPositions() {
-		return new boolean[] {isGoodForFrame(null), isGoodForSides(null), isGoodForTop(null), isGoodForBottom(null),
-				isGoodForInterior(null)};
+		return new boolean[] { isGoodForFrame(null), isGoodForSides(null), isGoodForTop(null), isGoodForBottom(null),
+				isGoodForInterior(null) };
 	}
 
 	@Override

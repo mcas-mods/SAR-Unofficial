@@ -19,8 +19,8 @@ public class TileEntityKilnSteamInput extends TileEntityKilnPart {
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.isConnected()) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.getMultiblockController().steamTank);
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && isConnected()) {
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(getMultiblockController().steamTank);
 		}
 		return super.getCapability(capability, facing);
 	}

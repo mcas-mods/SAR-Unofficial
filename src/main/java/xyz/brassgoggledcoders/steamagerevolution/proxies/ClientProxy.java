@@ -11,21 +11,24 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void spawnSmoke(BlockPos at) {
 		World world = Minecraft.getMinecraft().world;
-		if(world == null)
+		if(world == null) {
 			return;
+		}
 		world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, at.getX() + 0.5F, at.getY(), at.getZ() + 0.5F, 0, 0, 0);
 		for(int i = 0; i < 8; i++) {
-			if(world.rand.nextBoolean())
+			if(world.rand.nextBoolean()) {
 				world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, at.getX() + 0.5F, at.getY(), at.getZ() + 0.5F, 0, 0,
 						0);
+			}
 		}
 	}
 
 	@Override
 	public void spawnSteamJet(BlockPos at, EnumFacing f) {
 		World world = Minecraft.getMinecraft().world;
-		if(world == null)
+		if(world == null) {
 			return;
+		}
 		for(int i = 0; i < 20; i++) {
 			// TODO Random offsets
 			float[] v = RenderUtil.directionalVelocitiesOfMagnitude(f.getDirectionVec(), 0.1F);
@@ -44,14 +47,16 @@ public class ClientProxy extends CommonProxy {
 			}
 		}
 		else if(type == EnumParticleTypes.FLAME) {
-			for(int j = 0; j < 5; ++j)
+			for(int j = 0; j < 5; ++j) {
 				world.spawnParticle(EnumParticleTypes.LAVA, pos.getX() + (-0.2 + world.rand.nextDouble()), pos.getY(),
 						pos.getZ() + (-0.2 + world.rand.nextDouble()), world.rand.nextGaussian(),
 						world.rand.nextGaussian(), world.rand.nextGaussian());
-			for(int j = 0; j < 5; ++j)
+			}
+			for(int j = 0; j < 5; ++j) {
 				world.spawnParticle(EnumParticleTypes.LAVA, pos.getX() + (-0.2 + world.rand.nextDouble()), pos.getY(),
 						pos.getZ() + (-0.2 + world.rand.nextDouble()), -world.rand.nextGaussian(),
 						-world.rand.nextGaussian(), -world.rand.nextGaussian());
+			}
 		}
 	}
 

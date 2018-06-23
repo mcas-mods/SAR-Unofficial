@@ -13,7 +13,7 @@ import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.items.ItemCanister;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.blocks.*;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleStorage extends ModuleBase {

@@ -11,8 +11,8 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.Ti
 
 @SideOnly(Side.CLIENT)
 public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntityTrunk> {
-	private static final ResourceLocation TEXTURE_NORMAL =
-			new ResourceLocation(SteamAgeRevolution.MODID, "textures/blocks/trunk.png");
+	private static final ResourceLocation TEXTURE_NORMAL = new ResourceLocation(SteamAgeRevolution.MODID,
+			"textures/blocks/trunk.png");
 	private final ModelChest simpleChest = new ModelChest();
 
 	@Override
@@ -26,11 +26,12 @@ public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntit
 		if(tile != null && tile.hasWorld()) {
 			i = tile.getBlockMetadata();
 		}
-		else
+		else {
 			i = 0;
+		}
 
 		if(destroyStage >= 0) {
-			this.bindTexture(DESTROY_STAGES[destroyStage]);
+			bindTexture(DESTROY_STAGES[destroyStage]);
 			GlStateManager.matrixMode(5890);
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(4.0F, 4.0F, 1.0F);
@@ -38,31 +39,36 @@ public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntit
 			GlStateManager.matrixMode(5888);
 		}
 		else {
-			this.bindTexture(TEXTURE_NORMAL);
+			bindTexture(TEXTURE_NORMAL);
 		}
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 
-		if(destroyStage < 0)
+		if(destroyStage < 0) {
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		}
 
 		GlStateManager.translate((float) x, (float) y + 1.0F, (float) z + 1.0F);
 		GlStateManager.scale(1.0F, -1.0F, -1.0F);
 		GlStateManager.translate(0.5F, 0.5F, 0.5F);
 		int j = 0;
 
-		if(i == 2)
+		if(i == 2) {
 			j = 180;
+		}
 
-		if(i == 3)
+		if(i == 3) {
 			j = 0;
+		}
 
-		if(i == 4)
+		if(i == 4) {
 			j = 90;
+		}
 
-		if(i == 5)
+		if(i == 5) {
 			j = -90;
+		}
 
 		GlStateManager.rotate(j, 0.0F, 1.0F, 0.0F);
 		GlStateManager.translate(-0.5F, -0.5F, -0.5F);

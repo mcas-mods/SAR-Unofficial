@@ -19,8 +19,8 @@ public class CastingBlockRecipe implements IRecipeWrapper {
 	public final ItemStack output;
 
 	public CastingBlockRecipe(FluidStack fluid, ItemStack solid) {
-		this.input = fluid;
-		this.output = solid;
+		input = fluid;
+		output = solid;
 	}
 
 	private static ArrayList<CastingBlockRecipe> recipeList = new ArrayList<CastingBlockRecipe>();

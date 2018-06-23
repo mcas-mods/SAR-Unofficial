@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank;
+package xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.blocks;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -9,6 +9,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.tileentities.TileEntityTankWindow;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
 public class BlockTankWindow extends BlockMultiblockBase<TileEntityTankWindow> {

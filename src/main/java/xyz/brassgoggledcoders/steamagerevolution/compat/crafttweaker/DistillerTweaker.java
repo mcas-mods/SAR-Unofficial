@@ -6,8 +6,10 @@ import stanhebben.zenscript.annotations.ZenClass;
 public class DistillerTweaker {
 	//
 	// @ZenMethod
-	// public static void addRecipe(ILiquidStack input, ILiquidStack output, IItemStack itemOutput, int ticks) {
-	// DistillerRecipe r = new DistillerRecipe(CTHelper.toFluidStack(input), CTHelper.toFluidStack(output),
+	// public static void addRecipe(ILiquidStack input, ILiquidStack output,
+	// IItemStack itemOutput, int ticks) {
+	// DistillerRecipe r = new DistillerRecipe(CTHelper.toFluidStack(input),
+	// CTHelper.toFluidStack(output),
 	// CTHelper.toItemStack(itemOutput), ticks);
 	// CraftTweakerAPI.apply(new Add(r));
 	// }

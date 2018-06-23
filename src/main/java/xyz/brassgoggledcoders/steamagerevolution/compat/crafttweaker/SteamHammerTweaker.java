@@ -11,8 +11,10 @@ public class SteamHammerTweaker {
 	// }
 	//
 	// @ZenMethod
-	// public static void addRecipe(IItemStack input, IItemStack output, String dieType) {
-	// SteamHammerRecipe r = new SteamHammerRecipe(CTHelper.toItemStack(input), CTHelper.toItemStack(output), dieType);
+	// public static void addRecipe(IItemStack input, IItemStack output, String
+	// dieType) {
+	// SteamHammerRecipe r = new SteamHammerRecipe(CTHelper.toItemStack(input),
+	// CTHelper.toItemStack(output), dieType);
 	// CraftTweakerAPI.apply(new Add(r));
 	// }
 	//

@@ -15,21 +15,21 @@ public class ContainerCardPuncher extends ContainerBase {
 		ItemStackHandler codeInv = CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
 				.cast(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null));
 		// Card in
-		this.addSlotToContainer(new SlotCard(codeInv, 0, 26, 16));
+		addSlotToContainer(new SlotCard(codeInv, 0, 26, 16));
 		// Card out
-		this.addSlotToContainer(new SlotCard(codeInv, 1, 26, 53));
+		addSlotToContainer(new SlotCard(codeInv, 1, 26, 53));
 		// Dye
-		this.addSlotToContainer(new SlotItemHandler(codeInv, 2, 62, 16));
+		addSlotToContainer(new SlotItemHandler(codeInv, 2, 62, 16));
 		// Items
 		int slotNum = 3;
 		for(int horizontal = 0; horizontal < 4; horizontal++) {
 			for(int vertical = 0; vertical < 4; vertical++) {
 
-				this.addSlotToContainer(
+				addSlotToContainer(
 						new SlotItemHandler(codeInv, slotNum++, 98 + (horizontal * 18), 8 + (vertical * 18)));
 			}
 		}
-		this.createPlayerSlots(entityPlayer.inventory);
+		createPlayerSlots(entityPlayer.inventory);
 	}
 
 	@Override

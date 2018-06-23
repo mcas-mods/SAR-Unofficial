@@ -20,7 +20,7 @@ public class BlockSteamHammerFrame extends BlockMultiblockBase<TileEntitySteamHa
 
 	public BlockSteamHammerFrame(Material material, String name) {
 		super(material, name);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(position, PartPosition.UNKNOWN));
+		setDefaultState(blockState.getBaseState().withProperty(position, PartPosition.UNKNOWN));
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class BlockSteamHammerFrame extends BlockMultiblockBase<TileEntitySteamHa
 
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		return state.withProperty(position, this.getTileEntity(worldIn, pos).get().getPartPosition());
+		return state.withProperty(position, getTileEntity(worldIn, pos).get().getPartPosition());
 	}
 
 	@Override

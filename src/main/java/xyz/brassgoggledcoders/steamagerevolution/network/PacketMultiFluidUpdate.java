@@ -13,7 +13,8 @@ public class PacketMultiFluidUpdate implements IMessage {
 	public MultiFluidTank tank;
 	public int id;
 
-	public PacketMultiFluidUpdate() {}
+	public PacketMultiFluidUpdate() {
+	}
 
 	public PacketMultiFluidUpdate(BlockPos pos, MultiFluidTank tank, int id) {
 		this.pos = pos;

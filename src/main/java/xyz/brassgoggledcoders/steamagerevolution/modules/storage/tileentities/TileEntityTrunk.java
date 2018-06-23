@@ -46,8 +46,9 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IHasGui,
 
 	@Override
 	public boolean hasCapability(Capability<?> capObject, EnumFacing side) {
-		if(capObject == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+		if(capObject == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return true;
+		}
 		return super.hasCapability(capObject, side);
 	}
 
@@ -55,8 +56,9 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IHasGui,
 	public NBTTagCompound writeToDisk(NBTTagCompound tag) {
 		NBTTagCompound inv = new NBTTagCompound();
 		for(int i = 0; i < inventory.getSlots(); i++) {
-			if(!inventory.getStackInSlot(i).isEmpty())
+			if(!inventory.getStackInSlot(i).isEmpty()) {
 				inv.setTag("slot" + i, inventory.getStackInSlot(i).serializeNBT());
+			}
 		}
 		tag.setTag("inventory", inv);
 		return tag;
@@ -71,44 +73,44 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IHasGui,
 
 	@Override
 	public void update() {
-		int i = this.pos.getX();
-		int j = this.pos.getY();
-		int k = this.pos.getZ();
+		int i = pos.getX();
+		int j = pos.getY();
+		int k = pos.getZ();
 
-		this.prevLidAngle = this.lidAngle;
+		prevLidAngle = lidAngle;
 
-		if(this.numPlayersUsing > 0 && this.lidAngle == 0.0F) {
+		if(numPlayersUsing > 0 && lidAngle == 0.0F) {
 			double d1 = i + 0.5D;
 			double d2 = k + 0.5D;
 
-			this.world.playSound((EntityPlayer) null, d1, j + 0.5D, d2, SoundEvents.BLOCK_CHEST_OPEN,
-					SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+			world.playSound((EntityPlayer) null, d1, j + 0.5D, d2, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS,
+					0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 		}
 
-		if(this.numPlayersUsing == 0 && this.lidAngle > 0.0F || this.numPlayersUsing > 0 && this.lidAngle < 1.0F) {
-			float f2 = this.lidAngle;
+		if(numPlayersUsing == 0 && lidAngle > 0.0F || numPlayersUsing > 0 && lidAngle < 1.0F) {
+			float f2 = lidAngle;
 
-			if(this.numPlayersUsing > 0) {
-				this.lidAngle += 0.1F;
+			if(numPlayersUsing > 0) {
+				lidAngle += 0.1F;
 			}
 			else {
-				this.lidAngle -= 0.1F;
+				lidAngle -= 0.1F;
 			}
 
-			if(this.lidAngle > 1.0F) {
-				this.lidAngle = 1.0F;
+			if(lidAngle > 1.0F) {
+				lidAngle = 1.0F;
 			}
 
-			if(this.lidAngle < 0.5F && f2 >= 0.5F) {
+			if(lidAngle < 0.5F && f2 >= 0.5F) {
 				double d3 = i + 0.5D;
 				double d0 = k + 0.5D;
 
-				this.world.playSound((EntityPlayer) null, d3, j + 0.5D, d0, SoundEvents.BLOCK_CHEST_CLOSE,
-						SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+				world.playSound((EntityPlayer) null, d3, j + 0.5D, d0, SoundEvents.BLOCK_CHEST_CLOSE,
+						SoundCategory.BLOCKS, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 			}
 
-			if(this.lidAngle < 0.0F) {
-				this.lidAngle = 0.0F;
+			if(lidAngle < 0.0F) {
+				lidAngle = 0.0F;
 			}
 		}
 	}

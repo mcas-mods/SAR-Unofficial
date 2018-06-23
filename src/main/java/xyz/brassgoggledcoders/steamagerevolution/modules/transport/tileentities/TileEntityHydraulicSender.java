@@ -29,11 +29,13 @@ public class TileEntityHydraulicSender extends TileEntitySlowTick {
 
 	@Override
 	public void updateTile() {
-		if(this.getWorld().isRemote)
+		if(getWorld().isRemote) {
 			return;
+		}
 
-		if(!hasCache)
+		if(!hasCache) {
 			recalculateCache(getWorld(), getPos());
+		}
 
 		if(sendInventory != null && recieveInventory != null) {
 			FluidStack toTransfer = FluidUtil.tryFluidTransfer(recieveInventory, sendInventory, rate, false);
@@ -47,7 +49,7 @@ public class TileEntityHydraulicSender extends TileEntitySlowTick {
 		hasCache = true;
 		SteamAgeRevolution.instance.getLogger().devInfo("Recalc Cache");
 		facing = worldIn.getBlockState(pos).getValue(BlockHydraulicSender.FACING);
-		TileEntity behind = this.getWorld().getTileEntity(pos.offset(facing.getOpposite()));
+		TileEntity behind = getWorld().getTileEntity(pos.offset(facing.getOpposite()));
 		if(behind != null
 				&& behind.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing.getOpposite())) {
 			sendInventory = behind.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing.getOpposite());
@@ -60,12 +62,12 @@ public class TileEntityHydraulicSender extends TileEntitySlowTick {
 			BlockPos currentPos = pos.offset(facing, i);
 			Block block = world.getBlockState(currentPos).getBlock();
 			if(block == ModuleTransport.hydraulicRouter) {
-				recieveInventory = this.getWorld().getTileEntity(getPos().offset(facing, i))
+				recieveInventory = getWorld().getTileEntity(getPos().offset(facing, i))
 						.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing);
 				return;
 			}
-			else if(block == ModuleTransport.hydraulicTube && this.getWorld().getBlockState(currentPos)
-					.getValue(BlockHydraulicTube.AXIS) == facing.getAxis()) {
+			else if(block == ModuleTransport.hydraulicTube
+					&& getWorld().getBlockState(currentPos).getValue(BlockHydraulicTube.AXIS) == facing.getAxis()) {
 				tubePositions[i] = currentPos;
 				continue;
 			}
@@ -78,7 +80,8 @@ public class TileEntityHydraulicSender extends TileEntitySlowTick {
 	}
 
 	@Override
-	protected void readFromDisk(NBTTagCompound data) {}
+	protected void readFromDisk(NBTTagCompound data) {
+	}
 
 	@Override
 	protected NBTTagCompound writeToDisk(NBTTagCompound data) {

@@ -22,7 +22,7 @@ public class BlockKilnDoor extends BlockMultiblockBase<TileEntityKilnDoor> {
 
 	public BlockKilnDoor(Material material, String name) {
 		super(material, name);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(OPEN, Boolean.valueOf(false)));
+		setDefaultState(blockState.getBaseState().withProperty(OPEN, Boolean.valueOf(false)));
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class BlockKilnDoor extends BlockMultiblockBase<TileEntityKilnDoor> {
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(OPEN, meta == 1);
+		return getDefaultState().withProperty(OPEN, meta == 1);
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class BlockKilnDoor extends BlockMultiblockBase<TileEntityKilnDoor> {
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] {OPEN});
+		return new BlockStateContainer(this, new IProperty[] { OPEN });
 	}
 
 }

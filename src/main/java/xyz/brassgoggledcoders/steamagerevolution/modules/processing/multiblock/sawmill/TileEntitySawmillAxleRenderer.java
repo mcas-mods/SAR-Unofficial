@@ -34,8 +34,8 @@ public class TileEntitySawmillAxleRenderer extends TileEntitySpecialRenderer<Til
 			GlStateManager.scale(1f, 1f, 1f);
 
 			GL11.glDepthMask(false);
-			IBakedModel model =
-					Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, tile.getWorld(), null);
+			IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack,
+					tile.getWorld(), null);
 			Minecraft.getMinecraft().getRenderItem().renderItem(stack, model);
 			GL11.glDepthMask(true);
 			RenderUtil.post();

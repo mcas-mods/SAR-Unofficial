@@ -25,14 +25,14 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.transport.tileentities.
 
 public class BlockPneumaticTube extends BlockBase {
 
-	public static final PropertyEnum<Axis> AXIS = PropertyEnum.<Axis> create("axis", Axis.class);
+	public static final PropertyEnum<Axis> AXIS = PropertyEnum.<Axis>create("axis", Axis.class);
 	public static final AxisAlignedBB X_TUBE_AABB = new AxisAlignedBB(0.0D, 0.2D, 0.2D, 1.0D, 0.8D, 0.8D);
 	public static final AxisAlignedBB Y_TUBE_AABB = new AxisAlignedBB(0.2D, 0.0D, 0.2D, 0.8D, 1.0D, 0.8D);
 	public static final AxisAlignedBB Z_TUBE_AABB = new AxisAlignedBB(0.2D, 0.2D, 0.0D, 0.8D, 0.8D, 1.0D);
 
 	public BlockPneumaticTube(Material mat, String name) {
 		super(mat, name);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, Axis.X));
+		setDefaultState(blockState.getBaseState().withProperty(AXIS, Axis.X));
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class BlockPneumaticTube extends BlockBase {
 	@Override
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY,
 			float hitZ, int meta, EntityLivingBase placer) {
-		return this.getStateFromMeta(meta).withProperty(AXIS, facing.getOpposite().getAxis());
+		return getStateFromMeta(meta).withProperty(AXIS, facing.getOpposite().getAxis());
 	}
 
 	@Override
@@ -90,11 +90,11 @@ public class BlockPneumaticTube extends BlockBase {
 	public IBlockState getStateFromMeta(int meta) {
 		switch(meta) {
 			case 0:
-				return this.getDefaultState().withProperty(AXIS, Axis.X);
+				return getDefaultState().withProperty(AXIS, Axis.X);
 			case 1:
-				return this.getDefaultState().withProperty(AXIS, Axis.Z);
+				return getDefaultState().withProperty(AXIS, Axis.Z);
 			case 2:
-				return this.getDefaultState().withProperty(AXIS, Axis.Y);
+				return getDefaultState().withProperty(AXIS, Axis.Y);
 		}
 		return null;
 	}
@@ -102,17 +102,20 @@ public class BlockPneumaticTube extends BlockBase {
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		Axis axis = state.getValue(AXIS);
-		if(axis == Axis.Z)
+		if(axis == Axis.Z) {
 			return 1;
-		else if(axis == Axis.Y)
+		}
+		else if(axis == Axis.Y) {
 			return 2;
-		else
+		}
+		else {
 			return 0;
+		}
 	}
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] {AXIS});
+		return new BlockStateContainer(this, new IProperty[] { AXIS });
 	}
 
 	// TODO Cascade if possible
@@ -130,14 +133,14 @@ public class BlockPneumaticTube extends BlockBase {
 
 	private void findAndNotifySenderToRecalcCache(World worldIn, BlockPos pos, IBlockState state) {
 		for(int i = 1; i < TileEntityPneumaticSender.maxDistance; i++) {
-			BlockPos checkPos =
-					pos.offset(EnumFacing.getFacingFromAxis(AxisDirection.POSITIVE, state.getValue(AXIS)), i);
+			BlockPos checkPos = pos.offset(EnumFacing.getFacingFromAxis(AxisDirection.POSITIVE, state.getValue(AXIS)),
+					i);
 			if(worldIn.getBlockState(checkPos).getBlock() == ModuleTransport.pneumaticSender) {
 				((TileEntityPneumaticSender) worldIn.getTileEntity(checkPos)).recalculateCache(worldIn, checkPos);
 				return;
 			}
-			BlockPos checkNeg =
-					pos.offset(EnumFacing.getFacingFromAxis(AxisDirection.NEGATIVE, state.getValue(AXIS)), i);
+			BlockPos checkNeg = pos.offset(EnumFacing.getFacingFromAxis(AxisDirection.NEGATIVE, state.getValue(AXIS)),
+					i);
 			if(worldIn.getBlockState(checkNeg).getBlock() == ModuleTransport.pneumaticSender) {
 				((TileEntityPneumaticSender) worldIn.getTileEntity(checkNeg)).recalculateCache(worldIn, checkNeg);
 				return;

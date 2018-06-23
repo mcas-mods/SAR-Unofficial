@@ -16,7 +16,8 @@ import net.minecraftforge.fluids.FluidStack;
 // Originally from Tinker's Construct, source here - https://github.com/SlimeKnights/TinkersConstruct/
 public final class RenderUtil {
 
-	private RenderUtil() {}
+	private RenderUtil() {
+	}
 
 	public static float FLUID_OFFSET = 0.005f;
 
@@ -25,14 +26,22 @@ public final class RenderUtil {
 	/**
 	 * Renders a fluid block, call from TESR. x/y/z is the rendering offset.
 	 *
-	 * @param fluid Fluid to render
-	 * @param pos BlockPos where the Block is rendered. Used for brightness.
-	 * @param x Rendering offset. TESR x parameter.
-	 * @param y Rendering offset. TESR x parameter.
-	 * @param z Rendering offset. TESR x parameter.
-	 * @param w Width. 1 = full X-Width
-	 * @param h Height. 1 = full Y-Height
-	 * @param d Depth. 1 = full Z-Depth
+	 * @param fluid
+	 *            Fluid to render
+	 * @param pos
+	 *            BlockPos where the Block is rendered. Used for brightness.
+	 * @param x
+	 *            Rendering offset. TESR x parameter.
+	 * @param y
+	 *            Rendering offset. TESR x parameter.
+	 * @param z
+	 *            Rendering offset. TESR x parameter.
+	 * @param w
+	 *            Width. 1 = full X-Width
+	 * @param h
+	 *            Height. 1 = full Y-Height
+	 * @param d
+	 *            Depth. 1 = full Z-Depth
 	 */
 	public static void renderFluidCuboid(FluidStack fluid, BlockPos pos, double x, double y, double z, double w,
 			double h, double d) {
@@ -49,7 +58,10 @@ public final class RenderUtil {
 		renderFluidCuboid(fluid, pos, x, y, z, x1, y1, z1, x2, y2, z2, color);
 	}
 
-	/** Renders block with offset x/y/z from x1/y1/z1 to x2/y2/z2 inside the block local coordinates, so from 0-1 */
+	/**
+	 * Renders block with offset x/y/z from x1/y1/z1 to x2/y2/z2 inside the block
+	 * local coordinates, so from 0-1
+	 */
 	public static void renderFluidCuboid(FluidStack fluid, BlockPos pos, double x, double y, double z, double x1,
 			double y1, double z1, double x2, double y2, double z2, int color) {
 		Tessellator tessellator = Tessellator.getInstance();
@@ -61,10 +73,10 @@ public final class RenderUtil {
 
 		pre(x, y, z);
 
-		TextureAtlasSprite still =
-				mc.getTextureMapBlocks().getTextureExtry(fluid.getFluid().getStill(fluid).toString());
-		TextureAtlasSprite flowing =
-				mc.getTextureMapBlocks().getTextureExtry(fluid.getFluid().getFlowing(fluid).toString());
+		TextureAtlasSprite still = mc.getTextureMapBlocks()
+				.getTextureExtry(fluid.getFluid().getStill(fluid).toString());
+		TextureAtlasSprite flowing = mc.getTextureMapBlocks()
+				.getTextureExtry(fluid.getFluid().getFlowing(fluid).toString());
 
 		// x/y/z2 - x/y/z1 is because we need the width/height/depth
 		putTexturedQuad(renderer, still, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.DOWN, color, brightness,
@@ -105,10 +117,10 @@ public final class RenderUtil {
 		pre(px, py, pz);
 		GlStateManager.translate(from.getX(), from.getY(), from.getZ());
 
-		TextureAtlasSprite still =
-				mc.getTextureMapBlocks().getTextureExtry(fluid.getFluid().getStill(fluid).toString());
-		TextureAtlasSprite flowing =
-				mc.getTextureMapBlocks().getTextureExtry(fluid.getFluid().getFlowing(fluid).toString());
+		TextureAtlasSprite still = mc.getTextureMapBlocks()
+				.getTextureExtry(fluid.getFluid().getStill(fluid).toString());
+		TextureAtlasSprite flowing = mc.getTextureMapBlocks()
+				.getTextureExtry(fluid.getFluid().getFlowing(fluid).toString());
 
 		if(still == null) {
 			still = mc.getTextureMapBlocks().getMissingSprite();
@@ -119,19 +131,25 @@ public final class RenderUtil {
 
 		int xd = to.getX() - from.getX();
 
-		// the liquid can stretch over more blocks than the subtracted height is if ymin's decimal is bigger than ymax's
+		// the liquid can stretch over more blocks than the subtracted height is if
+		// ymin's decimal is bigger than ymax's
 		// decimal (causing UV over 1)
-		// ignoring the decimals prevents this, as yd then equals exactly how many ints are between the two
-		// for example, if ymax = 5.1 and ymin = 2.3, 2.8 (which rounds to 2), with the face array becoming 2.3, 3, 4,
+		// ignoring the decimals prevents this, as yd then equals exactly how many ints
+		// are between the two
+		// for example, if ymax = 5.1 and ymin = 2.3, 2.8 (which rounds to 2), with the
+		// face array becoming 2.3, 3, 4,
 		// 5.1
 		int yminInt = (int) ymin;
 		int yd = (int) (ymax - yminInt);
 
-		// prevents a rare case of rendering the top face multiple times if ymax is perfectly aligned with the block
-		// for example, if ymax = 3 and ymin = 1, the values of the face array become 1, 2, 3, 3 as we then have middle
+		// prevents a rare case of rendering the top face multiple times if ymax is
+		// perfectly aligned with the block
+		// for example, if ymax = 3 and ymin = 1, the values of the face array become 1,
+		// 2, 3, 3 as we then have middle
 		// ints
-		if(ymax % 1d == 0)
+		if(ymax % 1d == 0) {
 			yd--;
+		}
 		int zd = to.getZ() - from.getZ();
 
 		double xmin = offsetToBlockEdge;
@@ -146,20 +164,24 @@ public final class RenderUtil {
 		double[] zs = new double[2 + zd];
 
 		xs[0] = xmin;
-		for(int i = 1; i <= xd; i++)
+		for(int i = 1; i <= xd; i++) {
 			xs[i] = i;
+		}
 		xs[xd + 1] = xmax;
 
-		// we have to add the whole number for ymin or otherwise things render incorrectly if above the first block
+		// we have to add the whole number for ymin or otherwise things render
+		// incorrectly if above the first block
 		// example, heights of 2 and 5 would produce array of 2, 1, 2, 5
 		ys[0] = ymin;
-		for(int i = 1; i <= yd; i++)
+		for(int i = 1; i <= yd; i++) {
 			ys[i] = i + yminInt;
+		}
 		ys[yd + 1] = ymax;
 
 		zs[0] = zmin;
-		for(int i = 1; i <= zd; i++)
+		for(int i = 1; i <= zd; i++) {
 			zs[i] = i;
+		}
 		zs[zd + 1] = zmax;
 
 		// render each side
@@ -174,34 +196,46 @@ public final class RenderUtil {
 					double z1 = zs[z];
 					double z2 = zs[z + 1] - z1;
 
-					if(x == 0)
+					if(x == 0) {
 						putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.WEST, color, brightness,
 								true);
-					if(x == xd)
+					}
+					if(x == xd) {
 						putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.EAST, color, brightness,
 								true);
-					if(y == 0)
+					}
+					if(y == 0) {
 						putTexturedQuad(renderer, still, x1, y1, z1, x2, y2, z2, EnumFacing.DOWN, color, brightness,
 								false);
-					if(y == yd)
+					}
+					if(y == yd) {
 						putTexturedQuad(renderer, still, x1, y1, z1, x2, y2, z2, EnumFacing.UP, color, brightness,
 								false);
-					if(z == 0)
+					}
+					if(z == 0) {
 						putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.NORTH, color, brightness,
 								true);
-					if(z == zd)
+					}
+					if(z == zd) {
 						putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.SOUTH, color, brightness,
 								true);
+					}
 				}
 			}
 		}
 
-		// putTexturedQuad(renderer, still, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.DOWN, color, brightness);
-		// putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.NORTH, color, brightness);
-		// putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.EAST, color, brightness);
-		// putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.SOUTH, color, brightness);
-		// putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.WEST, color, brightness);
-		// putTexturedQuad(renderer, still , x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.UP, color, brightness);
+		// putTexturedQuad(renderer, still, x1, y1, z1, x2-x1, y2-y1, z2-z1,
+		// EnumFacing.DOWN, color, brightness);
+		// putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1,
+		// EnumFacing.NORTH, color, brightness);
+		// putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1,
+		// EnumFacing.EAST, color, brightness);
+		// putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1,
+		// EnumFacing.SOUTH, color, brightness);
+		// putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1,
+		// EnumFacing.WEST, color, brightness);
+		// putTexturedQuad(renderer, still , x1, y1, z1, x2-x1, y2-y1, z2-z1,
+		// EnumFacing.UP, color, brightness);
 
 		tessellator.draw();
 
@@ -266,16 +300,19 @@ public final class RenderUtil {
 
 		double xt1 = x1 % 1d;
 		double xt2 = xt1 + w;
-		while(xt2 > 1f)
+		while(xt2 > 1f) {
 			xt2 -= 1f;
+		}
 		double yt1 = y1 % 1d;
 		double yt2 = yt1 + h;
-		while(yt2 > 1f)
+		while(yt2 > 1f) {
 			yt2 -= 1f;
+		}
 		double zt1 = z1 % 1d;
 		double zt2 = zt1 + d;
-		while(zt2 > 1f)
+		while(zt2 > 1f) {
 			zt2 -= 1f;
+		}
 
 		// flowing stuff should start from the bottom, not from the start
 		if(flowing) {
@@ -291,21 +328,21 @@ public final class RenderUtil {
 				maxU = sprite.getInterpolatedU(xt2 * size);
 				minV = sprite.getInterpolatedV(zt1 * size);
 				maxV = sprite.getInterpolatedV(zt2 * size);
-			break;
+				break;
 			case NORTH:
 			case SOUTH:
 				minU = sprite.getInterpolatedU(xt2 * size);
 				maxU = sprite.getInterpolatedU(xt1 * size);
 				minV = sprite.getInterpolatedV(yt1 * size);
 				maxV = sprite.getInterpolatedV(yt2 * size);
-			break;
+				break;
 			case WEST:
 			case EAST:
 				minU = sprite.getInterpolatedU(zt2 * size);
 				maxU = sprite.getInterpolatedU(zt1 * size);
 				minV = sprite.getInterpolatedV(yt1 * size);
 				maxV = sprite.getInterpolatedV(yt2 * size);
-			break;
+				break;
 			default:
 				minU = sprite.getMinU();
 				maxU = sprite.getMaxU();
@@ -319,37 +356,37 @@ public final class RenderUtil {
 				renderer.pos(x2, y1, z1).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
 				renderer.pos(x2, y1, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
 				renderer.pos(x1, y1, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
-			break;
+				break;
 			case UP:
 				renderer.pos(x1, y2, z1).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
 				renderer.pos(x1, y2, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
 				renderer.pos(x2, y2, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
 				renderer.pos(x2, y2, z1).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
-			break;
+				break;
 			case NORTH:
 				renderer.pos(x1, y1, z1).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
 				renderer.pos(x1, y2, z1).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
 				renderer.pos(x2, y2, z1).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
 				renderer.pos(x2, y1, z1).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
-			break;
+				break;
 			case SOUTH:
 				renderer.pos(x1, y1, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
 				renderer.pos(x2, y1, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
 				renderer.pos(x2, y2, z2).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
 				renderer.pos(x1, y2, z2).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
-			break;
+				break;
 			case WEST:
 				renderer.pos(x1, y1, z1).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
 				renderer.pos(x1, y1, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
 				renderer.pos(x1, y2, z2).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
 				renderer.pos(x1, y2, z1).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
-			break;
+				break;
 			case EAST:
 				renderer.pos(x2, y1, z1).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
 				renderer.pos(x2, y2, z1).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
 				renderer.pos(x2, y2, z2).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
 				renderer.pos(x2, y1, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
-			break;
+				break;
 		}
 	}
 
@@ -422,19 +459,22 @@ public final class RenderUtil {
 		float x = 0, y = 0, z = 0;
 		if(vector.getX() != 0) {
 			x = magnitude;
-			if(vector.getX() < 0)
+			if(vector.getX() < 0) {
 				x = -x;
+			}
 		}
 		if(vector.getY() != 0) {
 			y = magnitude;
-			if(vector.getY() < 0)
+			if(vector.getY() < 0) {
 				y = -y;
+			}
 		}
 		if(vector.getZ() != 0) {
 			z = magnitude;
-			if(vector.getZ() < 0)
+			if(vector.getZ() < 0) {
 				z = -z;
+			}
 		}
-		return new float[] {x, y, z};
+		return new float[] { x, y, z };
 	}
 }

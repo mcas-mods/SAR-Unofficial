@@ -42,9 +42,9 @@ public class ModuleSteam extends ModuleBase {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		this.getConfigRegistry().addEntry("enableDestruction",
+		getConfigRegistry().addEntry("enableDestruction",
 				new ConfigEntry("general", "enableDestruction", Type.BOOLEAN, "false"));
-		enableDestruction = this.getConfigRegistry().getBoolean("enableDestruction", false);
+		enableDestruction = getConfigRegistry().getBoolean("enableDestruction", false);
 		super.preInit(event);
 	}
 

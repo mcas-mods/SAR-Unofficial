@@ -45,9 +45,8 @@ public class ControllerDistiller extends SARMultiblockInventory implements ISmar
 
 	@Override
 	protected boolean isMachineWhole(IMultiblockValidator validatorCallback) {
-		BlockPos first = this.getMinimumCoord();
-		BlockPos second = new BlockPos(this.getMaximumCoord().getX(), this.getMinimumCoord().getY(),
-				this.getMaximumCoord().getZ());
+		BlockPos first = getMinimumCoord();
+		BlockPos second = new BlockPos(getMaximumCoord().getX(), getMinimumCoord().getY(), getMaximumCoord().getZ());
 
 		// Get all blocks in bottom layer of machine & check they're radiators
 		for(BlockPos pos : BlockPos.getAllInBox(first, second)) {
@@ -201,7 +200,8 @@ public class ControllerDistiller extends SARMultiblockInventory implements ISmar
 	}
 
 	@Override
-	public void readFromDisk(NBTTagCompound data) {}
+	public void readFromDisk(NBTTagCompound data) {
+	}
 
 	@Override
 	public void updateFluid(PacketFluidUpdate message) {
@@ -257,7 +257,7 @@ public class ControllerDistiller extends SARMultiblockInventory implements ISmar
 
 	@Override
 	public ItemStackHandlerExtractSpecific getItemOutput() {
-		return this.itemOutput;
+		return itemOutput;
 	}
 
 	@Override

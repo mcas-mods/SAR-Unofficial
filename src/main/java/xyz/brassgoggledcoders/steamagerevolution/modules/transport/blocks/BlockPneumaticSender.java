@@ -28,18 +28,21 @@ public class BlockPneumaticSender extends BlockTEBase<TileEntityPneumaticSender>
 
 	public BlockPneumaticSender(Material material, String name) {
 		super(material, name);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 	}
 
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		EnumFacing f = state.getValue(FACING);
-		if(f == EnumFacing.NORTH || f == EnumFacing.SOUTH)
+		if(f == EnumFacing.NORTH || f == EnumFacing.SOUTH) {
 			return BlockPneumaticTube.Z_TUBE_AABB;
-		else if(f == EnumFacing.EAST || f == EnumFacing.WEST)
+		}
+		else if(f == EnumFacing.EAST || f == EnumFacing.WEST) {
 			return BlockPneumaticTube.X_TUBE_AABB;
-		else
+		}
+		else {
 			return BlockPneumaticTube.Y_TUBE_AABB;
+		}
 	}
 
 	@Override
@@ -77,7 +80,7 @@ public class BlockPneumaticSender extends BlockTEBase<TileEntityPneumaticSender>
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		EnumFacing enumfacing = EnumFacing.getFront(meta);
-		return this.getDefaultState().withProperty(FACING, enumfacing);
+		return getDefaultState().withProperty(FACING, enumfacing);
 	}
 
 	@Override
@@ -87,7 +90,7 @@ public class BlockPneumaticSender extends BlockTEBase<TileEntityPneumaticSender>
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] {FACING});
+		return new BlockStateContainer(this, new IProperty[] { FACING });
 	}
 
 	@Override
@@ -103,7 +106,7 @@ public class BlockPneumaticSender extends BlockTEBase<TileEntityPneumaticSender>
 	@Override
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY,
 			float hitZ, int meta, EntityLivingBase placer) {
-		return this.getStateFromMeta(meta).withProperty(FACING, facing);
+		return getStateFromMeta(meta).withProperty(FACING, facing);
 	}
 
 	@Override

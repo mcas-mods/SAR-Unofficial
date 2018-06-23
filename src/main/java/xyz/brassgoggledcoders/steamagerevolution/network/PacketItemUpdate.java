@@ -13,7 +13,8 @@ public class PacketItemUpdate implements IMessage {
 	public ItemStack item;
 	public int slot;
 
-	public PacketItemUpdate() {}
+	public PacketItemUpdate() {
+	}
 
 	public PacketItemUpdate(BlockPos pos, ItemStack item, int slot) {
 		this.pos = pos;

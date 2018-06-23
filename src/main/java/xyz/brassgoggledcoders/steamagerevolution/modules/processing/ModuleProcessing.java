@@ -51,7 +51,8 @@ public class ModuleProcessing extends ModuleBase {
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
 		// blockRegistry.register(new BlockKilnFrame(Material.ROCK, "kiln_frame"));
-		// blockRegistry.register(new BlockKilnSteamInput(Material.ROCK, "kiln_steam_input"));
+		// blockRegistry.register(new BlockKilnSteamInput(Material.ROCK,
+		// "kiln_steam_input"));
 		// blockRegistry.register(new BlockKilnWindow(Material.GLASS, "kiln_window"));
 		// blockRegistry.register(new BlockKilnDoor(Material.IRON, "kiln_door"));
 
@@ -61,7 +62,8 @@ public class ModuleProcessing extends ModuleBase {
 		blockRegistry.register(new BlockFurnaceSteamInput(Material.IRON, "furnace_steam_input"));
 		blockRegistry.register(new BlockFurnaceModeToggle(Material.IRON, "furnace_mode_toggle"));
 
-		// blockRegistry.register(new BlockSawmillCasing(Material.IRON, "sawmill_casing"));
+		// blockRegistry.register(new BlockSawmillCasing(Material.IRON,
+		// "sawmill_casing"));
 		// blockRegistry.register(new BlockSawmillAxle(Material.IRON, "sawmill_axle"));
 	}
 
@@ -75,7 +77,8 @@ public class ModuleProcessing extends ModuleBase {
 			// FIXME
 			// if(IntStream.of(OreDictionary.getOreIDs(recipe.getKey()))
 			// .anyMatch(id -> id == OreDictionary.getOreID("listAllmeatraw"))) {
-			// SteamFurnaceRecipe.addSteamFurnaceRecipe(recipe.getKey(), new ItemStack(charcoal_powder));
+			// SteamFurnaceRecipe.addSteamFurnaceRecipe(recipe.getKey(), new
+			// ItemStack(charcoal_powder));
 			// }
 		}
 

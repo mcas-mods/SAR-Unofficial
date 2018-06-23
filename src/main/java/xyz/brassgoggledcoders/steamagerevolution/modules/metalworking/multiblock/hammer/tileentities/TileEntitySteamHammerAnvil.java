@@ -44,12 +44,13 @@ public class TileEntitySteamHammerAnvil extends TileEntitySteamHammerPart implem
 	@SideOnly(Side.CLIENT)
 	@Override
 	public net.minecraft.util.math.AxisAlignedBB getRenderBoundingBox() {
-		if(this.isConnected()) {
-			return new AxisAlignedBB(this.getMultiblockController().getMinimumCoord(),
-					this.getMultiblockController().getMaximumCoord());
+		if(isConnected()) {
+			return new AxisAlignedBB(getMultiblockController().getMinimumCoord(),
+					getMultiblockController().getMaximumCoord());
 		}
-		else
+		else {
 			return super.getRenderBoundingBox();
+		}
 	}
 
 	@Override

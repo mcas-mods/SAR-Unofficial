@@ -25,35 +25,42 @@ public class ItemClockworkWings extends ItemArmorBase {
 
 	public ItemClockworkWings() {
 		super(ArmorMaterial.LEATHER, EntityEquipmentSlot.CHEST, "clockwork_wings");
-		this.setMaxDamage(0);
-		this.setUnlocalizedName("clockwork_wings");
+		setMaxDamage(0);
+		setUnlocalizedName("clockwork_wings");
 	}
 
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
 		if(!player.capabilities.allowFlying && (player.getFoodStats().getFoodLevel() != 0)) {
-			if(!stack.hasTagCompound())
+			if(!stack.hasTagCompound()) {
 				stack.setTagCompound(new NBTTagCompound());
+			}
 
 			NBTTagCompound tag = stack.getTagCompound();
 			boolean shouldBoost = ClientHelper.settings().keyBindJump.isKeyDown();
 			boolean wasJumping = tag.getBoolean("isJumping");
 
-			if(shouldBoost)
-				if(wasJumping)
+			if(shouldBoost) {
+				if(wasJumping) {
 					shouldBoost = false;
-				else
+				}
+				else {
 					tag.setBoolean("isJumping", true);
-			else if(wasJumping)
+				}
+			}
+			else if(wasJumping) {
 				tag.setBoolean("isJumping", false);
+			}
 
 			if(/* (SteamAgeRevolution.proxy.isScreenEmpty()) && */ (player.posY < 160) && shouldBoost) {
 				player.addExhaustion(hungerPerTick);
 
-				if(player.motionY > 0.0D)
+				if(player.motionY > 0.0D) {
 					player.motionY += 0.3D;
-				else
+				}
+				else {
 					player.motionY += 0.4D;
+				}
 			}
 
 			if((player.motionY < 0.0D) && player.isSneaking() && !player.onGround) {

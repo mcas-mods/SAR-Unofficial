@@ -34,7 +34,7 @@ public class ItemSteamShovel extends ItemSpade implements IHasModel, IModAware {
 
 	protected ItemSteamShovel(String name, int capacity) {
 		super(ModuleArmory.STEAM);
-		this.setUnlocalizedName(name);
+		setUnlocalizedName(name);
 		this.capacity = capacity;
 		this.name = name;
 	}
@@ -57,10 +57,11 @@ public class ItemSteamShovel extends ItemSpade implements IHasModel, IModAware {
 
 	@Override
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-		FluidHandlerItemStack internal =
-				(FluidHandlerItemStack) stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock)
+		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
+				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
 			return super.getDestroySpeed(stack, state);
+		}
 		else {
 			return 0.0F;
 		}
@@ -69,8 +70,8 @@ public class ItemSteamShovel extends ItemSpade implements IHasModel, IModAware {
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos,
 			EntityLivingBase entityLiving) {
-		FluidHandlerItemStack internal =
-				(FluidHandlerItemStack) stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
+				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
 			internal.drain(steamUsePerBlock, true);
 			return true;
@@ -82,24 +83,24 @@ public class ItemSteamShovel extends ItemSpade implements IHasModel, IModAware {
 
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
-		FluidHandlerItemStack internal =
-				(FluidHandlerItemStack) stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
+				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		return 1.0D - ((double) internal.getFluid().amount / capacity);
 
 	}
 
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
-		FluidHandlerItemStack internal =
-				(FluidHandlerItemStack) stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
+				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		return internal.getFluid() != null;
 	}
 
 	@Override
 	@ParametersAreNonnullByDefault
 	public void getSubItems(@Nullable CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if(tab != null && tab == this.getCreativeTab() || tab == CreativeTabs.SEARCH) {
-			subItems.addAll(this.getAllSubItems(Lists.newArrayList()));
+		if(tab != null && tab == getCreativeTab() || tab == CreativeTabs.SEARCH) {
+			subItems.addAll(getAllSubItems(Lists.newArrayList()));
 		}
 	}
 
@@ -114,7 +115,7 @@ public class ItemSteamShovel extends ItemSpade implements IHasModel, IModAware {
 	public Item setCreativeTab(@Nonnull CreativeTabs tab) {
 		if(!creativeTabSet) {
 			super.setCreativeTab(tab);
-			this.creativeTabSet = true;
+			creativeTabSet = true;
 		}
 		return this;
 	}

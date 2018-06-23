@@ -26,13 +26,13 @@ public class TileEntitySteamVent extends TileEntitySlowTick {
 	public void updateTile() {
 		World w = getWorld();
 		BlockPos pos = getPos();
-		if(w.isBlockPowered(pos) && this.tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
+		if(w.isBlockPowered(pos) && tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
 			EnumFacing f = w.getBlockState(pos).getValue(BlockSteamVent.FACING);
 			for(EntityLivingBase e : w.getEntitiesWithinAABB(EntityLivingBase.class,
 					new AxisAlignedBB(pos.offset(f)))) {
 				e.attackEntityFrom(DamageSource.IN_FIRE, 3F);
 			}
-			this.tank.drain(Fluid.BUCKET_VOLUME, true);
+			tank.drain(Fluid.BUCKET_VOLUME, true);
 			SteamAgeRevolution.proxy.spawnSteamJet(pos, f);
 		}
 	}
@@ -45,8 +45,9 @@ public class TileEntitySteamVent extends TileEntitySlowTick {
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
+		}
 		return super.getCapability(capability, facing);
 	}
 

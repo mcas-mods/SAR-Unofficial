@@ -5,10 +5,16 @@ import stanhebben.zenscript.annotations.ZenClass;
 @ZenClass("mods.steamagerevolution.Vat")
 public class VatTweaker {
 	// @ZenMethod
-	// public static void addRecipe(ILiquidStack[] fluids, IItemStack[] stacks, ILiquidStack output) {
-	// // VatRecipe r = new VatRecipeBuilder().setFluidOutputs(CTHelper.toFluidStack(output))
-	// // .setFluidInputs(Arrays.stream(fluids).map(CTHelper::toFluidStack).toArray(size -> new FluidStack[size]))
-	// // .setItemInputs(Arrays.stream(stacks).map(CTHelper::toItemStack).toArray(size -> new ItemStack[size]))
+	// public static void addRecipe(ILiquidStack[] fluids, IItemStack[] stacks,
+	// ILiquidStack output) {
+	// // VatRecipe r = new
+	// VatRecipeBuilder().setFluidOutputs(CTHelper.toFluidStack(output))
+	// //
+	// .setFluidInputs(Arrays.stream(fluids).map(CTHelper::toFluidStack).toArray(size
+	// -> new FluidStack[size]))
+	// //
+	// .setItemInputs(Arrays.stream(stacks).map(CTHelper::toItemStack).toArray(size
+	// -> new ItemStack[size]))
 	// // .build();
 	// // CraftTweakerAPI.apply(new Add(r));
 	// }

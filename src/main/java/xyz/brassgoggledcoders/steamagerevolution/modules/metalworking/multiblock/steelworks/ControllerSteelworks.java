@@ -29,7 +29,8 @@ public class ControllerSteelworks extends SARMultiblockBase implements ISmartTan
 	public ItemStackHandler inputSolid = new ItemStackHandlerFuel(1);
 	public FluidTank outputTank = new FluidTankSmart(Fluid.BUCKET_VOLUME * 16, this);
 
-	// public static final int workingPoolLevel = ModuleMetalworking.VALUE_BLOCK * 9;
+	// public static final int workingPoolLevel = ModuleMetalworking.VALUE_BLOCK *
+	// 9;
 	public static final int conversionPerOperation = ModuleMetalworking.VALUE_NUGGET;
 	public static final int steamUsePerOperation = Fluid.BUCKET_VOLUME / 10;
 	public static final int carbonPerOperation = TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL)) / 2;
@@ -218,17 +219,17 @@ public class ControllerSteelworks extends SARMultiblockBase implements ISmartTan
 
 	@Override
 	public int getMaximumXSize() {
-		return this.getMinimumXSize();
+		return getMinimumXSize();
 	}
 
 	@Override
 	public int getMaximumZSize() {
-		return this.getMinimumZSize();
+		return getMinimumZSize();
 	}
 
 	@Override
 	public int getMaximumYSize() {
-		return this.getMinimumYSize();
+		return getMinimumYSize();
 	}
 
 	@Override

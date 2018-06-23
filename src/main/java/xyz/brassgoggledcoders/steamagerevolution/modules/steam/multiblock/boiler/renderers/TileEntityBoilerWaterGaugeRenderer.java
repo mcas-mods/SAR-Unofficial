@@ -14,8 +14,9 @@ public class TileEntityBoilerWaterGaugeRenderer extends TileEntitySpecialRendere
 	@Override
 	public void render(TileEntityBoilerWaterGauge tile, double x, double y, double z, float partialTicks,
 			int destroyStage, float alpha) {
-		if(!tile.isConnected())
+		if(!tile.isConnected()) {
 			return;
+		}
 		FluidTank waterTank = tile.getMultiblockController().waterTank;
 		FluidStack water = waterTank.getFluid();
 

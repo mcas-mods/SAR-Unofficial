@@ -29,11 +29,13 @@ public class TileEntityPneumaticSender extends TileEntitySlowTick {
 
 	@Override
 	public void updateTile() {
-		if(this.getWorld().isRemote)
+		if(getWorld().isRemote) {
 			return;
+		}
 
-		if(!hasCache)
+		if(!hasCache) {
 			recalculateCache(getWorld(), getPos());
+		}
 
 		if(sendInventory != null && recieveInventory != null) {
 			// TODO Rewrite inventory handling
@@ -41,13 +43,12 @@ public class TileEntityPneumaticSender extends TileEntitySlowTick {
 				if(ItemHandlerHelper
 						.insertItem(recieveInventory, sendInventory.getStackInSlot(i).copy().splitStack(rate), true)
 						.isEmpty()) {
-					this.getWorld().playSound(null, this.getPos(), SoundEvents.ENTITY_CAT_HISS, SoundCategory.BLOCKS, 1,
-							1);
+					getWorld().playSound(null, getPos(), SoundEvents.ENTITY_CAT_HISS, SoundCategory.BLOCKS, 1, 1);
 					ItemHandlerHelper.insertItem(recieveInventory, sendInventory.getStackInSlot(i).splitStack(rate),
 							false);
 					for(int i2 = 0; i2 < maxDistance; i2++) {
 						if(tubePositions[i2] != null) {
-							SteamAgeRevolution.proxy.spawnSmoke(this.getPos());
+							SteamAgeRevolution.proxy.spawnSmoke(getPos());
 							SteamAgeRevolution.proxy.spawnSmoke(tubePositions[i2]);
 						}
 					}
@@ -60,7 +61,7 @@ public class TileEntityPneumaticSender extends TileEntitySlowTick {
 		hasCache = true;
 		SteamAgeRevolution.instance.getLogger().devInfo("Recalc Cache");
 		facing = worldIn.getBlockState(pos).getValue(BlockPneumaticSender.FACING);
-		TileEntity behind = this.getWorld().getTileEntity(pos.offset(facing.getOpposite()));
+		TileEntity behind = getWorld().getTileEntity(pos.offset(facing.getOpposite()));
 		if(behind != null
 				&& behind.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing.getOpposite())) {
 			sendInventory = behind.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing.getOpposite());
@@ -73,12 +74,12 @@ public class TileEntityPneumaticSender extends TileEntitySlowTick {
 			BlockPos currentPos = pos.offset(facing, i);
 			Block block = world.getBlockState(currentPos).getBlock();
 			if(block == ModuleTransport.pneumaticRouter) {
-				recieveInventory = this.getWorld().getTileEntity(getPos().offset(facing, i))
+				recieveInventory = getWorld().getTileEntity(getPos().offset(facing, i))
 						.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
 				return;
 			}
-			else if(block == ModuleTransport.pneumaticTube && this.getWorld().getBlockState(currentPos)
-					.getValue(BlockPneumaticTube.AXIS) == facing.getAxis()) {
+			else if(block == ModuleTransport.pneumaticTube
+					&& getWorld().getBlockState(currentPos).getValue(BlockPneumaticTube.AXIS) == facing.getAxis()) {
 				tubePositions[i] = currentPos;
 				continue;
 			}
@@ -91,7 +92,8 @@ public class TileEntityPneumaticSender extends TileEntitySlowTick {
 	}
 
 	@Override
-	protected void readFromDisk(NBTTagCompound data) {}
+	protected void readFromDisk(NBTTagCompound data) {
+	}
 
 	@Override
 	protected NBTTagCompound writeToDisk(NBTTagCompound data) {

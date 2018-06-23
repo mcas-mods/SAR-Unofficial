@@ -10,7 +10,8 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.s
 public class ClientProxy implements IModuleProxy {
 
 	@Override
-	public void preInit(FMLPreInitializationEvent event) {}
+	public void preInit(FMLPreInitializationEvent event) {
+	}
 
 	@Override
 	public void init(FMLInitializationEvent event) {
@@ -18,5 +19,6 @@ public class ClientProxy implements IModuleProxy {
 	}
 
 	@Override
-	public void postInit(FMLPostInitializationEvent event) {}
+	public void postInit(FMLPostInitializationEvent event) {
+	}
 }

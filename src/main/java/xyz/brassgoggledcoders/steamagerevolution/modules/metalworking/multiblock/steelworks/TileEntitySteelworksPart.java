@@ -22,8 +22,8 @@ public abstract class TileEntitySteelworksPart extends RectangularMultiblockTile
 
 	@Override
 	public boolean[] getValidPositions() {
-		return new boolean[] {isGoodForFrame(null), isGoodForSides(null), isGoodForTop(null), isGoodForBottom(null),
-				isGoodForInterior(null)};
+		return new boolean[] { isGoodForFrame(null), isGoodForSides(null), isGoodForTop(null), isGoodForBottom(null),
+				isGoodForInterior(null) };
 	}
 
 	@Override
@@ -52,10 +52,12 @@ public abstract class TileEntitySteelworksPart extends RectangularMultiblockTile
 	}
 
 	@Override
-	public void onMachineActivated() {}
+	public void onMachineActivated() {
+	}
 
 	@Override
-	public void onMachineDeactivated() {}
+	public void onMachineDeactivated() {
+	}
 
 	@Override
 	public MultiblockControllerBase createNewMultiblock() {

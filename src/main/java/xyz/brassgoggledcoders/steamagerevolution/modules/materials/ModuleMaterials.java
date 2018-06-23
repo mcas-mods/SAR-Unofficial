@@ -32,11 +32,11 @@ public class ModuleMaterials extends ModuleBase {
 	public static final Block charcoal_block = null;
 	public static final Item charcoal_powder = null;
 
-	String[] vanillaParts = new String[] {"ore", "plate", "dust", "molten", "crushed_ore", "solution", "crystal"};
-	String[] metalParts = new String[] {"ore", "crushed_ore", "solution", "crystal", "ingot", "nugget", "plate", "dust",
-			"block", "molten"};
+	String[] vanillaParts = new String[] { "ore", "plate", "dust", "molten", "crushed_ore", "solution", "crystal" };
+	String[] metalParts = new String[] { "ore", "crushed_ore", "solution", "crystal", "ingot", "nugget", "plate",
+			"dust", "block", "molten" };
 	String[] alloyParts = Arrays.copyOfRange(metalParts, 4, metalParts.length);
-	String[] compatParts = new String[] {"crushed_ore", "solution", "crystal"};
+	String[] compatParts = new String[] { "crushed_ore", "solution", "crystal" };
 	public static Color brassColor = new Color(251, 194, 99);
 
 	@Override
@@ -55,16 +55,16 @@ public class ModuleMaterials extends ModuleBase {
 			Material zinc = new MaterialBuilder().setName("Zinc").setColor(new Color(133, 153, 154)).setHasEffect(false)
 					.build();
 
-			Material steel =
-					new MaterialBuilder().setName("Steel").setColor(Color.DARK_GRAY).setHasEffect(false).build();
+			Material steel = new MaterialBuilder().setName("Steel").setColor(Color.DARK_GRAY).setHasEffect(false)
+					.build();
 			Material brass = new MaterialBuilder().setName("Brass").setColor(brassColor).setHasEffect(false).build();
 
 			Material sulphur = new MaterialBuilder().setName("Sulphur").setColor(new Color(200, 200, 60))
 					.setHasEffect(false).build();
 
 			Material tin = new MaterialBuilder().setName("Tin").setColor(Color.LIGHT_GRAY).setHasEffect(false).build();
-			Material aluminum =
-					new MaterialBuilder().setName("Aluminum").setColor(Color.WHITE).setHasEffect(false).build();
+			Material aluminum = new MaterialBuilder().setName("Aluminum").setColor(Color.WHITE).setHasEffect(false)
+					.build();
 			Material lead = new MaterialBuilder().setName("Lead").setColor(Color.BLACK).setHasEffect(false).build();
 
 			SAR.registerPartsForMaterial(sulphur, "ore", "dust", "crystal");

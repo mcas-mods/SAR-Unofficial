@@ -16,18 +16,20 @@ public class GuiVat extends GuiContainer {
 
 	public GuiVat(EntityPlayer player, ControllerVat tile) {
 		super(new ContainerVat(player, tile));
-		this.controller = tile;
+		controller = tile;
 	}
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		this.drawDefaultBackground();
+		drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
+		renderHoveredToolTip(mouseX, mouseY);
 		// if(this.isPointInRegion(78, 17, 20, 49, mouseX, mouseY)) {
 		// List<String> tooltip = Lists.newArrayList();
 		// tooltip.add(TextUtils.representTankContents(
-		// (IFluidTank) controller.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null))
+		// (IFluidTank)
+		// controller.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
+		// null))
 		// .getText());
 		// this.drawHoveringText(tooltip, mouseX, mouseY, fontRenderer);
 		// }
@@ -35,26 +37,26 @@ public class GuiVat extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		this.mc.renderEngine.bindTexture(guiTexture);
-		int x = (this.width - this.xSize) / 2;
-		int y = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
+		mc.renderEngine.bindTexture(guiTexture);
+		int x = (width - xSize) / 2;
+		int y = (height - ySize) / 2;
+		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
 		for(int i = 0; i < controller.fluidInput.fluids.size(); i++) {
 			FluidStack containedFluid = controller.fluidInput.fluids.get(i);
 			if(containedFluid != null && containedFluid.getFluid() != null && containedFluid.amount > 0) {
 				GuiUtils.renderGuiTank(containedFluid, (controller.fluidInput.getCapacity() / 3), containedFluid.amount,
-						this.guiLeft + 12 + (i * 25), this.guiTop + 9, 20, 60);
-				this.mc.renderEngine.bindTexture(guiTexture);
-				this.drawTexturedModalRect(this.guiLeft + 12 + (i * 25), this.guiTop + 15, 176, 14, 20, 49);
+						guiLeft + 12 + (i * 25), guiTop + 9, 20, 60);
+				mc.renderEngine.bindTexture(guiTexture);
+				this.drawTexturedModalRect(guiLeft + 12 + (i * 25), guiTop + 15, 176, 14, 20, 49);
 			}
 		}
 		FluidStack containedFluid = controller.output.getFluid();
 		if(containedFluid != null && containedFluid.getFluid() != null && containedFluid.amount > 0) {
 			GuiUtils.renderGuiTank(containedFluid, (controller.fluidInput.getCapacity() / 3), containedFluid.amount,
-					this.guiLeft + 143, this.guiTop + 9, 20, 60);
-			this.mc.renderEngine.bindTexture(guiTexture);
-			this.drawTexturedModalRect(this.guiLeft + 143, this.guiTop + 15, 176, 14, 20, 49);
+					guiLeft + 143, guiTop + 9, 20, 60);
+			mc.renderEngine.bindTexture(guiTexture);
+			this.drawTexturedModalRect(guiLeft + 143, guiTop + 15, 176, 14, 20, 49);
 		}
 	}
 

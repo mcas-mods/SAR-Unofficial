@@ -41,15 +41,18 @@ public class TileEntityPneumaticRouter extends TileEntityInventoryBase implement
 			updateTile();
 			ticks = 0;
 		}
-		else
+		else {
 			ticks++;
+		}
 	}
 
 	public void updateTile() {
-		if(world.isRemote)
+		if(world.isRemote) {
 			return;
-		if(!hasCache)
+		}
+		if(!hasCache) {
 			recalculateCache(getWorld(), getPos(), getWorld().getBlockState(getPos()), null);
+		}
 
 		IItemHandler handler = this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 		for(int i = 0; i < handler.getSlots(); i++) {

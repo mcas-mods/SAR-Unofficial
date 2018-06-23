@@ -1,7 +1,8 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank;
+package xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.tileentities;
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.ControllerTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileBase;
 

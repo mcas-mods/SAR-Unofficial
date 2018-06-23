@@ -13,7 +13,8 @@ public class PacketFluidUpdate implements IMessage {
 	public FluidStack fluid;
 	public int id = 0;
 
-	public PacketFluidUpdate() {}
+	public PacketFluidUpdate() {
+	}
 
 	public PacketFluidUpdate(BlockPos pos, FluidStack fluid) {
 		this.pos = pos;

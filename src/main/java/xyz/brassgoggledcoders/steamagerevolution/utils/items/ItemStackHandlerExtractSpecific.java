@@ -13,7 +13,7 @@ public class ItemStackHandlerExtractSpecific extends ItemStackHandler {
 	public void extractStack(ItemStack stack) {
 		for(int i = 0; i < stacks.size(); i++) {
 			if(containsItemStack(stacks.get(i), stack)) {
-				this.extractItem(i, stack.getCount(), false);
+				extractItem(i, stack.getCount(), false);
 			}
 		}
 	}

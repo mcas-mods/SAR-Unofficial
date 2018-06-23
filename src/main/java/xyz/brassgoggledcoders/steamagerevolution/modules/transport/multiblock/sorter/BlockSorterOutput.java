@@ -18,12 +18,12 @@ import net.minecraft.world.World;
 
 public class BlockSorterOutput extends BlockTEBase<TileEntitySorterOutput> {
 
-	public static final PropertyEnum<EnumDyeColor> COLOR =
-			PropertyEnum.<EnumDyeColor> create("color", EnumDyeColor.class);
+	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color",
+			EnumDyeColor.class);
 
 	public BlockSorterOutput(Material material, String name) {
 		super(material, name);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
+		setDefaultState(blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class BlockSorterOutput extends BlockTEBase<TileEntitySorterOutput> {
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
+		return getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
 	}
 
 	/**
@@ -67,6 +67,6 @@ public class BlockSorterOutput extends BlockTEBase<TileEntitySorterOutput> {
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] {COLOR});
+		return new BlockStateContainer(this, new IProperty[] { COLOR });
 	}
 }

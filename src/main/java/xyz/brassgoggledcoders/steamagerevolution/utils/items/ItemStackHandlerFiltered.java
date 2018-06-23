@@ -14,8 +14,9 @@ public abstract class ItemStackHandlerFiltered extends ItemStackHandlerExtractSp
 
 	@Override
 	public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-		if(!canInsertItem(slot, stack))
+		if(!canInsertItem(slot, stack)) {
 			return stack;
+		}
 		return super.insertItem(slot, stack, simulate);
 	}
 

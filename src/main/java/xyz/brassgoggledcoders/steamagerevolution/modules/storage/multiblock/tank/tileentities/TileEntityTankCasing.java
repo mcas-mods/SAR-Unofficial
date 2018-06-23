@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank;
+package xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.tileentities;
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
@@ -15,12 +15,13 @@ public class TileEntityTankCasing extends TileEntityTankPart {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public net.minecraft.util.math.AxisAlignedBB getRenderBoundingBox() {
-		if(this.isConnected()) {
-			return new AxisAlignedBB(this.getMultiblockController().getMinimumCoord(),
-					this.getMultiblockController().getMaximumCoord());
+		if(isConnected()) {
+			return new AxisAlignedBB(getMultiblockController().getMinimumCoord(),
+					getMultiblockController().getMaximumCoord());
 		}
-		else
+		else {
 			return super.getRenderBoundingBox();
+		}
 	}
 
 	@Override

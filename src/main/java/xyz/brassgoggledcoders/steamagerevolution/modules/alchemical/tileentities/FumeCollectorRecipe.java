@@ -24,7 +24,7 @@ public class FumeCollectorRecipe implements IRecipeWrapper {
 			chance = 1.0f;
 		}
 		this.chance = chance;
-		this.output = fluid;
+		output = fluid;
 	}
 
 	private static ArrayList<FumeCollectorRecipe> recipeList = new ArrayList<FumeCollectorRecipe>();

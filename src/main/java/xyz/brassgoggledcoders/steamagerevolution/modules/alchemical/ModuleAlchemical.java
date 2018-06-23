@@ -35,7 +35,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.blocks.BlockFumeCollector;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.items.ItemFlask;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.*;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.BlockDamagingFluid;
@@ -51,10 +51,10 @@ public class ModuleAlchemical extends ModuleBase {
 	// public static final Item plant_ash = null;
 
 	// TODO Don't bypass armour, deal extra damage to it
-	public static DamageSource damageSourceGas =
-			new DamageSource("gas").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
-	public static DamageSource damageSourceAcid =
-			new DamageSource("acid").setDifficultyScaled().setDamageBypassesArmor().setDamageIsAbsolute();
+	public static DamageSource damageSourceGas = new DamageSource("gas").setDifficultyScaled().setDamageBypassesArmor()
+			.setDamageIsAbsolute();
+	public static DamageSource damageSourceAcid = new DamageSource("acid").setDifficultyScaled()
+			.setDamageBypassesArmor().setDamageIsAbsolute();
 
 	public static int VALUE_BOTTLE = 250;
 
@@ -92,7 +92,8 @@ public class ModuleAlchemical extends ModuleBase {
 				new ItemStack(Blocks.GLOWSTONE));
 		// TODO Proper oredict support
 
-		// TODO Tooltip/Color for fluid (when IE not present) & potion deriving name from vanilla
+		// TODO Tooltip/Color for fluid (when IE not present) & potion deriving name
+		// from vanilla
 		new MachineRecipeBuilder("vat")
 				.setFluidOutputs(
 						getPotionFluidStack(PotionTypes.AWKWARD.getRegistryName().getResourcePath(), VALUE_BOTTLE))
@@ -108,11 +109,14 @@ public class ModuleAlchemical extends ModuleBase {
 								getPotionFluidStack(potion.input.getRegistryName().getResourcePath(), VALUE_BOTTLE))
 						.setItemInputs(potion.reagent.getMatchingStacks()[0]).build());
 
-		// new VatRecipeBuilder().setFluids(FluidRegistry.getFluidStack("water", Fluid.BUCKET_VOLUME))
+		// new VatRecipeBuilder().setFluids(FluidRegistry.getFluidStack("water",
+		// Fluid.BUCKET_VOLUME))
 		// .setItems(new ItemStack(plant_ash), new ItemStack(Items.COAL, 1, 1),
 		// OreDictUtils.getPreferredItemStack("crystalSulphur"))
-		// .setOutput(FluidRegistry.getFluidStack("liquid_explosive", Fluid.BUCKET_VOLUME)).build();
-		// DistillerRecipe.addRecipe(FluidRegistry.getFluidStack("liquid_explosive", Fluid.BUCKET_VOLUME), null,
+		// .setOutput(FluidRegistry.getFluidStack("liquid_explosive",
+		// Fluid.BUCKET_VOLUME)).build();
+		// DistillerRecipe.addRecipe(FluidRegistry.getFluidStack("liquid_explosive",
+		// Fluid.BUCKET_VOLUME), null,
 		// new ItemStack(Items.GUNPOWDER), 200);
 
 		new MachineRecipeBuilder("vat").setFluidInputs(FluidRegistry.getFluidStack("water", Fluid.BUCKET_VOLUME))
@@ -144,19 +148,19 @@ public class ModuleAlchemical extends ModuleBase {
 		blockRegistry.register(new BlockDistillerRadiator(Material.IRON, "distiller_radiator"));
 		blockRegistry.register(new BlockDistillerItemOutput(Material.IRON, "distiller_item_output"));
 
-		Fluid sulphur_dioxide =
-				new Fluid("sulphur_dioxide", new ResourceLocation(SteamAgeRevolution.MODID, "fluids/sulphur_dioxide"),
-						new ResourceLocation(SteamAgeRevolution.MODID, "fluids/sulphur_dioxide_flow")).setViscosity(250)
-								.setGaseous(true);
+		Fluid sulphur_dioxide = new Fluid("sulphur_dioxide",
+				new ResourceLocation(SteamAgeRevolution.MODID, "fluids/sulphur_dioxide"),
+				new ResourceLocation(SteamAgeRevolution.MODID, "fluids/sulphur_dioxide_flow")).setViscosity(250)
+						.setGaseous(true);
 		FluidRegistry.registerFluid(sulphur_dioxide);
 		FluidRegistry.addBucketForFluid(sulphur_dioxide);
 
 		blockRegistry.register(new BlockDamagingFluid("sulphur_dioxide", FluidRegistry.getFluid("sulphur_dioxide"),
 				Material.WATER, damageSourceGas, 2));
 
-		Fluid sulphuric_acid =
-				new Fluid("sulphuric_acid", new ResourceLocation(SteamAgeRevolution.MODID, "fluids/sulphuric_acid"),
-						new ResourceLocation(SteamAgeRevolution.MODID, "fluids/sulphuric_acid_flow")).setViscosity(500);
+		Fluid sulphuric_acid = new Fluid("sulphuric_acid",
+				new ResourceLocation(SteamAgeRevolution.MODID, "fluids/sulphuric_acid"),
+				new ResourceLocation(SteamAgeRevolution.MODID, "fluids/sulphuric_acid_flow")).setViscosity(500);
 		FluidRegistry.registerFluid(sulphuric_acid);
 		FluidRegistry.addBucketForFluid(sulphuric_acid);
 
@@ -164,10 +168,10 @@ public class ModuleAlchemical extends ModuleBase {
 				Material.WATER, damageSourceAcid, 4));
 
 		// TODO TE compat?
-		Fluid liquid_glowstone =
-				new Fluid("liquid_glowstone", new ResourceLocation(SteamAgeRevolution.MODID, "fluids/liquid_glowstone"),
-						new ResourceLocation(SteamAgeRevolution.MODID, "fluids/liquid_glowstone_flow"))
-								.setViscosity(2000).setGaseous(true);
+		Fluid liquid_glowstone = new Fluid("liquid_glowstone",
+				new ResourceLocation(SteamAgeRevolution.MODID, "fluids/liquid_glowstone"),
+				new ResourceLocation(SteamAgeRevolution.MODID, "fluids/liquid_glowstone_flow")).setViscosity(2000)
+						.setGaseous(true);
 		FluidRegistry.registerFluid(liquid_glowstone);
 		FluidRegistry.addBucketForFluid(liquid_glowstone);
 
@@ -207,7 +211,8 @@ public class ModuleAlchemical extends ModuleBase {
 		FluidRegistry.addBucketForFluid(potion);
 
 		// Fluid liquid_explosive =
-		// new Fluid("liquid_explosive", new ResourceLocation(SteamAgeRevolution.MODID, "fluids/liquid_explosive"),
+		// new Fluid("liquid_explosive", new ResourceLocation(SteamAgeRevolution.MODID,
+		// "fluids/liquid_explosive"),
 		// new ResourceLocation(SteamAgeRevolution.MODID, "fluids/liquid_explosive"));
 		// FluidRegistry.registerFluid(liquid_explosive);
 
@@ -241,7 +246,8 @@ public class ModuleAlchemical extends ModuleBase {
 	//
 	// @Override
 	// public Optional<FluidStack> read(PacketBuffer buf) throws IOException {
-	// FluidStack fs = !buf.readBoolean() ? null : FluidStack.loadFluidStackFromNBT(buf.readCompoundTag());
+	// FluidStack fs = !buf.readBoolean() ? null :
+	// FluidStack.loadFluidStackFromNBT(buf.readCompoundTag());
 	// return Optional.fromNullable(fs);
 	// }
 	//
@@ -252,7 +258,8 @@ public class ModuleAlchemical extends ModuleBase {
 	//
 	// @Override
 	// public Optional<FluidStack> copyValue(Optional<FluidStack> value) {
-	// return value.isPresent() ? Optional.of(value.get().copy()) : Optional.absent();
+	// return value.isPresent() ? Optional.of(value.get().copy()) :
+	// Optional.absent();
 	// }
 	// };
 }

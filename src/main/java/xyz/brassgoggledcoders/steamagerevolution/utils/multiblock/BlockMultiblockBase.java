@@ -48,7 +48,7 @@ public abstract class BlockMultiblockBase<T extends MultiblockTileEntityBase<?>>
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
-		ISARMultiblockTile tile = (ISARMultiblockTile) this.createTileEntity(player, null);
+		ISARMultiblockTile tile = (ISARMultiblockTile) createTileEntity(player, null);
 		ISARMultiblock controller = tile.getControllerInfo();
 
 		// TODO Localisation
@@ -64,11 +64,12 @@ public abstract class BlockMultiblockBase<T extends MultiblockTileEntityBase<?>>
 		if(tile.getPartFunction() != null) {
 			tooltip.add("Part function: " + tile.getPartFunction());
 		}
-		String[] positions = new String[] {"Frame", "Sides", "Top", "Bottom", "Interior"};
+		String[] positions = new String[] { "Frame", "Sides", "Top", "Bottom", "Interior" };
 		String valid = "Valid part positions: ";
 		for(int possiblePositions = 0; possiblePositions < 5; possiblePositions++) {
-			if(tile.getValidPositions()[possiblePositions])
+			if(tile.getValidPositions()[possiblePositions]) {
 				valid += positions[possiblePositions] + ",";
+			}
 		}
 		tooltip.add(valid.substring(0, valid.length() - 1));
 		super.addInformation(stack, player, tooltip, advanced);

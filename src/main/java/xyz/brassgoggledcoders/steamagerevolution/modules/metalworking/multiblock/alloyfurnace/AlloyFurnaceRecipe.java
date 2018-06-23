@@ -20,8 +20,8 @@ public class AlloyFurnaceRecipe implements IRecipeWrapper {
 
 	public AlloyFurnaceRecipe(FluidStack primaryInput, FluidStack secondaryInput, FluidStack output) {
 		this.primaryInput = primaryInput;
-		this.secondaryInputItem = null;
-		this.secondaryInputFluid = secondaryInput;
+		secondaryInputItem = null;
+		secondaryInputFluid = secondaryInput;
 		this.output = output;
 	}
 

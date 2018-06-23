@@ -63,7 +63,7 @@ public class SARGuidebook implements IGuideBook {
 		// TODO
 		GameRegistry.addShapelessRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "guidebook"),
 				new ResourceLocation(SteamAgeRevolution.MODID, "other"), bookStack,
-				new Ingredient[] {Ingredient.fromItem(Items.BOOK), Ingredient.fromItem(Items.COAL)});
+				new Ingredient[] { Ingredient.fromItem(Items.BOOK), Ingredient.fromItem(Items.COAL) });
 		// TODO Copied from GuideAPI since their implementation does not appear to work.
 		for(CategoryAbstract cat : sarGuide.getCategoryList()) {
 			for(EntryAbstract entry : cat.entries.values()) {

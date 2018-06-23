@@ -44,10 +44,12 @@ public class TileEntityHydraulicRouter extends TileEntitySlowTick implements ITi
 
 	@Override
 	public void updateTile() {
-		if(world.isRemote)
+		if(world.isRemote) {
 			return;
-		if(!hasCache)
+		}
+		if(!hasCache) {
 			recalculateCache(getWorld(), getPos(), getWorld().getBlockState(getPos()), null);
+		}
 
 		if(otherHandler != null) {
 			FluidStack toTransfer = FluidUtil.tryFluidTransfer(otherHandler, buffer, fluidTransferPerUpdate, false);
@@ -65,8 +67,9 @@ public class TileEntityHydraulicRouter extends TileEntitySlowTick implements ITi
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(buffer);
+		}
 		return super.getCapability(capability, facing);
 	}
 

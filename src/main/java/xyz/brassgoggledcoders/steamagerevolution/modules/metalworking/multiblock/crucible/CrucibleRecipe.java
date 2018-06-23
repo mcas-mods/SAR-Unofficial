@@ -19,8 +19,8 @@ public class CrucibleRecipe implements IRecipeWrapper {
 	public final FluidStack output;
 
 	public CrucibleRecipe(ItemStack metal, FluidStack fluid) {
-		this.input = metal;
-		this.output = fluid;
+		input = metal;
+		output = fluid;
 	}
 
 	private static ArrayList<CrucibleRecipe> recipeList = new ArrayList<CrucibleRecipe>();

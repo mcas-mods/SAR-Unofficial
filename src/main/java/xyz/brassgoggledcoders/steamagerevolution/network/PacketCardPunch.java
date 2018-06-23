@@ -8,7 +8,8 @@ public class PacketCardPunch implements IMessage {
 
 	public BlockPos pos;
 
-	public PacketCardPunch() {}
+	public PacketCardPunch() {
+	}
 
 	public PacketCardPunch(BlockPos pos) {
 		this.pos = pos;

@@ -28,19 +28,19 @@ public class TileEntitySorterBrain extends TileEntitySorterPart implements IHasG
 
 	@Override
 	public boolean hasCapability(Capability<?> capObject, EnumFacing side) {
-		if(capObject == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.isConnected())
+		if(capObject == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && isConnected()) {
 			return true;
+		}
 		return super.hasCapability(capObject, side);
 	}
 
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiSorterBrain(
-				new ContainerSorterBrain(this.getMultiblockController().cards, entityPlayer.inventory));
+		return new GuiSorterBrain(new ContainerSorterBrain(getMultiblockController().cards, entityPlayer.inventory));
 	}
 
 	@Override
 	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new ContainerSorterBrain(this.getMultiblockController().cards, entityPlayer.inventory);
+		return new ContainerSorterBrain(getMultiblockController().cards, entityPlayer.inventory);
 	}
 }
