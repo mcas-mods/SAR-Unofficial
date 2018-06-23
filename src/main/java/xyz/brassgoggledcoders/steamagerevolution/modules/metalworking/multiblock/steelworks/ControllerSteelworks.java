@@ -248,4 +248,10 @@ public class ControllerSteelworks extends SARMultiblockBase implements ISmartTan
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void onTankContentsChanged(FluidTankSmart tank) {
+		// TODO Auto-generated method stub
+
+	}
 }
