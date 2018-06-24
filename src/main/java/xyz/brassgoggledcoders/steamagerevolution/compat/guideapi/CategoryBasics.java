@@ -31,15 +31,7 @@ public class CategoryBasics {
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "hammer_entry"),
 				new EntryItemStack(hammerEntry, keyBase + "hammer", new ItemStack(BookObjectHolder.hammer)));
 
-		List<IPage> oreEntry = new ArrayList<IPage>();
-		oreEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "ore.info"),
-				OreDictUtils.getPreferredItemStack("oreCopper")));
-		// BookUtils.fromJson is edited to handle custom recipe factories
-		// oreEntry.add(BookUtils.fromJson(new
-		// ResourceLocation(SteamAgeRevolution.MODID, "copper_dust")));
-		// TODO Recipe handling
-		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "ore_entry"),
-				new EntryItemStack(oreEntry, keyBase + "ore", OreDictUtils.getPreferredItemStack("oreZinc")));
+		BookUtils.addBasicEntry(entries, keyBase, "ore", OreDictUtils.getPreferredItemStack("oreZinc"));
 
 		List<IPage> alloyEntry = new ArrayList<IPage>();
 		alloyEntry.addAll(PageHelper.pagesForLongText(

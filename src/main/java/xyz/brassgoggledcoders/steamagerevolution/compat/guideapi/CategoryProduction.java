@@ -18,10 +18,7 @@ public class CategoryProduction {
 		Map<ResourceLocation, EntryAbstract> entries = new LinkedHashMap<ResourceLocation, EntryAbstract>();
 		String keyBase = "guide." + SteamAgeRevolution.MODID + ".entry.production.";
 
-		List<IPage> conceptEntry = new ArrayList<IPage>();
-		conceptEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "concepts.info")));
-		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "concepts_entry"),
-				new EntryItemStack(conceptEntry, keyBase + "concepts", new ItemStack(BookObjectHolder.boiler_casing)));
+		BookUtils.addBasicEntry(entries, keyBase, "concepts", new ItemStack(BookObjectHolder.boiler_casing));
 
 		List<IPage> boilerEntry = new ArrayList<IPage>();
 		boilerEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "boiler.info")));
@@ -44,10 +41,7 @@ public class CategoryProduction {
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "alloy_forge_entry"), new EntryItemStack(
 				alloyForgeEntry, keyBase + "alloy_forge", new ItemStack(BookObjectHolder.alloy_furnace_frame)));
 
-		List<IPage> steelworksEntry = new ArrayList<IPage>();
-		steelworksEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "steelworks.info")));
-		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "steelworks_entry"), new EntryItemStack(
-				steelworksEntry, keyBase + "steelworks", new ItemStack(BookObjectHolder.steelworks_frame)));
+		BookUtils.addBasicEntry(entries, keyBase, "steelworks", new ItemStack(BookObjectHolder.steelworks_frame));
 
 		List<IPage> hammerEntry = new ArrayList<IPage>();
 		hammerEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "steam_hammer.info")));

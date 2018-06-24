@@ -1,32 +1,23 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.guideapi;
 
-import amerifrance.guideapi.api.IRecipeRenderer;
-import amerifrance.guideapi.page.reciperenderer.*;
-import net.minecraft.item.crafting.*;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ShapelessOreResultRecipe;
+import java.util.*;
+
+import amerifrance.guideapi.api.IPage;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.util.PageHelper;
+import amerifrance.guideapi.entry.EntryItemStack;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 
 public class BookUtils {
 
-	private static IRecipeRenderer getRenderer(IRecipe recipe) {
-		if(recipe == null) {
-			return null;
-		}
-		else if(recipe.getClass() == ShapedRecipes.class) {
-			return new ShapedRecipesRenderer((ShapedRecipes) recipe);
-		}
-		else if(recipe.getClass() == ShapelessRecipes.class) {
-			return new ShapelessRecipesRenderer((ShapelessRecipes) recipe);
-		}
-		else if(recipe.getClass() == ShapedOreRecipe.class) {
-			return new ShapedOreRecipeRenderer((ShapedOreRecipe) recipe);
-		}
-		else if(recipe.getClass() == ShapelessOreRecipe.class || recipe.getClass() == ShapelessOreResultRecipe.class) {
-			return new ShapelessOreRecipeRenderer((ShapelessOreRecipe) recipe);
-		}
-		else {
-			return null;
-		}
+	public static void addBasicEntry(Map<ResourceLocation, EntryAbstract> entries, String keyBase, String key,
+			ItemStack displayStack) {
+		List<IPage> entry = new ArrayList<IPage>();
+		entry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + key + ".info")));
+		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, key + "_entry"),
+				new EntryItemStack(entry, keyBase + key, displayStack));
 	}
 }
