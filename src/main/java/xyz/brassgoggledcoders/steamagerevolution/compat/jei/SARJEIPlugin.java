@@ -14,7 +14,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlo
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
 
-//@JEIPlugin
+@JEIPlugin
 public class SARJEIPlugin implements IModPlugin {
 
 	// TODO JEI Should display amounts automatically?

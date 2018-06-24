@@ -1,8 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -146,10 +145,18 @@ public class SARMachineRecipe implements IRecipeWrapper {
 	@Override
 	public void getIngredients(IIngredients ingredients) {
 		if(ArrayUtils.isNotEmpty(fluidIngredients)) {
-			ingredients.setInputs(FluidStack.class, Arrays.asList(fluidIngredients));
+			ArrayList<FluidStack> fluids = Lists.newArrayList();
+			for(IngredientFluidStack fs : fluidIngredients) {
+				fluids.add(fs.getFluid());
+			}
+			ingredients.setInputs(FluidStack.class, fluids);
 		}
 		if(ArrayUtils.isNotEmpty(itemIngredients)) {
-			ingredients.setInputs(ItemStack.class, Arrays.asList(itemIngredients));
+			ArrayList<List<ItemStack>> items = Lists.newArrayList();
+			for(Ingredient ing : itemIngredients) {
+				items.add(Arrays.asList(ing.getMatchingStacks())); // TODO
+			}
+			ingredients.setInputLists(ItemStack.class, items);
 		}
 		if(ArrayUtils.isNotEmpty(fluidOutputs)) {
 			ingredients.setOutputs(FluidStack.class, Arrays.asList(fluidOutputs));
