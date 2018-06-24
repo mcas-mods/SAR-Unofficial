@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.teamacronymcoders.base.guisystem.IHasGui;
+import com.teamacronymcoders.base.multiblock.IMultiblockPart;
+import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.multiblock.validation.ValidationError;
 
 import net.minecraft.block.Block;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
@@ -73,4 +77,76 @@ public abstract class SARMultiblockBase extends RectangularMultiblockControllerB
 	public int getMinimumZSize() {
 		return 0;
 	}
+
+	@Override
+	protected void onBlockAdded(IMultiblockPart newPart) {
+		// NO-OP
+	}
+
+	@Override
+	protected void onBlockRemoved(IMultiblockPart oldPart) {
+		// NO-OP
+	}
+
+	@Override
+	protected void onMachineRestored() {
+		// NO-OP
+	}
+
+	@Override
+	protected void onMachinePaused() {
+		// NO-OP
+	}
+
+	@Override
+	protected void onMachineDisassembled() {
+		// NO-OP
+	}
+
+	@Override
+	protected void onAssimilate(MultiblockControllerBase assimilated) {
+
+	}
+
+	@Override
+	protected void onAssimilated(MultiblockControllerBase assimilator) {
+
+	}
+
+	@Override
+	protected void updateClient() {
+
+	}
+
+	@Override
+	protected boolean isBlockGoodForFrame(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		return false;
+	}
+
+	@Override
+	protected boolean isBlockGoodForTop(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		return false;
+	}
+
+	@Override
+	protected boolean isBlockGoodForBottom(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		return false;
+	}
+
+	@Override
+	protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		return false;
+	}
+
+	@Override
+	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		return world.isAirBlock(new BlockPos(x, y, z));
+	}
+
+	@Override
+	public void readFromDisk(NBTTagCompound data) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

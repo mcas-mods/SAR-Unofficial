@@ -1,7 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
-import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.client.gui.Gui;
@@ -51,39 +50,11 @@ public class ControllerSteamHammer extends SARMultiblockInventory implements ISm
 	}
 
 	@Override
-	protected void onBlockAdded(IMultiblockPart newPart) {
-	}
-
-	@Override
-	protected void onBlockRemoved(IMultiblockPart oldPart) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	protected void onMachineAssembled() {
 		center = getReferenceCoord().up().east().south();
 		interior = new AxisAlignedBB(center).expand(1, 2, 1);
 		WORLD.markBlockRangeForRenderUpdate(getMinimumCoord(), getMaximumCoord());
 		super.onMachineAssembled();
-	}
-
-	@Override
-	protected void onMachineRestored() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void onMachinePaused() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void onMachineDisassembled() {
-		// TODO Auto-genera@Nullableted method stub
-
 	}
 
 	@Override
@@ -125,18 +96,6 @@ public class ControllerSteamHammer extends SARMultiblockInventory implements ISm
 	}
 
 	@Override
-	protected void onAssimilate(MultiblockControllerBase assimilated) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void onAssimilated(MultiblockControllerBase assimilator) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	protected void onTick() {
 		for(EntityItem item : WORLD.getEntitiesWithinAABB(EntityItem.class, interior)) {
 			if(ItemHandlerHelper.insertItem(inventory, item.getItem(), true).isEmpty()) {
@@ -157,38 +116,8 @@ public class ControllerSteamHammer extends SARMultiblockInventory implements ISm
 	}
 
 	@Override
-	protected void updateClient() {
-		// FMLLog.warning(TextUtils.representInventoryContents(inventory).getUnformattedComponentText());
-	}
-
-	@Override
-	protected boolean isBlockGoodForFrame(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		return false;
-	}
-
-	@Override
-	protected boolean isBlockGoodForTop(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		return false;
-	}
-
-	@Override
-	protected boolean isBlockGoodForBottom(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		return false;
-	}
-
-	@Override
 	protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
 		return world.isAirBlock(new BlockPos(x, y, z));
-	}
-
-	@Override
-	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		return world.isAirBlock(new BlockPos(x, y, z));
-	}
-
-	@Override
-	public void readFromDisk(NBTTagCompound data) {
-
 	}
 
 	@Override

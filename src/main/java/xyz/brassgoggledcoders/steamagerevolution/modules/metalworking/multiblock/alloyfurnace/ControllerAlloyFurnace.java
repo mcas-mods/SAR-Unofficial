@@ -2,7 +2,6 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multibloc
 
 import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
-import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.multiblock.validation.ValidationError;
 
@@ -100,60 +99,6 @@ public class ControllerAlloyFurnace extends SARMultiblockInventory implements IS
 	}
 
 	@Override
-	protected void onBlockAdded(IMultiblockPart newPart) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void onBlockRemoved(IMultiblockPart oldPart) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void onMachineRestored() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void onMachinePaused() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void onMachineDisassembled() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void onAssimilate(MultiblockControllerBase assimilated) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void onAssimilated(MultiblockControllerBase assimilator) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void updateClient() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected boolean isBlockGoodForFrame(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
 		fluidInput.readFromNBT(data.getCompoundTag("input"));
 		outputTank.readFromNBT(data.getCompoundTag("output"));
@@ -165,28 +110,6 @@ public class ControllerAlloyFurnace extends SARMultiblockInventory implements IS
 		data.setTag("input", fluidInput.writeToNBT(new NBTTagCompound()));
 		data.setTag("output", outputTank.writeToNBT(new NBTTagCompound()));
 		super.writeToDisk(data);
-	}
-
-	@Override
-	protected boolean isBlockGoodForTop(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected boolean isBlockGoodForBottom(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void readFromDisk(NBTTagCompound data) {
 	}
 
 	@Override

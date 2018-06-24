@@ -12,14 +12,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
@@ -106,23 +104,24 @@ public class TileEntityCastingBench extends TileEntityBase implements ITickable,
 		tank.setFluid(message.fluid);
 	}
 
-	public static boolean meltMetal(ItemStackHandler source, FluidTank destination) {
-		for(int i = 0; i < source.getSlots(); i++) {
-			ItemStack stack = source.getStackInSlot(i);
-			if(!stack.isEmpty()) {
-				CrucibleRecipe r = CrucibleRecipe.getRecipe(stack);
-				if(r != null) {
-					FluidStack molten = r.output;
-					if(destination.fill(molten, false) == molten.amount) {
-						destination.fill(molten, true);
-						stack.shrink(r.input.getCount());
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
+	// public static boolean meltMetal(ItemStackHandler source, FluidTank
+	// destination) {
+	// for(int i = 0; i < source.getSlots(); i++) {
+	// ItemStack stack = source.getStackInSlot(i);
+	// if(!stack.isEmpty()) {
+	// CrucibleRecipe r = CrucibleRecipe.getRecipe(stack);
+	// if(r != null) {
+	// FluidStack molten = r.output;
+	// if(destination.fill(molten, false) == molten.amount) {
+	// destination.fill(molten, true);
+	// stack.shrink(r.input.getCount());
+	// return true;
+	// }
+	// }
+	// }
+	// }
+	// return false;
+	// }
 
 	public static boolean solidifyMetal(FluidTank source, ItemStackHandler destination) {
 		if(source.getFluid() != null && source.getFluidAmount() >= ModuleMetalworking.VALUE_BLOCK) {

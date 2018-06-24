@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks;
+package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.tileentities;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

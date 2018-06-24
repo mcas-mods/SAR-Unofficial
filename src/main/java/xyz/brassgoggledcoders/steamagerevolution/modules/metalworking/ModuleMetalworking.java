@@ -34,10 +34,10 @@ import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemDie;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.*;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe.MachineRecipeBuilder;
 
@@ -159,7 +159,8 @@ public class ModuleMetalworking extends ModuleBase {
 			FluidStack solution = FluidRegistry.getFluidStack(metal.toLowerCase() + "_solution", VALUE_NUGGET * 4);
 
 			if(molten != null) {
-				CrucibleRecipe.addRecipe(ingot, molten);
+				RecipeRegistry.addRecipe("crucible", new MachineRecipeBuilder("crucible").setItemInputs(ingot)
+						.setFluidOutputs(molten).setSteamCost(Fluid.BUCKET_VOLUME / 16).build());
 				CastingBlockRecipe.addRecipe(molten, ingot);
 			}
 			if(!plate.isEmpty()) {

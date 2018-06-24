@@ -4,7 +4,6 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
 
 public abstract class ItemStackHandlerFiltered extends ItemStackHandlerExtractSpecific {
 
@@ -33,16 +32,17 @@ public abstract class ItemStackHandlerFiltered extends ItemStackHandlerExtractSp
 		}
 	}
 
-	public static class ItemStackHandlerCrucible extends ItemStackHandlerFiltered {
-
-		public ItemStackHandlerCrucible() {
-			super(1);
-		}
-
-		@Override
-		protected boolean canInsertItem(int slot, ItemStack stack) {
-			return CrucibleRecipe.getRecipe(stack) != null;
-		}
-
-	}
+	// public static class ItemStackHandlerCrucible extends ItemStackHandlerFiltered
+	// {
+	//
+	// public ItemStackHandlerCrucible() {
+	// super(1);
+	// }
+	//
+	// @Override
+	// protected boolean canInsertItem(int slot, ItemStack stack) {
+	// return CrucibleRecipe.getRecipe(stack) != null;
+	// }
+	//
+	// }
 }

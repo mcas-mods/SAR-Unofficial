@@ -123,6 +123,11 @@ public class SARMachineRecipe implements IRecipeWrapper {
 			return this;
 		}
 
+		public MachineRecipeBuilder setSteamCost(int use) {
+			steamUsePerCraft = use;
+			return this;
+		}
+
 		public SARMachineRecipe build() {
 			validate();
 			SARMachineRecipe recipe = new SARMachineRecipe(crafter, itemInputs, fluidInputs, ticksToProcess,

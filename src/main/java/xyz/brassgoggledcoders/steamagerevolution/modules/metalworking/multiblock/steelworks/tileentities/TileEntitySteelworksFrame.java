@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks;
+package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.tileentities;
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 

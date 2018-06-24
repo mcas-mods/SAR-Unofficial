@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
-import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
-import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
@@ -142,40 +140,6 @@ public class ControllerBoiler extends SARMultiblockBase implements ISmartTankCal
 	}
 
 	@Override
-	protected void onAssimilated(MultiblockControllerBase assimilator) {
-
-	}
-
-	@Override
-	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		return world.isAirBlock(new BlockPos(x, y, z));
-	}
-
-	@Override
-	protected void onAssimilate(MultiblockControllerBase assimilated) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void updateClient() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected boolean isBlockGoodForTop(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected boolean isBlockGoodForBottom(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
 		pressure = data.getFloat("pressure");
 		currentBurnTime = data.getInteger("burntime");
@@ -193,18 +157,6 @@ public class ControllerBoiler extends SARMultiblockBase implements ISmartTankCal
 		data.setTag("wtank", waterTank.writeToNBT(new NBTTagCompound()));
 		data.setTag("stank", steamTank.writeToNBT(new NBTTagCompound()));
 		data.setTag("liquidfuelinv", liquidFuelTank.writeToNBT(new NBTTagCompound()));
-	}
-
-	@Override
-	protected boolean isBlockGoodForFrame(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
@@ -245,32 +197,8 @@ public class ControllerBoiler extends SARMultiblockBase implements ISmartTankCal
 	}
 
 	@Override
-	public void readFromDisk(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public String getName() {
 		return "Boiler";
-	}
-
-	@Override
-	protected void onMachineRestored() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void onMachinePaused() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void onMachineDisassembled() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

@@ -5,9 +5,9 @@ import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe;
 
-public class CrucibleRecipeCategory extends SARRecipeCategory<CrucibleRecipe> {
+public class CrucibleRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 
 	public static final String uid = "crucible";
 
@@ -16,7 +16,7 @@ public class CrucibleRecipeCategory extends SARRecipeCategory<CrucibleRecipe> {
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, CrucibleRecipe recipeWrapper, IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, SARMachineRecipe recipeWrapper, IIngredients ingredients) {
 		recipeLayout.getItemStacks().init(0, true, 2, 23);
 		recipeLayout.getFluidStacks().init(1, false, 55, 1, 20, 60, Fluid.BUCKET_VOLUME * 8, true, null);
 

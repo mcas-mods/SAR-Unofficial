@@ -22,7 +22,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 
 public abstract class SARMultiblockInventory extends SARMultiblockBase
-		implements ISmartTankCallback, ISARMultiblockInventory {
+		implements ISmartTankCallback, ISARMachineInventory {
 
 	protected int currentTicks = 0;
 	SARMachineRecipe currentRecipe = null;

@@ -1,7 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
-import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.client.gui.Gui;
@@ -46,16 +45,6 @@ public class ControllerSteamFurnace extends SARMultiblockInventory implements IS
 			return inputInventory;
 		}
 		return outputInventory;
-	}
-
-	@Override
-	protected void onBlockAdded(IMultiblockPart newPart) {
-
-	}
-
-	@Override
-	protected void onBlockRemoved(IMultiblockPart oldPart) {
-
 	}
 
 	@Override
@@ -116,77 +105,6 @@ public class ControllerSteamFurnace extends SARMultiblockInventory implements IS
 		data.setTag("inputinv", inputInventory.serializeNBT());
 		data.setTag("outputinv", outputInventory.serializeNBT());
 		super.writeToDisk(data);
-	}
-
-	@Override
-	protected void onMachineAssembled() {
-		super.onMachineAssembled();
-	}
-
-	@Override
-	protected void onMachineRestored() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void onMachinePaused() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void onAssimilate(MultiblockControllerBase assimilated) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void onAssimilated(MultiblockControllerBase assimilator) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void updateClient() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected boolean isBlockGoodForFrame(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected boolean isBlockGoodForTop(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected boolean isBlockGoodForBottom(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected void onMachineDisassembled() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void readFromDisk(NBTTagCompound data) {
-		// TODO Auto-generated method stub
-
 	}
 
 	public static void toggleMode(ControllerSteamFurnace controller) {

@@ -14,19 +14,17 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.TileEntityCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerCrucible;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
 public class ControllerCrucible extends SARMultiblockInventory implements ISmartTankCallback {
 
 	BlockPos minimumInteriorPos;
 	BlockPos maximumInteriorPos;
-	public ItemStackHandler solid = new ItemStackHandlerCrucible();
+	public ItemStackHandler solid = new ItemStackHandler();
 	public FluidTankSmart tank = new FluidTankSmart(0, this);
 	public FluidTankSingleSmart steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this);
 
@@ -47,17 +45,6 @@ public class ControllerCrucible extends SARMultiblockInventory implements ISmart
 			return tank;
 		}
 		return steamTank;
-	}
-
-	@Override
-	protected boolean updateServer() {
-		if(steamTank.getFluidAmount() >= steamPerOperation) {
-			if(TileEntityCastingBench.meltMetal(solid, tank)) {
-				steamTank.drain(steamPerOperation, true);
-				return true;
-			}
-		}
-		return false;
 	}
 
 	@Override
