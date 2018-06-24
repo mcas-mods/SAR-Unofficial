@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.blocks;
 
+import java.util.Optional;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
@@ -56,4 +58,15 @@ public class BlockTankWindow extends BlockMultiblockBase<TileEntityTankWindow> {
 		return EnumBlockRenderType.MODEL;
 	}
 
+	@Override
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+		Optional<TileEntityTankWindow> te = this.getTileEntity(world, pos);
+		if(te.isPresent()) {
+			TileEntityTankWindow window = te.get();
+			if(window.isConnected() && window.getMultiblockController().isAssembled()) {
+				return window.getMultiblockController().tank.getFluid().getFluid().getLuminosity();
+			}
+		}
+		return state.getLightValue();
+	}
 }
