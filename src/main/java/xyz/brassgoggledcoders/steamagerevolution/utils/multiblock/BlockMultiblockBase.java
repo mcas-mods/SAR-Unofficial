@@ -36,7 +36,7 @@ public abstract class BlockMultiblockBase<T extends MultiblockTileEntityBase<?>>
 				return true;
 			}
 			else {
-				if(tile.getMultiblockController().getLastError() != null) {
+				if(playerIn.isSneaking() && tile.getMultiblockController().getLastError() != null) {
 					playerIn.sendStatusMessage(tile.getMultiblockController().getLastError().getChatMessage(), true);
 					return true;
 				}
