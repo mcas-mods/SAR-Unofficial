@@ -33,7 +33,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemDie;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.AlloyFurnaceRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.CrucibleRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.*;
@@ -138,8 +137,11 @@ public class ModuleMetalworking extends ModuleBase {
 		RecipeRegistry.addRecipe("steam hammer", new MachineRecipeBuilder("steam hammer")
 				.setItemInputs(new ItemStack(Blocks.GRAVEL)).setItemOutputs(new ItemStack(Blocks.SAND)).build());
 
-		AlloyFurnaceRecipe.addAlloyFurnaceRecipe(FluidRegistry.getFluidStack("copper", VALUE_INGOT),
-				FluidRegistry.getFluidStack("zinc", VALUE_INGOT), FluidRegistry.getFluidStack("brass", VALUE_INGOT));
+		RecipeRegistry.addRecipe("alloy forge",
+				new MachineRecipeBuilder("alloy forge")
+						.setFluidInputs(FluidRegistry.getFluidStack("copper", VALUE_INGOT),
+								FluidRegistry.getFluidStack("zinc", VALUE_INGOT))
+						.setFluidOutputs(FluidRegistry.getFluidStack("brass", VALUE_INGOT * 2)).build());
 
 		for(String metal : knownMetalTypes) {
 
