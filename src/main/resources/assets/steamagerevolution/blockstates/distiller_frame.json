@@ -2,9 +2,10 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "texture": "steamagerevolution:blocks/zinc_block"
+      "all": "steamagerevolution:blocks/distiller_tank",
+      "particle": "#all" 
     },
-    "model": "base:storage",
+    "model": "cube_all",
     "uvlock": true,
     "transform": "forge:default-block"
   },
