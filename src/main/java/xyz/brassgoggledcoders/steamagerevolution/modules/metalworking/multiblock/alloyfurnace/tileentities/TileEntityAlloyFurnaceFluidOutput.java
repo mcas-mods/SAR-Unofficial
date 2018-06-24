@@ -28,7 +28,7 @@ public class TileEntityAlloyFurnaceFluidOutput extends TileEntityAlloyFurnacePar
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockTankWrapper(this, "input"));
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockTankWrapper(this, "output"));
 		}
 		return super.getCapability(capability, facing);
 	}

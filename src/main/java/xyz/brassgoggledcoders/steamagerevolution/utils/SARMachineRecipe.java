@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.annotation.Nonnull;
@@ -8,21 +9,25 @@ import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import com.google.common.collect.Lists;
+
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.oredict.OreIngredient;
 
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei", striprefs = true)
 public class SARMachineRecipe implements IRecipeWrapper {
 	@Nonnull
 	private final String crafter;
 	@Nullable
-	protected final ItemStack[] itemInputs;
+	protected final Ingredient[] itemIngredients;
 	@Nullable
-	protected final FluidStack[] fluidInputs;
+	protected final IngredientFluidStack[] fluidIngredients;
 	protected final int ticksToProcess;
 	protected final int steamUsePerCraft;
 	@Nullable
@@ -30,23 +35,23 @@ public class SARMachineRecipe implements IRecipeWrapper {
 	@Nullable
 	protected final FluidStack[] fluidOutputs;
 
-	public SARMachineRecipe(String crafter, ItemStack[] itemInputs, FluidStack[] fluidInputs, int ticksToProcess,
-			int steamUsePerCraft, ItemStack[] itemOutputs, FluidStack[] fluidOutputs) {
+	public SARMachineRecipe(String crafter, Ingredient[] itemInputs, IngredientFluidStack[] fluidInputs,
+			int ticksToProcess, int steamUsePerCraft, ItemStack[] itemOutputs, FluidStack[] fluidOutputs) {
 		this.crafter = crafter;
-		this.itemInputs = itemInputs;
-		this.fluidInputs = fluidInputs;
+		this.itemIngredients = itemInputs;
+		this.fluidIngredients = fluidInputs;
 		this.ticksToProcess = ticksToProcess;
 		this.steamUsePerCraft = steamUsePerCraft;
 		this.itemOutputs = itemOutputs;
 		this.fluidOutputs = fluidOutputs;
 	}
 
-	public ItemStack[] getItemInputs() {
-		return itemInputs;
+	public Ingredient[] getItemInputs() {
+		return itemIngredients;
 	}
 
-	public FluidStack[] getFluidInputs() {
-		return fluidInputs;
+	public IngredientFluidStack[] getFluidInputs() {
+		return fluidIngredients;
 	}
 
 	public ItemStack[] getItemOutputs() {
@@ -71,8 +76,8 @@ public class SARMachineRecipe implements IRecipeWrapper {
 
 	public static class MachineRecipeBuilder {
 		public String crafter;
-		public ItemStack[] itemInputs;
-		public FluidStack[] fluidInputs;
+		public Ingredient[] itemInputs;
+		public IngredientFluidStack[] fluidInputs;
 		public ItemStack[] itemOutputs;
 		public FluidStack[] fluidOutputs;
 		public int ticksToProcess, steamUsePerCraft = 0;
@@ -82,12 +87,25 @@ public class SARMachineRecipe implements IRecipeWrapper {
 		}
 
 		public MachineRecipeBuilder setFluidInputs(FluidStack... fluids) {
-			fluidInputs = fluids;
+			ArrayList<IngredientFluidStack> ingredients = Lists.newArrayList();
+			for(FluidStack fs : fluids) {
+				ingredients.add(new IngredientFluidStack(fs));
+			}
+			fluidInputs = ingredients.toArray(new IngredientFluidStack[ingredients.size()]);
 			return this;
 		}
 
-		public MachineRecipeBuilder setItemInputs(ItemStack... items) {
-			itemInputs = items;
+		public MachineRecipeBuilder setItemInputs(Object... items) {
+			ArrayList<Ingredient> ingredients = Lists.newArrayList();
+			for(Object input : items) {
+				if(input instanceof String) {
+					ingredients.add(new OreIngredient((String) input));
+				}
+				else {
+					ingredients.add(new IngredientItemStack((ItemStack) input));
+				}
+			}
+			itemInputs = ingredients.toArray(new Ingredient[ingredients.size()]);
 			return this;
 		}
 
@@ -127,11 +145,11 @@ public class SARMachineRecipe implements IRecipeWrapper {
 	@Optional.Method(modid = "jei")
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		if(ArrayUtils.isNotEmpty(fluidInputs)) {
-			ingredients.setInputs(FluidStack.class, Arrays.asList(fluidInputs));
+		if(ArrayUtils.isNotEmpty(fluidIngredients)) {
+			ingredients.setInputs(FluidStack.class, Arrays.asList(fluidIngredients));
 		}
-		if(ArrayUtils.isNotEmpty(itemInputs)) {
-			ingredients.setInputs(ItemStack.class, Arrays.asList(itemInputs));
+		if(ArrayUtils.isNotEmpty(itemIngredients)) {
+			ingredients.setInputs(ItemStack.class, Arrays.asList(itemIngredients));
 		}
 		if(ArrayUtils.isNotEmpty(fluidOutputs)) {
 			ingredients.setOutputs(FluidStack.class, Arrays.asList(fluidOutputs));

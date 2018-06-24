@@ -9,6 +9,7 @@ import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
@@ -17,8 +18,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
-import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 
 public abstract class SARMultiblockInventory extends SARMultiblockBase
@@ -67,13 +67,16 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 			}
 		}
 		if(ArrayUtils.isNotEmpty(currentRecipe.getItemInputs())) {
-			for(ItemStack input : currentRecipe.getItemInputs()) {
-				getItemInput().extractStack(input);
+			for(Ingredient input : currentRecipe.getItemInputs()) {
+				// TODO Inefficient for oredict
+				for(ItemStack stack : input.getMatchingStacks()) {
+					getItemInput().extractStack(stack);
+				}
 			}
 		}
 		if(ArrayUtils.isNotEmpty(currentRecipe.getFluidInputs())) {
-			for(FluidStack input : currentRecipe.getFluidInputs()) {
-				getFluidInputs().drain(input, true);
+			for(IngredientFluidStack input : currentRecipe.getFluidInputs()) {
+				getFluidInputs().drain(input.getFluid(), true);
 			}
 		}
 		steamTank.drain(currentRecipe.getSteamUsePerCraft(), true);
@@ -121,9 +124,10 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 		return true;
 	}
 
-	private boolean tanksHaveFluid(FluidStack stack) {
-		return Arrays.asList(getFluidInputs()).stream().filter(Objects::nonNull).filter(
-				tank -> tank.fluids.stream().filter(Objects::nonNull).anyMatch(fluid -> fluid.containsFluid(stack)))
+	private boolean tanksHaveFluid(IngredientFluidStack stack) {
+		return Arrays
+				.asList(getFluidInputs()).stream().filter(Objects::nonNull).filter(tank -> tank.fluids.stream()
+						.filter(Objects::nonNull).anyMatch(fluid -> fluid.containsFluid(stack.getFluid())))
 				.findAny().isPresent();
 	}
 
@@ -135,9 +139,11 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 		return true;
 	}
 
-	private boolean handlerHasItems(ItemStack stack) {
+	private boolean handlerHasItems(Ingredient ingredient) {
 		return IntStream.range(0, getItemInput().getSlots()).mapToObj(slotNum -> getItemInput().getStackInSlot(slotNum))
-				.filter(inputStack -> ItemStackUtils.containsItemStack(stack, inputStack)).findAny().isPresent();
+				.filter(inputStack -> Arrays.asList(ingredient.getMatchingStacks()).stream()
+						.anyMatch(stack -> ItemStackUtils.containsItemStack(stack, inputStack)))
+				.findAny().isPresent();
 	}
 
 	@Override

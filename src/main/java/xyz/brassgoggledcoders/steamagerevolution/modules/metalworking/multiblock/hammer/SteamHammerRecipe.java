@@ -18,7 +18,7 @@ public class SteamHammerRecipe extends SARMachineRecipe {
 
 	public SteamHammerRecipe(String crafter, ItemStack[] itemInputs, FluidStack[] fluidInputs, int ticksToProcess,
 			int steamUsePerCraft, ItemStack[] itemOutputs, FluidStack[] fluidOutputs, String dieType) {
-		super(crafter, itemInputs, fluidInputs, ticksToProcess, steamUsePerCraft, itemOutputs, fluidOutputs);
+		super(crafter, null, null, ticksToProcess, steamUsePerCraft, itemOutputs, fluidOutputs);
 		this.dieType = dieType;
 	}
 

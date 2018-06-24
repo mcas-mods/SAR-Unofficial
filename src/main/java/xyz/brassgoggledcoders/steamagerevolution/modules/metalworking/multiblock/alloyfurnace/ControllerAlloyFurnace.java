@@ -39,10 +39,10 @@ public class ControllerAlloyFurnace extends SARMultiblockInventory implements IS
 
 	@Override
 	protected FluidTank getTank(String toWrap) {
-		if(toWrap.equals("output")) {
-			return outputTank;
+		if(toWrap.equalsIgnoreCase("input")) {
+			return fluidInput;
 		}
-		return fluidInput;
+		return outputTank;
 	}
 
 	@Override
