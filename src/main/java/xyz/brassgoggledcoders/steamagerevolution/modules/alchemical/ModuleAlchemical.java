@@ -34,7 +34,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.blocks.BlockFumeCollector;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.items.ItemFlask;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;

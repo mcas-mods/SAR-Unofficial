@@ -36,7 +36,6 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.Item
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.*;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe.MachineRecipeBuilder;
