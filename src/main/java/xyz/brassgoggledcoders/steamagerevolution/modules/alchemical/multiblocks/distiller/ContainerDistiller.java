@@ -7,7 +7,8 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.items.SlotHandlerOutput;
 
 public class ContainerDistiller extends ContainerBase {
 	public ContainerDistiller(EntityPlayer player, ControllerDistiller tile) {
-		addSlotToContainer(new SlotHandlerOutput(tile.itemOutput, 0, 149, 32));
+		addSlotToContainer(new SlotHandlerOutput(tile.inventory.getItemOutput(), 0, tile.inventory.itemOutput.getX(),
+				tile.inventory.itemOutput.getY()));
 		createPlayerSlots(player.inventory);
 	}
 

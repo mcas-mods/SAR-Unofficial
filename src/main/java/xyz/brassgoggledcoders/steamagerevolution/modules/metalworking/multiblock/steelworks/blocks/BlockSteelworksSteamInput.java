@@ -23,7 +23,8 @@ public class BlockSteelworksSteamInput extends BlockMultiblockBase<TileEntitySte
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		TileEntitySteelworksSteamInput te = getTileEntity(worldIn, pos).get();
 		if(te != null && te.isConnected()) {
-			playerIn.sendStatusMessage(TextUtils.representTankContents(te.getMultiblockController().steamTank), true);
+			playerIn.sendStatusMessage(TextUtils.representTankContents(te.getMultiblockController().getSteamTank()),
+					true);
 			return true;
 		}
 		return false;

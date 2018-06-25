@@ -44,7 +44,7 @@ public class ControllerSteelworks extends SARMultiblockInventory implements ISma
 		else if(toWrap.equals("steel")) {
 			return outputTank;
 		}
-		return steamTank;
+		return getSteamTank();
 	}
 
 	@Override

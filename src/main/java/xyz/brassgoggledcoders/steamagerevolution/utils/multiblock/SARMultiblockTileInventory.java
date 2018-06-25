@@ -11,14 +11,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public abstract class SARMultiblockTileInventory<T extends SARMultiblockInventory> extends SARMultiblockTileBase<T> {
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {
-		NBTTagCompound nbttagcompound = new NBTTagCompound();
+		NBTTagCompound nbt = new NBTTagCompound();
 		if(isConnected()) {
 			SARMultiblockInventory controller = getMultiblockController();
-			nbttagcompound.setTag("steam", controller.steamTank.writeToNBT(new NBTTagCompound()));
-			nbttagcompound.setTag("input", controller.getFluidInputs().writeToNBT(new NBTTagCompound()));
-			nbttagcompound.setTag("output", controller.getFluidOutputs().writeToNBT(new NBTTagCompound()));
+			nbt.setTag("inventory", controller.inventory.serializeNBT());
 		}
-		return new SPacketUpdateTileEntity(pos, 3, nbttagcompound);
+		return new SPacketUpdateTileEntity(pos, 3, nbt);
 	}
 
 	@Nonnull
@@ -27,9 +25,7 @@ public abstract class SARMultiblockTileInventory<T extends SARMultiblockInventor
 		NBTTagCompound nbt = super.writeToNBT(new NBTTagCompound());
 		if(isConnected()) {
 			SARMultiblockInventory controller = getMultiblockController();
-			nbt.setTag("steam", controller.steamTank.writeToNBT(new NBTTagCompound()));
-			nbt.setTag("input", controller.getFluidInputs().writeToNBT(new NBTTagCompound()));
-			nbt.setTag("output", controller.getFluidOutputs().writeToNBT(new NBTTagCompound()));
+			nbt.setTag("inventory", controller.inventory.serializeNBT());
 		}
 		return nbt;
 	}
@@ -39,9 +35,7 @@ public abstract class SARMultiblockTileInventory<T extends SARMultiblockInventor
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
 		if(isConnected()) {
 			SARMultiblockInventory controller = getMultiblockController();
-			controller.steamTank.readFromNBT(pkt.getNbtCompound().getCompoundTag("steam"));
-			controller.getFluidInputs().readFromNBT(pkt.getNbtCompound().getCompoundTag("input"));
-			controller.getFluidOutputs().readFromNBT(pkt.getNbtCompound().getCompoundTag("output"));
+			controller.inventory.deserializeNBT(pkt.getNbtCompound().getCompoundTag("inventory"));
 		}
 	}
 }

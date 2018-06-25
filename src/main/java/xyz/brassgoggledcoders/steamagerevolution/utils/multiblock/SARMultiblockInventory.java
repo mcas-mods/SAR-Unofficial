@@ -12,9 +12,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
@@ -25,12 +25,15 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 		implements ISmartTankCallback, ISARMachineInventory {
 
 	protected int currentTicks = 0;
-	SARMachineRecipe currentRecipe = null;
-	public FluidTankSingleSmart steamTank;
+	SARMachineRecipe currentRecipe;
+	public InventoryMachine inventory;
 
 	protected SARMultiblockInventory(World world) {
 		super(world);
-		steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this);
+	}
+
+	public void setInventoryMachine(InventoryMachine inventory) {
+		this.inventory = inventory;
 	}
 
 	@Override
@@ -58,28 +61,28 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	protected void onFinish() {
 		if(ArrayUtils.isNotEmpty(currentRecipe.getItemOutputs())) {
 			for(ItemStack output : currentRecipe.getItemOutputs()) {
-				ItemHandlerHelper.insertItem(getItemOutput(), output, false);
+				ItemHandlerHelper.insertItem(inventory.getItemOutput(), output, false);
 			}
 		}
 		if(ArrayUtils.isNotEmpty(currentRecipe.getFluidOutputs())) {
 			for(FluidStack output : currentRecipe.getFluidOutputs()) {
-				getFluidOutputs().fill(output, true);
+				inventory.getFluidOutputs().fill(output, true);
 			}
 		}
 		if(ArrayUtils.isNotEmpty(currentRecipe.getItemInputs())) {
 			for(Ingredient input : currentRecipe.getItemInputs()) {
 				// TODO Inefficient for oredict
 				for(ItemStack stack : input.getMatchingStacks()) {
-					getItemInput().extractStack(stack);
+					inventory.getItemInput().extractStack(stack);
 				}
 			}
 		}
 		if(ArrayUtils.isNotEmpty(currentRecipe.getFluidInputs())) {
 			for(IngredientFluidStack input : currentRecipe.getFluidInputs()) {
-				getFluidInputs().drain(input.getFluid(), true);
+				inventory.getFluidInputs().drain(input.getFluid(), true);
 			}
 		}
-		steamTank.drain(currentRecipe.getSteamUsePerCraft(), true);
+		inventory.steamTank.getHandler().drain(currentRecipe.getSteamUsePerCraft(), true);
 		currentTicks = 0;
 		currentRecipe = null; // TODO Only null when inputs hit zero
 	}
@@ -89,12 +92,12 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 			boolean roomForItems = true;
 			boolean roomForFluids = true;
 			if(ArrayUtils.isNotEmpty(currentRecipe.getItemOutputs())) {
-				roomForItems = Arrays.asList(currentRecipe.getItemOutputs()).parallelStream()
-						.allMatch(output -> ItemHandlerHelper.insertItem(getItemOutput(), output, true).isEmpty());
+				roomForItems = Arrays.asList(currentRecipe.getItemOutputs()).parallelStream().allMatch(
+						output -> ItemHandlerHelper.insertItem(inventory.getItemOutput(), output, true).isEmpty());
 			}
 			if(ArrayUtils.isNotEmpty(currentRecipe.getFluidOutputs())) {
 				roomForFluids = Arrays.asList(currentRecipe.getFluidOutputs()).parallelStream()
-						.allMatch(output -> getFluidOutputs().fill(output, false) == output.amount);
+						.allMatch(output -> inventory.getFluidOutputs().fill(output, false) == output.amount);
 			}
 			return roomForItems && roomForFluids;
 		}
@@ -106,9 +109,10 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 				.parallelStream().filter(this::hasRequiredFluids).filter(this::hasRequiredItems).findFirst();
 		if(recipe.isPresent()) {
 			currentRecipe = recipe.get();
-			return steamTank.getFluidAmount() >= currentRecipe.getSteamUsePerCraft();
+			return inventory.getSteamTank().getFluidAmount() >= currentRecipe.getSteamUsePerCraft();
 		}
-		return currentRecipe != null && steamTank.getFluidAmount() >= currentRecipe.getSteamUsePerCraft();
+		return currentRecipe != null
+				&& inventory.getSteamTank().getFluidAmount() >= currentRecipe.getSteamUsePerCraft();
 	}
 
 	private boolean hasRequiredFluids(SARMachineRecipe recipe) {
@@ -126,8 +130,8 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 
 	private boolean tanksHaveFluid(IngredientFluidStack stack) {
 		return Arrays
-				.asList(getFluidInputs()).stream().filter(Objects::nonNull).filter(tank -> tank.fluids.stream()
-						.filter(Objects::nonNull).anyMatch(fluid -> fluid.containsFluid(stack.getFluid())))
+				.asList(inventory.getFluidInputs()).stream().filter(Objects::nonNull).filter(tank -> tank.fluids
+						.stream().filter(Objects::nonNull).anyMatch(fluid -> fluid.containsFluid(stack.getFluid())))
 				.findAny().isPresent();
 	}
 
@@ -140,7 +144,8 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	}
 
 	private boolean handlerHasItems(Ingredient ingredient) {
-		return IntStream.range(0, getItemInput().getSlots()).mapToObj(slotNum -> getItemInput().getStackInSlot(slotNum))
+		return IntStream.range(0, inventory.getItemInput().getSlots())
+				.mapToObj(slotNum -> inventory.getItemInput().getStackInSlot(slotNum))
 				.filter(inputStack -> Arrays.asList(ingredient.getMatchingStacks()).stream()
 						.anyMatch(stack -> ItemStackUtils.containsItemStack(stack, inputStack)))
 				.findAny().isPresent();
@@ -149,13 +154,13 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
 		currentTicks = data.getInteger("progress");
-		steamTank.readFromNBT(data.getCompoundTag("steam"));
+		inventory.deserializeNBT(data.getCompoundTag("inventory"));
 	}
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
 		data.setInteger("progress", currentTicks);
-		data.setTag("steam", steamTank.writeToNBT(new NBTTagCompound()));
+		data.setTag("inventory", inventory.serializeNBT());
 	}
 
 	@Override
@@ -174,11 +179,30 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 
 	@Override
 	public void updateFluid(PacketFluidUpdate message) {
-		steamTank.setFluid(message.fluid);
+		inventory.getSteamTank().setFluid(message.fluid);
+	}
+
+	@Override
+	public MultiFluidTank getFluidInputs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemStackHandler getItemOutput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MultiFluidTank getFluidOutputs() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public FluidTankSingleSmart getSteamTank() {
-		return steamTank;
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

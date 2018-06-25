@@ -43,26 +43,27 @@ public class GuiDistiller extends GuiContainer {
 		int y = (height - ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
-		FluidStack steam = controller.steamTank.getFluid();
+		FluidStack steam = controller.inventory.getSteamTank().getFluid();
 		if(steam != null && steam.getFluid() != null && steam.amount > 0) {
-			GuiUtils.renderGuiTank(steam, controller.steamTank.getCapacity(), steam.amount, guiLeft + 10, guiTop + 9,
-					20, 60);
+			GuiUtils.renderGuiTank(steam, controller.inventory.getSteamTank().getCapacity(), steam.amount,
+					guiLeft + controller.inventory.steamTank.getX(), guiTop + controller.inventory.steamTank.getY(), 20,
+					60);
 			mc.renderEngine.bindTexture(guiTexture);
 			this.drawTexturedModalRect(guiLeft + 10, guiTop + 15, 176, 14, 20, 49);
 		}
 
-		FluidStack input = controller.fluidInput.getFluid();
+		FluidStack input = controller.inventory.getFluidInputs().getFluid();
 		if(input != null && input.getFluid() != null && input.amount > 0) {
-			GuiUtils.renderGuiTank(input, controller.fluidInput.getCapacity(), input.amount, guiLeft + 41, guiTop + 9,
-					20, 60);
+			GuiUtils.renderGuiTank(input, controller.inventory.getFluidInputs().getCapacity(), input.amount,
+					guiLeft + 41, guiTop + 9, 20, 60);
 			mc.renderEngine.bindTexture(guiTexture);
 			this.drawTexturedModalRect(guiLeft + 41, guiTop + 15, 176, 14, 20, 49);
 		}
 
-		FluidStack output = controller.fluidOutput.getFluid();
+		FluidStack output = controller.inventory.getFluidInputs().getFluid();
 		if(output != null && output.getFluid() != null && output.amount > 0) {
-			GuiUtils.renderGuiTank(output, controller.fluidOutput.getCapacity(), output.amount, guiLeft + 97,
-					guiTop + 9, 20, 60);
+			GuiUtils.renderGuiTank(output, controller.inventory.getFluidInputs().getCapacity(), output.amount,
+					guiLeft + 97, guiTop + 9, 20, 60);
 			mc.renderEngine.bindTexture(guiTexture);
 			this.drawTexturedModalRect(guiLeft + 97, guiTop + 15, 176, 14, 20, 49);
 		}
