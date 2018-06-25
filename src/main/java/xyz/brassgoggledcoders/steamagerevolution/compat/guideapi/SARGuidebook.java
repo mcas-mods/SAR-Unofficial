@@ -25,7 +25,8 @@ public class SARGuidebook implements IGuideBook {
 	@Override
 	public Book buildBook() {
 		return new BookBinder(new ResourceLocation(SteamAgeRevolution.MODID, "guide"))
-				.setGuideTitle("guide." + SteamAgeRevolution.MODID + ".title").setColor(ModuleMaterials.brassColor)
+				.setGuideTitle("guide." + SteamAgeRevolution.MODID + ".title")
+				.setItemName("item.guide." + SteamAgeRevolution.MODID).setColor(ModuleMaterials.brassColor)
 				.setCreativeTab(SteamAgeRevolution.tab)
 				.addCategory(new CategoryItemStack(CategoryBasics.buildCategory(),
 						"guide.steamagerevolution.category.basics", new ItemStack(BookObjectHolder.hammer)))

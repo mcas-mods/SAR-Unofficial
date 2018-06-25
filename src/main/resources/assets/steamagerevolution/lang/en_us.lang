@@ -121,8 +121,8 @@ death.attack.gas=%1$s's lungs dissolved.
 death.attack.acid=%1$s became a part of the solution.
 
 #Guide
-guide.steamagerevolution.title=Steam Age Revolution Guidebook
-guide.steamagerevolution.welcome=The world of steam:
+item.guide.steamagerevolution=SteamAgeRevolution Guidebook
+guide.steamagerevolution.title=Brassbound Tome
 ##Getting started
 guide.steamagerevolution.category.basics=Getting started
 guide.steamagerevolution.entry.basics.hammer=The hammer

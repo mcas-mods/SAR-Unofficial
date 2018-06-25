@@ -2,7 +2,7 @@
     "forge_marker": 1,
     "defaults": {
         "model": "steamagerevolution:pneumatic_tube",
-        "textures": { "main": "steamagerevolution:blocks/zinc_block", "particle": "#main" }
+        "textures": { "main": "steamagerevolution:blocks/distiller_tank", "particle": "#main" }
     },
     "variants": {
     	"inventory": [{}],
