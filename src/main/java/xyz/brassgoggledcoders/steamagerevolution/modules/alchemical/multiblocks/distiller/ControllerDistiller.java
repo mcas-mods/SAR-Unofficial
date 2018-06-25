@@ -1,12 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller;
 
-import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.multiblock.validation.ValidationError;
 
-import net.minecraft.client.gui.Gui;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
@@ -22,7 +18,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerDistiller extends SARMultiblockInventory implements ISmartTankCallback, IHasGui {
+public class ControllerDistiller extends SARMultiblockInventory implements ISmartTankCallback {
 
 	public static int tankCapacity = Fluid.BUCKET_VOLUME * 8;
 
@@ -130,18 +126,6 @@ public class ControllerDistiller extends SARMultiblockInventory implements ISmar
 	@Override
 	public ItemStackHandler getInventory(String toWrap) {
 		return inventory.getItemOutput();
-	}
-
-	@Override
-	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		// TODO Auto-generated method stub
-		return new GuiDistiller(entityPlayer, this);
-	}
-
-	@Override
-	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		// TODO Auto-generated method stub
-		return new ContainerDistiller(entityPlayer, this);
 	}
 
 	@Override

@@ -27,9 +27,13 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 	public static class InventoryPieceFluid extends InventoryPiece {
 		private final FluidTankSmart handler;
 
-		public InventoryPieceFluid(FluidTankSmart handler, int xPos, int yPos) {
+		public InventoryPieceFluid(FluidTankSmart handler, int[] xPos, int[] yPos) {
 			super(xPos, yPos);
 			this.handler = handler;
+		}
+
+		public InventoryPieceFluid(FluidTankSmart handler2, int i, int j) {
+			this(handler2, new int[] { i }, new int[] { j });
 		}
 
 		public FluidTankSmart getHandler() {
@@ -40,9 +44,13 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 	public static class InventoryPieceItem extends InventoryPiece {
 		private final ItemStackHandlerExtractSpecific handler;
 
-		public InventoryPieceItem(ItemStackHandlerExtractSpecific handler, int xPos, int yPos) {
+		public InventoryPieceItem(ItemStackHandlerExtractSpecific handler, int[] xPos, int[] yPos) {
 			super(xPos, yPos);
 			this.handler = handler;
+		}
+
+		public InventoryPieceItem(ItemStackHandlerExtractSpecific handler, int xPos, int yPos) {
+			this(handler, new int[] { xPos }, new int[] { yPos });
 		}
 
 		public ItemStackHandlerExtractSpecific getHandler() {
@@ -51,19 +59,19 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 	}
 
 	public static class InventoryPiece {
-		private final int xPos, yPos;
+		private final int xPos[], yPos[];
 
-		public InventoryPiece(int xPos, int yPos) {
+		public InventoryPiece(int[] xPos, int[] yPos) {
 			this.xPos = xPos;
 			this.yPos = yPos;
 		}
 
-		public int getX() {
-			return xPos;
+		public int getX(int i) {
+			return xPos[i];
 		}
 
-		public int getY() {
-			return yPos;
+		public int getY(int i) {
+			return yPos[i];
 		}
 	}
 

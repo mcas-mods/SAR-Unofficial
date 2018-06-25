@@ -8,9 +8,13 @@ import org.apache.commons.lang3.ArrayUtils;
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.util.ItemStackUtils;
 
+import net.minecraft.client.gui.Gui;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -204,5 +208,17 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	public FluidTankSingleSmart getSteamTank() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return new GuiMultiblockInventory(entityPlayer, this);
+	}
+
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return new ContainerMultiblockInventory(entityPlayer, this);
 	}
 }
