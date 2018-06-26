@@ -21,8 +21,7 @@ public abstract class BlockGUIBase<T extends TileEntity> extends BlockTEBase<T> 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		TileEntity te = getTileEntity(worldIn, pos).get();
-		if(te != null && !playerIn.isSneaking()) {
+		if(getTileEntity(worldIn, pos).isPresent() && !playerIn.isSneaking()) {
 			GuiOpener.openTileEntityGui(getMod(), playerIn, worldIn, pos);
 			return true;
 		}

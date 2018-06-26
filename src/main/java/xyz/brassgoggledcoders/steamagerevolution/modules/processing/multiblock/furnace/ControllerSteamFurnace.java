@@ -3,19 +3,13 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-import net.minecraft.client.gui.Gui;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
@@ -117,49 +111,7 @@ public class ControllerSteamFurnace extends SARMultiblockInventory implements IS
 	}
 
 	@Override
-	public void updateFluid(PacketFluidUpdate message) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public String getName() {
 		return "Steam Furnace";
-	}
-
-	@Override
-	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ItemStackHandlerExtractSpecific getItemInput() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public MultiFluidTank getFluidInputs() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ItemStackHandler getItemOutput() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public MultiFluidTank getFluidOutputs() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

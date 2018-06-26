@@ -25,9 +25,9 @@ public class TileEntitySteamHammerAnvilRenderer extends TileEntitySpecialRendere
 		if(!tile.isConnected() || !tile.getMultiblockController().isAssembled()) {
 			return;
 		}
-		ItemStack stack = tile.getMultiblockController().inventory.getStackInSlot(0);
+		ItemStack stack = tile.getMultiblockController().inventory.getItemInput().getStackInSlot(0);
 		if(stack.isEmpty()) {
-			stack = tile.getMultiblockController().inventory.getStackInSlot(1);
+			stack = tile.getMultiblockController().inventory.getItemOutput().getStackInSlot(0);
 		}
 		if(!stack.isEmpty()) {
 			RenderUtil.pre(x, y, z);

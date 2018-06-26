@@ -128,10 +128,4 @@ public class ControllerDistiller extends SARMultiblockInventory implements ISmar
 		return inventory.getItemOutput();
 	}
 
-	@Override
-	public ItemStackHandlerExtractSpecific getItemInput() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

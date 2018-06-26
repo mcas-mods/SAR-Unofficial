@@ -9,11 +9,16 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMachineInv
 
 public class InventoryMachine implements ISARMachineInventory, INBTSerializable<NBTTagCompound> {
 
-	public final InventoryPieceItem itemInput;
-	public final InventoryPieceFluid fluidInput;
-	public final InventoryPieceItem itemOutput;
-	public final InventoryPieceFluid fluidOutput;
-	public final InventoryPieceFluid steamTank;
+	public InventoryPieceItem itemInput;
+	public InventoryPieceFluid fluidInput;
+	public InventoryPieceItem itemOutput;
+	public InventoryPieceFluid fluidOutput;
+	public InventoryPieceFluid steamTank;
+
+	public InventoryMachine(InventoryPieceFluid fluidInput, InventoryPieceFluid fluidOutput,
+			InventoryPieceFluid steamTank) {
+		this(null, fluidInput, null, fluidOutput, steamTank);
+	}
 
 	public InventoryMachine(InventoryPieceItem itemInput, InventoryPieceFluid fluidInput, InventoryPieceItem itemOutput,
 			InventoryPieceFluid fluidOutput, InventoryPieceFluid steamTank) {
@@ -58,8 +63,9 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 		}
 	}
 
-	public static class InventoryPiece {
-		private final int xPos[], yPos[];
+	protected static class InventoryPiece {
+		final int xPos[];
+		final int yPos[];
 
 		public InventoryPiece(int[] xPos, int[] yPos) {
 			this.xPos = xPos;
@@ -130,6 +136,10 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 			this.fluidOutput.handler.readFromNBT(tag.getCompoundTag("fluidOutput"));
 		if(tag.hasKey("steamTank"))
 			this.steamTank.handler.readFromNBT(tag.getCompoundTag("steamTank"));
+	}
+
+	public void setFluidInput(MultiFluidTank newTank) {
+		this.fluidInput = new InventoryPieceFluid(newTank, fluidInput.xPos, fluidInput.yPos);
 	}
 
 }
