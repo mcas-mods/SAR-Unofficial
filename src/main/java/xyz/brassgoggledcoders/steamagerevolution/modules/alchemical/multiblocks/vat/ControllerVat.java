@@ -2,30 +2,26 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import com.teamacronymcoders.base.guisystem.IHasGui;
-import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemHandlerHelper;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.utils.InventoryMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.InventoryMachine.InventoryPieceFluid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.InventoryMachine.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerVat extends SARMultiblockInventory implements ISmartTankCallback, IHasGui {
+public class ControllerVat extends SARMultiblockInventory implements ISmartTankCallback {
 
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
 	public static int inputCapacity = outputCapacity * 3;
@@ -33,15 +29,14 @@ public class ControllerVat extends SARMultiblockInventory implements ISmartTankC
 	BlockPos maximumInteriorPos;
 	AxisAlignedBB bounds;
 
-	public MultiFluidTank fluidInput;
-	public ItemStackHandlerExtractSpecific itemInput;
-	public MultiFluidTank output;
-
 	public ControllerVat(World world) {
 		super(world);
-		fluidInput = new MultiFluidTank(inputCapacity, this, 0);
-		itemInput = new ItemStackHandlerExtractSpecific(3);
-		output = new MultiFluidTank(outputCapacity, this, 1);
+		this.setInventoryMachine(new InventoryMachine(
+				new InventoryPieceItem(new ItemStackHandlerExtractSpecific(3), new int[] { 88, 88, 88 },
+						new int[] { 11, 32, 53 }),
+				new InventoryPieceFluid(new MultiFluidTank(inputCapacity, this, 0), new int[] { 12, 37, 62 },
+						new int[] { 9, 9, 9 }),
+				null, new InventoryPieceFluid(new MultiFluidTank(outputCapacity, this, 1), 143, 9), null));
 	}
 
 	@Override
@@ -49,19 +44,19 @@ public class ControllerVat extends SARMultiblockInventory implements ISmartTankC
 		for(Entity entity : WORLD.getEntitiesWithinAABB(Entity.class, bounds)) {
 			if(entity instanceof EntityItem) {
 				EntityItem item = (EntityItem) entity;
-				if(ItemHandlerHelper.insertItem(itemInput, item.getItem(), true).isEmpty()) {
-					ItemHandlerHelper.insertItem(itemInput, item.getItem(), false);
+				if(ItemHandlerHelper.insertItem(this.inventory.getItemInput(), item.getItem(), true).isEmpty()) {
+					ItemHandlerHelper.insertItem(this.inventory.getItemInput(), item.getItem(), false);
 					item.setDead();
 				}
 			}
 			// Simulate contact with fluid in vat when an entity falls in. TODO change
 			// bounds based on fluid fill level
 			FluidStack fluid = null;
-			if(output.getFluid() != null) {
-				fluid = output.getFluid();
+			if(this.inventory.getFluidOutputs().getFluid() != null) {
+				fluid = this.inventory.getFluidOutputs().getFluid();
 			}
-			else if(!fluidInput.fluids.isEmpty() && fluidInput.fluids.get(0) != null) {
-				fluid = fluidInput.fluids.get(0);
+			else if(this.inventory.getFluidInputs().getFluid() != null) {
+				fluid = this.inventory.getFluidInputs().getFluid();
 			}
 			if(fluid != null && fluid.getFluid() != null && fluid.getFluid().getBlock() != null) {
 				if(fluid.getFluid().getTemperature() >= FluidRegistry.LAVA.getTemperature()) {
@@ -72,14 +67,6 @@ public class ControllerVat extends SARMultiblockInventory implements ISmartTankC
 
 			}
 		}
-	}
-
-	@Override
-	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		fluidInput.readFromNBT(data.getCompoundTag("fluids"));
-		itemInput.deserializeNBT(data.getCompoundTag("items"));
-		output.readFromNBT(data.getCompoundTag("output"));
-		super.onAttachedPartWithMultiblockData(part, data);
 	}
 
 	@Override
@@ -136,70 +123,17 @@ public class ControllerVat extends SARMultiblockInventory implements ISmartTankC
 	}
 
 	@Override
-	public void writeToDisk(NBTTagCompound data) {
-		data.setTag("fluids", fluidInput.writeToNBT(new NBTTagCompound()));
-		data.setTag("items", itemInput.serializeNBT());
-		data.setTag("output", output.writeToNBT(new NBTTagCompound()));
-		super.writeToDisk(data);
-	}
-
-	@Override
 	public String getName() {
 		return "Vat";
 	}
 
 	@Override
-	public void updateFluid(PacketMultiFluidUpdate message) {
-		if(message.id == fluidInput.getId()) {
-			fluidInput.fluids.clear();
-			fluidInput.fluids.addAll(message.tank.fluids);
-		}
-		else if(message.id == output.getId()) {
-			output.fluids.clear();
-			output.fluids.addAll(message.tank.fluids);
-		}
-		super.updateFluid(message);
-	}
-
-	@Override
 	protected FluidTank getTank(String toWrap) {
 		if(toWrap.equals("input")) {
-			return fluidInput;
+			return this.inventory.getFluidInputs();
 		}
 		else {
-			return output;
+			return this.inventory.getFluidOutputs();
 		}
-	}
-
-	@Override
-	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		// TODO Auto-generated method stub
-		return new GuiVat(entityPlayer, this);
-	}
-
-	@Override
-	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		// TODO Auto-generated method stub
-		return new ContainerVat(entityPlayer, this);
-	}
-
-	@Override
-	public ItemStackHandlerExtractSpecific getItemInput() {
-		return itemInput;
-	}
-
-	@Override
-	public MultiFluidTank getFluidInputs() {
-		return fluidInput;
-	}
-
-	@Override
-	public ItemStackHandlerExtractSpecific getItemOutput() {
-		return null;
-	}
-
-	@Override
-	public MultiFluidTank getFluidOutputs() {
-		return output;
 	}
 }

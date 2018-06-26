@@ -24,6 +24,7 @@ import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 public abstract class SARMultiblockInventory extends SARMultiblockBase
 		implements ISmartTankCallback, ISARMachineInventory {
@@ -187,23 +188,45 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	}
 
 	@Override
+	public void updateFluid(PacketMultiFluidUpdate message) {
+		if(message.id == this.inventory.getFluidInputs().getId()) {
+			this.inventory.getFluidInputs().fluids.clear();
+			this.inventory.getFluidInputs().fluids.addAll(message.tank.fluids);
+		}
+		else if(message.id == this.inventory.getFluidOutputs().getId()) {
+			this.inventory.getFluidOutputs().fluids.clear();
+			this.inventory.getFluidOutputs().fluids.addAll(message.tank.fluids);
+		}
+	}
+
+	@Override
+	public ItemStackHandlerExtractSpecific getItemInput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Deprecated
+	@Override
 	public MultiFluidTank getFluidInputs() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Deprecated
 	@Override
 	public ItemStackHandler getItemOutput() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Deprecated
 	@Override
 	public MultiFluidTank getFluidOutputs() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Deprecated
 	@Override
 	public FluidTankSingleSmart getSteamTank() {
 		// TODO Auto-generated method stub
