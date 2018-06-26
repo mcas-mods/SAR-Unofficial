@@ -1,5 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -10,6 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.GuiUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.InventoryMachine.InventoryPieceFluid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 
 @SideOnly(Side.CLIENT)
@@ -29,15 +34,42 @@ public class GuiMultiblockInventory extends GuiContainer {
 		drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
-		// if(this.isPointInRegion(78, 17, 20, 49, mouseX, mouseY)) {
-		// List<String> tooltip = Lists.newArrayList();
-		// tooltip.add(TextUtils.representTankContents(
-		// (IFluidTank)
-		// controller.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
-		// null))
-		// .getText());
-		// this.drawHoveringText(tooltip, mouseX, mouseY, fontRenderer);
-		// }
+		MultiFluidTank fluidInputs = controller.inventory.getFluidInputs();
+		for(int i = 0; i < fluidInputs.getMaxFluids(); i++) {
+			if(this.isPointInRegion(controller.inventory.fluidInput.getX(i), controller.inventory.fluidInput.getY(i),
+					20, 55, mouseX, mouseY)) {
+				List<String> tooltip = Lists.newArrayList();
+				int capacity = fluidInputs.getCapacity();
+				capacity /= fluidInputs.getMaxFluids();
+				if(fluidInputs.fluids.size() > i) {
+					tooltip.add(TextUtils.representTankContents(new FluidTank(fluidInputs.fluids.get(i), capacity))
+							.getText());
+				}
+				else {
+					// TODO Localization
+					tooltip.add("Empty");
+				}
+				this.drawHoveringText(tooltip, mouseX, mouseY, fontRenderer);
+			}
+		}
+		MultiFluidTank fluidOutputs = controller.inventory.getFluidOutputs();
+		for(int i = 0; i < fluidOutputs.getMaxFluids(); i++) {
+			if(this.isPointInRegion(controller.inventory.fluidInput.getX(i), controller.inventory.fluidInput.getY(i),
+					20, 55, mouseX, mouseY)) {
+				List<String> tooltip = Lists.newArrayList();
+				int capacity = fluidOutputs.getCapacity();
+				capacity /= fluidOutputs.getMaxFluids();
+				if(fluidOutputs.fluids.size() > i) {
+					tooltip.add(TextUtils.representTankContents(new FluidTank(fluidOutputs.fluids.get(i), capacity))
+							.getText());
+				}
+				else {
+					// TODO Localization
+					tooltip.add("Empty");
+				}
+				this.drawHoveringText(tooltip, mouseX, mouseY, fontRenderer);
+			}
+		}
 	}
 
 	@Override

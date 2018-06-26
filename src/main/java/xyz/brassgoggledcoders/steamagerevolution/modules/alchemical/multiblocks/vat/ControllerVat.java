@@ -34,7 +34,7 @@ public class ControllerVat extends SARMultiblockInventory implements ISmartTankC
 		this.setInventoryMachine(new InventoryMachine(
 				new InventoryPieceItem(new ItemStackHandlerExtractSpecific(3), new int[] { 88, 88, 88 },
 						new int[] { 11, 32, 53 }),
-				new InventoryPieceFluid(new MultiFluidTank(inputCapacity, this, 0), new int[] { 12, 37, 62 },
+				new InventoryPieceFluid(new MultiFluidTank(inputCapacity, this, 0, 3), new int[] { 12, 37, 62 },
 						new int[] { 9, 9, 9 }),
 				null, new InventoryPieceFluid(new MultiFluidTank(outputCapacity, this, 1), 143, 9), null));
 	}

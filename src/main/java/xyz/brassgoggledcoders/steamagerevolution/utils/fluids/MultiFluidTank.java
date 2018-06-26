@@ -22,10 +22,18 @@ import net.minecraftforge.fluids.capability.IFluidTankProperties;
 public class MultiFluidTank extends FluidTankSmart {
 	public ArrayList<FluidStack> fluids = Lists.newArrayList();
 	private final int capacity;
+	// TODO Make this an actual limit, not just a representative
+	private final int maxFluids;
 
+	@Deprecated
 	public MultiFluidTank(int capacity, MultiblockControllerBase parent, int id) {
+		this(capacity, parent, id, 1);
+	}
+
+	public MultiFluidTank(int capacity, MultiblockControllerBase parent, int id, int maxFluids) {
 		super(capacity, parent, id);
 		this.capacity = capacity;
+		this.maxFluids = maxFluids;
 	}
 
 	@Override
@@ -168,5 +176,9 @@ public class MultiFluidTank extends FluidTankSmart {
 			return null;
 		}
 		return drain(new FluidStack(getFluid(), maxDrain), doDrain);
+	}
+
+	public int getMaxFluids() {
+		return maxFluids;
 	}
 }
