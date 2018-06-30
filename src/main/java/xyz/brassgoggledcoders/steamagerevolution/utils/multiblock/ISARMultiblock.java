@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
 public interface ISARMultiblock {
+	// TODO Duplicated in IHasInventory
 	public String getName();
 
 	public int getMaximumXSize();

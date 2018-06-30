@@ -32,7 +32,7 @@ public class ControllerSteamHammer extends SARMultiblockInventory {
 	public ControllerSteamHammer(World world) {
 		super(world);
 		// TODO Investigate if possible to have same handler for input and output
-		this.setInventoryMachine(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 0, 0),
+		this.setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 0, 0),
 				null, new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 0, 0), null,
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this), 0, 0)));
 	}
@@ -97,8 +97,8 @@ public class ControllerSteamHammer extends SARMultiblockInventory {
 	@Override
 	protected void onTick() {
 		for(EntityItem item : WORLD.getEntitiesWithinAABB(EntityItem.class, interior)) {
-			if(ItemHandlerHelper.insertItem(inventory.getItemInput(), item.getItem(), true).isEmpty()) {
-				ItemHandlerHelper.insertItem(inventory.getItemInput(), item.getItem(), false);
+			if(ItemHandlerHelper.insertItem(inventory.getInputHandler(), item.getItem(), true).isEmpty()) {
+				ItemHandlerHelper.insertItem(inventory.getInputHandler(), item.getItem(), false);
 				item.setDead();
 			}
 		}

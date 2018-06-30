@@ -30,7 +30,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.blocks.BlockCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemDie;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemHammer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.*;
@@ -111,7 +113,7 @@ public class ModuleMetalworking extends ModuleBase {
 
 	@Override
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
-		itemRegistry.register(new ItemHammer("hammer"));
+		itemRegistry.register(new ItemHammer());
 		itemRegistry.register(new ItemDie());
 	}
 
@@ -143,51 +145,63 @@ public class ModuleMetalworking extends ModuleBase {
 		for(String metal : knownMetalTypes) {
 
 			// Known to be non-null because it is how metal types are known
-			ItemStack ingot = OreDictUtils.getPreferredItemStack("ingot" + metal);
+			String ingot = "ingot" + metal;
+			ItemStack ingotStack = OreDictUtils.getPreferredItemStack("ingot" + metal);
 
-			ItemStack ore = OreDictUtils.getPreferredItemStack("ore" + metal);
-			ItemStack gear = OreDictUtils.getPreferredItemStack("gear" + metal);
-			ItemStack plate = OreDictUtils.getPreferredItemStack("plate" + metal);
-			ItemStack crushedOre = OreDictUtils.getPreferredItemStack("crushedOre" + metal);
-			ItemStack nugget = OreDictUtils.getPreferredItemStack("nugget" + metal);
-			ItemStack dust = OreDictUtils.getPreferredItemStack("dust" + metal);
-			ItemStack crystal = OreDictUtils.getPreferredItemStack("crystal" + metal);
+			String ore = "ore" + metal;
+			String gear = "gear" + metal;
+			String plate = "plate" + metal;
+			String crushedOre = "crushedOre" + metal;
+			String nugget = "nugget" + metal;
+			String dust = "dust" + metal;
+			String crystal = "crystal" + metal;
+
+			ItemStack oreStack = OreDictUtils.getPreferredItemStack(ore);
+			ItemStack gearStack = OreDictUtils.getPreferredItemStack(gear);
+			ItemStack plateStack = OreDictUtils.getPreferredItemStack(plate);
+			ItemStack crushedOreStack = OreDictUtils.getPreferredItemStack(crushedOre);
+			ItemStack nuggetStack = OreDictUtils.getPreferredItemStack(nugget);
+			ItemStack dustStack = OreDictUtils.getPreferredItemStack(dust);
+			ItemStack crystalStack = OreDictUtils.getPreferredItemStack(crystal);
 			FluidStack molten = FluidRegistry.getFluidStack(metal.toLowerCase(), VALUE_INGOT);
 			FluidStack solution = FluidRegistry.getFluidStack(metal.toLowerCase() + "_solution", VALUE_NUGGET * 4);
 
 			if(molten != null) {
 				RecipeRegistry.addRecipe("crucible", new MachineRecipeBuilder("crucible").setItemInputs(ingot)
 						.setFluidOutputs(molten).setSteamCost(Fluid.BUCKET_VOLUME / 16).build());
-				CastingBlockRecipe.addRecipe(molten, ingot);
+				RecipeRegistry.addRecipe("casting_block", new MachineRecipeBuilder("casting_block")
+						.setFluidInputs(molten).setItemOutputs(ingotStack).build());
 			}
-			if(!plate.isEmpty()) {
-				ItemStack plateCopy = plate.copy();
+			if(!plateStack.isEmpty()) {
+				ItemStack plateCopy = plateStack.copy();
 				plateCopy.setCount(plateCount);
 				RecipeRegistry.addRecipe("steam hammer", new MachineRecipeBuilder("steam hammer").setItemInputs(ingot)
 						.setItemOutputs(plateCopy).build());
 			}
-			if(!gear.isEmpty()) {
+			if(!gearStack.isEmpty()) {
 				// TODO
 				// SteamHammerRecipe.addSteamHammerRecipe(ingot, gear, "gear");
 			}
 			if(!ore.isEmpty()) {
-				GameRegistry.addSmelting(ore, ingot, 0.5F);
+				// TODO: Use 'our' stacks not preferred
+				GameRegistry.addSmelting(oreStack, ingotStack, 0.5F);
 			}
 			if(!dust.isEmpty()) {
-				GameRegistry.addSmelting(dust, ingot, 0.5F);
+				// TODO: Use 'our' stacks not preferred
+				GameRegistry.addSmelting(dustStack, ingotStack, 0.5F);
 			}
-			if(!crushedOre.isEmpty()) {
-				ItemStack nuggetCopy = nugget.copy();
+			if(!crushedOreStack.isEmpty()) {
+				ItemStack nuggetCopy = nuggetStack.copy();
 				nuggetCopy.setCount(3);
-				GameRegistry.addSmelting(crushedOre, nuggetCopy, 0.1f);
-				ItemStack crushedOreCopy = crushedOre.copy();
+				GameRegistry.addSmelting(crushedOreStack, nuggetCopy, 0.1f);
+				ItemStack crushedOreCopy = crushedOreStack.copy();
 				crushedOreCopy.setCount(4);
 				RecipeRegistry.addRecipe("steam hammer", new MachineRecipeBuilder("steam hammer").setItemInputs(ore)
 						.setItemOutputs(crushedOreCopy).build());
 			}
-			if(!crystal.isEmpty()) {
+			if(!crystalStack.isEmpty()) {
 				if(!nugget.isEmpty()) {
-					GameRegistry.addSmelting(crystal, nugget, 0.3f);
+					GameRegistry.addSmelting(crystalStack, nuggetStack, 0.3f);
 				}
 				if(solution != null) {
 					new MachineRecipeBuilder("vat").setFluidOutputs(solution)
@@ -195,7 +209,7 @@ public class ModuleMetalworking extends ModuleBase {
 							.setItemInputs(crushedOre).build();
 					RecipeRegistry.addRecipe("distiller", new MachineRecipeBuilder("distiller").setFluidInputs(solution)
 							.setFluidOutputs(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 6))
-							.setItemOutputs(crystal).setCraftTime(20).build());
+							.setItemOutputs(crystalStack).setCraftTime(20).build());
 				}
 			}
 		}

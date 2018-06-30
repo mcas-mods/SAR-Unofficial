@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking;
+package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items;
 
 import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.util.OreDictUtils;
@@ -12,11 +12,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.oredict.OreDictionary;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 
 public class ItemHammer extends ItemBase {
 
-	public ItemHammer(String name) {
-		super(name);
+	public ItemHammer() {
+		super("hammer");
 		this.setMaxStackSize(1);
 		this.setMaxDamage(ToolMaterial.IRON.getMaxUses());
 	}
@@ -31,7 +32,6 @@ public class ItemHammer extends ItemBase {
 		return blockIn.getMaterial() == Material.ROCK;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
 		if(player.world.isRemote || player.capabilities.isCreativeMode) {

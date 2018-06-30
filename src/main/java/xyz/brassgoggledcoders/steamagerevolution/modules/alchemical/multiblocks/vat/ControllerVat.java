@@ -31,7 +31,7 @@ public class ControllerVat extends SARMultiblockInventory implements ISmartTankC
 
 	public ControllerVat(World world) {
 		super(world);
-		this.setInventoryMachine(new InventoryMachine(
+		this.setInventory(new InventoryMachine(
 				new InventoryPieceItem(new ItemStackHandlerExtractSpecific(3), new int[] { 88, 88, 88 },
 						new int[] { 11, 32, 53 }),
 				new InventoryPieceFluid(new MultiFluidTank(inputCapacity, this, 0, 3), new int[] { 12, 37, 62 },
@@ -44,19 +44,19 @@ public class ControllerVat extends SARMultiblockInventory implements ISmartTankC
 		for(Entity entity : WORLD.getEntitiesWithinAABB(Entity.class, bounds)) {
 			if(entity instanceof EntityItem) {
 				EntityItem item = (EntityItem) entity;
-				if(ItemHandlerHelper.insertItem(this.inventory.getItemInput(), item.getItem(), true).isEmpty()) {
-					ItemHandlerHelper.insertItem(this.inventory.getItemInput(), item.getItem(), false);
+				if(ItemHandlerHelper.insertItem(this.inventory.getInputHandler(), item.getItem(), true).isEmpty()) {
+					ItemHandlerHelper.insertItem(this.inventory.getInputHandler(), item.getItem(), false);
 					item.setDead();
 				}
 			}
 			// Simulate contact with fluid in vat when an entity falls in. TODO change
 			// bounds based on fluid fill level
 			FluidStack fluid = null;
-			if(this.inventory.getFluidOutputs().getFluid() != null) {
-				fluid = this.inventory.getFluidOutputs().getFluid();
+			if(this.inventory.getOutputTank().getFluid() != null) {
+				fluid = this.inventory.getOutputTank().getFluid();
 			}
-			else if(this.inventory.getFluidInputs().getFluid() != null) {
-				fluid = this.inventory.getFluidInputs().getFluid();
+			else if(this.inventory.getInputTank().getFluid() != null) {
+				fluid = this.inventory.getInputTank().getFluid();
 			}
 			if(fluid != null && fluid.getFluid() != null && fluid.getFluid().getBlock() != null) {
 				if(fluid.getFluid().getTemperature() >= FluidRegistry.LAVA.getTemperature()) {
@@ -130,10 +130,10 @@ public class ControllerVat extends SARMultiblockInventory implements ISmartTankC
 	@Override
 	protected FluidTank getTank(String toWrap) {
 		if(toWrap.equals("input")) {
-			return this.inventory.getFluidInputs();
+			return this.inventory.getInputTank();
 		}
 		else {
-			return this.inventory.getFluidOutputs();
+			return this.inventory.getOutputTank();
 		}
 	}
 }

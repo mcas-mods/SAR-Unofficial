@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
+package xyz.brassgoggledcoders.steamagerevolution.utils;
 
 import javax.annotation.Nullable;
 
@@ -9,16 +9,16 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExt
 
 public interface ISARMachineInventory {
 	@Nullable
-	public ItemStackHandlerExtractSpecific getItemInput();
+	public ItemStackHandlerExtractSpecific getInputHandler();
 
 	@Nullable
-	public MultiFluidTank getFluidInputs();
+	public MultiFluidTank getInputTank();
 
 	@Nullable
-	public ItemStackHandler getItemOutput();
+	public ItemStackHandler getOutputHandler();
 
 	@Nullable
-	public MultiFluidTank getFluidOutputs();
+	public MultiFluidTank getOutputTank();
 
 	@Nullable
 	public FluidTankSingleSmart getSteamTank();

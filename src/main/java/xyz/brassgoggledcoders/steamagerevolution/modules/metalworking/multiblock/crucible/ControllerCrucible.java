@@ -22,7 +22,7 @@ public class ControllerCrucible extends SARMultiblockInventory implements ISmart
 
 	public ControllerCrucible(World world) {
 		super(world);
-		this.setInventoryMachine(
+		this.setInventory(
 				new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerExtractSpecific(1), 0, 0), null, null,
 						new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME * 4, this, 0), 0, 0),
 						new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this), 0, 0)));
@@ -56,7 +56,7 @@ public class ControllerCrucible extends SARMultiblockInventory implements ISmart
 		}
 		// Size internal tank accordingly
 		MultiFluidTank newTank = new MultiFluidTank(blocksInside * Fluid.BUCKET_VOLUME * 16, this, 0);
-		newTank.fluids.addAll(this.inventory.getFluidInputs().fluids);
+		newTank.fluids.addAll(this.inventory.getInputTank().fluids);
 		this.inventory.setFluidInput(newTank);
 	}
 

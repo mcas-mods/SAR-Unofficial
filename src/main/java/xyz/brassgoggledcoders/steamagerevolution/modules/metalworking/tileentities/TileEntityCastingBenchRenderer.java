@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking;
+package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.tileentities;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -13,7 +13,7 @@ public class TileEntityCastingBenchRenderer extends TileEntitySpecialRenderer<Ti
 	@Override
 	public void render(TileEntityCastingBench tile, double x, double y, double z, float partialTicks, int destroyStage,
 			float alpha) {
-		FluidTank tank = tile.tank;
+		FluidTank tank = tile.inventory.getInputTank();
 		FluidStack liquid = tank.getFluid();
 
 		if(liquid != null) {

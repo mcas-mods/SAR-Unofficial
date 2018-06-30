@@ -1,11 +1,14 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
+package xyz.brassgoggledcoders.steamagerevolution.utils;
 
 import java.util.*;
 import java.util.stream.IntStream;
 
+import javax.annotation.Nonnull;
+
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.teamacronymcoders.base.multiblock.IMultiblockPart;
+import com.teamacronymcoders.base.guisystem.IHasGui;
+import com.teamacronymcoders.base.tileentities.TileEntityBase;
 import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.client.gui.Gui;
@@ -14,33 +17,72 @@ import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ContainerInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.GuiInventory;
 
-public abstract class SARMultiblockInventory extends SARMultiblockBase
-		implements ISmartTankCallback, ISmartStackCallback, IHasInventory {
+public abstract class SARMachineTileEntity extends TileEntityBase
+		implements ITickable, ISmartTankCallback, ISmartStackCallback, IHasGui, IHasInventory {
 
 	protected int currentTicks = 0;
 	SARMachineRecipe currentRecipe;
 	public InventoryMachine inventory;
 
-	protected SARMultiblockInventory(World world) {
-		super(world);
-	}
-
+	@Override
 	public void setInventory(InventoryMachine inventory) {
 		this.inventory = inventory;
 	}
 
+	public abstract String getName();
+
 	@Override
-	protected boolean updateServer() {
+	public SPacketUpdateTileEntity getUpdatePacket() {
+		NBTTagCompound nbt = new NBTTagCompound();
+		nbt.setTag("inventory", inventory.serializeNBT());
+		return new SPacketUpdateTileEntity(pos, 3, nbt);
+	}
+
+	@Nonnull
+	@Override
+	public NBTTagCompound getUpdateTag() {
+		NBTTagCompound nbt = super.writeToNBT(new NBTTagCompound());
+		nbt.setTag("inventory", inventory.serializeNBT());
+		return nbt;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+		inventory.deserializeNBT(pkt.getNbtCompound().getCompoundTag("inventory"));
+	}
+
+	@Override
+	protected void readFromDisk(NBTTagCompound data) {
+		currentTicks = data.getInteger("progress");
+		inventory.deserializeNBT(data.getCompoundTag("inventory"));
+	}
+
+	@Override
+	protected NBTTagCompound writeToDisk(NBTTagCompound data) {
+		data.setInteger("progress", currentTicks);
+		data.setTag("inventory", inventory.serializeNBT());
+		return data;
+	}
+
+	@Override
+	public void update() {
 		onTick();
 		if(canRun()) {
 			onActiveTick();
@@ -48,9 +90,7 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 			if(canFinish()) {
 				onFinish();
 			}
-			return true; // TODO
 		}
-		return false;
 	}
 
 	protected void onTick() {
@@ -155,28 +195,16 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	}
 
 	@Override
-	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		currentTicks = data.getInteger("progress");
-		inventory.deserializeNBT(data.getCompoundTag("inventory"));
-	}
-
-	@Override
-	public void writeToDisk(NBTTagCompound data) {
-		data.setInteger("progress", currentTicks);
-		data.setTag("inventory", inventory.serializeNBT());
-	}
-
-	@Override
 	public void onTankContentsChanged(FluidTankSmart tank) {
 		if(tank instanceof MultiFluidTank) {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketMultiFluidUpdate(getReferenceCoord(), ((MultiFluidTank) tank), tank.getId()),
-					getReferenceCoord(), WORLD.provider.getDimension());
+					new PacketMultiFluidUpdate(getPos(), ((MultiFluidTank) tank), tank.getId()), getPos(),
+					getWorld().provider.getDimension());
 		}
 		else {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketFluidUpdate(getReferenceCoord(), tank.getFluid(), tank.getId()), getReferenceCoord(),
-					WORLD.provider.getDimension());
+					new PacketFluidUpdate(getPos(), tank.getFluid(), tank.getId()), getPos(),
+					getWorld().provider.getDimension());
 		}
 	}
 
@@ -209,18 +237,11 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		// TODO Auto-generated method stub
 		return new GuiInventory(entityPlayer, this);
 	}
 
 	@Override
 	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		// TODO Auto-generated method stub
 		return new ContainerInventory(entityPlayer, this);
-	}
-
-	@Override
-	public InventoryMachine getInventory() {
-		return inventory;
 	}
 }

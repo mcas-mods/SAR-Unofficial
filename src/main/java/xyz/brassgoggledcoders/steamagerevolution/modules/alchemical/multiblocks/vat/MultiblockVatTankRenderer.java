@@ -20,14 +20,14 @@ public class MultiblockVatTankRenderer extends TileEntitySpecialRenderer<TileEnt
 		// so should always be casing.
 		if(tile.isConnected() && tile.getMultiblockController().isAssembled() && tile.isMultiblockSaveDelegate()) {
 			ControllerVat t = tile.getMultiblockController();
-			FluidTank tank = t.inventory.getFluidOutputs();
+			FluidTank tank = t.inventory.getOutputTank();
 			FluidStack fluid = null;
 			if(tank.getFluid() != null) {
 				fluid = tank.getFluid();
 			}
-			else if(t.inventory.getFluidInputs().getFluid() != null) {
-				tank = t.inventory.getFluidInputs();
-				fluid = t.inventory.getFluidInputs().getFluid();
+			else if(t.inventory.getInputTank().getFluid() != null) {
+				tank = t.inventory.getInputTank();
+				fluid = t.inventory.getInputTank().getFluid();
 			}
 
 			if(fluid != null) {

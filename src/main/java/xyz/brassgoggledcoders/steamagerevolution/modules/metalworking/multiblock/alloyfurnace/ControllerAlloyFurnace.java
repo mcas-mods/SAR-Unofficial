@@ -23,7 +23,7 @@ public class ControllerAlloyFurnace extends SARMultiblockInventory implements IS
 
 	public ControllerAlloyFurnace(World world) {
 		super(world);
-		this.setInventoryMachine(new InventoryMachine(
+		this.setInventory(new InventoryMachine(
 				new InventoryPieceFluid(new MultiFluidTank(inputCapacity, this, 0, 2), new int[] { 22, 78 },
 						new int[] { 11, 11 }),
 				new InventoryPieceFluid(new MultiFluidTank(outputCapacity, this, 1), 134, 17), null));
@@ -39,7 +39,7 @@ public class ControllerAlloyFurnace extends SARMultiblockInventory implements IS
 
 	@Override
 	protected boolean canRun() {
-		return this.inventory.getFluidInputs().fluids.size() == 2 && super.canRun();
+		return this.inventory.getInputTank().fluids.size() == 2 && super.canRun();
 	}
 
 	@Override

@@ -1,10 +1,8 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking;
+package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.blocks;
 
 import java.util.List;
 
 import javax.annotation.Nullable;
-
-import com.teamacronymcoders.base.blocks.BlockTEBase;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -16,11 +14,20 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.tileentities.TileEntityCastingBench;
+import xyz.brassgoggledcoders.steamagerevolution.utils.BlockGUIBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.InventoryMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.InventoryMachine.InventoryPieceFluid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.InventoryMachine.InventoryPieceItem;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
-public class BlockCastingBench extends BlockTEBase<TileEntityCastingBench> {
+public class BlockCastingBench extends BlockGUIBase<TileEntityCastingBench> {
 
 	protected static final AxisAlignedBB AABB_LEGS = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.3125D, 1.0D);
 	protected static final AxisAlignedBB AABB_WALL_NORTH = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.125D);
@@ -61,7 +68,12 @@ public class BlockCastingBench extends BlockTEBase<TileEntityCastingBench> {
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityCastingBench();
+		TileEntityCastingBench te = new TileEntityCastingBench();
+		te.setInventory(new InventoryMachine(null,
+				new InventoryPieceFluid(new MultiFluidTank(TileEntityCastingBench.inputCapacity, te, 0, 1), 0, 0),
+				new InventoryPieceItem(new ItemStackHandlerExtractSpecific(1), 0, 0), null,
+				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", te), 0, 0)));
+		return te;
 	}
 
 	@Override
@@ -83,8 +95,8 @@ public class BlockCastingBench extends BlockTEBase<TileEntityCastingBench> {
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
 		TileEntityCastingBench te = getTileEntity(worldIn, pos).get();
 		if(te != null) {
-			if(te.tank.getFluid() != null
-					&& te.tank.getFluid().getFluid().getTemperature() > FluidRegistry.WATER.getTemperature()) {
+			if(te.inventory.getInputTank().getFluid() != null && te.inventory.getInputTank().getFluid().getFluid()
+					.getTemperature() > FluidRegistry.WATER.getTemperature()) {
 				entityIn.setFire(10);
 			}
 		}

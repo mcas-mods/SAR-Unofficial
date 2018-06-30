@@ -1,6 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.fluids;
 
-import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
@@ -9,25 +9,25 @@ import net.minecraftforge.fluids.FluidTank;
 public class FluidTankSmart extends FluidTank {
 
 	final int id;
-	MultiblockControllerBase parent = null;
+	ISmartTankCallback parent = null;
 
-	public FluidTankSmart(int capacity, TileEntity parent) {
+	@Deprecated
+	public FluidTankSmart(int capacity, ISmartTankCallback parent) {
 		super(capacity);
-		setTileEntity(parent);
+		if(parent instanceof TileEntity) {
+			setTileEntity((TileEntity) parent);
+		}
 		id = -1;
 	}
 
-	public FluidTankSmart(int capacity, MultiblockControllerBase parent) {
-		this(capacity, parent, -1);
-	}
-
-	public FluidTankSmart(int capacity, MultiblockControllerBase parent, int id) {
+	public FluidTankSmart(int capacity, ISmartTankCallback parent2, int id) {
 		super(capacity);
-		this.parent = parent;
+		this.parent = parent2;
 		this.id = id;
 	}
 
-	public FluidTankSmart(FluidStack fluid, int capacity, MultiblockControllerBase parent) {
+	@Deprecated
+	public FluidTankSmart(FluidStack fluid, int capacity, ISmartTankCallback parent) {
 		super(fluid, capacity);
 		this.parent = parent;
 		id = -1;
@@ -43,9 +43,10 @@ public class FluidTankSmart extends FluidTank {
 			((ISmartTankCallback) tile).onTankContentsChanged(this);
 			tile.markDirty();
 		}
-		else if(parent != null) {
+		else {
 			((ISmartTankCallback) parent).onTankContentsChanged(this);
-			parent.WORLD.markChunkDirty(parent.getReferenceCoord(), null); // TODO
+			RectangularMultiblockControllerBase controller = (RectangularMultiblockControllerBase) parent;
+			controller.WORLD.markChunkDirty(controller.getReferenceCoord(), null); // TODO
 		}
 	}
 }

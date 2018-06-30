@@ -24,7 +24,7 @@ public class ControllerSteelworks extends SARMultiblockInventory {
 
 	public ControllerSteelworks(World world) {
 		super(world);
-		this.setInventoryMachine(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerFuel(1), 0, 0),
+		this.setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerFuel(1), 0, 0),
 				new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 0), 0, 0), null,
 				new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 1), 0, 0),
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 0, 0)));

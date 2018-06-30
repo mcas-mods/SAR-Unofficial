@@ -4,10 +4,10 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlockRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.TileEntityCastingBench;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.tileentities.TileEntityCastingBench;
+import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe;
 
-public class CastingBlockRecipeCategory extends SARRecipeCategory<CastingBlockRecipe> {
+public class CastingBlockRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 
 	public static final String uid = "castingblock";
 
@@ -16,7 +16,7 @@ public class CastingBlockRecipeCategory extends SARRecipeCategory<CastingBlockRe
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, CastingBlockRecipe recipeWrapper, IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, SARMachineRecipe recipeWrapper, IIngredients ingredients) {
 		recipeLayout.getFluidStacks().init(0, true, 1, 1, 20, 60, TileEntityCastingBench.inputCapacity, true, null);
 		recipeLayout.getItemStacks().init(1, false, 58, 23);
 

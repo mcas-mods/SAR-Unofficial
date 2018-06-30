@@ -15,6 +15,7 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 
 /**
  * Utility methods for {@link IRecipe}s.
@@ -116,5 +117,20 @@ public class RecipeUtil {
 		}
 
 		return ingredients;
+	}
+
+	public static int getValueFromName(String name) {
+		switch(name) {
+			case "ingot":
+				return ModuleMetalworking.VALUE_INGOT;
+			case "block":
+				return ModuleMetalworking.VALUE_BLOCK;
+			case "nugget":
+				return ModuleMetalworking.VALUE_NUGGET;
+			case "ore":
+				return ModuleMetalworking.VALUE_INGOT;
+			default:
+				return 0;
+		}
 	}
 }

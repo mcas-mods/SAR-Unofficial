@@ -10,7 +10,6 @@ import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
 
 @JEIPlugin
@@ -43,7 +42,7 @@ public class SARJEIPlugin implements IModPlugin {
 		add(registry, RecipeRegistry.getRecipesForMachine("steam furnace"), SteamFurnaceRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.furnace_casing));
 
-		add(registry, CastingBlockRecipe.getRecipeList(), CastingBlockRecipeCategory.uid,
+		add(registry, RecipeRegistry.getRecipesForMachine("casting block"), CastingBlockRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.casting_bench));
 
 		add(registry, RecipeRegistry.getRecipesForMachine("vat"), VatRecipeCategory.uid,

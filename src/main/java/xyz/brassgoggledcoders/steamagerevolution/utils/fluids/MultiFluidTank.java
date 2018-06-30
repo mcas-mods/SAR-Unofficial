@@ -6,7 +6,6 @@ import java.util.Iterator;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
-import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -26,11 +25,11 @@ public class MultiFluidTank extends FluidTankSmart {
 	private final int maxFluids;
 
 	@Deprecated
-	public MultiFluidTank(int capacity, MultiblockControllerBase parent, int id) {
+	public MultiFluidTank(int capacity, ISmartTankCallback parent, int id) {
 		this(capacity, parent, id, 1);
 	}
 
-	public MultiFluidTank(int capacity, MultiblockControllerBase parent, int id, int maxFluids) {
+	public MultiFluidTank(int capacity, ISmartTankCallback parent, int id, int maxFluids) {
 		super(capacity, parent, id);
 		this.capacity = capacity;
 		this.maxFluids = maxFluids;

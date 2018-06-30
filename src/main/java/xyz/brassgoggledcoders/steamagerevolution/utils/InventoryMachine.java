@@ -5,7 +5,6 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMachineInventory;
 
 public class InventoryMachine implements ISARMachineInventory, INBTSerializable<NBTTagCompound> {
 
@@ -82,24 +81,36 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 	}
 
 	@Override
-	public ItemStackHandlerExtractSpecific getItemInput() {
+	public ItemStackHandlerExtractSpecific getInputHandler() {
+		if(itemInput == null) {
+			return null;
+		}
 		return itemInput.getHandler();
 	}
 
 	@Override
-	public MultiFluidTank getFluidInputs() {
+	public MultiFluidTank getInputTank() {
+		if(fluidInput == null) {
+			return null;
+		}
 		// TODO Unsafe cast
 		return (MultiFluidTank) fluidInput.getHandler();
 	}
 
 	@Override
-	public ItemStackHandler getItemOutput() {
+	public ItemStackHandler getOutputHandler() {
+		if(itemOutput == null) {
+			return null;
+		}
 		return itemOutput.getHandler();
 	}
 
 	@Override
-	public MultiFluidTank getFluidOutputs() {
+	public MultiFluidTank getOutputTank() {
 		// TODO Unsafe cast
+		if(fluidOutput == null) {
+			return null;
+		}
 		return (MultiFluidTank) fluidOutput.getHandler();
 	}
 

@@ -37,8 +37,8 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.items.ItemFl
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.CastingBlockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.BlockDamagingFluid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe.MachineRecipeBuilder;
 
 @Module(value = SteamAgeRevolution.MODID)
@@ -88,8 +88,10 @@ public class ModuleAlchemical extends ModuleBase {
 				.setItemInputs(new ItemStack(Items.REDSTONE, 4)).build();
 		FumeCollectorRecipe.addRecipe(MaterialSystem.getMaterialPart("sulphur_crystal").getItemStack(),
 				FluidRegistry.getFluidStack("sulphur_dioxide", Fluid.BUCKET_VOLUME), 0.1f);
-		CastingBlockRecipe.addRecipe(FluidRegistry.getFluidStack("liquid_glowstone", Fluid.BUCKET_VOLUME),
-				new ItemStack(Blocks.GLOWSTONE));
+		RecipeRegistry.addRecipe("casting_block",
+				new MachineRecipeBuilder("casting_block")
+						.setFluidInputs(FluidRegistry.getFluidStack("liquid_glowstone", Fluid.BUCKET_VOLUME))
+						.setItemOutputs(new ItemStack(Blocks.GLOWSTONE)).setCraftTime(2400).build());
 		// TODO Proper oredict support
 
 		// TODO Tooltip/Color for fluid (when IE not present) & potion deriving name

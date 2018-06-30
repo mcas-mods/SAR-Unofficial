@@ -1,8 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.fluids;
 
-import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
-
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -10,12 +7,7 @@ public class FluidTankSingleSmart extends FluidTankSmart {
 
 	private String fluidName;
 
-	public FluidTankSingleSmart(int capacity, String fluidName, TileEntity parent) {
-		super(capacity, parent);
-		this.fluidName = fluidName;
-	}
-
-	public FluidTankSingleSmart(int capacity, String fluidName, MultiblockControllerBase parent) {
+	public FluidTankSingleSmart(int capacity, String fluidName, ISmartTankCallback parent) {
 		super(capacity, parent);
 		this.fluidName = fluidName;
 	}

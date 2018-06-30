@@ -24,7 +24,7 @@ public class ControllerDistiller extends SARMultiblockInventory implements ISmar
 
 	public ControllerDistiller(World world) {
 		super(world);
-		this.setInventoryMachine(new InventoryMachine(null,
+		this.setInventory(new InventoryMachine(null,
 				new InventoryPieceFluid(new MultiFluidTank(tankCapacity, this, 0), 41, 9),
 				new InventoryPieceItem(new ItemStackHandlerExtractSpecific(1), 149, 32),
 				new InventoryPieceFluid(new MultiFluidTank(tankCapacity, this, 1), 97, 9),
@@ -101,11 +101,11 @@ public class ControllerDistiller extends SARMultiblockInventory implements ISmar
 	@Override
 	public void updateFluid(PacketFluidUpdate message) {
 		SteamAgeRevolution.instance.getLogger().devInfo("Packet ID: " + message.id);
-		if(message.id == inventory.getFluidInputs().getId()) {
-			inventory.getFluidInputs().setFluid(message.fluid);
+		if(message.id == inventory.getInputTank().getId()) {
+			inventory.getInputTank().setFluid(message.fluid);
 		}
-		else if(message.id == inventory.getFluidOutputs().getId()) {
-			inventory.getFluidOutputs().setFluid(message.fluid);
+		else if(message.id == inventory.getOutputTank().getId()) {
+			inventory.getOutputTank().setFluid(message.fluid);
 		}
 		else {
 			super.updateFluid(message);
@@ -115,17 +115,17 @@ public class ControllerDistiller extends SARMultiblockInventory implements ISmar
 	@Override
 	public FluidTank getTank(String toWrap) {
 		if(toWrap.equals("input")) {
-			return inventory.getFluidInputs();
+			return inventory.getInputTank();
 		}
 		else if(toWrap.equals("output")) {
-			return inventory.getFluidOutputs();
+			return inventory.getOutputTank();
 		}
 		return super.getTank(toWrap);
 	}
 
 	@Override
 	public ItemStackHandler getInventory(String toWrap) {
-		return inventory.getItemOutput();
+		return inventory.getOutputHandler();
 	}
 
 }
