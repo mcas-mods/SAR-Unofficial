@@ -170,7 +170,10 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 		return output ? (MultiFluidTank) fluidOutput.getHandler() : (MultiFluidTank) fluidInput.getHandler();
 	}
 
-	public FluidTankSmart getSteamHandler() {
-		return steamTank.getHandler();
+	public FluidTankSingleSmart getSteamHandler() {
+		if(steamTank == null) {
+			return null;
+		}
+		return (FluidTankSingleSmart) steamTank.getHandler();
 	}
 }

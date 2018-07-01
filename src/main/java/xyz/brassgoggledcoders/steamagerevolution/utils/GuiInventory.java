@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
+package xyz.brassgoggledcoders.steamagerevolution.utils;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.utils.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.InventoryMachine.InventoryPieceFluid;
 
@@ -35,6 +35,7 @@ public class GuiInventory extends GuiContainer {
 		renderHoveredToolTip(mouseX, mouseY);
 		MultiFluidTank fluidInputs = holder.getInventory().getInputTank();
 		if(fluidInputs != null) {
+			// TODO Work this into TextUtils#representTankContents
 			for(int i = 0; i < fluidInputs.getMaxFluids(); i++) {
 				if(this.isPointInRegion(holder.getInventory().fluidInput.getX(i),
 						holder.getInventory().fluidInput.getY(i), 20, 55, mouseX, mouseY)) {
@@ -71,6 +72,16 @@ public class GuiInventory extends GuiContainer {
 					}
 					this.drawHoveringText(tooltip, mouseX, mouseY, fontRenderer);
 				}
+			}
+		}
+		FluidTankSingleSmart steamTank = holder.getInventory().getSteamHandler();
+		if(steamTank != null) {
+			if(this.isPointInRegion(holder.getInventory().steamTank.getX(0), holder.getInventory().fluidOutput.getY(0),
+					20, 55, mouseX, mouseY)) {
+				List<String> tooltip = Lists.newArrayList();
+				int capacity = steamTank.getCapacity();
+				tooltip.add(TextUtils.representTankContents(new FluidTank(steamTank.getFluid(), capacity)).getText());
+				this.drawHoveringText(tooltip, mouseX, mouseY, fontRenderer);
 			}
 		}
 	}

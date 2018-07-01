@@ -9,7 +9,7 @@ import net.minecraftforge.fluids.FluidTank;
 public class FluidTankSmart extends FluidTank {
 
 	final int id;
-	ISmartTankCallback parent = null;
+	final ISmartTankCallback parent;
 
 	@Deprecated
 	public FluidTankSmart(int capacity, ISmartTankCallback parent) {
@@ -17,6 +17,7 @@ public class FluidTankSmart extends FluidTank {
 		if(parent instanceof TileEntity) {
 			setTileEntity((TileEntity) parent);
 		}
+		this.parent = parent;
 		id = -1;
 	}
 

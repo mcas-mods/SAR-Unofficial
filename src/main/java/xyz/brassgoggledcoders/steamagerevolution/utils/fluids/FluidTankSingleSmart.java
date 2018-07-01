@@ -7,8 +7,13 @@ public class FluidTankSingleSmart extends FluidTankSmart {
 
 	private String fluidName;
 
+	@Deprecated
 	public FluidTankSingleSmart(int capacity, String fluidName, ISmartTankCallback parent) {
-		super(capacity, parent);
+		this(capacity, fluidName, parent, -1);
+	}
+
+	public FluidTankSingleSmart(int capacity, String fluidName, ISmartTankCallback parent, int id) {
+		super(capacity, parent, id);
 		this.fluidName = fluidName;
 	}
 

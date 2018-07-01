@@ -1,10 +1,9 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
+package xyz.brassgoggledcoders.steamagerevolution.utils;
 
 import com.teamacronymcoders.base.containers.ContainerBase;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.items.SlotItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.SlotHandlerOutput;
 
 public class ContainerInventory extends ContainerBase {

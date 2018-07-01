@@ -18,11 +18,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ContainerInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.GuiInventory;
 
 public abstract class SARMachineTileEntity extends TileEntityBase
 		implements ITickable, ISmartTankCallback, ISmartStackCallback, IHasGui, IHasInventory {

@@ -74,6 +74,7 @@ public class RecipeMachineHelper {
 		}
 		else if(inventory.getSteamTank() == null
 				|| inventory.getSteamTank().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
+
 			return true;
 		}
 		return false;

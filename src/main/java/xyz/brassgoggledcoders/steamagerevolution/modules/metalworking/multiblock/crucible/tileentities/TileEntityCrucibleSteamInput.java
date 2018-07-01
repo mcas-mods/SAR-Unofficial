@@ -3,26 +3,14 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multibloc
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
-import net.minecraft.client.gui.Gui;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ContainerSingleTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.GuiSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockSteamWrapper;
 
-public class TileEntityCrucibleSteamInput extends TileEntityCruciblePart implements IHasGui {
-
-	public TileEntityCrucibleSteamInput() {
-
-	}
+public class TileEntityCrucibleSteamInput extends TileEntityCruciblePart {
 
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
@@ -36,11 +24,6 @@ public class TileEntityCrucibleSteamInput extends TileEntityCruciblePart impleme
 			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockSteamWrapper(this));
 		}
 		return super.getCapability(capability, facing);
-	}
-
-	@Override
-	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
-		return false;
 	}
 
 	@Override
@@ -58,23 +41,6 @@ public class TileEntityCrucibleSteamInput extends TileEntityCruciblePart impleme
 	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
 
 		return true;
-	}
-
-	@Override
-	public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
-
-		return false;
-	}
-
-	@Override
-	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiSingleTank(entityPlayer, this);
-	}
-
-	@Override
-	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		// TODO Auto-generated method stub
-		return new ContainerSingleTank(entityPlayer, this);
 	}
 
 }
