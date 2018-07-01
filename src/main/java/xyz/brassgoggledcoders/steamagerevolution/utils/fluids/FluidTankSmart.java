@@ -23,6 +23,9 @@ public class FluidTankSmart extends FluidTank {
 	public FluidTankSmart(int capacity, ISmartTankCallback parent2, int id) {
 		super(capacity);
 		this.parent = parent2;
+		if(parent instanceof TileEntity) {
+			setTileEntity((TileEntity) parent);
+		}
 		this.id = id;
 	}
 
@@ -30,6 +33,9 @@ public class FluidTankSmart extends FluidTank {
 	public FluidTankSmart(FluidStack fluid, int capacity, ISmartTankCallback parent) {
 		super(fluid, capacity);
 		this.parent = parent;
+		if(parent instanceof TileEntity) {
+			setTileEntity((TileEntity) parent);
+		}
 		id = -1;
 	}
 

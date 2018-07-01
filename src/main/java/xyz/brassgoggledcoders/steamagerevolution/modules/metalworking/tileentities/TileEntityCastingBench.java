@@ -7,11 +7,21 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.utils.InventoryMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.InventoryMachine.InventoryPieceFluid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.InventoryMachine.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineTileEntity;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 public class TileEntityCastingBench extends SARMachineTileEntity {
 
 	public static int inputCapacity = ModuleMetalworking.VALUE_BLOCK;
+
+	public TileEntityCastingBench() {
+		setInventory(new InventoryMachine(null,
+				new InventoryPieceFluid(new MultiFluidTank(TileEntityCastingBench.inputCapacity, this, 0, 1), 51, 11),
+				new InventoryPieceItem(new ItemStackHandlerExtractSpecific(1), 109, 34), null, null));
+	}
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {

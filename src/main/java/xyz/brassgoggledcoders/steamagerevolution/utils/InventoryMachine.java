@@ -116,6 +116,9 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 
 	@Override
 	public FluidTankSingleSmart getSteamTank() {
+		if(steamTank == null) {
+			return null;
+		}
 		return (FluidTankSingleSmart) steamTank.getHandler();
 	}
 

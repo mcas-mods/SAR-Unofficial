@@ -14,18 +14,11 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.tileentities.TileEntityCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.utils.BlockGUIBase;
-import xyz.brassgoggledcoders.steamagerevolution.utils.InventoryMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.InventoryMachine.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.InventoryMachine.InventoryPieceItem;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 public class BlockCastingBench extends BlockGUIBase<TileEntityCastingBench> {
 
@@ -68,14 +61,10 @@ public class BlockCastingBench extends BlockGUIBase<TileEntityCastingBench> {
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		TileEntityCastingBench te = new TileEntityCastingBench();
-		te.setInventory(new InventoryMachine(null,
-				new InventoryPieceFluid(new MultiFluidTank(TileEntityCastingBench.inputCapacity, te, 0, 1), 0, 0),
-				new InventoryPieceItem(new ItemStackHandlerExtractSpecific(1), 0, 0), null,
-				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", te), 0, 0)));
-		return te;
+		return new TileEntityCastingBench();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox,
 			List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean p_185477_7_) {

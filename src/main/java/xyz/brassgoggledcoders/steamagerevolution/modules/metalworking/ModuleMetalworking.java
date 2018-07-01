@@ -169,7 +169,7 @@ public class ModuleMetalworking extends ModuleBase {
 			if(molten != null) {
 				RecipeRegistry.addRecipe("crucible", new MachineRecipeBuilder("crucible").setItemInputs(ingot)
 						.setFluidOutputs(molten).setSteamCost(Fluid.BUCKET_VOLUME / 16).build());
-				RecipeRegistry.addRecipe("casting_block", new MachineRecipeBuilder("casting_block")
+				RecipeRegistry.addRecipe("casting bench", new MachineRecipeBuilder("casting bench")
 						.setFluidInputs(molten).setItemOutputs(ingotStack).build());
 			}
 			if(!plateStack.isEmpty()) {
