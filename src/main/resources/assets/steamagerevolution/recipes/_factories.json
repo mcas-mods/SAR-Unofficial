@@ -1,5 +1,5 @@
 {
 	"recipes": {
-		"oreresult_shapeless": "xyz.brassgoggledcoders.steamagerevolution.utils.ShapelessOreResultRecipe$Factory"
+		"oreresult_shapeless": "xyz.brassgoggledcoders.steamagerevolution.utils.recipe.ShapelessOreResultRecipe$Factory"
 	}
 }

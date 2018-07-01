@@ -37,8 +37,8 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.blocks.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
-import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe.MachineRecipeBuilder;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeRegistry;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.MachineRecipeBuilder;
 
 @Module(value = SteamAgeRevolution.MODID)
 @ObjectHolder(SteamAgeRevolution.MODID)
@@ -86,8 +86,6 @@ public class ModuleMetalworking extends ModuleBase {
 
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
-		// new BlockAlloyFurnaceController(Material.ANVIL, "alloy_furnace_controller");
-		// blockRegistry.register(alloyFurnaceController);
 		blockRegistry.register(new BlockAlloyFurnaceFrame(Material.ROCK, "alloy_furnace_frame"));
 		blockRegistry.register(new BlockAlloyFurnaceFluidInput(Material.ROCK, "alloy_furnace_fluid_input"));
 		blockRegistry.register(new BlockAlloyFurnaceFluidOutput(Material.ROCK, "alloy_furnace_fluid_output"));
@@ -170,7 +168,7 @@ public class ModuleMetalworking extends ModuleBase {
 				RecipeRegistry.addRecipe("crucible", new MachineRecipeBuilder("crucible").setItemInputs(ingot)
 						.setFluidOutputs(molten).setSteamCost(Fluid.BUCKET_VOLUME / 16).build());
 				RecipeRegistry.addRecipe("casting bench", new MachineRecipeBuilder("casting bench")
-						.setFluidInputs(molten).setItemOutputs(ingotStack).build());
+						.setFluidInputs(molten).setItemOutputs(ingotStack).setCraftTime(2400).build());
 			}
 			if(!plateStack.isEmpty()) {
 				ItemStack plateCopy = plateStack.copy();

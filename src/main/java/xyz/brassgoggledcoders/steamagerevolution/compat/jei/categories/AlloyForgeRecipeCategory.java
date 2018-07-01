@@ -5,7 +5,7 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.ControllerAlloyFurnace;
-import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 public class AlloyForgeRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 

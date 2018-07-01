@@ -38,8 +38,8 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.BlockDamagingFluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
-import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe.MachineRecipeBuilder;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeRegistry;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.MachineRecipeBuilder;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)

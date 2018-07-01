@@ -6,12 +6,12 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
-import xyz.brassgoggledcoders.steamagerevolution.utils.InventoryMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.InventoryMachine.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.InventoryMachine.InventoryPieceItem;
-import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineTileEntity;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.InventoryMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineTileEntity;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.InventoryMachine.InventoryPieceFluid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.InventoryMachine.InventoryPieceItem;
 
 public class TileEntityCastingBench extends SARMachineTileEntity {
 

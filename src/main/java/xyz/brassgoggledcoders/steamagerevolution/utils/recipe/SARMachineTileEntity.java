@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils;
+package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
 
 import javax.annotation.Nonnull;
 
@@ -18,6 +18,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ContainerInventory;
@@ -102,7 +103,7 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 	}
 
 	protected boolean canRun() {
-		return RecipeMachineHelper.canRun(getName().toLowerCase()/* .replace(' ', '_')TODO */, currentRecipe,
+		return RecipeMachineHelper.canRun(this, getName().toLowerCase()/* .replace(' ', '_')TODO */, currentRecipe,
 				inventory);
 	}
 
@@ -155,5 +156,10 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 	@Override
 	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
 		return new ContainerInventory(entityPlayer, this);
+	}
+
+	@Override
+	public void setCurrentRecipe(SARMachineRecipe recipe) {
+		this.currentRecipe = recipe;
 	}
 }

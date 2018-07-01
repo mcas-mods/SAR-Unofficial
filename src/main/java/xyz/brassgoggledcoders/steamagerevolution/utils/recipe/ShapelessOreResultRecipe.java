@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils;
+package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
 
 import com.google.gson.JsonObject;
 import com.teamacronymcoders.base.util.OreDictUtils;

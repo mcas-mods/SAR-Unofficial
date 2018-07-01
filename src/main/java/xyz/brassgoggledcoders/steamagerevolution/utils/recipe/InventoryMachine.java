@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils;
+package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -140,21 +140,25 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 
 	@Override
 	public void deserializeNBT(NBTTagCompound tag) {
-		if(tag.hasKey("itemInput"))
+		if(tag.hasKey("itemInput") && this.itemInput != null)
 			this.itemInput.handler.deserializeNBT(tag.getCompoundTag("itemInput"));
-		if(tag.hasKey("fluidInput"))
+		if(tag.hasKey("fluidInput") && this.fluidInput != null)
 			this.fluidInput.handler.readFromNBT(tag.getCompoundTag("fluidInput"));
-		if(tag.hasKey("itemOuput"))
+		if(tag.hasKey("itemOuput") && this.itemOutput != null)
 			this.itemOutput.handler.deserializeNBT(tag.getCompoundTag("itemOutput"));
-		if(tag.hasKey("fluidOutput"))
+		if(tag.hasKey("fluidOutput") && this.fluidOutput != null)
 			this.fluidOutput.handler.readFromNBT(tag.getCompoundTag("fluidOutput"));
-		if(tag.hasKey("steamTank"))
+		if(tag.hasKey("steamTank") && this.steamTank != null)
 			this.steamTank.handler.readFromNBT(tag.getCompoundTag("steamTank"));
 	}
 
-	// Method to enable dynamic tank sizes based on multiblock size
+	// Methods to enable dynamic tank sizes based on multiblock size
 	public void setFluidInput(MultiFluidTank newTank) {
 		this.fluidInput = new InventoryPieceFluid(newTank, fluidInput.xPos, fluidInput.yPos);
+	}
+
+	public void setFluidOutput(MultiFluidTank newTank) {
+		this.fluidOutput = new InventoryPieceFluid(newTank, fluidOutput.xPos, fluidOutput.yPos);
 	}
 
 	// Helpers for TE wrappers
@@ -169,5 +173,4 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 	public FluidTankSmart getSteamHandler() {
 		return steamTank.getHandler();
 	}
-
 }

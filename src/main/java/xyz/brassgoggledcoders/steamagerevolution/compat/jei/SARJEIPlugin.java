@@ -10,7 +10,7 @@ import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.utils.RecipeRegistry;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeRegistry;
 
 @JEIPlugin
 public class SARJEIPlugin implements IModPlugin {

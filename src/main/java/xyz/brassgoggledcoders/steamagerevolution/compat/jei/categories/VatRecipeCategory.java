@@ -9,7 +9,7 @@ import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.ControllerVat;
-import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 public class VatRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 

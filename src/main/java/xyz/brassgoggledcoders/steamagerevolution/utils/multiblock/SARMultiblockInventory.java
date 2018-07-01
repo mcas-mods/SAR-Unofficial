@@ -13,6 +13,7 @@ import xyz.brassgoggledcoders.steamagerevolution.network.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.*;
 
 public abstract class SARMultiblockInventory extends SARMultiblockBase
 		implements ISmartTankCallback, ISmartStackCallback, IHasInventory {
@@ -62,7 +63,7 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	}
 
 	protected boolean canRun() {
-		return RecipeMachineHelper.canRun(getName().toLowerCase()/* .replace(' ', '_')TODO */, currentRecipe,
+		return RecipeMachineHelper.canRun(this, getName().toLowerCase()/* .replace(' ', '_')TODO */, currentRecipe,
 				inventory);
 	}
 
@@ -134,5 +135,10 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	@Override
 	public InventoryMachine getInventory() {
 		return inventory;
+	}
+
+	@Override
+	public void setCurrentRecipe(SARMachineRecipe recipe) {
+		this.currentRecipe = recipe;
 	}
 }

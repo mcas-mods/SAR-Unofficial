@@ -13,8 +13,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.InventoryMachine.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.InventoryMachine.InventoryPieceFluid;
 
 @SideOnly(Side.CLIENT)
 public class GuiInventory extends GuiContainer {
@@ -56,8 +56,8 @@ public class GuiInventory extends GuiContainer {
 		MultiFluidTank fluidOutputs = holder.getInventory().getOutputTank();
 		if(fluidOutputs != null) {
 			for(int i = 0; i < fluidOutputs.getMaxFluids(); i++) {
-				if(this.isPointInRegion(holder.getInventory().fluidInput.getX(i),
-						holder.getInventory().fluidInput.getY(i), 20, 55, mouseX, mouseY)) {
+				if(this.isPointInRegion(holder.getInventory().fluidOutput.getX(i),
+						holder.getInventory().fluidOutput.getY(i), 20, 55, mouseX, mouseY)) {
 					List<String> tooltip = Lists.newArrayList();
 					int capacity = fluidOutputs.getCapacity();
 					capacity /= fluidOutputs.getMaxFluids();

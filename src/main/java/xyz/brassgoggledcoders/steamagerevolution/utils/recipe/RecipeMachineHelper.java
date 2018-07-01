@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils;
+package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemHandlerHelper;
+import xyz.brassgoggledcoders.steamagerevolution.utils.IHasInventory;
 
 public class RecipeMachineHelper {
 	public static void onFinish(SARMachineRecipe currentRecipe, InventoryMachine inventory) {
@@ -59,15 +60,23 @@ public class RecipeMachineHelper {
 		return false;
 	}
 
-	public static boolean canRun(String name, SARMachineRecipe currentRecipe, InventoryMachine inventory) {
+	public static boolean canRun(IHasInventory handler, String name, SARMachineRecipe currentRecipe,
+			InventoryMachine inventory) {
 		Optional<SARMachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(name).parallelStream()
 				.filter(r -> hasRequiredFluids(inventory, r)).filter(r -> hasRequiredItems(inventory, r)).findFirst();
 		if(recipe.isPresent()) {
 			currentRecipe = recipe.get();
+			handler.setCurrentRecipe(currentRecipe);
+			// SteamAgeRevolution.instance.getLogger().devInfo("Found recipe for " + name);
 		}
-		return currentRecipe != null && inventory.getSteamTank() != null
-				? inventory.getSteamTank().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()
-				: true;
+		if(currentRecipe == null) {
+			return false;
+		}
+		else if(inventory.getSteamTank() == null
+				|| inventory.getSteamTank().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
+			return true;
+		}
+		return false;
 	}
 
 	private static boolean hasRequiredFluids(InventoryMachine inventory, SARMachineRecipe recipe) {

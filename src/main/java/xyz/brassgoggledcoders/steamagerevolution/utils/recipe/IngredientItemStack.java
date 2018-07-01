@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils;
+package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;

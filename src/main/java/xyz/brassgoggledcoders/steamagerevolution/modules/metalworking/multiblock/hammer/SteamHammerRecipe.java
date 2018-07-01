@@ -8,7 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
-import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 // FIXME
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei", striprefs = true)

@@ -8,6 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
 
+//TODO IDs
 public class HandlerItemUpdate implements IMessageHandler<PacketItemUpdate, IMessage> {
 	public HandlerItemUpdate() {
 

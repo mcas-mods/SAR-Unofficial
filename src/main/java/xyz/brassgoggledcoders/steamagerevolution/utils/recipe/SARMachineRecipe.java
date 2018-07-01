@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils;
+package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
 
 import java.awt.Color;
 import java.util.*;
@@ -18,6 +18,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.oredict.OreIngredient;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.*;
 
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei", striprefs = true)
 public class SARMachineRecipe implements IRecipeWrapper {

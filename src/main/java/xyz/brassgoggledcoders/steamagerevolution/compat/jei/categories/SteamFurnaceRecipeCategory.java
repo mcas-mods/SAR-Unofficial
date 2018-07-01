@@ -3,7 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.item.ItemStack;
-import xyz.brassgoggledcoders.steamagerevolution.utils.SARMachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 public class SteamFurnaceRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 
