@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils;
+package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 
 import com.teamacronymcoders.base.blocks.BlockTEBase;
 import com.teamacronymcoders.base.guisystem.GuiOpener;

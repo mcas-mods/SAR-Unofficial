@@ -9,9 +9,14 @@ import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemHandlerHelper;
-import xyz.brassgoggledcoders.steamagerevolution.utils.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketRecipeUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
 
 public class RecipeMachineHelper {
 	public static void onFinish(SARMachineRecipe currentRecipe, InventoryMachine inventory) {
@@ -60,13 +65,15 @@ public class RecipeMachineHelper {
 		return false;
 	}
 
-	public static boolean canRun(IHasInventory handler, String name, SARMachineRecipe currentRecipe,
-			InventoryMachine inventory) {
+	public static boolean canRun(World world, BlockPos pos, IHasInventory handler, String name,
+			SARMachineRecipe currentRecipe, InventoryMachine inventory) {
 		Optional<SARMachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(name).parallelStream()
 				.filter(r -> hasRequiredFluids(inventory, r)).filter(r -> hasRequiredItems(inventory, r)).findFirst();
 		if(recipe.isPresent()) {
 			currentRecipe = recipe.get();
 			handler.setCurrentRecipe(currentRecipe);
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+					new PacketRecipeUpdate(currentRecipe.networkID, pos, name), pos, world.provider.getDimension());
 			// SteamAgeRevolution.instance.getLogger().devInfo("Found recipe for " + name);
 		}
 		if(currentRecipe == null) {

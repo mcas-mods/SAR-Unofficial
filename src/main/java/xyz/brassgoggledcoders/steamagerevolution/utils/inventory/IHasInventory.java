@@ -1,6 +1,5 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils;
+package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 
-import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.InventoryMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 public interface IHasInventory {
@@ -13,4 +12,8 @@ public interface IHasInventory {
 
 	// TODO This should probably be a seperate interface
 	public void setCurrentRecipe(SARMachineRecipe recipe);
+
+	public SARMachineRecipe getCurrentRecipe();
+
+	int getCurrentProgress();
 }

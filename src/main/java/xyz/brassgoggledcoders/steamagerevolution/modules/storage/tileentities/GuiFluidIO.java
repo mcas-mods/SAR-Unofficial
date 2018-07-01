@@ -13,8 +13,8 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.utils.GuiUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiUtils;
 
 @SideOnly(Side.CLIENT)
 public class GuiFluidIO extends GuiContainer {

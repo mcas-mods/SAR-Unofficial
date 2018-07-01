@@ -10,10 +10,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeMachineHelper;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 public abstract class SARMultiblockInventory extends SARMultiblockBase
 		implements ISmartTankCallback, ISmartStackCallback, IHasInventory {
@@ -63,8 +64,8 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	}
 
 	protected boolean canRun() {
-		return RecipeMachineHelper.canRun(this, getName().toLowerCase()/* .replace(' ', '_')TODO */, currentRecipe,
-				inventory);
+		return RecipeMachineHelper.canRun(WORLD, this.getReferenceCoord(), this,
+				getName().toLowerCase()/* .replace(' ', '_')TODO */, currentRecipe, inventory);
 	}
 
 	@Override
@@ -100,11 +101,12 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 
 	@Override
 	public void updateFluid(PacketMultiFluidUpdate message) {
-		if(message.id == this.inventory.getInputTank().getId()) {
+		// TODO
+		if(message.id == 0) {
 			this.inventory.getInputTank().fluids.clear();
 			this.inventory.getInputTank().fluids.addAll(message.tank.fluids);
 		}
-		else if(message.id == this.inventory.getOutputTank().getId()) {
+		else if(message.id == 1) {
 			this.inventory.getOutputTank().fluids.clear();
 			this.inventory.getOutputTank().fluids.addAll(message.tank.fluids);
 		}
@@ -140,5 +142,15 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	@Override
 	public void setCurrentRecipe(SARMachineRecipe recipe) {
 		this.currentRecipe = recipe;
+	}
+
+	@Override
+	public SARMachineRecipe getCurrentRecipe() {
+		return currentRecipe;
+	}
+
+	@Override
+	public int getCurrentProgress() {
+		return currentTicks;
 	}
 }

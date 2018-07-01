@@ -18,7 +18,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.tileentities.TileEntityCastingBench;
-import xyz.brassgoggledcoders.steamagerevolution.utils.BlockGUIBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.BlockGUIBase;
 
 public class BlockCastingBench extends BlockGUIBase<TileEntityCastingBench> {
 

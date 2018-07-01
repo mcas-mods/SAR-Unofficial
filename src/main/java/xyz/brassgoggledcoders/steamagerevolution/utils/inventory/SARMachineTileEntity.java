@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
+package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 
 import javax.annotation.Nonnull;
 
@@ -18,9 +18,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeMachineHelper;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 public abstract class SARMachineTileEntity extends TileEntityBase
 		implements ITickable, ISmartTankCallback, ISmartStackCallback, IHasGui, IHasInventory {
@@ -101,8 +102,8 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 	}
 
 	protected boolean canRun() {
-		return RecipeMachineHelper.canRun(this, getName().toLowerCase()/* .replace(' ', '_')TODO */, currentRecipe,
-				inventory);
+		return RecipeMachineHelper.canRun(world, pos, this, getName().toLowerCase()/* .replace(' ', '_')TODO */,
+				currentRecipe, inventory);
 	}
 
 	@Override
@@ -159,5 +160,15 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 	@Override
 	public void setCurrentRecipe(SARMachineRecipe recipe) {
 		this.currentRecipe = recipe;
+	}
+
+	@Override
+	public SARMachineRecipe getCurrentRecipe() {
+		return currentRecipe;
+	}
+
+	@Override
+	public int getCurrentProgress() {
+		return currentTicks;
 	}
 }

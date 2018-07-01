@@ -5,7 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.tileentities.TileEntityDistillerItemOutput;
-import xyz.brassgoggledcoders.steamagerevolution.utils.BlockGUIBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.BlockGUIBase;
 
 public class BlockDistillerItemOutput extends BlockGUIBase<TileEntityDistillerItemOutput> {
 

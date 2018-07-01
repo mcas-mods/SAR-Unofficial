@@ -14,8 +14,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.ContainerSimpleSlots;
-import xyz.brassgoggledcoders.steamagerevolution.utils.GuiSimpleSlots;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerSimpleSlots;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiSimpleSlots;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockInventoryWrapper;
 
 public class TileEntityCrucibleItemInput extends TileEntityCruciblePart implements IHasGui {

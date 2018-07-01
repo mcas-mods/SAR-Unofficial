@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
+package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -13,12 +13,15 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 	public InventoryPieceItem itemOutput;
 	public InventoryPieceFluid fluidOutput;
 	public InventoryPieceFluid steamTank;
+	public InventoryPieceProgressBar progressBar;
 
+	// @Deprecated
 	public InventoryMachine(InventoryPieceFluid fluidInput, InventoryPieceFluid fluidOutput,
 			InventoryPieceFluid steamTank) {
 		this(null, fluidInput, null, fluidOutput, steamTank);
 	}
 
+	// @Deprecated
 	public InventoryMachine(InventoryPieceItem itemInput, InventoryPieceFluid fluidInput, InventoryPieceItem itemOutput,
 			InventoryPieceFluid fluidOutput, InventoryPieceFluid steamTank) {
 		this.itemInput = itemInput;
@@ -26,6 +29,19 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 		this.itemOutput = itemOutput;
 		this.fluidOutput = fluidOutput;
 		this.steamTank = steamTank;
+	}
+
+	public InventoryMachine setProgressBar(InventoryPieceProgressBar bar) {
+		this.progressBar = bar;
+		return this;
+	}
+
+	public static class InventoryPieceProgressBar extends InventoryPiece {
+
+		public InventoryPieceProgressBar(int xPos, int yPos) {
+			super(new int[] { xPos }, new int[] { yPos });
+		}
+
 	}
 
 	public static class InventoryPieceFluid extends InventoryPiece {

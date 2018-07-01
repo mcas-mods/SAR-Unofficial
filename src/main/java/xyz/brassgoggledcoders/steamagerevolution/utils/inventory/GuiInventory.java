@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils;
+package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 
 import java.util.List;
 
@@ -12,9 +12,10 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.InventoryMachine.InventoryPieceFluid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceFluid;
 
 @SideOnly(Side.CLIENT)
 public class GuiInventory extends GuiContainer {
@@ -101,6 +102,15 @@ public class GuiInventory extends GuiContainer {
 
 		if(this.holder.getInventory().fluidOutput != null)
 			addTank(this.holder.getInventory().fluidOutput);
+
+		if(this.holder.getInventory().progressBar != null && this.holder.getCurrentRecipe() != null) {
+			mc.renderEngine.bindTexture(guiTexture);
+			int progress = this.holder.getCurrentProgress();// TODO this needs packet synced
+			int total = this.holder.getCurrentRecipe().getTicks();
+			int progressScaled = progress != 0 && total != 0 ? progress * 24 / total : 0;
+			this.drawTexturedModalRect(this.guiLeft + this.holder.getInventory().progressBar.getX(0),
+					this.guiTop + this.holder.getInventory().progressBar.getY(0), 176, 83, progressScaled + 1, 16);
+		}
 	}
 
 	private void addTank(InventoryPieceFluid piece) {
