@@ -16,7 +16,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ContainerSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.GuiSingleTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockTankWrapper;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockSteamWrapper;
 
 public class TileEntitySteamHammerFrame extends TileEntitySteamHammerPart implements IHasGui {
 	@Override
@@ -33,7 +33,7 @@ public class TileEntitySteamHammerFrame extends TileEntitySteamHammerPart implem
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockTankWrapper(this, "steam"));
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockSteamWrapper(this));
 		}
 		return super.getCapability(capability, facing);
 	}

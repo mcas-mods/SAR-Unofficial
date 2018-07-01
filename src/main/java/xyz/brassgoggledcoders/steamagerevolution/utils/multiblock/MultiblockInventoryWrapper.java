@@ -1,82 +1,66 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
-import com.teamacronymcoders.base.multiblock.MultiblockTileEntityBase;
-
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
-public class MultiblockInventoryWrapper
-		implements IItemHandler, IItemHandlerModifiable, INBTSerializable<NBTTagCompound> {
+public class MultiblockInventoryWrapper implements IItemHandler, IItemHandlerModifiable {
 
-	final MultiblockTileEntityBase<SARMultiblockBase> tile;
-	final String toWrap;
+	final SARMultiblockTileInventory<SARMultiblockInventory> tile;
+	// TODO Also use this boolean to prevent insertion into outputs (still allow
+	// extraction from outputs
+	final boolean output;
 
-	public MultiblockInventoryWrapper(MultiblockTileEntityBase<?> tile, String toWrap) {
-		this.tile = (MultiblockTileEntityBase<SARMultiblockBase>) tile;
-		this.toWrap = toWrap;
-	}
-
-	@Override
-	public NBTTagCompound serializeNBT() {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory(toWrap) != null) {
-			return tile.getMultiblockController().getInventory(toWrap).serializeNBT();
-		}
-		return null;
-	}
-
-	@Override
-	public void deserializeNBT(NBTTagCompound nbt) {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory(toWrap) != null) {
-			tile.getMultiblockController().getInventory(toWrap).deserializeNBT(nbt);
-		}
+	public MultiblockInventoryWrapper(SARMultiblockTileInventory<?> tile, boolean output) {
+		this.tile = (SARMultiblockTileInventory<SARMultiblockInventory>) tile;
+		this.output = output;
 	}
 
 	@Override
 	public void setStackInSlot(int slot, ItemStack stack) {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory(toWrap) != null) {
-			tile.getMultiblockController().getInventory(toWrap).setStackInSlot(slot, stack);
+		if(tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
+			tile.getMultiblockController().getInventory().getItemHandler(output).setStackInSlot(slot, stack);
 		}
 	}
 
 	@Override
 	public int getSlots() {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory(toWrap) != null) {
-			return tile.getMultiblockController().getInventory(toWrap).getSlots();
+		if(tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
+			return tile.getMultiblockController().getInventory().getItemHandler(output).getSlots();
 		}
 		return 0;
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int slot) {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory(toWrap) != null) {
-			return tile.getMultiblockController().getInventory(toWrap).getStackInSlot(slot);
+		if(tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
+			return tile.getMultiblockController().getInventory().getItemHandler(output).getStackInSlot(slot);
 		}
 		return null;
 	}
 
 	@Override
 	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory(toWrap) != null) {
-			return tile.getMultiblockController().getInventory(toWrap).insertItem(slot, stack, simulate);
+		if(tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
+			return tile.getMultiblockController().getInventory().getItemHandler(output).insertItem(slot, stack,
+					simulate);
 		}
 		return null;
 	}
 
 	@Override
 	public ItemStack extractItem(int slot, int amount, boolean simulate) {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory(toWrap) != null) {
-			return tile.getMultiblockController().getInventory(toWrap).extractItem(slot, amount, simulate);
+		if(tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
+			return tile.getMultiblockController().getInventory().getItemHandler(output).extractItem(slot, amount,
+					simulate);
 		}
 		return null;
 	}
 
 	@Override
 	public int getSlotLimit(int slot) {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory(toWrap) != null) {
-			return tile.getMultiblockController().getInventory(toWrap).getSlotLimit(slot);
+		if(tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
+			return tile.getMultiblockController().getInventory().getItemHandler(output).getSlotLimit(slot);
 		}
 		return 0;
 	}

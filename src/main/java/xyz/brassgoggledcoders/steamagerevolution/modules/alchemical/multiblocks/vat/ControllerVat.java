@@ -126,14 +126,4 @@ public class ControllerVat extends SARMultiblockInventory implements ISmartTankC
 	public String getName() {
 		return "Vat";
 	}
-
-	@Override
-	protected FluidTank getTank(String toWrap) {
-		if(toWrap.equals("input")) {
-			return this.inventory.getInputTank();
-		}
-		else {
-			return this.inventory.getOutputTank();
-		}
-	}
 }

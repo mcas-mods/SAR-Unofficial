@@ -6,8 +6,6 @@ import com.teamacronymcoders.base.multiblock.validation.ValidationError;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.ModuleAlchemical;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
@@ -110,22 +108,6 @@ public class ControllerDistiller extends SARMultiblockInventory implements ISmar
 		else {
 			super.updateFluid(message);
 		}
-	}
-
-	@Override
-	public FluidTank getTank(String toWrap) {
-		if(toWrap.equals("input")) {
-			return inventory.getInputTank();
-		}
-		else if(toWrap.equals("output")) {
-			return inventory.getOutputTank();
-		}
-		return super.getTank(toWrap);
-	}
-
-	@Override
-	public ItemStackHandler getInventory(String toWrap) {
-		return inventory.getOutputHandler();
 	}
 
 }

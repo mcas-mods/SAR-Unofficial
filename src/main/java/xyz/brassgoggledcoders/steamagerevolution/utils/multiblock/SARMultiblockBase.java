@@ -14,8 +14,6 @@ import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public abstract class SARMultiblockBase extends RectangularMultiblockControllerBase implements ISARMultiblock, IHasGui {
@@ -50,16 +48,6 @@ public abstract class SARMultiblockBase extends RectangularMultiblockControllerB
 	protected void onMachineAssembled() {
 		SteamAgeRevolution.instance.getLogger().devInfo("Machine Assembled");
 		SteamAgeRevolution.proxy.spawnMultiblockAssemblyFX(getMinimumCoord(), getMaximumCoord());
-	}
-
-	@Deprecated
-	public ItemStackHandler getInventory(String toWrap) {
-		return null;
-	}
-
-	@Deprecated
-	protected FluidTank getTank(String toWrap) {
-		return null;
 	}
 
 	// Modify from protected to public

@@ -19,11 +19,12 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureMonitor;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureValve;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerBoiler extends SARMultiblockBase implements ISmartTankCallback {
+public class ControllerBoiler extends SARMultiblockInventory {
 
 	public static final int fuelDivisor = 3;
 	public static final int fluidConversionPerTick = 5;
@@ -41,25 +42,9 @@ public class ControllerBoiler extends SARMultiblockBase implements ISmartTankCal
 	Set<BlockPos> attachedValves;
 
 	public ControllerBoiler(World world) {
-		super(world, ModuleSteam.boilerWaterInput, ModuleSteam.boilerSteamOutput);
+		super(world);
 		attachedMonitors = new HashSet<BlockPos>();
 		attachedValves = new HashSet<BlockPos>();
-	}
-
-	@Override
-	protected FluidTank getTank(String toWrap) {
-		if(toWrap.equals("water")) {
-			return waterTank;
-		}
-		else if(toWrap.equals("liquid")) {
-			return liquidFuelTank;
-		}
-		return steamTank;
-	}
-
-	@Override
-	public ItemStackHandler getInventory(String toWrap) {
-		return solidFuelInventory;
 	}
 
 	@Override

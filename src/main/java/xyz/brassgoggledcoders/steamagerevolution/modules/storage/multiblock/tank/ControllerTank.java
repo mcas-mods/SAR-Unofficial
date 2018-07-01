@@ -11,7 +11,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
@@ -29,11 +28,6 @@ public class ControllerTank extends SARMultiblockBase implements ISmartTankCallb
 		super(world);
 		tank = new FluidTankSmart(0, this);
 		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	protected FluidTank getTank(String toWrap) {
-		return tank;
 	}
 
 	@Override

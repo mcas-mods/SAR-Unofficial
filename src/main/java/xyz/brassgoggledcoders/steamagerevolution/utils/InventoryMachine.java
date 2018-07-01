@@ -152,8 +152,22 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 			this.steamTank.handler.readFromNBT(tag.getCompoundTag("steamTank"));
 	}
 
+	// Method to enable dynamic tank sizes based on multiblock size
 	public void setFluidInput(MultiFluidTank newTank) {
 		this.fluidInput = new InventoryPieceFluid(newTank, fluidInput.xPos, fluidInput.yPos);
+	}
+
+	// Helpers for TE wrappers
+	public ItemStackHandlerExtractSpecific getItemHandler(boolean output) {
+		return output ? itemOutput.getHandler() : itemInput.getHandler();
+	}
+
+	public MultiFluidTank getFluidHandler(boolean output) {
+		return output ? (MultiFluidTank) fluidOutput.getHandler() : (MultiFluidTank) fluidInput.getHandler();
+	}
+
+	public FluidTankSmart getSteamHandler() {
+		return steamTank.getHandler();
 	}
 
 }

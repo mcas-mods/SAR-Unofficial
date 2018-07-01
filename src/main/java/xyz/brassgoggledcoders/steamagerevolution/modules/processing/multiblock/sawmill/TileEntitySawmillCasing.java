@@ -8,7 +8,6 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockTankWrapper;
 
 public class TileEntitySawmillCasing extends TileEntitySawmillPart {
 	@Override
@@ -35,7 +34,8 @@ public class TileEntitySawmillCasing extends TileEntitySawmillPart {
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockTankWrapper(this, ""));
+			// return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new
+			// MultiblockTankWrapper(this, ""));
 		}
 		return super.getCapability(capability, facing);
 	}

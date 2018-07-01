@@ -15,7 +15,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreDictionary;
@@ -41,11 +40,6 @@ public class ControllerSawmill extends SARMultiblockBase implements ISmartTankCa
 
 	public ControllerSawmill(World world) {
 		super(world);
-	}
-
-	@Override
-	protected FluidTank getTank(String toWrap) {
-		return steamTank;
 	}
 
 	@Override

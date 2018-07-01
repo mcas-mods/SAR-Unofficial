@@ -17,9 +17,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreDictionary;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerSorter extends SARMultiblockBase {
+public class ControllerSorter extends SARMultiblockInventory {
 
 	public ItemStackHandler cards = new ItemStackHandler(8);
 	public ItemStackHandler buffer = new ItemStackHandler(4);
@@ -29,11 +29,6 @@ public class ControllerSorter extends SARMultiblockBase {
 	protected ControllerSorter(World world) {
 		super(world);
 		outputPositions = HashBiMap.create();
-	}
-
-	@Override
-	public ItemStackHandler getInventory(String toWrap) {
-		return buffer;
 	}
 
 	@Override

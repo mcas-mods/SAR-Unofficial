@@ -9,11 +9,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerSteamFurnace extends SARMultiblockInventory implements ISmartTankCallback {
+public class ControllerSteamFurnace extends SARMultiblockInventory {
 
 	public ItemStackHandler inputInventory = new ItemStackHandlerFuel(1);
 	public ItemStackHandler outputInventory = new ItemStackHandler(3);
@@ -31,14 +30,6 @@ public class ControllerSteamFurnace extends SARMultiblockInventory implements IS
 
 	public ControllerSteamFurnace(World world) {
 		super(world);
-	}
-
-	@Override
-	public ItemStackHandler getInventory(String toWrap) {
-		if(toWrap.equals("input")) {
-			return inputInventory;
-		}
-		return outputInventory;
 	}
 
 	@Override
