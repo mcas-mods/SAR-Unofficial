@@ -15,6 +15,12 @@ public abstract class SARMultiblockTileInventory<T extends SARMultiblockInventor
 		if(isConnected()) {
 			SARMultiblockInventory controller = getMultiblockController();
 			nbt.setTag("inventory", controller.inventory.serializeNBT());
+			nbt.setInteger("currentTicks", controller.currentTicks);
+			int maxTicks = 0;
+			if(controller.currentRecipe != null) {
+				maxTicks = controller.currentRecipe.getTicks();
+			}
+			nbt.setInteger("currentMaxTicks", maxTicks);
 		}
 		return new SPacketUpdateTileEntity(pos, 3, nbt);
 	}
@@ -26,6 +32,12 @@ public abstract class SARMultiblockTileInventory<T extends SARMultiblockInventor
 		if(isConnected()) {
 			SARMultiblockInventory controller = getMultiblockController();
 			nbt.setTag("inventory", controller.inventory.serializeNBT());
+			nbt.setInteger("currentTicks", controller.currentTicks);
+			int maxTicks = 0;
+			if(controller.currentRecipe != null) {
+				maxTicks = controller.currentRecipe.getTicks();
+			}
+			nbt.setInteger("currentMaxTicks", maxTicks);
 		}
 		return nbt;
 	}
@@ -33,9 +45,13 @@ public abstract class SARMultiblockTileInventory<T extends SARMultiblockInventor
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+		// SteamAgeRevolution.instance.getLogger().devInfo("On Data Packet");
 		if(isConnected()) {
 			SARMultiblockInventory controller = getMultiblockController();
-			controller.inventory.deserializeNBT(pkt.getNbtCompound().getCompoundTag("inventory"));
+			NBTTagCompound nbt = pkt.getNbtCompound();
+			controller.inventory.deserializeNBT(nbt.getCompoundTag("inventory"));
+			controller.currentTicks = nbt.getInteger("currentTicks");
+			controller.currentMaxTicks = nbt.getInteger("currentMaxTicks");
 		}
 	}
 }

@@ -13,8 +13,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemHandlerHelper;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketRecipeProgressUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
 
@@ -67,24 +65,20 @@ public class RecipeMachineHelper {
 
 	public static boolean canRun(World world, BlockPos pos, IHasInventory handler, String name,
 			SARMachineRecipe currentRecipe, InventoryMachine inventory) {
-		Optional<SARMachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(name).parallelStream()
-				.filter(r -> hasRequiredFluids(inventory, r)).filter(r -> hasRequiredItems(inventory, r)).findFirst();
-		if(recipe.isPresent()) {
-			currentRecipe = recipe.get();
-			handler.setCurrentRecipe(currentRecipe);
-			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketRecipeProgressUpdate(currentRecipe.getTicks(), pos), pos, world.provider.getDimension());
+		if(currentRecipe != null) {
+			if(inventory.getSteamTank() == null
+					|| inventory.getSteamTank().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
+				return true;
+			}
 		}
-		if(currentRecipe == null) {
-			// TODO No need to keep resending this
-			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(new PacketRecipeProgressUpdate(0, pos), pos,
-					world.provider.getDimension());
-			return false;
-		}
-		else if(inventory.getSteamTank() == null
-				|| inventory.getSteamTank().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
-
-			return true;
+		else {
+			Optional<SARMachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(name).parallelStream()
+					.filter(r -> hasRequiredFluids(inventory, r)).filter(r -> hasRequiredItems(inventory, r))
+					.findFirst();
+			if(recipe.isPresent()) {
+				currentRecipe = recipe.get();
+				handler.setCurrentRecipe(currentRecipe);
+			}
 		}
 		return false;
 	}
@@ -121,7 +115,7 @@ public class RecipeMachineHelper {
 		return IntStream.range(0, inventory.getInputHandler().getSlots())
 				.mapToObj(slotNum -> inventory.getInputHandler().getStackInSlot(slotNum))
 				.filter(inputStack -> Arrays.asList(ingredient.getMatchingStacks()).stream()
-						.anyMatch(stack -> ItemStackUtils.containsItemStack(stack, inputStack)))
+						.anyMatch(stack -> ItemStackUtils.containsItemStack(inputStack, stack)))
 				.findAny().isPresent();
 	}
 }

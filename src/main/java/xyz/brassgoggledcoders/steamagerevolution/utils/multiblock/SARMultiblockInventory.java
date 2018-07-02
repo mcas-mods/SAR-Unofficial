@@ -23,9 +23,9 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 
 	protected int currentTicks = 0;
 	SARMachineRecipe currentRecipe;
-	@SideOnly(Side.CLIENT)
-	public int currentRecipeMaxTicks;
 	public InventoryMachine inventory;
+	@SideOnly(Side.CLIENT)
+	public int currentMaxTicks;
 
 	protected SARMultiblockInventory(World world) {
 		super(world);
@@ -39,41 +39,42 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	protected boolean updateServer() {
 		onTick();
 		if(canRun()) {
-			onActiveTick();
 			currentTicks++;
+			onActiveTick();
 			if(canFinish()) {
 				onFinish();
+				currentTicks = 0;
+				currentRecipe = null; // TODO Handle this when inventory changes
 			}
 			return true; // TODO
 		}
 		return false;
 	}
 
-	// 'Simulate' recipe progress on client for progress bar rendering
-	@Override
-	protected void updateClient() {
-		if(currentRecipeMaxTicks != 0) {
-			if(currentRecipeMaxTicks >= currentTicks) {
-				currentTicks++;
-			}
-			else {
-				currentTicks = 0;
-			}
-		}
-	}
+	// // // 'Simulate' recipe progress on client for progress bar rendering
+	// @Override
+	// protected void updateClient() {
+	// if(this.getCurrentMaxTicks() != 0) {
+	// if(this.getCurrentMaxTicks() >= currentTicks) {
+	// currentTicks++;
+	// }
+	// else {
+	// currentTicks = 0;
+	// }
+	// }
+	// }
 
 	protected void onTick() {
 		// NO-OP
 	}
 
 	protected void onActiveTick() {
-		// NO-OP
+		// TODO Send this (much!) less often!
+		this.markReferenceCoordForUpdate();
 	}
 
 	protected void onFinish() {
 		RecipeMachineHelper.onFinish(currentRecipe, inventory);
-		currentTicks = 0;
-		currentRecipe = null; // TODO Only null when inputs hit zero
 	}
 
 	protected boolean canFinish() {
@@ -109,34 +110,31 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 					new PacketFluidUpdate(getReferenceCoord(), tank.getFluid(), tank.getId()), getReferenceCoord(),
 					WORLD.provider.getDimension());
 		}
+		this.currentRecipe = null;
+		this.currentTicks = 0;
 	}
 
 	@Override
 	public void updateFluid(PacketFluidUpdate message) {
-		inventory.getSteamTank().setFluid(message.fluid);
+
 	}
 
 	@Override
 	public void updateFluid(PacketMultiFluidUpdate message) {
-		// TODO
-		if(message.id == 0) {
-			this.inventory.getInputTank().fluids.clear();
-			this.inventory.getInputTank().fluids.addAll(message.tank.fluids);
-		}
-		else if(message.id == 1) {
-			this.inventory.getOutputTank().fluids.clear();
-			this.inventory.getOutputTank().fluids.addAll(message.tank.fluids);
-		}
+
 	}
 
+	// TODO
 	@Override
 	public void updateStack(PacketItemUpdate message) {
-		// TODO
+
 	}
 
+	// TODO
 	@Override
 	public void onContentsChanged(int slot) {
-		// TODO
+		this.currentRecipe = null;
+		this.currentTicks = 0;
 	}
 
 	@Override
@@ -174,6 +172,6 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	@SideOnly(Side.CLIENT)
 	@Override
 	public int getCurrentMaxTicks() {
-		return currentRecipeMaxTicks;
+		return this.currentMaxTicks;
 	}
 }

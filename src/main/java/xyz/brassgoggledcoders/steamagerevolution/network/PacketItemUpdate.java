@@ -13,6 +13,7 @@ public class PacketItemUpdate implements IMessage {
 	public ItemStack item;
 	public int slot;
 
+	@Deprecated
 	public PacketItemUpdate() {
 	}
 
