@@ -4,9 +4,11 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
@@ -16,6 +18,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceFluid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceProgressBar;
 
 @SideOnly(Side.CLIENT)
 public class GuiInventory extends GuiContainer {
@@ -79,10 +82,25 @@ public class GuiInventory extends GuiContainer {
 		if(steamTank != null) {
 			if(this.isPointInRegion(holder.getInventory().steamTank.getX(0), holder.getInventory().fluidOutput.getY(0),
 					20, 55, mouseX, mouseY)) {
-				List<String> tooltip = Lists.newArrayList();
-				int capacity = steamTank.getCapacity();
-				tooltip.add(TextUtils.representTankContents(new FluidTank(steamTank.getFluid(), capacity)).getText());
-				this.drawHoveringText(tooltip, mouseX, mouseY, fontRenderer);
+				this.drawHoveringText(TextUtils.representTankContents(steamTank).getText(), mouseX, mouseY);
+			}
+		}
+		InventoryPieceProgressBar progressBar = holder.getInventory().progressBar;
+		if(progressBar != null) {
+			if(this.isPointInRegion(progressBar.getX(0), progressBar.getY(0), 24, 16, mouseX, mouseY)) {
+				if(this.holder.getCurrentMaxTicks() == 0) {
+					this.drawHoveringText(TextFormatting.RED.toString() + "No recipe", mouseX, mouseY); // TODO
+																										// Localization
+				}
+				else if(GuiScreen.isShiftKeyDown()) {
+					this.drawHoveringText(holder.getCurrentProgress() + "/" + holder.getCurrentMaxTicks() + " ticks",
+							mouseX, mouseY);
+				}
+				else {
+					this.drawHoveringText(
+							holder.getCurrentProgress() / 20 + "/" + holder.getCurrentMaxTicks() / 20 + " seconds",
+							mouseX, mouseY);
+				}
 			}
 		}
 	}

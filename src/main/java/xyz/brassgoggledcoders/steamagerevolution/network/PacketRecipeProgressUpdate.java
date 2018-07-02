@@ -4,15 +4,15 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
-public class PacketRecipeUpdate implements IMessage {
+public class PacketRecipeProgressUpdate implements IMessage {
 
 	public BlockPos pos;
 	public int currentRecipeMaxTicks;
 
-	public PacketRecipeUpdate() {
+	public PacketRecipeProgressUpdate() {
 	}
 
-	public PacketRecipeUpdate(int maxTicks, BlockPos pos) {
+	public PacketRecipeProgressUpdate(int maxTicks, BlockPos pos) {
 		this.currentRecipeMaxTicks = maxTicks;
 		this.pos = pos;
 	}

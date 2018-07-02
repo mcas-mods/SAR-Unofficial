@@ -8,13 +8,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class HandlerRecipeUpdate implements IMessageHandler<PacketRecipeUpdate, IMessage> {
-	public HandlerRecipeUpdate() {
+public class HandlerRecipeProgressUpdate implements IMessageHandler<PacketRecipeProgressUpdate, IMessage> {
+	public HandlerRecipeProgressUpdate() {
 
 	}
 
 	@Override
-	public IMessage onMessage(PacketRecipeUpdate message, MessageContext ctx) {
+	public IMessage onMessage(PacketRecipeProgressUpdate message, MessageContext ctx) {
 		Minecraft minecraft = Minecraft.getMinecraft();
 		final WorldClient worldClient = minecraft.world;
 		minecraft.addScheduledTask(new Runnable() {
@@ -26,7 +26,7 @@ public class HandlerRecipeUpdate implements IMessageHandler<PacketRecipeUpdate, 
 		return null;
 	}
 
-	private void processMessage(WorldClient worldClient, PacketRecipeUpdate message) {
+	private void processMessage(WorldClient worldClient, PacketRecipeProgressUpdate message) {
 		TileEntity te = worldClient.getTileEntity(message.pos);
 		MultiblockTileEntityBase<?> tile = (MultiblockTileEntityBase<?>) te;
 		SARMultiblockInventory controller = (SARMultiblockInventory) tile.getMultiblockController();

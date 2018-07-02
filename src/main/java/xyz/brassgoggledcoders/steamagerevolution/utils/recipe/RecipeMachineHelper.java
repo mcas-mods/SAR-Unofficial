@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketRecipeUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketRecipeProgressUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
 
@@ -73,9 +73,12 @@ public class RecipeMachineHelper {
 			currentRecipe = recipe.get();
 			handler.setCurrentRecipe(currentRecipe);
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketRecipeUpdate(currentRecipe.getTicks(), pos), pos, world.provider.getDimension());
+					new PacketRecipeProgressUpdate(currentRecipe.getTicks(), pos), pos, world.provider.getDimension());
 		}
 		if(currentRecipe == null) {
+			// TODO No need to keep resending this
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(new PacketRecipeProgressUpdate(0, pos), pos,
+					world.provider.getDimension());
 			return false;
 		}
 		else if(inventory.getSteamTank() == null

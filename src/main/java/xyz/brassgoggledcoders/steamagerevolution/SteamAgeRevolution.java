@@ -60,8 +60,8 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 				Side.CLIENT);
 		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerCardPunch.class, PacketCardPunch.class,
 				Side.SERVER);
-		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerRecipeUpdate.class,
-				PacketRecipeUpdate.class, Side.CLIENT);
+		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerRecipeProgressUpdate.class,
+				PacketRecipeProgressUpdate.class, Side.CLIENT);
 		SARCapabilities.register();
 	}
 
