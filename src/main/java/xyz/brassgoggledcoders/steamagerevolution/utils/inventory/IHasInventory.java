@@ -10,10 +10,13 @@ public interface IHasInventory {
 
 	public InventoryMachine getInventory();
 
-	// TODO This should probably be a seperate interface
+	// TODO These should probably be a seperate interface
 	public void setCurrentRecipe(SARMachineRecipe recipe);
 
+	@Deprecated
 	public SARMachineRecipe getCurrentRecipe();
 
 	int getCurrentProgress();
+
+	int getCurrentMaxTicks();
 }

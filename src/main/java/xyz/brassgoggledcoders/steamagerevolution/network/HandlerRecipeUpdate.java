@@ -6,8 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeRegistry;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
 public class HandlerRecipeUpdate implements IMessageHandler<PacketRecipeUpdate, IMessage> {
 	public HandlerRecipeUpdate() {
@@ -30,9 +29,9 @@ public class HandlerRecipeUpdate implements IMessageHandler<PacketRecipeUpdate, 
 	private void processMessage(WorldClient worldClient, PacketRecipeUpdate message) {
 		TileEntity te = worldClient.getTileEntity(message.pos);
 		MultiblockTileEntityBase<?> tile = (MultiblockTileEntityBase<?>) te;
-		IHasInventory controller = (IHasInventory) tile.getMultiblockController();
+		SARMultiblockInventory controller = (SARMultiblockInventory) tile.getMultiblockController();
 		/* TODO */
-		controller.setCurrentRecipe(RecipeRegistry.getRecipeByID(message.type, message.id));
+		controller.currentRecipeMaxTicks = message.currentRecipeMaxTicks;
 
 	}
 }

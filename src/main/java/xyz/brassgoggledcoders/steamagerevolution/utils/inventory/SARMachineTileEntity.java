@@ -171,4 +171,10 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 	public int getCurrentProgress() {
 		return currentTicks;
 	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public int getCurrentMaxTicks() {
+		return 0; // TODO
+	}
 }

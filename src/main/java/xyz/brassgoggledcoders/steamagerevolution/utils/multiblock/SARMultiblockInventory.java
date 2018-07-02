@@ -8,6 +8,8 @@ import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
@@ -21,6 +23,8 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 
 	protected int currentTicks = 0;
 	SARMachineRecipe currentRecipe;
+	@SideOnly(Side.CLIENT)
+	public int currentRecipeMaxTicks;
 	public InventoryMachine inventory;
 
 	protected SARMultiblockInventory(World world) {
@@ -48,8 +52,8 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	// 'Simulate' recipe progress on client for progress bar rendering
 	@Override
 	protected void updateClient() {
-		if(currentRecipe != null) {
-			if(currentRecipe.getTicks() >= currentTicks) {
+		if(currentRecipeMaxTicks != 0) {
+			if(currentRecipeMaxTicks >= currentTicks) {
 				currentTicks++;
 			}
 			else {
@@ -165,5 +169,11 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	@Override
 	public int getCurrentProgress() {
 		return currentTicks;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public int getCurrentMaxTicks() {
+		return currentRecipeMaxTicks;
 	}
 }

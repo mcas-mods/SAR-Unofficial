@@ -103,10 +103,10 @@ public class GuiInventory extends GuiContainer {
 		if(this.holder.getInventory().fluidOutput != null)
 			addTank(this.holder.getInventory().fluidOutput);
 
-		if(this.holder.getInventory().progressBar != null && this.holder.getCurrentRecipe() != null) {
+		if(this.holder.getInventory().progressBar != null && this.holder.getCurrentMaxTicks() > 0) {
 			mc.renderEngine.bindTexture(guiTexture);
 			int progress = this.holder.getCurrentProgress();// TODO this needs packet synced
-			int total = this.holder.getCurrentRecipe().getTicks();
+			int total = this.holder.getCurrentMaxTicks();
 			int progressScaled = progress != 0 && total != 0 ? progress * 24 / total : 0;
 			this.drawTexturedModalRect(this.guiLeft + this.holder.getInventory().progressBar.getX(0),
 					this.guiTop + this.holder.getInventory().progressBar.getY(0), 176, 83, progressScaled + 1, 16);

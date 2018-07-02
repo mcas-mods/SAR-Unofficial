@@ -73,8 +73,7 @@ public class RecipeMachineHelper {
 			currentRecipe = recipe.get();
 			handler.setCurrentRecipe(currentRecipe);
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketRecipeUpdate(currentRecipe.networkID, pos, name), pos, world.provider.getDimension());
-			// SteamAgeRevolution.instance.getLogger().devInfo("Found recipe for " + name);
+					new PacketRecipeUpdate(currentRecipe.getTicks(), pos), pos, world.provider.getDimension());
 		}
 		if(currentRecipe == null) {
 			return false;
