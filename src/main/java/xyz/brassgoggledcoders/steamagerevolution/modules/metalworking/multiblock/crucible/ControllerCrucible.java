@@ -23,7 +23,7 @@ public class ControllerCrucible extends SARMultiblockInventory {
 		this.setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerExtractSpecific(1), 53, 34),
 				null, null, new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME, this, 1, 1), 105, 11),
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this, 1), 17, 11))
-						.setProgressBar(new InventoryPieceProgressBar(10, 10)));
+						.setProgressBar(new InventoryPieceProgressBar(76, 33)));
 	}
 
 	// FIXME Caching

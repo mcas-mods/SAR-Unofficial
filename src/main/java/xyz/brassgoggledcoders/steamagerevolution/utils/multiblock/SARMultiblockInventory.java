@@ -45,6 +45,19 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 		return false;
 	}
 
+	// 'Simulate' recipe progress on client for progress bar rendering
+	@Override
+	protected void updateClient() {
+		if(currentRecipe != null) {
+			if(currentRecipe.getTicks() >= currentTicks) {
+				currentTicks++;
+			}
+			else {
+				currentTicks = 0;
+			}
+		}
+	}
+
 	protected void onTick() {
 		// NO-OP
 	}

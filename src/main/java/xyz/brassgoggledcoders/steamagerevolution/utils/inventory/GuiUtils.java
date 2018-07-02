@@ -57,7 +57,6 @@ public class GuiUtils {
 		bindBlockTexture();
 		int color = fluid.getFluid().getColor(fluid);
 		GL11.glColor3ub((byte) (color >> 16 & 0xFF), (byte) (color >> 8 & 0xFF), (byte) (color & 0xFF));
-
 		GlStateManager.enableBlend();
 		for(int i = 0; i < width; i += 16) {
 			for(int j = 0; j < renderAmount; j += 16) {
@@ -85,5 +84,6 @@ public class GuiUtils {
 			}
 		}
 		GlStateManager.disableBlend();
+		GL11.glColor3f(1.0F, 1.0F, 1.0F);
 	}
 }
