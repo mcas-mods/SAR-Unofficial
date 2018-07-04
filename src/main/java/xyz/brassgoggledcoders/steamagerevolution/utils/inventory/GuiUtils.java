@@ -42,6 +42,7 @@ public class GuiUtils {
 
 	public static void renderGuiTank(FluidStack fluid, int capacity, int amount, double x, double y, double width,
 			double height) {
+		GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
 		if(fluid == null || fluid.getFluid() == null || fluid.amount <= 0) {
 			return;
 		}
@@ -84,6 +85,6 @@ public class GuiUtils {
 			}
 		}
 		GlStateManager.disableBlend();
-		GL11.glColor3f(1.0F, 1.0F, 1.0F);
+		GL11.glPopAttrib();
 	}
 }
