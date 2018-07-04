@@ -153,6 +153,7 @@ public class ModuleMetalworking extends ModuleBase {
 			String nugget = "nugget" + metal;
 			String dust = "dust" + metal;
 			String crystal = "crystal" + metal;
+			String block = "block" + metal;
 
 			ItemStack oreStack = OreDictUtils.getPreferredItemStack(ore);
 			ItemStack gearStack = OreDictUtils.getPreferredItemStack(gear);
@@ -165,8 +166,16 @@ public class ModuleMetalworking extends ModuleBase {
 			FluidStack solution = FluidRegistry.getFluidStack(metal.toLowerCase() + "_solution", VALUE_NUGGET * 4);
 
 			if(molten != null) {
+				FluidStack moltenCopy = molten.copy();
+				moltenCopy.amount = ModuleMetalworking.VALUE_NUGGET;
+				RecipeRegistry.addRecipe("crucible", new MachineRecipeBuilder("crucible").setItemInputs(nugget)
+						.setFluidOutputs(moltenCopy).setSteamCost(Fluid.BUCKET_VOLUME / 32).setCraftTime(14).build());
+				moltenCopy.amount = ModuleMetalworking.VALUE_BLOCK;
+				RecipeRegistry.addRecipe("crucible", new MachineRecipeBuilder("crucible").setItemInputs(block)
+						.setFluidOutputs(moltenCopy).setSteamCost(Fluid.BUCKET_VOLUME).setCraftTime(1200).build());
 				RecipeRegistry.addRecipe("crucible", new MachineRecipeBuilder("crucible").setItemInputs(ingot)
-						.setFluidOutputs(molten).setSteamCost(Fluid.BUCKET_VOLUME / 16).setCraftTime(2400).build());
+						.setFluidOutputs(molten).setSteamCost(Fluid.BUCKET_VOLUME / 16).setCraftTime(120).build());
+
 				RecipeRegistry.addRecipe("casting bench", new MachineRecipeBuilder("casting bench")
 						.setFluidInputs(molten).setItemOutputs(ingotStack).setCraftTime(2400).build());
 			}

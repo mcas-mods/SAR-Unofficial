@@ -13,36 +13,70 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.oredict.OreIngredient;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
 
 public class RecipeMachineHelper {
 	public static void onFinish(SARMachineRecipe currentRecipe, InventoryMachine inventory) {
-		if(ArrayUtils.isNotEmpty(currentRecipe.getItemOutputs())) {
-			for(ItemStack output : currentRecipe.getItemOutputs()) {
-				ItemHandlerHelper.insertItem(inventory.getOutputHandler(), output, false);
-			}
-		}
-		if(ArrayUtils.isNotEmpty(currentRecipe.getFluidOutputs())) {
-			for(FluidStack output : currentRecipe.getFluidOutputs()) {
-				inventory.getOutputTank().fill(output, true);
-			}
-		}
+		boolean extractedItems = true;
+		boolean extractedFluids = true;
+		boolean extractedSteam = true;
 		if(ArrayUtils.isNotEmpty(currentRecipe.getItemInputs())) {
 			for(Ingredient input : currentRecipe.getItemInputs()) {
-				// TODO Inefficient for oredict
-				for(ItemStack stack : input.getMatchingStacks()) {
-					inventory.getInputHandler().extractStack(stack);
+				// TODO
+				if(input instanceof OreIngredient) {
+					OreIngredient oreIng = (OreIngredient) input;
+					for(int i = 0; i < inventory.getInputHandler().getSlots(); i++) {
+						if(oreIng.apply(inventory.getInputHandler().getStackInSlot(i))) {
+							inventory.getInputHandler().extractItem(i, 1/* TODO */, false);
+							break;
+						}
+					}
+				}
+				else {
+					for(ItemStack stack : input.getMatchingStacks()) {
+						extractedItems = inventory.getInputHandler().extractStack(stack);
+					}
 				}
 			}
 		}
 		if(ArrayUtils.isNotEmpty(currentRecipe.getFluidInputs())) {
 			for(IngredientFluidStack input : currentRecipe.getFluidInputs()) {
-				inventory.getInputTank().drain(input.getFluid(), true);
+				if(inventory.getInputTank().drain(input.getFluid(), false) != null
+						&& inventory.getInputTank().drain(input.getFluid(), false).amount == input.getFluid().amount) {
+					inventory.getInputTank().drain(input.getFluid(), true);
+				}
+				else {
+					extractedFluids = false;
+				}
 			}
 		}
 		if(inventory.steamTank != null) {
-			inventory.steamTank.getHandler().drain(currentRecipe.getSteamUsePerCraft(), true);
+			if(inventory.steamTank.getHandler().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
+				inventory.steamTank.getHandler().drain(currentRecipe.getSteamUsePerCraft(), true);
+			}
+			else {
+				extractedSteam = false;
+			}
+		}
+		if(extractedItems && extractedFluids && extractedSteam) {
+			if(ArrayUtils.isNotEmpty(currentRecipe.getItemOutputs())) {
+				for(ItemStack output : currentRecipe.getItemOutputs()) {
+					ItemHandlerHelper.insertItem(inventory.getOutputHandler(), output, false);
+				}
+			}
+			if(ArrayUtils.isNotEmpty(currentRecipe.getFluidOutputs())) {
+				for(FluidStack output : currentRecipe.getFluidOutputs()) {
+					inventory.getOutputTank().fill(output, true);
+				}
+			}
+		}
+		else {
+			SteamAgeRevolution.instance.getLogger()
+					.info("Machine encountered recipe error at final stage. This should not happen..." + extractedItems
+							+ "/" + extractedFluids + "/" + extractedSteam);
 		}
 	}
 
