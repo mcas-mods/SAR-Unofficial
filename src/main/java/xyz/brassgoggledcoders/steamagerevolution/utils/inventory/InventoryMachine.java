@@ -45,7 +45,7 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 	}
 
 	public static class InventoryPieceFluid extends InventoryPiece {
-		private final FluidTankSmart handler;
+		private FluidTankSmart handler;
 
 		public InventoryPieceFluid(FluidTankSmart handler, int[] xPos, int[] yPos) {
 			super(xPos, yPos);
@@ -58,6 +58,11 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 
 		public FluidTankSmart getHandler() {
 			return handler;
+		}
+
+		@Deprecated
+		public void setHandler(FluidTankSmart tank) {
+			this.handler = tank;
 		}
 	}
 

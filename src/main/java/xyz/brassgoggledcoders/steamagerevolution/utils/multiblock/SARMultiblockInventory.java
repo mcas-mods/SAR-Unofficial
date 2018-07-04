@@ -102,7 +102,7 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	public void onTankContentsChanged(FluidTankSmart tank) {
 		if(tank instanceof MultiFluidTank) {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketMultiFluidUpdate(getReferenceCoord(), ((MultiFluidTank) tank), tank.getId()),
+					new PacketMultiFluidUpdate(getReferenceCoord(), ((MultiFluidTank) tank).fluids, tank.getId()),
 					getReferenceCoord(), WORLD.provider.getDimension());
 		}
 		else {
@@ -116,12 +116,19 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 
 	@Override
 	public void updateFluid(PacketFluidUpdate message) {
-
+		this.inventory.steamTank.getHandler().setFluid(message.fluid);
 	}
 
 	@Override
 	public void updateFluid(PacketMultiFluidUpdate message) {
-
+		if(this.inventory.getInputTank() != null && message.id == this.inventory.getInputTank().getId()) {
+			this.inventory.getInputTank().fluids.clear();
+			this.inventory.getInputTank().fluids.addAll(message.fluids);
+		}
+		else if(this.inventory.getOutputTank() != null && message.id == this.inventory.getOutputTank().getId()) {
+			this.inventory.getOutputTank().fluids.clear();
+			this.inventory.getOutputTank().fluids.addAll(message.fluids);
+		}
 	}
 
 	// TODO

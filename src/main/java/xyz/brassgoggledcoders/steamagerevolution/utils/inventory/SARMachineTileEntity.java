@@ -110,7 +110,7 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 	public void onTankContentsChanged(FluidTankSmart tank) {
 		if(tank instanceof MultiFluidTank) {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketMultiFluidUpdate(getPos(), ((MultiFluidTank) tank), tank.getId()), getPos(),
+					new PacketMultiFluidUpdate(getPos(), ((MultiFluidTank) tank).fluids, tank.getId()), getPos(),
 					getWorld().provider.getDimension());
 		}
 		else {
@@ -129,11 +129,11 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 	public void updateFluid(PacketMultiFluidUpdate message) {
 		if(message.id == this.inventory.getInputTank().getId()) {
 			this.inventory.getInputTank().fluids.clear();
-			this.inventory.getInputTank().fluids.addAll(message.tank.fluids);
+			this.inventory.getInputTank().fluids.addAll(message.fluids);
 		}
 		else if(message.id == this.inventory.getOutputTank().getId()) {
 			this.inventory.getOutputTank().fluids.clear();
-			this.inventory.getOutputTank().fluids.addAll(message.tank.fluids);
+			this.inventory.getOutputTank().fluids.addAll(message.fluids);
 		}
 	}
 

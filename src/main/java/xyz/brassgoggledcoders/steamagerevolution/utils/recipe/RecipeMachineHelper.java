@@ -5,15 +5,12 @@ import java.util.stream.IntStream;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.teamacronymcoders.base.util.ItemStackUtils;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.oredict.OreIngredient;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
@@ -24,23 +21,17 @@ public class RecipeMachineHelper {
 		boolean extractedFluids = true;
 		boolean extractedSteam = true;
 		if(ArrayUtils.isNotEmpty(currentRecipe.getItemInputs())) {
+			// TODO Shouldn't be looping twice here
+			int matched = 0;
 			for(Ingredient input : currentRecipe.getItemInputs()) {
-				// TODO
-				if(input instanceof OreIngredient) {
-					OreIngredient oreIng = (OreIngredient) input;
-					for(int i = 0; i < inventory.getInputHandler().getSlots(); i++) {
-						if(oreIng.apply(inventory.getInputHandler().getStackInSlot(i))) {
-							inventory.getInputHandler().extractItem(i, 1/* TODO */, false);
-							break;
-						}
-					}
-				}
-				else {
-					for(ItemStack stack : input.getMatchingStacks()) {
-						extractedItems = inventory.getInputHandler().extractStack(stack);
+				for(int i = 0; i < inventory.getInputHandler().getSlots(); i++) {
+					if(input.apply(inventory.getInputHandler().getStackInSlot(i))) {
+						inventory.getInputHandler().extractItem(i, 1, false);
+						matched++;
 					}
 				}
 			}
+			extractedItems = (currentRecipe.getItemInputs().length == matched);
 		}
 		if(ArrayUtils.isNotEmpty(currentRecipe.getFluidInputs())) {
 			for(IngredientFluidStack input : currentRecipe.getFluidInputs()) {
@@ -148,8 +139,6 @@ public class RecipeMachineHelper {
 	private static boolean handlerHasItems(InventoryMachine inventory, Ingredient ingredient) {
 		return IntStream.range(0, inventory.getInputHandler().getSlots())
 				.mapToObj(slotNum -> inventory.getInputHandler().getStackInSlot(slotNum))
-				.filter(inputStack -> Arrays.asList(ingredient.getMatchingStacks()).stream()
-						.anyMatch(stack -> ItemStackUtils.containsItemStack(inputStack, stack)))
-				.findAny().isPresent();
+				.filter(inputStack -> ingredient.apply(inputStack)).findAny().isPresent();
 	}
 }

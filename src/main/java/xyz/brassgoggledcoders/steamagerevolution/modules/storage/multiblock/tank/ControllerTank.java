@@ -14,7 +14,7 @@ import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiSingleTank;
@@ -103,7 +103,7 @@ public class ControllerTank extends SARMultiblockBase implements ISmartTankCallb
 	public void onTankContentsChanged(FluidTankSmart tank) {
 		if(tank instanceof MultiFluidTank) {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketMultiFluidUpdate(getReferenceCoord(), ((MultiFluidTank) tank), tank.getId()),
+					new PacketMultiFluidUpdate(getReferenceCoord(), ((MultiFluidTank) tank).fluids, tank.getId()),
 					getReferenceCoord(), WORLD.provider.getDimension());
 		}
 		else {
