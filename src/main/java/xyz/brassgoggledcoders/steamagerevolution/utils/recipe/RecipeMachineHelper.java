@@ -54,13 +54,13 @@ public class RecipeMachineHelper {
 		}
 		if(extractedItems && extractedFluids && extractedSteam) {
 			if(ArrayUtils.isNotEmpty(currentRecipe.getItemOutputs())) {
-				for(ItemStack output : currentRecipe.getItemOutputs()) {
-					ItemHandlerHelper.insertItem(inventory.getOutputHandler(), output, false);
+				for(ItemStack output : currentRecipe.getItemOutputs().clone()) {
+					ItemHandlerHelper.insertItem(inventory.getOutputHandler(), output.copy(), false);
 				}
 			}
 			if(ArrayUtils.isNotEmpty(currentRecipe.getFluidOutputs())) {
-				for(FluidStack output : currentRecipe.getFluidOutputs()) {
-					inventory.getOutputTank().fill(output, true);
+				for(FluidStack output : currentRecipe.getFluidOutputs().clone()) {
+					inventory.getOutputTank().fill(output.copy(), true);
 				}
 			}
 		}
@@ -72,7 +72,7 @@ public class RecipeMachineHelper {
 	}
 
 	public static boolean canFinish(int currentTicks, SARMachineRecipe currentRecipe, InventoryMachine inventory) {
-		if(currentRecipe != null && currentTicks >= currentRecipe.getTicks()) {
+		if(currentRecipe != null && currentTicks >= currentRecipe.getTicksPerOperation()) {
 			boolean roomForItems = true;
 			boolean roomForFluids = true;
 			if(ArrayUtils.isNotEmpty(currentRecipe.getItemOutputs())) {

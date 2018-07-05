@@ -18,7 +18,7 @@ public abstract class SARMultiblockTileInventory<T extends SARMultiblockInventor
 			nbt.setInteger("currentTicks", controller.currentTicks);
 			int maxTicks = 0;
 			if(controller.currentRecipe != null) {
-				maxTicks = controller.currentRecipe.getTicks();
+				maxTicks = controller.currentRecipe.getTicksPerOperation();
 			}
 			nbt.setInteger("currentMaxTicks", maxTicks);
 		}
@@ -35,7 +35,7 @@ public abstract class SARMultiblockTileInventory<T extends SARMultiblockInventor
 			nbt.setInteger("currentTicks", controller.currentTicks);
 			int maxTicks = 0;
 			if(controller.currentRecipe != null) {
-				maxTicks = controller.currentRecipe.getTicks();
+				maxTicks = controller.currentRecipe.getTicksPerOperation();
 			}
 			nbt.setInteger("currentMaxTicks", maxTicks);
 		}

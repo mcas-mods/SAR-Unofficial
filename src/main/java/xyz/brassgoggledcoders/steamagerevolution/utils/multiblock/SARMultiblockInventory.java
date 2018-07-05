@@ -39,12 +39,14 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	protected boolean updateServer() {
 		onTick();
 		if(canRun()) {
-			currentTicks++;
+			if(currentTicks <= currentRecipe.getTicksPerOperation()) { // TODO
+				currentTicks++;
+			}
 			onActiveTick();
 			if(canFinish()) {
 				onFinish();
 				currentTicks = 0;
-				currentRecipe = null; // TODO Handle this when inventory changes
+				currentRecipe = null;
 			}
 			return true; // TODO
 		}
@@ -69,12 +71,12 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	}
 
 	protected void onActiveTick() {
-		// TODO Send this (much!) less often!
-		this.markReferenceCoordForUpdate();
+		// NO-OP
 	}
 
 	protected void onFinish() {
 		RecipeMachineHelper.onFinish(currentRecipe, inventory);
+		this.markReferenceCoordForUpdate();
 	}
 
 	protected boolean canFinish() {
@@ -82,6 +84,10 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 	}
 
 	protected boolean canRun() {
+		if(currentRecipe != null) {
+			// TODO Send this (much!) less often!
+			this.markReferenceCoordForUpdate();
+		}
 		return RecipeMachineHelper.canRun(WORLD, this.getReferenceCoord(), this,
 				getName().toLowerCase()/* .replace(' ', '_')TODO */, currentRecipe, inventory);
 	}
@@ -109,9 +115,14 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
 					new PacketFluidUpdate(getReferenceCoord(), tank.getFluid(), tank.getId()), getReferenceCoord(),
 					WORLD.provider.getDimension());
+			// Only steam tank is a single type
+			this.currentRecipe = null;
+			this.currentTicks = 0;
 		}
-		this.currentRecipe = null;
-		this.currentTicks = 0;
+		if(this.inventory.getInputTank() != null && tank.getId() == this.inventory.getInputTank().getId()) {
+			this.currentRecipe = null;
+			this.currentTicks = 0;
+		}
 	}
 
 	@Override

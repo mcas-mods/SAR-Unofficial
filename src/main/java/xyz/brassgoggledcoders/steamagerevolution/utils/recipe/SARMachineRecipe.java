@@ -67,7 +67,7 @@ public class SARMachineRecipe implements IRecipeWrapper {
 		return crafter;
 	}
 
-	public int getTicks() {
+	public int getTicksPerOperation() {
 		return ticksToProcess;
 	}
 
