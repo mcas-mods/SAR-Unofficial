@@ -7,10 +7,18 @@ import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.modulesystem.dependencies.IDependency;
 import com.teamacronymcoders.base.modulesystem.dependencies.ModDependency;
 
+import crafttweaker.CraftTweakerAPI;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class CrafttweakerModule extends ModuleBase {
+
+	@Override
+	public void preInit(FMLPreInitializationEvent event) {
+		CraftTweakerAPI.registerClass(AlloyForgeTweaker.class);
+		super.preInit(event);
+	}
 
 	@Override
 	public List<IDependency> getDependencies(List<IDependency> dependencies) {

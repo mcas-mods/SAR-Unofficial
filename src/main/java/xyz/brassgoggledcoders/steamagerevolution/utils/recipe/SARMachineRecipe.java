@@ -88,6 +88,9 @@ public class SARMachineRecipe implements IRecipeWrapper {
 		}
 
 		public MachineRecipeBuilder setFluidInputs(FluidStack... fluids) {
+			if(fluids == null) {
+				return this;
+			}
 			ArrayList<IngredientFluidStack> ingredients = Lists.newArrayList();
 			for(FluidStack fs : fluids) {
 				ingredients.add(new IngredientFluidStack(fs));
@@ -97,6 +100,9 @@ public class SARMachineRecipe implements IRecipeWrapper {
 		}
 
 		public MachineRecipeBuilder setItemInputs(Object... items) {
+			if(items == null) {
+				return this;
+			}
 			ArrayList<Ingredient> ingredients = Lists.newArrayList();
 			for(Object input : items) {
 				if(input instanceof String) {
@@ -111,12 +117,16 @@ public class SARMachineRecipe implements IRecipeWrapper {
 		}
 
 		public MachineRecipeBuilder setFluidOutputs(FluidStack... fluid) {
-			fluidOutputs = fluid;
+			if(fluid != null) {
+				fluidOutputs = fluid;
+			}
 			return this;
 		}
 
 		public MachineRecipeBuilder setItemOutputs(ItemStack... items) {
-			itemOutputs = items;
+			if(items != null) {
+				itemOutputs = items;
+			}
 			return this;
 		}
 
