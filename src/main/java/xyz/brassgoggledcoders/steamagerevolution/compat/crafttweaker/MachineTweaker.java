@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.crafttweaker;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.annotation.Nullable;
 
@@ -13,6 +14,7 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.MachineRecipeBuilder;
@@ -27,6 +29,11 @@ public class MachineTweaker {
 		ItemStack[] itemOutputsStack = null;
 		FluidStack[] fluidOutputsStack = null;
 		if(itemInputs != null) {
+			if(Arrays.asList(itemInputs).stream().anyMatch(ingredient -> ingredient instanceof ILiquidStack)) {
+				SteamAgeRevolution.instance.getLogger().error(
+						"Attempted to use a liquid ingredient where only ore/itemstack is valid. This recipe will not be added");
+				return;
+			}
 			itemInputsObj = new Object[itemInputs.length];
 			for(int i = 0; i < itemInputs.length; i++) {
 				itemInputsObj[i] = CTHelper.toObject(itemInputs[i]);
