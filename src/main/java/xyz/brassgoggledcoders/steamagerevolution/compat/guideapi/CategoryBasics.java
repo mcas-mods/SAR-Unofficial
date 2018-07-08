@@ -31,7 +31,7 @@ public class CategoryBasics {
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "hammer_entry"),
 				new EntryItemStack(hammerEntry, keyBase + "hammer", new ItemStack(BookObjectHolder.hammer)));
 
-		BookUtils.addBasicEntry(entries, keyBase, "ore", OreDictUtils.getPreferredItemStack("oreZinc"));
+		BookUtils.addBasicEntry(entries, keyBase, "ore", OreDictUtils.getPreferredItemStack("oreZinc"), false);
 
 		List<IPage> alloyEntry = new ArrayList<IPage>();
 		alloyEntry.addAll(PageHelper.pagesForLongText(

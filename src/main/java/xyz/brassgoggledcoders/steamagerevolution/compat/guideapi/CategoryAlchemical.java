@@ -18,13 +18,14 @@ public class CategoryAlchemical {
 		Map<ResourceLocation, EntryAbstract> entries = new LinkedHashMap<ResourceLocation, EntryAbstract>();
 		String keyBase = "guide." + SteamAgeRevolution.MODID + ".entry.alchemical.";
 
-		BookUtils.addBasicEntry(entries, keyBase, "vat", new ItemStack(BookObjectHolder.vat_output));
+		BookUtils.addBasicEntry(entries, keyBase, "vat", new ItemStack(BookObjectHolder.vat_output), true);
 
-		BookUtils.addBasicEntry(entries, keyBase, "acid", MaterialSystem.getMaterialPart("sulphur_crystal").getItemStack());
+		BookUtils.addBasicEntry(entries, keyBase, "acid",
+				MaterialSystem.getMaterialPart("sulphur_crystal").getItemStack(), false);
 
-		BookUtils.addBasicEntry(entries, keyBase, "potions", new ItemStack(BookObjectHolder.flask));
+		BookUtils.addBasicEntry(entries, keyBase, "potions", new ItemStack(BookObjectHolder.flask), false);
 
-		BookUtils.addBasicEntry(entries, keyBase, "synth", new ItemStack(Items.SLIME_BALL));
+		BookUtils.addBasicEntry(entries, keyBase, "synth", new ItemStack(Items.SLIME_BALL), false);
 
 		for(EntryAbstract entry : entries.values()) {
 			PageHelper.setPagesToUnicode(entry.pageList);

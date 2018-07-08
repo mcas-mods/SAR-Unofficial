@@ -18,7 +18,7 @@ public class CategoryProduction {
 		Map<ResourceLocation, EntryAbstract> entries = new LinkedHashMap<ResourceLocation, EntryAbstract>();
 		String keyBase = "guide." + SteamAgeRevolution.MODID + ".entry.production.";
 
-		BookUtils.addBasicEntry(entries, keyBase, "concepts", new ItemStack(BookObjectHolder.boiler_casing));
+		BookUtils.addBasicEntry(entries, keyBase, "concepts", new ItemStack(BookObjectHolder.boiler_casing), false);
 
 		List<IPage> boilerEntry = new ArrayList<IPage>();
 		boilerEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "boiler.info")));
@@ -26,28 +26,15 @@ public class CategoryProduction {
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "boiler_entry"),
 				new EntryItemStack(boilerEntry, keyBase + "boiler", new ItemStack(BookObjectHolder.boiler_casing)));
 
-		List<IPage> crucibleEntry = new ArrayList<IPage>();
-		crucibleEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "crucible.info")));
-		crucibleEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_casing")));
-		crucibleEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_fluid_output")));
-		crucibleEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_item_input")));
-		crucibleEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_steam_input")));
-		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "crucible_entry"), new EntryItemStack(crucibleEntry,
-				keyBase + "crucible", new ItemStack(BookObjectHolder.crucible_casing)));
+		BookUtils.addBasicEntry(entries, keyBase, "crucible", new ItemStack(BookObjectHolder.crucible_casing), true);
 
-		List<IPage> alloyForgeEntry = new ArrayList<IPage>();
-		alloyForgeEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "alloy_forge.info")));
-		alloyForgeEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "alloy_furnace_frame")));
-		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "alloy_forge_entry"), new EntryItemStack(
-				alloyForgeEntry, keyBase + "alloy_forge", new ItemStack(BookObjectHolder.alloy_furnace_frame)));
+		BookUtils.addBasicEntry(entries, keyBase, "alloy_forge", new ItemStack(BookObjectHolder.alloy_furnace_frame),
+				true);
 
-		BookUtils.addBasicEntry(entries, keyBase, "steelworks", new ItemStack(BookObjectHolder.steelworks_frame));
+		BookUtils.addBasicEntry(entries, keyBase, "steelworks", new ItemStack(BookObjectHolder.steelworks_frame), true);
 
-		List<IPage> hammerEntry = new ArrayList<IPage>();
-		hammerEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "steam_hammer.info")));
-		hammerEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "steamhammer_frame")));
-		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "steam_hammer_entry"), new EntryItemStack(
-				hammerEntry, keyBase + "steam_hammer", new ItemStack(BookObjectHolder.steamhammer_frame)));
+		BookUtils.addBasicEntry(entries, keyBase, "steam_hammer", new ItemStack(BookObjectHolder.steamhammer_frame),
+				true);
 
 		for(EntryAbstract entry : entries.values()) {
 			PageHelper.setPagesToUnicode(entry.pageList);

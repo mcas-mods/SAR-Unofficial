@@ -60,7 +60,6 @@ public class ModuleProcessing extends ModuleBase {
 		blockRegistry.register(new BlockFurnaceItemInput(Material.IRON, "furnace_item_input"));
 		blockRegistry.register(new BlockFurnaceItemOutput(Material.IRON, "furnace_item_output"));
 		blockRegistry.register(new BlockFurnaceSteamInput(Material.IRON, "furnace_steam_input"));
-		blockRegistry.register(new BlockFurnaceModeToggle(Material.IRON, "furnace_mode_toggle"));
 
 		// blockRegistry.register(new BlockSawmillCasing(Material.IRON,
 		// "sawmill_casing"));
