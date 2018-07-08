@@ -54,6 +54,21 @@ public class ControllerCrucible extends SARMultiblockInventory {
 	}
 
 	@Override
+	public int getMinimumXSize() {
+		return 3;
+	}
+
+	@Override
+	public int getMinimumZSize() {
+		return 3;
+	}
+
+	@Override
+	public int getMinimumYSize() {
+		return 3;
+	}
+
+	@Override
 	public int getMaximumXSize() {
 		return 5;
 	}
