@@ -3,12 +3,13 @@ package xyz.brassgoggledcoders.steamagerevolution.compat.crafttweaker;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import net.minecraft.item.ItemStack;
-import stanhebben.zenscript.annotations.*;
+import stanhebben.zenscript.annotations.ZenClass;
+import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.steamagerevolution.SteamHammer")
 public class SteamHammerTweaker {
 	@ZenMethod
-	public static void addRecipe(IIngredient input, @Optional IIngredient input2, IItemStack output, int craftTime,
+	public static void addRecipe(IIngredient input, IIngredient input2, IItemStack output, int craftTime,
 			int steamCost) {
 		MachineTweaker.addRecipe("steam hammer", new IIngredient[] { input, input2 }, null, new IItemStack[] { output },
 				null, craftTime, steamCost);
