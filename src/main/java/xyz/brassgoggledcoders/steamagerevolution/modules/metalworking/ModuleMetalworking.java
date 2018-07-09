@@ -31,6 +31,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMaterials;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.blocks.BlockCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemDie;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemHammer;
@@ -149,7 +150,7 @@ public class ModuleMetalworking extends ModuleBase {
 
 		RecipeRegistry.addRecipe("steelworks",
 				new MachineRecipeBuilder("steelworks").setFluidInputs(FluidRegistry.getFluidStack("iron", VALUE_BLOCK))
-						.setItemInputs(new ItemStack(Blocks.COAL_BLOCK, 1, 1))
+						.setItemInputs(new ItemStack(ModuleMaterials.charcoal_block))
 						.setFluidOutputs(FluidRegistry.getFluidStack("steel", VALUE_BLOCK))
 						.setSteamCost(Fluid.BUCKET_VOLUME * 10).setCraftTime(6000).build());
 

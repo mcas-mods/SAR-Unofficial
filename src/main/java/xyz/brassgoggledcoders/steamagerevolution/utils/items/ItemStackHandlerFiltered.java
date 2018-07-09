@@ -2,13 +2,15 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.items;
 
 import javax.annotation.Nonnull;
 
+import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 
-public abstract class ItemStackHandlerFiltered extends ItemStackHandlerExtractSpecific {
+public abstract class ItemStackHandlerFiltered extends ItemStackHandlerSmart {
 
-	public ItemStackHandlerFiltered(int size) {
-		super(size);
+	public ItemStackHandlerFiltered(int size, MultiblockControllerBase controller) {
+		super(size, controller);
 	}
 
 	@Override
@@ -22,8 +24,8 @@ public abstract class ItemStackHandlerFiltered extends ItemStackHandlerExtractSp
 	protected abstract boolean canInsertItem(int slot, ItemStack stack);
 
 	public static class ItemStackHandlerFuel extends ItemStackHandlerFiltered {
-		public ItemStackHandlerFuel(int size) {
-			super(size);
+		public ItemStackHandlerFuel(int size, MultiblockControllerBase controller) {
+			super(size, controller);
 		}
 
 		@Override

@@ -30,7 +30,7 @@ public class ControllerBoiler extends SARMultiblockInventory {
 	public static final int fluidConversionPerTick = 5;
 	public static final float maxPressure = 3.0F;
 
-	public ItemStackHandler solidFuelInventory = new ItemStackHandlerFuel(3);
+	public ItemStackHandler solidFuelInventory = new ItemStackHandlerFuel(3, this);
 	public FluidTank liquidFuelTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
 	public FluidTankSingleSmart waterTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "water", this);
 	public FluidTankSingleSmart steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this);

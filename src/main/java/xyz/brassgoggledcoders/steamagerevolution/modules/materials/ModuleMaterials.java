@@ -3,7 +3,6 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.materials;
 import java.awt.Color;
 import java.util.Arrays;
 
-import com.teamacronymcoders.base.blocks.BlockBase;
 import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.materialsystem.*;
 import com.teamacronymcoders.base.materialsystem.materials.Material;
@@ -109,7 +108,7 @@ public class ModuleMaterials extends ModuleBase {
 
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
-		blockRegistry.register(new BlockBase(net.minecraft.block.material.Material.ROCK, "charcoal_block"));
+		blockRegistry.register(new BlockCharcoal());
 	}
 
 	@Override

@@ -5,8 +5,7 @@ import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceItem;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
@@ -14,16 +13,16 @@ public class ControllerSteelworks extends SARMultiblockInventory {
 
 	public ControllerSteelworks(World world) {
 		super(world);
-		this.setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerFuel(1), 83, 31),
-				new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 0), 41, 9), null,
-				new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 1), 140, 9),
-				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 10, 9)));
+		this.setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerFuel(1, this), 83, 31),
+				new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 0, 1), 41, 9), null,
+				new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 1, 1), 141, 9),
+				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this, 0), 10, 9))
+						.setProgressBar(new InventoryPieceProgressBar(110, 31)));
 	}
 
 	@Override
 	protected int getMinimumNumberOfBlocksForAssembledMachine() {
-		// TODO
-		return 1;
+		return 97;
 	}
 
 	@Override
