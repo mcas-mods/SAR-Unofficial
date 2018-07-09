@@ -1,11 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
@@ -16,35 +12,13 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockI
 
 public class ControllerSteelworks extends SARMultiblockInventory {
 
-	// public static final int workingPoolLevel = ModuleMetalworking.VALUE_BLOCK *
-	// 9;
-	public static final int conversionPerOperation = ModuleMetalworking.VALUE_NUGGET;
-	public static final int steamUsePerOperation = Fluid.BUCKET_VOLUME / 10;
-	public static final int carbonPerOperation = TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL)) / 2;
-
 	public ControllerSteelworks(World world) {
 		super(world);
-		this.setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerFuel(1), 0, 0),
-				new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 0), 0, 0), null,
-				new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 1), 0, 0),
-				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 0, 0)));
+		this.setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerFuel(1), 83, 31),
+				new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 0), 41, 9), null,
+				new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 1), 140, 9),
+				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 10, 9)));
 	}
-
-	// @Override
-	// protected FluidTank getTank(String toWrap) {
-	// if(toWrap.equals("iron")) {
-	// return ironTank;
-	// }
-	// else if(toWrap.equals("steel")) {
-	// return outputTank;
-	// }
-	// return getSteamTank();
-	// }
-	//
-	// @Override
-	// public ItemStackHandler getInventory(String toWrap) {
-	// return inputSolid;
-	// }
 
 	@Override
 	protected int getMinimumNumberOfBlocksForAssembledMachine() {

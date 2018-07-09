@@ -14,6 +14,7 @@ import com.teamacronymcoders.base.util.OreDictUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -139,6 +140,18 @@ public class ModuleMetalworking extends ModuleBase {
 						.setFluidInputs(FluidRegistry.getFluidStack("copper", VALUE_INGOT),
 								FluidRegistry.getFluidStack("zinc", VALUE_INGOT))
 						.setFluidOutputs(FluidRegistry.getFluidStack("brass", VALUE_INGOT * 2)).build());
+
+		RecipeRegistry.addRecipe("steelworks",
+				new MachineRecipeBuilder("steelworks").setFluidInputs(FluidRegistry.getFluidStack("iron", VALUE_NUGGET))
+						.setItemInputs(new ItemStack(Items.COAL, 1, 1))
+						.setFluidOutputs(FluidRegistry.getFluidStack("steel", VALUE_NUGGET))
+						.setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(600).build());
+
+		RecipeRegistry.addRecipe("steelworks",
+				new MachineRecipeBuilder("steelworks").setFluidInputs(FluidRegistry.getFluidStack("iron", VALUE_BLOCK))
+						.setItemInputs(new ItemStack(Blocks.COAL_BLOCK, 1, 1))
+						.setFluidOutputs(FluidRegistry.getFluidStack("steel", VALUE_BLOCK))
+						.setSteamCost(Fluid.BUCKET_VOLUME * 10).setCraftTime(6000).build());
 
 		for(String metal : knownMetalTypes) {
 
