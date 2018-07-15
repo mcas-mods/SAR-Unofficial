@@ -36,7 +36,7 @@ public class MultiblockInventoryWrapper implements IItemHandler, IItemHandlerMod
 		if(tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
 			return tile.getMultiblockController().getInventory().getItemHandler(output).getStackInSlot(slot);
 		}
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class MultiblockInventoryWrapper implements IItemHandler, IItemHandlerMod
 			return tile.getMultiblockController().getInventory().getItemHandler(output).insertItem(slot, stack,
 					simulate);
 		}
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class MultiblockInventoryWrapper implements IItemHandler, IItemHandlerMod
 			return tile.getMultiblockController().getInventory().getItemHandler(output).extractItem(slot, amount,
 					simulate);
 		}
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override

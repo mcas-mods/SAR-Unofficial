@@ -24,8 +24,7 @@ public class SARJEIPlugin implements IModPlugin {
 		SARRecipeCategory.setGuiHelper(jeiHelper.getGuiHelper());
 		registry.addRecipeCategories(new SteamHammerRecipeCategory(), new AlloyForgeRecipeCategory(),
 				new CrucibleRecipeCategory(), new SteamFurnaceRecipeCategory(), new CastingBlockRecipeCategory(),
-				new VatRecipeCategory(), new FumeCollectorRecipeCategory(), new DistillerRecipeCategory(),
-				new SawmillRecipeCategory());
+				new VatRecipeCategory(), new FumeCollectorRecipeCategory(), new DistillerRecipeCategory());
 	}
 
 	@Override

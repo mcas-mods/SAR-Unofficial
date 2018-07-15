@@ -13,6 +13,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.capability.FluidTankPropertiesWrapper;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
 
 /**
  * @author BluSunrize - 20.02.2017
@@ -24,13 +25,8 @@ public class MultiFluidTank extends FluidTankSmart {
 	// TODO Make this an actual limit, not just a representative
 	private final int maxFluids;
 
-	@Deprecated
-	public MultiFluidTank(int capacity, ISmartTankCallback parent, int id) {
-		this(capacity, parent, id, 1);
-	}
-
-	public MultiFluidTank(int capacity, ISmartTankCallback parent, int id, int maxFluids) {
-		super(capacity, parent, id);
+	public MultiFluidTank(int capacity, IHasInventory parent, int maxFluids) {
+		super(capacity, parent);
 		this.capacity = capacity;
 		this.maxFluids = maxFluids;
 	}

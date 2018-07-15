@@ -5,9 +5,6 @@ import java.util.Set;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 
-import net.minecraft.client.gui.Gui;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
@@ -18,9 +15,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureMonitor;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureValve;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
@@ -172,35 +167,8 @@ public class ControllerBoiler extends SARMultiblockInventory {
 	}
 
 	@Override
-	public void updateFluid(PacketFluidUpdate message) {
-		if(message.fluid.getFluid().equals(FluidRegistry.WATER)) {
-			waterTank.setFluid(message.fluid);
-		}
-		else {
-			steamTank.setFluid(message.fluid);
-		}
-	}
-
-	@Override
 	public String getName() {
 		return "Boiler";
 	}
 
-	@Override
-	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void onTankContentsChanged(FluidTankSmart tank) {
-		// TODO Auto-generated method stub
-
-	}
 }

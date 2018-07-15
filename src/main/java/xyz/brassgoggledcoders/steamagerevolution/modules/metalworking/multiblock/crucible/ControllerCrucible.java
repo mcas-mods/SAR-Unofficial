@@ -21,8 +21,8 @@ public class ControllerCrucible extends SARMultiblockInventory {
 	public ControllerCrucible(World world) {
 		super(world);
 		this.setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 53, 34), null,
-				null, new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME, this, 0, 1), 105, 11),
-				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this, 1), 17, 11))
+				null, new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME, this, 1), 105, 11),
+				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this), 17, 11))
 						.setProgressBar(new InventoryPieceProgressBar(76, 33)));
 	}
 
@@ -40,7 +40,7 @@ public class ControllerCrucible extends SARMultiblockInventory {
 			blocksInside++;
 		}
 		// Size internal tank accordingly
-		MultiFluidTank newTank = new MultiFluidTank(blocksInside * Fluid.BUCKET_VOLUME, this, 0, 1);
+		MultiFluidTank newTank = new MultiFluidTank(blocksInside * Fluid.BUCKET_VOLUME, this, 1);
 		if(this.inventory.getOutputTank().fluids != null) {
 			newTank.fluids.addAll(this.inventory.getOutputTank().fluids);
 		}

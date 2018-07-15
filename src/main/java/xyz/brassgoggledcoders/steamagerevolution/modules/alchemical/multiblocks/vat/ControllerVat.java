@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceFluid;
@@ -21,7 +20,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachin
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerVat extends SARMultiblockInventory implements ISmartTankCallback {
+public class ControllerVat extends SARMultiblockInventory {
 
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
 	public static int inputCapacity = outputCapacity * 3;
@@ -34,7 +33,7 @@ public class ControllerVat extends SARMultiblockInventory implements ISmartTankC
 		this.setInventory(new InventoryMachine(
 				new InventoryPieceItem(new ItemStackHandlerExtractSpecific(3), new int[] { 88, 88, 88 },
 						new int[] { 11, 32, 53 }),
-				new InventoryPieceFluid(new MultiFluidTank(inputCapacity, this, 0, 3), new int[] { 12, 37, 62 },
+				new InventoryPieceFluid(new MultiFluidTank(inputCapacity, this, 3), new int[] { 12, 37, 62 },
 						new int[] { 9, 9, 9 }),
 				null, new InventoryPieceFluid(new MultiFluidTank(outputCapacity, this, 1), 143, 9), null));
 	}

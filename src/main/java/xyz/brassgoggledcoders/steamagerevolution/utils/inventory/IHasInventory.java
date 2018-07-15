@@ -1,8 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 
+import xyz.brassgoggledcoders.steamagerevolution.utils.IMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
-public interface IHasInventory {
+public interface IHasInventory extends IMachine {
 	// TODO Duplicated in multiblock interface
 	public String getName();
 
@@ -19,4 +20,6 @@ public interface IHasInventory {
 	int getCurrentProgress();
 
 	int getCurrentMaxTicks();
+
+	void setCurrentTicks(int ticks);
 }

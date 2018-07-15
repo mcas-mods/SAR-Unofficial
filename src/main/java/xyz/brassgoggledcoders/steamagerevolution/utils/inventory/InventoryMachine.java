@@ -3,10 +3,13 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.ItemStackHandler;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
-public class InventoryMachine implements ISARMachineInventory, INBTSerializable<NBTTagCompound> {
+public class InventoryMachine implements ISARMachineInventory, INBTSerializable<NBTTagCompound>, ISmartTankCallback {
 
 	public InventoryPieceItem itemInput;
 	public InventoryPieceFluid fluidInput;
@@ -26,9 +29,18 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 			InventoryPieceFluid fluidOutput, InventoryPieceFluid steamTank) {
 		this.itemInput = itemInput;
 		this.fluidInput = fluidInput;
+		if(fluidInput != null) {
+			this.fluidInput.setTankType(TankType.INPUT);
+		}
 		this.itemOutput = itemOutput;
 		this.fluidOutput = fluidOutput;
+		if(fluidOutput != null) {
+			this.fluidOutput.setTankType(TankType.OUTPUT);
+		}
 		this.steamTank = steamTank;
+		if(steamTank != null) {
+			this.steamTank.setTankType(TankType.STEAM);
+		}
 	}
 
 	public InventoryMachine setProgressBar(InventoryPieceProgressBar bar) {
@@ -47,17 +59,21 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 	public static class InventoryPieceFluid extends InventoryPiece {
 		private FluidTankSmart handler;
 
-		public InventoryPieceFluid(FluidTankSmart handler, int[] xPos, int[] yPos) {
-			super(xPos, yPos);
+		public InventoryPieceFluid(FluidTankSmart handler, int[] xPositions, int[] yPositions) {
+			super(xPositions, yPositions);
 			this.handler = handler;
 		}
 
-		public InventoryPieceFluid(FluidTankSmart handler2, int i, int j) {
-			this(handler2, new int[] { i }, new int[] { j });
+		public InventoryPieceFluid(FluidTankSmart handler, int xPos, int yPos) {
+			this(handler, new int[] { xPos }, new int[] { yPos });
 		}
 
 		public FluidTankSmart getHandler() {
 			return handler;
+		}
+
+		public void setTankType(TankType type) {
+			handler.setTankType(type);
 		}
 
 		@Deprecated
@@ -176,10 +192,12 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 	// Methods to enable dynamic tank sizes based on multiblock size
 	public void setFluidInput(MultiFluidTank newTank) {
 		this.fluidInput = new InventoryPieceFluid(newTank, fluidInput.xPos, fluidInput.yPos);
+		this.fluidInput.setTankType(TankType.INPUT);
 	}
 
 	public void setFluidOutput(MultiFluidTank newTank) {
 		this.fluidOutput = new InventoryPieceFluid(newTank, fluidOutput.xPos, fluidOutput.yPos);
+		this.fluidOutput.setTankType(TankType.OUTPUT);
 	}
 
 	// Helpers for TE wrappers
@@ -197,4 +215,45 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 		}
 		return (FluidTankSingleSmart) steamTank.getHandler();
 	}
+
+	@Override
+	public void onTankContentsChanged(FluidTankSmart tank, TankType type, IHasInventory parent) {
+		if(tank instanceof MultiFluidTank) {
+			SteamAgeRevolution.instance.getPacketHandler()
+					.sendToAllAround(
+							new PacketMultiFluidUpdate(parent.getPos(), ((MultiFluidTank) tank).fluids,
+									TankType.getNetworkID(type)),
+							parent.getPos(), parent.getWorld().provider.getDimension());
+		}
+		else {
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+					new PacketFluidUpdate(parent.getPos(), tank.getFluid(), TankType.getNetworkID(type)),
+					parent.getPos(), parent.getWorld().provider.getDimension());
+			// Only steam tank is a single type
+			parent.setCurrentRecipe(null);
+			parent.setCurrentTicks(0);
+		}
+		if(this.getInputTank() != null && TankType.INPUT.equals(type)) {
+			parent.setCurrentRecipe(null);
+			parent.setCurrentTicks(0);
+		}
+	}
+
+	@Override
+	public void updateFluid(PacketFluidUpdate message) {
+		this.steamTank.getHandler().setFluid(message.fluid);
+	}
+
+	@Override
+	public void updateFluid(PacketMultiFluidUpdate message) {
+		if(this.getInputTank() != null && TankType.INPUT.equals(TankType.getTypeFromID(message.id))) {
+			this.getInputTank().fluids.clear();
+			this.getInputTank().fluids.addAll(message.fluids);
+		}
+		else if(this.getOutputTank() != null && TankType.OUTPUT.equals(TankType.getTypeFromID(message.id))) {
+			this.getOutputTank().fluids.clear();
+			this.getOutputTank().fluids.addAll(message.fluids);
+		}
+	}
+
 }

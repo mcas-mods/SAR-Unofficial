@@ -8,7 +8,6 @@ import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,7 +21,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.*;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.sawmill.SawmillRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.MachineRecipeBuilder;
 
@@ -82,7 +80,8 @@ public class ModuleProcessing extends ModuleBase {
 		}
 
 		// TODO Oredict
-		SawmillRecipe.addSawmillRecipe(new ItemStack(Blocks.LOG), new ItemStack(Blocks.PLANKS, 6));
+		// SawmillRecipe.addSawmillRecipe(new ItemStack(Blocks.LOG), new
+		// ItemStack(Blocks.PLANKS, 6));
 	}
 
 	@Override

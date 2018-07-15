@@ -16,15 +16,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.network.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeMachineHelper;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 public abstract class SARMachineTileEntity extends TileEntityBase
-		implements ITickable, ISmartTankCallback, ISmartStackCallback, IHasGui, IHasInventory {
+		implements ITickable, ISmartStackCallback, IHasGui, IHasInventory {
 
 	protected int currentTicks = 0;
 	SARMachineRecipe currentRecipe;
@@ -107,37 +105,6 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTankSmart tank) {
-		if(tank instanceof MultiFluidTank) {
-			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketMultiFluidUpdate(getPos(), ((MultiFluidTank) tank).fluids, tank.getId()), getPos(),
-					getWorld().provider.getDimension());
-		}
-		else {
-			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketFluidUpdate(getPos(), tank.getFluid(), tank.getId()), getPos(),
-					getWorld().provider.getDimension());
-		}
-	}
-
-	@Override
-	public void updateFluid(PacketFluidUpdate message) {
-		inventory.getSteamTank().setFluid(message.fluid);
-	}
-
-	@Override
-	public void updateFluid(PacketMultiFluidUpdate message) {
-		if(message.id == this.inventory.getInputTank().getId()) {
-			this.inventory.getInputTank().fluids.clear();
-			this.inventory.getInputTank().fluids.addAll(message.fluids);
-		}
-		else if(message.id == this.inventory.getOutputTank().getId()) {
-			this.inventory.getOutputTank().fluids.clear();
-			this.inventory.getOutputTank().fluids.addAll(message.fluids);
-		}
-	}
-
-	@Override
 	public void updateStack(PacketItemUpdate message) {
 		// TODO
 	}
@@ -176,5 +143,20 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 	@Override
 	public int getCurrentMaxTicks() {
 		return 0; // TODO
+	}
+
+	@Override
+	public void setCurrentTicks(int ticks) {
+		this.currentTicks = ticks;
+	}
+
+	@Override
+	public BlockPos getPos() {
+		return this.getPos();
+	}
+
+	@Override
+	public World getWorld() {
+		return this.getWorld();
 	}
 }

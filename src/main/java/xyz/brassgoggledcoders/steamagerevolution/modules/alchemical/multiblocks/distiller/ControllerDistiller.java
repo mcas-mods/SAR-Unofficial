@@ -7,23 +7,24 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.ModuleAlchemical;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerDistiller extends SARMultiblockInventory implements ISmartTankCallback {
+public class ControllerDistiller extends SARMultiblockInventory {
 
 	public static int tankCapacity = Fluid.BUCKET_VOLUME * 8;
 
 	public ControllerDistiller(World world) {
 		super(world);
 		this.setInventory(new InventoryMachine(null,
-				new InventoryPieceFluid(new MultiFluidTank(tankCapacity, this, 0, 1), 41, 9),
+				new InventoryPieceFluid(new MultiFluidTank(tankCapacity, this, 1), 41, 9),
 				new InventoryPieceItem(new ItemStackHandlerExtractSpecific(1), 149, 32),
-				new InventoryPieceFluid(new MultiFluidTank(tankCapacity, this, 1, 1), 97, 9),
-				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this, 0), 10, 9))
+				new InventoryPieceFluid(new MultiFluidTank(tankCapacity, this, 1), 97, 9),
+				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 10, 9))
 						.setProgressBar(new InventoryPieceProgressBar(67, 32)));
 	}
 

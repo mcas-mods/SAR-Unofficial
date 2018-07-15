@@ -10,17 +10,13 @@ import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
-public class ControllerTank extends SARMultiblockBase implements ISmartTankCallback {
+public class ControllerTank extends SARMultiblockBase {
 
 	public BlockPos minimumInteriorPos;
 	public BlockPos maximumInteriorPos;
@@ -28,7 +24,7 @@ public class ControllerTank extends SARMultiblockBase implements ISmartTankCallb
 
 	public ControllerTank(World world) {
 		super(world);
-		tank = new FluidTankSmart(0, this);
+		// tank = new FluidTankSmart(0, this, TankType.UNDEFINED);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -51,7 +47,8 @@ public class ControllerTank extends SARMultiblockBase implements ISmartTankCallb
 			blocksInside++;
 		}
 		// Size internal tank accordingly
-		tank = new FluidTankSmart(tank.getFluid(), blocksInside * Fluid.BUCKET_VOLUME * 16, this);
+		// tank = new FluidTankSmart(tank.getFluid(), blocksInside * Fluid.BUCKET_VOLUME
+		// * 16, this, TankType.UNDEFINED);
 		// FMLLog.warning("" + tank.getCapacity());
 		super.onMachineAssembled();
 	}
@@ -90,27 +87,8 @@ public class ControllerTank extends SARMultiblockBase implements ISmartTankCallb
 	}
 
 	@Override
-	public void updateFluid(PacketFluidUpdate message) {
-		tank.setFluid(message.fluid);
-	}
-
-	@Override
 	public String getName() {
 		return "Tank";
-	}
-
-	@Override
-	public void onTankContentsChanged(FluidTankSmart tank) {
-		if(tank instanceof MultiFluidTank) {
-			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketMultiFluidUpdate(getReferenceCoord(), ((MultiFluidTank) tank).fluids, tank.getId()),
-					getReferenceCoord(), WORLD.provider.getDimension());
-		}
-		else {
-			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketFluidUpdate(getReferenceCoord(), tank.getFluid(), tank.getId()), getReferenceCoord(),
-					WORLD.provider.getDimension());
-		}
 	}
 
 	@Override

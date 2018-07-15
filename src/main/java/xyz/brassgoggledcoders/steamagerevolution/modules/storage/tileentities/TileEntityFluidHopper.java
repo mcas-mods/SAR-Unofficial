@@ -58,8 +58,9 @@ public class TileEntityFluidHopper extends TileEntitySlowTick {
 			if(hasFrom) {
 				IFluidHandler from = getWorld().getTileEntity(getPos().up())
 						.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.DOWN);
-
-				FluidUtil.tryFluidTransfer(buffer, from, Fluid.BUCKET_VOLUME, true);
+				if(from != null) { // TODO Neither should this
+					FluidUtil.tryFluidTransfer(buffer, from, Fluid.BUCKET_VOLUME, true);
+				}
 			}
 		}
 	}

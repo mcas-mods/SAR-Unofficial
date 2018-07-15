@@ -96,7 +96,7 @@ public class BlockHydraulicTube extends BlockBase {
 			case 2:
 				return getDefaultState().withProperty(AXIS, Axis.Y);
 		}
-		return null;
+		return this.getDefaultState();
 	}
 
 	@Override

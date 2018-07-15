@@ -16,7 +16,6 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -24,14 +23,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 
-public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGui, ITickable, ISmartTankCallback {
+public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGui, ITickable {
 
-	public FluidTank buffer = new FluidTankSmart(Fluid.BUCKET_VOLUME * 10, this);
+	public FluidTank buffer;// TODO = new FluidTankSmart(Fluid.BUCKET_VOLUME * 10, this,
+							// TankType.UNDEFINED);
 	private int fluidTransferRate = 20;
 
 	public TileEntityFluidIO() {
@@ -63,13 +59,13 @@ public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGu
 
 	@Override
 	public void readFromDisk(NBTTagCompound tag) {
-		buffer.readFromNBT(tag);
+		// buffer.readFromNBT(tag);
 		super.readFromDisk(tag);
 	}
 
 	@Override
 	public NBTTagCompound writeToDisk(NBTTagCompound tag) {
-		buffer.writeToNBT(tag);
+		// buffer.writeToNBT(tag);
 		return super.writeToDisk(tag);
 	}
 
@@ -97,17 +93,19 @@ public class TileEntityFluidIO extends TileEntityInventoryBase implements IHasGu
 		return new ContainerFluidIO(entityPlayer, (TileEntityFluidIO) world.getTileEntity(blockPos));
 	}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void updateFluid(PacketFluidUpdate message) {
-		buffer.setFluid(message.fluid);
-	}
-
-	@Override
-	public void onTankContentsChanged(FluidTankSmart tank) {
-		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(new PacketFluidUpdate(getPos(), tank.getFluid()),
-				getPos(), getWorld().provider.getDimension());
-	}
+	// @Override
+	// @SideOnly(Side.CLIENT)
+	// public void updateFluid(PacketFluidUpdate message) {
+	// buffer.setFluid(message.fluid);
+	// }
+	//
+	// @Override
+	// public void onTankContentsChanged(FluidTankSmart tank) {
+	// SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+	// new PacketFluidUpdate(getPos(), tank.getFluid(),
+	// TankType.getNetworkID(tank.getTankType())), getPos(),
+	// getWorld().provider.getDimension());
+	// }
 
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {

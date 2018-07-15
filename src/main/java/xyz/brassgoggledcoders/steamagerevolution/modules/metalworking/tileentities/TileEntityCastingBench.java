@@ -8,9 +8,9 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.SARMachineTileEntity;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceItem;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.SARMachineTileEntity;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 public class TileEntityCastingBench extends SARMachineTileEntity {
@@ -19,7 +19,7 @@ public class TileEntityCastingBench extends SARMachineTileEntity {
 
 	public TileEntityCastingBench() {
 		setInventory(new InventoryMachine(null,
-				new InventoryPieceFluid(new MultiFluidTank(TileEntityCastingBench.inputCapacity, this, 0, 1), 51, 11),
+				new InventoryPieceFluid(new MultiFluidTank(TileEntityCastingBench.inputCapacity, this, 1), 51, 11),
 				new InventoryPieceItem(new ItemStackHandlerExtractSpecific(1), 109, 34), null, null));
 	}
 

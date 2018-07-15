@@ -137,4 +137,14 @@ public abstract class SARMultiblockBase extends RectangularMultiblockControllerB
 
 	}
 
+	@Override
+	public World getWorld() {
+		return WORLD;
+	}
+
+	@Override
+	public BlockPos getPos() {
+		return this.getReferenceCoord();
+	}
+
 }

@@ -10,22 +10,17 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.IFumeProducer;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 
-public class TileEntityFumeCollector extends TileEntitySlowTick implements ISmartTankCallback {
+public class TileEntityFumeCollector extends TileEntitySlowTick {
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 16;
 	public FluidTank tank;
 
 	public TileEntityFumeCollector() {
 		super();
-		tank = new FluidTankSmart(outputCapacity, this);
+		// tank = new FluidTankSmart(outputCapacity, this);
 	}
 
 	// TODO this probably really doesn't need to be ticking.
@@ -75,18 +70,5 @@ public class TileEntityFumeCollector extends TileEntitySlowTick implements ISmar
 	@Override
 	public NBTTagCompound writeToDisk(NBTTagCompound tag) {
 		return tank.writeToNBT(tag);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void updateFluid(PacketFluidUpdate message) {
-		tank.setFluid(message.fluid);
-	}
-
-	@Override
-	public void onTankContentsChanged(FluidTankSmart tank) {
-		markDirty();
-		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(new PacketFluidUpdate(getPos(), tank.getFluid()),
-				getPos(), getWorld().provider.getDimension());
 	}
 }

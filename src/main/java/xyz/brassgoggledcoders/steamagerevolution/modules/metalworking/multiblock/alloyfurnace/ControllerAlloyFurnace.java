@@ -1,6 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace;
 
-import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.multiblock.validation.ValidationError;
 
@@ -10,13 +9,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerAlloyFurnace extends SARMultiblockInventory implements ISmartTankCallback, IHasGui {
+public class ControllerAlloyFurnace extends SARMultiblockInventory {
 
 	public static int inputCapacity = ModuleMetalworking.VALUE_BLOCK * 8;
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
@@ -24,7 +22,7 @@ public class ControllerAlloyFurnace extends SARMultiblockInventory implements IS
 	public ControllerAlloyFurnace(World world) {
 		super(world);
 		this.setInventory(new InventoryMachine(
-				new InventoryPieceFluid(new MultiFluidTank(inputCapacity, this, 0, 2), new int[] { 22, 78 },
+				new InventoryPieceFluid(new MultiFluidTank(inputCapacity, this, 2), new int[] { 22, 78 },
 						new int[] { 11, 11 }),
 				new InventoryPieceFluid(new MultiFluidTank(outputCapacity, this, 1), 134, 17), null));
 	}

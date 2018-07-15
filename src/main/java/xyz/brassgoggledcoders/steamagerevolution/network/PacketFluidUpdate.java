@@ -11,18 +11,14 @@ public class PacketFluidUpdate implements IMessage {
 
 	public BlockPos pos;
 	public FluidStack fluid;
-	public int id = 0;
+	public int id;
 
 	public PacketFluidUpdate() {
 	}
 
-	public PacketFluidUpdate(BlockPos pos, FluidStack fluid) {
+	public PacketFluidUpdate(BlockPos pos, FluidStack fluid, int id) {
 		this.pos = pos;
 		this.fluid = fluid;
-	}
-
-	public PacketFluidUpdate(BlockPos pos, FluidStack fluid, int id) {
-		this(pos, fluid);
 		this.id = id;
 	}
 

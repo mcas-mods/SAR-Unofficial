@@ -5,53 +5,42 @@ import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockCo
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.TankType;
 
 public class FluidTankSmart extends FluidTank {
 
-	final int id;
-	final ISmartTankCallback parent;
+	final IHasInventory parent;
+	TankType type = TankType.UNDEFINED;
 
-	@Deprecated
-	public FluidTankSmart(int capacity, ISmartTankCallback parent) {
-		super(capacity);
-		if(parent instanceof TileEntity) {
-			setTileEntity((TileEntity) parent);
-		}
-		this.parent = parent;
-		id = -1;
-	}
-
-	public FluidTankSmart(int capacity, ISmartTankCallback parent2, int id) {
+	public FluidTankSmart(int capacity, IHasInventory parent2) {
 		super(capacity);
 		this.parent = parent2;
 		if(parent instanceof TileEntity) {
 			setTileEntity((TileEntity) parent);
 		}
-		this.id = id;
 	}
 
-	@Deprecated
-	public FluidTankSmart(FluidStack fluid, int capacity, ISmartTankCallback parent) {
+	public FluidTankSmart(FluidStack fluid, int capacity, IHasInventory parent) {
 		super(fluid, capacity);
 		this.parent = parent;
 		if(parent instanceof TileEntity) {
 			setTileEntity((TileEntity) parent);
 		}
-		id = -1;
 	}
 
-	public int getId() {
-		return id;
+	public FluidTankSmart setTankType(TankType type) {
+		this.type = type;
+		return this;
 	}
 
 	@Override
 	public void onContentsChanged() {
+		parent.getInventory().onTankContentsChanged(this, type, parent);
 		if(tile != null) {
-			((ISmartTankCallback) tile).onTankContentsChanged(this);
 			tile.markDirty();
 		}
 		else {
-			((ISmartTankCallback) parent).onTankContentsChanged(this);
 			RectangularMultiblockControllerBase controller = (RectangularMultiblockControllerBase) parent;
 			controller.WORLD.markChunkDirty(controller.getReferenceCoord(), null); // TODO
 		}
