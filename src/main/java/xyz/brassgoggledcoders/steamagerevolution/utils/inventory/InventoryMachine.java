@@ -24,7 +24,7 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 		this(null, fluidInput, null, fluidOutput, steamTank);
 	}
 
-	// @Deprecated
+	// TODO Add option to have fluid/item IOs instead of specified inputs/outputs
 	public InventoryMachine(InventoryPieceItem itemInput, InventoryPieceFluid fluidInput, InventoryPieceItem itemOutput,
 			InventoryPieceFluid fluidOutput, InventoryPieceFluid steamTank) {
 		this.itemInput = itemInput;

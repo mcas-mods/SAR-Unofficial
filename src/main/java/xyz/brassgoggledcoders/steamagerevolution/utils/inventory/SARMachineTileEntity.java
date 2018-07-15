@@ -33,6 +33,14 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 		this.inventory = inventory;
 	}
 
+	@Override
+	public InventoryMachine getInventory() {
+		if(inventory == null) {
+			throw new RuntimeException("Whoops. Machine Inventory NOT SET. Fix this.");
+		}
+		return inventory;
+	}
+
 	public abstract String getName();
 
 	@Override
@@ -152,11 +160,11 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 
 	@Override
 	public BlockPos getPos() {
-		return this.getPos();
+		return this.pos;
 	}
 
 	@Override
 	public World getWorld() {
-		return this.getWorld();
+		return this.world;
 	}
 }
