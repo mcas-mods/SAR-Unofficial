@@ -32,12 +32,14 @@ public class ModuleTransport extends ModuleBase {
 		pneumaticRouter = new BlockPneumaticRouter(Material.IRON, "pneumatic_router");
 		blockRegistry.register(pneumaticRouter);
 
-		hydraulicTube = new BlockHydraulicTube(Material.IRON, "hydraulic_tube");
-		// blockRegistry.register(hydraulicTube);
-		hydraulicSender = new BlockHydraulicSender(Material.IRON, "hydraulic_sender");
-		// blockRegistry.register(hydraulicSender);
-		hydraulicRouter = new BlockHydraulicRouter(Material.IRON, "hydraulic_router");
-		// blockRegistry.register(hydraulicRouter);
+		// hydraulicTube = new BlockHydraulicTube(Material.IRON, "hydraulic_tube");
+		// // blockRegistry.register(hydraulicTube);
+		// hydraulicSender = new BlockHydraulicSender(Material.IRON,
+		// "hydraulic_sender");
+		// // blockRegistry.register(hydraulicSender);
+		// hydraulicRouter = new BlockHydraulicRouter(Material.IRON,
+		// "hydraulic_router");
+		// // blockRegistry.register(hydraulicRouter);
 
 		// blockRegistry.register(new BlockSorterInput(Material.IRON, "sorter_input"));
 		// blockRegistry.register(new BlockSorterOutput(Material.IRON,
