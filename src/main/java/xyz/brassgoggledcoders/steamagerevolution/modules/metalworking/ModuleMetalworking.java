@@ -17,6 +17,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -206,11 +207,15 @@ public class ModuleMetalworking extends ModuleBase {
 			}
 			if(!ore.isEmpty()) {
 				// TODO: Use 'our' stacks not preferred
-				GameRegistry.addSmelting(oreStack, ingotStack, 0.5F);
+				if(FurnaceRecipes.instance().getSmeltingResult(oreStack).isEmpty()) {
+					GameRegistry.addSmelting(oreStack, ingotStack, 0.5F);
+				}
 			}
 			if(!dust.isEmpty()) {
 				// TODO: Use 'our' stacks not preferred
-				GameRegistry.addSmelting(dustStack, ingotStack, 0.5F);
+				if(FurnaceRecipes.instance().getSmeltingResult(dustStack).isEmpty()) {
+					GameRegistry.addSmelting(dustStack, ingotStack, 0.5F);
+				}
 			}
 			if(!crushedOreStack.isEmpty()) {
 				ItemStack nuggetCopy = nuggetStack.copy();

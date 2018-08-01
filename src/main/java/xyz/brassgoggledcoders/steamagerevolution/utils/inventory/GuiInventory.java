@@ -80,7 +80,7 @@ public class GuiInventory extends GuiContainer {
 		}
 		FluidTankSingleSmart steamTank = holder.getInventory().getSteamHandler();
 		if(steamTank != null) {
-			if(this.isPointInRegion(holder.getInventory().steamTank.getX(0), holder.getInventory().fluidOutput.getY(0),
+			if(this.isPointInRegion(holder.getInventory().steamTank.getX(0), holder.getInventory().steamTank.getY(0),
 					20, 55, mouseX, mouseY)) {
 				this.drawHoveringText(TextUtils.representTankContents(steamTank).getText(), mouseX, mouseY);
 			}

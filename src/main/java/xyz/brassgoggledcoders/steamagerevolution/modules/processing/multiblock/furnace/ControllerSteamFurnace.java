@@ -13,9 +13,9 @@ public class ControllerSteamFurnace extends SARMultiblockInventory {
 
 	public ControllerSteamFurnace(World world) {
 		super(world);
-		this.setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 0, 0), null,
-				new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 0, 0), null,
-				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 10, 9)));
+		this.setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 48, 33), null,
+				new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 107, 33), null,
+				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 13, 9)));
 	}
 
 	@Override

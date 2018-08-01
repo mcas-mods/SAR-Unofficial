@@ -8,16 +8,15 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.items.SlotHandlerOutput;
 
 public class ContainerInventory extends ContainerBase {
 	public ContainerInventory(EntityPlayer player, IHasInventory holder) {
-		int slotID = 0;
 		if(holder.getInventory().itemInput != null) {
 			for(int i = 0; i < holder.getInventory().itemInput.getHandler().getSlots(); i++) {
-				this.addSlotToContainer(new SlotItemHandler(holder.getInventory().itemInput.getHandler(), slotID++,
+				this.addSlotToContainer(new SlotItemHandler(holder.getInventory().itemInput.getHandler(), i,
 						holder.getInventory().itemInput.getX(i), holder.getInventory().itemInput.getY(i)));
 			}
 		}
 		if(holder.getInventory().itemOutput != null) {
 			for(int i = 0; i < holder.getInventory().itemOutput.getHandler().getSlots(); i++) {
-				this.addSlotToContainer(new SlotHandlerOutput(holder.getInventory().itemOutput.getHandler(), slotID++,
+				this.addSlotToContainer(new SlotHandlerOutput(holder.getInventory().itemOutput.getHandler(), i,
 						holder.getInventory().itemOutput.getX(i), holder.getInventory().itemOutput.getY(i)));
 			}
 		}

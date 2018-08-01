@@ -68,15 +68,9 @@ public class ModuleProcessing extends ModuleBase {
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 
 		for(Entry<ItemStack, ItemStack> recipe : FurnaceRecipes.instance().getSmeltingList().entrySet()) {
-			RecipeRegistry.addRecipe("steam furnace", new MachineRecipeBuilder("steam furnace")
-					.setItemInputs(recipe.getKey()).setItemOutputs(recipe.getValue()).build());
-
-			// FIXME
-			// if(IntStream.of(OreDictionary.getOreIDs(recipe.getKey()))
-			// .anyMatch(id -> id == OreDictionary.getOreID("listAllmeatraw"))) {
-			// SteamFurnaceRecipe.addSteamFurnaceRecipe(recipe.getKey(), new
-			// ItemStack(charcoal_powder));
-			// }
+			RecipeRegistry.addRecipe("steam furnace",
+					new MachineRecipeBuilder("steam furnace").setItemInputs(recipe.getKey())
+							.setItemOutputs(recipe.getValue()).setSteamCost(1000).setCraftTime(1000).build());
 		}
 
 		// TODO Oredict

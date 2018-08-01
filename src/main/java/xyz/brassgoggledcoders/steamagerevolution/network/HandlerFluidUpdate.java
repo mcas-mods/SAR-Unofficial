@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
 
 public class HandlerFluidUpdate implements IMessageHandler<PacketFluidUpdate, IMessage> {
 	public HandlerFluidUpdate() {
@@ -28,14 +28,14 @@ public class HandlerFluidUpdate implements IMessageHandler<PacketFluidUpdate, IM
 
 	private void processMessage(WorldClient worldClient, PacketFluidUpdate message) {
 		TileEntity te = worldClient.getTileEntity(message.pos);
-		if(te instanceof ISmartTankCallback) {
-			ISmartTankCallback tile = (ISmartTankCallback) te;
-			tile.updateFluid(message);
+		if(te instanceof IHasInventory) {
+			IHasInventory tile = (IHasInventory) te;
+			tile.getInventory().updateFluid(message);
 		}
 		else {
 			MultiblockTileEntityBase<?> tile = (MultiblockTileEntityBase<?>) te;
-			ISmartTankCallback controller = (ISmartTankCallback) tile.getMultiblockController();
-			controller.updateFluid(message);
+			IHasInventory controller = (IHasInventory) tile.getMultiblockController();
+			controller.getInventory().updateFluid(message);
 		}
 	}
 }
