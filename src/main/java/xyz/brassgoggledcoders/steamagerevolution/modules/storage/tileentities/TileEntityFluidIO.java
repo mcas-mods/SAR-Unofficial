@@ -28,8 +28,8 @@ public class TileEntityFluidIO extends SARMachineTileEntity {
 		if(!this.inventory.getInputHandler().getStackInSlot(0).isEmpty()) {
 			IFluidHandler itemFluid = this.inventory.getInputHandler().getStackInSlot(0)
 					.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-			if(this.inventory.getInputTank().fill(itemFluid.drain(fluidTransferRate, false),
-					false) == fluidTransferRate) {
+			if(itemFluid != null && itemFluid.drain(fluidTransferRate, false) != null && this.inventory.getInputTank()
+					.fill(itemFluid.drain(fluidTransferRate, false), false) == fluidTransferRate) {
 				this.inventory.getInputTank().fill(itemFluid.drain(fluidTransferRate, true), true);
 				markDirty();
 				sendBlockUpdate();
@@ -38,8 +38,8 @@ public class TileEntityFluidIO extends SARMachineTileEntity {
 		if(!this.inventory.getInputHandler().getStackInSlot(1).isEmpty()) {
 			IFluidHandler itemFluid = this.inventory.getInputHandler().getStackInSlot(1)
 					.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-			if(itemFluid.fill(this.inventory.getInputTank().drain(fluidTransferRate, false),
-					false) == fluidTransferRate) {
+			if(itemFluid != null && this.inventory.getInputTank().getFluidAmount() > 0 && itemFluid
+					.fill(this.inventory.getInputTank().drain(fluidTransferRate, false), false) == fluidTransferRate) {
 				itemFluid.fill(this.inventory.getInputTank().drain(fluidTransferRate, true), true);
 				markDirty();
 				sendBlockUpdate();

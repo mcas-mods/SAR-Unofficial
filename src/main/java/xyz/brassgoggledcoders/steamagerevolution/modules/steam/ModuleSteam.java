@@ -15,10 +15,13 @@ import net.minecraftforge.common.config.Property.Type;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockPortableBoiler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteamVent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.*;
 
+@ObjectHolder(value = SteamAgeRevolution.MODID)
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleSteam extends ModuleBase {
 
@@ -27,6 +30,8 @@ public class ModuleSteam extends ModuleBase {
 	public static Block boilerCasing, boilerWaterInput, boilerSolidFirebox, boilerLiquidFirebox, boilerSteamOutput,
 			boilerWaterGauge, boilerSteamGauge, boilerPressureMonitor, boilerPressureValve;
 	public static Block steamVent;
+
+	public static final Block portable_boiler = null;
 
 	public static boolean enableDestruction;
 
@@ -88,5 +93,7 @@ public class ModuleSteam extends ModuleBase {
 
 		steamVent = new BlockSteamVent(Material.IRON, "steam_vent");
 		blockRegistry.register(steamVent);
+
+		blockRegistry.register(new BlockPortableBoiler());
 	}
 }
