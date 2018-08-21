@@ -3,9 +3,11 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
@@ -17,6 +19,8 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.SARMachineTileE
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 public class TileEntityPortableBoiler extends SARMachineTileEntity {
+
+	int currentBurnTime = 0;
 
 	public TileEntityPortableBoiler() {
 		this.setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerExtractSpecific(1), 0, 0),
@@ -49,6 +53,27 @@ public class TileEntityPortableBoiler extends SARMachineTileEntity {
 			return (T) this.inventory.getInputTank();
 		}
 		return super.getCapability(capability, facing);
+	}
+
+	@Override
+	public boolean canRun() {
+		return this.inventory.getInputTank().getFluidAmount() != 0;
+	}
+
+	@Override
+	public void onActiveTick() {
+		if(currentBurnTime == 0) {
+			if(!this.inventory.getInputHandler().getStackInSlot(0).isEmpty()) {
+				currentBurnTime = TileEntityFurnace.getItemBurnTime(this.inventory.getInputHandler().getStackInSlot(0));
+				this.inventory.getInputHandler().extractItem(0, 1, false);
+			}
+		}
+		else {
+			int fluidAmount = Fluid.BUCKET_VOLUME / 20;
+			this.inventory.getInputTank().drain(fluidAmount, true);
+			this.inventory.getSteamTank().fill(FluidRegistry.getFluidStack("steam", fluidAmount), true);
+			currentBurnTime--;
+		}
 	}
 
 }
