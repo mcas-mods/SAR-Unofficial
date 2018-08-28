@@ -82,10 +82,8 @@ public class ModuleSteam extends ModuleBase {
 		blockRegistry.register(boilerSolidFirebox);
 		boilerLiquidFirebox = new BlockBoilerLiquidFirebox(Material.IRON, "boiler_liquid_firebox");
 		blockRegistry.register(boilerLiquidFirebox);
-		boilerWaterGauge = new BlockBoilerWaterGauge(Material.IRON, "boiler_water_gauge");
+		boilerWaterGauge = new BlockBoilerGauge(Material.IRON, "boiler_gauge");
 		blockRegistry.register(boilerWaterGauge);
-		boilerSteamGauge = new BlockBoilerSteamGauge(Material.IRON, "boiler_steam_gauge");
-		blockRegistry.register(boilerSteamGauge);
 		boilerPressureMonitor = new BlockBoilerPressureMonitor(Material.IRON, "boiler_pressuremonitor");
 		blockRegistry.register(boilerPressureMonitor);
 		boilerPressureValve = new BlockBoilerPressureValve(Material.IRON, "boiler_pressurevalve");

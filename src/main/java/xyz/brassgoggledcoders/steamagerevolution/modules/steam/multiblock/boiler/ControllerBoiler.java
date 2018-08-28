@@ -3,6 +3,8 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boile
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 
 import net.minecraft.item.ItemStack;
@@ -11,11 +13,15 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
-import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureMonitor;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureValve;
+import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceFluid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
@@ -25,21 +31,25 @@ public class ControllerBoiler extends SARMultiblockInventory {
 	public static final int fluidConversionPerTick = 5;
 	public static final float maxPressure = 3.0F;
 
-	public ItemStackHandler solidFuelInventory = new ItemStackHandlerFuel(3, this);
-	public FluidTank liquidFuelTank = new FluidTank(Fluid.BUCKET_VOLUME * 16);
-	public FluidTankSingleSmart waterTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "water", this);
-	public FluidTankSingleSmart steamTank = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this);
-
 	public float pressure = 1.0F;
 	public int currentBurnTime = 0;
 
 	Set<BlockPos> attachedMonitors;
 	Set<BlockPos> attachedValves;
 
+	public BlockPos minimumInteriorPos;
+	public BlockPos maximumInteriorPos;
+
 	public ControllerBoiler(World world) {
 		super(world);
 		attachedMonitors = new HashSet<BlockPos>();
 		attachedValves = new HashSet<BlockPos>();
+		this.setInventory(new InventoryMachine(
+				new InventoryPieceItem(new ItemStackHandlerFuel(1, this), new int[] { 0, 0, 0 }, new int[] { 0, 0, 0 }),
+				new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 1), 0, 0), null,
+				/* TODO: having water tank as output is...hacky */new InventoryPieceFluid(
+						new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 1), 0, 0),
+				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this), 0, 0)));
 	}
 
 	@Override
@@ -48,7 +58,7 @@ public class ControllerBoiler extends SARMultiblockInventory {
 		// Logic must of course run before checking if it should explode...!
 		for(BlockPos pos : attachedValves) {
 			if(WORLD.isBlockPowered(pos)) {
-				steamTank.drain(Fluid.BUCKET_VOLUME, true);
+				this.inventory.getSteamTank().drain(Fluid.BUCKET_VOLUME, true);
 				pressure = 1.0F;
 				updateRedstoneOutputLevels();
 				return true;
@@ -63,29 +73,31 @@ public class ControllerBoiler extends SARMultiblockInventory {
 		}
 
 		if(currentBurnTime == 0) {
-			for(int i = 0; i < solidFuelInventory.getSlots(); i++) {
-				ItemStack fuel = solidFuelInventory.getStackInSlot(i);
+			for(int i = 0; i < this.inventory.getInputHandler().getSlots(); i++) {
+				ItemStack fuel = this.inventory.getInputHandler().getStackInSlot(i);
 				if(!fuel.isEmpty() && TileEntityFurnace.getItemBurnTime(fuel) != 0) {
 					currentBurnTime = (TileEntityFurnace.getItemBurnTime(fuel) / fuelDivisor);
 					// TODO
 					fuel.shrink(1);
-					solidFuelInventory.setStackInSlot(i, fuel);
+					this.inventory.getInputHandler().setStackInSlot(i, fuel);
 					return true;
 				}
 			}
-			if(liquidFuelTank.getFluidAmount() != 0) {
+			if(this.inventory.getInputTank().getFluidAmount() != 0) {
 				// TODO
-				if(liquidFuelTank.getFluid().getFluid() == FluidRegistry.LAVA) {
+				if(this.inventory.getInputTank().getFluid().getFluid() == FluidRegistry.LAVA) {
 					currentBurnTime = 1000;
 					return true;
 				}
 			}
 		}
 		else {
-			if(waterTank.getFluidAmount() >= fluidConversionPerTick) {
-				if(steamTank.getFluidAmount() <= (steamTank.getCapacity() - fluidConversionPerTick)) {
-					steamTank.fill(new FluidStack(FluidRegistry.getFluid("steam"), fluidConversionPerTick), true);
-					waterTank.drain(fluidConversionPerTick, true);
+			if(this.inventory.getOutputTank().getFluidAmount() >= fluidConversionPerTick) {
+				if(this.inventory.getSteamTank()
+						.getFluidAmount() <= (this.inventory.getSteamTank().getCapacity() - fluidConversionPerTick)) {
+					this.inventory.getSteamTank()
+							.fill(new FluidStack(FluidRegistry.getFluid("steam"), fluidConversionPerTick), true);
+					this.inventory.getOutputTank().drain(fluidConversionPerTick, true);
 				}
 				else {
 					pressure += 0.01F;
@@ -106,37 +118,31 @@ public class ControllerBoiler extends SARMultiblockInventory {
 
 	@Override
 	public int getMaximumXSize() {
-		return 3;
+		return 6;
 	}
 
 	@Override
 	public int getMaximumZSize() {
-		return 3;
+		return 6;
 	}
 
 	@Override
 	public int getMaximumYSize() {
-		return 3;
+		return 6;
 	}
 
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
 		pressure = data.getFloat("pressure");
 		currentBurnTime = data.getInteger("burntime");
-		solidFuelInventory.deserializeNBT(data.getCompoundTag("fuelinv"));
-		waterTank.readFromNBT(data.getCompoundTag("wtank"));
-		steamTank.readFromNBT(data.getCompoundTag("stank"));
-		liquidFuelTank.readFromNBT(data.getCompoundTag("liquidfuelinv"));
+		super.onAttachedPartWithMultiblockData(part, data);
 	}
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
 		data.setFloat("pressure", pressure);
 		data.setInteger("burntime", currentBurnTime);
-		data.setTag("fuelinv", solidFuelInventory.serializeNBT());
-		data.setTag("wtank", waterTank.writeToNBT(new NBTTagCompound()));
-		data.setTag("stank", steamTank.writeToNBT(new NBTTagCompound()));
-		data.setTag("liquidfuelinv", liquidFuelTank.writeToNBT(new NBTTagCompound()));
+		super.writeToDisk(data);
 	}
 
 	@Override
@@ -169,6 +175,15 @@ public class ControllerBoiler extends SARMultiblockInventory {
 	@Override
 	public String getName() {
 		return "Boiler";
+	}
+
+	@Override
+	protected void onMachineAssembled() {
+		Pair<BlockPos, BlockPos> interiorPositions = PositionUtils.shrinkPositionCubeBy(getMinimumCoord(),
+				getMaximumCoord(), 1);
+		minimumInteriorPos = interiorPositions.getLeft();
+		maximumInteriorPos = interiorPositions.getRight();
+		super.onMachineAssembled();
 	}
 
 }
