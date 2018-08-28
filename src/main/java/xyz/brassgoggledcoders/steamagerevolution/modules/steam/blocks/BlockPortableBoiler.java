@@ -1,16 +1,10 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -18,16 +12,15 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.items.ItemBlockPortableBoiler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityPortableBoiler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.BlockGUIBase;
 
 public class BlockPortableBoiler extends BlockGUIBase<TileEntityPortableBoiler> {
 
 	public BlockPortableBoiler() {
 		super(Material.IRON, "portable_boiler");
+		this.setItemBlock(new ItemBlockPortableBoiler(this));
 	}
 
 	@Override
@@ -82,22 +75,4 @@ public class BlockPortableBoiler extends BlockGUIBase<TileEntityPortableBoiler> 
 		}
 		return false;
 	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
-		if(stack.hasTagCompound()) {
-			// TODO Don't dummy the actual objects, wasteful
-			TileEntityPortableBoiler dummy = new TileEntityPortableBoiler();
-			NBTTagCompound tileData = stack.getTagCompound().getCompoundTag("teData");
-			dummy.deserializeNBT(tileData);
-			tooltip.add(TextUtils.representInventoryContents(dummy.inventory.getInputHandler()).getUnformattedText());
-			tooltip.add(TextUtils.representTankContents(dummy.inventory.getInputTank()).getUnformattedText());
-			tooltip.add(TextUtils.representTankContents(dummy.inventory.getSteamTank()).getUnformattedText());
-		}
-		else {
-			tooltip.add("No inventory data");
-		}
-	}
-
 }

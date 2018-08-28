@@ -62,9 +62,9 @@ public class TileEntityPortableBoiler extends SARMachineTileEntity {
 
 	@Override
 	public void onActiveTick() {
-		if(currentBurnTime == 0) {
+		if(this.currentTicks == 0) {
 			if(!this.inventory.getInputHandler().getStackInSlot(0).isEmpty()) {
-				currentBurnTime = TileEntityFurnace.getItemBurnTime(this.inventory.getInputHandler().getStackInSlot(0));
+				currentTicks = TileEntityFurnace.getItemBurnTime(this.inventory.getInputHandler().getStackInSlot(0));
 				this.inventory.getInputHandler().extractItem(0, 1, false);
 			}
 		}
@@ -72,7 +72,7 @@ public class TileEntityPortableBoiler extends SARMachineTileEntity {
 			int fluidAmount = Fluid.BUCKET_VOLUME / 20;
 			this.inventory.getInputTank().drain(fluidAmount, true);
 			this.inventory.getSteamTank().fill(FluidRegistry.getFluidStack("steam", fluidAmount), true);
-			currentBurnTime--;
+			currentTicks--;
 		}
 	}
 
