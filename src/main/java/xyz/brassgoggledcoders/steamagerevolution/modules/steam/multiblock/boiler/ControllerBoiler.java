@@ -44,12 +44,11 @@ public class ControllerBoiler extends SARMultiblockInventory {
 		super(world);
 		attachedMonitors = new HashSet<BlockPos>();
 		attachedValves = new HashSet<BlockPos>();
-		this.setInventory(new InventoryMachine(
-				new InventoryPieceItem(new ItemStackHandlerFuel(1, this), new int[] { 0, 0, 0 }, new int[] { 0, 0, 0 }),
+		this.setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerFuel(1, this), 81, 32),
 				new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 1), 0, 0), null,
 				/* TODO: having water tank as output is...hacky */new InventoryPieceFluid(
-						new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 1), 0, 0),
-				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this), 0, 0)));
+						new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 1), 50, 9),
+				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this), 142, 9)));
 	}
 
 	@Override
