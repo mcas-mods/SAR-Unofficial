@@ -9,8 +9,10 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.ControllerTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.tileentities.TileEntityTankWindow;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
@@ -63,8 +65,12 @@ public class BlockTankWindow extends BlockMultiblockBase<TileEntityTankWindow> {
 		Optional<TileEntityTankWindow> te = this.getTileEntity(world, pos);
 		if(te.isPresent()) {
 			TileEntityTankWindow window = te.get();
-			if(window.isConnected() && window.getMultiblockController().isAssembled()) {
-				return window.getMultiblockController().tank.getFluid().getFluid().getLuminosity();
+			ControllerTank multiblockController = window.getMultiblockController();
+			if(window.isConnected() && multiblockController.isAssembled()) {
+				FluidStack fluid = multiblockController.tank.getFluid();
+				if(fluid != null) {
+					return fluid.getFluid().getLuminosity();
+				}
 			}
 		}
 		return state.getLightValue();

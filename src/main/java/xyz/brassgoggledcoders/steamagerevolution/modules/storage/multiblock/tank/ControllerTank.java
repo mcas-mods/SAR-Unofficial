@@ -10,8 +10,9 @@ import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
@@ -20,12 +21,11 @@ public class ControllerTank extends SARMultiblockBase {
 
 	public BlockPos minimumInteriorPos;
 	public BlockPos maximumInteriorPos;
-	public FluidTankSmart tank;
+	public FluidTank tank;
 
 	public ControllerTank(World world) {
 		super(world);
-		// tank = new FluidTankSmart(0, this, TankType.UNDEFINED);
-		// TODO Auto-generated constructor stub
+		tank = new FluidTank(0);
 	}
 
 	@Override
@@ -47,9 +47,7 @@ public class ControllerTank extends SARMultiblockBase {
 			blocksInside++;
 		}
 		// Size internal tank accordingly
-		// tank = new FluidTankSmart(tank.getFluid(), blocksInside * Fluid.BUCKET_VOLUME
-		// * 16, this, TankType.UNDEFINED);
-		// FMLLog.warning("" + tank.getCapacity());
+		tank = new FluidTank(tank.getFluid(), blocksInside * Fluid.BUCKET_VOLUME * 16);
 		super.onMachineAssembled();
 	}
 
