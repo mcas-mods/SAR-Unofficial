@@ -14,8 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureMonitor;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureValve;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
@@ -39,6 +38,7 @@ public class ControllerBoiler extends SARMultiblockInventory {
 
 	public BlockPos minimumInteriorPos;
 	public BlockPos maximumInteriorPos;
+	public boolean hasWindow = false;
 
 	public ControllerBoiler(World world) {
 		super(world);
@@ -152,10 +152,18 @@ public class ControllerBoiler extends SARMultiblockInventory {
 		else if(newPart instanceof TileEntityBoilerPressureValve) {
 			attachedValves.add(newPart.getWorldPosition());
 		}
+		else if(newPart instanceof TileEntityBoilerGauge) {
+			this.hasWindow = true;
+		}
 	}
 
 	@Override
 	protected void onBlockRemoved(IMultiblockPart oldPart) {
+
+		if(oldPart instanceof TileEntityBoilerGauge && hasWindow == true) {
+			hasWindow = this.connectedParts.stream().noneMatch(part -> part instanceof TileEntityBoilerGauge);
+		}
+
 		if(oldPart instanceof TileEntityBoilerPressureMonitor) {
 			attachedMonitors.remove(oldPart.getWorldPosition());
 		}

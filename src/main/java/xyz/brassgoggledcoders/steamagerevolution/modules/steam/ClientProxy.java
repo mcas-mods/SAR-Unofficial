@@ -8,8 +8,8 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.*;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.renderers.TileEntityBoilerGaugeRenderer;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerGauge;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.renderers.MultiblockBoilerRenderer;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerCasing;
 
 public class ClientProxy implements IModuleProxy {
 
@@ -21,7 +21,7 @@ public class ClientProxy implements IModuleProxy {
 	public void init(FMLInitializationEvent event) {
 		Base.instance.getLibProxy().registerFluidModel(FluidRegistry.getFluid("steam").getBlock(),
 				new ResourceLocation(SteamAgeRevolution.MODID, "steam"));
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBoilerGauge.class, new TileEntityBoilerGaugeRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBoilerCasing.class, new MultiblockBoilerRenderer());
 	}
 
 	@Override
