@@ -2,7 +2,7 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "all": "blocks/glass"
+      "all": "steamagerevolution:blocks/boiler_gauge"
     },
     "model": "cube_all",
     "uvlock": true,
