@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
+package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items;
 
 import java.util.List;
 
@@ -9,11 +9,12 @@ import com.teamacronymcoders.base.IBaseMod;
 import com.teamacronymcoders.base.IModAware;
 import com.teamacronymcoders.base.client.models.IHasModel;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -21,8 +22,9 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
 
-public class ItemSteamHoe extends ItemHoe implements IHasModel, IModAware {
+public class ItemSteamShovel extends ItemSpade implements IHasModel, IModAware {
 
 	boolean creativeTabSet = false;
 	private IBaseMod mod;
@@ -31,26 +33,11 @@ public class ItemSteamHoe extends ItemHoe implements IHasModel, IModAware {
 
 	public static final int steamUsePerBlock = 10;
 
-	protected ItemSteamHoe(String name, int capacity) {
+	public ItemSteamShovel(String name, int capacity) {
 		super(ModuleArmory.STEAM);
 		setUnlocalizedName(name);
 		this.capacity = capacity;
 		this.name = name;
-	}
-
-	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand,
-			EnumFacing facing, float hitX, float hitY, float hitZ) {
-		ItemStack stack = player.getHeldItem(hand);
-		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
-				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
-			internal.drain(steamUsePerBlock, true);
-			return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
-		}
-		else {
-			return EnumActionResult.FAIL;
-		}
 	}
 
 	@Override
@@ -67,6 +54,32 @@ public class ItemSteamHoe extends ItemHoe implements IHasModel, IModAware {
 				return FluidRegistry.getFluidName(fluid).equals("steam");
 			}
 		};
+	}
+
+	@Override
+	public float getDestroySpeed(ItemStack stack, IBlockState state) {
+		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
+				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
+			return super.getDestroySpeed(stack, state);
+		}
+		else {
+			return 0.0F;
+		}
+	}
+
+	@Override
+	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos,
+			EntityLivingBase entityLiving) {
+		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
+				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
+			internal.drain(steamUsePerBlock, true);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override

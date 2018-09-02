@@ -119,6 +119,7 @@ fluid.slime=Slime
 death.attack.hammer=%1$s was flattened.
 death.attack.gas=%1$s's lungs dissolved.
 death.attack.acid=%1$s became a part of the solution.
+death.attack.bullet=%1$s took a bullet to the knee.
 
 #Guide
 item.guide.steamagerevolution=SteamAgeRevolution Guidebook

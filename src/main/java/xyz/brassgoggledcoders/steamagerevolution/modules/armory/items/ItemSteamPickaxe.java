@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
+package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items;
 
 import java.util.List;
 
@@ -22,8 +22,9 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
 
-public class ItemSteamAxe extends ItemAxe implements IHasModel, IModAware {
+public class ItemSteamPickaxe extends ItemPickaxe implements IHasModel, IModAware {
 
 	boolean creativeTabSet = false;
 	private IBaseMod mod;
@@ -32,8 +33,8 @@ public class ItemSteamAxe extends ItemAxe implements IHasModel, IModAware {
 
 	public static final int steamUsePerBlock = 10;
 
-	protected ItemSteamAxe(String name, int capacity) {
-		super(ModuleArmory.STEAM, ModuleArmory.STEAM.getAttackDamage(), -3.0F);
+	public ItemSteamPickaxe(String name, int capacity) {
+		super(ModuleArmory.STEAM);
 		setUnlocalizedName(name);
 		this.capacity = capacity;
 		this.name = name;

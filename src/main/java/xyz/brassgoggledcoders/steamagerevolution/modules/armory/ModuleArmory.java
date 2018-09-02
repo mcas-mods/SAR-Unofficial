@@ -1,5 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 
+import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -7,39 +8,25 @@ import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
 import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.EntityEntry;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.*;
 
 @Module(value = SteamAgeRevolution.MODID)
+@EventBusSubscriber
 public class ModuleArmory extends ModuleBase {
 
 	public static final ToolMaterial STEAM = EnumHelper.addToolMaterial("TOOL_STEAM", 2, -1, 12.0F, 3.0F, 0);
 
-	@Override
-	public void preInit(FMLPreInitializationEvent fmlPreInitializationEvent) {
-		/*
-		 * CapabilityManager.INSTANCE.register(IExpansionContainer.class, new
-		 * Capability.IStorage<IExpansionContainer>() {
-		 * 
-		 * @Override public NBTBase writeNBT(Capability<IExpansionContainer> capability,
-		 * IExpansionContainer instance, EnumFacing side) { return new NBTTagCompound();
-		 * }
-		 * 
-		 * @Override public void readNBT(Capability<IExpansionContainer> capability,
-		 * IExpansionContainer instance, EnumFacing side, NBTBase nbt) { } },
-		 * ExpansionContainerHandler.class);
-		 * CapabilityManager.INSTANCE.register(IExpansion.class, new
-		 * Capability.IStorage<IExpansion>() {
-		 * 
-		 * @Override public NBTBase writeNBT(Capability<IExpansion> capability,
-		 * IExpansion instance, EnumFacing side) { return new NBTTagCompound(); }
-		 * 
-		 * @Override public void readNBT(Capability<IExpansion> capability, IExpansion
-		 * instance, EnumFacing side, NBTBase nbt) { } }, ExpansionHandler.class);
-		 */
-		super.preInit(fmlPreInitializationEvent);
-	}
+	public static DamageSource damageSourceBullet = new DamageSource("bullet").setDifficultyScaled().setProjectile();
 
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
@@ -58,6 +45,16 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemSteamShovel("steam_shovel", 1000));
 		itemRegistry.register(new ItemSteamHoe("steam_hoe", 1000));
 		itemRegistry.register(new ItemSteamSword("steam_sword", 1000));
+
+		itemRegistry.register(new ItemGun());
+		itemRegistry.register(new ItemBase("bullet"));
+	}
+
+	@SubscribeEvent
+	public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
+		int networkID = 0;
+		EntityRegistry.registerModEntity(new ResourceLocation(SteamAgeRevolution.MODID, "bullet"), EntityBullet.class,
+				"Bullet", networkID++, SteamAgeRevolution.MODID, 64, 1, true);
 	}
 
 	@Override

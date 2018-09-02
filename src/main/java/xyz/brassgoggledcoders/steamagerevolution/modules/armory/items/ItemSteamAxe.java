@@ -1,29 +1,30 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
+package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items;
 
 import java.util.List;
 
 import javax.annotation.*;
 
-import com.google.common.collect.*;
+import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.IBaseMod;
 import com.teamacronymcoders.base.IModAware;
 import com.teamacronymcoders.base.client.models.IHasModel;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
 
-public class ItemSteamSword extends ItemSword implements IHasModel, IModAware {
+public class ItemSteamAxe extends ItemAxe implements IHasModel, IModAware {
 
 	boolean creativeTabSet = false;
 	private IBaseMod mod;
@@ -32,43 +33,11 @@ public class ItemSteamSword extends ItemSword implements IHasModel, IModAware {
 
 	public static final int steamUsePerBlock = 10;
 
-	protected ItemSteamSword(String name, int capacity) {
-		super(ModuleArmory.STEAM);
+	public ItemSteamAxe(String name, int capacity) {
+		super(ModuleArmory.STEAM, ModuleArmory.STEAM.getAttackDamage(), -3.0F);
 		setUnlocalizedName(name);
 		this.capacity = capacity;
 		this.name = name;
-	}
-
-	@Override
-	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
-				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
-			internal.drain(steamUsePerBlock, true);
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	// TODO apply to other tools
-	@Override
-	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-		Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
-
-		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
-				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-
-		if(slot == EntityEquipmentSlot.MAINHAND && internal.getFluid() != null) {
-			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
-					new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 3.0F + getAttackDamage(), 0));
-			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
-					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.4000000953674316D, 0));
-		}
-
-		return multimap;
 	}
 
 	@Override
@@ -85,6 +54,32 @@ public class ItemSteamSword extends ItemSword implements IHasModel, IModAware {
 				return FluidRegistry.getFluidName(fluid).equals("steam");
 			}
 		};
+	}
+
+	@Override
+	public float getDestroySpeed(ItemStack stack, IBlockState state) {
+		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
+				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
+			return super.getDestroySpeed(stack, state);
+		}
+		else {
+			return 0.0F;
+		}
+	}
+
+	@Override
+	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos,
+			EntityLivingBase entityLiving) {
+		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
+				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
+			internal.drain(steamUsePerBlock, true);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override
