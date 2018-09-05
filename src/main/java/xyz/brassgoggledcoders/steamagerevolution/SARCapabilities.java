@@ -6,7 +6,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -25,17 +27,17 @@ public class SARCapabilities {
     @CapabilityInject(IMechanicalPower.class)
     public static Capability<IMechanicalPower> MECHANICAL_POWER;
 
-	public static void register() {
-		CapabilityManager.INSTANCE.register(IFumeProducer.class, new Capability.IStorage<IFumeProducer>() {
-			@Override
-			public NBTTagCompound writeNBT(Capability<IFumeProducer> capability, IFumeProducer instance,
-					EnumFacing side) {
-				return new NBTTagCompound();
-			}
+    public static void register() {
+        CapabilityManager.INSTANCE.register(IFumeProducer.class, new Capability.IStorage<IFumeProducer>() {
+            @Override
+            public NBTTagCompound writeNBT(Capability<IFumeProducer> capability, IFumeProducer instance,
+                                           EnumFacing side) {
+                return new NBTTagCompound();
+            }
 
-			@Override
-			public void readNBT(Capability<IFumeProducer> capability, IFumeProducer instance, EnumFacing side,
-					NBTBase nbt) {
+            @Override
+            public void readNBT(Capability<IFumeProducer> capability, IFumeProducer instance, EnumFacing side,
+                                NBTBase nbt) {
 
             }
         }, EmptyFumeProducer::new);

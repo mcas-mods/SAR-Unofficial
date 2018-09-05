@@ -20,60 +20,59 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExt
 
 public class TileEntityPortableBoiler extends SARMachineTileEntity {
 
-	int currentBurnTime = 0;
+    int currentBurnTime = 0;
 
-	public TileEntityPortableBoiler() {
-		this.setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerExtractSpecific(1), 0, 0),
-				new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME, this, 1), 0, 0), null, null,
-				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this), 0, 0)));
-	}
+    public TileEntityPortableBoiler() {
+        this.setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerExtractSpecific(1), 0, 0),
+                new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME, this, 1), 0, 0), null, null,
+                new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this), 0, 0)));
+    }
 
-	@Override
-	public String getName() {
-		return "Portable Boiler";
-	}
+    @Override
+    public String getName() {
+        return "Portable Boiler";
+    }
 
-	public ItemStack createDrop() {
-		ItemStack stack = new ItemStack(Item.getItemFromBlock(ModuleSteam.portable_boiler));
-		NBTTagCompound tag = new NBTTagCompound();
-		tag.setTag("teData", this.serializeNBT());
-		stack.setTagCompound(tag);
-		return stack;
-	}
+    public ItemStack createDrop() {
+        ItemStack stack = new ItemStack(Item.getItemFromBlock(ModuleSteam.portable_boiler));
+        NBTTagCompound tag = new NBTTagCompound();
+        tag.setTag("teData", this.serializeNBT());
+        stack.setTagCompound(tag);
+        return stack;
+    }
 
-	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
-	}
+    @Override
+    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+        return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return (T) this.inventory.getInputTank();
-		}
-		return super.getCapability(capability, facing);
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+            return (T) this.inventory.getInputTank();
+        }
+        return super.getCapability(capability, facing);
+    }
 
-	@Override
-	public boolean canRun() {
-		return this.inventory.getInputTank().getFluidAmount() != 0;
-	}
+    @Override
+    public boolean canRun() {
+        return this.inventory.getInputTank().getFluidAmount() != 0;
+    }
 
-	@Override
-	public void onActiveTick() {
-		if(this.currentTicks == 0) {
-			if(!this.inventory.getInputHandler().getStackInSlot(0).isEmpty()) {
-				currentTicks = TileEntityFurnace.getItemBurnTime(this.inventory.getInputHandler().getStackInSlot(0));
-				this.inventory.getInputHandler().extractItem(0, 1, false);
-			}
-		}
-		else {
-			int fluidAmount = Fluid.BUCKET_VOLUME / 20;
-			this.inventory.getInputTank().drain(fluidAmount, true);
-			this.inventory.getSteamTank().fill(FluidRegistry.getFluidStack("steam", fluidAmount), true);
-			currentTicks--;
-		}
-	}
+    @Override
+    public void onActiveTick() {
+        if (this.currentTicks == 0) {
+            if (!this.inventory.getInputHandler().getStackInSlot(0).isEmpty()) {
+                currentTicks = TileEntityFurnace.getItemBurnTime(this.inventory.getInputHandler().getStackInSlot(0));
+                this.inventory.getInputHandler().extractItem(0, 1, false);
+            }
+        } else {
+            int fluidAmount = Fluid.BUCKET_VOLUME / 20;
+            this.inventory.getInputTank().drain(fluidAmount, true);
+            this.inventory.getSteamTank().fill(FluidRegistry.getFluidStack("steam", fluidAmount), true);
+            currentTicks--;
+        }
+    }
 
 }

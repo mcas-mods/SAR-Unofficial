@@ -6,20 +6,20 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
 
 public class FluidTankSingleSmart extends FluidTankSmart {
 
-	private String fluidName;
+    private String fluidName;
 
-	public FluidTankSingleSmart(int capacity, String fluidName, IHasInventory parent) {
-		super(capacity, parent);
-		this.fluidName = fluidName;
-	}
+    public FluidTankSingleSmart(int capacity, String fluidName, IHasInventory parent) {
+        super(capacity, parent);
+        this.fluidName = fluidName;
+    }
 
-	@Override
-	public boolean canFillFluidType(FluidStack fluid) {
-		return getFluidName().equals(FluidRegistry.getFluidName(fluid)) ? canFill() : false;
-	}
+    @Override
+    public boolean canFillFluidType(FluidStack fluid) {
+        return getFluidName().equals(FluidRegistry.getFluidName(fluid)) ? canFill() : false;
+    }
 
-	public String getFluidName() {
-		return fluidName;
-	}
+    public String getFluidName() {
+        return fluidName;
+    }
 
 }

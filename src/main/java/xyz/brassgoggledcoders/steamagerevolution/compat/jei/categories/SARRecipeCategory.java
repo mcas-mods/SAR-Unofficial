@@ -9,38 +9,38 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public abstract class SARRecipeCategory<T extends IRecipeWrapper> implements IRecipeCategory<T> {
 
-	String uid, name;
-	protected static IGuiHelper helper;
-	ResourceLocation background;
+    protected static IGuiHelper helper;
+    String uid, name;
+    ResourceLocation background;
 
-	public SARRecipeCategory(String uid, String name) {
-		this.uid = uid;
-		this.name = name;
-		background = new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/jei/" + uid + ".png");
-	}
+    public SARRecipeCategory(String uid, String name) {
+        this.uid = uid;
+        this.name = name;
+        background = new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/jei/" + uid + ".png");
+    }
 
-	public static void setGuiHelper(IGuiHelper helper) {
-		SARRecipeCategory.helper = helper;
-	}
+    public static void setGuiHelper(IGuiHelper helper) {
+        SARRecipeCategory.helper = helper;
+    }
 
-	@Override
-	public IDrawable getBackground() {
-		return helper.createDrawable(background, 0, 0, 134, 65);
-	}
+    @Override
+    public IDrawable getBackground() {
+        return helper.createDrawable(background, 0, 0, 134, 65);
+    }
 
-	@Override
-	public String getUid() {
-		return SteamAgeRevolution.MODID + ":" + uid;
-	}
+    @Override
+    public String getUid() {
+        return SteamAgeRevolution.MODID + ":" + uid;
+    }
 
-	@Override
-	public String getTitle() {
-		return name;
-	}
+    @Override
+    public String getTitle() {
+        return name;
+    }
 
-	@Override
-	public String getModName() {
-		return SteamAgeRevolution.MODNAME;
-	}
+    @Override
+    public String getModName() {
+        return SteamAgeRevolution.MODNAME;
+    }
 
 }

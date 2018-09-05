@@ -9,18 +9,18 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultibloc
 
 public class BlockFurnaceItemOutput extends BlockMultiblockBase<TileEntityFurnaceItemOutput> {
 
-	public BlockFurnaceItemOutput(Material material, String name) {
-		super(material, name);
-	}
+    public BlockFurnaceItemOutput(Material material, String name) {
+        super(material, name);
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityFurnaceItemOutput.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityFurnaceItemOutput.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityFurnaceItemOutput();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityFurnaceItemOutput();
+    }
 
 }

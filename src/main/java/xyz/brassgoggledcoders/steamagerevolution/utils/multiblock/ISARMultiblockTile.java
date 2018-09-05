@@ -1,11 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
 public interface ISARMultiblockTile {
-	public ISARMultiblock getControllerInfo();
+    public ISARMultiblock getControllerInfo();
 
-	public boolean[] getValidPositions();
+    public boolean[] getValidPositions();
 
-	public default String getPartFunction() {
-		return null;
-	}
+    public default String getPartFunction() {
+        return null;
+    }
 }

@@ -1,7 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.guideapi;
 
-import java.util.*;
-
 import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.PageHelper;
@@ -12,16 +10,20 @@ import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 public class BookUtils {
 
-	public static void addBasicEntry(Map<ResourceLocation, EntryAbstract> entries, String keyBase, String key,
-			ItemStack displayStack, boolean img) {
-		List<IPage> entry = new ArrayList<IPage>();
-		if(img) {
-			entry.add(new PageImage(new ResourceLocation(SteamAgeRevolution.MODID, "textures/images/" + key + ".png")));
-		}
-		entry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + key + ".info")));
-		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, key + "_entry"),
-				new EntryItemStack(entry, keyBase + key, displayStack));
-	}
+    public static void addBasicEntry(Map<ResourceLocation, EntryAbstract> entries, String keyBase, String key,
+                                     ItemStack displayStack, boolean img) {
+        List<IPage> entry = new ArrayList<IPage>();
+        if (img) {
+            entry.add(new PageImage(new ResourceLocation(SteamAgeRevolution.MODID, "textures/images/" + key + ".png")));
+        }
+        entry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + key + ".info")));
+        entries.put(new ResourceLocation(SteamAgeRevolution.MODID, key + "_entry"),
+                new EntryItemStack(entry, keyBase + key, displayStack));
+    }
 }

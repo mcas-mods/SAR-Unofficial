@@ -1,14 +1,15 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities;
 
 import com.teamacronymcoders.base.tileentities.TileEntitySlowTick;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
@@ -17,13 +18,13 @@ import xyz.brassgoggledcoders.steamagerevolution.api.IFumeProducer;
 import javax.annotation.Nonnull;
 
 public class TileEntityFumeCollector extends TileEntitySlowTick {
-	public static int outputCapacity = Fluid.BUCKET_VOLUME * 16;
-	public FluidTank tank;
+    public static int outputCapacity = Fluid.BUCKET_VOLUME * 16;
+    public FluidTank tank;
 
-	public TileEntityFumeCollector() {
-		super();
-		// tank = new FluidTankSmart(outputCapacity, this);
-	}
+    public TileEntityFumeCollector() {
+        super();
+        // tank = new FluidTankSmart(outputCapacity, this);
+    }
 
     // TODO this probably really doesn't need to be ticking.
     @Override
@@ -64,13 +65,13 @@ public class TileEntityFumeCollector extends TileEntitySlowTick {
         return super.getCapability(capability, facing);
     }
 
-	@Override
-	public void readFromDisk(NBTTagCompound tag) {
-		tank.readFromNBT(tag);
-	}
+    @Override
+    public void readFromDisk(NBTTagCompound tag) {
+        tank.readFromNBT(tag);
+    }
 
-	@Override
-	public NBTTagCompound writeToDisk(NBTTagCompound tag) {
-		return tank.writeToNBT(tag);
-	}
+    @Override
+    public NBTTagCompound writeToDisk(NBTTagCompound tag) {
+        return tank.writeToNBT(tag);
+    }
 }

@@ -10,35 +10,35 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultibloc
 
 public class BlockBoilerPressureMonitor extends BlockMultiblockBase<TileEntityBoilerPressureMonitor> {
 
-	public BlockBoilerPressureMonitor(Material material, String name) {
-		super(material, name);
-		// TODO Auto-generated constructor stub
-	}
+    public BlockBoilerPressureMonitor(Material material, String name) {
+        super(material, name);
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		// TODO Auto-generated method stub
-		return TileEntityBoilerPressureMonitor.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        // TODO Auto-generated method stub
+        return TileEntityBoilerPressureMonitor.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		// TODO Auto-generated method stub
-		return new TileEntityBoilerPressureMonitor();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        // TODO Auto-generated method stub
+        return new TileEntityBoilerPressureMonitor();
+    }
 
-	@Override
-	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
-		TileEntityBoilerPressureMonitor te = getTileEntity(world, pos).get();
-		if(te.isConnected() && te.getMultiblockController().isAssembled()) {
-			return (int) Math.ceil((te.getMultiblockController().pressure));
-		}
-		return 0;
-	}
+    @Override
+    public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+        TileEntityBoilerPressureMonitor te = getTileEntity(world, pos).get();
+        if (te.isConnected() && te.getMultiblockController().isAssembled()) {
+            return (int) Math.ceil((te.getMultiblockController().pressure));
+        }
+        return 0;
+    }
 
-	@Override
-	public boolean hasComparatorInputOverride(IBlockState state) {
-		return true;
-	}
+    @Override
+    public boolean hasComparatorInputOverride(IBlockState state) {
+        return true;
+    }
 
 }

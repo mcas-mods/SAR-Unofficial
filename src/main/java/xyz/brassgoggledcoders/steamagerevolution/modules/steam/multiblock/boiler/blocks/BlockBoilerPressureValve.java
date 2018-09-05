@@ -9,20 +9,20 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultibloc
 
 public class BlockBoilerPressureValve extends BlockMultiblockBase<TileEntityBoilerPressureValve> {
 
-	public BlockBoilerPressureValve(Material material, String name) {
-		super(material, name);
-		// TODO Auto-generated constructor stub
-	}
+    public BlockBoilerPressureValve(Material material, String name) {
+        super(material, name);
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		// TODO Auto-generated method stub
-		return TileEntityBoilerPressureValve.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        // TODO Auto-generated method stub
+        return TileEntityBoilerPressureValve.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		// TODO Auto-generated method stub
-		return new TileEntityBoilerPressureValve();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        // TODO Auto-generated method stub
+        return new TileEntityBoilerPressureValve();
+    }
 }
