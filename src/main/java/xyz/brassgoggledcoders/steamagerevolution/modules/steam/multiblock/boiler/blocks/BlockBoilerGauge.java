@@ -31,7 +31,7 @@ public class BlockBoilerGauge extends BlockMultiblockBase<TileEntityBoilerGauge>
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public BlockRenderLayer getBlockLayer() {
+	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
 

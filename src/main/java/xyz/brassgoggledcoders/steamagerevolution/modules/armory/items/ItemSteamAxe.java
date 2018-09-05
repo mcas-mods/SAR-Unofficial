@@ -35,7 +35,7 @@ public class ItemSteamAxe extends ItemAxe implements IHasModel, IModAware {
 
 	public ItemSteamAxe(String name, int capacity) {
 		super(ModuleArmory.STEAM, ModuleArmory.STEAM.getAttackDamage(), -3.0F);
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 		this.capacity = capacity;
 		this.name = name;
 	}

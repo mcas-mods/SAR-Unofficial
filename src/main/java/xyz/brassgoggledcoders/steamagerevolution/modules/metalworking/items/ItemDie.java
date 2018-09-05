@@ -26,8 +26,8 @@ public class ItemDie extends ItemBase implements IHasSubItems {
 	}
 
 	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		return this.getUnlocalizedName() + "." + dieShapes[stack.getItemDamage()].toLowerCase();
+	public String getTranslationKey(ItemStack stack) {
+		return this.getTranslationKey() + "." + dieShapes[stack.getItemDamage()].toLowerCase();
 	}
 
 	public static String getDieNameFromMeta(ItemStack stack) {

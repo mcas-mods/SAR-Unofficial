@@ -34,7 +34,7 @@ public class ItemSteamHoe extends ItemHoe implements IHasModel, IModAware {
 
 	public ItemSteamHoe(String name, int capacity) {
 		super(ModuleArmory.STEAM);
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 		this.capacity = capacity;
 		this.name = name;
 	}

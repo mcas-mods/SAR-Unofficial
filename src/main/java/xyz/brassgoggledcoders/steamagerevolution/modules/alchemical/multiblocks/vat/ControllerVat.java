@@ -62,7 +62,7 @@ public class ControllerVat extends SARMultiblockInventory {
 					entity.setFire(5);
 				}
 				Block fluidBlock = fluid.getFluid().getBlock();
-				fluidBlock.onEntityCollidedWithBlock(WORLD, getReferenceCoord(), fluidBlock.getDefaultState(), entity);
+				fluidBlock.onEntityCollision(WORLD, getReferenceCoord(), fluidBlock.getDefaultState(), entity);
 
 			}
 		}

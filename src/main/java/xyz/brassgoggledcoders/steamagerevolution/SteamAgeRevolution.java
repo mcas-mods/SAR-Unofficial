@@ -21,6 +21,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.StackComparator;
+
+import javax.annotation.Nonnull;
 
 @Mod(modid = SteamAgeRevolution.MODID, name = SteamAgeRevolution.MODNAME, version = SteamAgeRevolution.MODVERSION, dependencies = SteamAgeRevolution.DEPENDENCIES)
 public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
@@ -99,24 +102,15 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 		}
 
 		@Override
-		public ItemStack getTabIconItem() {
+		public ItemStack createIcon() {
 			return new ItemStack(ModuleMetalworking.hammer);
 		}
 
 		@Override
 		@SideOnly(Side.CLIENT)
-		public void displayAllRelevantItems(NonNullList<ItemStack> items) {
+		public void displayAllRelevantItems(@Nonnull NonNullList<ItemStack> items) {
 			super.displayAllRelevantItems(items);
-			Collections.sort(items, new StackComparator());
+			items.sort(new StackComparator());
 		}
-
-		class StackComparator implements Comparator<ItemStack> {
-
-			@Override
-			public int compare(ItemStack o1, ItemStack o2) {
-				return o1.getDisplayName().compareToIgnoreCase(o2.getDisplayName());
-			}
-		}
-
 	}
 }

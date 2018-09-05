@@ -79,7 +79,7 @@ public class BlockPneumaticSender extends BlockTEBase<TileEntityPneumaticSender>
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		EnumFacing enumfacing = EnumFacing.getFront(meta);
+		EnumFacing enumfacing = EnumFacing.byIndex(meta);
 		return getDefaultState().withProperty(FACING, enumfacing);
 	}
 

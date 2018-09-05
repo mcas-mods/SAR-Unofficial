@@ -27,7 +27,7 @@ public class ItemClockworkWings extends ItemArmorBase {
 	public ItemClockworkWings() {
 		super(ArmorMaterial.LEATHER, EntityEquipmentSlot.CHEST, "clockwork_wings");
 		setMaxDamage(0);
-		setUnlocalizedName("clockwork_wings");
+		setTranslationKey("clockwork_wings");
 	}
 
 	@Override

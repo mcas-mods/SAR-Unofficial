@@ -45,7 +45,7 @@ public class ItemTeacup extends ItemBase implements IHasSubItems {
 
 	public String getSipsLeft(ItemStack stack) {
 		// if(stack.getItemDamage() < getNumberOfSubItems()) {
-		// return StatCollector.translateToLocal("desc." + getUnlocalizedName() + "." +
+		// return StatCollector.translateToLocal("desc." + getTranslationKey() + "." +
 		// stack.getItemDamage() +
 		// "sips");
 		// }

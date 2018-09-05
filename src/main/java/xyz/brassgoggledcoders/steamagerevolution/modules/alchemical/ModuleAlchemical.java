@@ -98,7 +98,7 @@ public class ModuleAlchemical extends ModuleBase {
 		// from vanilla
 		new MachineRecipeBuilder("vat")
 				.setFluidOutputs(
-						getPotionFluidStack(PotionTypes.AWKWARD.getRegistryName().getResourcePath(), VALUE_BOTTLE))
+						getPotionFluidStack(PotionTypes.AWKWARD.getRegistryName().getPath(), VALUE_BOTTLE))
 				.setFluidInputs(FluidRegistry.getFluidStack("water", VALUE_BOTTLE))
 				.setItemInputs(new ItemStack(Items.NETHER_WART)).build();
 		PotionHelper.POTION_TYPE_CONVERSIONS.stream()
@@ -106,9 +106,9 @@ public class ModuleAlchemical extends ModuleBase {
 						&& mix.output != PotionTypes.THICK)
 				.forEach(potion -> new MachineRecipeBuilder("vat")
 						.setFluidOutputs(
-								getPotionFluidStack(potion.output.getRegistryName().getResourcePath(), VALUE_BOTTLE))
+								getPotionFluidStack(potion.output.getRegistryName().getPath(), VALUE_BOTTLE))
 						.setFluidInputs(
-								getPotionFluidStack(potion.input.getRegistryName().getResourcePath(), VALUE_BOTTLE))
+								getPotionFluidStack(potion.input.getRegistryName().getPath(), VALUE_BOTTLE))
 						.setItemInputs(potion.reagent.getMatchingStacks()[0]).build());
 
 		// new VatRecipeBuilder().setFluids(FluidRegistry.getFluidStack("water",
@@ -185,7 +185,7 @@ public class ModuleAlchemical extends ModuleBase {
 					}
 
 					@Override
-					public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state,
+					public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state,
 							Entity entityIn) {
 						if(entityIn instanceof EntityLiving) {
 							EntityLiving living = (EntityLiving) entityIn;

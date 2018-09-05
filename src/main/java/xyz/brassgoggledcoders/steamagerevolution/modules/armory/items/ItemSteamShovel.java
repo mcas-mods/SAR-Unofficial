@@ -35,7 +35,7 @@ public class ItemSteamShovel extends ItemSpade implements IHasModel, IModAware {
 
 	public ItemSteamShovel(String name, int capacity) {
 		super(ModuleArmory.STEAM);
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 		this.capacity = capacity;
 		this.name = name;
 	}

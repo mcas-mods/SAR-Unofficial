@@ -35,7 +35,7 @@ public class ItemSteamPickaxe extends ItemPickaxe implements IHasModel, IModAwar
 
 	public ItemSteamPickaxe(String name, int capacity) {
 		super(ModuleArmory.STEAM);
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 		this.capacity = capacity;
 		this.name = name;
 	}

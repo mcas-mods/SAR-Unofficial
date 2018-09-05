@@ -42,7 +42,7 @@ public class BlockPneumaticRouter extends BlockTEBase<TileEntityPneumaticRouter>
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		EnumFacing enumfacing = EnumFacing.getFront(meta);
+		EnumFacing enumfacing = EnumFacing.byIndex(meta);
 		return getDefaultState().withProperty(FACING, enumfacing);
 	}
 

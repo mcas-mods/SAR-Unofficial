@@ -35,7 +35,7 @@ public class ItemSteamSword extends ItemSword implements IHasModel, IModAware {
 
 	public ItemSteamSword(String name, int capacity) {
 		super(ModuleArmory.STEAM);
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 		this.capacity = capacity;
 		this.name = name;
 	}

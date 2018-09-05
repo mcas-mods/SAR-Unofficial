@@ -27,7 +27,7 @@ public class BlockSteamVent extends BlockTEBase<TileEntitySteamVent> {
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		EnumFacing enumfacing = EnumFacing.getFront(meta);
+		EnumFacing enumfacing = EnumFacing.byIndex(meta);
 		return getDefaultState().withProperty(FACING, enumfacing);
 	}
 
