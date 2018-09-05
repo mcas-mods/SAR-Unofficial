@@ -1,18 +1,17 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 
 import com.teamacronymcoders.base.containers.ContainerBase;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 
 public class ContainerSingleTank extends ContainerBase {
-	public ContainerSingleTank(EntityPlayer player, TileEntity tile) {
-		createPlayerSlots(player.inventory);
-	}
+    public ContainerSingleTank(EntityPlayer player, TileEntity tile) {
+        createPlayerSlots(player.inventory);
+    }
 
-	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) {
-		return true;
-	}
+    @Override
+    public boolean canInteractWith(EntityPlayer playerIn) {
+        return true;
+    }
 
 }

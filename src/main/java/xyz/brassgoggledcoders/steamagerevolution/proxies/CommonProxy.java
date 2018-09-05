@@ -6,19 +6,19 @@ import net.minecraft.util.math.BlockPos;
 
 public class CommonProxy {
 
-	public void registerModels() {
-	}
+    public void registerModels() {
+    }
 
-	public void spawnSmoke(BlockPos at) {
-	}
+    public void spawnSmoke(BlockPos at) {
+    }
 
-	public void spawnSteamJet(BlockPos at, EnumFacing f) {
-	}
+    public void spawnSteamJet(BlockPos at, EnumFacing f) {
+    }
 
-	public void spawnFX(EnumParticleTypes type, BlockPos pos) {
-	}
+    public void spawnFX(EnumParticleTypes type, BlockPos pos) {
+    }
 
-	public void spawnMultiblockAssemblyFX(BlockPos min, BlockPos max) {
-	}
+    public void spawnMultiblockAssemblyFX(BlockPos min, BlockPos max) {
+    }
 
 }

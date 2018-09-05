@@ -9,19 +9,19 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultibloc
 
 public class BlockCrucibleFluidOutput extends BlockMultiblockBase<TileEntityCrucibleFluidOutput> {
 
-	public BlockCrucibleFluidOutput(Material material, String name) {
-		super(material, name);
-		// TODO Auto-generated constructor stub
-	}
+    public BlockCrucibleFluidOutput(Material material, String name) {
+        super(material, name);
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityCrucibleFluidOutput.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityCrucibleFluidOutput.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityCrucibleFluidOutput();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityCrucibleFluidOutput();
+    }
 
 }

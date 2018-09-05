@@ -8,15 +8,15 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.steamagerevolution.SteamHammer")
 public class SteamHammerTweaker {
-	@ZenMethod
-	public static void addRecipe(IIngredient input, IIngredient input2, IItemStack output, int craftTime,
-			int steamCost) {
-		MachineTweaker.addRecipe("steam hammer", new IIngredient[] { input, input2 }, null, new IItemStack[] { output },
-				null, craftTime, steamCost);
-	}
+    @ZenMethod
+    public static void addRecipe(IIngredient input, IIngredient input2, IItemStack output, int craftTime,
+                                 int steamCost) {
+        MachineTweaker.addRecipe("steam hammer", new IIngredient[]{input, input2}, null, new IItemStack[]{output},
+                null, craftTime, steamCost);
+    }
 
-	@ZenMethod
-	public static void removeRecipe(IItemStack output) {
-		MachineTweaker.removeRecipe("steam furnace", new ItemStack[] { CTHelper.toItemStack(output) }, null);
-	}
+    @ZenMethod
+    public static void removeRecipe(IItemStack output) {
+        MachineTweaker.removeRecipe("steam furnace", new ItemStack[]{CTHelper.toItemStack(output)}, null);
+    }
 }

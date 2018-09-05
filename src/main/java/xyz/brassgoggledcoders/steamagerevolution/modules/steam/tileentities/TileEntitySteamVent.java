@@ -1,7 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities;
 
 import com.teamacronymcoders.base.tileentities.TileEntitySlowTick;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
@@ -18,48 +17,48 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteam
 
 public class TileEntitySteamVent extends TileEntitySlowTick {
 
-	public FluidTank tank;// = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 6, "steam", this,
-							// TankType.UNDEFINED);
+    public FluidTank tank;// = new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 6, "steam", this,
+    // TankType.UNDEFINED);
 
-	@Override
-	// TODO No real need to tick.
-	public void updateTile() {
-		World w = getWorld();
-		BlockPos pos = getPos();
-		if(w.isBlockPowered(pos) && tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
-			EnumFacing f = w.getBlockState(pos).getValue(BlockSteamVent.FACING);
-			for(EntityLivingBase e : w.getEntitiesWithinAABB(EntityLivingBase.class,
-					new AxisAlignedBB(pos.offset(f)))) {
-				e.attackEntityFrom(DamageSource.IN_FIRE, 3F);
-			}
-			tank.drain(Fluid.BUCKET_VOLUME, true);
-			SteamAgeRevolution.proxy.spawnSteamJet(pos, f);
-		}
-	}
+    @Override
+    // TODO No real need to tick.
+    public void updateTile() {
+        World w = getWorld();
+        BlockPos pos = getPos();
+        if (w.isBlockPowered(pos) && tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
+            EnumFacing f = w.getBlockState(pos).getValue(BlockSteamVent.FACING);
+            for (EntityLivingBase e : w.getEntitiesWithinAABB(EntityLivingBase.class,
+                    new AxisAlignedBB(pos.offset(f)))) {
+                e.attackEntityFrom(DamageSource.IN_FIRE, 3F);
+            }
+            tank.drain(Fluid.BUCKET_VOLUME, true);
+            SteamAgeRevolution.proxy.spawnSteamJet(pos, f);
+        }
+    }
 
-	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		return (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
-				|| super.hasCapability(capability, facing);
-	}
+    @Override
+    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+        return (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+                || super.hasCapability(capability, facing);
+    }
 
-	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
-		}
-		return super.getCapability(capability, facing);
-	}
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
+        }
+        return super.getCapability(capability, facing);
+    }
 
-	@Override
-	public NBTTagCompound writeToDisk(NBTTagCompound tag) {
-		tag.setTag("tank", tank.writeToNBT(new NBTTagCompound()));
-		return tag;
-	}
+    @Override
+    public NBTTagCompound writeToDisk(NBTTagCompound tag) {
+        tag.setTag("tank", tank.writeToNBT(new NBTTagCompound()));
+        return tag;
+    }
 
-	@Override
-	public void readFromDisk(NBTTagCompound tag) {
-		tank.readFromNBT(tag.getCompoundTag("tank"));
-	}
+    @Override
+    public void readFromDisk(NBTTagCompound tag) {
+        tank.readFromNBT(tag.getCompoundTag("tank"));
+    }
 
 }

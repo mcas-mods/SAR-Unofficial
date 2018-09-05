@@ -9,18 +9,18 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultibloc
 
 public class BlockCrucibleSteamInput extends BlockMultiblockBase<TileEntityCrucibleSteamInput> {
 
-	public BlockCrucibleSteamInput(Material material, String name) {
-		super(material, name);
-		// TODO Auto-generated constructor stub
-	}
+    public BlockCrucibleSteamInput(Material material, String name) {
+        super(material, name);
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityCrucibleSteamInput.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityCrucibleSteamInput.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityCrucibleSteamInput();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityCrucibleSteamInput();
+    }
 }

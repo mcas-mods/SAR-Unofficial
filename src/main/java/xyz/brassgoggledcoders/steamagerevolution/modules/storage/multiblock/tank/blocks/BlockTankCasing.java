@@ -9,18 +9,18 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultibloc
 
 public class BlockTankCasing extends BlockMultiblockBase<TileEntityTankCasing> {
 
-	public BlockTankCasing(Material material, String name) {
-		super(material, name);
-	}
+    public BlockTankCasing(Material material, String name) {
+        super(material, name);
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityTankCasing.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityTankCasing.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityTankCasing();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityTankCasing();
+    }
 
 }

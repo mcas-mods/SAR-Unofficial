@@ -9,18 +9,18 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultibloc
 
 public class BlockAlloyFurnaceFrame extends BlockMultiblockBase<TileEntityAlloyFurnaceFrame> {
 
-	public BlockAlloyFurnaceFrame(Material material, String name) {
-		super(material, name);
-	}
+    public BlockAlloyFurnaceFrame(Material material, String name) {
+        super(material, name);
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityAlloyFurnaceFrame.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityAlloyFurnaceFrame.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityAlloyFurnaceFrame();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityAlloyFurnaceFrame();
+    }
 
 }
