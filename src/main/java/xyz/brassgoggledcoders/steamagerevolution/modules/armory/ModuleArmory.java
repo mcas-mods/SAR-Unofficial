@@ -6,6 +6,7 @@ import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
+
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -23,41 +24,42 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.*;
 @EventBusSubscriber
 public class ModuleArmory extends ModuleBase {
 
-    public static final ToolMaterial STEAM = EnumHelper.addToolMaterial("TOOL_STEAM", 2, -1, 12.0F, 3.0F, 0);
+	public static final ToolMaterial STEAM = EnumHelper.addToolMaterial("TOOL_STEAM", 2, -1, 12.0F, 3.0F, 0);
 
-    public static DamageSource damageSourceBullet = new DamageSource("bullet").setDifficultyScaled().setProjectile();
+	public static DamageSource damageSourceBullet = new DamageSource("bullet").setDifficultyScaled().setProjectile();
 
-    @SubscribeEvent
-    public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
-        int networkID = 0;
-        EntityRegistry.registerModEntity(new ResourceLocation(SteamAgeRevolution.MODID, "bullet"), EntityBullet.class,
-                "Bullet", networkID++, SteamAgeRevolution.MODID, 64, 1, true);
-    }
+	@SubscribeEvent
+	public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
+		int networkID = 0;
+		EntityRegistry.registerModEntity(new ResourceLocation(SteamAgeRevolution.MODID, "bullet"), EntityBullet.class,
+				"Bullet", networkID++, SteamAgeRevolution.MODID, 64, 1, true);
+	}
 
-    @Override
-    public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
-        // blockRegistry.register(new BlockExpansionEditor());
-    }
+	@Override
+	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
+		// blockRegistry.register(new BlockExpansionEditor());
+	}
 
-    @Override
-    public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
-        // itemRegistry.register(new ItemExpandableArmor(ArmorMaterial.CHAIN,
-        // EntityEquipmentSlot.HEAD,
-        // "brass_helmet"));
-        itemRegistry.register(new ItemClockworkWings());
+	@Override
+	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
+		// itemRegistry.register(new ItemExpandableArmor(ArmorMaterial.CHAIN,
+		// EntityEquipmentSlot.HEAD,
+		// "brass_helmet"));
+		itemRegistry.register(new ItemClockworkWings());
 
-        itemRegistry.register(new ItemSteamPickaxe("steam_pickaxe", 1000));
-        itemRegistry.register(new ItemSteamAxe("steam_axe", 1000));
-        itemRegistry.register(new ItemSteamShovel("steam_shovel", 1000));
-        itemRegistry.register(new ItemSteamHoe("steam_hoe", 1000));
-        itemRegistry.register(new ItemSteamSword("steam_sword", 1000));
+		itemRegistry.register(new ItemSteamPickaxe("steam_pickaxe", 1000));
+		itemRegistry.register(new ItemSteamAxe("steam_axe", 1000));
+		itemRegistry.register(new ItemSteamShovel("steam_shovel", 1000));
+		itemRegistry.register(new ItemSteamHoe("steam_hoe", 1000));
+		itemRegistry.register(new ItemSteamSword("steam_sword", 1000));
 
-        itemRegistry.register(new ItemGun());
-        itemRegistry.register(new ItemBase("bullet"));
-    }
+		itemRegistry.register(new ItemGun());
+		itemRegistry.register(new ItemBase("bullet"));
+		itemRegistry.register(new MachineGunMechanism());
+	}
 
-    @Override
-    public String getName() {
-        return "Armoury";
-    }
+	@Override
+	public String getName() {
+		return "Armoury";
+	}
 }
