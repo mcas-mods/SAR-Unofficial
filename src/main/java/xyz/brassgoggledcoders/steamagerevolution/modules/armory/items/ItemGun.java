@@ -19,7 +19,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.IFiringMechanism.ActionType;
 
 public class ItemGun extends ItemBase {
 
@@ -74,8 +73,7 @@ public class ItemGun extends ItemBase {
 	public void onUsingTick(ItemStack stack, EntityLivingBase entityLiving, int count) {
 		if(entityLiving instanceof EntityPlayer) {
 			EntityPlayer playerIn = (EntityPlayer) entityLiving;
-			if(((IFiringMechanism) ModuleRegistry.getModule(getOrCreateTagCompound(stack).getString("firingMechanism")))
-					.getActionType() == ActionType.AUTO) {
+			if(getOrCreateTagCompound(stack).getString("action_type") == "auto") {
 				EntityBullet bullet = new EntityBullet(playerIn.getEntityWorld(), playerIn);
 				bullet.shoot(playerIn, playerIn.getPitchYaw().x, playerIn.getRotationYawHead(), playerIn.getEyeHeight(),
 						3f, 0);
@@ -99,6 +97,13 @@ public class ItemGun extends ItemBase {
 						3f, 0);
 				worldIn.spawnEntity(bullet);
 				stack.getTagCompound().setBoolean("isLoaded", false);
+				if(getOrCreateTagCompound(stack).getString("action_type") == "semi") {
+					ItemStack ammo = this.findAmmo(playerIn);
+					if(!ammo.isEmpty()) {
+						ammo.shrink(1);
+						getOrCreateTagCompound(stack).setBoolean("isLoaded", true);
+					}
+				}
 			}
 		}
 	}
@@ -139,7 +144,7 @@ public class ItemGun extends ItemBase {
 		if(!stack.hasTagCompound()) {
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setBoolean("isLoaded", false);
-			tag.setString("firingMechanism", "machine_gun_mechanism");
+			tag.setString("action_type", "");
 			stack.setTagCompound(tag);
 		}
 

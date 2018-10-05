@@ -7,6 +7,7 @@ import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -16,7 +17,9 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.blocks.BlockGunsmithingBench;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.*;
 
@@ -28,6 +31,9 @@ public class ModuleArmory extends ModuleBase {
 
 	public static DamageSource damageSourceBullet = new DamageSource("bullet").setDifficultyScaled().setProjectile();
 
+	@ObjectHolder(SteamAgeRevolution.MODID + ":gun")
+	public static final Item gun = null;
+
 	@SubscribeEvent
 	public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
 		int networkID = 0;
@@ -37,7 +43,7 @@ public class ModuleArmory extends ModuleBase {
 
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
-		// blockRegistry.register(new BlockExpansionEditor());
+		blockRegistry.register(new BlockGunsmithingBench());
 	}
 
 	@Override
@@ -56,6 +62,7 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemGun());
 		itemRegistry.register(new ItemBase("bullet"));
 		itemRegistry.register(new MachineGunMechanism());
+		itemRegistry.register(new BoltActionMechanism());
 	}
 
 	@Override
