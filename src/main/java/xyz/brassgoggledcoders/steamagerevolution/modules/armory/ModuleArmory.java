@@ -1,6 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 
-import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -19,7 +18,6 @@ import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.blocks.BlockGunsmithingBench;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.*;
 
@@ -43,7 +41,7 @@ public class ModuleArmory extends ModuleBase {
 
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
-		blockRegistry.register(new BlockGunsmithingBench());
+		// blockRegistry.register(new BlockGunsmithingBench());
 	}
 
 	@Override
@@ -59,10 +57,10 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemSteamHoe("steam_hoe", 1000));
 		itemRegistry.register(new ItemSteamSword("steam_sword", 1000));
 
-		itemRegistry.register(new ItemGun());
-		itemRegistry.register(new ItemBase("bullet"));
-		itemRegistry.register(new MachineGunMechanism());
-		itemRegistry.register(new BoltActionMechanism());
+		// itemRegistry.register(new ItemGun());
+		// itemRegistry.register(new ItemBase("bullet"));
+		// itemRegistry.register(new MachineGunMechanism());
+		// itemRegistry.register(new BoltActionMechanism());
 	}
 
 	@Override
