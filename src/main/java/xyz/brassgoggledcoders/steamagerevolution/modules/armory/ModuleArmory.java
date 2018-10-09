@@ -1,6 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 
-import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -21,7 +20,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.*;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.ItemGun;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.ITrigger.ActionType;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber
@@ -60,9 +60,10 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemSteamSword("steam_sword", 1000));
 
 		itemRegistry.register(new ItemGun());
-		itemRegistry.register(new ItemBase("musket_ball"));
-		// itemRegistry.register(new MachineGunMechanism());
-		// itemRegistry.register(new BoltActionMechanism());
+		itemRegistry.register(new ItemAmmo("iron_ball", AmmoType.BALL, 2));
+		itemRegistry.register(new ItemBasicTrigger("bolt_trigger", ActionType.BOLT));
+		itemRegistry.register(new ItemBasicTrigger("semi_trigger", ActionType.SEMI));
+		itemRegistry.register(new ItemBasicTrigger("auto_trigger", ActionType.AUTO));
 	}
 
 	@Override

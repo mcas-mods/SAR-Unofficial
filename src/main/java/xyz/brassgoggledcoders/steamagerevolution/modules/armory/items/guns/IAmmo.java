@@ -4,4 +4,6 @@ public interface IAmmo {
 	public AmmoType getAmmoType();
 
 	// public ItemStack[] getAuxAmmoItems();
+
+	public int getBaseDamage();
 }

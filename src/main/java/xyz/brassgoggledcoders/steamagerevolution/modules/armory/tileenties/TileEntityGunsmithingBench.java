@@ -12,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IGunPart;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.ItemGun;
 
 public class TileEntityGunsmithingBench extends TileEntityBase implements IHasGui {
@@ -43,10 +44,16 @@ public class TileEntityGunsmithingBench extends TileEntityBase implements IHasGu
 
 	public void attemptCraft() {
 		if(inventory.getStackInSlot(0).isEmpty()) {
-			ItemStack stack = new ItemStack(ModuleArmory.gun);
-			NBTTagCompound tag = ItemGun.getOrCreateTagCompound(stack);
+			ItemStack gunStack = new ItemStack(ModuleArmory.gun);
+			NBTTagCompound tag = ItemGun.getOrCreateTagCompound(gunStack);
+			for(int i = 1; /* Ignore output slot */ i < this.inventory.getSlots(); i++) {
+				ItemStack partStack = this.inventory.getStackInSlot(i);
+				if(!partStack.isEmpty() && partStack.getItem() instanceof IGunPart) {
+					tag.merge(((IGunPart) partStack.getItem()).getTagFromPart());
+				}
+			}
 			tag.setString("action_type", "semi");
-			inventory.setStackInSlot(0, stack);
+			inventory.setStackInSlot(0, gunStack);
 		}
 	}
 
