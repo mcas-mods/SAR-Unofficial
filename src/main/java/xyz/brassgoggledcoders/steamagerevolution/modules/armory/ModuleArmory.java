@@ -1,5 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 
+import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -20,6 +21,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.ItemGun;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber
@@ -57,8 +59,8 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemSteamHoe("steam_hoe", 1000));
 		itemRegistry.register(new ItemSteamSword("steam_sword", 1000));
 
-		// itemRegistry.register(new ItemGun());
-		// itemRegistry.register(new ItemBase("bullet"));
+		itemRegistry.register(new ItemGun());
+		itemRegistry.register(new ItemBase("musket_ball"));
 		// itemRegistry.register(new MachineGunMechanism());
 		// itemRegistry.register(new BoltActionMechanism());
 	}

@@ -5,7 +5,7 @@ import com.teamacronymcoders.base.items.ItemBase;
 public class ItemSemiTrigger extends ItemBase implements ITrigger {
 
 	public ItemSemiTrigger(String name) {
-		super("semi_mechanism");
+		super("semi_trigger");
 		GunPartRegistry.registerModule(this);
 	}
 
@@ -16,6 +16,6 @@ public class ItemSemiTrigger extends ItemBase implements ITrigger {
 
 	@Override
 	public String getModuleID() {
-		return "semi_mechanism";
+		return "semi_trigger";
 	}
 }

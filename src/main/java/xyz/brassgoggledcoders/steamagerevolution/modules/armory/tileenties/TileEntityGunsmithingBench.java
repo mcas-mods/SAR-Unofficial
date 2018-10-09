@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemGun;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.ItemGun;
 
 public class TileEntityGunsmithingBench extends TileEntityBase implements IHasGui {
 

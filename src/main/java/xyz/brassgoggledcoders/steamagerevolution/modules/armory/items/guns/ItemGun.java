@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items;
+package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns;
 
 import java.util.List;
 
@@ -59,7 +59,7 @@ public class ItemGun extends ItemBase {
 			playerIn.setActiveHand(handIn);
 		}
 		else {
-			ItemStack ammo = this.findAmmo(playerIn);
+			ItemStack ammo = this.findAmmo(playerIn, stack);
 			if(!ammo.isEmpty()) {
 				ammo.shrink(1);
 				getOrCreateTagCompound(stack).setBoolean("isLoaded", true);
@@ -98,7 +98,7 @@ public class ItemGun extends ItemBase {
 				worldIn.spawnEntity(bullet);
 				stack.getTagCompound().setBoolean("isLoaded", false);
 				if(getOrCreateTagCompound(stack).getString("action_type") == "semi") {
-					ItemStack ammo = this.findAmmo(playerIn);
+					ItemStack ammo = this.findAmmo(playerIn, stack);
 					if(!ammo.isEmpty()) {
 						ammo.shrink(1);
 						getOrCreateTagCompound(stack).setBoolean("isLoaded", true);
@@ -116,18 +116,18 @@ public class ItemGun extends ItemBase {
 		return super.getMaxItemUseDuration(stack);
 	}
 
-	private ItemStack findAmmo(EntityPlayer player) {
-		if(this.isBullet(player.getHeldItem(EnumHand.OFF_HAND))) {
+	private ItemStack findAmmo(EntityPlayer player, ItemStack gunStack) {
+		if(this.isValidAmmo(player.getHeldItem(EnumHand.OFF_HAND), gunStack)) {
 			return player.getHeldItem(EnumHand.OFF_HAND);
 		}
-		else if(this.isBullet(player.getHeldItem(EnumHand.MAIN_HAND))) {
+		else if(this.isValidAmmo(player.getHeldItem(EnumHand.MAIN_HAND), gunStack)) {
 			return player.getHeldItem(EnumHand.MAIN_HAND);
 		}
 		else {
 			for(int i = 0; i < player.inventory.getSizeInventory(); ++i) {
 				ItemStack itemstack = player.inventory.getStackInSlot(i);
 
-				if(this.isBullet(itemstack)) {
+				if(this.isValidAmmo(itemstack, gunStack)) {
 					return itemstack;
 				}
 			}
@@ -136,8 +136,13 @@ public class ItemGun extends ItemBase {
 		}
 	}
 
-	protected boolean isBullet(ItemStack stack) {
-		return stack.getItem() == bullet;
+	protected boolean isValidAmmo(ItemStack stack, ItemStack gunStack) {
+		Item item = stack.getItem();
+		if(item instanceof IAmmo) {
+			return ((IAmmo) item).getAmmoType() == AmmoType
+					.valueOf(ItemGun.getOrCreateTagCompound(gunStack).getString("ammoType"));
+		}
+		return false;
 	}
 
 	public static NBTTagCompound getOrCreateTagCompound(ItemStack stack) {
@@ -145,6 +150,7 @@ public class ItemGun extends ItemBase {
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setBoolean("isLoaded", false);
 			tag.setString("action_type", "");
+			tag.setString("ammoType", "");
 			stack.setTagCompound(tag);
 		}
 

@@ -5,7 +5,7 @@ import com.teamacronymcoders.base.items.ItemBase;
 public class ItemAutoTrigger extends ItemBase implements ITrigger {
 
 	public ItemAutoTrigger() {
-		super("machine_gun_mechanism");
+		super("auto_trigger");
 		GunPartRegistry.registerModule(this);
 	}
 
@@ -16,7 +16,7 @@ public class ItemAutoTrigger extends ItemBase implements ITrigger {
 
 	@Override
 	public String getModuleID() {
-		return "machine_gun_mechanism";
+		return "auto_trigger";
 	}
 
 }
