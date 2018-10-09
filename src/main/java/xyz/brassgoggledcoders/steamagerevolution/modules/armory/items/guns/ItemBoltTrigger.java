@@ -1,11 +1,11 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items;
+package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns;
 
 import com.teamacronymcoders.base.items.ItemBase;
 
-public class BoltActionMechanism extends ItemBase implements IFiringMechanism {
-	public BoltActionMechanism() {
+public class ItemBoltTrigger extends ItemBase implements ITrigger {
+	public ItemBoltTrigger() {
 		super("bolt_action_mechanism");
-		ModuleRegistry.registerModule(this);
+		GunPartRegistry.registerModule(this);
 	}
 
 	@Override

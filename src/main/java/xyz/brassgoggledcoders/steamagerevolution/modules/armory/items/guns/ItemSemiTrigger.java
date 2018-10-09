@@ -1,12 +1,12 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items;
+package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns;
 
 import com.teamacronymcoders.base.items.ItemBase;
 
-public class SemiMechanism extends ItemBase implements IFiringMechanism {
+public class ItemSemiTrigger extends ItemBase implements ITrigger {
 
-	public SemiMechanism(String name) {
+	public ItemSemiTrigger(String name) {
 		super("semi_mechanism");
-		ModuleRegistry.registerModule(this);
+		GunPartRegistry.registerModule(this);
 	}
 
 	@Override

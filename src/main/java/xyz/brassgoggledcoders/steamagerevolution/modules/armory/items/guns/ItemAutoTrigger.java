@@ -1,12 +1,12 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items;
+package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns;
 
 import com.teamacronymcoders.base.items.ItemBase;
 
-public class MachineGunMechanism extends ItemBase implements IFiringMechanism {
+public class ItemAutoTrigger extends ItemBase implements ITrigger {
 
-	public MachineGunMechanism() {
+	public ItemAutoTrigger() {
 		super("machine_gun_mechanism");
-		ModuleRegistry.registerModule(this);
+		GunPartRegistry.registerModule(this);
 	}
 
 	@Override

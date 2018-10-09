@@ -1,8 +1,8 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items;
+package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns;
 
 import java.util.HashMap;
 
-public class ModuleRegistry {
+public class GunPartRegistry {
 	private static HashMap<String, IGunPart> modules = new HashMap<String, IGunPart>();
 
 	public static void registerModule(IGunPart module) {
