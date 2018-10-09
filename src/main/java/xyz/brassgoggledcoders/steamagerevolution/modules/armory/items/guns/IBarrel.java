@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns;
 import net.minecraft.nbt.NBTTagCompound;
 
 public interface IBarrel extends IGunPart {
+
 	public float getVelocityModifier();
 
 	public float getAccuracyModifier();

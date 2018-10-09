@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.blocks.BlockGunsmithingBench;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.*;
@@ -43,7 +44,7 @@ public class ModuleArmory extends ModuleBase {
 
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
-		// blockRegistry.register(new BlockGunsmithingBench());
+		blockRegistry.register(new BlockGunsmithingBench());
 	}
 
 	@Override
@@ -61,9 +62,10 @@ public class ModuleArmory extends ModuleBase {
 
 		itemRegistry.register(new ItemGun());
 		itemRegistry.register(new ItemAmmo("iron_ball", AmmoType.BALL, 2));
-		itemRegistry.register(new ItemBasicTrigger("bolt_trigger", ActionType.BOLT));
-		itemRegistry.register(new ItemBasicTrigger("semi_trigger", ActionType.SEMI));
-		itemRegistry.register(new ItemBasicTrigger("auto_trigger", ActionType.AUTO));
+		itemRegistry.register(new ItemTrigger("bolt_trigger", ActionType.BOLT));
+		itemRegistry.register(new ItemTrigger("semi_trigger", ActionType.SEMI));
+		itemRegistry.register(new ItemTrigger("auto_trigger", ActionType.AUTO));
+		itemRegistry.register(new ItemChamber("ball_chamber", AmmoType.BALL));
 	}
 
 	@Override

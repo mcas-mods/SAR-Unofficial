@@ -2,12 +2,12 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns;
 
 import com.teamacronymcoders.base.items.ItemBase;
 
-public class ItemBasicTrigger extends ItemBase implements ITrigger {
+public class ItemChamber extends ItemBase implements IChamber {
 
 	String name;
-	ActionType type;
+	AmmoType type;
 
-	public ItemBasicTrigger(String name, ActionType type) {
+	public ItemChamber(String name, AmmoType type) {
 		super(name);
 		this.name = name;
 		this.type = type;
@@ -15,13 +15,13 @@ public class ItemBasicTrigger extends ItemBase implements ITrigger {
 	}
 
 	@Override
-	public ActionType getActionType() {
-		return type;
+	public String getModuleName() {
+		return name;
 	}
 
 	@Override
-	public String getModuleID() {
-		return name;
+	public AmmoType getAcceptedType() {
+		return type;
 	}
 
 }

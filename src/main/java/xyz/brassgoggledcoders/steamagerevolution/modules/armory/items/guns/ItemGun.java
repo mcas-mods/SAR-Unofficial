@@ -139,8 +139,8 @@ public class ItemGun extends ItemBase {
 	protected boolean isValidAmmo(ItemStack stack, ItemStack gunStack) {
 		Item item = stack.getItem();
 		if(item instanceof IAmmo) {
-			return ((IAmmo) item).getAmmoType() == AmmoType
-					.valueOf(ItemGun.getOrCreateTagCompound(gunStack).getString("ammoType"));
+			return ((IAmmo) item).getAmmoType()
+					.equals(AmmoType.valueOf(ItemGun.getOrCreateTagCompound(gunStack).getString("acceptedAmmo")));
 		}
 		return false;
 	}
@@ -149,8 +149,8 @@ public class ItemGun extends ItemBase {
 		if(!stack.hasTagCompound()) {
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setBoolean("isLoaded", false);
-			tag.setString("action_type", "");
-			tag.setString("ammoType", "");
+			tag.setString("actionType", "");
+			tag.setString("acceptedAmmo", "");
 			stack.setTagCompound(tag);
 		}
 
