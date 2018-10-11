@@ -2,16 +2,16 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns;
 
 import com.teamacronymcoders.base.items.ItemBase;
 
-public class ItemTrigger extends ItemBase implements ITrigger {
+public class ItemMechanism extends ItemBase implements IMechanism {
 
 	String name;
 	ActionType type;
 
-	public ItemTrigger(String name, ActionType type) {
+	public ItemMechanism(String name, ActionType type) {
 		super(name);
 		this.name = name;
 		this.type = type;
-		GunPartRegistry.registerModule(this);
+		GunPartRegistry.registerPart(this);
 	}
 
 	@Override
@@ -20,8 +20,13 @@ public class ItemTrigger extends ItemBase implements ITrigger {
 	}
 
 	@Override
-	public String getModuleName() {
+	public String getPartName() {
 		return name;
+	}
+
+	@Override
+	public int getReloadTime() {
+		return 0;
 	}
 
 }

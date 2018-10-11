@@ -3,13 +3,13 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns;
 import java.util.HashMap;
 
 public class GunPartRegistry {
-	private static HashMap<String, IGunPart> modules = new HashMap<String, IGunPart>();
+	private static HashMap<String, IGunPart> parts = new HashMap<String, IGunPart>();
 
-	public static void registerModule(IGunPart module) {
-		modules.put(module.getModuleName(), module);
+	public static void registerPart(IGunPart module) {
+		parts.put(module.getPartName(), module);
 	}
 
-	public static IGunPart getModule(String id) {
-		return modules.get(id);
+	public static IGunPart getPart(String id) {
+		return parts.get(id);
 	}
 }

@@ -19,6 +19,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IGunPart.GunPartType;
 
 public class ItemGun extends ItemBase {
 
@@ -71,15 +72,16 @@ public class ItemGun extends ItemBase {
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase entityLiving, int count) {
-		if(entityLiving instanceof EntityPlayer) {
-			EntityPlayer playerIn = (EntityPlayer) entityLiving;
-			if(getOrCreateTagCompound(stack).getString("action_type") == "auto") {
-				EntityBullet bullet = new EntityBullet(playerIn.getEntityWorld(), playerIn);
-				bullet.shoot(playerIn, playerIn.getPitchYaw().x, playerIn.getRotationYawHead(), playerIn.getEyeHeight(),
-						3f, 0);
-				playerIn.getEntityWorld().spawnEntity(bullet);
-			}
-		}
+		// if(entityLiving instanceof EntityPlayer) {
+		// EntityPlayer playerIn = (EntityPlayer) entityLiving;
+		// if(getOrCreateTagCompound(stack).getString("action_type") == "auto") {
+		// EntityBullet bullet = new EntityBullet(playerIn.getEntityWorld(), playerIn);
+		// bullet.shoot(playerIn, playerIn.getPitchYaw().x,
+		// playerIn.getRotationYawHead(), playerIn.getEyeHeight(),
+		// 3f, 0);
+		// playerIn.getEntityWorld().spawnEntity(bullet);
+		// }
+		// }
 	}
 
 	@Override
@@ -97,13 +99,13 @@ public class ItemGun extends ItemBase {
 						3f, 0);
 				worldIn.spawnEntity(bullet);
 				stack.getTagCompound().setBoolean("isLoaded", false);
-				if(getOrCreateTagCompound(stack).getString("action_type") == "semi") {
-					ItemStack ammo = this.findAmmo(playerIn, stack);
-					if(!ammo.isEmpty()) {
-						ammo.shrink(1);
-						getOrCreateTagCompound(stack).setBoolean("isLoaded", true);
-					}
-				}
+				// if(getOrCreateTagCompound(stack).getString("action_type") == "semi") {
+				// ItemStack ammo = this.findAmmo(playerIn, stack);
+				// if(!ammo.isEmpty()) {
+				// ammo.shrink(1);
+				// getOrCreateTagCompound(stack).setBoolean("isLoaded", true);
+				// }
+				// }
 			}
 		}
 	}
@@ -117,30 +119,31 @@ public class ItemGun extends ItemBase {
 	}
 
 	private ItemStack findAmmo(EntityPlayer player, ItemStack gunStack) {
-		if(this.isValidAmmo(player.getHeldItem(EnumHand.OFF_HAND), gunStack)) {
+		IChamber part = (IChamber) GunPartRegistry
+				.getPart(ItemGun.getOrCreateTagCompound(gunStack).getString(GunPartType.CHAMBER.toString()));
+		SteamAgeRevolution.instance.getLogger().devInfo("Accepted: " + part.getAcceptedType().toString());
+		if(this.isValidAmmo(player.getHeldItem(EnumHand.OFF_HAND), part.getAcceptedType())) {
 			return player.getHeldItem(EnumHand.OFF_HAND);
 		}
-		else if(this.isValidAmmo(player.getHeldItem(EnumHand.MAIN_HAND), gunStack)) {
+		else if(this.isValidAmmo(player.getHeldItem(EnumHand.MAIN_HAND), part.getAcceptedType())) {
 			return player.getHeldItem(EnumHand.MAIN_HAND);
 		}
 		else {
 			for(int i = 0; i < player.inventory.getSizeInventory(); ++i) {
 				ItemStack itemstack = player.inventory.getStackInSlot(i);
 
-				if(this.isValidAmmo(itemstack, gunStack)) {
+				if(this.isValidAmmo(itemstack, part.getAcceptedType())) {
 					return itemstack;
 				}
 			}
-
 			return ItemStack.EMPTY;
 		}
 	}
 
-	protected boolean isValidAmmo(ItemStack stack, ItemStack gunStack) {
+	protected boolean isValidAmmo(ItemStack stack, AmmoType type) {
 		Item item = stack.getItem();
 		if(item instanceof IAmmo) {
-			return ((IAmmo) item).getAmmoType()
-					.equals(AmmoType.valueOf(ItemGun.getOrCreateTagCompound(gunStack).getString("acceptedAmmo")));
+			return ((IAmmo) item).getAmmoType().equals(type);
 		}
 		return false;
 	}
@@ -149,8 +152,6 @@ public class ItemGun extends ItemBase {
 		if(!stack.hasTagCompound()) {
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setBoolean("isLoaded", false);
-			tag.setString("actionType", "");
-			tag.setString("acceptedAmmo", "");
 			stack.setTagCompound(tag);
 		}
 

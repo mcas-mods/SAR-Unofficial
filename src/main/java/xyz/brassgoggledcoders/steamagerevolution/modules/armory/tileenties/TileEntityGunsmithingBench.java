@@ -1,8 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory.tileenties;
 
-import java.util.ArrayList;
-
-import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.tileentities.TileEntityBase;
 
@@ -51,13 +48,11 @@ public class TileEntityGunsmithingBench extends TileEntityBase implements IHasGu
 			NBTTagCompound tag = ItemGun.getOrCreateTagCompound(gunStack);
 			for(int i = 1; /* Ignore output slot */ i < this.inventory.getSlots(); i++) {
 				ItemStack partStack = this.inventory.getStackInSlot(i);
-				ArrayList<Class<? /* extends IGunPart */>> parts = Lists.newArrayList();
 				if(!partStack.isEmpty() && partStack.getItem() instanceof IGunPart) {
-					if(!parts.contains(partStack.getItem().getClass().getInterfaces()[0])) {
-						parts.add(partStack.getItem().getClass().getInterfaces()[0]);
-						tag.merge(((IGunPart) partStack.getItem()).getTagFromPart());
-						partStack.shrink(1);
-					}
+					IGunPart part = (IGunPart) partStack.getItem();
+					// TODO Doesn't yet allow for duplicate parts (e.g. double barrel)
+					tag.setString(part.getPartType().toString(), part.getPartName());
+					partStack.shrink(1);
 				}
 			}
 			inventory.setStackInSlot(0, gunStack);

@@ -22,7 +22,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.armory.blocks.BlockGuns
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.*;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.ITrigger.ActionType;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IMechanism.ActionType;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber
@@ -62,9 +62,9 @@ public class ModuleArmory extends ModuleBase {
 
 		itemRegistry.register(new ItemGun());
 		itemRegistry.register(new ItemAmmo("iron_ball", AmmoType.BALL, 2));
-		itemRegistry.register(new ItemTrigger("bolt_trigger", ActionType.BOLT));
-		itemRegistry.register(new ItemTrigger("semi_trigger", ActionType.SEMI));
-		itemRegistry.register(new ItemTrigger("auto_trigger", ActionType.AUTO));
+		itemRegistry.register(new ItemMechanism("bolt_trigger", ActionType.BOLT));
+		itemRegistry.register(new ItemMechanism("semi_trigger", ActionType.SEMI));
+		itemRegistry.register(new ItemMechanism("auto_trigger", ActionType.AUTO));
 		itemRegistry.register(new ItemChamber("ball_chamber", AmmoType.BALL));
 	}
 

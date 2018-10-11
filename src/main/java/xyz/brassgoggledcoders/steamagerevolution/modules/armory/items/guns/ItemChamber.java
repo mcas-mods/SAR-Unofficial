@@ -11,11 +11,11 @@ public class ItemChamber extends ItemBase implements IChamber {
 		super(name);
 		this.name = name;
 		this.type = type;
-		GunPartRegistry.registerModule(this);
+		GunPartRegistry.registerPart(this);
 	}
 
 	@Override
-	public String getModuleName() {
+	public String getPartName() {
 		return name;
 	}
 

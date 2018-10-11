@@ -1,10 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns;
 
-import net.minecraft.nbt.NBTTagCompound;
-
 public interface IGunPart {
 
-	public String getModuleName();
+	public GunPartType getPartType();
 
-	public NBTTagCompound getTagFromPart();
+	public String getPartName();
+
+	public static enum GunPartType {
+		BARREL, CHAMBER, MECHANISM, STOCK
+	}
 }
