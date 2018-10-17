@@ -107,16 +107,11 @@ public class ModuleAlchemical extends ModuleBase {
 			input.setAccessible(true);
 			for(Object mixPredicate : PotionHelper.POTION_TYPE_CONVERSIONS) {
 				PotionType outputObj = ((IRegistryDelegate<PotionType>) output.get(mixPredicate)).get();
-
-				if(outputObj != PotionTypes.AWKWARD && outputObj != PotionTypes.MUNDANE
-						&& outputObj != PotionTypes.THICK) {
-					new MachineRecipeBuilder("vat")
-							.setFluidOutputs(getPotionFluidStack(outputObj.getRegistryName().getPath(), VALUE_BOTTLE))
-							.setFluidInputs(
-									getPotionFluidStack(((IRegistryDelegate<PotionType>) input.get(mixPredicate)).get()
-											.getRegistryName().getPath(), VALUE_BOTTLE))
-							.setItemInputs(((Ingredient) reagent.get(reagent)).getMatchingStacks()[0]).build();
-				}
+				new MachineRecipeBuilder("vat")
+						.setFluidOutputs(getPotionFluidStack(outputObj.getRegistryName().getPath(), VALUE_BOTTLE))
+						.setFluidInputs(getPotionFluidStack(((IRegistryDelegate<PotionType>) input.get(mixPredicate))
+								.get().getRegistryName().getPath(), VALUE_BOTTLE))
+						.setItemInputs(((Ingredient) reagent.get(reagent)).getMatchingStacks()[0]).build();
 			}
 		}
 		catch(Exception x) {
