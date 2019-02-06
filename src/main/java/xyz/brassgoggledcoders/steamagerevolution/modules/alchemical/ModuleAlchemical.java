@@ -55,6 +55,7 @@ public class ModuleAlchemical extends ModuleBase {
 	public static final Block distiller_hotplate = null;
 	public static final Block incense = null; // Refers to fluid block not solid
 	public static final Block incense_block = null;
+	public static final Block incense_spray = null;
 	// public static final Item plant_ash = null;
 
 	// TODO Don't bypass armour, deal extra damage to it
@@ -267,6 +268,7 @@ public class ModuleAlchemical extends ModuleBase {
 			}
 		});
 		blockRegistry.register(new BlockIncense());
+		blockRegistry.register(new BlockIncenseSpray());
 		blockRegistry.register(new BlockIncenseBurner());
 	}
 

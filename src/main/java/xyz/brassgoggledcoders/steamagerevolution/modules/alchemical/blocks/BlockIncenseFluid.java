@@ -22,10 +22,12 @@ public class BlockIncenseFluid extends BlockFluidBase {
 	@Override
 	public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state,
 			@Nonnull Random rand) {
-		if(rand.nextBoolean()) {
-			world.setBlockState(pos, ModuleAlchemical.incense_block.getDefaultState());
-		}
+		world.setBlockState(pos.up(), ModuleAlchemical.incense_spray.getDefaultState());
 		super.updateTick(world, pos, state, rand);
+		// if(rand.nextInt(10) == 0) {
+		// world.setBlockToAir(pos);
+		// world.setBlockToAir(pos.up()); // TODO Safety this
+		// }
 	}
 
 }

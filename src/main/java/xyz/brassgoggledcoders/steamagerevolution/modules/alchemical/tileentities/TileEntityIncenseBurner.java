@@ -43,6 +43,7 @@ public class TileEntityIncenseBurner extends SARMachineTileEntity {
 	@Override
 	protected void onActiveTick() {
 		this.getWorld().setBlockState(this.getPos().up(), ModuleAlchemical.incense.getDefaultState());
+		this.getWorld().setBlockState(this.getPos().up(2), ModuleAlchemical.incense_block.getDefaultState());
 	}
 
 }
