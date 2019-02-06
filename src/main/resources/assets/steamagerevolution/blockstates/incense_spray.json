@@ -2,9 +2,9 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "all": "steamagerevolution:blocks/incense_spray"
+      "all": "steamagerevolution:fluids/incense"
     },
-    "model": "cube_all",
+    "model": "thin_block",
     "uvlock": true,
     "transform": "forge:default-block"
   },
