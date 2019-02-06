@@ -37,7 +37,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.registries.IRegistryDelegate;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.blocks.BlockFumeCollector;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.items.ItemFlask;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.blocks.*;
@@ -53,6 +53,8 @@ public class ModuleAlchemical extends ModuleBase {
 
 	public static final Block distiller_radiator = null;
 	public static final Block distiller_hotplate = null;
+	public static final Block incense = null; // Refers to fluid block not solid
+	public static final Block incense_block = null;
 	// public static final Item plant_ash = null;
 
 	// TODO Don't bypass armour, deal extra damage to it
@@ -143,12 +145,6 @@ public class ModuleAlchemical extends ModuleBase {
 		potion.tag.setString("Potion", potionType);
 		return potion;
 	}
-
-	// @Override
-	// public void preInit(FMLPreInitializationEvent event) {
-	// super.preInit(event);
-	// DataSerializers.registerSerializer(OPTIONAL_FLUID_STACK);
-	// }
 
 	@Override
 	public String getName() {
@@ -256,6 +252,22 @@ public class ModuleAlchemical extends ModuleBase {
 						return Color.GREEN.getRGB();
 					}
 				});
+
+		Fluid incense = new Fluid("incense", new ResourceLocation(SteamAgeRevolution.MODID, "fluids/incense"),
+				new ResourceLocation(SteamAgeRevolution.MODID, "fluids/incense_flow")).setGaseous(true).setDensity(-1);
+
+		if(!(FluidRegistry.isFluidRegistered(incense))) { // Soft registration
+			FluidRegistry.registerFluid(incense);
+			FluidRegistry.addBucketForFluid(incense);
+		}
+		blockRegistry.register(new BlockIncenseFluid("incense", FluidRegistry.getFluid("incense"), Material.LAVA) {
+			@Override
+			public ResourceLocation getResourceLocation(IBlockState blockState) {
+				return new ResourceLocation(SteamAgeRevolution.MODID, "incense");
+			}
+		});
+		blockRegistry.register(new BlockIncense());
+		blockRegistry.register(new BlockIncenseBurner());
 	}
 
 	// Lifted from IE
