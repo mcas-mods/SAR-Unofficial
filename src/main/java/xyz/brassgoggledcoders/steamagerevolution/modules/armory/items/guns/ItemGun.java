@@ -73,6 +73,7 @@ public class ItemGun extends ItemBase {
 			if(!ammo.isEmpty()) {
 				ammo.shrink(1);
 				getOrCreateTagCompound(stack).setBoolean("isLoaded", true);
+				return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 			}
 		}
 
@@ -100,8 +101,18 @@ public class ItemGun extends ItemBase {
 		if(getOrCreateTagCompound(stack).getBoolean("isLoaded")) {
 			if(entityLiving instanceof EntityPlayer) {
 				shoot(worldIn, entityLiving);
-				stack.getTagCompound().setBoolean("isLoaded", false);
-
+				if(ActionType.BOLT.equals(
+						((IMechanism) GunPartRegistry.getPart(getOrCreateTagCompound(stack).getString("MECHANISM")))
+								.getActionType())) {
+					stack.getTagCompound().setBoolean("isLoaded", false);
+				}
+				else {
+					ItemStack ammo = this.findAmmo((EntityPlayer) entityLiving, stack);
+					if(!ammo.isEmpty()) {
+						ammo.shrink(1);
+						getOrCreateTagCompound(stack).setBoolean("isLoaded", true);
+					}
+				}
 			}
 		}
 	}
