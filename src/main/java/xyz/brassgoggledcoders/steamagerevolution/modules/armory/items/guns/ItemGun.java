@@ -19,6 +19,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IAmmo.AmmoType;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IGunPart.GunPartType;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IMechanism.ActionType;
 
@@ -71,6 +72,7 @@ public class ItemGun extends ItemBase {
 		else {
 			ItemStack ammo = this.findAmmo(playerIn, stack);
 			if(!ammo.isEmpty()) {
+				getOrCreateTagCompound(stack).setTag("loaded", ammo.writeToNBT(new NBTTagCompound()));
 				ammo.shrink(1);
 				getOrCreateTagCompound(stack).setBoolean("isLoaded", true);
 				return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);

@@ -22,6 +22,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.armory.blocks.BlockGuns
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IAmmo.AmmoType;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IMechanism.ActionType;
 
 @Module(value = SteamAgeRevolution.MODID)
@@ -62,10 +63,13 @@ public class ModuleArmory extends ModuleBase {
 
 		itemRegistry.register(new ItemGun());
 		itemRegistry.register(new ItemAmmo("iron_ball", AmmoType.BALL, 2));
+		itemRegistry.register(new ItemAmmo("cartridge", AmmoType.CARTRIDGE, 5));
 		itemRegistry.register(new ItemMechanism("bolt_trigger", ActionType.BOLT));
 		itemRegistry.register(new ItemMechanism("semi_trigger", ActionType.SEMI));
 		itemRegistry.register(new ItemMechanism("auto_trigger", ActionType.AUTO));
 		itemRegistry.register(new ItemChamber("ball_chamber", AmmoType.BALL));
+		itemRegistry.register(new ItemChamber("cartidge_chamber", AmmoType.CARTRIDGE));
+		itemRegistry.register(new ItemAmmoContainer("cartridge_clip", 5, AmmoType.CARTRIDGE));
 	}
 
 	@Override

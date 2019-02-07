@@ -2,6 +2,8 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns;
 
 import com.teamacronymcoders.base.items.ItemBase;
 
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IAmmo.AmmoType;
+
 public class ItemChamber extends ItemBase implements IChamber {
 
 	String name;
