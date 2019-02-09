@@ -6,10 +6,12 @@ import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.*;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -66,7 +68,12 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemAmmo("cartridge", AmmoType.CARTRIDGE, 5));
 		itemRegistry.register(new ItemMechanism("bolt_trigger", ActionType.BOLT));
 		itemRegistry.register(new ItemMechanism("semi_trigger", ActionType.SEMI));
-		itemRegistry.register(new ItemMechanism("auto_trigger", ActionType.AUTO));
+		itemRegistry.register(new ItemMechanism("auto_trigger", ActionType.AUTO) {
+			@Override
+			public void onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn, ItemStack held) {
+				playerIn.setActiveHand(handIn);
+			}
+		});
 		itemRegistry.register(new ItemChamber("ball_chamber", AmmoType.BALL));
 		itemRegistry.register(new ItemChamber("cartidge_chamber", AmmoType.CARTRIDGE));
 		itemRegistry.register(new ItemAmmoContainer("cartridge_clip", 5, AmmoType.CARTRIDGE));

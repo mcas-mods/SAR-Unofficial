@@ -63,21 +63,25 @@ public class ItemGun extends ItemBase {
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		ItemStack stack = playerIn.getHeldItem(handIn);
 
-		if(ActionType.AUTO
-				.equals(((IMechanism) GunPartRegistry.getPart(getOrCreateTagCompound(stack).getString("MECHANISM")))
-						.getActionType())
-				|| getOrCreateTagCompound(stack).getBoolean("isLoaded")) {
-			playerIn.setActiveHand(handIn);
-		}
-		else {
-			ItemStack ammo = this.findAmmo(playerIn, stack);
-			if(!ammo.isEmpty()) {
-				getOrCreateTagCompound(stack).setTag("loaded", ammo.writeToNBT(new NBTTagCompound()));
-				ammo.shrink(1);
-				getOrCreateTagCompound(stack).setBoolean("isLoaded", true);
-				return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
-			}
-		}
+		// for(int i = 0; i < 4; i++) { // TODO Don't hardcode number of parts
+		// this.getPartFromGun(stack, GunPartType.values()[i]).onItemRightClick(worldIn,
+		// playerIn, handIn, stack);
+		// }
+		//
+		// if(getOrCreateTagCompound(stack).getBoolean("isLoaded")) {
+		// playerIn.setActiveHand(handIn);
+		// }
+		// else {
+		// ItemStack ammo = this.findAmmo(playerIn, stack);
+		// if(!ammo.isEmpty()) {
+		// getOrCreateTagCompound(stack).setTag("loaded", ammo.writeToNBT(new
+		// NBTTagCompound()));
+		// ammo.shrink(1);
+		// getOrCreateTagCompound(stack).setBoolean("isLoaded", true);
+		// return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+		// }
+		// }
+		playerIn.setActiveHand(handIn);
 
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 	}
@@ -176,6 +180,10 @@ public class ItemGun extends ItemBase {
 		}
 
 		return stack.getTagCompound();
+	}
+
+	protected IGunPart getPartFromGun(ItemStack stack, IGunPart.GunPartType type) {
+		return GunPartRegistry.getPart(getOrCreateTagCompound(stack).getString(type.toString()));
 	}
 
 }
