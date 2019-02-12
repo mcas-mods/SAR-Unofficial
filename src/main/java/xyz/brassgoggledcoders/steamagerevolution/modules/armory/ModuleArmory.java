@@ -6,11 +6,13 @@ import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
@@ -52,9 +54,6 @@ public class ModuleArmory extends ModuleBase {
 
 	@Override
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
-		// itemRegistry.register(new ItemExpandableArmor(ArmorMaterial.CHAIN,
-		// EntityEquipmentSlot.HEAD,
-		// "brass_helmet"));
 		itemRegistry.register(new ItemClockworkWings());
 
 		itemRegistry.register(new ItemSteamPickaxe("steam_pickaxe", 1000));
@@ -66,12 +65,42 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemGun());
 		itemRegistry.register(new ItemAmmo("iron_ball", AmmoType.BALL, 2));
 		itemRegistry.register(new ItemAmmo("cartridge", AmmoType.CARTRIDGE, 5));
-		itemRegistry.register(new ItemMechanism("bolt_trigger", ActionType.BOLT));
-		itemRegistry.register(new ItemMechanism("semi_trigger", ActionType.SEMI));
+		itemRegistry.register(new ItemMechanism("bolt_trigger", ActionType.BOLT) {
+			@Override
+			public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving,
+					int timeLeft) {
+				if(GunUtils.getOrCreateTagCompound(stack).getBoolean("isLoaded")) {
+					if(entityLiving instanceof EntityPlayer) {
+						GunUtils.shoot(worldIn, entityLiving);
+						stack.getTagCompound().setBoolean("isLoaded", false);
+					}
+				}
+			}
+		});
+		itemRegistry.register(new ItemMechanism("semi_trigger", ActionType.SEMI) {
+			@Override
+			public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving,
+					int timeLeft) {
+				if(GunUtils.getOrCreateTagCompound(stack).getBoolean("isLoaded")) {
+					if(entityLiving instanceof EntityPlayer) {
+						GunUtils.shoot(worldIn, entityLiving);
+						ItemStack ammo = GunUtils.findAmmo((EntityPlayer) entityLiving, stack);
+						if(!ammo.isEmpty()) {
+							ammo.shrink(1);
+							GunUtils.getOrCreateTagCompound(stack).setBoolean("isLoaded", true);
+						}
+					}
+				}
+			}
+		});
 		itemRegistry.register(new ItemMechanism("auto_trigger", ActionType.AUTO) {
 			@Override
-			public void onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn, ItemStack held) {
-				playerIn.setActiveHand(handIn);
+			public void onUsingTick(ItemStack stack, EntityLivingBase entityLiving, int count) {
+				ItemStack ammo = GunUtils.findAmmo((EntityPlayer) entityLiving, stack);
+				if(!ammo.isEmpty()) {
+					ammo.shrink(1);
+					GunUtils.shoot(entityLiving.getEntityWorld(), entityLiving);
+				}
 			}
 		});
 		itemRegistry.register(new ItemChamber("ball_chamber", AmmoType.BALL));

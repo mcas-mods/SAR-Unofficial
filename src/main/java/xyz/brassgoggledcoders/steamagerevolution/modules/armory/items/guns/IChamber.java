@@ -5,10 +5,6 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IAmmo
 public interface IChamber extends IGunPart {
 	public AmmoType getAcceptedType();
 
-	default boolean acceptsContainers() {
-		return true;
-	}
-
 	default GunPartType getPartType() {
 		return GunPartType.CHAMBER;
 	}
