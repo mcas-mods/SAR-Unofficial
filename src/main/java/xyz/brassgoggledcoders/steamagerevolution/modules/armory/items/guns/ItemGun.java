@@ -61,14 +61,14 @@ public class ItemGun extends ItemBase {
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		ItemStack stack = playerIn.getHeldItem(handIn);
 
-		playerIn.setActiveHand(handIn);
-
-		ItemStack ammo = GunUtils.findAmmo(playerIn, stack);
-		if(!ammo.isEmpty()) {
-			GunUtils.getOrCreateTagCompound(stack).setTag("loaded", ammo.writeToNBT(new NBTTagCompound()));
-			ammo.shrink(1);
-			GunUtils.getOrCreateTagCompound(stack).setBoolean("isLoaded", true);
-			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+		if(!GunUtils.getOrCreateTagCompound(stack).getBoolean("isLoaded")) {
+			playerIn.setActiveHand(handIn);
+			return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
+		}
+		else {
+			for(int i = 0; i < 4; i++) { // TODO Don't hardcode number of parts
+				GunUtils.getPartFromGun(stack, GunPartType.values()[i]).onItemRightClick(worldIn, playerIn, handIn);
+			}
 		}
 
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
@@ -79,27 +79,26 @@ public class ItemGun extends ItemBase {
 		for(int i = 0; i < 4; i++) { // TODO Don't hardcode number of parts
 			GunUtils.getPartFromGun(stack, GunPartType.values()[i]).onUsingTick(stack, entityLiving, count);
 		}
-		if(((IMechanism) GunPartRegistry.getPart(GunUtils.getOrCreateTagCompound(stack).getString("MECHANISM")))
-				.getActionType() == ActionType.AUTO) {
-
-		}
 	}
 
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 		int i = this.getMaxItemUseDuration(stack) - timeLeft;
 		if(i < 60) {
-			return; // TODO
+			ItemStack ammo = GunUtils.findAmmo((EntityPlayer) entityLiving, stack); // FIXME
+			if(!ammo.isEmpty()) {
+				GunUtils.getOrCreateTagCompound(stack).setTag("loaded", ammo.writeToNBT(new NBTTagCompound()));
+				ammo.shrink(1);
+				GunUtils.getOrCreateTagCompound(stack).setBoolean("isLoaded", true);
+			}
+			return;
 		}
-		for(int i2 = 0; i2 < 4; i2++) { // TODO Don't hardcode number of parts
-			GunUtils.getPartFromGun(stack, GunPartType.values()[i]).onPlayerStoppedUsing(stack, worldIn, entityLiving,
-					timeLeft);
-		}
+
 	}
 
 	@Override
 	public int getMaxItemUseDuration(ItemStack stack) {
-		if(ActionType.AUTO.equals(
+		if(!GunUtils.getOrCreateTagCompound(stack).getBoolean("isLoaded") || ActionType.AUTO.equals(
 				((IMechanism) GunPartRegistry.getPart(GunUtils.getOrCreateTagCompound(stack).getString("MECHANISM")))
 						.getActionType())) {
 			return 72000;

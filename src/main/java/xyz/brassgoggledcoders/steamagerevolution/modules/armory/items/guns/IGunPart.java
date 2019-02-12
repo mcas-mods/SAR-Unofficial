@@ -1,7 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 public interface IGunPart {
@@ -10,10 +12,15 @@ public interface IGunPart {
 
 	public String getPartName();
 
+	default ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+	}
+
 	default void onUsingTick(ItemStack stack, EntityLivingBase entityLiving, int count) {
 
 	}
 
+	@Deprecated
 	default void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 
 	}

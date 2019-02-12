@@ -11,8 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
@@ -67,33 +66,37 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemAmmo("cartridge", AmmoType.CARTRIDGE, 5));
 		itemRegistry.register(new ItemMechanism("bolt_trigger", ActionType.BOLT) {
 			@Override
-			public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving,
-					int timeLeft) {
+			public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+				ItemStack stack = playerIn.getHeldItem(handIn);
 				if(GunUtils.getOrCreateTagCompound(stack).getBoolean("isLoaded")) {
-					if(entityLiving instanceof EntityPlayer) {
-						GunUtils.shoot(worldIn, entityLiving);
-						stack.getTagCompound().setBoolean("isLoaded", false);
-					}
+					GunUtils.shoot(worldIn, playerIn);
+					stack.getTagCompound().setBoolean("isLoaded", false);
 				}
+				return super.onItemRightClick(worldIn, playerIn, handIn);
 			}
 		});
 		itemRegistry.register(new ItemMechanism("semi_trigger", ActionType.SEMI) {
 			@Override
-			public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving,
-					int timeLeft) {
+			public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+				ItemStack stack = playerIn.getHeldItem(handIn);
 				if(GunUtils.getOrCreateTagCompound(stack).getBoolean("isLoaded")) {
-					if(entityLiving instanceof EntityPlayer) {
-						GunUtils.shoot(worldIn, entityLiving);
-						ItemStack ammo = GunUtils.findAmmo((EntityPlayer) entityLiving, stack);
-						if(!ammo.isEmpty()) {
-							ammo.shrink(1);
-							GunUtils.getOrCreateTagCompound(stack).setBoolean("isLoaded", true);
-						}
+					GunUtils.shoot(worldIn, playerIn);
+					ItemStack ammo = GunUtils.findAmmo(playerIn, stack);
+					if(!ammo.isEmpty()) {
+						ammo.shrink(1);
+						GunUtils.getOrCreateTagCompound(stack).setBoolean("isLoaded", true);
 					}
 				}
+				return super.onItemRightClick(worldIn, playerIn, handIn);
 			}
 		});
 		itemRegistry.register(new ItemMechanism("auto_trigger", ActionType.AUTO) {
+			@Override
+			public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+				playerIn.setActiveHand(handIn);
+				return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
+			}
+
 			@Override
 			public void onUsingTick(ItemStack stack, EntityLivingBase entityLiving, int count) {
 				ItemStack ammo = GunUtils.findAmmo((EntityPlayer) entityLiving, stack);
