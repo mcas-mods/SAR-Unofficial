@@ -56,6 +56,7 @@ public class ModuleAlchemical extends ModuleBase {
 	public static final Block incense = null; // Refers to fluid block not solid
 	public static final Block incense_block = null;
 	public static final Block incense_spray = null;
+	public static final Block incense_burner = null;
 	// public static final Item plant_ash = null;
 
 	// TODO Don't bypass armour, deal extra damage to it
@@ -255,13 +256,14 @@ public class ModuleAlchemical extends ModuleBase {
 				});
 
 		Fluid incense = new Fluid("incense", new ResourceLocation(SteamAgeRevolution.MODID, "fluids/incense"),
-				new ResourceLocation(SteamAgeRevolution.MODID, "fluids/incense_flow")).setGaseous(true).setDensity(-1);
+				new ResourceLocation(SteamAgeRevolution.MODID, "fluids/incense_flow")).setGaseous(true).setDensity(-100)
+						.setViscosity(-100);
 
 		if(!(FluidRegistry.isFluidRegistered(incense))) { // Soft registration
 			FluidRegistry.registerFluid(incense);
 			FluidRegistry.addBucketForFluid(incense);
 		}
-		blockRegistry.register(new BlockIncenseFluid("incense", FluidRegistry.getFluid("incense"), Material.LAVA) {
+		blockRegistry.register(new BlockIncenseFluid("incense", FluidRegistry.getFluid("incense"), Material.WATER) {
 			@Override
 			public ResourceLocation getResourceLocation(IBlockState blockState) {
 				return new ResourceLocation(SteamAgeRevolution.MODID, "incense");

@@ -2,11 +2,14 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.blocks;
 
 import com.teamacronymcoders.base.blocks.BlockBase;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.ModuleAlchemical;
 
 public class BlockIncenseSpray extends BlockBase {
 
@@ -34,6 +37,13 @@ public class BlockIncenseSpray extends BlockBase {
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
+	}
+
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+		if(worldIn.getBlockState(pos.down()).getBlock() != ModuleAlchemical.incense) {
+			worldIn.setBlockToAir(pos);
+		}
 	}
 
 }
