@@ -87,6 +87,7 @@ public class GunUtils {
 		bullet.shoot(playerIn, playerIn.getPitchYaw().x, playerIn.getRotationYawHead(), playerIn.getEyeHeight(),
 				3f + part.getVelocityModifier(), part.getAccuracyModifier());
 		worldIn.spawnEntity(bullet);
+		playerIn.knockBack(entityLiving, 0.2F, -1, -1);
 	}
 
 	public static IGunPart getPartFromGun(ItemStack stack, IGunPart.GunPartType type) {
