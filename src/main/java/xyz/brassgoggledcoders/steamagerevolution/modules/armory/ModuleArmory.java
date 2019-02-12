@@ -26,7 +26,8 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityB
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IAmmo.AmmoType;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IMechanism.ActionType;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IMechanism.ActionType;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber
@@ -64,23 +65,23 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemGun());
 		itemRegistry.register(new ItemAmmo("iron_ball", AmmoType.BALL, 2));
 		itemRegistry.register(new ItemAmmo("cartridge", AmmoType.CARTRIDGE, 5));
-		itemRegistry.register(new ItemMechanism("bolt_trigger", ActionType.BOLT) {
+		itemRegistry.register(new ItemMechanism("bolt_mechanism", ActionType.BOLT) {
 			@Override
 			public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 				ItemStack stack = playerIn.getHeldItem(handIn);
 				if(GunUtils.getOrCreateTagCompound(stack).getBoolean("isLoaded")) {
-					GunUtils.shoot(worldIn, playerIn);
+					GunUtils.shoot(worldIn, playerIn, stack);
 					stack.getTagCompound().setBoolean("isLoaded", false);
 				}
 				return super.onItemRightClick(worldIn, playerIn, handIn);
 			}
 		});
-		itemRegistry.register(new ItemMechanism("semi_trigger", ActionType.SEMI) {
+		itemRegistry.register(new ItemMechanism("semi_mechanism", ActionType.SEMI) {
 			@Override
 			public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 				ItemStack stack = playerIn.getHeldItem(handIn);
 				if(GunUtils.getOrCreateTagCompound(stack).getBoolean("isLoaded")) {
-					GunUtils.shoot(worldIn, playerIn);
+					GunUtils.shoot(worldIn, playerIn, stack);
 					ItemStack ammo = GunUtils.findAmmo(playerIn, stack);
 					if(!ammo.isEmpty()) {
 						ammo.shrink(1);
@@ -90,7 +91,7 @@ public class ModuleArmory extends ModuleBase {
 				return super.onItemRightClick(worldIn, playerIn, handIn);
 			}
 		});
-		itemRegistry.register(new ItemMechanism("auto_trigger", ActionType.AUTO) {
+		itemRegistry.register(new ItemMechanism("auto_mechanism", ActionType.AUTO) {
 			@Override
 			public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 				playerIn.setActiveHand(handIn);
@@ -102,13 +103,16 @@ public class ModuleArmory extends ModuleBase {
 				ItemStack ammo = GunUtils.findAmmo((EntityPlayer) entityLiving, stack);
 				if(!ammo.isEmpty()) {
 					ammo.shrink(1);
-					GunUtils.shoot(entityLiving.getEntityWorld(), entityLiving);
+					GunUtils.shoot(entityLiving.getEntityWorld(), entityLiving, stack);
 				}
 			}
 		});
+		itemRegistry.register(new ItemBarrel("short_barrel", 0, 0));
+		itemRegistry.register(new ItemBarrel("blunderbuss_barrel", -1.5F, 10));
 		itemRegistry.register(new ItemChamber("ball_chamber", AmmoType.BALL));
 		itemRegistry.register(new ItemChamber("cartidge_chamber", AmmoType.CARTRIDGE));
-		itemRegistry.register(new ItemAmmoContainer("cartridge_clip", 5, AmmoType.CARTRIDGE));
+		// itemRegistry.register(new ItemAmmoContainer("cartridge_clip", 5,
+		// AmmoType.CARTRIDGE));
 	}
 
 	@Override

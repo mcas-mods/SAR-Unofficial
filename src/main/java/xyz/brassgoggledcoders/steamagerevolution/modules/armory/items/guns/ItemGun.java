@@ -18,8 +18,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IGunPart.GunPartType;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IMechanism.ActionType;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IGunPart.GunPartType;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IMechanism.ActionType;
 
 public class ItemGun extends ItemBase {
 

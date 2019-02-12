@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns;
+package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts;
 
 public interface IMechanism extends IGunPart {
 	public int getReloadTime();

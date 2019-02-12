@@ -7,10 +7,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IAmmo.AmmoType;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IGunPart.GunPartType;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IGunPart.GunPartType;
 
 public class GunUtils {
 	public static ItemStack findAmmo(EntityPlayer player, ItemStack gunStack, AmmoType type) {
@@ -32,10 +32,17 @@ public class GunUtils {
 		}
 	}
 
+	public static boolean isValidAmmoContainer(ItemStack stack, AmmoType type) {
+		Item item = stack.getItem();
+		if(item instanceof IAmmoContainer) {
+			return ((IAmmoContainer) item).getContainedAmmo().equals(type);
+		}
+		return false;
+	}
+
 	public static ItemStack findAmmo(EntityPlayer player, ItemStack gunStack) {
 		IChamber part = (IChamber) GunPartRegistry
 				.getPart(GunUtils.getOrCreateTagCompound(gunStack).getString(GunPartType.CHAMBER.toString()));
-		SteamAgeRevolution.instance.getLogger().devInfo("Accepted: " + part.getAcceptedType().toString());
 		if(GunUtils.isValidAmmo(player.getHeldItem(EnumHand.OFF_HAND), part.getAcceptedType())) {
 			return player.getHeldItem(EnumHand.OFF_HAND);
 		}
@@ -72,15 +79,17 @@ public class GunUtils {
 		return stack.getTagCompound();
 	}
 
-	public static IGunPart getPartFromGun(ItemStack stack, IGunPart.GunPartType type) {
-		return GunPartRegistry.getPart(getOrCreateTagCompound(stack).getString(type.toString()));
+	public static void shoot(World worldIn, EntityLivingBase entityLiving, ItemStack stack) {
+		EntityPlayer playerIn = (EntityPlayer) entityLiving;
+
+		EntityBullet bullet = new EntityBullet(worldIn, playerIn);
+		IBarrel part = (IBarrel) GunPartRegistry.getPart(GunUtils.getOrCreateTagCompound(stack).getString("BARREL"));
+		bullet.shoot(playerIn, playerIn.getPitchYaw().x, playerIn.getRotationYawHead(), playerIn.getEyeHeight(),
+				3f + part.getVelocityModifier(), part.getAccuracyModifier());
+		worldIn.spawnEntity(bullet);
 	}
 
-	public static void shoot(World worldIn, EntityLivingBase entityLiving) {
-		EntityPlayer playerIn = (EntityPlayer) entityLiving;
-	
-		EntityBullet bullet = new EntityBullet(worldIn, playerIn);
-		bullet.shoot(playerIn, playerIn.getPitchYaw().x, playerIn.getRotationYawHead(), playerIn.getEyeHeight(), 3f, 0);
-		worldIn.spawnEntity(bullet);
+	public static IGunPart getPartFromGun(ItemStack stack, IGunPart.GunPartType type) {
+		return GunPartRegistry.getPart(getOrCreateTagCompound(stack).getString(type.toString()));
 	}
 }

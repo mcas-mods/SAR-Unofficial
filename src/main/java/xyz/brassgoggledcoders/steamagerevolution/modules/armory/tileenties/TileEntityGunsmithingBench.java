@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.GunUtils;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IGunPart;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IGunPart;
 
 public class TileEntityGunsmithingBench extends TileEntityBase implements IHasGui {
 

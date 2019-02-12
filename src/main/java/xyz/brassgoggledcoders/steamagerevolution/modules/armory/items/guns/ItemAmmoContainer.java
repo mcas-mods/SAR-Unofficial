@@ -24,6 +24,7 @@ public class ItemAmmoContainer extends ItemBase implements IAmmoContainer {
 
 	public ItemAmmoContainer(String name, int max, AmmoType type) {
 		super(name);
+		this.setMaxStackSize(1);
 		this.max = max;
 		this.type = type;
 	}

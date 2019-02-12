@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns;
+package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
