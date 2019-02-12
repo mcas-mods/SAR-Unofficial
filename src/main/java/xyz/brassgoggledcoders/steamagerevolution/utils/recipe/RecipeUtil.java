@@ -1,8 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
 
+import java.util.Map;
+import java.util.Set;
+
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.*;
+
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.JsonUtils;
@@ -12,9 +16,6 @@ import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
-
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Utility methods for {@link IRecipe}s.

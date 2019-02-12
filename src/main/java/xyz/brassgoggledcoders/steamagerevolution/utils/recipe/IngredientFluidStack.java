@@ -1,12 +1,10 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
-
-import javax.annotation.Nullable;
+import net.minecraftforge.fluids.*;
 
 /**
  * @author BluSunrize - 03.07.2017

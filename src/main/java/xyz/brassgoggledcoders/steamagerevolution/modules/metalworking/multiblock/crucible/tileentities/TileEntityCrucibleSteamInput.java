@@ -1,13 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.tileentities;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockSteamWrapper;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class TileEntityCrucibleSteamInput extends TileEntityCruciblePart {
 

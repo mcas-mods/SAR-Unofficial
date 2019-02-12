@@ -1,15 +1,16 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.tileentities.IOnSlotChanged;
+
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockInventoryWrapper;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class TileEntityBoilerSolidFirebox extends TileEntityBoilerPart implements IOnSlotChanged {
 

@@ -1,7 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.worldgen;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -10,9 +14,6 @@ import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 public class OreGenerator implements IWorldGenerator {
 

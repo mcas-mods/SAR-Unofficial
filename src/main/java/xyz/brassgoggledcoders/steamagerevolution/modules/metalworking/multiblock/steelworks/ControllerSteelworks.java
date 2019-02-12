@@ -5,9 +5,7 @@ import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceItem;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 

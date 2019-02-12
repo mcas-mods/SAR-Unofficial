@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.tileentities;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
 import net.minecraft.client.Minecraft;
@@ -9,7 +11,6 @@ import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import org.lwjgl.opengl.GL11;
 import xyz.brassgoggledcoders.steamagerevolution.utils.RenderUtil;
 
 public class TileEntitySteamHammerAnvilRenderer extends TileEntitySpecialRenderer<TileEntitySteamHammerAnvil> {

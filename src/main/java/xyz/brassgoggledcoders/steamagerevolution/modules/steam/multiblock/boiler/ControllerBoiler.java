@@ -1,19 +1,20 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import org.apache.commons.lang3.tuple.Pair;
+import net.minecraftforge.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerGauge;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureMonitor;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureValve;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
@@ -22,9 +23,6 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachin
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class ControllerBoiler extends SARMultiblockInventory {
 

@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking;
 
 import com.teamacronymcoders.base.util.OreDictUtils;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.InventoryCrafting;

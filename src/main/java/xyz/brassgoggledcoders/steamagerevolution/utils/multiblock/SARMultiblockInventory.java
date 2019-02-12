@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -10,10 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeMachineHelper;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;

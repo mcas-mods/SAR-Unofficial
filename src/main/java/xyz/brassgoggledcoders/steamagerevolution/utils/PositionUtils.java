@@ -1,7 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils;
 
-import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.tuple.Pair;
+
+import net.minecraft.util.math.BlockPos;
 
 public class PositionUtils {
     public static Pair<BlockPos, BlockPos> shrinkPositionCubeBy(BlockPos minimumCoord, BlockPos maximumCoord, int by) {

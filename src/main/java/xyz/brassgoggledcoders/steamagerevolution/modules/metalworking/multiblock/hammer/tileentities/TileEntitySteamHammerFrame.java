@@ -1,7 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.tileentities;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -13,9 +17,6 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockSteamWrapper;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class TileEntitySteamHammerFrame extends TileEntitySteamHammerPart implements IHasGui {
     @Override

@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks;
 
 import com.teamacronymcoders.base.Capabilities;
 import com.teamacronymcoders.base.blocks.BlockTEBase;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;

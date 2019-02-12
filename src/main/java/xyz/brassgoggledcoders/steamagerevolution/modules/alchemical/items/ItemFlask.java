@@ -1,7 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.items;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import com.teamacronymcoders.base.items.IHasSubItems;
 import com.teamacronymcoders.base.items.ItemBase;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,9 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -23,9 +26,6 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.ModuleAlchemical;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 public class ItemFlask extends ItemBase implements IHasSubItems {
 

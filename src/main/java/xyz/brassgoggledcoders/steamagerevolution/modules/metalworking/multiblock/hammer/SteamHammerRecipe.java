@@ -1,13 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer;
 
+import java.awt.Color;
+
+import javax.annotation.Nonnull;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
-
-import javax.annotation.Nonnull;
-import java.awt.*;
 
 // FIXME
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei", striprefs = true)

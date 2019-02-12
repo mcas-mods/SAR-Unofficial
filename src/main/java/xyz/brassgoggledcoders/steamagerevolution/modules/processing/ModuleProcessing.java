@@ -1,9 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.processing;
 
+import java.util.Map.Entry;
+
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -17,14 +20,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.BlockFurnaceCasing;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.BlockFurnaceItemInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.BlockFurnaceItemOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.BlockFurnaceSteamInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.MachineRecipeBuilder;
-
-import java.util.Map.Entry;
 
 @Module(value = SteamAgeRevolution.MODID)
 @ObjectHolder(SteamAgeRevolution.MODID)

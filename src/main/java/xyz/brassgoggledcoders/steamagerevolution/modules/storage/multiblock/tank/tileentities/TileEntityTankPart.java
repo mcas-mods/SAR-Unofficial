@@ -1,6 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.tileentities;
 
+import javax.annotation.Nonnull;
+
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -9,8 +12,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.ControllerTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileBase;
-
-import javax.annotation.Nonnull;
 
 public abstract class TileEntityTankPart extends SARMultiblockTileBase<ControllerTank> {
 

@@ -1,11 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items;
 
-import com.teamacronymcoders.base.items.IHasSubItems;
-import com.teamacronymcoders.base.items.ItemBase;
-import net.minecraft.item.ItemStack;
-
 import java.util.Arrays;
 import java.util.List;
+
+import com.teamacronymcoders.base.items.IHasSubItems;
+import com.teamacronymcoders.base.items.ItemBase;
+
+import net.minecraft.item.ItemStack;
 
 public class ItemDie extends ItemBase implements IHasSubItems {
 

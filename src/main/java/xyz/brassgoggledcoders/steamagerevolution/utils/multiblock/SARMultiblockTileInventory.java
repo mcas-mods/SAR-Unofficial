@@ -1,12 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nonnull;
 
 public abstract class SARMultiblockTileInventory<T extends SARMultiblockInventory> extends SARMultiblockTileBase<T> {
     @Override

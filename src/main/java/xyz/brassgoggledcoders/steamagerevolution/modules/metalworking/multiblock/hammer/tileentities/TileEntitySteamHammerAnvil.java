@@ -1,7 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.tileentities;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -16,9 +20,6 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerSimpleSlots;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiSimpleSlots;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockInventoryWrapper;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class TileEntitySteamHammerAnvil extends TileEntitySteamHammerPart implements IHasGui {
     @Override

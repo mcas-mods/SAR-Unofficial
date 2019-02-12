@@ -5,18 +5,15 @@ import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockFluidHopper;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockFluidIO;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockTrunk;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.items.ItemCanister;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.blocks.BlockTankCasing;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.blocks.BlockTankValve;
-import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.blocks.BlockTankWindow;
+import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.blocks.*;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleStorage extends ModuleBase {

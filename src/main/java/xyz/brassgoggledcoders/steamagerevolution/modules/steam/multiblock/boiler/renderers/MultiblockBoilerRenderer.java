@@ -1,6 +1,10 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.renderers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.common.collect.Lists;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.math.BlockPos;
@@ -9,9 +13,6 @@ import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.ControllerBoiler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerCasing;
 import xyz.brassgoggledcoders.steamagerevolution.utils.RenderUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MultiblockBoilerRenderer extends TileEntitySpecialRenderer<TileEntityBoilerCasing> {
 

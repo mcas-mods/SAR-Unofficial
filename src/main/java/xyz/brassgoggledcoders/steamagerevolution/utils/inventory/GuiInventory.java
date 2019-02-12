@@ -1,6 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 
+import java.util.List;
+
 import com.google.common.collect.Lists;
+
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,8 +19,6 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSma
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceProgressBar;
-
-import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class GuiInventory extends GuiContainer {

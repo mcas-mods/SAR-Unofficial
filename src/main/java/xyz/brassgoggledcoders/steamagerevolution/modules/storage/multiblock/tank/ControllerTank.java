@@ -1,6 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -9,7 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
-import org.apache.commons.lang3.tuple.Pair;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiSingleTank;

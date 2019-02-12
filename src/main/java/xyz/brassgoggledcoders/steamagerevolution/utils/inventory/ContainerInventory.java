@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 
 import com.teamacronymcoders.base.containers.ContainerBase;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.items.SlotItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.SlotHandlerOutput;

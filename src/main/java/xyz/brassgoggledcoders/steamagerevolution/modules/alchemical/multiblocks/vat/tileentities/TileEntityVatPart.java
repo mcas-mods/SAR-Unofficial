@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.tileentities;
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.ControllerVat;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileInventory;

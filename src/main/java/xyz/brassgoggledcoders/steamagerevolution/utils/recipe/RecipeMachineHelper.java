@@ -1,20 +1,19 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
 
+import java.util.*;
+import java.util.stream.IntStream;
+
+import org.apache.commons.lang3.ArrayUtils;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemHandlerHelper;
-import org.apache.commons.lang3.ArrayUtils;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
-
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.IntStream;
 
 public class RecipeMachineHelper {
     public static void onFinish(SARMachineRecipe currentRecipe, InventoryMachine inventory) {

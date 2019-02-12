@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multibloc
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.multiblock.validation.ValidationError;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;

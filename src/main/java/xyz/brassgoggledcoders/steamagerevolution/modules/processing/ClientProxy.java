@@ -1,9 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.processing;
 
 import com.teamacronymcoders.base.modulesystem.proxies.IModuleProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+
+import net.minecraftforge.fml.common.event.*;
 
 public class ClientProxy implements IModuleProxy {
 

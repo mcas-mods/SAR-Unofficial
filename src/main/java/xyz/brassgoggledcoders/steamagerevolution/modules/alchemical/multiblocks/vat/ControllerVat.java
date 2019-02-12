@@ -1,17 +1,17 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemHandlerHelper;
-import org.apache.commons.lang3.tuple.Pair;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;

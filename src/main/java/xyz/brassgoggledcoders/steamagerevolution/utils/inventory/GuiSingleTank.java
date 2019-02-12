@@ -1,6 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 
+import java.util.List;
+
 import com.google.common.collect.Lists;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -12,8 +15,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
-
-import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class GuiSingleTank extends GuiContainer {

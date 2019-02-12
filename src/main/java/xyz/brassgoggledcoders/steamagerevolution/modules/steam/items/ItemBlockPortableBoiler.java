@@ -1,6 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.items;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import com.teamacronymcoders.base.items.itemblocks.ItemBlockModel;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -15,9 +20,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockPortableBoiler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityPortableBoiler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 public class ItemBlockPortableBoiler extends ItemBlockModel<BlockPortableBoiler> {
 

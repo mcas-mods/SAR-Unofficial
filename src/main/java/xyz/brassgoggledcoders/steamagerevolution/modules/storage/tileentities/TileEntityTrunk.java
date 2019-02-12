@@ -1,28 +1,24 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.tileentities.TileEntityInventoryBase;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ContainerChest;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryBasic;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class TileEntityTrunk extends TileEntityInventoryBase implements IHasGui, ITickable {
 

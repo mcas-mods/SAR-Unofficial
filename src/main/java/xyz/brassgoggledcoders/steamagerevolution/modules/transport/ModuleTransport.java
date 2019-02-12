@@ -5,12 +5,11 @@ import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockPneumaticRouter;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockPneumaticSender;
-import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockPneumaticTube;
+import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.*;
 
 @Module(value = SteamAgeRevolution.MODID)
 public class ModuleTransport extends ModuleBase {

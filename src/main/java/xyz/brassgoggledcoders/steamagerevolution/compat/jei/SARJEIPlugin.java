@@ -1,9 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.jei;
 
-import mezz.jei.api.IJeiHelpers;
-import mezz.jei.api.IModPlugin;
-import mezz.jei.api.IModRegistry;
-import mezz.jei.api.JEIPlugin;
+import java.util.Collection;
+
+import mezz.jei.api.*;
 import mezz.jei.api.gui.ITooltipCallback;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.ItemStack;
@@ -12,8 +11,6 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeRegistry;
-
-import java.util.Collection;
 
 @JEIPlugin
 public class SARJEIPlugin implements IModPlugin {

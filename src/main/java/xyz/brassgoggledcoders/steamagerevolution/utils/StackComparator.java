@@ -1,8 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils;
 
-import net.minecraft.item.ItemStack;
-
 import java.util.Comparator;
+
+import net.minecraft.item.ItemStack;
 
 public class StackComparator implements Comparator<ItemStack> {
 

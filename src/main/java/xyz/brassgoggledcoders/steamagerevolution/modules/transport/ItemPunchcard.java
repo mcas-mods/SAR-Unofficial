@@ -1,6 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.transport;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import com.teamacronymcoders.base.items.ItemBase;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
@@ -9,9 +14,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemStackHandler;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 public class ItemPunchcard extends ItemBase {
 

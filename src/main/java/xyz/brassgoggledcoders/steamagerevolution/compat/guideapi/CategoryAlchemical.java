@@ -1,15 +1,16 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.guideapi;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import com.teamacronymcoders.base.materialsystem.MaterialSystem;
+
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.PageHelper;
-import com.teamacronymcoders.base.materialsystem.MaterialSystem;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class CategoryAlchemical {
 

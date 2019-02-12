@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multibloc
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.SoundEvents;

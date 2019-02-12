@@ -1,19 +1,20 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.worldgen;
 
+import java.util.List;
+
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.modulesystem.dependencies.IDependency;
 import com.teamacronymcoders.base.modulesystem.dependencies.ModuleDependency;
 import com.teamacronymcoders.base.registrysystem.config.ConfigEntry;
 import com.teamacronymcoders.base.subblocksystem.SubBlockSystem;
+
 import net.minecraftforge.common.config.Property.Type;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.worldgen.OreGenerator.OreEntry;
-
-import java.util.List;
 
 @ObjectHolder(SteamAgeRevolution.MODID)
 @Module(value = SteamAgeRevolution.MODID)

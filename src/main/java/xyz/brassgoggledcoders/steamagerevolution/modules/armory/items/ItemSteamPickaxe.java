@@ -1,15 +1,18 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items;
 
+import java.util.List;
+
+import javax.annotation.*;
+
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.IBaseMod;
 import com.teamacronymcoders.base.IModAware;
 import com.teamacronymcoders.base.client.models.IHasModel;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemPickaxe;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -20,11 +23,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.List;
 
 public class ItemSteamPickaxe extends ItemPickaxe implements IHasModel, IModAware {
 

@@ -1,13 +1,13 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.transport.tileentities;
 
+import java.io.IOException;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketCardPunch;
-
-import java.io.IOException;
 
 public class GuiCardPuncher extends GuiContainer {
 

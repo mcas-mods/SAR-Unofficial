@@ -1,10 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.items;
 
+import javax.annotation.Nonnull;
+
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
-
-import javax.annotation.Nonnull;
 
 public abstract class ItemStackHandlerFiltered extends ItemStackHandlerSmart {
 

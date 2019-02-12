@@ -1,7 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import com.teamacronymcoders.base.client.ClientHelper;
 import com.teamacronymcoders.base.items.ItemArmorBase;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,9 +19,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModelClockworkWings;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class ItemClockworkWings extends ItemArmorBase {
 

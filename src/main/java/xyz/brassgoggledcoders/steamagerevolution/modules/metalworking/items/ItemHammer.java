@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items;
 
 import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.util.OreDictUtils;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

@@ -1,12 +1,13 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.vanity;
 
-import com.teamacronymcoders.base.items.IHasSubItems;
-import com.teamacronymcoders.base.items.ItemBase;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.ItemStack;
-
 import java.util.Arrays;
 import java.util.List;
+
+import com.teamacronymcoders.base.items.IHasSubItems;
+import com.teamacronymcoders.base.items.ItemBase;
+
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.ItemStack;
 
 public class ItemTeacup extends ItemBase implements IHasSubItems {
 

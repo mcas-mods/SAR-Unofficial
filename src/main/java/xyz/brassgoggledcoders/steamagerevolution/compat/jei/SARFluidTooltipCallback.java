@@ -1,12 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.jei;
 
+import java.util.List;
+
 import mezz.jei.api.gui.ITooltipCallback;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionUtils;
 import net.minecraftforge.fluids.FluidStack;
-
-import java.util.List;
 
 public class SARFluidTooltipCallback implements ITooltipCallback<FluidStack> {
     @Override

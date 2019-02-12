@@ -1,14 +1,15 @@
 package xyz.brassgoggledcoders.steamagerevolution.network;
 
+import java.util.ArrayList;
+
 import com.google.common.collect.Lists;
+
 import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-
-import java.util.ArrayList;
 
 public class PacketMultiFluidUpdate implements IMessage {
 

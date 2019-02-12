@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.multiblock.validation.ValidationError;
+
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
@@ -9,9 +10,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.ModuleAlchem
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceItem;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 

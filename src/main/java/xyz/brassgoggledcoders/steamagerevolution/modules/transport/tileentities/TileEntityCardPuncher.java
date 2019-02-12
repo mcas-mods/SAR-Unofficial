@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.transport.tileentities
 
 import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.tileentities.TileEntityInventoryBase;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;

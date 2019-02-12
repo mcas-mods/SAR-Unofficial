@@ -1,19 +1,20 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.multiblock.validation.ValidationError;
+
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class SARMultiblockBase extends RectangularMultiblockControllerBase implements ISARMultiblock, IHasGui {
 

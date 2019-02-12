@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities;
 
 import com.teamacronymcoders.base.tileentities.TileEntitySlowTick;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;

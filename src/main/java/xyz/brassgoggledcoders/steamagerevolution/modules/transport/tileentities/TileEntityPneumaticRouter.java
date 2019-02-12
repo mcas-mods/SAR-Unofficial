@@ -1,15 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.transport.tileentities;
 
 import com.teamacronymcoders.base.tileentities.TileEntityInventoryBase;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockPneumaticRouter;
 
 public class TileEntityPneumaticRouter extends TileEntityInventoryBase implements ITickable {

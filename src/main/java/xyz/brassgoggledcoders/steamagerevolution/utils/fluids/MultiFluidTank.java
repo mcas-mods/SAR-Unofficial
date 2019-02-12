@@ -1,6 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.fluids;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import javax.annotation.Nullable;
+
 import com.google.common.collect.Lists;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.FluidStack;
@@ -8,10 +14,6 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.capability.FluidTankPropertiesWrapper;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
-
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * @author BluSunrize - 20.02.2017

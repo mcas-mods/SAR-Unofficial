@@ -6,10 +6,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 public class InventoryMachine implements ISARMachineInventory, INBTSerializable<NBTTagCompound>, ISmartTankCallback {

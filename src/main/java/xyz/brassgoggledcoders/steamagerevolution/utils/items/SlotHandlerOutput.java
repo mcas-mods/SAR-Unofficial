@@ -1,10 +1,10 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.items;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-
-import javax.annotation.Nonnull;
 
 public class SlotHandlerOutput extends SlotItemHandler {
 

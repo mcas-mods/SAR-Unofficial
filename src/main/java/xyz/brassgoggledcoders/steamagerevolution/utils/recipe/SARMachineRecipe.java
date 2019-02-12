@@ -1,6 +1,15 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
 
+import java.awt.Color;
+import java.util.*;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.apache.commons.lang3.ArrayUtils;
+
 import com.google.common.collect.Lists;
+
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
@@ -9,14 +18,6 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.oredict.OreIngredient;
-import org.apache.commons.lang3.ArrayUtils;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei", striprefs = true)
 public class SARMachineRecipe implements IRecipeWrapper {

@@ -1,13 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.tileentities;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockTankWrapper;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class TileEntitySteelworksSteelOutput extends TileEntitySteelworksPart {
     @Override

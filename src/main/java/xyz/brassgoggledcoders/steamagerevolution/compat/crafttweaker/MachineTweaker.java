@@ -1,5 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.crafttweaker;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import javax.annotation.Nullable;
+
+import org.apache.commons.lang3.ArrayUtils;
+
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.api.item.IIngredient;
@@ -7,15 +14,10 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-import org.apache.commons.lang3.ArrayUtils;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.MachineRecipeBuilder;
-
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MachineTweaker {
 

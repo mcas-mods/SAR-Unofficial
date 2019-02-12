@@ -1,23 +1,23 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.items;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import com.teamacronymcoders.base.items.IHasSubItems;
 import com.teamacronymcoders.base.items.ItemBase;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.ModuleStorage;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 public class ItemCanister extends ItemBase implements IHasSubItems {
 

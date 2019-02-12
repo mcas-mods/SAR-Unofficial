@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities;
 
 import com.teamacronymcoders.base.tileentities.TileEntitySlowTick;
 import com.teamacronymcoders.base.util.PositionUtils;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -9,9 +10,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockFluidHopper;

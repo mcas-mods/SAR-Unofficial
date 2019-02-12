@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.transport.tileentities;
 
 import com.teamacronymcoders.base.tileentities.TileEntitySlowTick;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
@@ -9,9 +10,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.transport.ModuleTransport;
 import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockPneumaticSender;

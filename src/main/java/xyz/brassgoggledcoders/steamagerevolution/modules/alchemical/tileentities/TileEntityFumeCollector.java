@@ -1,15 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities;
 
 import com.teamacronymcoders.base.tileentities.TileEntitySlowTick;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;

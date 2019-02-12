@@ -1,11 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public class RecipeRegistry {
     private static HashMap<String, ArrayList<SARMachineRecipe>> recipeMasterlist = Maps.newHashMap();

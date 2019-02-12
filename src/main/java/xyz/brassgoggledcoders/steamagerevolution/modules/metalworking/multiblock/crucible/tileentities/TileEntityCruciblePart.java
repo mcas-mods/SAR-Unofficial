@@ -1,10 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.tileentities;
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.ControllerCrucible;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblockTile;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.*;
 
 public abstract class TileEntityCruciblePart extends SARMultiblockTileInventory<ControllerCrucible>
         implements ISARMultiblockTile {

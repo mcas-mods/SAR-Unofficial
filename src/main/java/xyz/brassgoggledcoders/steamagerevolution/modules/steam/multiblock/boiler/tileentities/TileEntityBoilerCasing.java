@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities;
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

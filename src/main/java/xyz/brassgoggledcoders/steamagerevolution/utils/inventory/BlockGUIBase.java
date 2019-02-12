@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 
 import com.teamacronymcoders.base.blocks.BlockTEBase;
 import com.teamacronymcoders.base.guisystem.GuiOpener;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

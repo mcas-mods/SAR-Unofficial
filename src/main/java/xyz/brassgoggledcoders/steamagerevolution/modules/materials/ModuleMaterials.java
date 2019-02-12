@@ -1,9 +1,10 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.materials;
 
+import java.awt.Color;
+import java.util.Arrays;
+
 import com.teamacronymcoders.base.items.ItemBase;
-import com.teamacronymcoders.base.materialsystem.MaterialException;
-import com.teamacronymcoders.base.materialsystem.MaterialSystem;
-import com.teamacronymcoders.base.materialsystem.MaterialUser;
+import com.teamacronymcoders.base.materialsystem.*;
 import com.teamacronymcoders.base.materialsystem.materials.Material;
 import com.teamacronymcoders.base.materialsystem.materials.MaterialBuilder;
 import com.teamacronymcoders.base.materialsystem.parts.PartBuilder;
@@ -12,6 +13,7 @@ import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -20,9 +22,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-
-import java.awt.*;
-import java.util.Arrays;
 
 @ObjectHolder(SteamAgeRevolution.MODID)
 @Module(value = SteamAgeRevolution.MODID)

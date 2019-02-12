@@ -1,15 +1,16 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities;
 
+import java.awt.Color;
+import java.util.ArrayList;
+
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
-
-import javax.annotation.Nonnull;
-import java.awt.*;
-import java.util.ArrayList;
 
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei", striprefs = true)
 public class FumeCollectorRecipe implements IRecipeWrapper {

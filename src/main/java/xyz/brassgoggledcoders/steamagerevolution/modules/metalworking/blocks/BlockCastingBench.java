@@ -1,5 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.blocks;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -15,9 +19,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.tileentities.TileEntityCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.BlockGUIBase;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 public class BlockCastingBench extends BlockGUIBase<TileEntityCastingBench> {
 

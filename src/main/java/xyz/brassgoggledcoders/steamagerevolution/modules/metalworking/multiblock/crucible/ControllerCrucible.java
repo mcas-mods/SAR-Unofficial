@@ -1,16 +1,15 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import org.apache.commons.lang3.tuple.Pair;
 import xyz.brassgoggledcoders.steamagerevolution.utils.PositionUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceItem;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 

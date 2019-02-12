@@ -1,15 +1,13 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.transport.tileentities;
 
+import javax.annotation.Nullable;
+
 import com.teamacronymcoders.base.containers.ContainerBase;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import net.minecraftforge.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.transport.ItemPunchcard;
-
-import javax.annotation.Nullable;
 
 public class ContainerCardPuncher extends ContainerBase {
 

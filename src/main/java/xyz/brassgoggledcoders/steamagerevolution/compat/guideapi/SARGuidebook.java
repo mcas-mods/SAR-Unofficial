@@ -1,8 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.guideapi;
 
-import amerifrance.guideapi.api.GuideAPI;
-import amerifrance.guideapi.api.GuideBook;
-import amerifrance.guideapi.api.IGuideBook;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import amerifrance.guideapi.api.*;
 import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.category.CategoryItemStack;
 import net.minecraft.init.Items;
@@ -15,9 +16,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMaterials;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 @Optional.Interface(iface = "amerifrance.guideapi.api.GuideAPI", modid = "guideapi", striprefs = true)
 @GuideBook

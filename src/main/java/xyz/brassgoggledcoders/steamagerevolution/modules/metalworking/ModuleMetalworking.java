@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking;
 
+import java.util.List;
+
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
@@ -8,6 +10,7 @@ import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigEntry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import com.teamacronymcoders.base.util.OreDictUtils;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -20,9 +23,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Property.Type;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -35,22 +36,12 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMateria
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.blocks.BlockCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemDie;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemHammer;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFluidInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFluidOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFrame;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.BlockCrucibleCasing;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.BlockCrucibleFluidOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.BlockCrucibleItemInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.BlockCrucibleSteamInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerAnvil;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerFrame;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerHammer;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerShielding;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.MachineRecipeBuilder;
-
-import java.util.List;
 
 @Module(value = SteamAgeRevolution.MODID)
 @ObjectHolder(SteamAgeRevolution.MODID)
