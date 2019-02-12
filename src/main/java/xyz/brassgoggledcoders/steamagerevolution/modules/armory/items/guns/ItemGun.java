@@ -66,8 +66,11 @@ public class ItemGun extends ItemBase {
 			return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
 		}
 		else {
-			for(int i = 0; i < 4; i++) { // TODO Don't hardcode number of parts
-				GunUtils.getPartFromGun(stack, GunPartType.values()[i]).onItemRightClick(worldIn, playerIn, handIn);
+			for(int i = 0; i < GunPartType.values().length; i++) { // TODO Don't hardcode number of parts
+				IGunPart part = GunUtils.getPartFromGun(stack, GunPartType.values()[i]);
+				if(part != null) {
+					part.onItemRightClick(worldIn, playerIn, handIn);
+				}
 			}
 		}
 
@@ -76,8 +79,11 @@ public class ItemGun extends ItemBase {
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase entityLiving, int count) {
-		for(int i = 0; i < 4; i++) { // TODO Don't hardcode number of parts
-			GunUtils.getPartFromGun(stack, GunPartType.values()[i]).onUsingTick(stack, entityLiving, count);
+		for(int i = 0; i < GunPartType.values().length; i++) { // TODO Don't hardcode number of parts
+			IGunPart part = GunUtils.getPartFromGun(stack, GunPartType.values()[i]);
+			if(part != null) {
+				part.onUsingTick(stack, entityLiving, count);
+			}
 		}
 	}
 
