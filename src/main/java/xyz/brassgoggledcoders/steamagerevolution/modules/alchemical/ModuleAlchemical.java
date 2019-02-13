@@ -141,6 +141,7 @@ public class ModuleAlchemical extends ModuleBase {
 				.setItemInputs(new ItemStack(Blocks.DIRT), new ItemStack(Items.ROTTEN_FLESH),
 						new ItemStack(Items.SUGAR))
 				.setFluidOutputs(FluidRegistry.getFluidStack("slime", Fluid.BUCKET_VOLUME)).build();
+		new MachineRecipeBuilder("vat").setFluidInputs(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME)).setItemInputs(new ItemStack(Items.REDSTONE)).setFluidOutputs(FluidRegistry.getFluidStack("lava", Fluid.BUCKET_VOLUME)).setItemOutputs(new ItemStack(Items.GLOWSTONE_DUST)).build();
 		new MachineRecipeBuilder("distiller").setFluidInputs(FluidRegistry.getFluidStack("slime", Fluid.BUCKET_VOLUME))
 				.setItemOutputs(new ItemStack(Item.getItemFromBlock(Blocks.SLIME_BLOCK))).setCraftTime(20).build();
 	}
