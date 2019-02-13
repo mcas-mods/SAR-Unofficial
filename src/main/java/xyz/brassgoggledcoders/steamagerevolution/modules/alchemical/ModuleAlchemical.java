@@ -2,6 +2,9 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.alchemical;
 
 import java.awt.Color;
 import java.lang.reflect.Field;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
 
 import com.teamacronymcoders.base.blocks.BlockFluidBase;
 import com.teamacronymcoders.base.materialsystem.MaterialSystem;
@@ -24,6 +27,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.*;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
@@ -196,7 +200,23 @@ public class ModuleAlchemical extends ModuleBase {
 		FluidRegistry.addBucketForFluid(sulphuric_acid);
 
 		blockRegistry.register(new BlockDamagingFluid("sulphuric_acid", FluidRegistry.getFluid("sulphuric_acid"),
-				Material.WATER, damageSourceAcid, 4));
+				Material.WATER, damageSourceAcid, 4) {
+			@Override
+			public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state,
+					@Nonnull Random rand) {
+				if(!world.isRemote) {
+				if(rand.nextInt(10) == 0) {
+					BlockPos other = pos.offset(EnumFacing.byIndex(5));
+					Material mat = world.getBlockState(other).getMaterial();
+					if(Material.GROUND.equals(mat) || Material.GRASS.equals(mat) || Material.ROCK.equals(mat)) {
+						world.getBlockState(other).getBlock().breakBlock(world, pos, state);
+						world.setBlockToAir(other);
+					}
+				}
+				}
+				super.updateTick(world, pos, state, rand);			
+			}
+		});
 
 		// TODO TE compat?
 		Fluid liquid_glowstone = new Fluid("liquid_glowstone",
