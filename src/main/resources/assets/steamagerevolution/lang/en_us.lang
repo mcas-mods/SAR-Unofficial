@@ -36,13 +36,12 @@ tile.steamagerevolution.pneumatic_router.name=Pneumatic Router
 
 tile.steamagerevolution.boiler_casing.name=Boiler Casing
 tile.steamagerevolution.boiler_water_input.name=Boiler Water Input
-tile.steamagerevolution.boiler_water_gauge.name=Boiler Water Gauge
 tile.steamagerevolution.boiler_pressuremonitor.name=Boiler Pressure Monitor
 tile.steamagerevolution.boiler_pressurevalve.name=Boiler Pressure Valve
 tile.steamagerevolution.boiler_solid_firebox.name=Boiler Solid Firebox
 tile.steamagerevolution.boiler_liquid_firebox.name=Boiler Liquid Firebox
 tile.steamagerevolution.boiler_steam_output.name=Boiler Steam Output
-tile.steamagerevolution.boiler_steam_gauge.name=Boiler Steam Gauge
+tile.steamagerevolution.boiler_gauge.name=Boiler Gauge
 
 tile.steamagerevolution.steamhammer_hammer.name=Steam Hammer Head
 tile.steamagerevolution.steamhammer_frame.name=Steam Hammer Structure
