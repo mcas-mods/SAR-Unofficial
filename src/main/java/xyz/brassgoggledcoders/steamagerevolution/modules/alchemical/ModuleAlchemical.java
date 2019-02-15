@@ -208,11 +208,13 @@ public class ModuleAlchemical extends ModuleBase {
 			public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state,
 					@Nonnull Random rand) {
 				if(!world.isRemote) {
-					if(rand.nextInt(3) == 0) {
-						BlockPos other = pos.offset(EnumFacing.byIndex(5));
-						Material mat = world.getBlockState(other).getMaterial();
-						if(Material.GROUND.equals(mat) || Material.GRASS.equals(mat) || Material.ROCK.equals(mat)) {
-							world.setBlockToAir(other);
+					for(EnumFacing facing : EnumFacing.VALUES) {
+						if(rand.nextInt(3) == 0) {
+							BlockPos other = pos.offset(facing);
+							Material mat = world.getBlockState(other).getMaterial();
+							if(Material.GROUND.equals(mat) || Material.GRASS.equals(mat) || Material.ROCK.equals(mat)) {
+								world.setBlockToAir(other);
+							}
 						}
 					}
 				}
