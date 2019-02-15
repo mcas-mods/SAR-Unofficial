@@ -109,6 +109,9 @@ public class ModuleArmory extends ModuleBase {
 		});
 		itemRegistry.register(new ItemBarrel("short_barrel", 0, 0));
 		itemRegistry.register(new ItemBarrel("blunderbuss_barrel", -1.5F, 10));
+		itemRegistry.register(new ItemStock("standard_stock", 0.7F));
+		itemRegistry.register(new ItemStock("heavy_stock", 0.9F));
+		// TODO Slime stock
 		itemRegistry.register(new ItemChamber("ball_chamber", AmmoType.BALL));
 		itemRegistry.register(new ItemChamber("cartidge_chamber", AmmoType.CARTRIDGE));
 		// itemRegistry.register(new ItemAmmoContainer("cartridge_clip", 5,

@@ -87,7 +87,8 @@ public class GunUtils {
 		bullet.shoot(playerIn, playerIn.getPitchYaw().x, playerIn.getRotationYawHead(), playerIn.getEyeHeight(),
 				3f + part.getVelocityModifier(), part.getAccuracyModifier());
 		worldIn.spawnEntity(bullet);
-		playerIn.knockBack(entityLiving, 0.2F, -1, -1);
+		IStock stock = (IStock) GunPartRegistry.getPart(GunUtils.getOrCreateTagCompound(stack).getString("STOCK"));
+		playerIn.knockBack(entityLiving, 1 - stock.getKnockbackModifier(), -1, -1);
 	}
 
 	public static IGunPart getPartFromGun(ItemStack stack, IGunPart.GunPartType type) {
