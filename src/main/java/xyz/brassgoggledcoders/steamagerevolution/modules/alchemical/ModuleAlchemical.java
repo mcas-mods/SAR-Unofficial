@@ -209,7 +209,7 @@ public class ModuleAlchemical extends ModuleBase {
 					@Nonnull Random rand) {
 				if(!world.isRemote) {
 					for(EnumFacing facing : EnumFacing.VALUES) {
-						if(rand.nextInt(3) == 0) {
+						if(rand.nextInt(10) == 0) {
 							BlockPos other = pos.offset(facing);
 							Material mat = world.getBlockState(other).getMaterial();
 							if(Material.GROUND.equals(mat) || Material.GRASS.equals(mat) || Material.ROCK.equals(mat)) {
