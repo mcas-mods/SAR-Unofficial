@@ -26,9 +26,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.*;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -141,7 +139,11 @@ public class ModuleAlchemical extends ModuleBase {
 				.setItemInputs(new ItemStack(Blocks.DIRT), new ItemStack(Items.ROTTEN_FLESH),
 						new ItemStack(Items.SUGAR))
 				.setFluidOutputs(FluidRegistry.getFluidStack("slime", Fluid.BUCKET_VOLUME)).build();
-		new MachineRecipeBuilder("vat").setFluidInputs(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME)).setItemInputs(new ItemStack(Items.REDSTONE)).setFluidOutputs(FluidRegistry.getFluidStack("lava", Fluid.BUCKET_VOLUME)).setItemOutputs(new ItemStack(Items.GLOWSTONE_DUST)).build();
+		new MachineRecipeBuilder("vat")
+				.setFluidInputs(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME))
+				.setItemInputs(new ItemStack(Items.REDSTONE))
+				.setFluidOutputs(FluidRegistry.getFluidStack("lava", Fluid.BUCKET_VOLUME))
+				.setItemOutputs(new ItemStack(Items.GLOWSTONE_DUST)).build();
 		new MachineRecipeBuilder("distiller").setFluidInputs(FluidRegistry.getFluidStack("slime", Fluid.BUCKET_VOLUME))
 				.setItemOutputs(new ItemStack(Item.getItemFromBlock(Blocks.SLIME_BLOCK))).setCraftTime(20).build();
 	}
@@ -206,16 +208,15 @@ public class ModuleAlchemical extends ModuleBase {
 			public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state,
 					@Nonnull Random rand) {
 				if(!world.isRemote) {
-				if(rand.nextInt(10) == 0) {
-					BlockPos other = pos.offset(EnumFacing.byIndex(5));
-					Material mat = world.getBlockState(other).getMaterial();
-					if(Material.GROUND.equals(mat) || Material.GRASS.equals(mat) || Material.ROCK.equals(mat)) {
-						world.getBlockState(other).getBlock().breakBlock(world, pos, state);
-						world.setBlockToAir(other);
+					if(rand.nextInt(3) == 0) {
+						BlockPos other = pos.offset(EnumFacing.byIndex(5));
+						Material mat = world.getBlockState(other).getMaterial();
+						if(Material.GROUND.equals(mat) || Material.GRASS.equals(mat) || Material.ROCK.equals(mat)) {
+							world.setBlockToAir(other);
+						}
 					}
 				}
-				}
-				super.updateTick(world, pos, state, rand);			
+				super.updateTick(world, pos, state, rand);
 			}
 		});
 
