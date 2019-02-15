@@ -39,7 +39,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.registries.IRegistryDelegate;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.blocks.BlockFumeCollector;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.items.ItemFlask;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.blocks.*;
@@ -277,23 +277,24 @@ public class ModuleAlchemical extends ModuleBase {
 					}
 				});
 
-		Fluid incense = new Fluid("incense", new ResourceLocation(SteamAgeRevolution.MODID, "fluids/incense"),
-				new ResourceLocation(SteamAgeRevolution.MODID, "fluids/incense_flow")).setGaseous(true).setDensity(-100)
-						.setViscosity(-100);
-
-		if(!(FluidRegistry.isFluidRegistered(incense))) { // Soft registration
-			FluidRegistry.registerFluid(incense);
-			FluidRegistry.addBucketForFluid(incense);
-		}
-		blockRegistry.register(new BlockIncenseFluid("incense", FluidRegistry.getFluid("incense"), Material.WATER) {
-			@Override
-			public ResourceLocation getResourceLocation(IBlockState blockState) {
-				return new ResourceLocation(SteamAgeRevolution.MODID, "incense");
-			}
-		});
-		blockRegistry.register(new BlockIncense());
-		blockRegistry.register(new BlockIncenseSpray());
-		blockRegistry.register(new BlockIncenseBurner());
+		/*
+		 * Fluid incense = new Fluid("incense", new
+		 * ResourceLocation(SteamAgeRevolution.MODID, "fluids/incense"), new
+		 * ResourceLocation(SteamAgeRevolution.MODID,
+		 * "fluids/incense_flow")).setGaseous(true).setDensity(-100)
+		 * .setViscosity(-100);
+		 * 
+		 * if(!(FluidRegistry.isFluidRegistered(incense))) { // Soft registration
+		 * FluidRegistry.registerFluid(incense);
+		 * FluidRegistry.addBucketForFluid(incense); } blockRegistry.register(new
+		 * BlockIncenseFluid("incense", FluidRegistry.getFluid("incense"),
+		 * Material.WATER) {
+		 * 
+		 * @Override public ResourceLocation getResourceLocation(IBlockState blockState)
+		 * { return new ResourceLocation(SteamAgeRevolution.MODID, "incense"); } });
+		 * blockRegistry.register(new BlockIncense()); blockRegistry.register(new
+		 * BlockIncenseSpray()); blockRegistry.register(new BlockIncenseBurner());
+		 */
 	}
 
 	// Lifted from IE
