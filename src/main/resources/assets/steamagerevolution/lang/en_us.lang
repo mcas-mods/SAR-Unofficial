@@ -122,7 +122,7 @@ death.attack.bullet=%1$s took a bullet to the knee.
 
 #Guide
 item.guide.steamagerevolution=SteamAgeRevolution Guidebook
-guide.steamagerevolution.title=Brassbound Tome
+guide.steamagerevolution.title=DEPRECATED. Install Patchouli.
 guide.steamagerevolution.landing=This brassbound tome will be your guide to the world of steam and steel
 ##Getting started
 guide.steamagerevolution.category.basics=Getting started
