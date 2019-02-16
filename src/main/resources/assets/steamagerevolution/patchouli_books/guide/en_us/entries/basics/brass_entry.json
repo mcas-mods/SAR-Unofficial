@@ -1,0 +1,11 @@
+{
+    "name": "Creating Brass",
+    "icon": "minecraft:iron_ingot",
+    "category": "basics_category",
+    "pages": [
+        {
+            "type": "text",
+            "text": "§oDown to brass tacks.§r Combining copper and zinc gives an important new material - brass. Brass is strong while also being easy to machine. It is also quite conductive and ductile. A jack of all trades, master of none kind of alloy if you will. Initially, brass can be created by mixing copper and zinc powder to give brass powder that is then smelted into brass ingots. "
+        }
+    ]
+}

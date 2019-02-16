@@ -1,0 +1,7 @@
+{
+	"name": "item.guide.steamagerevolution",
+	"landing_text": "guide.steamagerevolution.landing",
+	"version": 1,
+    "model": "steamagerevolution:guide",
+    "creative_tab": "steamagerevolution"
+}

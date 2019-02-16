@@ -10,6 +10,7 @@ import amerifrance.guideapi.api.util.PageHelper;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public class CategoryAlchemical {

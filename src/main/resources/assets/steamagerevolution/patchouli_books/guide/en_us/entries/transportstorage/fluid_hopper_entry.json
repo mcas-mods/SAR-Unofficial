@@ -1,0 +1,11 @@
+{
+    "name": "Fluid Hopper",
+    "icon": "steamagerevolution:fluid_hopper",
+    "category": "transportstorage_category",
+    "pages": [
+        {
+            "type": "text",
+            "text": "Acts exactly like the hopper you're used to, but transports fluids instead of items. It does so at a rate of a bucket per second."
+        }
+    ]
+}
