@@ -4,8 +4,9 @@
     "category": "transportstorage_category",
     "pages": [
         {
-            "type": "text",
-            "text": "Acts exactly like the hopper you're used to, but transports fluids instead of items. It does so at a rate of a bucket per second."
+            "type": "crafting",
+            "recipe": "steamagerevolution:fluid_hopper",
+            "text": "Acts exactly like the $(item)Hopper$() you're used to, but transports fluids instead of items. It does so at a rate of a bucket per second."
         }
     ]
 }

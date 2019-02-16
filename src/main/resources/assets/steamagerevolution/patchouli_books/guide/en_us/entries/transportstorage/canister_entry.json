@@ -4,7 +4,9 @@
     "category": "transportstorage_category",
     "pages": [
         {
-            "type": "text",
+            "type": "crafting",
+            "title": "Canisters:",
+            "recipe": "steamagerevolution:canister",
             "text": "The Steampunk's premier portable fluid storage method. Holds the equivalent of eight buckets of fluid in a safely enclosed capsule."
         }
     ]
