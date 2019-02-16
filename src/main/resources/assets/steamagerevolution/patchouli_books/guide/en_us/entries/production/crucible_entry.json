@@ -11,11 +11,11 @@
             "type": "image",
             "images": ["steamagerevolution:textures/images/crucible.png"],
             "border": true,
-            "text": "structure except in the outer frame. Should one wish to allow the molten metal to cool for"
+            "text": "structure except in the outer frame. Should one wish to undo the Crucible's"
         },
         {
             "type": "text",
-            "text": "further processing and shaping, the Casting Block will take 1296mB of molten metal and allow it to cool into a solid block."
+            "text": "work the $(l:production/casting_block_entry)Casting Block$() will be of use."
         }
     ]
 }
