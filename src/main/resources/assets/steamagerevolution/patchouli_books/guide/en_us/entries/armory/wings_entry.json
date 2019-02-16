@@ -1,7 +1,7 @@
 {
     "name": "Clockwork Wings",
     "icon": "steamagerevolution:clockwork_wings",
-    "category": "utilities_category",
+    "category": "armory_category",
     "pages": [
         {
             "type": "text",

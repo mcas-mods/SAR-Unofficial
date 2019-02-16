@@ -1,0 +1,11 @@
+{
+    "name": "Rocketfist!",
+    "icon": "steamagerevolution:rocket_fist",
+    "category": "armory_category",
+    "pages": [
+        {
+            "type": "text",
+            "text": "Rocketfist! Because Rocketfist. Stupidly impractical weapon - but who cares! Fill it with steam, right click to boost yourself forward and left click on an entity to explode it. The explosion also damages you, and you're likely to take a lot of fall damage using this. Like I said, stupidly impractical. But try it..."
+        }
+    ]
+}
