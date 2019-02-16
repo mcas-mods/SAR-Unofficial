@@ -54,6 +54,8 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemSteamHoe("steam_hoe", 1000));
 		itemRegistry.register(new ItemSteamSword("steam_sword", 1000));
 
+		itemRegistry.register(new ItemRocketFist());
+
 		/*
 		 * itemRegistry.register(new ItemGun()); itemRegistry.register(new
 		 * ItemAmmo("iron_ball", AmmoType.BALL, 2)); itemRegistry.register(new
