@@ -68,7 +68,7 @@ public class ItemRocketFist extends ItemBase {
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
-			target.world.createExplosion(null, target.posX, target.posY, target.posZ, 3, false);
+			target.world.createExplosion(null, target.posX, target.posY, target.posZ, 0.5F, false);
 			internal.drain(steamUsePerBlock * 10, true);
 			stack.damageItem(1, attacker);
 			return true;
