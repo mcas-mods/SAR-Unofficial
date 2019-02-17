@@ -10,6 +10,10 @@
   },
   "variants": {
     "normal": [{}],
-    "inventory": [{}]
+    "inventory": [{}],
+    "multiblock_formed": {
+    "true": {},
+    "false": {}
+    }
   }
 }
