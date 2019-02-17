@@ -1,5 +1,6 @@
 {
 	"name": "Alchemical",
 	"description": "Everything except turning lead to gold",
-	"icon": "steamagerevolution:vat_output"
+	"icon": "steamagerevolution:vat_output",
+    "flag": "steamagerevolution:alchemical"
 }

@@ -34,6 +34,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -68,6 +69,13 @@ public class ModuleAlchemical extends ModuleBase {
 			.setDamageBypassesArmor().setDamageIsAbsolute();
 
 	public static int VALUE_BOTTLE = 250;
+
+	@Override
+	public void preInit(FMLPreInitializationEvent event) {
+		super.preInit(event);
+		// PatchouliAPI.instance.setConfigFlag(SteamAgeRevolution.MODID +
+		// this.getName(), getIsActive());
+	}
 
 	@SubscribeEvent
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
