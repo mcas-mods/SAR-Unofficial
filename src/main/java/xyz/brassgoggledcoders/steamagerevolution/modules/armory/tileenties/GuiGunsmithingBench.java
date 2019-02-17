@@ -41,14 +41,14 @@ public class GuiGunsmithingBench extends GuiContainer {
 	@Override
 	public void initGui() {
 		super.initGui();
-		this.buttonList.clear();
+		buttonList.clear();
 		this.addButton(new GuiButtonImage(0, 80, 40, 22, 22, 90, 220, 0,
 				new ResourceLocation("minecraft", "textures/gui/container/beacon.png")));
 	}
 
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException {
-		SteamAgeRevolution.instance.getPacketHandler().sendToServer(new PacketGunCraft(this.tile.getPos()));
+		SteamAgeRevolution.instance.getPacketHandler().sendToServer(new PacketGunCraft(tile.getPos()));
 	}
 
 }

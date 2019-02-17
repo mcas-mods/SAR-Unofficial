@@ -8,19 +8,19 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockT
 
 public abstract class TileEntityDistillerPart extends SARMultiblockTileInventory<ControllerDistiller> {
 
-    @Override
-    public Class<ControllerDistiller> getMultiblockControllerType() {
-        return ControllerDistiller.class;
-    }
+	@Override
+	public Class<ControllerDistiller> getMultiblockControllerType() {
+		return ControllerDistiller.class;
+	}
 
-    @Override
-    public ISARMultiblock getControllerInfo() {
-        return new ControllerDistiller(null);
-    }
+	@Override
+	public ISARMultiblock getControllerInfo() {
+		return new ControllerDistiller(null);
+	}
 
-    @Override
-    public MultiblockControllerBase createNewMultiblock() {
-        return new ControllerDistiller(getWorld());
-    }
+	@Override
+	public MultiblockControllerBase createNewMultiblock() {
+		return new ControllerDistiller(getWorld());
+	}
 
 }

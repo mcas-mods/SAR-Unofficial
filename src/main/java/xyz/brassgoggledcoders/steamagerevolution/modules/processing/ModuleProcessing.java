@@ -29,57 +29,57 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.M
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class ModuleProcessing extends ModuleBase {
 
-    public static final Item charcoal_powder = null;
+	public static final Item charcoal_powder = null;
 
-    @SubscribeEvent
-    public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+	@SubscribeEvent
+	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 
-        for (Entry<ItemStack, ItemStack> recipe : FurnaceRecipes.instance().getSmeltingList().entrySet()) {
-            RecipeRegistry.addRecipe("steam furnace",
-                    new MachineRecipeBuilder("steam furnace").setItemInputs(recipe.getKey())
-                            .setItemOutputs(recipe.getValue()).setSteamCost(1000).setCraftTime(1000).build());
-        }
+		for(Entry<ItemStack, ItemStack> recipe : FurnaceRecipes.instance().getSmeltingList().entrySet()) {
+			RecipeRegistry.addRecipe("steam furnace",
+					new MachineRecipeBuilder("steam furnace").setItemInputs(recipe.getKey())
+							.setItemOutputs(recipe.getValue()).setSteamCost(1000).setCraftTime(1000).build());
+		}
 
-        // TODO Oredict
-        // SawmillRecipe.addSawmillRecipe(new ItemStack(Blocks.LOG), new
-        // ItemStack(Blocks.PLANKS, 6));
-    }
+		// TODO Oredict
+		// SawmillRecipe.addSawmillRecipe(new ItemStack(Blocks.LOG), new
+		// ItemStack(Blocks.PLANKS, 6));
+	}
 
-    @Override
-    public void init(FMLInitializationEvent event) {
-        super.init(event);
-        OreDictionary.registerOre("listAllmeatraw", Items.CHICKEN);
-        OreDictionary.registerOre("listAllmeatraw", Items.BEEF);
-        OreDictionary.registerOre("listAllmeatraw", Items.PORKCHOP);
-        OreDictionary.registerOre("listAllmeatraw", Items.MUTTON);
-        OreDictionary.registerOre("listAllmeatraw", Items.RABBIT);
-    }
+	@Override
+	public void init(FMLInitializationEvent event) {
+		super.init(event);
+		OreDictionary.registerOre("listAllmeatraw", Items.CHICKEN);
+		OreDictionary.registerOre("listAllmeatraw", Items.BEEF);
+		OreDictionary.registerOre("listAllmeatraw", Items.PORKCHOP);
+		OreDictionary.registerOre("listAllmeatraw", Items.MUTTON);
+		OreDictionary.registerOre("listAllmeatraw", Items.RABBIT);
+	}
 
-    @Override
-    public String getName() {
-        return "Processing";
-    }
+	@Override
+	public String getName() {
+		return "Processing";
+	}
 
-    @Override
-    public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
-        // blockRegistry.register(new BlockKilnFrame(Material.ROCK, "kiln_frame"));
-        // blockRegistry.register(new BlockKilnSteamInput(Material.ROCK,
-        // "kiln_steam_input"));
-        // blockRegistry.register(new BlockKilnWindow(Material.GLASS, "kiln_window"));
-        // blockRegistry.register(new BlockKilnDoor(Material.IRON, "kiln_door"));
+	@Override
+	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
+		// blockRegistry.register(new BlockKilnFrame(Material.ROCK, "kiln_frame"));
+		// blockRegistry.register(new BlockKilnSteamInput(Material.ROCK,
+		// "kiln_steam_input"));
+		// blockRegistry.register(new BlockKilnWindow(Material.GLASS, "kiln_window"));
+		// blockRegistry.register(new BlockKilnDoor(Material.IRON, "kiln_door"));
 
-        blockRegistry.register(new BlockFurnaceCasing(Material.IRON, "furnace_casing"));
-        blockRegistry.register(new BlockFurnaceItemInput(Material.IRON, "furnace_item_input"));
-        blockRegistry.register(new BlockFurnaceItemOutput(Material.IRON, "furnace_item_output"));
-        blockRegistry.register(new BlockFurnaceSteamInput(Material.IRON, "furnace_steam_input"));
+		blockRegistry.register(new BlockFurnaceCasing(Material.IRON, "furnace_casing"));
+		blockRegistry.register(new BlockFurnaceItemInput(Material.IRON, "furnace_item_input"));
+		blockRegistry.register(new BlockFurnaceItemOutput(Material.IRON, "furnace_item_output"));
+		blockRegistry.register(new BlockFurnaceSteamInput(Material.IRON, "furnace_steam_input"));
 
-        // blockRegistry.register(new BlockSawmillCasing(Material.IRON,
-        // "sawmill_casing"));
-        // blockRegistry.register(new BlockSawmillAxle(Material.IRON, "sawmill_axle"));
-    }
+		// blockRegistry.register(new BlockSawmillCasing(Material.IRON,
+		// "sawmill_casing"));
+		// blockRegistry.register(new BlockSawmillAxle(Material.IRON, "sawmill_axle"));
+	}
 
-    @Override
-    public String getClientProxyPath() {
-        return "xyz.brassgoggledcoders.steamagerevolution.modules.processing.ClientProxy";
-    }
+	@Override
+	public String getClientProxyPath() {
+		return "xyz.brassgoggledcoders.steamagerevolution.modules.processing.ClientProxy";
+	}
 }

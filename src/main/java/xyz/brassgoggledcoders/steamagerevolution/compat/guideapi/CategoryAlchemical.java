@@ -10,29 +10,28 @@ import amerifrance.guideapi.api.util.PageHelper;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public class CategoryAlchemical {
 
-    public static Map<ResourceLocation, EntryAbstract> buildCategory() {
-        Map<ResourceLocation, EntryAbstract> entries = new LinkedHashMap<ResourceLocation, EntryAbstract>();
-        String keyBase = "guide." + SteamAgeRevolution.MODID + ".entry.alchemical.";
+	public static Map<ResourceLocation, EntryAbstract> buildCategory() {
+		Map<ResourceLocation, EntryAbstract> entries = new LinkedHashMap<ResourceLocation, EntryAbstract>();
+		String keyBase = "guide." + SteamAgeRevolution.MODID + ".entry.alchemical.";
 
-        BookUtils.addBasicEntry(entries, keyBase, "vat", new ItemStack(BookObjectHolder.vat_output), true);
+		BookUtils.addBasicEntry(entries, keyBase, "vat", new ItemStack(BookObjectHolder.vat_output), true);
 
-        BookUtils.addBasicEntry(entries, keyBase, "acid",
-                MaterialSystem.getMaterialPart("sulphur_crystal").getItemStack(), false);
+		BookUtils.addBasicEntry(entries, keyBase, "acid",
+				MaterialSystem.getMaterialPart("sulphur_crystal").getItemStack(), false);
 
-        BookUtils.addBasicEntry(entries, keyBase, "potions", new ItemStack(BookObjectHolder.flask), false);
+		BookUtils.addBasicEntry(entries, keyBase, "potions", new ItemStack(BookObjectHolder.flask), false);
 
-        BookUtils.addBasicEntry(entries, keyBase, "synth", new ItemStack(Items.SLIME_BALL), false);
+		BookUtils.addBasicEntry(entries, keyBase, "synth", new ItemStack(Items.SLIME_BALL), false);
 
-        for (EntryAbstract entry : entries.values()) {
-            PageHelper.setPagesToUnicode(entry.pageList);
-        }
+		for(EntryAbstract entry : entries.values()) {
+			PageHelper.setPagesToUnicode(entry.pageList);
+		}
 
-        return entries;
-    }
+		return entries;
+	}
 
 }

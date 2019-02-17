@@ -4,22 +4,22 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.IMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 public interface IHasInventory extends IMachine {
-    // TODO Duplicated in multiblock interface
-    public String getName();
+	// TODO Duplicated in multiblock interface
+	public String getName();
 
-    public InventoryMachine getInventory();
+	public InventoryMachine getInventory();
 
-    public void setInventory(InventoryMachine inventory);
+	public void setInventory(InventoryMachine inventory);
 
-    @Deprecated
-    public SARMachineRecipe getCurrentRecipe();
+	@Deprecated
+	public SARMachineRecipe getCurrentRecipe();
 
-    // TODO These should probably be a seperate interface
-    public void setCurrentRecipe(SARMachineRecipe recipe);
+	// TODO These should probably be a seperate interface
+	public void setCurrentRecipe(SARMachineRecipe recipe);
 
-    int getCurrentProgress();
+	int getCurrentProgress();
 
-    int getCurrentMaxTicks();
+	int getCurrentMaxTicks();
 
-    void setCurrentTicks(int ticks);
+	void setCurrentTicks(int ticks);
 }

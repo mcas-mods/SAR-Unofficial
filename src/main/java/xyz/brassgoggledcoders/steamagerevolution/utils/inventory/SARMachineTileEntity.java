@@ -41,6 +41,7 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 		this.inventory = inventory;
 	}
 
+	@Override
 	public abstract String getName();
 
 	@Override
@@ -141,7 +142,7 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 
 	@Override
 	public void setCurrentRecipe(SARMachineRecipe recipe) {
-		this.currentRecipe = recipe;
+		currentRecipe = recipe;
 	}
 
 	@Override
@@ -157,16 +158,16 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 
 	@Override
 	public void setCurrentTicks(int ticks) {
-		this.currentTicks = ticks;
+		currentTicks = ticks;
 	}
 
 	@Override
 	public BlockPos getPos() {
-		return this.pos;
+		return pos;
 	}
 
 	@Override
 	public World getWorld() {
-		return this.world;
+		return world;
 	}
 }

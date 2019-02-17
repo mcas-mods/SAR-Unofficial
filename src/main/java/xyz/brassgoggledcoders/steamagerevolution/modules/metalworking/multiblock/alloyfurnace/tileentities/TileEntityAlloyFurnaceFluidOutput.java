@@ -19,44 +19,44 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockTankWrapper;
 
 public class TileEntityAlloyFurnaceFluidOutput extends TileEntityAlloyFurnacePart implements IHasGui {
-    @Override
-    public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-        return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
-    }
+	@Override
+	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+	}
 
-    @Override
-    @Nonnull
-    public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockTankWrapper(this, true));
-        }
-        return super.getCapability(capability, facing);
-    }
+	@Override
+	@Nonnull
+	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockTankWrapper(this, true));
+		}
+		return super.getCapability(capability, facing);
+	}
 
-    @Override
-    public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
-        return true;
-    }
+	@Override
+	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
+		return true;
+	}
 
-    @Override
-    public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
-        return true;
-    }
+	@Override
+	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
+		return true;
+	}
 
-    @Override
-    public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
-        return true;
-    }
+	@Override
+	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
+		return true;
+	}
 
-    @Override
-    public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-        // TODO Auto-generated method stub
-        return new GuiSingleTank(entityPlayer, this);
-    }
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return new GuiSingleTank(entityPlayer, this);
+	}
 
-    @Override
-    public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-        // TODO Auto-generated method stub
-        return new ContainerSingleTank(entityPlayer, this);
-    }
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return new ContainerSingleTank(entityPlayer, this);
+	}
 }

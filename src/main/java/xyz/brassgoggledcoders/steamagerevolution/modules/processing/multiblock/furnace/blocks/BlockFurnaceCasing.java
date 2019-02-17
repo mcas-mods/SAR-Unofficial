@@ -9,18 +9,18 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultibloc
 
 public class BlockFurnaceCasing extends BlockMultiblockBase<TileEntityFurnaceCasing> {
 
-    public BlockFurnaceCasing(Material material, String name) {
-        super(material, name);
-    }
+	public BlockFurnaceCasing(Material material, String name) {
+		super(material, name);
+	}
 
-    @Override
-    public Class<? extends TileEntity> getTileEntityClass() {
-        return TileEntityFurnaceCasing.class;
-    }
+	@Override
+	public Class<? extends TileEntity> getTileEntityClass() {
+		return TileEntityFurnaceCasing.class;
+	}
 
-    @Override
-    public TileEntity createTileEntity(World world, IBlockState blockState) {
-        return new TileEntityFurnaceCasing();
-    }
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState blockState) {
+		return new TileEntityFurnaceCasing();
+	}
 
 }

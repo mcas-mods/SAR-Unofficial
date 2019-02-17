@@ -8,19 +8,19 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockT
 
 public abstract class TileEntityFurnacePart extends SARMultiblockTileInventory<ControllerSteamFurnace> {
 
-    @Override
-    public Class<ControllerSteamFurnace> getMultiblockControllerType() {
-        return ControllerSteamFurnace.class;
-    }
+	@Override
+	public Class<ControllerSteamFurnace> getMultiblockControllerType() {
+		return ControllerSteamFurnace.class;
+	}
 
-    @Override
-    public ISARMultiblock getControllerInfo() {
-        return new ControllerSteamFurnace(null);
-    }
+	@Override
+	public ISARMultiblock getControllerInfo() {
+		return new ControllerSteamFurnace(null);
+	}
 
-    @Override
-    public MultiblockControllerBase createNewMultiblock() {
-        return new ControllerSteamFurnace(getWorld());
-    }
+	@Override
+	public MultiblockControllerBase createNewMultiblock() {
+		return new ControllerSteamFurnace(getWorld());
+	}
 
 }

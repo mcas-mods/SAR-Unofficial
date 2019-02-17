@@ -18,61 +18,61 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultibloc
 
 public class BlockTankWindow extends BlockMultiblockBase<TileEntityTankWindow> {
 
-    public BlockTankWindow(Material material, String name) {
-        super(material, name);
-        // TODO Auto-generated constructor stub
-    }
+	public BlockTankWindow(Material material, String name) {
+		super(material, name);
+		// TODO Auto-generated constructor stub
+	}
 
-    @Override
-    public Class<? extends TileEntity> getTileEntityClass() {
-        return TileEntityTankWindow.class;
-    }
+	@Override
+	public Class<? extends TileEntity> getTileEntityClass() {
+		return TileEntityTankWindow.class;
+	}
 
-    @Override
-    public TileEntity createTileEntity(World world, IBlockState blockState) {
-        return new TileEntityTankWindow();
-    }
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState blockState) {
+		return new TileEntityTankWindow();
+	}
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT;
-    }
+	@SideOnly(Side.CLIENT)
+	@Override
+	public BlockRenderLayer getRenderLayer() {
+		return BlockRenderLayer.CUTOUT;
+	}
 
-    @Override
-    public boolean isOpaqueCube(IBlockState state) {
-        return false;
-    }
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
 
-    @Override
-    public boolean isFullCube(IBlockState state) {
-        return false;
-    }
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
-        return worldIn.getBlockState(pos.offset(side)).getBlock() == this ? false : true;
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+		return worldIn.getBlockState(pos.offset(side)).getBlock() == this ? false : true;
+	}
 
-    @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
-    }
+	@Override
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.MODEL;
+	}
 
-    @Override
-    public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
-        Optional<TileEntityTankWindow> te = this.getTileEntity(world, pos);
-        if (te.isPresent()) {
-            TileEntityTankWindow window = te.get();
-            ControllerTank multiblockController = window.getMultiblockController();
-            if (window.isConnected() && multiblockController.isAssembled()) {
-                FluidStack fluid = multiblockController.tank.getFluid();
-                if (fluid != null) {
-                    return fluid.getFluid().getLuminosity();
-                }
-            }
-        }
-        return state.getLightValue();
-    }
+	@Override
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+		Optional<TileEntityTankWindow> te = getTileEntity(world, pos);
+		if(te.isPresent()) {
+			TileEntityTankWindow window = te.get();
+			ControllerTank multiblockController = window.getMultiblockController();
+			if(window.isConnected() && multiblockController.isAssembled()) {
+				FluidStack fluid = multiblockController.tank.getFluid();
+				if(fluid != null) {
+					return fluid.getFluid().getLuminosity();
+				}
+			}
+		}
+		return state.getLightValue();
+	}
 }

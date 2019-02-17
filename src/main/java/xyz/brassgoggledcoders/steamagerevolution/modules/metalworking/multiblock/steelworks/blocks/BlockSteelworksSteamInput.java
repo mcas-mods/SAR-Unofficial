@@ -9,18 +9,18 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultibloc
 
 public class BlockSteelworksSteamInput extends BlockMultiblockBase<TileEntitySteelworksSteamInput> {
 
-    public BlockSteelworksSteamInput(Material material, String name) {
-        super(material, name);
-    }
+	public BlockSteelworksSteamInput(Material material, String name) {
+		super(material, name);
+	}
 
-    @Override
-    public Class<? extends TileEntity> getTileEntityClass() {
-        return TileEntitySteelworksSteamInput.class;
-    }
+	@Override
+	public Class<? extends TileEntity> getTileEntityClass() {
+		return TileEntitySteelworksSteamInput.class;
+	}
 
-    @Override
-    public TileEntity createTileEntity(World world, IBlockState blockState) {
-        return new TileEntitySteelworksSteamInput();
-    }
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState blockState) {
+		return new TileEntitySteelworksSteamInput();
+	}
 
 }

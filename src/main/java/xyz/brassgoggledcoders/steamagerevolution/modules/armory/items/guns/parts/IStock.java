@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts;
 
 public interface IStock extends IGunPart {
+	@Override
 	default GunPartType getPartType() {
 		return GunPartType.STOCK;
 	}

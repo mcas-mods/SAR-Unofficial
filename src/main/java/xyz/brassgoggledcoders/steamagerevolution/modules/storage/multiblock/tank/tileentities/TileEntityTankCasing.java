@@ -8,47 +8,48 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TileEntityTankCasing extends TileEntityTankPart {
 
-    public TileEntityTankCasing() {
+	public TileEntityTankCasing() {
 
-    }
+	}
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public net.minecraft.util.math.AxisAlignedBB getRenderBoundingBox() {
-        if (isConnected()) {
-            return new AxisAlignedBB(getMultiblockController().getMinimumCoord(),
-                    getMultiblockController().getMaximumCoord());
-        } else {
-            return super.getRenderBoundingBox();
-        }
-    }
+	@SideOnly(Side.CLIENT)
+	@Override
+	public net.minecraft.util.math.AxisAlignedBB getRenderBoundingBox() {
+		if(isConnected()) {
+			return new AxisAlignedBB(getMultiblockController().getMinimumCoord(),
+					getMultiblockController().getMaximumCoord());
+		}
+		else {
+			return super.getRenderBoundingBox();
+		}
+	}
 
-    @Override
-    public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
-        return true;
-    }
+	@Override
+	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
+		return true;
+	}
 
-    @Override
-    public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
+	@Override
+	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
+	@Override
+	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
+	@Override
+	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
+	@Override
+	public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
 
-        return false;
-    }
+		return false;
+	}
 }

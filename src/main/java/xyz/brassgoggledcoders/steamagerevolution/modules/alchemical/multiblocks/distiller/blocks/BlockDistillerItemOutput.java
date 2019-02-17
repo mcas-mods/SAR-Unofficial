@@ -9,17 +9,17 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.BlockGUIBase;
 
 public class BlockDistillerItemOutput extends BlockGUIBase<TileEntityDistillerItemOutput> {
 
-    public BlockDistillerItemOutput(Material material, String name) {
-        super(material, name);
-    }
+	public BlockDistillerItemOutput(Material material, String name) {
+		super(material, name);
+	}
 
-    @Override
-    public Class<? extends TileEntity> getTileEntityClass() {
-        return TileEntityDistillerItemOutput.class;
-    }
+	@Override
+	public Class<? extends TileEntity> getTileEntityClass() {
+		return TileEntityDistillerItemOutput.class;
+	}
 
-    @Override
-    public TileEntity createTileEntity(World world, IBlockState blockState) {
-        return new TileEntityDistillerItemOutput();
-    }
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState blockState) {
+		return new TileEntityDistillerItemOutput();
+	}
 }

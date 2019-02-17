@@ -23,49 +23,51 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 
 public class ItemBlockPortableBoiler extends ItemBlockModel<BlockPortableBoiler> {
 
-    public ItemBlockPortableBoiler(Block block) {
-        super((BlockPortableBoiler) block);
-    }
+	public ItemBlockPortableBoiler(Block block) {
+		super((BlockPortableBoiler) block);
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
-        if (stack.hasTagCompound()) {
-            // TODO Work on NBT directly instead.
-            TileEntityPortableBoiler dummy = new TileEntityPortableBoiler();
-            NBTTagCompound tileData = stack.getTagCompound().getCompoundTag("teData");
-            dummy.deserializeNBT(tileData);
-            tooltip.add(TextUtils.representInventoryContents(dummy.inventory.getInputHandler()).getUnformattedText());
-            tooltip.add(TextUtils.representTankContents(dummy.inventory.getInputTank()).getUnformattedText());
-            tooltip.add(TextUtils.representTankContents(dummy.inventory.getSteamTank()).getUnformattedText());
-            tooltip.add("Burn time: " + dummy.currentTicks);
-        } else {
-            tooltip.add("No inventory data");
-        }
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+		if(stack.hasTagCompound()) {
+			// TODO Work on NBT directly instead.
+			TileEntityPortableBoiler dummy = new TileEntityPortableBoiler();
+			NBTTagCompound tileData = stack.getTagCompound().getCompoundTag("teData");
+			dummy.deserializeNBT(tileData);
+			tooltip.add(TextUtils.representInventoryContents(dummy.inventory.getInputHandler()).getUnformattedText());
+			tooltip.add(TextUtils.representTankContents(dummy.inventory.getInputTank()).getUnformattedText());
+			tooltip.add(TextUtils.representTankContents(dummy.inventory.getSteamTank()).getUnformattedText());
+			tooltip.add("Burn time: " + dummy.currentTicks);
+		}
+		else {
+			tooltip.add("No inventory data");
+		}
+	}
 
-    @Override
-    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-        if (stack.hasTagCompound()) {
-            // FIXME DO NOT do this every tick. Work on NBT directly instead.
-            TileEntityPortableBoiler dummy = new TileEntityPortableBoiler();
-            NBTTagCompound tileData = stack.getTagCompound().getCompoundTag("teData");
-            dummy.deserializeNBT(tileData);
-            if (dummy.currentTicks == 0) {
-                if (!dummy.inventory.getInputHandler().getStackInSlot(0).isEmpty()) {
-                    dummy.currentTicks = TileEntityFurnace
-                            .getItemBurnTime(dummy.inventory.getInputHandler().getStackInSlot(0));
-                    dummy.inventory.getInputHandler().extractItem(0, 1, false);
-                }
-            } else {
-                int fluidAmount = Fluid.BUCKET_VOLUME / 20;
-                dummy.inventory.getInputTank().drain(fluidAmount, true);
-                dummy.inventory.getSteamTank().fill(FluidRegistry.getFluidStack("steam", fluidAmount), true);
-                dummy.currentTicks--;
-            }
-            stack.setTagInfo("teData", dummy.serializeNBT());
-        }
+	@Override
+	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+		if(stack.hasTagCompound()) {
+			// FIXME DO NOT do this every tick. Work on NBT directly instead.
+			TileEntityPortableBoiler dummy = new TileEntityPortableBoiler();
+			NBTTagCompound tileData = stack.getTagCompound().getCompoundTag("teData");
+			dummy.deserializeNBT(tileData);
+			if(dummy.currentTicks == 0) {
+				if(!dummy.inventory.getInputHandler().getStackInSlot(0).isEmpty()) {
+					dummy.currentTicks = TileEntityFurnace
+							.getItemBurnTime(dummy.inventory.getInputHandler().getStackInSlot(0));
+					dummy.inventory.getInputHandler().extractItem(0, 1, false);
+				}
+			}
+			else {
+				int fluidAmount = Fluid.BUCKET_VOLUME / 20;
+				dummy.inventory.getInputTank().drain(fluidAmount, true);
+				dummy.inventory.getSteamTank().fill(FluidRegistry.getFluidStack("steam", fluidAmount), true);
+				dummy.currentTicks--;
+			}
+			stack.setTagInfo("teData", dummy.serializeNBT());
+		}
 
-    }
+	}
 
 }

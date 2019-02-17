@@ -8,19 +8,19 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockT
 
 public abstract class TileEntitySteelworksPart extends SARMultiblockTileInventory<ControllerSteelworks> {
 
-    @Override
-    public Class<ControllerSteelworks> getMultiblockControllerType() {
-        return ControllerSteelworks.class;
-    }
+	@Override
+	public Class<ControllerSteelworks> getMultiblockControllerType() {
+		return ControllerSteelworks.class;
+	}
 
-    @Override
-    public ISARMultiblock getControllerInfo() {
-        return new ControllerSteelworks(null);
-    }
+	@Override
+	public ISARMultiblock getControllerInfo() {
+		return new ControllerSteelworks(null);
+	}
 
-    @Override
-    public MultiblockControllerBase createNewMultiblock() {
-        return new ControllerSteelworks(getWorld());
-    }
+	@Override
+	public MultiblockControllerBase createNewMultiblock() {
+		return new ControllerSteelworks(getWorld());
+	}
 
 }

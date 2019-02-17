@@ -9,18 +9,18 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultibloc
 
 public class BlockDistillerFrame extends BlockMultiblockBase<TileEntityDistillerFrame> {
 
-    public BlockDistillerFrame(Material material, String name) {
-        super(material, name);
-    }
+	public BlockDistillerFrame(Material material, String name) {
+		super(material, name);
+	}
 
-    @Override
-    public Class<? extends TileEntity> getTileEntityClass() {
-        return TileEntityDistillerFrame.class;
-    }
+	@Override
+	public Class<? extends TileEntity> getTileEntityClass() {
+		return TileEntityDistillerFrame.class;
+	}
 
-    @Override
-    public TileEntity createTileEntity(World world, IBlockState blockState) {
-        return new TileEntityDistillerFrame();
-    }
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState blockState) {
+		return new TileEntityDistillerFrame();
+	}
 
 }

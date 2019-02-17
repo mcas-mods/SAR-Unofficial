@@ -8,13 +8,13 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.TankType;
 
 public interface ISmartTankCallback {
-    void onTankContentsChanged(FluidTankSmart tank, TankType type, IHasInventory parent);
+	void onTankContentsChanged(FluidTankSmart tank, TankType type, IHasInventory parent);
 
-    @SideOnly(Side.CLIENT)
-    void updateFluid(PacketFluidUpdate message);
+	@SideOnly(Side.CLIENT)
+	void updateFluid(PacketFluidUpdate message);
 
-    @SideOnly(Side.CLIENT)
-    default void updateFluid(PacketMultiFluidUpdate message) {
+	@SideOnly(Side.CLIENT)
+	default void updateFluid(PacketMultiFluidUpdate message) {
 
-    }
+	}
 }

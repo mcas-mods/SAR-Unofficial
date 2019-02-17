@@ -6,6 +6,7 @@ public interface IBarrel extends IGunPart {
 
 	public float getAccuracyModifier();
 
+	@Override
 	default GunPartType getPartType() {
 		return GunPartType.BARREL;
 	}

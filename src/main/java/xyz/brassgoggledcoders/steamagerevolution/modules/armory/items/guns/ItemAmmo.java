@@ -21,6 +21,7 @@ public class ItemAmmo extends ItemBase implements IAmmo {
 		this.aux = aux;
 	}
 
+	@Override
 	public AmmoType getAmmoType() {
 		return type;
 	}

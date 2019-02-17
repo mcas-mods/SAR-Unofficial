@@ -21,58 +21,59 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.storage.ModuleStorage;
 
 public class ItemCanister extends ItemBase implements IHasSubItems {
 
-    private int capacity;
+	private int capacity;
 
-    public ItemCanister(String name, int capacity) {
-        super(name);
-        setMaxStackSize(1);
-        setHasSubtypes(true);
-        this.capacity = capacity;
-    }
+	public ItemCanister(String name, int capacity) {
+		super(name);
+		setMaxStackSize(1);
+		setHasSubtypes(true);
+		this.capacity = capacity;
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
-        FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
-                .getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-        FluidStack fluid = internal.getFluid();
-        if (fluid == null) {
-            tooltip.add("0mB/" + capacity + "mB");
-        } else {
-            tooltip.add(fluid.getLocalizedName());
-            tooltip.add(fluid.amount + "mB/" + capacity + "mB");
-        }
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
+				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		FluidStack fluid = internal.getFluid();
+		if(fluid == null) {
+			tooltip.add("0mB/" + capacity + "mB");
+		}
+		else {
+			tooltip.add(fluid.getLocalizedName());
+			tooltip.add(fluid.amount + "mB/" + capacity + "mB");
+		}
+	}
 
-    @Override
-    public List<ItemStack> getAllSubItems(List<ItemStack> itemStacks) {
-        itemStacks.add(new ItemStack(ModuleStorage.canister));
-        for (Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
-            ItemStack filledStack = new ItemStack(ModuleStorage.canister);
-            filledStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
-                    .fill(new FluidStack(fluid, capacity), true);
-            itemStacks.add(filledStack);
-        }
-        return itemStacks;
-    }
+	@Override
+	public List<ItemStack> getAllSubItems(List<ItemStack> itemStacks) {
+		itemStacks.add(new ItemStack(ModuleStorage.canister));
+		for(Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
+			ItemStack filledStack = new ItemStack(ModuleStorage.canister);
+			filledStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
+					.fill(new FluidStack(fluid, capacity), true);
+			itemStacks.add(filledStack);
+		}
+		return itemStacks;
+	}
 
-    @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
-        return new FluidHandlerItemStack(stack, capacity);
-    }
+	@Override
+	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+		return new FluidHandlerItemStack(stack, capacity);
+	}
 
-    @Override
-    public double getDurabilityForDisplay(ItemStack stack) {
-        FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
-                .getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-        return 1.0D - ((double) internal.getFluid().amount / capacity);
+	@Override
+	public double getDurabilityForDisplay(ItemStack stack) {
+		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
+				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		return 1.0D - ((double) internal.getFluid().amount / capacity);
 
-    }
+	}
 
-    @Override
-    public boolean showDurabilityBar(ItemStack stack) {
-        FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
-                .getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-        return internal.getFluid() != null;
-    }
+	@Override
+	public boolean showDurabilityBar(ItemStack stack) {
+		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
+				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		return internal.getFluid() != null;
+	}
 }

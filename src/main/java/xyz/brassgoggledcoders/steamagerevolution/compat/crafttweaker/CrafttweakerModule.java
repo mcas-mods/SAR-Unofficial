@@ -14,26 +14,26 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 @Module(value = SteamAgeRevolution.MODID)
 public class CrafttweakerModule extends ModuleBase {
 
-    @Override
-    public void preInit(FMLPreInitializationEvent event) {
-        CraftTweakerAPI.registerClass(AlloyForgeTweaker.class);
-        CraftTweakerAPI.registerClass(CastingBlockTweaker.class);
-        CraftTweakerAPI.registerClass(CrucibleTweaker.class);
-        CraftTweakerAPI.registerClass(DistillerTweaker.class);
-        CraftTweakerAPI.registerClass(SteamFurnaceTweaker.class);
-        CraftTweakerAPI.registerClass(SteamHammerTweaker.class);
-        CraftTweakerAPI.registerClass(VatTweaker.class);
-        super.preInit(event);
-    }
+	@Override
+	public void preInit(FMLPreInitializationEvent event) {
+		CraftTweakerAPI.registerClass(AlloyForgeTweaker.class);
+		CraftTweakerAPI.registerClass(CastingBlockTweaker.class);
+		CraftTweakerAPI.registerClass(CrucibleTweaker.class);
+		CraftTweakerAPI.registerClass(DistillerTweaker.class);
+		CraftTweakerAPI.registerClass(SteamFurnaceTweaker.class);
+		CraftTweakerAPI.registerClass(SteamHammerTweaker.class);
+		CraftTweakerAPI.registerClass(VatTweaker.class);
+		super.preInit(event);
+	}
 
-    @Override
-    public List<IDependency> getDependencies(List<IDependency> dependencies) {
-        dependencies.add(new ModDependency("crafttweaker"));
-        return dependencies;
-    }
+	@Override
+	public List<IDependency> getDependencies(List<IDependency> dependencies) {
+		dependencies.add(new ModDependency("crafttweaker"));
+		return dependencies;
+	}
 
-    @Override
-    public String getName() {
-        return "Crafttweaker Support";
-    }
+	@Override
+	public String getName() {
+		return "Crafttweaker Support";
+	}
 }

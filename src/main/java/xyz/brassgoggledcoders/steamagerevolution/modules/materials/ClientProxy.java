@@ -10,19 +10,19 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public class ClientProxy implements IModuleProxy {
 
-    @Override
-    public void preInit(FMLPreInitializationEvent event) {
-    }
+	@Override
+	public void preInit(FMLPreInitializationEvent event) {
+	}
 
-    @Override
-    public void init(FMLInitializationEvent event) {
-        Base.instance.getLibProxy().registerFluidModel(FluidRegistry.getFluid("sulphur_dioxide").getBlock(),
-                new ResourceLocation(SteamAgeRevolution.MODID, "sulphur_dioxide"));
-        Base.instance.getLibProxy().registerFluidModel(FluidRegistry.getFluid("sulphuric_acid").getBlock(),
-                new ResourceLocation(SteamAgeRevolution.MODID, "sulphuric_acid"));
-    }
+	@Override
+	public void init(FMLInitializationEvent event) {
+		Base.instance.getLibProxy().registerFluidModel(FluidRegistry.getFluid("sulphur_dioxide").getBlock(),
+				new ResourceLocation(SteamAgeRevolution.MODID, "sulphur_dioxide"));
+		Base.instance.getLibProxy().registerFluidModel(FluidRegistry.getFluid("sulphuric_acid").getBlock(),
+				new ResourceLocation(SteamAgeRevolution.MODID, "sulphuric_acid"));
+	}
 
-    @Override
-    public void postInit(FMLPostInitializationEvent event) {
-    }
+	@Override
+	public void postInit(FMLPostInitializationEvent event) {
+	}
 }

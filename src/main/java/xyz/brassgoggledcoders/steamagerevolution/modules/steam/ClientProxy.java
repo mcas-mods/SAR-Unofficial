@@ -13,18 +13,18 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler
 
 public class ClientProxy implements IModuleProxy {
 
-    @Override
-    public void preInit(FMLPreInitializationEvent event) {
-    }
+	@Override
+	public void preInit(FMLPreInitializationEvent event) {
+	}
 
-    @Override
-    public void init(FMLInitializationEvent event) {
-        Base.instance.getLibProxy().registerFluidModel(FluidRegistry.getFluid("steam").getBlock(),
-                new ResourceLocation(SteamAgeRevolution.MODID, "steam"));
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBoilerCasing.class, new MultiblockBoilerRenderer());
-    }
+	@Override
+	public void init(FMLInitializationEvent event) {
+		Base.instance.getLibProxy().registerFluidModel(FluidRegistry.getFluid("steam").getBlock(),
+				new ResourceLocation(SteamAgeRevolution.MODID, "steam"));
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBoilerCasing.class, new MultiblockBoilerRenderer());
+	}
 
-    @Override
-    public void postInit(FMLPostInitializationEvent event) {
-    }
+	@Override
+	public void postInit(FMLPostInitializationEvent event) {
+	}
 }

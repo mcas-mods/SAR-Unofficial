@@ -16,47 +16,46 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMeta
 
 public class ItemHammer extends ItemBase {
 
-    public ItemHammer() {
-        super("hammer");
-        this.setMaxStackSize(1);
-        this.setMaxDamage(ToolMaterial.IRON.getMaxUses());
-    }
+	public ItemHammer() {
+		super("hammer");
+		setMaxStackSize(1);
+		setMaxDamage(ToolMaterial.IRON.getMaxUses());
+	}
 
-    @Override
-    public float getDestroySpeed(ItemStack stack, IBlockState state) {
-        return state.getMaterial() == Material.ROCK ? 5F : 0F;
-    }
+	@Override
+	public float getDestroySpeed(ItemStack stack, IBlockState state) {
+		return state.getMaterial() == Material.ROCK ? 5F : 0F;
+	}
 
-    @Override
-    public boolean canHarvestBlock(IBlockState blockIn) {
-        return blockIn.getMaterial() == Material.ROCK;
-    }
+	@Override
+	public boolean canHarvestBlock(IBlockState blockIn) {
+		return blockIn.getMaterial() == Material.ROCK;
+	}
 
-    @Override
-    public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
-        if (player.world.isRemote || player.capabilities.isCreativeMode) {
-            return false;
-        }
-        IBlockState state = player.world.getBlockState(pos);
-        Block block = state.getBlock();
-        ItemStack oreStack = new ItemStack(block.getItemDropped(state, player.getRNG(), 0), 1,
-                block.damageDropped(state));
-        // TODO Looping not entirely necessary since we know both source and target
-        // unlike recipes
-        for (String metal : ModuleMetalworking.knownMetalTypes) {
-            if (OreDictionary.containsMatch(false, OreDictionary.getOres("ore" + metal, false), oreStack)) {
-                ItemStack dust = OreDictUtils.getPreferredItemStack("dust" + metal);
-                for (int i = 0; i < ModuleMetalworking.dustCount; i++) {
-                    EntityItem entityitem = new EntityItem(player.world, (double) pos.getX(), (double) pos.getY(),
-                            (double) pos.getZ(), dust);
-                    entityitem.setDefaultPickupDelay();
-                    player.world.spawnEntity(entityitem);
-                }
-                player.world.setBlockState(pos, Blocks.AIR.getDefaultState(), 11);
-                itemstack.damageItem(1, player);
-                return true;
-            }
-        }
-        return false;
-    }
+	@Override
+	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
+		if(player.world.isRemote || player.capabilities.isCreativeMode) {
+			return false;
+		}
+		IBlockState state = player.world.getBlockState(pos);
+		Block block = state.getBlock();
+		ItemStack oreStack = new ItemStack(block.getItemDropped(state, player.getRNG(), 0), 1,
+				block.damageDropped(state));
+		// TODO Looping not entirely necessary since we know both source and target
+		// unlike recipes
+		for(String metal : ModuleMetalworking.knownMetalTypes) {
+			if(OreDictionary.containsMatch(false, OreDictionary.getOres("ore" + metal, false), oreStack)) {
+				ItemStack dust = OreDictUtils.getPreferredItemStack("dust" + metal);
+				for(int i = 0; i < ModuleMetalworking.dustCount; i++) {
+					EntityItem entityitem = new EntityItem(player.world, pos.getX(), pos.getY(), pos.getZ(), dust);
+					entityitem.setDefaultPickupDelay();
+					player.world.spawnEntity(entityitem);
+				}
+				player.world.setBlockState(pos, Blocks.AIR.getDefaultState(), 11);
+				itemstack.damageItem(1, player);
+				return true;
+			}
+		}
+		return false;
+	}
 }

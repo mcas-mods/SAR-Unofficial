@@ -9,19 +9,19 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.BlockGUIBase;
 
 public class BlockCardPuncher extends BlockGUIBase<TileEntityCardPuncher> {
 
-    public BlockCardPuncher(Material material, String name) {
-        super(material, name);
-    }
+	public BlockCardPuncher(Material material, String name) {
+		super(material, name);
+	}
 
-    @Override
-    public Class<? extends TileEntity> getTileEntityClass() {
-        // TODO Auto-generated method stub
-        return TileEntityCardPuncher.class;
-    }
+	@Override
+	public Class<? extends TileEntity> getTileEntityClass() {
+		// TODO Auto-generated method stub
+		return TileEntityCardPuncher.class;
+	}
 
-    @Override
-    public TileEntity createTileEntity(World world, IBlockState blockState) {
-        // TODO Auto-generated method stub
-        return new TileEntityCardPuncher();
-    }
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState blockState) {
+		// TODO Auto-generated method stub
+		return new TileEntityCardPuncher();
+	}
 }

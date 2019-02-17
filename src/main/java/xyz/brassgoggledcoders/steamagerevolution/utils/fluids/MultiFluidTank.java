@@ -20,160 +20,160 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
  */
 // FIXME
 public class MultiFluidTank extends FluidTankSmart {
-    private final int capacity;
-    // TODO Make this an actual limit, not just a representative
-    private final int maxFluids;
-    public ArrayList<FluidStack> fluids = Lists.newArrayList();
+	private final int capacity;
+	// TODO Make this an actual limit, not just a representative
+	private final int maxFluids;
+	public ArrayList<FluidStack> fluids = Lists.newArrayList();
 
-    public MultiFluidTank(int capacity, IHasInventory parent, int maxFluids) {
-        super(capacity, parent);
-        this.capacity = capacity;
-        this.maxFluids = maxFluids;
-    }
+	public MultiFluidTank(int capacity, IHasInventory parent, int maxFluids) {
+		super(capacity, parent);
+		this.capacity = capacity;
+		this.maxFluids = maxFluids;
+	}
 
-    public static FluidStack copyFluidStackWithAmount(FluidStack stack, int amount) {
-        if (stack == null) {
-            return null;
-        }
-        FluidStack fs = new FluidStack(stack, amount);
-        return fs;
-    }
+	public static FluidStack copyFluidStackWithAmount(FluidStack stack, int amount) {
+		if(stack == null) {
+			return null;
+		}
+		FluidStack fs = new FluidStack(stack, amount);
+		return fs;
+	}
 
-    public static FluidStack drain(int remove, FluidStack removeFrom, Iterator<FluidStack> removeIt, boolean doDrain) {
-        int amount = Math.min(remove, removeFrom.amount);
-        if (doDrain) {
-            removeFrom.amount -= amount;
-            if (removeFrom.amount <= 0) {
-                removeIt.remove();
-            }
-        }
-        return copyFluidStackWithAmount(removeFrom, amount);
-    }
+	public static FluidStack drain(int remove, FluidStack removeFrom, Iterator<FluidStack> removeIt, boolean doDrain) {
+		int amount = Math.min(remove, removeFrom.amount);
+		if(doDrain) {
+			removeFrom.amount -= amount;
+			if(removeFrom.amount <= 0) {
+				removeIt.remove();
+			}
+		}
+		return copyFluidStackWithAmount(removeFrom, amount);
+	}
 
-    @Override
-    public MultiFluidTank readFromNBT(NBTTagCompound nbt) {
-        if (nbt.hasKey("fluids")) {
-            fluids.clear();
-            NBTTagList tagList = nbt.getTagList("fluids", 10);
-            for (int i = 0; i < tagList.tagCount(); i++) {
-                FluidStack fs = FluidStack.loadFluidStackFromNBT(tagList.getCompoundTagAt(i));
-                if (fs != null) {
-                    fluids.add(fs);
-                }
-            }
-        }
-        return this;
-    }
+	@Override
+	public MultiFluidTank readFromNBT(NBTTagCompound nbt) {
+		if(nbt.hasKey("fluids")) {
+			fluids.clear();
+			NBTTagList tagList = nbt.getTagList("fluids", 10);
+			for(int i = 0; i < tagList.tagCount(); i++) {
+				FluidStack fs = FluidStack.loadFluidStackFromNBT(tagList.getCompoundTagAt(i));
+				if(fs != null) {
+					fluids.add(fs);
+				}
+			}
+		}
+		return this;
+	}
 
-    @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
-        NBTTagList tagList = new NBTTagList();
-        for (FluidStack fs : fluids) {
-            if (fs != null) {
-                tagList.appendTag(fs.writeToNBT(new NBTTagCompound()));
-            }
-        }
-        nbt.setTag("fluids", tagList);
-        return nbt;
-    }
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+		NBTTagList tagList = new NBTTagList();
+		for(FluidStack fs : fluids) {
+			if(fs != null) {
+				tagList.appendTag(fs.writeToNBT(new NBTTagCompound()));
+			}
+		}
+		nbt.setTag("fluids", tagList);
+		return nbt;
+	}
 
-    public int getFluidTypes() {
-        return fluids.size();
-    }
+	public int getFluidTypes() {
+		return fluids.size();
+	}
 
-    @Nullable
-    @Override
-    public FluidStack getFluid() {
-        // grabbing the last fluid, for output reasons
-        return fluids.size() > 0 ? fluids.get(fluids.size() - 1) : null;
-    }
+	@Nullable
+	@Override
+	public FluidStack getFluid() {
+		// grabbing the last fluid, for output reasons
+		return fluids.size() > 0 ? fluids.get(fluids.size() - 1) : null;
+	}
 
-    @Override
-    public int getFluidAmount() {
-        int sum = 0;
-        for (FluidStack fs : fluids) {
-            sum += fs.amount;
-        }
-        return sum;
-    }
+	@Override
+	public int getFluidAmount() {
+		int sum = 0;
+		for(FluidStack fs : fluids) {
+			sum += fs.amount;
+		}
+		return sum;
+	}
 
-    @Override
-    public int getCapacity() {
-        return capacity;
-    }
+	@Override
+	public int getCapacity() {
+		return capacity;
+	}
 
-    @Override
-    public FluidTankInfo getInfo() {
-        FluidStack fs = getFluid();
-        int capacity = this.capacity - getFluidAmount();
-        if (fs != null) {
-            capacity += fs.amount;
-        }
-        return new FluidTankInfo(fs, capacity);
-    }
+	@Override
+	public FluidTankInfo getInfo() {
+		FluidStack fs = getFluid();
+		int capacity = this.capacity - getFluidAmount();
+		if(fs != null) {
+			capacity += fs.amount;
+		}
+		return new FluidTankInfo(fs, capacity);
+	}
 
-    // FIXME
-    @Override
-    public IFluidTankProperties[] getTankProperties() {
-        if (tankProperties == null) {
-            tankProperties = new IFluidTankProperties[]{new FluidTankPropertiesWrapper(this)};
-        }
-        return tankProperties;
-    }
+	// FIXME
+	@Override
+	public IFluidTankProperties[] getTankProperties() {
+		if(tankProperties == null) {
+			tankProperties = new IFluidTankProperties[] { new FluidTankPropertiesWrapper(this) };
+		}
+		return tankProperties;
+	}
 
-    @Override
-    public int fill(FluidStack resource, boolean doFill) {
-        int space = capacity - getFluidAmount();
-        int toFill = Math.min(resource.amount, space);
-        if (!doFill) {
-            return toFill;
-        }
-        for (FluidStack fs : fluids) {
-            if (fs.isFluidEqual(resource)) {
-                fs.amount += toFill;
-                onContentsChanged();
-                return toFill;
-            }
-        }
-        fluids.add(copyFluidStackWithAmount(resource, toFill));
-        return toFill;
+	@Override
+	public int fill(FluidStack resource, boolean doFill) {
+		int space = capacity - getFluidAmount();
+		int toFill = Math.min(resource.amount, space);
+		if(!doFill) {
+			return toFill;
+		}
+		for(FluidStack fs : fluids) {
+			if(fs.isFluidEqual(resource)) {
+				fs.amount += toFill;
+				onContentsChanged();
+				return toFill;
+			}
+		}
+		fluids.add(copyFluidStackWithAmount(resource, toFill));
+		return toFill;
 
-    }
+	}
 
-    @Nullable
-    @Override
-    public FluidStack drain(FluidStack resource, boolean doDrain) {
-        if (fluids.isEmpty()) {
-            return null;
-        }
-        Iterator<FluidStack> it = fluids.iterator();
-        while (it.hasNext()) {
-            FluidStack fs = it.next();
-            if (fs.isFluidEqual(resource)) {
-                int amount = Math.min(resource.amount, fs.amount);
-                if (doDrain) {
-                    onContentsChanged();
-                    fs.amount -= amount;
-                    if (fs.amount <= 0) {
-                        it.remove();
-                    }
-                }
-                return copyFluidStackWithAmount(resource, amount);
-            }
-        }
-        return null;
-    }
+	@Nullable
+	@Override
+	public FluidStack drain(FluidStack resource, boolean doDrain) {
+		if(fluids.isEmpty()) {
+			return null;
+		}
+		Iterator<FluidStack> it = fluids.iterator();
+		while(it.hasNext()) {
+			FluidStack fs = it.next();
+			if(fs.isFluidEqual(resource)) {
+				int amount = Math.min(resource.amount, fs.amount);
+				if(doDrain) {
+					onContentsChanged();
+					fs.amount -= amount;
+					if(fs.amount <= 0) {
+						it.remove();
+					}
+				}
+				return copyFluidStackWithAmount(resource, amount);
+			}
+		}
+		return null;
+	}
 
-    @Nullable
-    @Override
-    public FluidStack drain(int maxDrain, boolean doDrain) {
-        if (fluids.isEmpty()) {
-            return null;
-        }
-        return drain(new FluidStack(getFluid(), maxDrain), doDrain);
-    }
+	@Nullable
+	@Override
+	public FluidStack drain(int maxDrain, boolean doDrain) {
+		if(fluids.isEmpty()) {
+			return null;
+		}
+		return drain(new FluidStack(getFluid(), maxDrain), doDrain);
+	}
 
-    public int getMaxFluids() {
-        return maxFluids;
-    }
+	public int getMaxFluids() {
+		return maxFluids;
+	}
 }

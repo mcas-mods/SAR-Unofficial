@@ -90,7 +90,7 @@ public class ItemGun extends ItemBase {
 
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
-		int i = this.getMaxItemUseDuration(stack) - timeLeft;
+		int i = getMaxItemUseDuration(stack) - timeLeft;
 		if(i < 60) {
 			ItemStack ammo = GunUtils.findAmmo((EntityPlayer) entityLiving, stack); // FIXME
 			if(!ammo.isEmpty()) {

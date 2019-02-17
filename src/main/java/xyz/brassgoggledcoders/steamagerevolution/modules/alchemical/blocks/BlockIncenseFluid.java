@@ -36,7 +36,7 @@ public class BlockIncenseFluid extends BlockFluidBase {
 
 	@Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-		if(this.isSourceBlock(worldIn, pos) && worldIn.getBlockState(pos.down()) != ModuleAlchemical.incense_burner) {
+		if(isSourceBlock(worldIn, pos) && worldIn.getBlockState(pos.down()) != ModuleAlchemical.incense_burner) {
 			worldIn.setBlockToAir(pos);
 		}
 		super.neighborChanged(state, worldIn, pos, blockIn, fromPos);

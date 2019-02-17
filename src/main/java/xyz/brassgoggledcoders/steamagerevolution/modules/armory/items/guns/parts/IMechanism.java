@@ -9,6 +9,7 @@ public interface IMechanism extends IGunPart {
 		BOLT, SEMI, AUTO
 	}
 
+	@Override
 	default GunPartType getPartType() {
 		return GunPartType.MECHANISM;
 	}

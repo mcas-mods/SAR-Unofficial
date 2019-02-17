@@ -12,35 +12,35 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockStea
 
 public class TileEntityCrucibleSteamInput extends TileEntityCruciblePart {
 
-    @Override
-    public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-        return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
-    }
+	@Override
+	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+	}
 
-    @Override
-    @Nonnull
-    public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockSteamWrapper(this));
-        }
-        return super.getCapability(capability, facing);
-    }
+	@Override
+	@Nonnull
+	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockSteamWrapper(this));
+		}
+		return super.getCapability(capability, facing);
+	}
 
-    @Override
-    public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
+	@Override
+	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
-        return true;
-    }
+	@Override
+	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
+		return true;
+	}
 
-    @Override
-    public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
+	@Override
+	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
 
-        return true;
-    }
+		return true;
+	}
 
 }

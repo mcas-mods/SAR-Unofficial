@@ -19,34 +19,34 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiSimpleSlots;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockInventoryWrapper;
 
 public class TileEntitySteamHammerHammer extends TileEntitySteamHammerPart implements IHasGui {
-    @Override
-    public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
-        return true;
-    }
+	@Override
+	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
+		return true;
+	}
 
-    @Override
-    public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
-    }
+	@Override
+	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+	}
 
-    @Override
-    @Nonnull
-    public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new MultiblockInventoryWrapper(this, true));
-        }
-        return super.getCapability(capability, facing);
-    }
+	@Override
+	@Nonnull
+	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new MultiblockInventoryWrapper(this, true));
+		}
+		return super.getCapability(capability, facing);
+	}
 
-    @Override
-    public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-        return new GuiSimpleSlots(entityPlayer, this, 2);
-    }
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		return new GuiSimpleSlots(entityPlayer, this, 2);
+	}
 
-    @Override
-    public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-        // TODO Auto-generated method stub
-        return new ContainerSimpleSlots(entityPlayer, this, 2);
-    }
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return new ContainerSimpleSlots(entityPlayer, this, 2);
+	}
 
 }

@@ -13,7 +13,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts
 public class ContainerGunsmithingBench extends ContainerBase {
 	public ContainerGunsmithingBench(EntityPlayer player, TileEntityGunsmithingBench tile) {
 		createPlayerSlots(player.inventory);
-		this.addSlotToContainer(new SlotItemHandler(tile.inventory, 0, 124, 35) {
+		addSlotToContainer(new SlotItemHandler(tile.inventory, 0, 124, 35) {
 			@Override
 			public boolean isItemValid(@Nonnull ItemStack stack) {
 				return false;
@@ -22,7 +22,7 @@ public class ContainerGunsmithingBench extends ContainerBase {
 
 		for(int i = 0; i < 3; ++i) {
 			for(int j = 0; j < 3; ++j) {
-				this.addSlotToContainer(new SlotItemHandler(tile.inventory, j + i * 3, 30 + j * 18, 17 + i * 18) {
+				addSlotToContainer(new SlotItemHandler(tile.inventory, j + i * 3, 30 + j * 18, 17 + i * 18) {
 					@Override
 					public boolean isItemValid(@Nonnull ItemStack stack) {
 						return stack.getItem() instanceof IGunPart;

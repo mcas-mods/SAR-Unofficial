@@ -8,19 +8,19 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockT
 
 public class TileEntitySteamHammerPart extends SARMultiblockTileInventory<ControllerSteamHammer> {
 
-    @Override
-    public Class<? extends MultiblockControllerBase> getMultiblockControllerType() {
-        return ControllerSteamHammer.class;
-    }
+	@Override
+	public Class<? extends MultiblockControllerBase> getMultiblockControllerType() {
+		return ControllerSteamHammer.class;
+	}
 
-    @Override
-    public MultiblockControllerBase createNewMultiblock() {
-        // TODO Auto-generated method stub
-        return new ControllerSteamHammer(getWorld());
-    }
+	@Override
+	public MultiblockControllerBase createNewMultiblock() {
+		// TODO Auto-generated method stub
+		return new ControllerSteamHammer(getWorld());
+	}
 
-    @Override
-    public ISARMultiblock getControllerInfo() {
-        return new ControllerSteamHammer(null);
-    }
+	@Override
+	public ISARMultiblock getControllerInfo() {
+		return new ControllerSteamHammer(null);
+	}
 }

@@ -17,97 +17,100 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockFlu
 
 public class TileEntityFluidHopper extends TileEntitySlowTick {
 
-    private FluidTank buffer = new FluidTank(Fluid.BUCKET_VOLUME);
-    private boolean hasFrom = false;
-    private BlockPos toPos = null;
-    private boolean hasCache = false;
+	private FluidTank buffer = new FluidTank(Fluid.BUCKET_VOLUME);
+	private boolean hasFrom = false;
+	private BlockPos toPos = null;
+	private boolean hasCache = false;
 
-    @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
-    }
+	@Override
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+	}
 
-    @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(buffer);
-        }
-        return super.getCapability(capability, facing);
-    }
+	@Override
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(buffer);
+		}
+		return super.getCapability(capability, facing);
+	}
 
-    @Override
-    public void updateTile() {
-        super.updateTile();
-        if (world.isRemote) {
-            return;
-        }
+	@Override
+	public void updateTile() {
+		super.updateTile();
+		if(world.isRemote) {
+			return;
+		}
 
-        if (!hasCache) {
-            recalculateCache(getWorld(), getPos(), getWorld().getBlockState(getPos()), null);
-        }
+		if(!hasCache) {
+			recalculateCache(getWorld(), getPos(), getWorld().getBlockState(getPos()), null);
+		}
 
-        if (BlockFluidHopper.isEnabled(getBlockMetadata())) {
-            if (toPos != null) {
-                IFluidHandler to = getWorld().getTileEntity(toPos).getCapability(
-                        CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
-                        PositionUtils.getFacingFromPositions(getPos(), toPos));
-                if (to != null) { // TODO This should not happen
-                    FluidUtil.tryFluidTransfer(to, buffer, Fluid.BUCKET_VOLUME, true);
-                }
-            }
-            if (hasFrom) {
-                IFluidHandler from = getWorld().getTileEntity(getPos().up())
-                        .getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.DOWN);
-                if (from != null) { // TODO Neither should this
-                    FluidUtil.tryFluidTransfer(buffer, from, Fluid.BUCKET_VOLUME, true);
-                }
-            }
-        }
-    }
+		if(BlockFluidHopper.isEnabled(getBlockMetadata())) {
+			if(toPos != null) {
+				IFluidHandler to = getWorld().getTileEntity(toPos).getCapability(
+						CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
+						PositionUtils.getFacingFromPositions(getPos(), toPos));
+				if(to != null) { // TODO This should not happen
+					FluidUtil.tryFluidTransfer(to, buffer, Fluid.BUCKET_VOLUME, true);
+				}
+			}
+			if(hasFrom) {
+				IFluidHandler from = getWorld().getTileEntity(getPos().up())
+						.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.DOWN);
+				if(from != null) { // TODO Neither should this
+					FluidUtil.tryFluidTransfer(buffer, from, Fluid.BUCKET_VOLUME, true);
+				}
+			}
+		}
+	}
 
-    @Override
-    public void readFromDisk(NBTTagCompound tag) {
-        buffer.readFromNBT(tag);
-        hasFrom = tag.getBoolean("from");
-        toPos = BlockPos.fromLong(tag.getLong("to"));
-    }
+	@Override
+	public void readFromDisk(NBTTagCompound tag) {
+		buffer.readFromNBT(tag);
+		hasFrom = tag.getBoolean("from");
+		toPos = BlockPos.fromLong(tag.getLong("to"));
+	}
 
-    @Override
-    public NBTTagCompound writeToDisk(NBTTagCompound tag) {
-        buffer.writeToNBT(tag);
-        tag.setBoolean("from", hasFrom);
-        if (toPos != null) {
-            tag.setLong("to", toPos.toLong());
-        }
-        return tag;
-    }
+	@Override
+	public NBTTagCompound writeToDisk(NBTTagCompound tag) {
+		buffer.writeToNBT(tag);
+		tag.setBoolean("from", hasFrom);
+		if(toPos != null) {
+			tag.setLong("to", toPos.toLong());
+		}
+		return tag;
+	}
 
-    public void recalculateCache(World worldIn, BlockPos pos, IBlockState state, BlockPos fromPos) {
-        hasCache = true;
-        boolean flag = !worldIn.isBlockPowered(pos);
+	public void recalculateCache(World worldIn, BlockPos pos, IBlockState state, BlockPos fromPos) {
+		hasCache = true;
+		boolean flag = !worldIn.isBlockPowered(pos);
 
-        if (flag != state.getValue(BlockFluidHopper.ENABLED).booleanValue()) {
-            worldIn.setBlockState(pos, state.withProperty(BlockFluidHopper.ENABLED, Boolean.valueOf(flag)), 4);
-        }
+		if(flag != state.getValue(BlockFluidHopper.ENABLED).booleanValue()) {
+			worldIn.setBlockState(pos, state.withProperty(BlockFluidHopper.ENABLED, Boolean.valueOf(flag)), 4);
+		}
 
-        if (fromPos == null) {
-            fromPos = pos.offset(state.getValue(BlockFluidHopper.FACING));
-        }
-        EnumFacing facing = PositionUtils.getFacingFromPositions(pos, fromPos);
-        if (facing == EnumFacing.DOWN) {
-            TileEntity up = worldIn.getTileEntity(pos.up());
-            if (up != null && up.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing)) {
-                hasFrom = true;
-            } else {
-                hasFrom = false;
-            }
-        } else if (facing == state.getValue(BlockFluidHopper.FACING).getOpposite()) {
-            TileEntity pointed = worldIn.getTileEntity(fromPos);
-            if (pointed != null && pointed.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing)) {
-                toPos = fromPos;
-            } else {
-                toPos = null;
-            }
-        }
-    }
+		if(fromPos == null) {
+			fromPos = pos.offset(state.getValue(BlockFluidHopper.FACING));
+		}
+		EnumFacing facing = PositionUtils.getFacingFromPositions(pos, fromPos);
+		if(facing == EnumFacing.DOWN) {
+			TileEntity up = worldIn.getTileEntity(pos.up());
+			if(up != null && up.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing)) {
+				hasFrom = true;
+			}
+			else {
+				hasFrom = false;
+			}
+		}
+		else if(facing == state.getValue(BlockFluidHopper.FACING).getOpposite()) {
+			TileEntity pointed = worldIn.getTileEntity(fromPos);
+			if(pointed != null && pointed.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing)) {
+				toPos = fromPos;
+			}
+			else {
+				toPos = null;
+			}
+		}
+	}
 }

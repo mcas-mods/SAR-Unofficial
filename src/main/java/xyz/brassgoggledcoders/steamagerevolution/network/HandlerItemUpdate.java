@@ -10,28 +10,28 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback
 
 //TODO IDs
 public class HandlerItemUpdate implements IMessageHandler<PacketItemUpdate, IMessage> {
-    public HandlerItemUpdate() {
+	public HandlerItemUpdate() {
 
-    }
+	}
 
-    @Override
-    public IMessage onMessage(PacketItemUpdate message, MessageContext ctx) {
-        Minecraft minecraft = Minecraft.getMinecraft();
-        final WorldClient worldClient = minecraft.world;
-        minecraft.addScheduledTask(new Runnable() {
-            @Override
-            public void run() {
-                processMessage(worldClient, message);
-            }
-        });
-        return null;
-    }
+	@Override
+	public IMessage onMessage(PacketItemUpdate message, MessageContext ctx) {
+		Minecraft minecraft = Minecraft.getMinecraft();
+		final WorldClient worldClient = minecraft.world;
+		minecraft.addScheduledTask(new Runnable() {
+			@Override
+			public void run() {
+				processMessage(worldClient, message);
+			}
+		});
+		return null;
+	}
 
-    private void processMessage(WorldClient worldClient, PacketItemUpdate message) {
-        TileEntity te = worldClient.getTileEntity(message.pos);
-        // FIXME Temporary hardcode
-        MultiblockTileEntityBase<?> tile = (MultiblockTileEntityBase<?>) te;
-        ISmartStackCallback controller = (ISmartStackCallback) tile.getMultiblockController();
-        controller.updateStack(message);
-    }
+	private void processMessage(WorldClient worldClient, PacketItemUpdate message) {
+		TileEntity te = worldClient.getTileEntity(message.pos);
+		// FIXME Temporary hardcode
+		MultiblockTileEntityBase<?> tile = (MultiblockTileEntityBase<?>) te;
+		ISmartStackCallback controller = (ISmartStackCallback) tile.getMultiblockController();
+		controller.updateStack(message);
+	}
 }

@@ -9,18 +9,18 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultibloc
 
 public class BlockSteelworksSteelOutput extends BlockMultiblockBase<TileEntitySteelworksSteelOutput> {
 
-    public BlockSteelworksSteelOutput(Material material, String name) {
-        super(material, name);
-    }
+	public BlockSteelworksSteelOutput(Material material, String name) {
+		super(material, name);
+	}
 
-    @Override
-    public Class<? extends TileEntity> getTileEntityClass() {
-        return TileEntitySteelworksSteelOutput.class;
-    }
+	@Override
+	public Class<? extends TileEntity> getTileEntityClass() {
+		return TileEntitySteelworksSteelOutput.class;
+	}
 
-    @Override
-    public TileEntity createTileEntity(World world, IBlockState blockState) {
-        return new TileEntitySteelworksSteelOutput();
-    }
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState blockState) {
+		return new TileEntitySteelworksSteelOutput();
+	}
 
 }

@@ -11,13 +11,13 @@ import net.minecraftforge.items.IItemHandler;
 
 public class SlotFuel extends SlotChanged {
 
-    public SlotFuel(IItemHandler itemHandler, IOnSlotChanged changeReceiver, int slotIndex, int posX, int posY) {
-        super(itemHandler, changeReceiver, slotIndex, posX, posY);
-    }
+	public SlotFuel(IItemHandler itemHandler, IOnSlotChanged changeReceiver, int slotIndex, int posX, int posY) {
+		super(itemHandler, changeReceiver, slotIndex, posX, posY);
+	}
 
-    @Override
-    public boolean isItemValid(@Nullable ItemStack stack) {
-        return TileEntityFurnace.isItemFuel(stack);
-    }
+	@Override
+	public boolean isItemValid(@Nullable ItemStack stack) {
+		return TileEntityFurnace.isItemFuel(stack);
+	}
 
 }

@@ -14,17 +14,17 @@ import net.minecraft.world.World;
 
 public abstract class BlockGUIBase<T extends TileEntity> extends BlockTEBase<T> {
 
-    public BlockGUIBase(Material material, String name) {
-        super(material, name);
-    }
+	public BlockGUIBase(Material material, String name) {
+		super(material, name);
+	}
 
-    @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-                                    EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (getTileEntity(worldIn, pos).isPresent() && !playerIn.isSneaking()) {
-            GuiOpener.openTileEntityGui(getMod(), playerIn, worldIn, pos);
-            return true;
-        }
-        return false;
-    }
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if(getTileEntity(worldIn, pos).isPresent() && !playerIn.isSneaking()) {
+			GuiOpener.openTileEntityGui(getMod(), playerIn, worldIn, pos);
+			return true;
+		}
+		return false;
+	}
 }

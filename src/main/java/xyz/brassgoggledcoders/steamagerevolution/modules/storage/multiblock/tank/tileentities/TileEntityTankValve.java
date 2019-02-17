@@ -11,40 +11,40 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 public class TileEntityTankValve extends TileEntityTankPart {
 
-    public TileEntityTankValve() {
+	public TileEntityTankValve() {
 
-    }
+	}
 
-    @Override
-    public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-        return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
-    }
+	@Override
+	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+	}
 
-    @Override
-    @Nonnull
-    public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new TankWrapper(this));
-        }
-        return super.getCapability(capability, facing);
-    }
+	@Override
+	@Nonnull
+	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new TankWrapper(this));
+		}
+		return super.getCapability(capability, facing);
+	}
 
-    @Override
-    public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
+	@Override
+	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
+	@Override
+	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
+	@Override
+	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
 
-        return true;
-    }
+		return true;
+	}
 
 }

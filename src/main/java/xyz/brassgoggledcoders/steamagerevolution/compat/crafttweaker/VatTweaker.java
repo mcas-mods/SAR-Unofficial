@@ -8,15 +8,15 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.steamagerevolution.Vat")
 public class VatTweaker {
-    @ZenMethod
-    public static void addRecipe(ILiquidStack[] input, IIngredient[] inputItems, ILiquidStack output, int craftTime) {
-        assert input.length <= 3 : "Vat recipe cannot have more than three fluid inputs";
-        assert inputItems.length <= 3 : "Vat recipe cannot have more than three item inputs";
-        MachineTweaker.addRecipe("vat", inputItems, input, null, new ILiquidStack[]{output}, craftTime, 0);
-    }
+	@ZenMethod
+	public static void addRecipe(ILiquidStack[] input, IIngredient[] inputItems, ILiquidStack output, int craftTime) {
+		assert input.length <= 3 : "Vat recipe cannot have more than three fluid inputs";
+		assert inputItems.length <= 3 : "Vat recipe cannot have more than three item inputs";
+		MachineTweaker.addRecipe("vat", inputItems, input, null, new ILiquidStack[] { output }, craftTime, 0);
+	}
 
-    @ZenMethod
-    public static void removeRecipe(ILiquidStack output) {
-        MachineTweaker.removeRecipe("vat", null, new FluidStack[]{CTHelper.toFluidStack(output)});
-    }
+	@ZenMethod
+	public static void removeRecipe(ILiquidStack output) {
+		MachineTweaker.removeRecipe("vat", null, new FluidStack[] { CTHelper.toFluidStack(output) });
+	}
 }

@@ -24,7 +24,7 @@ public class ItemAmmoContainer extends ItemBase implements IAmmoContainer {
 
 	public ItemAmmoContainer(String name, int max, AmmoType type) {
 		super(name);
-		this.setMaxStackSize(1);
+		setMaxStackSize(1);
 		this.max = max;
 		this.type = type;
 	}
@@ -33,7 +33,7 @@ public class ItemAmmoContainer extends ItemBase implements IAmmoContainer {
 	@SideOnly(Side.CLIENT)
 	@ParametersAreNonnullByDefault
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(getOrCreateTagCompound(stack).getInteger("count") + "/" + this.getMaxAmmo());
+		tooltip.add(getOrCreateTagCompound(stack).getInteger("count") + "/" + getMaxAmmo());
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 	}
 

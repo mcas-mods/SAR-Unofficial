@@ -20,61 +20,61 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockTank
 
 public class TileEntityCrucibleFluidOutput extends TileEntityCruciblePart implements IHasGui {
 
-    public TileEntityCrucibleFluidOutput() {
+	public TileEntityCrucibleFluidOutput() {
 
-    }
+	}
 
-    @Override
-    public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-        return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
-    }
+	@Override
+	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+	}
 
-    @Override
-    @Nonnull
-    public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockTankWrapper(this, true));
-        }
-        return super.getCapability(capability, facing);
-    }
+	@Override
+	@Nonnull
+	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockTankWrapper(this, true));
+		}
+		return super.getCapability(capability, facing);
+	}
 
-    @Override
-    public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
-        return false;
-    }
+	@Override
+	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
+		return false;
+	}
 
-    @Override
-    public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
+	@Override
+	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
-        return true;
-    }
+	@Override
+	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
+		return true;
+	}
 
-    @Override
-    public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
+	@Override
+	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
+	@Override
+	public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
 
-        return false;
-    }
+		return false;
+	}
 
-    @Override
-    public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-        return new GuiSingleTank(entityPlayer, this);
-    }
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		return new GuiSingleTank(entityPlayer, this);
+	}
 
-    @Override
-    public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-        // TODO Auto-generated method stub
-        return new ContainerSingleTank(entityPlayer, this);
-    }
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return new ContainerSingleTank(entityPlayer, this);
+	}
 
 }

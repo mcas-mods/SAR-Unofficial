@@ -25,7 +25,7 @@ public class TileEntityIncenseBurner extends SARMachineTileEntity {
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(this.inventory.getInputHandler());
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory.getInputHandler());
 		}
 		return super.getCapability(capability, facing);
 	}
@@ -37,13 +37,13 @@ public class TileEntityIncenseBurner extends SARMachineTileEntity {
 
 	@Override
 	protected boolean canRun() {
-		return this.getWorld().isAirBlock(this.getPos().up());
+		return getWorld().isAirBlock(getPos().up());
 	}
 
 	@Override
 	protected void onActiveTick() {
-		this.getWorld().setBlockState(this.getPos().up(), ModuleAlchemical.incense.getDefaultState());
-		this.getWorld().setBlockState(this.getPos().up(2), ModuleAlchemical.incense_block.getDefaultState());
+		getWorld().setBlockState(getPos().up(), ModuleAlchemical.incense.getDefaultState());
+		getWorld().setBlockState(getPos().up(2), ModuleAlchemical.incense_block.getDefaultState());
 	}
 
 }

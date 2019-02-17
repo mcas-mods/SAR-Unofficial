@@ -61,7 +61,7 @@ public class ModuleArmory extends ModuleBase {
 		 * ItemAmmo("iron_ball", AmmoType.BALL, 2)); itemRegistry.register(new
 		 * ItemAmmo("cartridge", AmmoType.CARTRIDGE, 5)); itemRegistry.register(new
 		 * ItemMechanism("bolt_mechanism", ActionType.BOLT) {
-		 * 
+		 *
 		 * @Override public ActionResult<ItemStack> onItemRightClick(World worldIn,
 		 * EntityPlayer playerIn, EnumHand handIn) { ItemStack stack =
 		 * playerIn.getHeldItem(handIn);
@@ -70,7 +70,7 @@ public class ModuleArmory extends ModuleBase {
 		 * stack.getTagCompound().setBoolean("isLoaded", false); } return
 		 * super.onItemRightClick(worldIn, playerIn, handIn); } });
 		 * itemRegistry.register(new ItemMechanism("semi_mechanism", ActionType.SEMI) {
-		 * 
+		 *
 		 * @Override public ActionResult<ItemStack> onItemRightClick(World worldIn,
 		 * EntityPlayer playerIn, EnumHand handIn) { ItemStack stack =
 		 * playerIn.getHeldItem(handIn);
@@ -80,12 +80,12 @@ public class ModuleArmory extends ModuleBase {
 		 * GunUtils.getOrCreateTagCompound(stack).setBoolean("isLoaded", true); } }
 		 * return super.onItemRightClick(worldIn, playerIn, handIn); } });
 		 * itemRegistry.register(new ItemMechanism("auto_mechanism", ActionType.AUTO) {
-		 * 
+		 *
 		 * @Override public ActionResult<ItemStack> onItemRightClick(World worldIn,
 		 * EntityPlayer playerIn, EnumHand handIn) { playerIn.setActiveHand(handIn);
 		 * return new ActionResult<ItemStack>(EnumActionResult.PASS,
 		 * playerIn.getHeldItem(handIn)); }
-		 * 
+		 *
 		 * @Override public void onUsingTick(ItemStack stack, EntityLivingBase
 		 * entityLiving, int count) { ItemStack ammo = GunUtils.findAmmo((EntityPlayer)
 		 * entityLiving, stack); if(!ammo.isEmpty()) { ammo.shrink(1);
@@ -98,7 +98,7 @@ public class ModuleArmory extends ModuleBase {
 		 * itemRegistry.register(new ItemChamber("cartidge_chamber",
 		 * AmmoType.CARTRIDGE)); // itemRegistry.register(new
 		 * ItemAmmoContainer("cartridge_clip", 5, // AmmoType.CARTRIDGE));
-		 * 
+		 *
 		 */
 	}
 

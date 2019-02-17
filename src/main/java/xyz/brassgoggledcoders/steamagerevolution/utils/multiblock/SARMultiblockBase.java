@@ -18,133 +18,133 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public abstract class SARMultiblockBase extends RectangularMultiblockControllerBase implements ISARMultiblock, IHasGui {
 
-    List<Block> requiredBlocks = new ArrayList<Block>();
+	List<Block> requiredBlocks = new ArrayList<Block>();
 
-    protected SARMultiblockBase(World world, Block... requiredBlocks) {
-        super(world);
-        for (Block required : requiredBlocks) {
-            this.requiredBlocks.add(required);
-        }
-    }
+	protected SARMultiblockBase(World world, Block... requiredBlocks) {
+		super(world);
+		for(Block required : requiredBlocks) {
+			this.requiredBlocks.add(required);
+		}
+	}
 
-    @Override
-    protected boolean isMachineWhole(IMultiblockValidator validatorCallback) {
-        // TODO
-        ArrayList<Block> blocks = new ArrayList<Block>();
-        connectedParts.forEach(part -> blocks.add(WORLD.getBlockState(part.getWorldPosition()).getBlock()));
+	@Override
+	protected boolean isMachineWhole(IMultiblockValidator validatorCallback) {
+		// TODO
+		ArrayList<Block> blocks = new ArrayList<Block>();
+		connectedParts.forEach(part -> blocks.add(WORLD.getBlockState(part.getWorldPosition()).getBlock()));
 
-        for (Block required : requiredBlocks) {
-            if (!blocks.contains(required)) {
-                validatorCallback.setLastError(new ValidationError(
-                        "steamagerevolution.multiblock.validation.missingrequired", required.getLocalizedName()));
-                return false;
-            }
-        }
+		for(Block required : requiredBlocks) {
+			if(!blocks.contains(required)) {
+				validatorCallback.setLastError(new ValidationError(
+						"steamagerevolution.multiblock.validation.missingrequired", required.getLocalizedName()));
+				return false;
+			}
+		}
 
-        return super.isMachineWhole(validatorCallback);
-    }
+		return super.isMachineWhole(validatorCallback);
+	}
 
-    @Override
-    protected void onMachineAssembled() {
-        SteamAgeRevolution.instance.getLogger().devInfo("Machine Assembled");
-        SteamAgeRevolution.proxy.spawnMultiblockAssemblyFX(getMinimumCoord(), getMaximumCoord());
-    }
+	@Override
+	protected void onMachineAssembled() {
+		SteamAgeRevolution.instance.getLogger().devInfo("Machine Assembled");
+		SteamAgeRevolution.proxy.spawnMultiblockAssemblyFX(getMinimumCoord(), getMaximumCoord());
+	}
 
-    // Modify from protected to public
-    @Override
-    public int getMinimumXSize() {
-        return 0;
-    }
+	// Modify from protected to public
+	@Override
+	public int getMinimumXSize() {
+		return 0;
+	}
 
-    @Override
-    public int getMinimumYSize() {
-        return 0;
-    }
+	@Override
+	public int getMinimumYSize() {
+		return 0;
+	}
 
-    @Override
-    public int getMinimumZSize() {
-        return 0;
-    }
+	@Override
+	public int getMinimumZSize() {
+		return 0;
+	}
 
-    @Override
-    protected void onBlockAdded(IMultiblockPart newPart) {
-        // NO-OP
-    }
+	@Override
+	protected void onBlockAdded(IMultiblockPart newPart) {
+		// NO-OP
+	}
 
-    @Override
-    protected void onBlockRemoved(IMultiblockPart oldPart) {
-        // NO-OP
-    }
+	@Override
+	protected void onBlockRemoved(IMultiblockPart oldPart) {
+		// NO-OP
+	}
 
-    @Override
-    protected void onMachineRestored() {
-        // NO-OP
-    }
+	@Override
+	protected void onMachineRestored() {
+		// NO-OP
+	}
 
-    @Override
-    protected void onMachinePaused() {
-        // NO-OP
-    }
+	@Override
+	protected void onMachinePaused() {
+		// NO-OP
+	}
 
-    @Override
-    protected void onMachineDisassembled() {
-        // NO-OP
-    }
+	@Override
+	protected void onMachineDisassembled() {
+		// NO-OP
+	}
 
-    @Override
-    protected void onAssimilate(MultiblockControllerBase assimilated) {
+	@Override
+	protected void onAssimilate(MultiblockControllerBase assimilated) {
 
-    }
+	}
 
-    @Override
-    protected void onAssimilated(MultiblockControllerBase assimilator) {
+	@Override
+	protected void onAssimilated(MultiblockControllerBase assimilator) {
 
-    }
+	}
 
-    @Override
-    protected void updateClient() {
+	@Override
+	protected void updateClient() {
 
-    }
+	}
 
-    @Override
-    protected boolean isBlockGoodForFrame(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-        return false;
-    }
+	@Override
+	protected boolean isBlockGoodForFrame(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		return false;
+	}
 
-    @Override
-    protected boolean isBlockGoodForTop(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-        return false;
-    }
+	@Override
+	protected boolean isBlockGoodForTop(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		return false;
+	}
 
-    @Override
-    protected boolean isBlockGoodForBottom(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-        return false;
-    }
+	@Override
+	protected boolean isBlockGoodForBottom(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		return false;
+	}
 
-    @Override
-    protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-        return false;
-    }
+	@Override
+	protected boolean isBlockGoodForSides(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		return false;
+	}
 
-    @Override
-    protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-        return world.isAirBlock(new BlockPos(x, y, z));
-    }
+	@Override
+	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
+		return world.isAirBlock(new BlockPos(x, y, z));
+	}
 
-    @Override
-    public void readFromDisk(NBTTagCompound data) {
-        // TODO Auto-generated method stub
+	@Override
+	public void readFromDisk(NBTTagCompound data) {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    @Override
-    public World getWorld() {
-        return WORLD;
-    }
+	@Override
+	public World getWorld() {
+		return WORLD;
+	}
 
-    @Override
-    public BlockPos getPos() {
-        return this.getReferenceCoord();
-    }
+	@Override
+	public BlockPos getPos() {
+		return getReferenceCoord();
+	}
 
 }

@@ -16,51 +16,51 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultibloc
 
 public class BlockSteamHammerFrame extends BlockMultiblockBase<TileEntitySteamHammerFrame> {
 
-    public static final PropertyEnum<PartPosition> position = PartPosition.createProperty("position");
+	public static final PropertyEnum<PartPosition> position = PartPosition.createProperty("position");
 
-    public BlockSteamHammerFrame(Material material, String name) {
-        super(material, name);
-        setDefaultState(blockState.getBaseState().withProperty(position, PartPosition.UNKNOWN));
-    }
+	public BlockSteamHammerFrame(Material material, String name) {
+		super(material, name);
+		setDefaultState(blockState.getBaseState().withProperty(position, PartPosition.UNKNOWN));
+	}
 
-    @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, position);
-    }
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, position);
+	}
 
-    @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        return state.withProperty(position, getTileEntity(worldIn, pos).get().getPartPosition());
-    }
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+		return state.withProperty(position, getTileEntity(worldIn, pos).get().getPartPosition());
+	}
 
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return 0;
-    }
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return 0;
+	}
 
-    @Override
-    public Class<? extends TileEntity> getTileEntityClass() {
-        return TileEntitySteamHammerFrame.class;
-    }
+	@Override
+	public Class<? extends TileEntity> getTileEntityClass() {
+		return TileEntitySteamHammerFrame.class;
+	}
 
-    @Override
-    public TileEntity createTileEntity(World world, IBlockState blockState) {
-        return new TileEntitySteamHammerFrame();
-    }
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState blockState) {
+		return new TileEntitySteamHammerFrame();
+	}
 
-    @Override
-    public boolean isOpaqueCube(IBlockState state) {
-        return false;
-    }
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
 
-    @Override
-    public boolean isFullCube(IBlockState state) {
-        return false;
-    }
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
 
-    @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
-    }
+	@Override
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.MODEL;
+	}
 
 }

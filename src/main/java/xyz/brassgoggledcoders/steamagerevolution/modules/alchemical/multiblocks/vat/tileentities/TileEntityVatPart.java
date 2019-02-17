@@ -8,19 +8,19 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockT
 
 public abstract class TileEntityVatPart extends SARMultiblockTileInventory<ControllerVat> {
 
-    @Override
-    public Class<ControllerVat> getMultiblockControllerType() {
-        return ControllerVat.class;
-    }
+	@Override
+	public Class<ControllerVat> getMultiblockControllerType() {
+		return ControllerVat.class;
+	}
 
-    @Override
-    public ISARMultiblock getControllerInfo() {
-        return new ControllerVat(null);
-    }
+	@Override
+	public ISARMultiblock getControllerInfo() {
+		return new ControllerVat(null);
+	}
 
-    @Override
-    public MultiblockControllerBase createNewMultiblock() {
-        return new ControllerVat(getWorld());
-    }
+	@Override
+	public MultiblockControllerBase createNewMultiblock() {
+		return new ControllerVat(getWorld());
+	}
 
 }

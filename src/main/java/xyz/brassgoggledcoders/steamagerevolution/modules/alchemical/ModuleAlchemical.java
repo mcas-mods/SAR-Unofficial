@@ -285,13 +285,13 @@ public class ModuleAlchemical extends ModuleBase {
 		 * ResourceLocation(SteamAgeRevolution.MODID,
 		 * "fluids/incense_flow")).setGaseous(true).setDensity(-100)
 		 * .setViscosity(-100);
-		 * 
+		 *
 		 * if(!(FluidRegistry.isFluidRegistered(incense))) { // Soft registration
 		 * FluidRegistry.registerFluid(incense);
 		 * FluidRegistry.addBucketForFluid(incense); } blockRegistry.register(new
 		 * BlockIncenseFluid("incense", FluidRegistry.getFluid("incense"),
 		 * Material.WATER) {
-		 * 
+		 *
 		 * @Override public ResourceLocation getResourceLocation(IBlockState blockState)
 		 * { return new ResourceLocation(SteamAgeRevolution.MODID, "incense"); } });
 		 * blockRegistry.register(new BlockIncense()); blockRegistry.register(new

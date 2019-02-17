@@ -9,18 +9,18 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultibloc
 
 public class BlockFurnaceSteamInput extends BlockMultiblockBase<TileEntityFurnaceSteamInput> {
 
-    public BlockFurnaceSteamInput(Material material, String name) {
-        super(material, name);
-    }
+	public BlockFurnaceSteamInput(Material material, String name) {
+		super(material, name);
+	}
 
-    @Override
-    public Class<? extends TileEntity> getTileEntityClass() {
-        return TileEntityFurnaceSteamInput.class;
-    }
+	@Override
+	public Class<? extends TileEntity> getTileEntityClass() {
+		return TileEntityFurnaceSteamInput.class;
+	}
 
-    @Override
-    public TileEntity createTileEntity(World world, IBlockState blockState) {
-        return new TileEntityFurnaceSteamInput();
-    }
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState blockState) {
+		return new TileEntityFurnaceSteamInput();
+	}
 
 }

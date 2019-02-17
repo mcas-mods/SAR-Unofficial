@@ -13,22 +13,22 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class ShapelessOreResultRecipe extends ShapelessOreRecipe {
 
-    public ShapelessOreResultRecipe(ResourceLocation group, NonNullList<Ingredient> input, ItemStack result) {
-        super(group, input, result);
-    }
+	public ShapelessOreResultRecipe(ResourceLocation group, NonNullList<Ingredient> input, ItemStack result) {
+		super(group, input, result);
+	}
 
-    public static class Factory implements IRecipeFactory {
+	public static class Factory implements IRecipeFactory {
 
-        @Override
-        public IRecipe parse(final JsonContext context, final JsonObject json) {
-            final String group = JsonUtils.getString(json, "group", "");
-            final NonNullList<Ingredient> ingredients = RecipeUtil.parseShapeless(context, json);
-            final ItemStack result = OreDictUtils
-                    .getPreferredItemStack(JsonUtils.getString(JsonUtils.getJsonObject(json, "result"), "ore"));
+		@Override
+		public IRecipe parse(final JsonContext context, final JsonObject json) {
+			final String group = JsonUtils.getString(json, "group", "");
+			final NonNullList<Ingredient> ingredients = RecipeUtil.parseShapeless(context, json);
+			final ItemStack result = OreDictUtils
+					.getPreferredItemStack(JsonUtils.getString(JsonUtils.getJsonObject(json, "result"), "ore"));
 
-            return new ShapelessOreResultRecipe(group.isEmpty() ? null : new ResourceLocation(group), ingredients,
-                    result);
-        }
-    }
+			return new ShapelessOreResultRecipe(group.isEmpty() ? null : new ResourceLocation(group), ingredients,
+					result);
+		}
+	}
 
 }

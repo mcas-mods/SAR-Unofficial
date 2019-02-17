@@ -11,19 +11,19 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.tileentiti
 
 public class ClientProxy implements IModuleProxy {
 
-    @Override
-    public void preInit(FMLPreInitializationEvent event) {
-    }
+	@Override
+	public void preInit(FMLPreInitializationEvent event) {
+	}
 
-    @Override
-    public void init(FMLInitializationEvent event) {
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCastingBench.class,
-                new TileEntityCastingBenchRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySteamHammerAnvil.class,
-                new TileEntitySteamHammerAnvilRenderer());
-    }
+	@Override
+	public void init(FMLInitializationEvent event) {
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCastingBench.class,
+				new TileEntityCastingBenchRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySteamHammerAnvil.class,
+				new TileEntitySteamHammerAnvilRenderer());
+	}
 
-    @Override
-    public void postInit(FMLPostInitializationEvent event) {
-    }
+	@Override
+	public void postInit(FMLPostInitializationEvent event) {
+	}
 }

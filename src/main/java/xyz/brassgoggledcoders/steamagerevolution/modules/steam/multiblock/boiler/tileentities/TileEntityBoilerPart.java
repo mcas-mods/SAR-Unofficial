@@ -8,18 +8,18 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockT
 
 public abstract class TileEntityBoilerPart extends SARMultiblockTileInventory<ControllerBoiler> {
 
-    @Override
-    public Class<? extends MultiblockControllerBase> getMultiblockControllerType() {
-        return ControllerBoiler.class;
-    }
+	@Override
+	public Class<? extends MultiblockControllerBase> getMultiblockControllerType() {
+		return ControllerBoiler.class;
+	}
 
-    @Override
-    public MultiblockControllerBase createNewMultiblock() {
-        return new ControllerBoiler(getWorld());
-    }
+	@Override
+	public MultiblockControllerBase createNewMultiblock() {
+		return new ControllerBoiler(getWorld());
+	}
 
-    @Override
-    public ISARMultiblock getControllerInfo() {
-        return new ControllerBoiler(null);
-    }
+	@Override
+	public ISARMultiblock getControllerInfo() {
+		return new ControllerBoiler(null);
+	}
 }

@@ -8,19 +8,19 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockT
 
 public abstract class TileEntityAlloyFurnacePart extends SARMultiblockTileInventory<ControllerAlloyFurnace> {
 
-    @Override
-    public Class<ControllerAlloyFurnace> getMultiblockControllerType() {
-        return ControllerAlloyFurnace.class;
-    }
+	@Override
+	public Class<ControllerAlloyFurnace> getMultiblockControllerType() {
+		return ControllerAlloyFurnace.class;
+	}
 
-    @Override
-    public ISARMultiblock getControllerInfo() {
-        return new ControllerAlloyFurnace(null);
-    }
+	@Override
+	public ISARMultiblock getControllerInfo() {
+		return new ControllerAlloyFurnace(null);
+	}
 
-    @Override
-    public MultiblockControllerBase createNewMultiblock() {
-        return new ControllerAlloyFurnace(getWorld());
-    }
+	@Override
+	public MultiblockControllerBase createNewMultiblock() {
+		return new ControllerAlloyFurnace(getWorld());
+	}
 
 }

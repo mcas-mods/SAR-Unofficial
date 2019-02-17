@@ -10,33 +10,33 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
 
 public class HandlerMultiFluidUpdate implements IMessageHandler<PacketMultiFluidUpdate, IMessage> {
-    public HandlerMultiFluidUpdate() {
+	public HandlerMultiFluidUpdate() {
 
-    }
+	}
 
-    @Override
-    public IMessage onMessage(PacketMultiFluidUpdate message, MessageContext ctx) {
-        Minecraft minecraft = Minecraft.getMinecraft();
-        final WorldClient worldClient = minecraft.world;
-        minecraft.addScheduledTask(new Runnable() {
-            @Override
-            public void run() {
-                processMessage(worldClient, message);
-            }
-        });
-        return null;
-    }
+	@Override
+	public IMessage onMessage(PacketMultiFluidUpdate message, MessageContext ctx) {
+		Minecraft minecraft = Minecraft.getMinecraft();
+		final WorldClient worldClient = minecraft.world;
+		minecraft.addScheduledTask(new Runnable() {
+			@Override
+			public void run() {
+				processMessage(worldClient, message);
+			}
+		});
+		return null;
+	}
 
-    private void processMessage(WorldClient worldClient, PacketMultiFluidUpdate message) {
-        TileEntity te = worldClient.getTileEntity(message.pos);
-        if (te instanceof ISmartTankCallback) {
-            ISmartTankCallback tile = (ISmartTankCallback) ((IHasInventory) te).getInventory();
-            tile.updateFluid(message);
-        } else {
-            MultiblockTileEntityBase<?> tile = (MultiblockTileEntityBase<?>) te;
-            ISmartTankCallback controller = (ISmartTankCallback) ((IHasInventory) tile.getMultiblockController())
-                    .getInventory();
-            controller.updateFluid(message);
-        }
-    }
+	private void processMessage(WorldClient worldClient, PacketMultiFluidUpdate message) {
+		TileEntity te = worldClient.getTileEntity(message.pos);
+		if(te instanceof ISmartTankCallback) {
+			ISmartTankCallback tile = ((IHasInventory) te).getInventory();
+			tile.updateFluid(message);
+		}
+		else {
+			MultiblockTileEntityBase<?> tile = (MultiblockTileEntityBase<?>) te;
+			ISmartTankCallback controller = ((IHasInventory) tile.getMultiblockController()).getInventory();
+			controller.updateFluid(message);
+		}
+	}
 }

@@ -8,16 +8,16 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.tileentities.TileEntityVatFrame;
 
 public class ClientProxy implements IModuleProxy {
-    @Override
-    public void preInit(FMLPreInitializationEvent event) {
-    }
+	@Override
+	public void preInit(FMLPreInitializationEvent event) {
+	}
 
-    @Override
-    public void init(FMLInitializationEvent event) {
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityVatFrame.class, new MultiblockVatTankRenderer());
-    }
+	@Override
+	public void init(FMLInitializationEvent event) {
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityVatFrame.class, new MultiblockVatTankRenderer());
+	}
 
-    @Override
-    public void postInit(FMLPostInitializationEvent event) {
-    }
+	@Override
+	public void postInit(FMLPostInitializationEvent event) {
+	}
 }
