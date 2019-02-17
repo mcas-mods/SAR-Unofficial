@@ -123,7 +123,7 @@ death.attack.acid=%1$s became a part of the solution.
 death.attack.bullet=%1$s took a bullet to the knee.
 
 #Guide
-item.guide.steamagerevolution=SteamAgeRevolution Guidebook
+item.guide.steamagerevolution=Steam Age Guide
 guide.steamagerevolution.title=DEPRECATED. Install Patchouli.
 guide.steamagerevolution.landing=This brassbound tome will be your guide to the world of steam and steel. Filler page icon is from $(l:https://game-icons.net/lorc/originals/pokecog.html)game-icons.net$()
 ##Getting started
