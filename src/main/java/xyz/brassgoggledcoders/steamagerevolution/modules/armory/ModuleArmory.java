@@ -19,7 +19,14 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemClockworkWings;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemDrill;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemRocketFist;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemSteamAxe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemSteamHoe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemSteamPickaxe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemSteamShovel;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemSteamSword;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber
@@ -55,6 +62,8 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemSteamSword("steam_sword", 1000));
 
 		itemRegistry.register(new ItemRocketFist());
+		
+		itemRegistry.register(new ItemDrill("stone_drill", ToolMaterial.STONE));
 
 		/*
 		 * itemRegistry.register(new ItemGun()); itemRegistry.register(new
