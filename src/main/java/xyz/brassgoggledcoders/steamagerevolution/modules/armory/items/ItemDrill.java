@@ -48,6 +48,12 @@ public class ItemDrill extends ItemTool implements IHasModel, IModAware  {
 	}
 	
 	@Override
+	public List<String> getModelNames(List<String> modelNames) {
+		modelNames.add(name);
+		return modelNames;
+	}
+	
+	@Override
 	@ParametersAreNonnullByDefault
 	public void getSubItems(@Nullable CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		if(tab != null && tab == getCreativeTab() || tab == CreativeTabs.SEARCH) {

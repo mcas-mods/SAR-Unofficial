@@ -80,6 +80,8 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemDrill("iron_drill", ToolMaterial.IRON));
 		itemRegistry.register(new ItemDrill("gold_drill", ToolMaterial.GOLD));
 		itemRegistry.register(new ItemDrill("diamond_drill", ToolMaterial.DIAMOND));
+		//Steel tools?
+		//TODO Add drills from other mods materials and ability for other mods to register drills through IMC
 
 		/*
 		 * itemRegistry.register(new ItemGun()); itemRegistry.register(new
