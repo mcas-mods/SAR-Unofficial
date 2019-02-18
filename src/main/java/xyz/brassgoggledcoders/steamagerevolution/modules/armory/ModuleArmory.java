@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 
 import java.util.HashSet;
 
+import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -76,6 +77,7 @@ public class ModuleArmory extends ModuleBase {
 
 		itemRegistry.register(new ItemRocketFist());
 		
+		itemRegistry.register(new ItemBase("drill_base"));
 		itemRegistry.register(new ItemDrill("stone_drill", ToolMaterial.STONE));
 		itemRegistry.register(new ItemDrill("iron_drill", ToolMaterial.IRON));
 		itemRegistry.register(new ItemDrill("gold_drill", ToolMaterial.GOLD));
