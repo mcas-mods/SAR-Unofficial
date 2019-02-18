@@ -77,6 +77,9 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemRocketFist());
 		
 		itemRegistry.register(new ItemDrill("stone_drill", ToolMaterial.STONE));
+		itemRegistry.register(new ItemDrill("iron_drill", ToolMaterial.IRON));
+		itemRegistry.register(new ItemDrill("gold_drill", ToolMaterial.GOLD));
+		itemRegistry.register(new ItemDrill("diamond_drill", ToolMaterial.DIAMOND));
 
 		/*
 		 * itemRegistry.register(new ItemGun()); itemRegistry.register(new
