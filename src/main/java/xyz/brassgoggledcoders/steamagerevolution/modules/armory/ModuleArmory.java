@@ -24,6 +24,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityRocketSkeleton;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemClockworkWings;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemDrill;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemRocketFist;
@@ -44,6 +45,9 @@ public class ModuleArmory extends ModuleBase {
 	@ObjectHolder(SteamAgeRevolution.MODID + ":gun")
 	public static final Item gun = null;
 	
+	@ObjectHolder(SteamAgeRevolution.MODID + ":rocket_fist")
+	public static final Item rocket_fist = null;
+	
 	public static final HashSet<Block> KNOWN_ORES = new HashSet<Block>();
 	
 	@SubscribeEvent
@@ -57,7 +61,8 @@ public class ModuleArmory extends ModuleBase {
 	public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
 		int networkID = 0;
 		EntityRegistry.registerModEntity(new ResourceLocation(SteamAgeRevolution.MODID, "bullet"), EntityBullet.class,
-				"Bullet", networkID++, SteamAgeRevolution.MODID, 64, 1, true);
+				"bullet", networkID++, SteamAgeRevolution.MODID, 64, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation(SteamAgeRevolution.MODID, "rocket_skeleton"), EntityRocketSkeleton.class, "rocket_skeleton", networkID++, SteamAgeRevolution.MODID, 64, 1, true, 0, 11111);
 	}
 
 	@Override

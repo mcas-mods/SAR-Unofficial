@@ -117,6 +117,8 @@ steamagerevolution.multiblock.validation.distiller_radiator=Bottom layer of the 
 steamagerevolution.multiblock.validation.distiller_hotplate=Second-from-bottom layer of the Distiller must be composed entirely of hotplate blocks
 
 #Other
+
+
 fluid.steam=Steam
 fluid.sulphur_dioxide=Sulphur Dioxide
 fluid.sulphuric_acid=Sulphuric Acid
