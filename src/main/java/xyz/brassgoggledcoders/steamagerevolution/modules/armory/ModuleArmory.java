@@ -1,11 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 
+import java.util.HashSet;
+
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.util.DamageSource;
@@ -17,6 +20,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
+import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemClockworkWings;
@@ -38,6 +42,15 @@ public class ModuleArmory extends ModuleBase {
 
 	@ObjectHolder(SteamAgeRevolution.MODID + ":gun")
 	public static final Item gun = null;
+	
+	public static final HashSet<Block> KNOWN_ORES = new HashSet<Block>();
+	
+	@SubscribeEvent
+	public static void onOreRegistered(OreDictionary.OreRegisterEvent event) {
+		if(event.getName().contains("ore")) {
+			KNOWN_ORES.add(Block.getBlockFromItem(event.getOre().getItem()));
+		}
+	}
 
 	@SubscribeEvent
 	public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {

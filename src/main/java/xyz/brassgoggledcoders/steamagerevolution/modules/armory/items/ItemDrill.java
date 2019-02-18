@@ -28,7 +28,9 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.oredict.OreDictionary;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.TinkersUtils;
 
 public class ItemDrill extends ItemTool implements IHasModel, IModAware  {
@@ -88,6 +90,12 @@ public class ItemDrill extends ItemTool implements IHasModel, IModAware  {
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player)
 	{
 		World world = player.getEntityWorld();
+		
+		//TODO Move this to earlier
+		if(ModuleArmory.KNOWN_ORES.contains(world.getBlockState(pos).getBlock())) {
+			return true;
+		}
+		
 		for(BlockPos extra : TinkersUtils.calcAOEBlocks(stack, world, player, pos, 3, 3, 1)) {
 			TinkersUtils.breakExtraBlock(stack, world, player, extra, pos);
 		}
@@ -98,11 +106,6 @@ public class ItemDrill extends ItemTool implements IHasModel, IModAware  {
 	public boolean canHarvestBlock(IBlockState blockIn, ItemStack stack)
     {
 		Block block = blockIn.getBlock();
-		for(int id : OreDictionary.getOreIDs(new ItemStack(block))) {
-			if(OreDictionary.getOreName(id).contains("ore")) {
-				return false;
-			}
-		}
 		if (block == Blocks.OBSIDIAN)
         {
             return this.toolMaterial.getHarvestLevel() == 3;
