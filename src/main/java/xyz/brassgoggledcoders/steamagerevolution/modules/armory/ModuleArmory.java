@@ -10,8 +10,10 @@ import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.EnumHelper;
@@ -33,6 +35,9 @@ public class ModuleArmory extends ModuleBase {
 
 	public static final ToolMaterial STEAM = EnumHelper.addToolMaterial("TOOL_STEAM", 2, -1, 12.0F, 3.0F, 0);
 
+	public static final ArmorMaterial GOGGLES = EnumHelper.addArmorMaterial("ARMOR_GOGGLES", "goggles", -1,
+			new int[] { 1, 2, 3, 1 }, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
+
 	public static DamageSource damageSourceBullet = new DamageSource("bullet").setDifficultyScaled().setProjectile();
 
 	@ObjectHolder(SteamAgeRevolution.MODID + ":gun")
@@ -43,6 +48,9 @@ public class ModuleArmory extends ModuleBase {
 
 	@ObjectHolder(SteamAgeRevolution.MODID + ":lens")
 	public static final Item lens = null;
+
+	@ObjectHolder(SteamAgeRevolution.MODID + ":goggles")
+	public static final Item goggles = null;
 
 	public static final HashSet<Block> KNOWN_ORES = new HashSet<Block>();
 
@@ -95,6 +103,7 @@ public class ModuleArmory extends ModuleBase {
 		// register drills through IMC
 
 		itemRegistry.register(new ItemLens());
+		itemRegistry.register(new ItemGoggles());
 
 		/*
 		 * itemRegistry.register(new ItemGun()); itemRegistry.register(new
