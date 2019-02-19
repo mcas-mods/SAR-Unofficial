@@ -12,7 +12,10 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -26,6 +29,12 @@ public class ItemGoggles extends ItemArmorBase {
 
 	public ItemGoggles() {
 		super(ModuleArmory.GOGGLES, EntityEquipmentSlot.HEAD, "goggles");
+	}
+
+	@Override
+	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
+		// TODO Switch to a brightness increaser instead of a potion effect
+		player.addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("night_vision"), 20));
 	}
 
 	@Override
