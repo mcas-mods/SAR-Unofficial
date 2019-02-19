@@ -25,14 +25,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityRocketSkeleton;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemClockworkWings;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemDrill;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemRocketFist;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemSteamAxe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemSteamHoe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemSteamPickaxe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemSteamShovel;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemSteamSword;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.*;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber
@@ -44,12 +37,20 @@ public class ModuleArmory extends ModuleBase {
 
 	@ObjectHolder(SteamAgeRevolution.MODID + ":gun")
 	public static final Item gun = null;
-	
+
 	@ObjectHolder(SteamAgeRevolution.MODID + ":rocket_fist")
 	public static final Item rocket_fist = null;
-	
+
+	@ObjectHolder(SteamAgeRevolution.MODID + ":lens")
+	public static final Item lens = null;
+
 	public static final HashSet<Block> KNOWN_ORES = new HashSet<Block>();
-	
+
+	@Override
+	public String getClientProxyPath() {
+		return "xyz.brassgoggledcoders.steamagerevolution.modules.armory.ClientProxy";
+	}
+
 	@SubscribeEvent
 	public static void onOreRegistered(OreDictionary.OreRegisterEvent event) {
 		if(event.getName().contains("ore")) {
@@ -62,7 +63,9 @@ public class ModuleArmory extends ModuleBase {
 		int networkID = 0;
 		EntityRegistry.registerModEntity(new ResourceLocation(SteamAgeRevolution.MODID, "bullet"), EntityBullet.class,
 				"bullet", networkID++, SteamAgeRevolution.MODID, 64, 1, true);
-		EntityRegistry.registerModEntity(new ResourceLocation(SteamAgeRevolution.MODID, "rocket_skeleton"), EntityRocketSkeleton.class, "rocket_skeleton", networkID++, SteamAgeRevolution.MODID, 64, 1, true, 0, 11111);
+		EntityRegistry.registerModEntity(new ResourceLocation(SteamAgeRevolution.MODID, "rocket_skeleton"),
+				EntityRocketSkeleton.class, "rocket_skeleton", networkID++, SteamAgeRevolution.MODID, 64, 1, true, 0,
+				11111);
 	}
 
 	@Override
@@ -81,14 +84,17 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemSteamSword("steam_sword", 1000));
 
 		itemRegistry.register(new ItemRocketFist());
-		
+
 		itemRegistry.register(new ItemBase("drill_base"));
 		itemRegistry.register(new ItemDrill("stone_drill", ToolMaterial.STONE));
 		itemRegistry.register(new ItemDrill("iron_drill", ToolMaterial.IRON));
 		itemRegistry.register(new ItemDrill("gold_drill", ToolMaterial.GOLD));
 		itemRegistry.register(new ItemDrill("diamond_drill", ToolMaterial.DIAMOND));
-		//Steel tools?
-		//TODO Add drills from other mods materials and ability for other mods to register drills through IMC
+		// Steel tools?
+		// TODO Add drills from other mods materials and ability for other mods to
+		// register drills through IMC
+
+		itemRegistry.register(new ItemLens());
 
 		/*
 		 * itemRegistry.register(new ItemGun()); itemRegistry.register(new
