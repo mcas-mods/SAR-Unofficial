@@ -29,7 +29,7 @@ public class HandlerMultiFluidUpdate implements IMessageHandler<PacketMultiFluid
 
 	private void processMessage(WorldClient worldClient, PacketMultiFluidUpdate message) {
 		TileEntity te = worldClient.getTileEntity(message.pos);
-		if(te instanceof ISmartTankCallback) {
+		if(te instanceof IHasInventory) {
 			ISmartTankCallback tile = ((IHasInventory) te).getInventory();
 			tile.updateFluid(message);
 		}
