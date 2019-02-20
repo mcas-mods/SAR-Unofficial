@@ -67,6 +67,8 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
+		FMLInterModComms.sendFunctionMessage("theoneprobe", "getTheOneProbe",
+				"xyz.brassgoggledcoders.steamagerevolution.compat.oneprobe.OneProbeCompat");
 	}
 
 	@Override

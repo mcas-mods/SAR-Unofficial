@@ -79,6 +79,7 @@ dependencies {
     deobfCompile "info.amerifrance.guideapi:Guide-API:${guideapi_version}"
     deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.+"
     compile "vazkii.patchouli:Patchouli:${patchouli_version}"
+    deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${top_version}"
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8

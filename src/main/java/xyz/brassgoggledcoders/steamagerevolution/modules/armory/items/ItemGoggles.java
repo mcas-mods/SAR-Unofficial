@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
@@ -29,12 +30,24 @@ public class ItemGoggles extends ItemArmorBase {
 
 	public ItemGoggles() {
 		super(ModuleArmory.GOGGLES, EntityEquipmentSlot.HEAD, "goggles");
+
+	}
+
+	@Override
+	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setInteger("theoneprobe", 1);
+		stack.setTagCompound(tag);
 	}
 
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
 		// TODO Switch to a brightness increaser instead of a potion effect
 		player.addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("night_vision"), 20));
+		if(!itemStack.hasTagCompound()) {
+			itemStack.setTagCompound(new NBTTagCompound());
+		}
+		itemStack.getTagCompound().setInteger("theoneprobe", 1);
 	}
 
 	@Override
