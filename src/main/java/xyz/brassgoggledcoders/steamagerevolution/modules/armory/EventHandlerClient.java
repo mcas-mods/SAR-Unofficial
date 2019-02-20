@@ -2,12 +2,16 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 
 import org.lwjgl.opengl.GL11;
 
-import com.teamacronymcoders.base.util.RenderingUtils;
-
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -23,17 +27,18 @@ public class EventHandlerClient {
 		if((event.getPlayer().inventory.armorItemInSlot(3) != null)
 				&& (event.getPlayer().inventory.armorItemInSlot(3).getItem() == ModuleArmory.goggles)) {
 			drawSelectionBox(event.getPlayer(), event.getTarget(), event.getPartialTicks());
-			// event.setCanceled(true);
+			event.setCanceled(true);
 		}
 	}
 
 	private static void drawSelectionBox(EntityPlayer player, RayTraceResult mop, float partialTicks) {
 		if(mop.typeOfHit == RayTraceResult.Type.BLOCK) {
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glColor4f(0.0F, 1.0F, 0.0F, 1.0F);
-			GL11.glLineWidth(3.5F);
-			GL11.glDisable(GL11.GL_TEXTURE_2D);
-			GL11.glDepthMask(false);
+			GlStateManager.pushMatrix();
+			GlStateManager.enableBlend();
+            GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+            GlStateManager.glLineWidth(5.0F);
+            GlStateManager.disableTexture2D();
+            GlStateManager.depthMask(false);
 			float offset = 0.002F;
 			World world = player.world;
 			BlockPos pos = mop.getBlockPos();
@@ -43,20 +48,22 @@ public class EventHandlerClient {
 				double dx = player.lastTickPosX + ((player.posX - player.lastTickPosX) * partialTicks);
 				double dy = player.lastTickPosY + ((player.posY - player.lastTickPosY) * partialTicks);
 				double dz = player.lastTickPosZ + ((player.posZ - player.lastTickPosZ) * partialTicks);
-				drawOutlinedBoundingBox(
-						state.getSelectedBoundingBox(world, pos).expand(offset, offset, offset).offset(-dx, -dy, -dz));
+				drawSelectionBoundingBox(
+						state.getSelectedBoundingBox(world, pos).expand(offset, offset, offset).offset(-dx, -dy, -dz), 0.2F, 1F, 0.2F, 0.8F);
 			}
 
-			GL11.glDepthMask(true);
-			GL11.glEnable(GL11.GL_TEXTURE_2D);
-			GL11.glDisable(GL11.GL_BLEND);
+			GlStateManager.depthMask(true);
+            GlStateManager.enableTexture2D();
+            GlStateManager.disableBlend();
+			GlStateManager.popMatrix();
 		}
 		else if(mop.typeOfHit == RayTraceResult.Type.ENTITY) {
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glColor4f(0.0F, 1.0F, 0.0F, 1.0F);
-			GL11.glLineWidth(3.5F);
-			GL11.glDisable(GL11.GL_TEXTURE_2D);
-			GL11.glDepthMask(false);
+			GlStateManager.pushMatrix();
+			GlStateManager.enableBlend();
+            GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+            GlStateManager.glLineWidth(5.0F);
+            GlStateManager.disableTexture2D();
+            GlStateManager.depthMask(false);
 			float offset = 0.002F;
 			Entity entity = mop.entityHit;
 
@@ -65,18 +72,50 @@ public class EventHandlerClient {
 				double dx = player.lastTickPosX + ((player.posX - player.lastTickPosX) * partialTicks);
 				double dy = player.lastTickPosY + ((player.posY - player.lastTickPosY) * partialTicks);
 				double dz = player.lastTickPosZ + ((player.posZ - player.lastTickPosZ) * partialTicks);
-				drawOutlinedBoundingBox(
-						entity.getEntityBoundingBox().expand(offset, offset, offset).offset(-dx, -dy, -dz));
+				drawSelectionBoundingBox(
+						entity.getEntityBoundingBox().expand(offset, offset, offset).offset(-dx, -dy, -dz), 0.2F, 1F, 0.2F, 0.8F);
 			}
 
-			GL11.glDepthMask(true);
-			GL11.glEnable(GL11.GL_TEXTURE_2D);
-			GL11.glDisable(GL11.GL_BLEND);
+			GlStateManager.depthMask(true);
+            GlStateManager.enableTexture2D();
+            GlStateManager.disableBlend();
+			GlStateManager.popMatrix();
 		}
 	}
 
-	private static void drawOutlinedBoundingBox(AxisAlignedBB aaBB) {
-		RenderingUtils.drawLineNoFade(aaBB.minZ, aaBB.minZ, aaBB.maxZ, aaBB.minZ, 0.5F, 0.5F, 0.5F, 0.8F, 0);
-		RenderingUtils.drawLineNoFade(aaBB.minY, aaBB.minY, aaBB.maxY, aaBB.minY, 0.5F, 0.5F, 0.5F, 0.8F, 0);
-	}
+	 public static void drawSelectionBoundingBox(AxisAlignedBB box, float red, float green, float blue, float alpha)
+	    {
+	        drawBoundingBox(box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ, red, green, blue, alpha);
+	    }
+
+	    public static void drawBoundingBox(double minX, double minY, double minZ, double maxX, double maxY, double maxZ, float red, float green, float blue, float alpha)
+	    {
+	        Tessellator tessellator = Tessellator.getInstance();
+	        BufferBuilder bufferbuilder = tessellator.getBuffer();
+	        bufferbuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
+	        drawBoundingBox(bufferbuilder, minX, minY, minZ, maxX, maxY, maxZ, red, green, blue, alpha);
+	        tessellator.draw();
+	    }
+
+	    public static void drawBoundingBox(BufferBuilder buffer, double minX, double minY, double minZ, double maxX, double maxY, double maxZ, float red, float green, float blue, float alpha)
+	    {
+	        buffer.pos(minX, minY, minZ).color(red, green, blue, 0.0F).endVertex();
+	        buffer.pos(minX, minY, minZ).color(red, green, blue, alpha).endVertex();
+	        buffer.pos(maxX, minY, minZ).color(red, green, blue, alpha).endVertex();
+	        buffer.pos(maxX, minY, maxZ).color(red, green, blue, alpha).endVertex();
+	        buffer.pos(minX, minY, maxZ).color(red, green, blue, alpha).endVertex();
+	        buffer.pos(minX, minY, minZ).color(red, green, blue, alpha).endVertex();
+	        buffer.pos(minX, maxY, minZ).color(red, green, blue, alpha).endVertex();
+	        buffer.pos(maxX, maxY, minZ).color(red, green, blue, alpha).endVertex();
+	        buffer.pos(maxX, maxY, maxZ).color(red, green, blue, alpha).endVertex();
+	        buffer.pos(minX, maxY, maxZ).color(red, green, blue, alpha).endVertex();
+	        buffer.pos(minX, maxY, minZ).color(red, green, blue, alpha).endVertex();
+	        buffer.pos(minX, maxY, maxZ).color(red, green, blue, 0.0F).endVertex();
+	        buffer.pos(minX, minY, maxZ).color(red, green, blue, alpha).endVertex();
+	        buffer.pos(maxX, maxY, maxZ).color(red, green, blue, 0.0F).endVertex();
+	        buffer.pos(maxX, minY, maxZ).color(red, green, blue, alpha).endVertex();
+	        buffer.pos(maxX, maxY, minZ).color(red, green, blue, 0.0F).endVertex();
+	        buffer.pos(maxX, minY, minZ).color(red, green, blue, alpha).endVertex();
+	        buffer.pos(maxX, minY, minZ).color(red, green, blue, 0.0F).endVertex();
+	    }
 }
