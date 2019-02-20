@@ -4,22 +4,20 @@ import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.ai.EntityAIAttackRangedBow;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.item.Item;
-import net.minecraft.util.EnumHand;
-import net.minecraftforge.fml.common.FMLLog;
 
 public class EntityAIAttackRangedGeneric<T extends EntityMob & IRangedAttackMob> extends EntityAIAttackRangedBow<T> {
 	T entity;
 	Item required;
-	public EntityAIAttackRangedGeneric(T mob, double moveSpeedAmpIn, int attackCooldownIn, float maxAttackDistanceIn, Item holdRequirement)
-    {
-        super(mob, moveSpeedAmpIn, attackCooldownIn, maxAttackDistanceIn);
-        this.entity = mob;
-        this.required = holdRequirement;
-    }
+
+	public EntityAIAttackRangedGeneric(T mob, double moveSpeedAmpIn, int attackCooldownIn, float maxAttackDistanceIn,
+			Item holdRequirement) {
+		super(mob, moveSpeedAmpIn, attackCooldownIn, maxAttackDistanceIn);
+		this.entity = mob;
+		this.required = holdRequirement;
+	}
 
 	@Override
-    protected boolean isBowInMainhand()
-    {
-        return !this.entity.getHeldItemMainhand().isEmpty() && this.entity.getHeldItemMainhand().getItem() == required;
-    }
+	protected boolean isBowInMainhand() {
+		return !this.entity.getHeldItemMainhand().isEmpty() && this.entity.getHeldItemMainhand().getItem() == required;
+	}
 }

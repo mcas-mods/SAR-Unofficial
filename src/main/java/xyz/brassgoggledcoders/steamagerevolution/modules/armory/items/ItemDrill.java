@@ -2,57 +2,48 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
+import javax.annotation.*;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import com.teamacronymcoders.base.IBaseMod;
 import com.teamacronymcoders.base.IModAware;
 import com.teamacronymcoders.base.client.models.IHasModel;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
+import net.minecraft.item.*;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
-import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.TinkersUtils;
 
-public class ItemDrill extends ItemTool implements IHasModel, IModAware  {
-	
+public class ItemDrill extends ItemTool implements IHasModel, IModAware {
+
 	boolean creativeTabSet = false;
 	String name;
 	private IBaseMod mod;
-	
+
 	public ItemDrill(String name, ToolMaterial material) {
 		super(material, new HashSet<>());
 		setTranslationKey(name);
 		this.name = name;
-		this.setHarvestLevel("pickaxe", material.getHarvestLevel());
-		this.setHarvestLevel("shovel", material.getHarvestLevel());
+		setHarvestLevel("pickaxe", material.getHarvestLevel());
+		setHarvestLevel("shovel", material.getHarvestLevel());
 	}
-	
+
 	@Override
 	public List<String> getModelNames(List<String> modelNames) {
 		modelNames.add(name);
 		return modelNames;
 	}
-	
+
 	@Override
 	@ParametersAreNonnullByDefault
 	public void getSubItems(@Nullable CreativeTabs tab, NonNullList<ItemStack> subItems) {
@@ -91,38 +82,35 @@ public class ItemDrill extends ItemTool implements IHasModel, IModAware  {
 	public Item getItem() {
 		return this;
 	}
-	
+
 	@Override
-	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player)
-	{
+	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
 		World world = player.getEntityWorld();
-		
-		//TODO Move this to earlier
+
+		// TODO Move this to earlier
 		if(ModuleArmory.KNOWN_ORES.contains(world.getBlockState(pos).getBlock())) {
 			return true;
 		}
-		
+
 		for(BlockPos extra : TinkersUtils.calcAOEBlocks(stack, world, player, pos, 3, 3, 1)) {
 			TinkersUtils.breakExtraBlock(stack, world, player, extra, pos);
 		}
 		return false;
 	}
-	
-	@Override
-	public boolean canHarvestBlock(IBlockState blockIn, ItemStack stack)
-    {
-		Block block = blockIn.getBlock();
-		if (block == Blocks.OBSIDIAN)
-        {
-            return this.toolMaterial.getHarvestLevel() == 3;
-        }
-		return Items.STONE_SHOVEL.canHarvestBlock(blockIn, stack);
-    }
 
-	//Elevate to public
 	@Override
-	  public RayTraceResult rayTrace(@Nonnull World worldIn, @Nonnull EntityPlayer playerIn, boolean useLiquids) {
-	    return super.rayTrace(worldIn, playerIn, useLiquids);
+	public boolean canHarvestBlock(IBlockState blockIn, ItemStack stack) {
+		Block block = blockIn.getBlock();
+		if(block == Blocks.OBSIDIAN) {
+			return toolMaterial.getHarvestLevel() == 3;
+		}
+		return Items.STONE_SHOVEL.canHarvestBlock(blockIn, stack);
 	}
-	
+
+	// Elevate to public
+	@Override
+	public RayTraceResult rayTrace(@Nonnull World worldIn, @Nonnull EntityPlayer playerIn, boolean useLiquids) {
+		return super.rayTrace(worldIn, playerIn, useLiquids);
+	}
+
 }

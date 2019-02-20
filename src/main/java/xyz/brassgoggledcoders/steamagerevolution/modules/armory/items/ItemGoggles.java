@@ -41,8 +41,9 @@ public class ItemGoggles extends ItemArmorBase {
 	@SideOnly(Side.CLIENT)
 	public void renderHelmetOverlay(ItemStack stack, EntityPlayer player, ScaledResolution resolution,
 			float partialTicks) {
-		if((ClientHelper.player() == null) || (ClientHelper.screen() != null))
+		if((ClientHelper.player() == null) || (ClientHelper.screen() != null)) {
 			return;
+		}
 
 		Minecraft.getMinecraft().entityRenderer.setupOverlayRendering();
 		final int i = resolution.getScaledWidth();

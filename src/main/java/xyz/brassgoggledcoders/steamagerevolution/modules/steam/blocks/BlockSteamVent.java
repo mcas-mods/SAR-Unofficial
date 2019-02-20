@@ -71,7 +71,7 @@ public class BlockSteamVent extends BlockTEBase<TileEntitySteamVent> {
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
 		if(!worldIn.isRemote) {
 			if(worldIn.isBlockPowered(pos)) {
-				this.action(worldIn, pos);
+				action(worldIn, pos);
 			}
 		}
 	}
@@ -80,15 +80,15 @@ public class BlockSteamVent extends BlockTEBase<TileEntitySteamVent> {
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 		if(!worldIn.isRemote) {
 			if(worldIn.isBlockPowered(pos)) {
-				this.action(worldIn, pos);
+				action(worldIn, pos);
 			}
 		}
 	}
 
 	public void action(World world, BlockPos pos) {
-		TileEntitySteamVent tile = this.getTileEntity(world, pos).get();
+		TileEntitySteamVent tile = getTileEntity(world, pos).get();
 		if(tile.tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
-			EnumFacing f = world.getBlockState(pos).getValue(BlockSteamElevator.FACING);
+			EnumFacing f = world.getBlockState(pos).getValue(BlockSteamVent.FACING);
 			for(EntityLivingBase e : world.getEntitiesWithinAABB(EntityLivingBase.class,
 					new AxisAlignedBB(pos.offset(f)).grow(3F))) {
 				e.attackEntityFrom(DamageSource.IN_FIRE, 3F);

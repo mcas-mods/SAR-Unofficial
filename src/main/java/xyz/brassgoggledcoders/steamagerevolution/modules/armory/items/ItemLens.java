@@ -13,8 +13,8 @@ public class ItemLens extends ItemBase implements IHasSubItems {
 
 	public ItemLens() {
 		super("lens");
-		this.setHasSubtypes(true);
-		this.setMaxDamage(0);
+		setHasSubtypes(true);
+		setMaxDamage(0);
 	}
 
 	@Override

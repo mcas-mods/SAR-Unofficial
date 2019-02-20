@@ -16,10 +16,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -38,15 +35,14 @@ public class ItemRocketFist extends ItemBase {
 	public ItemRocketFist() {
 		super("rocket_fist");
 	}
-	
+
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
-    {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
-        
-        playerIn.setActiveHand(handIn);
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
-    }
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+		ItemStack itemstack = playerIn.getHeldItem(handIn);
+
+		playerIn.setActiveHand(handIn);
+		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+	}
 
 	@Override
 	public int getMaxItemUseDuration(ItemStack stack) {
@@ -55,12 +51,12 @@ public class ItemRocketFist extends ItemBase {
 		FluidStack fluid = internal.getFluid();
 		return fluid == null ? 0 : 72000;
 	}
-	
+
 	@Override
 	public EnumAction getItemUseAction(ItemStack stack) {
 		return EnumAction.BOW;
 	}
-	
+
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 		doFistBoost(entityLiving, stack, timeLeft);
@@ -85,13 +81,14 @@ public class ItemRocketFist extends ItemBase {
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		int i = 1;
-		//TODO Make more granular
+		// TODO Make more granular
 		if(timeLeft == 0) {
 			i = 3;
 		}
 		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
 			entityIn.setVelocity(entityIn.motionX + (entityIn.getLookVec().normalize().x * i),
-					entityIn.motionY + (entityIn.getLookVec().normalize().y * i), entityIn.motionZ + (entityIn.getLookVec().normalize().z * i));
+					entityIn.motionY + (entityIn.getLookVec().normalize().y * i),
+					entityIn.motionZ + (entityIn.getLookVec().normalize().z * i));
 			entityIn.playSound(SoundEvents.E_PARROT_IM_CREEPER, 10, 1);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}

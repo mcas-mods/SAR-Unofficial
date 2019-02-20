@@ -34,7 +34,7 @@ public class BlockSteamElevator extends BlockSteamVent {
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
 		if(!worldIn.isRemote) {
 			if(worldIn.isBlockPowered(pos)) {
-				this.action(worldIn, pos);
+				action(worldIn, pos);
 			}
 		}
 	}
@@ -43,15 +43,16 @@ public class BlockSteamElevator extends BlockSteamVent {
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 		if(!worldIn.isRemote) {
 			if(worldIn.isBlockPowered(pos)) {
-				this.action(worldIn, pos);
+				action(worldIn, pos);
 			}
 		}
 	}
 
+	@Override
 	public void action(World world, BlockPos pos) {
 		TileEntitySteamElevator tile = (TileEntitySteamElevator) world.getTileEntity(pos);
 		if(tile.tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
-			EnumFacing f = world.getBlockState(pos).getValue(BlockSteamElevator.FACING);
+			EnumFacing f = world.getBlockState(pos).getValue(BlockSteamVent.FACING);
 			for(EntityLivingBase e : world.getEntitiesWithinAABB(EntityLivingBase.class,
 					new AxisAlignedBB(pos.offset(f)).grow(3F))) {
 				e.attackEntityFrom(DamageSource.IN_FIRE, 1F);
