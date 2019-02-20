@@ -6,8 +6,9 @@ import com.teamacronymcoders.base.items.IHasSubItems;
 import com.teamacronymcoders.base.items.ItemBase;
 
 import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ILens;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
 
 public class ItemLens extends ItemBase implements IHasSubItems {
 
@@ -25,8 +26,11 @@ public class ItemLens extends ItemBase implements IHasSubItems {
 
 	@Override
 	public List<ItemStack> getAllSubItems(List<ItemStack> itemStacks) {
-		for(int i = 0; i < 16; ++i) {
-			itemStacks.add(new ItemStack(this, 1, i));
+		// TODO This is likely a fragile way of storing, but it feels unnecessary to use
+		// a hashmap
+		int i = 0;
+		for(ILens lens : ModuleArmory.lenseTypes) {
+			itemStacks.add(new ItemStack(this, 1, i++));
 		}
 		return itemStacks;
 	}
@@ -36,7 +40,7 @@ public class ItemLens extends ItemBase implements IHasSubItems {
 		@Override
 		public int colorMultiplier(ItemStack stack, int tintIndex) {
 			if(tintIndex == 1) {
-				return EnumDyeColor.byMetadata(stack.getMetadata()).getColorValue();
+				return ModuleArmory.lenseTypes.get(stack.getMetadata()).getColor();
 			}
 			return -1;
 		}

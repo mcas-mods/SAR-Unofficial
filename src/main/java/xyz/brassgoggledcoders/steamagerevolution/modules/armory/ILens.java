@@ -1,0 +1,38 @@
+package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+
+public interface ILens {
+
+	public int getColor();
+
+	public String getColorName();
+
+	public static class VanillaLens implements ILens {
+		int meta;
+
+		public VanillaLens(int meta) {
+			this.meta = meta;
+		}
+
+		@Override
+		public int getColor() {
+			return EnumDyeColor.byMetadata(meta).getColorValue();
+		}
+
+		@Override
+		public String getColorName() {
+			return EnumDyeColor.byMetadata(meta).getDyeColorName();
+		}
+
+		@Override
+		public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+			// NO-OP
+		}
+	}
+
+	public void onArmorTick(World world, EntityPlayer player, ItemStack stack);
+}

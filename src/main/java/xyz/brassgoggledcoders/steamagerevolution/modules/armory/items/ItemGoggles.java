@@ -13,8 +13,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
@@ -30,24 +28,29 @@ public class ItemGoggles extends ItemArmorBase {
 
 	public ItemGoggles() {
 		super(ModuleArmory.GOGGLES, EntityEquipmentSlot.HEAD, "goggles");
-
+		this.setMaxStackSize(1);
 	}
 
 	@Override
 	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
 		NBTTagCompound tag = new NBTTagCompound();
-		tag.setInteger("theoneprobe", 1);
+		// tag.setInteger("theoneprobe", 1);
 		stack.setTagCompound(tag);
 	}
 
 	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-		// TODO Switch to a brightness increaser instead of a potion effect
-		player.addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("night_vision"), 20));
-		if(!itemStack.hasTagCompound()) {
-			itemStack.setTagCompound(new NBTTagCompound());
+	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+		if(!stack.hasTagCompound()) {
+			stack.setTagCompound(new NBTTagCompound());
 		}
-		itemStack.getTagCompound().setInteger("theoneprobe", 1);
+
+		for(int i = 0; i < ModuleArmory.lenseTypes.size(); i++) {
+			if(stack.getTagCompound().getBoolean("lens" + i)) {
+				ModuleArmory.lenseTypes.get(i).onArmorTick(world, player, stack);
+			}
+		}
+
+		// stack.getTagCompound().setInteger("theoneprobe", 1);
 	}
 
 	@Override

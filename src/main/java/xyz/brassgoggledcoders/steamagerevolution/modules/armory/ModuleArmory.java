@@ -1,7 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
+import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
@@ -10,12 +12,17 @@ import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
+import net.minecraft.item.*;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -25,6 +32,7 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ILens.VanillaLens;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityRocketSkeleton;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.*;
@@ -53,6 +61,8 @@ public class ModuleArmory extends ModuleBase {
 	public static final Item goggles = null;
 
 	public static final HashSet<Block> KNOWN_ORES = new HashSet<Block>();
+
+	public static ArrayList<ILens> lenseTypes = Lists.newArrayList();
 
 	@Override
 	public String getClientProxyPath() {
@@ -105,6 +115,22 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemLens());
 		itemRegistry.register(new ItemGoggles());
 
+		for(int i = 0; i < 16; ++i) {
+			if(i == EnumDyeColor.BLUE.getMetadata()) {
+				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
+					// TODO Switch to a brightness increaser instead of a potion effect
+					@Override
+					public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+						player.addPotionEffect(
+								new PotionEffect(Potion.getPotionFromResourceLocation("night_vision"), 20));
+					}
+				});
+			}
+			else {
+				ModuleArmory.lenseTypes.add(new VanillaLens(i));
+			}
+		}
+
 		/*
 		 * itemRegistry.register(new ItemGun()); itemRegistry.register(new
 		 * ItemAmmo("iron_ball", AmmoType.BALL, 2)); itemRegistry.register(new
@@ -149,6 +175,12 @@ public class ModuleArmory extends ModuleBase {
 		 * ItemAmmoContainer("cartridge_clip", 5, // AmmoType.CARTRIDGE));
 		 *
 		 */
+	}
+
+	@SubscribeEvent
+	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+		event.getRegistry().register(
+				new RecipeAddLens().setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "add_lens")));
 	}
 
 	@Override
