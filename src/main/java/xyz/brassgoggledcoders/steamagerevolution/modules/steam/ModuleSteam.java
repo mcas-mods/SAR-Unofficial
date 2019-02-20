@@ -17,6 +17,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteamElevator;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockSteamVent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.blocks.*;
 
@@ -87,6 +88,8 @@ public class ModuleSteam extends ModuleBase {
 
 		steamVent = new BlockSteamVent(Material.IRON, "steam_vent");
 		blockRegistry.register(steamVent);
+
+		blockRegistry.register(new BlockSteamElevator(Material.IRON, "steam_elevator"));
 
 		// blockRegistry.register(new BlockPortableBoiler());
 	}

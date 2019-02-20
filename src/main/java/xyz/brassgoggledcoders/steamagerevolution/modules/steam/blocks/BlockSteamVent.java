@@ -3,17 +3,21 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks;
 import com.teamacronymcoders.base.Capabilities;
 import com.teamacronymcoders.base.blocks.BlockTEBase;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntitySteamVent;
 
 public class BlockSteamVent extends BlockTEBase<TileEntitySteamVent> {
@@ -61,5 +65,36 @@ public class BlockSteamVent extends BlockTEBase<TileEntitySteamVent> {
 
 		}
 		return false;
+	}
+
+	@Override
+	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+		if(!worldIn.isRemote) {
+			if(worldIn.isBlockPowered(pos)) {
+				this.action(worldIn, pos);
+			}
+		}
+	}
+
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+		if(!worldIn.isRemote) {
+			if(worldIn.isBlockPowered(pos)) {
+				this.action(worldIn, pos);
+			}
+		}
+	}
+
+	public void action(World world, BlockPos pos) {
+		TileEntitySteamVent tile = this.getTileEntity(world, pos).get();
+		if(tile.tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
+			EnumFacing f = world.getBlockState(pos).getValue(BlockSteamElevator.FACING);
+			for(EntityLivingBase e : world.getEntitiesWithinAABB(EntityLivingBase.class,
+					new AxisAlignedBB(pos.offset(f)).grow(3F))) {
+				e.attackEntityFrom(DamageSource.IN_FIRE, 3F);
+			}
+			tile.tank.drain(Fluid.BUCKET_VOLUME, true);
+			SteamAgeRevolution.proxy.spawnSteamJet(pos, f);
+		}
 	}
 }

@@ -8,7 +8,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
-public class TileEntitySteamVent extends TileEntityBase {
+public class TileEntitySteamElevator extends TileEntityBase {
 
 	public FluidTank tank = new FluidTank(10000);
 
