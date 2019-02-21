@@ -34,7 +34,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ILens.VanillaLens;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityRocketSkeleton;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityDeadInventor;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.*;
 
 @Module(value = SteamAgeRevolution.MODID)
@@ -81,8 +81,8 @@ public class ModuleArmory extends ModuleBase {
 		int networkID = 0;
 		EntityRegistry.registerModEntity(new ResourceLocation(SteamAgeRevolution.MODID, "bullet"), EntityBullet.class,
 				"bullet", networkID++, SteamAgeRevolution.MODID, 64, 1, true);
-		EntityRegistry.registerModEntity(new ResourceLocation(SteamAgeRevolution.MODID, "rocket_skeleton"),
-				EntityRocketSkeleton.class, "rocket_skeleton", networkID++, SteamAgeRevolution.MODID, 64, 1, true, 0,
+		EntityRegistry.registerModEntity(new ResourceLocation(SteamAgeRevolution.MODID, "dead_inventor"),
+				EntityDeadInventor.class, "dead_inventor", networkID++, SteamAgeRevolution.MODID, 64, 1, true, 0,
 				11111);
 	}
 
@@ -121,13 +121,22 @@ public class ModuleArmory extends ModuleBase {
 					// TODO Switch to a brightness increaser instead of a potion effect
 					@Override
 					public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+						//Has to be a long time to avoid the fucking flicker bollocks
 						player.addPotionEffect(
-								new PotionEffect(Potion.getPotionFromResourceLocation("night_vision"), 20));
+								new PotionEffect(Potion.getPotionFromResourceLocation("night_vision"), 500, 0, true, false));
 					}
 					
 					@Override
 					public String getEffect() {
 						return "Grants night vision";
+					}
+				});
+			}
+			else if(i == EnumDyeColor.CYAN.getMetadata()) {
+				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
+					@Override
+					public String getEffect() {
+						return "Lessens the goggle overlay";
 					}
 				});
 			}

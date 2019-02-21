@@ -8,12 +8,15 @@ import com.teamacronymcoders.base.client.ClientHelper;
 import com.teamacronymcoders.base.items.ItemArmorBase;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
@@ -28,6 +31,8 @@ public class ItemGoggles extends ItemArmorBase {
 
 	public static ResourceLocation overlay = new ResourceLocation(SteamAgeRevolution.MODID,
 			"textures/misc/goggles.png");
+	public static ResourceLocation overlay2 = new ResourceLocation(SteamAgeRevolution.MODID,
+			"textures/misc/goggles_2.png");
 
 	public ItemGoggles() {
 		super(ModuleArmory.GOGGLES, EntityEquipmentSlot.HEAD, "goggles");
@@ -73,17 +78,28 @@ public class ItemGoggles extends ItemArmorBase {
 		if((ClientHelper.player() == null) || (ClientHelper.screen() != null)) {
 			return;
 		}
-
+		
 		Minecraft.getMinecraft().entityRenderer.setupOverlayRendering();
 		final int i = resolution.getScaledWidth();
 		final int k = resolution.getScaledHeight();
+		//Gui.drawRect(0, 0, i, k, EnumDyeColor.BLUE.getColorValue());
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		GL11.glDepthMask(false);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
-		FMLClientHandler.instance().getClient().renderEngine.bindTexture(overlay);
+		for(int len = 0; len < ModuleArmory.lenseTypes.size(); len++) {
+			if(stack.getTagCompound().getBoolean("lens" + EnumDyeColor.CYAN.getMetadata())) {
+				FMLClientHandler.instance().getClient().renderEngine.bindTexture(overlay2);
+				break;
+			}
+			else {
+				FMLClientHandler.instance().getClient().renderEngine.bindTexture(overlay);
+				continue;
+			}
+		}
+		
 		final Tessellator tessellator = Tessellator.getInstance();
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 		tessellator.getBuffer().pos(i / 2 - k, k, -90D).tex(0.0D, 1.0D).endVertex();
@@ -95,6 +111,7 @@ public class ItemGoggles extends ItemArmorBase {
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		
 	}
 
 }

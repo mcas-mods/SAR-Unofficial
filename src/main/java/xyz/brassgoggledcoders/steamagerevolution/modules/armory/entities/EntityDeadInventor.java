@@ -6,7 +6,9 @@ import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.*;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
@@ -14,13 +16,13 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemRocketFist;
 import xyz.brassgoggledcoders.steamagerevolution.utils.EntityAIAttackRangedGeneric;
 
-public class EntityRocketSkeleton extends EntitySkeleton {
+public class EntityDeadInventor extends EntitySkeleton {
 
-	private final EntityAIAttackRangedGeneric<EntityRocketSkeleton> aiRocket = new EntityAIAttackRangedGeneric<EntityRocketSkeleton>(
+	private final EntityAIAttackRangedGeneric<EntityDeadInventor> aiRocket = new EntityAIAttackRangedGeneric<EntityDeadInventor>(
 			this, 1.0D, 20, 30.0F, ModuleArmory.rocket_fist);
 	private final EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, 1.2D, false);
 
-	public EntityRocketSkeleton(World worldIn) {
+	public EntityDeadInventor(World worldIn) {
 		super(worldIn);
 	}
 
@@ -34,6 +36,7 @@ public class EntityRocketSkeleton extends EntitySkeleton {
 		internal.fill(FluidRegistry.getFluidStack("steam", minSteam + rand.nextInt(ItemRocketFist.capacity - minSteam)),
 				true);
 		setItemStackToSlot(EntityEquipmentSlot.MAINHAND, stack);
+		setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ModuleArmory.goggles));
 	}
 
 	@Override
@@ -43,7 +46,7 @@ public class EntityRocketSkeleton extends EntitySkeleton {
 		}
 		ItemStack stack = getHeldItemMainhand();
 		if(!stack.isEmpty()) {
-			// Of course I have to manually call that...despite the fact the Entity instance
+			// Of course I have to manually call that...despite the fact the Entity instance in the method
 			// is generic
 			stack.getItem().hitEntity(stack, (EntityLivingBase) entityIn, this);
 		}
