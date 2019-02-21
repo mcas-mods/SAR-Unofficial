@@ -140,6 +140,14 @@ public class ModuleArmory extends ModuleBase {
 					}
 				});
 			}
+			else if(i == EnumDyeColor.SILVER.getMetadata()) {
+				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
+					@Override
+					public String getEffect() {
+						return "Makes the goggles act as a OneProbe probe";
+					}
+				});
+			}
 			else {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i));
 			}

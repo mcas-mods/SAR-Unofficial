@@ -1,18 +1,21 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items;
 
-import javax.annotation.Nonnull;
+import java.util.List;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.apache.commons.lang3.text.WordUtils;
 import org.lwjgl.opengl.GL11;
 
 import com.teamacronymcoders.base.client.ClientHelper;
 import com.teamacronymcoders.base.items.ItemArmorBase;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -20,6 +23,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -38,12 +42,22 @@ public class ItemGoggles extends ItemArmorBase {
 		super(ModuleArmory.GOGGLES, EntityEquipmentSlot.HEAD, "goggles");
 		this.setMaxStackSize(1);
 	}
+	
+	@SuppressWarnings("deprecation")
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+		tooltip.add("Lenses:");
+		for(int i = 0; i < ModuleArmory.lenseTypes.size(); i++) {
+			if(stack.getTagCompound().getBoolean("lens" + i)) {
+				//TODO tooltip text colours
+				tooltip.add(WordUtils.capitalize(I18n.translateToLocal(ModuleArmory.lenseTypes.get(stack.getMetadata()).getColorName())));
+			}
+		}
+	}
 
 	@Override
 	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
-		//NBTTagCompound tag = new NBTTagCompound();
-		// tag.setInteger("theoneprobe", 1);
-		//stack.setTagCompound(tag);
 		if(!stack.hasTagCompound()) {
 			stack.setTagCompound(new NBTTagCompound());
 		}
@@ -60,8 +74,6 @@ public class ItemGoggles extends ItemArmorBase {
 				ModuleArmory.lenseTypes.get(i).onArmorTick(world, player, stack);
 			}
 		}
-
-		// stack.getTagCompound().setInteger("theoneprobe", 1);
 	}
 	
 	@Override
@@ -82,6 +94,7 @@ public class ItemGoggles extends ItemArmorBase {
 		Minecraft.getMinecraft().entityRenderer.setupOverlayRendering();
 		final int i = resolution.getScaledWidth();
 		final int k = resolution.getScaledHeight();
+		//TODO Add a colour overlay based on what lenses are installed
 		//Gui.drawRect(0, 0, i, k, EnumDyeColor.BLUE.getColorValue());
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glDisable(GL11.GL_DEPTH_TEST);

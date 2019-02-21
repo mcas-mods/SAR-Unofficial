@@ -25,6 +25,7 @@ public class EventHandlerClient {
 		}
 	}
 
+	@SideOnly(Side.CLIENT)
 	private static void drawSelectionBox(EntityPlayer player, RayTraceResult mop, float partialTicks) {
 		if(mop.typeOfHit == RayTraceResult.Type.BLOCK) {
 			GlStateManager.pushMatrix();
@@ -83,10 +84,12 @@ public class EventHandlerClient {
 		}
 	}
 
+	@SideOnly(Side.CLIENT)
 	public static void drawSelectionBoundingBox(AxisAlignedBB box, float red, float green, float blue, float alpha) {
 		drawBoundingBox(box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ, red, green, blue, alpha);
 	}
 
+	@SideOnly(Side.CLIENT)
 	public static void drawBoundingBox(double minX, double minY, double minZ, double maxX, double maxY, double maxZ,
 			float red, float green, float blue, float alpha) {
 		Tessellator tessellator = Tessellator.getInstance();
@@ -96,6 +99,7 @@ public class EventHandlerClient {
 		tessellator.draw();
 	}
 
+	@SideOnly(Side.CLIENT)
 	public static void drawBoundingBox(BufferBuilder buffer, double minX, double minY, double minZ, double maxX,
 			double maxY, double maxZ, float red, float green, float blue, float alpha) {
 		buffer.pos(minX, minY, minZ).color(red, green, blue, 0.0F).endVertex();

@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 
 import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -55,6 +56,9 @@ public class RecipeAddLens extends net.minecraftforge.registries.IForgeRegistryE
 				goggles.setTagCompound(new NBTTagCompound());
 			}
 			goggles.getTagCompound().setBoolean("lens" + lens.getMetadata(), true);
+			if(lens.getMetadata() == EnumDyeColor.SILVER.getMetadata()) {
+				goggles.getTagCompound().setInteger("theoneprobe", 1);
+			}
 			return goggles;
 		}
 		else {
