@@ -1,22 +1,31 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.math.*;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
+import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.EntityViewRenderEvent.FogDensity;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 @EventBusSubscriber
 public class EventHandlerClient {
 	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
 	public static void onDrawBlockSelectionBox(DrawBlockHighlightEvent event) {
 		if((event.getPlayer().inventory.armorItemInSlot(3) != null)
 				&& (event.getPlayer().inventory.armorItemInSlot(3).getItem() == ModuleArmory.goggles)) {
@@ -25,7 +34,6 @@ public class EventHandlerClient {
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
 	private static void drawSelectionBox(EntityPlayer player, RayTraceResult mop, float partialTicks) {
 		if(mop.typeOfHit == RayTraceResult.Type.BLOCK) {
 			GlStateManager.pushMatrix();
@@ -84,12 +92,10 @@ public class EventHandlerClient {
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
 	public static void drawSelectionBoundingBox(AxisAlignedBB box, float red, float green, float blue, float alpha) {
 		drawBoundingBox(box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ, red, green, blue, alpha);
 	}
 
-	@SideOnly(Side.CLIENT)
 	public static void drawBoundingBox(double minX, double minY, double minZ, double maxX, double maxY, double maxZ,
 			float red, float green, float blue, float alpha) {
 		Tessellator tessellator = Tessellator.getInstance();
@@ -99,7 +105,6 @@ public class EventHandlerClient {
 		tessellator.draw();
 	}
 
-	@SideOnly(Side.CLIENT)
 	public static void drawBoundingBox(BufferBuilder buffer, double minX, double minY, double minZ, double maxX,
 			double maxY, double maxZ, float red, float green, float blue, float alpha) {
 		buffer.pos(minX, minY, minZ).color(red, green, blue, 0.0F).endVertex();
@@ -120,5 +125,27 @@ public class EventHandlerClient {
 		buffer.pos(maxX, maxY, minZ).color(red, green, blue, 0.0F).endVertex();
 		buffer.pos(maxX, minY, minZ).color(red, green, blue, alpha).endVertex();
 		buffer.pos(maxX, minY, minZ).color(red, green, blue, 0.0F).endVertex();
+	}
+	
+	@SubscribeEvent(receiveCanceled=true)
+	public static void fogEvent(FogDensity event) {
+		event.setCanceled(true);
+		Entity entity = event.getEntity();
+		if(entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) entity;
+			//if(player.isInsideOfMaterial(Material.WATER))
+			ItemStack stack = player.inventory.armorInventory.get(3);
+			if(!stack.isEmpty() && stack.getItem() == ModuleArmory.goggles) {
+				if(player.isInsideOfMaterial(Material.WATER) && stack.getTagCompound().getBoolean("lens" + EnumDyeColor.LIGHT_BLUE.getMetadata())) {
+					event.setDensity(0.0F);
+				}
+				else if(player.isInsideOfMaterial(Material.LAVA) && stack.getTagCompound().getBoolean("lens" + EnumDyeColor.ORANGE.getMetadata())) {
+					event.setDensity(0.0F);
+				}
+				else if(stack.getTagCompound().getBoolean("lens" + EnumDyeColor.BLACK.getMetadata())) {
+					event.setDensity(0.0F);
+				}
+			}
+		}
 	}
 }

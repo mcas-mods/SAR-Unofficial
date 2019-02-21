@@ -9,6 +9,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.oredict.OreDictionary;
@@ -39,22 +40,19 @@ public class ItemHammer extends ItemBase {
 		}
 		IBlockState state = player.world.getBlockState(pos);
 		Block block = state.getBlock();
-		ItemStack oreStack = new ItemStack(block.getItemDropped(state, player.getRNG(), 0), 1,
-				block.damageDropped(state));
-		// TODO Looping not entirely necessary since we know both source and target
-		// unlike recipes
-		for(String metal : ModuleMetalworking.knownMetalTypes) {
-			if(OreDictionary.containsMatch(false, OreDictionary.getOres("ore" + metal, false), oreStack)) {
-				ItemStack dust = OreDictUtils.getPreferredItemStack("dust" + metal);
-				for(int i = 0; i < ModuleMetalworking.dustCount; i++) {
-					EntityItem entityitem = new EntityItem(player.world, pos.getX(), pos.getY(), pos.getZ(), dust);
-					entityitem.setDefaultPickupDelay();
-					player.world.spawnEntity(entityitem);
-				}
-				player.world.setBlockState(pos, Blocks.AIR.getDefaultState(), 11);
-				itemstack.damageItem(1, player);
-				return true;
+		ItemStack oreStack = new ItemStack(Item.getItemFromBlock(block));
+		ItemStack dust = OreDictUtils.getPreferredItemStack("dust" + OreDictionary.getOreName(OreDictionary.getOreIDs(oreStack)[0]).substring(3));
+		if(!dust.isEmpty())
+		{
+			//TODO Gotta be a better way to do this
+			for(int i = 0; i < ModuleMetalworking.dustCount; i++) {
+				EntityItem entityitem = new EntityItem(player.world, pos.getX(), pos.getY(), pos.getZ(), dust);
+				entityitem.setDefaultPickupDelay();
+				player.world.spawnEntity(entityitem);
 			}
+			player.world.setBlockToAir(pos);
+			itemstack.damageItem(1, player);
+			return true;
 		}
 		return false;
 	}

@@ -1,0 +1,25 @@
+{
+    "type": "forge:ore_shaped",
+    "group": "steamagerevolution:other",
+    "pattern": [
+    "SSS",
+    "B B",
+    "LBL"
+  	],
+    "key": {
+    "B": {
+      "type": "forge:ore_dict",
+      "ore": "ingotBrass"
+    },
+    "L": {
+    	"item": "steamagerevolution:lens"
+    },
+    "S": {
+        "item": "minecraft:string"
+    }
+  },
+    "result": {
+        "item": "steamagerevolution:goggles",
+        "data": 0
+    }
+}

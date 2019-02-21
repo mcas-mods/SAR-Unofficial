@@ -45,6 +45,14 @@ maven {
     maven {
 	url "http://maven.tterrag.com"
     }
+    maven {
+        name 'Curseforge Maven'
+        url 'http://minecraft.curseforge.com/api/maven/'
+    }
+maven {
+        name = "thiakil"
+        url = "http://maven.thiakil.com"
+    }
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -80,6 +88,8 @@ dependencies {
     deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.+"
     compile "vazkii.patchouli:Patchouli:${patchouli_version}"
     deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${top_version}"
+    deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA26"
+    deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8

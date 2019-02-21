@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumDyeColor;
@@ -26,12 +27,16 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.Optional.Interface;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.api.items.IGoggles;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
 
-public class ItemGoggles extends ItemArmorBase {
+@Interface(iface = "thaumcraft.api.item.IGoggles", modid = "thaumcraft")
+public class ItemGoggles extends ItemArmorBase implements IGoggles {
 
 	public static ResourceLocation overlay = new ResourceLocation(SteamAgeRevolution.MODID,
 			"textures/misc/goggles.png");
@@ -48,10 +53,13 @@ public class ItemGoggles extends ItemArmorBase {
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
 		tooltip.add("Lenses:");
+		if(!stack.hasTagCompound()) {
+			return;
+		}
 		for(int i = 0; i < ModuleArmory.lenseTypes.size(); i++) {
 			if(stack.getTagCompound().getBoolean("lens" + i)) {
 				//TODO tooltip text colours
-				tooltip.add(WordUtils.capitalize(I18n.translateToLocal(ModuleArmory.lenseTypes.get(stack.getMetadata()).getColorName())));
+				tooltip.add(WordUtils.capitalize(I18n.translateToLocal(ModuleArmory.lenseTypes.get(i).getColorName())));
 			}
 		}
 	}
@@ -75,7 +83,7 @@ public class ItemGoggles extends ItemArmorBase {
 			}
 		}
 	}
-	
+
 	@Override
 	@Nonnull
 	@SideOnly(Side.CLIENT)
@@ -125,6 +133,12 @@ public class ItemGoggles extends ItemArmorBase {
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		
+	}
+
+	@Optional.Method(modid = "thaumcraft")
+	@Override
+	public boolean showIngamePopups(ItemStack stack, EntityLivingBase arg1) {
+		return stack.getTagCompound().getBoolean("lens" + EnumDyeColor.PURPLE.getMetadata());
 	}
 
 }

@@ -1,0 +1,23 @@
+{
+    "type": "forge:ore_shaped",
+    "group": "steamagerevolution:other",
+    "pattern": [
+    " B ",
+    "BGB",
+    " B "
+  	],
+    "key": {
+    "B": {
+      "type": "forge:ore_dict",
+      "ore": "plateBrass"
+    },
+    "G": {
+    	"type": "forge:ore_dict",
+      	"ore": "paneGlassBlue"
+    }
+  },
+    "result": {
+        "item": "steamagerevolution:goggles",
+        "data": 0
+    }
+}

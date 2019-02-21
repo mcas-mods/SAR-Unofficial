@@ -23,9 +23,12 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
@@ -116,7 +119,7 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemGoggles());
 
 		for(int i = 0; i < 16; ++i) {
-			if(i == EnumDyeColor.BLUE.getMetadata()) {
+			if(i == EnumDyeColor.GREEN.getMetadata()) {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
 					// TODO Switch to a brightness increaser instead of a potion effect
 					@Override
@@ -145,6 +148,52 @@ public class ModuleArmory extends ModuleBase {
 					@Override
 					public String getEffect() {
 						return "Makes the goggles act as a OneProbe probe";
+					}
+				});
+			}
+			else if(i == EnumDyeColor.WHITE.getMetadata()) {
+				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
+					@Override
+					public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+						//TODO Switch to cancelling an event
+						player.removePotionEffect(Potion.getPotionFromResourceLocation("blindness"));
+					}
+					
+					@Override
+					public String getEffect() {
+						return "Protects you against blindness";
+					}
+				});
+			}
+			else if(i == EnumDyeColor.LIGHT_BLUE.getMetadata()) {
+				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
+					@Override
+					public String getEffect() {
+						return "Removes water fog";
+					}
+				});
+			}
+			else if(i == EnumDyeColor.ORANGE.getMetadata()) {
+				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
+					@Override
+					public String getEffect() {
+						return "Removes lava fog";
+					}
+				});
+			}
+			else if(i == EnumDyeColor.BLACK.getMetadata()) {
+				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
+					@Override
+					public String getEffect() {
+						return "Removes world fog";
+					}
+				});
+			}
+			else if(i == EnumDyeColor.PURPLE.getMetadata()) {
+				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
+					@Override
+					public String getEffect() {
+						return "Makes the goggles act as Goggles of Revealing";
 					}
 				});
 			}

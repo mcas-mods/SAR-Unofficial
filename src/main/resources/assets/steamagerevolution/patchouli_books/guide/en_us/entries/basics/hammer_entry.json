@@ -9,7 +9,7 @@
         },
         {
             "type": "text",
-            "text": "The hammer is also useful in $(thing)shaping metals$() for use in machines - hammering ingots will create plates."
+            "text": "The hammer is also useful in $(thing)shaping metals$() for use in machines - hammering ingots will create plates. In addition, the hammer can be used to $(thing)mine$() ore blocks in the world and they will drop dust."
         }
     ]
 }
