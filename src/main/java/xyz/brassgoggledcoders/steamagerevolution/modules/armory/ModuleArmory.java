@@ -124,6 +124,11 @@ public class ModuleArmory extends ModuleBase {
 						player.addPotionEffect(
 								new PotionEffect(Potion.getPotionFromResourceLocation("night_vision"), 20));
 					}
+					
+					@Override
+					public String getEffect() {
+						return "Grants night vision";
+					}
 				});
 			}
 			else {

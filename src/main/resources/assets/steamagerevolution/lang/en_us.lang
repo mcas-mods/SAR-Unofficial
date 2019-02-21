@@ -32,6 +32,7 @@ item.steamagerevolution.rocket_fist.name=Rocketfist
 item.steamagerevolution.flask.name=Flask
 
 item.steamagerevolution.lens.name=Lens
+item.steamagerevolution.goggles.name=Goggles
 
 #Blocks
 tile.steamagerevolution.fluid_io.name=Fluid IO

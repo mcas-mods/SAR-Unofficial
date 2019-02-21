@@ -25,14 +25,21 @@ public interface ILens {
 
 		@Override
 		public String getColorName() {
-			return EnumDyeColor.byMetadata(meta).getDyeColorName();
+			return EnumDyeColor.byMetadata(meta).getTranslationKey();
 		}
 
 		@Override
 		public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
 			// NO-OP
 		}
+
+		@Override
+		public String getEffect() {
+			return "";
+		}
 	}
 
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack);
+
+	public String getEffect();
 }

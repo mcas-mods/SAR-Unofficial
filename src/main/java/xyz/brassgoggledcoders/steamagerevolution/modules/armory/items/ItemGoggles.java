@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items;
 
+import javax.annotation.Nonnull;
+
 import org.lwjgl.opengl.GL11;
 
 import com.teamacronymcoders.base.client.ClientHelper;
@@ -9,6 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -33,9 +36,12 @@ public class ItemGoggles extends ItemArmorBase {
 
 	@Override
 	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
-		NBTTagCompound tag = new NBTTagCompound();
+		//NBTTagCompound tag = new NBTTagCompound();
 		// tag.setInteger("theoneprobe", 1);
-		stack.setTagCompound(tag);
+		//stack.setTagCompound(tag);
+		if(!stack.hasTagCompound()) {
+			stack.setTagCompound(new NBTTagCompound());
+		}
 	}
 
 	@Override
@@ -51,6 +57,13 @@ public class ItemGoggles extends ItemArmorBase {
 		}
 
 		// stack.getTagCompound().setInteger("theoneprobe", 1);
+	}
+	
+	@Override
+	@Nonnull
+	@SideOnly(Side.CLIENT)
+	public String getArmorTexture(ItemStack is, Entity entity, EntityEquipmentSlot slot, String type) {
+		return SteamAgeRevolution.MODID + ":textures/models/armor/goggles.png";
 	}
 
 	@Override
