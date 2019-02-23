@@ -4,15 +4,15 @@
 			"item": "steamagerevolution:hammer"
 		},
 		"title": {
-			"translate": "advancement.steamagerevolution:first_steps"
+			"translate": "advancement.steamagerevolution.hammer"
 		},
 		"description": {
-			"translate": "advancement.steamagerevolution:first_steps.desc"
+			"translate": "advancement.steamagerevolution.hammer.desc"
 		},
-		"background": "steamagerevolution:textures/blocks/brass_frame.png",
 		"show_toast": true,
-		"announce_to_chat": false
+		"announce_to_chat": false	
 	},
+	"parent": "steamagerevolution:ore",
 	"criteria": {
 		"hold_hammer": {
 			"trigger": "minecraft:inventory_changed",
@@ -24,5 +24,5 @@
 				]
 			}
 		}
-}
+	}
 }

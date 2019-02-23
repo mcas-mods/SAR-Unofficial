@@ -110,8 +110,13 @@ tile.steamagerevolution.steam_vent.name=Steam Vent
 tile.steamagerevolution.basic_fluid_tank.name=Basic Fluid Tank
 
 #Advancements
-advancement.steamagerevolution:first_steps=Percussive Maintenance
-advancement.steamagerevolution:first_steps.desc=For fixing and breaking alike. Mostly breaking.
+advancement.steamagerevolution.ore=New Ore
+advancement.steamagerevolution.ore.desc=Now craft a hammer
+advancement.steamagerevolution.hammer=Hammertime
+advancement.steamagerevolution.hammer.desc=Pulverise zinc and copper, combine the two...
+advancement.steamagerevolution.brass=Brass Monkeys
+advancement.steamagerevolution.brass.desc=A new material! The foundation of everything to come...
+
 
 #Multiblock validation
 steamagerevolution.multiblock.validation.missingrequired=Multiblock is missing required part: %s
