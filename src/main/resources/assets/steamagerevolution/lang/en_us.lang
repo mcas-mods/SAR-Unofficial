@@ -110,7 +110,7 @@ tile.steamagerevolution.steam_vent.name=Steam Vent
 tile.steamagerevolution.basic_fluid_tank.name=Basic Fluid Tank
 
 #Advancements
-advancement.steamagerevolution.ore=New Ore
+advancement.steamagerevolution.ore=A New Age
 advancement.steamagerevolution.ore.desc=Now craft a hammer
 advancement.steamagerevolution.hammer=Hammertime
 advancement.steamagerevolution.hammer.desc=Pulverise zinc and copper, combine the two...
