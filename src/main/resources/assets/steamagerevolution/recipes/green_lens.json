@@ -13,15 +13,14 @@
     },
     "G": {
     	"type": "forge:ore_dict",
-      	"ore": "paneGlassLightGray"
+      	"ore": "paneGlassGreen"
     },
     "M": {
- 		"type": "forge:ore_dict",
-      	"ore": "nuggetGold"  
+ 		"item": "minecraft:golden_carrot"   
     }
   },
     "result": {
         "item": "steamagerevolution:lens",
-        "data": 8
+        "data": 13
     }
 }

@@ -13,15 +13,14 @@
     },
     "G": {
     	"type": "forge:ore_dict",
-      	"ore": "paneGlassLightGray"
+      	"ore": "paneGlassBlack"
     },
     "M": {
- 		"type": "forge:ore_dict",
-      	"ore": "nuggetGold"  
+ 		"item": "minecraft:obsidian"   
     }
   },
     "result": {
         "item": "steamagerevolution:lens",
-        "data": 8
+        "data": 15
     }
 }
