@@ -10,7 +10,6 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.util.inventory.IngredientFluidStack;
-import com.teamacronymcoders.base.util.inventory.IngredientItemStack;
 
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
@@ -143,7 +142,7 @@ public class SARMachineRecipe implements IRecipeWrapper {
 					ingredients.add(new OreIngredient((String) input));
 				}
 				else {
-					ingredients.add(new IngredientItemStack((ItemStack) input));
+					ingredients.add(Ingredient.fromStacks((ItemStack) input));
 				}
 			}
 			itemInputs = ingredients.toArray(new Ingredient[ingredients.size()]);

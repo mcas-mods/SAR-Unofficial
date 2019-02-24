@@ -40,7 +40,7 @@ public class GuiSingleTank extends GuiContainer {
 		renderHoveredToolTip(mouseX, mouseY);
 		if(isPointInRegion(78, 17, 20, 49, mouseX, mouseY)) {
 			List<String> tooltip = Lists.newArrayList();
-			tooltip.add(com.teamacronymcoders.base.util.TextUtils.representTankContents(tank).getText());
+			tooltip.add(com.teamacronymcoders.base.util.TextUtils.representTankContents(tank).getFormattedText());
 			this.drawHoveringText(tooltip, mouseX, mouseY, fontRenderer);
 		}
 	}

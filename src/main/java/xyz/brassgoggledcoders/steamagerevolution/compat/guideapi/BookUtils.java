@@ -9,6 +9,7 @@ import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.page.PageImage;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.translation.I18n;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public class BookUtils {
@@ -19,7 +20,7 @@ public class BookUtils {
 		if(img) {
 			entry.add(new PageImage(new ResourceLocation(SteamAgeRevolution.MODID, "textures/images/" + key + ".png")));
 		}
-		entry.addAll(PageHelper.pagesForLongText(com.teamacronymcoders.base.util.TextUtils.localize(keyBase + key + ".info")));
+		entry.addAll(PageHelper.pagesForLongText(I18n.translateToLocalFormatted(keyBase + key + ".info")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, key + "_entry"),
 				new EntryItemStack(entry, keyBase + key, displayStack));
 	}

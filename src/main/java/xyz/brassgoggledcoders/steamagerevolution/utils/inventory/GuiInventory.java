@@ -47,8 +47,9 @@ public class GuiInventory extends GuiContainer {
 					int capacity = fluidInputs.getCapacity();
 					capacity /= fluidInputs.getMaxFluids();
 					if(fluidInputs.fluids.size() > i) {
-						tooltip.add(com.teamacronymcoders.base.util.TextUtils.representTankContents(new FluidTank(fluidInputs.fluids.get(i), capacity))
-								.getText());
+						tooltip.add(com.teamacronymcoders.base.util.TextUtils
+								.representTankContents(new FluidTank(fluidInputs.fluids.get(i), capacity))
+								.getFormattedText());
 					}
 					else {
 						// TODO Localization
@@ -67,8 +68,9 @@ public class GuiInventory extends GuiContainer {
 					int capacity = fluidOutputs.getCapacity();
 					capacity /= fluidOutputs.getMaxFluids();
 					if(fluidOutputs.fluids.size() > i) {
-						tooltip.add(com.teamacronymcoders.base.util.TextUtils.representTankContents(new FluidTank(fluidOutputs.fluids.get(i), capacity))
-								.getText());
+						tooltip.add(com.teamacronymcoders.base.util.TextUtils
+								.representTankContents(new FluidTank(fluidOutputs.fluids.get(i), capacity))
+								.getFormattedText());
 					}
 					else {
 						// TODO Localization
@@ -82,7 +84,9 @@ public class GuiInventory extends GuiContainer {
 		if(steamTank != null) {
 			if(isPointInRegion(holder.getInventory().steamTank.getX(0), holder.getInventory().steamTank.getY(0), 20, 55,
 					mouseX, mouseY)) {
-				this.drawHoveringText(com.teamacronymcoders.base.util.TextUtils.representTankContents(steamTank).getText(), mouseX, mouseY);
+				this.drawHoveringText(
+						com.teamacronymcoders.base.util.TextUtils.representTankContents(steamTank).getFormattedText(),
+						mouseX, mouseY);
 			}
 		}
 		InventoryPieceProgressBar progressBar = holder.getInventory().progressBar;
