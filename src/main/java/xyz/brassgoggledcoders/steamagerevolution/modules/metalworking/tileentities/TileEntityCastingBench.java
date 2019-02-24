@@ -1,7 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.tileentities;
 
-import com.teamacronymcoders.base.util.inventory.RecipeUtil;
-
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.Axis;
 import net.minecraftforge.common.capabilities.Capability;
@@ -13,6 +11,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachin
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.SARMachineTileEntity;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
 public class TileEntityCastingBench extends SARMachineTileEntity {
 
