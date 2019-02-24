@@ -1,11 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.tileentities;
 
+import com.teamacronymcoders.base.util.inventory.RecipeUtil;
+
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.Axis;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceFluid;
@@ -15,7 +16,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExt
 
 public class TileEntityCastingBench extends SARMachineTileEntity {
 
-	public static int inputCapacity = ModuleMetalworking.VALUE_BLOCK;
+	public static int inputCapacity = RecipeUtil.VALUE_BLOCK;
 
 	public TileEntityCastingBench() {
 		setInventory(new InventoryMachine(null,

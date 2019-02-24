@@ -12,7 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.TileEntityFumeCollector;
-import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 
 public class BlockFumeCollector extends BlockTEBase<TileEntityFumeCollector> {
 	public BlockFumeCollector(Material material, String name) {
@@ -35,7 +34,7 @@ public class BlockFumeCollector extends BlockTEBase<TileEntityFumeCollector> {
 		TileEntityFumeCollector te = getTileEntity(worldIn, pos).get();
 		if(!worldIn.isRemote && te != null) {
 			if(playerIn.isSneaking()) {
-				playerIn.sendStatusMessage(TextUtils.representTankContents(te.tank), true);
+				playerIn.sendStatusMessage(com.teamacronymcoders.base.util.TextUtils.representTankContents(te.tank), true);
 				return true;
 			}
 			else {

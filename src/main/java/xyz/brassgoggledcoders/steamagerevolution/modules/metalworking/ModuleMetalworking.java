@@ -10,6 +10,7 @@ import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigEntry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import com.teamacronymcoders.base.util.OreDictUtils;
+import com.teamacronymcoders.base.util.inventory.RecipeUtil;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -52,12 +53,6 @@ public class ModuleMetalworking extends ModuleBase {
 	public static final Item hammer = null;
 	public static final Block steamhammer_frame = null;
 
-	// Same as TiCon. Cannot be final because ObjectHolder tries to map to them o.O
-	public static int VALUE_INGOT = 144;
-	public static int VALUE_NUGGET = VALUE_INGOT / 9;
-	public static int VALUE_BLOCK = VALUE_INGOT * 9;
-	// public static final int VALUE_ORE = VALUE_INGOT * 2;
-
 	public static List<String> knownMetalTypes = Lists.newArrayList();
 
 	public static DamageSource damageSourceHammer = new DamageSource("hammer").setDifficultyScaled()
@@ -81,20 +76,22 @@ public class ModuleMetalworking extends ModuleBase {
 
 		RecipeRegistry.addRecipe("alloy forge",
 				new MachineRecipeBuilder("alloy forge")
-						.setFluidInputs(FluidRegistry.getFluidStack("copper", VALUE_INGOT),
-								FluidRegistry.getFluidStack("zinc", VALUE_INGOT))
-						.setFluidOutputs(FluidRegistry.getFluidStack("brass", VALUE_INGOT * 2)).build());
+						.setFluidInputs(FluidRegistry.getFluidStack("copper", RecipeUtil.VALUE_INGOT),
+								FluidRegistry.getFluidStack("zinc", RecipeUtil.VALUE_INGOT))
+						.setFluidOutputs(FluidRegistry.getFluidStack("brass", RecipeUtil.VALUE_INGOT * 2)).build());
 
 		RecipeRegistry.addRecipe("steelworks",
-				new MachineRecipeBuilder("steelworks").setFluidInputs(FluidRegistry.getFluidStack("iron", VALUE_NUGGET))
+				new MachineRecipeBuilder("steelworks")
+						.setFluidInputs(FluidRegistry.getFluidStack("iron", RecipeUtil.VALUE_NUGGET))
 						.setItemInputs(new ItemStack(Items.COAL, 1, 1))
-						.setFluidOutputs(FluidRegistry.getFluidStack("steel", VALUE_NUGGET))
+						.setFluidOutputs(FluidRegistry.getFluidStack("steel", RecipeUtil.VALUE_NUGGET))
 						.setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(600).build());
 
 		RecipeRegistry.addRecipe("steelworks",
-				new MachineRecipeBuilder("steelworks").setFluidInputs(FluidRegistry.getFluidStack("iron", VALUE_BLOCK))
+				new MachineRecipeBuilder("steelworks")
+						.setFluidInputs(FluidRegistry.getFluidStack("iron", RecipeUtil.VALUE_BLOCK))
 						.setItemInputs(new ItemStack(ModuleMaterials.charcoal_block))
-						.setFluidOutputs(FluidRegistry.getFluidStack("steel", VALUE_BLOCK))
+						.setFluidOutputs(FluidRegistry.getFluidStack("steel", RecipeUtil.VALUE_BLOCK))
 						.setSteamCost(Fluid.BUCKET_VOLUME * 10).setCraftTime(6000).build());
 
 		for(String metal : knownMetalTypes) {
@@ -119,16 +116,17 @@ public class ModuleMetalworking extends ModuleBase {
 			ItemStack nuggetStack = OreDictUtils.getPreferredItemStack(nugget);
 			ItemStack dustStack = OreDictUtils.getPreferredItemStack(dust);
 			ItemStack crystalStack = OreDictUtils.getPreferredItemStack(crystal);
-			FluidStack molten = FluidRegistry.getFluidStack(metal.toLowerCase(), VALUE_INGOT);
-			FluidStack solution = FluidRegistry.getFluidStack(metal.toLowerCase() + "_solution", VALUE_NUGGET * 4);
+			FluidStack molten = FluidRegistry.getFluidStack(metal.toLowerCase(), RecipeUtil.VALUE_INGOT);
+			FluidStack solution = FluidRegistry.getFluidStack(metal.toLowerCase() + "_solution",
+					RecipeUtil.VALUE_NUGGET * 4);
 
 			if(molten != null) {
 				FluidStack moltenCopy = molten.copy();
-				moltenCopy.amount = ModuleMetalworking.VALUE_NUGGET;
+				moltenCopy.amount = RecipeUtil.VALUE_NUGGET;
 				RecipeRegistry.addRecipe("crucible", new MachineRecipeBuilder("crucible").setItemInputs(nugget)
 						.setFluidOutputs(moltenCopy).setSteamCost(Fluid.BUCKET_VOLUME / 32).setCraftTime(14).build());
 				FluidStack moltenCopy2 = molten.copy();
-				moltenCopy2.amount = ModuleMetalworking.VALUE_BLOCK;
+				moltenCopy2.amount = RecipeUtil.VALUE_BLOCK;
 				RecipeRegistry.addRecipe("crucible", new MachineRecipeBuilder("crucible").setItemInputs(block)
 						.setFluidOutputs(moltenCopy2).setSteamCost(Fluid.BUCKET_VOLUME).setCraftTime(1200).build());
 				RecipeRegistry.addRecipe("crucible", new MachineRecipeBuilder("crucible").setItemInputs(ingot)

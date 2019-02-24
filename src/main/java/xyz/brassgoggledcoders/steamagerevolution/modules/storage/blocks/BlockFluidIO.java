@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks;
 
+import com.teamacronymcoders.base.blocks.BlockGUIBase;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,7 +15,6 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityFluidIO;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.BlockGUIBase;
 
 public class BlockFluidIO extends BlockGUIBase<TileEntityFluidIO> {
 

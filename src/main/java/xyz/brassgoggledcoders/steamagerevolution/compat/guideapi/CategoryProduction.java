@@ -10,7 +10,6 @@ import amerifrance.guideapi.page.PageJsonRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 
 public class CategoryProduction {
 
@@ -21,7 +20,7 @@ public class CategoryProduction {
 		BookUtils.addBasicEntry(entries, keyBase, "concepts", new ItemStack(BookObjectHolder.boiler_casing), false);
 
 		List<IPage> boilerEntry = new ArrayList<IPage>();
-		boilerEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "boiler.info")));
+		boilerEntry.addAll(PageHelper.pagesForLongText(com.teamacronymcoders.base.util.TextUtils.localize(keyBase + "boiler.info")));
 		boilerEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "boiler_casing")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "boiler_entry"),
 				new EntryItemStack(boilerEntry, keyBase + "boiler", new ItemStack(BookObjectHolder.boiler_casing)));

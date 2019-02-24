@@ -1,11 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.proxies;
 
+import com.teamacronymcoders.base.util.RenderingUtils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.utils.RenderUtil;
 
 public class ClientProxy extends CommonProxy {
 	@Override
@@ -31,7 +32,7 @@ public class ClientProxy extends CommonProxy {
 		}
 		for(int i = 0; i < 20; i++) {
 			// TODO Random offsets
-			float[] v = RenderUtil.directionalVelocitiesOfMagnitude(f.getDirectionVec(), 0.1F);
+			float[] v = RenderingUtils.directionalVelocitiesOfMagnitude(f.getDirectionVec(), 0.1F);
 			world.spawnParticle(EnumParticleTypes.CLOUD, at.getX() + 0.5F, at.getY() + 0.5F, at.getZ() + 0.5F, v[0],
 					v[1], v[2]);
 		}

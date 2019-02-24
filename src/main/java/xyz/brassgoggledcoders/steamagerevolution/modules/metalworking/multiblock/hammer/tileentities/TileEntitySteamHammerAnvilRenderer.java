@@ -2,6 +2,8 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multibloc
 
 import org.lwjgl.opengl.GL11;
 
+import com.teamacronymcoders.base.util.RenderingUtils;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
 import net.minecraft.client.Minecraft;
@@ -11,7 +13,6 @@ import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import xyz.brassgoggledcoders.steamagerevolution.utils.RenderUtil;
 
 public class TileEntitySteamHammerAnvilRenderer extends TileEntitySpecialRenderer<TileEntitySteamHammerAnvil> {
 
@@ -30,7 +31,7 @@ public class TileEntitySteamHammerAnvilRenderer extends TileEntitySpecialRendere
 			stack = tile.getMultiblockController().inventory.getOutputHandler().getStackInSlot(0);
 		}
 		if(!stack.isEmpty()) {
-			RenderUtil.pre(x, y, z);
+			RenderingUtils.pre(x, y, z);
 			int brightness = tile.getWorld().getCombinedLight(tile.getPos(), 0);
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, brightness % 0x10000 / 1f,
 					brightness / 0x10000 / 1f);
@@ -48,7 +49,7 @@ public class TileEntitySteamHammerAnvilRenderer extends TileEntitySpecialRendere
 					tile.getWorld(), null);
 			Minecraft.getMinecraft().getRenderItem().renderItem(stack, model);
 			GL11.glDepthMask(true);
-			RenderUtil.post();
+			RenderingUtils.post();
 		}
 	}
 }

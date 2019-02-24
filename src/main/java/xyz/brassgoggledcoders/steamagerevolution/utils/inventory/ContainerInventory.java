@@ -1,10 +1,10 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 
 import com.teamacronymcoders.base.containers.ContainerBase;
+import com.teamacronymcoders.base.util.inventory.SlotHandlerOutput;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.items.SlotItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.SlotHandlerOutput;
 
 public class ContainerInventory extends ContainerBase {
 	public ContainerInventory(EntityPlayer player, IHasInventory holder) {

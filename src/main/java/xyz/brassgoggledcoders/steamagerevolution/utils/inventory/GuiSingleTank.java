@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 import java.util.List;
 
 import com.google.common.collect.Lists;
+import com.teamacronymcoders.base.util.GuiHelper;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +15,6 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 
 @SideOnly(Side.CLIENT)
 public class GuiSingleTank extends GuiContainer {
@@ -40,7 +40,7 @@ public class GuiSingleTank extends GuiContainer {
 		renderHoveredToolTip(mouseX, mouseY);
 		if(isPointInRegion(78, 17, 20, 49, mouseX, mouseY)) {
 			List<String> tooltip = Lists.newArrayList();
-			tooltip.add(TextUtils.representTankContents(tank).getText());
+			tooltip.add(com.teamacronymcoders.base.util.TextUtils.representTankContents(tank).getText());
 			this.drawHoveringText(tooltip, mouseX, mouseY, fontRenderer);
 		}
 	}
@@ -56,7 +56,7 @@ public class GuiSingleTank extends GuiContainer {
 		int capacity = tank.getCapacity();
 
 		if(containedFluid != null && containedFluid.getFluid() != null && containedFluid.amount > 0) {
-			GuiUtils.renderGuiTank(containedFluid, capacity, containedFluid.amount, guiLeft + 78, guiTop + 11, 20, 60);
+			GuiHelper.renderGuiTank(containedFluid, capacity, containedFluid.amount, guiLeft + 78, guiTop + 11, 20, 60);
 		}
 
 		mc.renderEngine.bindTexture(guiTexture);

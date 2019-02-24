@@ -13,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 
 public class CategoryBasics {
 
@@ -22,7 +21,7 @@ public class CategoryBasics {
 		String keyBase = "guide." + SteamAgeRevolution.MODID + ".entry.basics.";
 
 		List<IPage> hammerEntry = new ArrayList<IPage>();
-		hammerEntry.addAll(PageHelper.pagesForLongText(TextUtils.localize(keyBase + "hammer.info")));
+		hammerEntry.addAll(PageHelper.pagesForLongText(com.teamacronymcoders.base.util.TextUtils.localize(keyBase + "hammer.info")));
 		hammerEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "hammer")));
 		hammerEntry.add(new PageIRecipe(new ShapelessOreRecipe(null, OreDictUtils.getPreferredItemStack("dustCopper"),
 				OreDictUtils.getPreferredItemStack("oreCopper"), BookObjectHolder.hammer)));
@@ -35,7 +34,7 @@ public class CategoryBasics {
 
 		List<IPage> alloyEntry = new ArrayList<IPage>();
 		alloyEntry.addAll(PageHelper.pagesForLongText(
-				TextUtils.localize(keyBase + "alloy.info", OreDictUtils.getPreferredItemStack("blockBrass"))));
+				com.teamacronymcoders.base.util.TextUtils.localize(keyBase + "alloy.info", OreDictUtils.getPreferredItemStack("blockBrass"))));
 		alloyEntry.add(new PageFurnaceRecipe("dustBrass"));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "alloy_entry"),
 				new EntryItemStack(alloyEntry, keyBase + "alloy", OreDictUtils.getPreferredItemStack("ingotBrass")));

@@ -2,13 +2,13 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multibloc
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.multiblock.validation.ValidationError;
+import com.teamacronymcoders.base.util.inventory.RecipeUtil;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceFluid;
@@ -16,7 +16,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockI
 
 public class ControllerAlloyFurnace extends SARMultiblockInventory {
 
-	public static int inputCapacity = ModuleMetalworking.VALUE_BLOCK * 8;
+	public static int inputCapacity = RecipeUtil.VALUE_BLOCK * 8;
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
 
 	public ControllerAlloyFurnace(World world) {

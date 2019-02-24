@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
 
 import com.google.gson.JsonObject;
 import com.teamacronymcoders.base.util.OreDictUtils;
+import com.teamacronymcoders.base.util.inventory.RecipeUtil;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;

@@ -1,5 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks;
 
+import com.teamacronymcoders.base.blocks.BlockGUIBase;
 import com.teamacronymcoders.base.blocks.IHasItemBlock;
 
 import net.minecraft.block.BlockHorizontal;
@@ -19,7 +20,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityTrunk;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.BlockGUIBase;
 
 public class BlockTrunk extends BlockGUIBase<TileEntityTrunk> implements IHasItemBlock {
 

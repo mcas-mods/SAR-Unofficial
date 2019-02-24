@@ -1,11 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.renderers;
 
+import com.teamacronymcoders.base.util.RenderingUtils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.tileentities.TileEntityFluidIO;
-import xyz.brassgoggledcoders.steamagerevolution.utils.RenderUtil;
 
 public class TileEntityFluidIORenderer extends TileEntitySpecialRenderer<TileEntityFluidIO> {
 
@@ -21,8 +22,8 @@ public class TileEntityFluidIORenderer extends TileEntitySpecialRenderer<TileEnt
 
 			float height = ((float) liquid.amount) / (float) tank.getCapacity();
 
-			float d = RenderUtil.FLUID_OFFSET;
-			RenderUtil.renderFluidCuboid(liquid, tile.getPos(), x, y, z, d, d, d, 1d - d, height - d, 1d - d);
+			float d = RenderingUtils.FLUID_OFFSET;
+			RenderingUtils.renderFluidCuboid(liquid, tile.getPos(), x, y, z, d, d, d, 1d - d, height - d, 1d - d);
 		}
 	}
 }

@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks;
 
+import com.teamacronymcoders.base.blocks.BlockGUIBase;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,7 +16,6 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.items.ItemBlockPortableBoiler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityPortableBoiler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.BlockGUIBase;
 
 public class BlockPortableBoiler extends BlockGUIBase<TileEntityPortableBoiler> {
 

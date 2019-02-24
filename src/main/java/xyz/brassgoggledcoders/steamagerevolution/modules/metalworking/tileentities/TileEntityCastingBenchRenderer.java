@@ -1,10 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.tileentities;
 
+import com.teamacronymcoders.base.util.RenderingUtils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.RenderUtil;
 
 public class TileEntityCastingBenchRenderer extends TileEntitySpecialRenderer<TileEntityCastingBench> {
 
@@ -20,8 +21,9 @@ public class TileEntityCastingBenchRenderer extends TileEntitySpecialRenderer<Ti
 
 			float height = ((float) liquid.amount) / (float) tank.getCapacity();
 
-			float d = RenderUtil.FLUID_OFFSET;
-			RenderUtil.renderFluidCuboid(liquid, tile.getPos(), x, y, z, d, d + 0.2F, d, 1d - d, height - d, 1d - d);
+			float d = RenderingUtils.FLUID_OFFSET;
+			RenderingUtils.renderFluidCuboid(liquid, tile.getPos(), x, y, z, d, d + 0.2F, d, 1d - d, height - d,
+					1d - d);
 		}
 	}
 }

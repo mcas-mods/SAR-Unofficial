@@ -19,7 +19,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.blocks.BlockPortableBoiler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.tileentities.TileEntityPortableBoiler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 
 public class ItemBlockPortableBoiler extends ItemBlockModel<BlockPortableBoiler> {
 
@@ -35,9 +34,9 @@ public class ItemBlockPortableBoiler extends ItemBlockModel<BlockPortableBoiler>
 			TileEntityPortableBoiler dummy = new TileEntityPortableBoiler();
 			NBTTagCompound tileData = stack.getTagCompound().getCompoundTag("teData");
 			dummy.deserializeNBT(tileData);
-			tooltip.add(TextUtils.representInventoryContents(dummy.inventory.getInputHandler()).getUnformattedText());
-			tooltip.add(TextUtils.representTankContents(dummy.inventory.getInputTank()).getUnformattedText());
-			tooltip.add(TextUtils.representTankContents(dummy.inventory.getSteamTank()).getUnformattedText());
+			tooltip.add(com.teamacronymcoders.base.util.TextUtils.representInventoryContents(dummy.inventory.getInputHandler()).getUnformattedText());
+			tooltip.add(com.teamacronymcoders.base.util.TextUtils.representTankContents(dummy.inventory.getInputTank()).getUnformattedText());
+			tooltip.add(com.teamacronymcoders.base.util.TextUtils.representTankContents(dummy.inventory.getSteamTank()).getUnformattedText());
 			tooltip.add("Burn time: " + dummy.currentTicks);
 		}
 		else {

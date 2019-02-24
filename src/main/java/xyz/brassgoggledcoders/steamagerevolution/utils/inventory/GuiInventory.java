@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 import java.util.List;
 
 import com.google.common.collect.Lists;
+import com.teamacronymcoders.base.util.GuiHelper;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -14,7 +15,6 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.utils.TextUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceFluid;
@@ -47,7 +47,7 @@ public class GuiInventory extends GuiContainer {
 					int capacity = fluidInputs.getCapacity();
 					capacity /= fluidInputs.getMaxFluids();
 					if(fluidInputs.fluids.size() > i) {
-						tooltip.add(TextUtils.representTankContents(new FluidTank(fluidInputs.fluids.get(i), capacity))
+						tooltip.add(com.teamacronymcoders.base.util.TextUtils.representTankContents(new FluidTank(fluidInputs.fluids.get(i), capacity))
 								.getText());
 					}
 					else {
@@ -67,7 +67,7 @@ public class GuiInventory extends GuiContainer {
 					int capacity = fluidOutputs.getCapacity();
 					capacity /= fluidOutputs.getMaxFluids();
 					if(fluidOutputs.fluids.size() > i) {
-						tooltip.add(TextUtils.representTankContents(new FluidTank(fluidOutputs.fluids.get(i), capacity))
+						tooltip.add(com.teamacronymcoders.base.util.TextUtils.representTankContents(new FluidTank(fluidOutputs.fluids.get(i), capacity))
 								.getText());
 					}
 					else {
@@ -82,7 +82,7 @@ public class GuiInventory extends GuiContainer {
 		if(steamTank != null) {
 			if(isPointInRegion(holder.getInventory().steamTank.getX(0), holder.getInventory().steamTank.getY(0), 20, 55,
 					mouseX, mouseY)) {
-				this.drawHoveringText(TextUtils.representTankContents(steamTank).getText(), mouseX, mouseY);
+				this.drawHoveringText(com.teamacronymcoders.base.util.TextUtils.representTankContents(steamTank).getText(), mouseX, mouseY);
 			}
 		}
 		InventoryPieceProgressBar progressBar = holder.getInventory().progressBar;
@@ -150,7 +150,7 @@ public class GuiInventory extends GuiContainer {
 
 	private void draw(FluidStack stack, int capacity, int xPos, int yPos) {
 		if(stack != null && stack.getFluid() != null && stack.amount > 0) {
-			GuiUtils.renderGuiTank(stack, capacity, stack.amount, guiLeft + xPos, guiTop + yPos, 20, 60);
+			GuiHelper.renderGuiTank(stack, capacity, stack.amount, guiLeft + xPos, guiTop + yPos, 20, 60);
 			mc.renderEngine.bindTexture(guiTexture);
 			this.drawTexturedModalRect(guiLeft + xPos, guiTop + yPos + 6, 176, 14, 20, 49);
 		}

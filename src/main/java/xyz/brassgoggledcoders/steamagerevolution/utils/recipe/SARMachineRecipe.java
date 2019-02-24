@@ -9,6 +9,8 @@ import javax.annotation.Nullable;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.common.collect.Lists;
+import com.teamacronymcoders.base.util.inventory.IngredientFluidStack;
+import com.teamacronymcoders.base.util.inventory.IngredientItemStack;
 
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;

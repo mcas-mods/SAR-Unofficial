@@ -9,6 +9,7 @@ import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.IBaseMod;
 import com.teamacronymcoders.base.IModAware;
 import com.teamacronymcoders.base.client.models.IHasModel;
+import com.teamacronymcoders.base.util.TinkersUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -19,10 +20,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.TinkersUtils;
 
 public class ItemDrill extends ItemTool implements IHasModel, IModAware {
 
@@ -105,12 +104,6 @@ public class ItemDrill extends ItemTool implements IHasModel, IModAware {
 			return toolMaterial.getHarvestLevel() == 3;
 		}
 		return Items.STONE_SHOVEL.canHarvestBlock(blockIn, stack);
-	}
-
-	// Elevate to public
-	@Override
-	public RayTraceResult rayTrace(@Nonnull World worldIn, @Nonnull EntityPlayer playerIn, boolean useLiquids) {
-		return super.rayTrace(worldIn, playerIn, useLiquids);
 	}
 
 }

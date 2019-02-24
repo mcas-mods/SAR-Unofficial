@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.collect.Lists;
+import com.teamacronymcoders.base.util.RenderingUtils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -12,7 +13,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.ControllerBoiler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerCasing;
-import xyz.brassgoggledcoders.steamagerevolution.utils.RenderUtil;
 
 public class MultiblockBoilerRenderer extends TileEntitySpecialRenderer<TileEntityBoilerCasing> {
 
@@ -72,7 +72,6 @@ public class MultiblockBoilerRenderer extends TileEntitySpecialRenderer<TileEnti
 			double z1 = boiler.minimumInteriorPos.getZ() - tile.getPos().getZ();
 
 			double x2 = boiler.maximumInteriorPos.getX() - tile.getPos().getX();
-			double y2 = boiler.maximumInteriorPos.getY() - tile.getPos().getY();
 			double z2 = boiler.maximumInteriorPos.getZ() - tile.getPos().getZ();
 
 			ArrayList<FluidStack> fluids = Lists.newArrayList();
@@ -96,20 +95,19 @@ public class MultiblockBoilerRenderer extends TileEntitySpecialRenderer<TileEnti
 			int yd = 1 + Math.max(0, boiler.maximumInteriorPos.getY() - boiler.minimumInteriorPos.getY());
 			// one block height = 1000 mb
 			int[] heights = calcLiquidHeights(fluids, waterTank.getCapacity() + steamTank.getCapacity(),
-					yd * 1000 - (int) (RenderUtil.FLUID_OFFSET * 2000d), 100);
+					yd * 1000 - (int) (RenderingUtils.FLUID_OFFSET * 2000d), 100);
 
-			double curY = RenderUtil.FLUID_OFFSET;
+			double curY = RenderingUtils.FLUID_OFFSET;
 			// rendering time
 			if(water != null) {
 				double h = heights[0] / 1000d;
-				RenderUtil.renderStackedFluidCuboid(fluids.get(0), x, y, z, boiler.minimumInteriorPos, minPos, maxPos,
-						curY, curY + h, RenderUtil.FLUID_OFFSET);
+				RenderingUtils.renderStackedFluidCuboid(fluids.get(0), x, y, z, boiler.minimumInteriorPos, minPos,
+						maxPos, curY, curY + h, RenderingUtils.FLUID_OFFSET);
 				curY += h;
 			}
 			if(steam != null) {
-				double h = heights[1] / 1000d;
-				RenderUtil.renderStackedFluidCuboid(steam, x, y, z, boiler.minimumInteriorPos, minPos, maxPos, curY,
-						yd - RenderUtil.FLUID_OFFSET, RenderUtil.FLUID_OFFSET);
+				RenderingUtils.renderStackedFluidCuboid(steam, x, y, z, boiler.minimumInteriorPos, minPos, maxPos, curY,
+						yd - RenderingUtils.FLUID_OFFSET, RenderingUtils.FLUID_OFFSET);
 			}
 		}
 	}
