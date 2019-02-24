@@ -2,9 +2,9 @@
     "type": "forge:ore_shaped",
     "group": "steamagerevolution:other",
     "pattern": [
-    " B ",
+    "MBM",
     "BGB",
-    " B "
+    "MBM"
   	],
     "key": {
     "B": {
@@ -13,11 +13,15 @@
     },
     "G": {
     	"type": "forge:ore_dict",
-      	"ore": "paneGlassBlue"
+      	"ore": "paneGlassLightBlue"
+    },
+    "M": {
+ 		"type": "forge:ore_dict",
+ 		"ore": "gemPrismarine" 
     }
   },
     "result": {
-        "item": "steamagerevolution:goggles",
-        "data": 0
+        "item": "steamagerevolution:lens",
+        "data": 3
     }
 }
