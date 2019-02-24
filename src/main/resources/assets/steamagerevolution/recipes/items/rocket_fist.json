@@ -4,7 +4,7 @@
     "pattern": [
     "TTT",
     "BCB",
-    " B "
+    " I "
   	],
     "key": {
     "B": {
@@ -17,6 +17,10 @@
     "C": {
     	"item": "steamagerevolution:canister",
     	"data": 0
+    },
+    "I": {
+    	"type": "forge:ore_dict",
+    	"ore": "ingotSteel"
     }
   },
     "result": {
