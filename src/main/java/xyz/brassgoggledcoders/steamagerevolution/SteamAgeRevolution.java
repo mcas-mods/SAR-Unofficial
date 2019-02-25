@@ -1,12 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution;
 
-import java.io.File;
-
 import javax.annotation.Nonnull;
 
 import com.teamacronymcoders.base.BaseModFoundation;
-import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
-import com.teamacronymcoders.base.util.Platform;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -80,18 +76,6 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 	@Override
 	public SteamAgeRevolution getInstance() {
 		return instance;
-	}
-
-	@Override
-	public File getResourceFolder() {
-		if(!Platform.isDevEnv()) {
-			return null;
-		}
-		else {
-			return new File(this.getRegistry(ConfigRegistry.class, "CONFIG").getConfigFolder().getParentFile()
-					.getParentFile().getParentFile().getParentFile().getPath(),
-					"src/main/resources/assets/" + getID() + "/");
-		}
 	}
 
 	public static class SARTab extends CreativeTabs {
