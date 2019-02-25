@@ -17,9 +17,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
-@EventBusSubscriber
+@EventBusSubscriber(Side.CLIENT)
 public class EventHandlerClient {
+	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public static void onDrawBlockSelectionBox(DrawBlockHighlightEvent event) {
 		if((event.getPlayer().inventory.armorItemInSlot(3) != null)
@@ -121,20 +121,23 @@ public class EventHandlerClient {
 		buffer.pos(maxX, minY, minZ).color(red, green, blue, alpha).endVertex();
 		buffer.pos(maxX, minY, minZ).color(red, green, blue, 0.0F).endVertex();
 	}
-	
-	@SubscribeEvent(receiveCanceled=true)
+
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent(receiveCanceled = true)
 	public static void fogEvent(FogDensity event) {
 		event.setCanceled(true);
 		Entity entity = event.getEntity();
 		if(entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
-			//if(player.isInsideOfMaterial(Material.WATER))
+			// if(player.isInsideOfMaterial(Material.WATER))
 			ItemStack stack = player.inventory.armorInventory.get(3);
 			if(!stack.isEmpty() && stack.getItem() == ModuleArmory.goggles) {
-				if(player.isInsideOfMaterial(Material.WATER) && stack.getTagCompound().getBoolean("lens" + EnumDyeColor.LIGHT_BLUE.getMetadata())) {
+				if(player.isInsideOfMaterial(Material.WATER)
+						&& stack.getTagCompound().getBoolean("lens" + EnumDyeColor.LIGHT_BLUE.getMetadata())) {
 					event.setDensity(0.0F);
 				}
-				else if(player.isInsideOfMaterial(Material.LAVA) && stack.getTagCompound().getBoolean("lens" + EnumDyeColor.ORANGE.getMetadata())) {
+				else if(player.isInsideOfMaterial(Material.LAVA)
+						&& stack.getTagCompound().getBoolean("lens" + EnumDyeColor.ORANGE.getMetadata())) {
 					event.setDensity(0.0F);
 				}
 				else if(stack.getTagCompound().getBoolean("lens" + EnumDyeColor.BLACK.getMetadata())) {
