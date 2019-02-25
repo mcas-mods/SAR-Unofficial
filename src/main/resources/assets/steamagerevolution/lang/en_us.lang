@@ -109,6 +109,9 @@ tile.steamagerevolution.charcoal_block.name=Charcoal Block
 tile.steamagerevolution.steam_vent.name=Steam Vent
 tile.steamagerevolution.basic_fluid_tank.name=Basic Fluid Tank
 
+#Entities
+entity.dead_inventor.name=Dead Inventor
+
 #Advancements
 advancement.steamagerevolution.ore=A New Age
 advancement.steamagerevolution.ore.desc=Now craft a hammer
