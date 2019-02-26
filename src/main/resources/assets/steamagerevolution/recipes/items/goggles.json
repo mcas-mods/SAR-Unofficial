@@ -12,7 +12,8 @@
       "ore": "ingotBrass"
     },
     "L": {
-    	"item": "steamagerevolution:lens"
+    	"type": "forge:ore_dict",
+      	"ore": "blockGlass"
     },
     "S": {
         "item": "minecraft:string"
