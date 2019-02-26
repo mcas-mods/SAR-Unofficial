@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
@@ -133,6 +134,9 @@ public class EventHandlerClient {
 			// if(player.isInsideOfMaterial(Material.WATER))
 			ItemStack stack = player.inventory.armorInventory.get(3);
 			if(!stack.isEmpty() && stack.getItem() == ModuleArmory.goggles) {
+				if(!stack.hasTagCompound()) {
+					stack.setTagCompound(new NBTTagCompound());
+				}
 				if(player.isInsideOfMaterial(Material.WATER)
 						&& stack.getTagCompound().getBoolean("lens" + EnumDyeColor.LIGHT_BLUE.getMetadata())) {
 					event.setDensity(0.0F);
