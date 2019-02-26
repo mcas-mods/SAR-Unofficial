@@ -28,14 +28,13 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.Optional;
-import net.minecraftforge.fml.common.Optional.Interface;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.items.IGoggles;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
 
-@Interface(iface = "thaumcraft.api.item.IGoggles", modid = "thaumcraft")
+@Optional.Interface(iface = "thaumcraft.api.items.IGoggles", modid = "thaumcraft")
 public class ItemGoggles extends ItemArmorBase implements IGoggles {
 
 	public static ResourceLocation overlay = new ResourceLocation(SteamAgeRevolution.MODID,
