@@ -25,7 +25,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 @ObjectHolder(SteamAgeRevolution.MODID)
 @Module(value = SteamAgeRevolution.MODID)
-@EventBusSubscriber
+@EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class ModuleMaterials extends ModuleBase {
 
 	public static final Block charcoal_block = null;

@@ -47,7 +47,7 @@ public class ItemGoggles extends ItemArmorBase implements IGoggles {
 		super(ModuleArmory.GOGGLES, EntityEquipmentSlot.HEAD, "goggles");
 		this.setMaxStackSize(1);
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -58,7 +58,7 @@ public class ItemGoggles extends ItemArmorBase implements IGoggles {
 		}
 		for(int i = 0; i < ModuleArmory.lenseTypes.size(); i++) {
 			if(stack.getTagCompound().getBoolean("lens" + i)) {
-				//TODO tooltip text colours
+				// TODO tooltip text colours
 				tooltip.add(WordUtils.capitalize(I18n.translateToLocal(ModuleArmory.lenseTypes.get(i).getColorName())));
 			}
 		}
@@ -98,12 +98,12 @@ public class ItemGoggles extends ItemArmorBase implements IGoggles {
 		if((ClientHelper.player() == null) || (ClientHelper.screen() != null)) {
 			return;
 		}
-		
+
 		Minecraft.getMinecraft().entityRenderer.setupOverlayRendering();
 		final int i = resolution.getScaledWidth();
 		final int k = resolution.getScaledHeight();
-		//TODO Add a colour overlay based on what lenses are installed
-		//Gui.drawRect(0, 0, i, k, EnumDyeColor.BLUE.getColorValue());
+		// TODO Add a colour overlay based on what lenses are installed
+		// Gui.drawRect(0, 0, i, k, EnumDyeColor.BLUE.getColorValue());
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		GL11.glDepthMask(false);
@@ -120,7 +120,7 @@ public class ItemGoggles extends ItemArmorBase implements IGoggles {
 				continue;
 			}
 		}
-		
+
 		final Tessellator tessellator = Tessellator.getInstance();
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 		tessellator.getBuffer().pos(i / 2 - k, k, -90D).tex(0.0D, 1.0D).endVertex();
@@ -132,12 +132,15 @@ public class ItemGoggles extends ItemArmorBase implements IGoggles {
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		
+
 	}
 
 	@Optional.Method(modid = "thaumcraft")
 	@Override
 	public boolean showIngamePopups(ItemStack stack, EntityLivingBase arg1) {
+		if(!stack.hasTagCompound()) {
+			stack.setTagCompound(new NBTTagCompound());
+		}
 		return stack.getTagCompound().getBoolean("lens" + EnumDyeColor.PURPLE.getMetadata());
 	}
 

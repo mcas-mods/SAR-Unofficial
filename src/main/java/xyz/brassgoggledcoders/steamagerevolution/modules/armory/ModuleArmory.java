@@ -40,7 +40,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityD
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.*;
 
 @Module(value = SteamAgeRevolution.MODID)
-@EventBusSubscriber
+@EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class ModuleArmory extends ModuleBase {
 
 	public static final ToolMaterial STEAM = EnumHelper.addToolMaterial("TOOL_STEAM", 2, -1, 12.0F, 3.0F, 0);
@@ -86,7 +86,8 @@ public class ModuleArmory extends ModuleBase {
 		EntityRegistry.registerModEntity(new ResourceLocation(SteamAgeRevolution.MODID, "dead_inventor"),
 				EntityDeadInventor.class, "dead_inventor", networkID++, SteamAgeRevolution.MODID, 64, 1, true, 0,
 				11111);
-		EntityRegistry.addSpawn(EntityDeadInventor.class, 10, 1, 2, EnumCreatureType.MONSTER, Biomes.DESERT, Biomes.ROOFED_FOREST, Biomes.JUNGLE, Biomes.EXTREME_HILLS);//TODO
+		EntityRegistry.addSpawn(EntityDeadInventor.class, 10, 1, 2, EnumCreatureType.MONSTER, Biomes.DESERT,
+				Biomes.ROOFED_FOREST, Biomes.JUNGLE, Biomes.EXTREME_HILLS);// TODO
 	}
 
 	@Override
@@ -124,11 +125,11 @@ public class ModuleArmory extends ModuleBase {
 					// TODO Switch to a brightness increaser instead of a potion effect
 					@Override
 					public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-						//Has to be a long time to avoid the fucking flicker bollocks
-						player.addPotionEffect(
-								new PotionEffect(Potion.getPotionFromResourceLocation("night_vision"), 500, 0, true, false));
+						// Has to be a long time to avoid the fucking flicker bollocks
+						player.addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("night_vision"),
+								500, 0, true, false));
 					}
-					
+
 					@Override
 					public String getEffect() {
 						return "Grants night vision";
@@ -155,10 +156,10 @@ public class ModuleArmory extends ModuleBase {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
 					@Override
 					public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-						//TODO Switch to cancelling an event
+						// TODO Switch to cancelling an event
 						player.removePotionEffect(Potion.getPotionFromResourceLocation("blindness"));
 					}
-					
+
 					@Override
 					public String getEffect() {
 						return "Protects you against blindness";

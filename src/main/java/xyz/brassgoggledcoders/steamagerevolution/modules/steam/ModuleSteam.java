@@ -28,7 +28,7 @@ public class ModuleSteam extends ModuleBase {
 	public static Fluid steam;
 	public static Block boilerCasing, boilerWaterInput, boilerSolidFirebox, boilerLiquidFirebox, boilerSteamOutput,
 			boilerWaterGauge, boilerSteamGauge, boilerPressureMonitor, boilerPressureValve;
-	
+
 	public static boolean enableDestruction;
 
 	@Override
@@ -87,7 +87,8 @@ public class ModuleSteam extends ModuleBase {
 
 		blockRegistry.register(new BlockSteamVent(Material.IRON, "steam_vent"));
 
-		//blockRegistry.register(new BlockSteamElevator(Material.IRON, "steam_elevator"));
+		// blockRegistry.register(new BlockSteamElevator(Material.IRON,
+		// "steam_elevator"));
 
 		// blockRegistry.register(new BlockPortableBoiler());
 	}
