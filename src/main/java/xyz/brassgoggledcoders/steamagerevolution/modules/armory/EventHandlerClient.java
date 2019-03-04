@@ -127,13 +127,13 @@ public class EventHandlerClient {
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(receiveCanceled = true)
 	public static void fogEvent(FogDensity event) {
-		event.setCanceled(true);
 		Entity entity = event.getEntity();
 		if(entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
 			// if(player.isInsideOfMaterial(Material.WATER))
 			ItemStack stack = player.inventory.armorInventory.get(3);
 			if(!stack.isEmpty() && stack.getItem() == ModuleArmory.goggles) {
+				event.setCanceled(true);
 				if(!stack.hasTagCompound()) {
 					stack.setTagCompound(new NBTTagCompound());
 				}
