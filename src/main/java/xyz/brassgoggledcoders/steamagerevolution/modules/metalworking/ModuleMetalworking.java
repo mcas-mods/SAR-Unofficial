@@ -40,7 +40,6 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.blocks.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.MachineRecipeBuilder;
 
@@ -67,32 +66,29 @@ public class ModuleMetalworking extends ModuleBase {
 		event.getRegistry().register(new RecipesIngotToPlate()
 				.setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "ingot_to_plate")));
 
-		RecipeRegistry.addRecipe("steam hammer", new MachineRecipeBuilder("steam hammer")
-				.setItemInputs(new ItemStack(Blocks.STONE)).setItemOutputs(new ItemStack(Blocks.COBBLESTONE)).build());
-		RecipeRegistry.addRecipe("steam hammer", new MachineRecipeBuilder("steam hammer")
-				.setItemInputs(new ItemStack(Blocks.COBBLESTONE)).setItemOutputs(new ItemStack(Blocks.GRAVEL)).build());
-		RecipeRegistry.addRecipe("steam hammer", new MachineRecipeBuilder("steam hammer")
-				.setItemInputs(new ItemStack(Blocks.GRAVEL)).setItemOutputs(new ItemStack(Blocks.SAND)).build());
+		new MachineRecipeBuilder("steam hammer").setItemInputs(new ItemStack(Blocks.STONE))
+				.setItemOutputs(new ItemStack(Blocks.COBBLESTONE)).build();
+		new MachineRecipeBuilder("steam hammer").setItemInputs(new ItemStack(Blocks.COBBLESTONE))
+				.setItemOutputs(new ItemStack(Blocks.GRAVEL)).build();
+		new MachineRecipeBuilder("steam hammer").setItemInputs(new ItemStack(Blocks.GRAVEL))
+				.setItemOutputs(new ItemStack(Blocks.SAND)).build();
 
-		RecipeRegistry.addRecipe("alloy forge",
-				new MachineRecipeBuilder("alloy forge")
-						.setFluidInputs(FluidRegistry.getFluidStack("copper", RecipeUtil.VALUE_INGOT),
-								FluidRegistry.getFluidStack("zinc", RecipeUtil.VALUE_INGOT))
-						.setFluidOutputs(FluidRegistry.getFluidStack("brass", RecipeUtil.VALUE_INGOT * 2)).build());
+		new MachineRecipeBuilder("alloy forge")
+				.setFluidInputs(FluidRegistry.getFluidStack("copper", RecipeUtil.VALUE_INGOT),
+						FluidRegistry.getFluidStack("zinc", RecipeUtil.VALUE_INGOT))
+				.setFluidOutputs(FluidRegistry.getFluidStack("brass", RecipeUtil.VALUE_INGOT * 2)).build();
 
-		RecipeRegistry.addRecipe("steelworks",
-				new MachineRecipeBuilder("steelworks")
-						.setFluidInputs(FluidRegistry.getFluidStack("iron", RecipeUtil.VALUE_NUGGET))
-						.setItemInputs(new ItemStack(Items.COAL, 1, 1))
-						.setFluidOutputs(FluidRegistry.getFluidStack("steel", RecipeUtil.VALUE_NUGGET))
-						.setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(600).build());
+		new MachineRecipeBuilder("steelworks")
+				.setFluidInputs(FluidRegistry.getFluidStack("iron", RecipeUtil.VALUE_NUGGET))
+				.setItemInputs(new ItemStack(Items.COAL, 1, 1))
+				.setFluidOutputs(FluidRegistry.getFluidStack("steel", RecipeUtil.VALUE_NUGGET))
+				.setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(600).build();
 
-		RecipeRegistry.addRecipe("steelworks",
-				new MachineRecipeBuilder("steelworks")
-						.setFluidInputs(FluidRegistry.getFluidStack("iron", RecipeUtil.VALUE_BLOCK))
-						.setItemInputs(new ItemStack(ModuleMaterials.charcoal_block))
-						.setFluidOutputs(FluidRegistry.getFluidStack("steel", RecipeUtil.VALUE_BLOCK))
-						.setSteamCost(Fluid.BUCKET_VOLUME * 10).setCraftTime(6000).build());
+		new MachineRecipeBuilder("steelworks")
+				.setFluidInputs(FluidRegistry.getFluidStack("iron", RecipeUtil.VALUE_BLOCK))
+				.setItemInputs(new ItemStack(ModuleMaterials.charcoal_block))
+				.setFluidOutputs(FluidRegistry.getFluidStack("steel", RecipeUtil.VALUE_BLOCK))
+				.setSteamCost(Fluid.BUCKET_VOLUME * 10).setCraftTime(6000).build();
 
 		for(String metal : knownMetalTypes) {
 
@@ -123,23 +119,22 @@ public class ModuleMetalworking extends ModuleBase {
 			if(molten != null) {
 				FluidStack moltenCopy = molten.copy();
 				moltenCopy.amount = RecipeUtil.VALUE_NUGGET;
-				RecipeRegistry.addRecipe("crucible", new MachineRecipeBuilder("crucible").setItemInputs(nugget)
-						.setFluidOutputs(moltenCopy).setSteamCost(Fluid.BUCKET_VOLUME / 32).setCraftTime(14).build());
+				new MachineRecipeBuilder("crucible").setItemInputs(nugget).setFluidOutputs(moltenCopy)
+						.setSteamCost(Fluid.BUCKET_VOLUME / 32).setCraftTime(14).build();
 				FluidStack moltenCopy2 = molten.copy();
 				moltenCopy2.amount = RecipeUtil.VALUE_BLOCK;
-				RecipeRegistry.addRecipe("crucible", new MachineRecipeBuilder("crucible").setItemInputs(block)
-						.setFluidOutputs(moltenCopy2).setSteamCost(Fluid.BUCKET_VOLUME).setCraftTime(1200).build());
-				RecipeRegistry.addRecipe("crucible", new MachineRecipeBuilder("crucible").setItemInputs(ingot)
-						.setFluidOutputs(molten).setSteamCost(Fluid.BUCKET_VOLUME / 16).setCraftTime(120).build());
+				new MachineRecipeBuilder("crucible").setItemInputs(block).setFluidOutputs(moltenCopy2)
+						.setSteamCost(Fluid.BUCKET_VOLUME).setCraftTime(1200).build();
+				new MachineRecipeBuilder("crucible").setItemInputs(ingot).setFluidOutputs(molten)
+						.setSteamCost(Fluid.BUCKET_VOLUME / 16).setCraftTime(120).build();
 
-				RecipeRegistry.addRecipe("casting bench", new MachineRecipeBuilder("casting bench")
-						.setFluidInputs(molten).setItemOutputs(ingotStack).setCraftTime(2400).build());
+				new MachineRecipeBuilder("casting bench").setFluidInputs(molten).setItemOutputs(ingotStack)
+						.setCraftTime(2400).build();
 			}
 			if(!plateStack.isEmpty()) {
 				ItemStack plateCopy = plateStack.copy();
 				plateCopy.setCount(plateCount);
-				RecipeRegistry.addRecipe("steam hammer", new MachineRecipeBuilder("steam hammer").setItemInputs(ingot)
-						.setItemOutputs(plateCopy).build());
+				new MachineRecipeBuilder("steam hammer").setItemInputs(ingot).setItemOutputs(plateCopy).build();
 			}
 			if(!gearStack.isEmpty()) {
 				// TODO
@@ -163,8 +158,7 @@ public class ModuleMetalworking extends ModuleBase {
 				GameRegistry.addSmelting(crushedOreStack, nuggetCopy, 0.1f);
 				ItemStack crushedOreCopy = crushedOreStack.copy();
 				crushedOreCopy.setCount(4);
-				RecipeRegistry.addRecipe("steam hammer", new MachineRecipeBuilder("steam hammer").setItemInputs(ore)
-						.setItemOutputs(crushedOreCopy).build());
+				new MachineRecipeBuilder("steam hammer").setItemInputs(ore).setItemOutputs(crushedOreCopy).build();
 			}
 			if(!crystalStack.isEmpty()) {
 				if(!nugget.isEmpty()) {
@@ -174,9 +168,9 @@ public class ModuleMetalworking extends ModuleBase {
 					new MachineRecipeBuilder("vat").setFluidOutputs(solution)
 							.setFluidInputs(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 4))
 							.setItemInputs(crushedOre).build();
-					RecipeRegistry.addRecipe("distiller", new MachineRecipeBuilder("distiller").setFluidInputs(solution)
+					new MachineRecipeBuilder("distiller").setFluidInputs(solution)
 							.setFluidOutputs(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 6))
-							.setItemOutputs(crystalStack).setCraftTime(20).build());
+							.setItemOutputs(crystalStack).setCraftTime(20).build();
 				}
 			}
 		}

@@ -17,13 +17,12 @@ public class RecipeRegistry {
 			recipeMasterlist.put(crafter, Lists.newArrayList());
 		}
 		ArrayList<SARMachineRecipe> recipeList = recipeMasterlist.get(crafter);
-		// if(recipeList.containsValue(recipe)) {
-		// SteamAgeRevolution.instance.getLogger().devError("Attempted to add duplicate
-		// recipe");
-		// }
-		// else {
-		recipeList.add(recipe);
-		// }
+		if(recipeList.contains(recipe)) {
+			SteamAgeRevolution.instance.getLogger().devError("Attempted to add duplicate recipe");
+		}
+		else {
+			recipeList.add(recipe);
+		}
 	}
 
 	public static HashMap<String, ArrayList<SARMachineRecipe>> getRecipeMasterlist() {
