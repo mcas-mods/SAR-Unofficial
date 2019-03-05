@@ -78,7 +78,7 @@ public class MachineTweaker {
 
 		@Override
 		public void apply() {
-			RecipeRegistry.addRecipe(crafter, recipe);
+			RecipeRegistry.getRecipesForMachine(crafter).add(recipe);
 		}
 
 		@Override

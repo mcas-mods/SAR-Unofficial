@@ -76,6 +76,7 @@ public class ModuleAlchemical extends ModuleBase {
 		// this.getName(), getIsActive());
 	}
 
+	@SuppressWarnings({ "deprecation", "unchecked" })
 	@SubscribeEvent
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 		new MachineRecipeBuilder("vat")
