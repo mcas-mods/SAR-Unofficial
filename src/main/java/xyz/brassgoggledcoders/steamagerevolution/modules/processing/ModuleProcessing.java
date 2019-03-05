@@ -21,7 +21,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.MachineRecipeBuilder;
 
 @Module(value = SteamAgeRevolution.MODID)
@@ -35,9 +34,8 @@ public class ModuleProcessing extends ModuleBase {
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 
 		for(Entry<ItemStack, ItemStack> recipe : FurnaceRecipes.instance().getSmeltingList().entrySet()) {
-			RecipeRegistry.addRecipe("steam furnace",
-					new MachineRecipeBuilder("steam furnace").setItemInputs(recipe.getKey())
-							.setItemOutputs(recipe.getValue()).setSteamCost(1000).setCraftTime(1000).build());
+			new MachineRecipeBuilder("steam furnace").setItemInputs(recipe.getKey()).setItemOutputs(recipe.getValue())
+					.setSteamCost(1000).setCraftTime(1000).build();
 		}
 
 		// TODO Oredict
