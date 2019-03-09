@@ -126,6 +126,7 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
 		return new GuiInventory(entityPlayer, this);
 	}
