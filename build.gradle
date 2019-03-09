@@ -49,9 +49,13 @@ maven {
         name 'Curseforge Maven'
         url 'http://minecraft.curseforge.com/api/maven/'
     }
-maven {
+    maven {
         name = "thiakil"
         url = "http://maven.thiakil.com"
+    }
+    maven {
+        name "Cyclops Repo"
+        url "https://oss.jfrog.org/artifactory/simple/libs-release/"
     }
 }
 
@@ -90,6 +94,9 @@ dependencies {
     deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${top_version}"
     deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA26"
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
+    deobfCompile "org.cyclops.cyclopscore:CyclopsCore:1.12.2-1.0.5-920"
+    deobfCompile "org.cyclops.integrateddynamics:IntegratedDynamics:1.12.2-1.0.7-1303"
+    deobfCompile "org.cyclops.commoncapabilities:CommonCapabilities:1.12.2-2.0.4-263"
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
