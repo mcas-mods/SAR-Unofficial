@@ -86,9 +86,9 @@ public class ItemRocketFist extends ItemBase {
 			i = 3;
 		}
 		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
-			entityIn.setVelocity(entityIn.motionX + (entityIn.getLookVec().normalize().x * i),
-					entityIn.motionY + (entityIn.getLookVec().normalize().y * i),
-					entityIn.motionZ + (entityIn.getLookVec().normalize().z * i));
+			entityIn.motionX += (entityIn.getLookVec().normalize().x * i);
+			entityIn.motionY += (entityIn.getLookVec().normalize().y * i);
+			entityIn.motionZ += (entityIn.getLookVec().normalize().z * i);
 			entityIn.playSound(SoundEvents.E_PARROT_IM_CREEPER, 10, 1);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
