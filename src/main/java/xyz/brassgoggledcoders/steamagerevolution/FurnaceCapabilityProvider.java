@@ -21,7 +21,10 @@ public class FurnaceCapabilityProvider implements ICapabilityProvider {
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		return SARCapabilities.FUME_PRODUCER.cast(new FurnaceFumeProducer(tile));
+		if(hasCapability(capability, facing)) {
+			return SARCapabilities.FUME_PRODUCER.cast(new FurnaceFumeProducer(tile));
+		}
+		return null;
 	}
 
 }

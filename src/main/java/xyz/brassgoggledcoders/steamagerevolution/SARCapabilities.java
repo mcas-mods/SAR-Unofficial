@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xyz.brassgoggledcoders.steamagerevolution.api.FurnaceFumeProducer;
 import xyz.brassgoggledcoders.steamagerevolution.api.IFumeProducer;
 
-@EventBusSubscriber
+@EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class SARCapabilities {
 	@CapabilityInject(IFumeProducer.class)
 	public static Capability<IFumeProducer> FUME_PRODUCER;
