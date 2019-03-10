@@ -161,14 +161,4 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 	public void setCurrentTicks(int ticks) {
 		currentTicks = ticks;
 	}
-
-	@Override
-	public BlockPos getPos() {
-		return pos;
-	}
-
-	@Override
-	public World getWorld() {
-		return world;
-	}
 }
