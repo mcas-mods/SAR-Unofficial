@@ -61,9 +61,9 @@ maven {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "${minecraft_version}-${mod_version}." + System.getenv("bamboo_buildNumber")
+version = getVersion()
 
-group= "xyz.brassgoggledcoders.steamagerevolution"
+group= "${path}"
 archivesBaseName = "${mod_name}"
 
 minecraft {
@@ -122,7 +122,6 @@ processResources
 jar {
     classifier = ""
     manifest {
-	
 	    attributes 'FMLAT': 'steamagerevolution_at.cfg'
 	}
 }
@@ -158,7 +157,7 @@ task("uploadJars", dependsOn: "reobf") {
                         project {
                             name project.archivesBaseName
                             packaging 'jar'
-                            description 'SteamAgeRevolution'
+                            description '${mod_name}'
                             url ''
                             scm {
                                 url 'https://github.com/BrassGoggledCoders/${mod_name}'
@@ -172,7 +171,7 @@ task("uploadJars", dependsOn: "reobf") {
                             licenses {
                                 license {
                                     name 'MIT'
-                                    url 'https://github.com/BrassGoggledCoders/ModularUtilities/blob/master/LICENSE'
+                                    url 'https://github.com/BrassGoggledCoders/${mod_name}/blob/master/LICENSE'
                                     distribution 'repo'
                                 }
                             }
@@ -182,7 +181,7 @@ task("uploadJars", dependsOn: "reobf") {
                                     name 'SkySom'
                                     roles { role 'developer' }
                                 }
-				developer {
+				                developer {
                                     id 'warlordjones'
                                     name 'warlordjones'
                                     roles { role 'developer' }
@@ -194,4 +193,28 @@ task("uploadJars", dependsOn: "reobf") {
             }
         }
     }
+}
+
+String getVersion() {
+    String version = "${mod_version}"
+    String branch = project.hasProperty("branch") ? project.branch : ""
+
+    if(branch != "") {
+        version += "-" + branch
+
+        String buildNumber = getBuildNumber()
+        if(buildNumber != "") {
+            version += "." + buildNumber
+        }
+    }
+
+    return version
+}
+
+static String getBuildNumber() {
+    String buildNumber = System.getenv("BUILD_NUMBER") != null ? System.getenv("BUILD_NUMBER") : ""
+    if(buildNumber == "") {
+        buildNumber = System.getenv("bamboo_buildNumber") != null ? "." + System.getenv("bamboo_buildNumber") : ""
+    }
+    return buildNumber
 }
