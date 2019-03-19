@@ -4,7 +4,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public interface IMachine {
-	public World getWorld();
+	public World getMachineWorld();
 
-	public BlockPos getPos();
+	public BlockPos getMachinePos();
 }

@@ -160,16 +160,15 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 	@Override
 	public void onTankContentsChanged(FluidTankSmart tank, TankType type, IHasInventory parent) {
 		if(tank instanceof MultiFluidTank) {
-			SteamAgeRevolution.instance.getPacketHandler()
-					.sendToAllAround(
-							new PacketMultiFluidUpdate(parent.getPos(), ((MultiFluidTank) tank).fluids,
-									TankType.getNetworkID(type)),
-							parent.getPos(), parent.getWorld().provider.getDimension());
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+					new PacketMultiFluidUpdate(parent.getMachinePos(), ((MultiFluidTank) tank).fluids,
+							TankType.getNetworkID(type)),
+					parent.getMachinePos(), parent.getMachineWorld().provider.getDimension());
 		}
 		else {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketFluidUpdate(parent.getPos(), tank.getFluid(), TankType.getNetworkID(type)),
-					parent.getPos(), parent.getWorld().provider.getDimension());
+					new PacketFluidUpdate(parent.getMachinePos(), tank.getFluid(), TankType.getNetworkID(type)),
+					parent.getMachinePos(), parent.getMachineWorld().provider.getDimension());
 			// Only steam tank is a single type
 			parent.setCurrentRecipe(null);
 			parent.setCurrentTicks(0);
