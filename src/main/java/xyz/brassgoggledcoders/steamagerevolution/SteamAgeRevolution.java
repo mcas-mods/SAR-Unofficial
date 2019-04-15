@@ -26,7 +26,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 	public static final String MODNAME = "Steam Age Revolution";
 	public static final String MODVERSION = "@VERSION@";
 	// TODO Versioned BASE Dependency
-	public static final String DEPENDENCIES = "required-after:base@[3.12.0,);before:guideapi@[1.12-2.1.4-60,)";
+	public static final String DEPENDENCIES = "required-after:base;before:guideapi@[1.12-2.1.4-60,)";
 	@Instance("steamagerevolution")
 	public static SteamAgeRevolution instance;
 	public static CreativeTabs tab = new SARTab();

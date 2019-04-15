@@ -16,9 +16,11 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.*;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -37,7 +39,17 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ILens.VanillaLens;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityDeadInventor;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemClockworkWings;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemDrill;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemEntrenchingTool;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemGoggles;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemLens;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemRocketFist;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemSteamAxe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemSteamHoe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemSteamPickaxe;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemSteamShovel;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemSteamSword;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
@@ -202,6 +214,8 @@ public class ModuleArmory extends ModuleBase {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i));
 			}
 		}
+		
+		itemRegistry.register(new ItemEntrenchingTool("entrenching_tool", ToolMaterial.IRON));
 
 		/*
 		 * itemRegistry.register(new ItemGun()); itemRegistry.register(new
