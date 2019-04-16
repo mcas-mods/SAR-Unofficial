@@ -73,6 +73,9 @@ public class ModuleArmory extends ModuleBase {
 
 	@ObjectHolder(SteamAgeRevolution.MODID + ":goggles")
 	public static final Item goggles = null;
+	
+	@ObjectHolder(SteamAgeRevolution.MODID + ":iron_drill")
+	public static final Item drill = null;
 
 	public static final HashSet<Block> KNOWN_ORES = new HashSet<Block>();
 

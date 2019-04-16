@@ -8,7 +8,13 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
 public class BlockHeavyOre extends BlockBase {
 	
@@ -16,9 +22,9 @@ public class BlockHeavyOre extends BlockBase {
 	ItemStack drop;
 
 	public BlockHeavyOre(String type) {
-		super(Material.ROCK, "heavy_ore_" + type);
+		super(Material.ROCK, "heavy_ore_" + type.toLowerCase());
 		this.setDefaultState(this.blockState.getBaseState().withProperty(CHUNKS, 8));
-		drop = OreDictUtils.getPreferredItemStack("ingot" + type);
+		drop = OreDictUtils.getPreferredItemStack("rock" + type);
 	}
 	
 	@Override
@@ -39,4 +45,23 @@ public class BlockHeavyOre extends BlockBase {
         return new BlockStateContainer(this, new IProperty[] {CHUNKS});
     }
 
+	@Override
+	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+		int chunks = state.getValue(BlockHeavyOre.CHUNKS).intValue();
+		if(!world.isRemote && chunks > 1) {
+			EntityItem itemE = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), ((BlockHeavyOre)state.getBlock()).drop);
+			world.spawnEntity(itemE);
+			world.setBlockState(pos, state.withProperty(BlockHeavyOre.CHUNKS, chunks - 1), 2);
+			return false;
+		}
+		else {
+			return super.removedByPlayer(state, world, pos, player, willHarvest);
+		}
+	}
+
+	@Override
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
+    {
+		drops.add(drop);
+    }
 }

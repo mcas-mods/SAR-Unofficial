@@ -6,7 +6,10 @@ import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 public class InventoryMachine implements ISARMachineInventory, INBTSerializable<NBTTagCompound>, ISmartTankCallback {
@@ -18,13 +21,13 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 	public InventoryPieceFluid steamTank;
 	public InventoryPieceProgressBar progressBar;
 
-	// @Deprecated
+	//@Deprecated
 	public InventoryMachine(InventoryPieceFluid fluidInput, InventoryPieceFluid fluidOutput,
 			InventoryPieceFluid steamTank) {
 		this(null, fluidInput, null, fluidOutput, steamTank);
 	}
 
-	// TODO Add option to have fluid/item IOs instead of specified inputs/outputs
+	//@Deprecated
 	public InventoryMachine(InventoryPieceItem itemInput, InventoryPieceFluid fluidInput, InventoryPieceItem itemOutput,
 			InventoryPieceFluid fluidOutput, InventoryPieceFluid steamTank) {
 		this.itemInput = itemInput;
@@ -42,6 +45,27 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 			this.steamTank.setTankType(TankType.STEAM);
 		}
 	}
+	
+//	public static class Builder {
+//		
+//		public InventoryPieceItem itemInput;
+//		public InventoryPieceFluid fluidInput;
+//		public InventoryPieceItem itemOutput;
+//		public InventoryPieceFluid fluidOutput;
+//		public InventoryPieceFluid steamTank;
+//		public InventoryPieceProgressBar progressBar;
+//		
+//		public Builder() {}
+//		
+//		public InventoryMachine build() {
+//			InventoryMachine machine =  new InventoryMachine(itemInput, fluidInput, itemOutput, fluidOutput, steamTank);
+//			if(progressBar != null) {
+//				machine.setProgressBar(progressBar);
+//			}
+//			return machine;
+//			
+//		}
+//	}
 
 	public InventoryMachine setProgressBar(InventoryPieceProgressBar bar) {
 		progressBar = bar;

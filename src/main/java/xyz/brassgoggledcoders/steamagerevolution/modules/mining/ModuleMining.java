@@ -7,21 +7,23 @@ import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.modulesystem.dependencies.IDependency;
 import com.teamacronymcoders.base.modulesystem.dependencies.ModuleDependency;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
+import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
-import net.minecraft.entity.item.EntityItem;
-import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillFrame;
 
 @Module(value = SteamAgeRevolution.MODID)
-@EventBusSubscriber(modid = SteamAgeRevolution.MODID)
+//@EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class ModuleMining extends ModuleBase {
+	
+	String[] metals = new String[] {"Iron", "Gold"};
+	String[] rocks = new String[] {"Stone"};
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -51,24 +53,19 @@ public class ModuleMining extends ModuleBase {
 	
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
-		//for(String type : ModuleMetalworking.knownMetalTypes) {
-			blockRegistry.register(new BlockHeavyOre("Iron"));
-		//}
+		for(String type : metals) {
+			blockRegistry.register(new BlockHeavyOre(type));
+		}
+		
+		blockRegistry.register(new BlockDrillFrame());
 	}
 	
-	@SubscribeEvent
-	public static void onBlockBroken(BlockEvent.BreakEvent event) {
-		if(event.getState().getBlock() instanceof BlockHeavyOre) {
-			int chunks = event.getState().getValue(BlockHeavyOre.CHUNKS).intValue();
-			if(chunks > 1) {
-				EntityItem itemE = new EntityItem(event.getWorld(), event.getPos().getX(), event.getPos().getY(), event.getPos().getZ(), ((BlockHeavyOre)event.getState().getBlock()).drop);
-				event.getWorld().spawnEntity(itemE);
-				event.getWorld().setBlockState(event.getPos(), event.getState().withProperty(BlockHeavyOre.CHUNKS, chunks - 1), 2);
-				event.setCanceled(true);
-			}
-			else {
-				//TODO
-			}
+	@Override
+	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
+		for(String type : metals) {
+			Item rock = new ItemRock(type);
+			itemRegistry.register(rock);
+			OreDictionary.registerOre("rock" + type, rock);
 		}
 	}
 
