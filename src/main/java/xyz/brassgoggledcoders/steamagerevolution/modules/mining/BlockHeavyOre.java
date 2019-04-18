@@ -20,9 +20,11 @@ public class BlockHeavyOre extends BlockBase {
 	
 	public static final PropertyInteger CHUNKS = PropertyInteger.create("chunks", 1, 8);
 	ItemStack drop;
+	public String type;
 
 	public BlockHeavyOre(String type) {
 		super(Material.ROCK, "heavy_ore_" + type.toLowerCase());
+		this.type = type;
 		this.setDefaultState(this.blockState.getBaseState().withProperty(CHUNKS, 8));
 		drop = OreDictUtils.getPreferredItemStack("rock" + type);
 	}
@@ -46,16 +48,12 @@ public class BlockHeavyOre extends BlockBase {
     }
 
 	@Override
-	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+	public void onPlayerDestroy(World world, BlockPos pos, IBlockState state) {
 		int chunks = state.getValue(BlockHeavyOre.CHUNKS).intValue();
 		if(!world.isRemote && chunks > 1) {
 			EntityItem itemE = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), ((BlockHeavyOre)state.getBlock()).drop);
 			world.spawnEntity(itemE);
 			world.setBlockState(pos, state.withProperty(BlockHeavyOre.CHUNKS, chunks - 1), 2);
-			return false;
-		}
-		else {
-			return super.removedByPlayer(state, world, pos, player, willHarvest);
 		}
 	}
 

@@ -15,6 +15,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillFrame;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillOutput;
 
 @Module(value = SteamAgeRevolution.MODID)
 //@EventBusSubscriber(modid = SteamAgeRevolution.MODID)
@@ -57,6 +58,7 @@ public class ModuleMining extends ModuleBase {
 		}
 		
 		blockRegistry.register(new BlockDrillFrame());
+		blockRegistry.register(new BlockDrillOutput());
 	}
 	
 	@Override
