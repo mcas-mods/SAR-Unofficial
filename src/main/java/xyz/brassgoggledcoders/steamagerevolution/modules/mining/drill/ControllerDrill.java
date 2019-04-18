@@ -58,7 +58,7 @@ public class ControllerDrill extends SARMultiblockInventory {
 		int yOffset = -1;
 		int slotGap = 2;
 		this.setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 40, 32), null,
-				new InventoryPieceItem(new ItemStackHandlerForceStack(9, this),
+				new InventoryPieceItem(new ItemStackHandlerSmart(9, this),
 						new int[] { xOffset + 16, xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2,
 								xOffset + 16, xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2,
 								xOffset + 16, xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2},

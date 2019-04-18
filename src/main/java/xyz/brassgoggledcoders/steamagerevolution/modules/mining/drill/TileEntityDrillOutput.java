@@ -5,21 +5,21 @@ import javax.annotation.Nullable;
 
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.items.CapabilityItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockInventoryWrapper;
+import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockOreWrapper;
 
 public class TileEntityDrillOutput extends TileEntityDrillPart {
 
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+		return capability == SARCapabilities.HEAVYORE_HOLDER || super.hasCapability(capability, facing);
 	}
 
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new MultiblockInventoryWrapper(this, true));
+		if(capability == SARCapabilities.HEAVYORE_HOLDER) {
+			return SARCapabilities.HEAVYORE_HOLDER.cast(new MultiblockOreWrapper(this));
 		}
 		return super.getCapability(capability, facing);
 	}
