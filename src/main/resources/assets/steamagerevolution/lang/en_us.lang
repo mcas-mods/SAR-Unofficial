@@ -67,10 +67,10 @@ tile.steamagerevolution.tank_window.name=Tank Window
 tile.steamagerevolution.furnace_casing.name=Steam Furnace Casing
 tile.steamagerevolution.furnace_steaminput.name=Steam Furnace Injector
 
-tile.steamagerevolution.alloy_furnace_frame.name=Alloy Furnace Frame
+tile.steamagerevolution.alloy_furnace_frame.name=Alloy Forge Frame
 tile.steamagerevolution.alloy_furnace_fluid_output.name=Alloy Forge Output
 tile.steamagerevolution.alloy_furnace_hard_frame.name=Alloy Forge Hardened Frame
-tile.steamagerevolution.alloy_furnace_fluid_input.name=Alloy Forge Fluid Input
+tile.steamagerevolution.alloy_furnace_fluid_input.name=Alloy Forge Input
 
 tile.steamagerevolution.furnace_casing.name=Steam Furnace Casing
 tile.steamagerevolution.furnace_item_input.name=Steam Furnace Item Input
