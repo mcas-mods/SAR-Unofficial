@@ -10,11 +10,9 @@ import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
-import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillFrame;
 
@@ -27,6 +25,7 @@ public class ModuleMining extends ModuleBase {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
+	
 		super.preInit(event);
 	}
 	
@@ -62,11 +61,11 @@ public class ModuleMining extends ModuleBase {
 	
 	@Override
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
-		for(String type : metals) {
-			Item rock = new ItemRock(type);
-			itemRegistry.register(rock);
-			OreDictionary.registerOre("rock" + type, rock);
-		}
+//		for(String type : metals) {
+//			Item rock = new ItemRock(type);
+//			itemRegistry.register(rock);
+//			OreDictionary.registerOre("rock" + type, rock);
+//		}
 	}
 
 }

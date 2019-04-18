@@ -8,6 +8,7 @@ import com.teamacronymcoders.base.materialsystem.*;
 import com.teamacronymcoders.base.materialsystem.materials.Material;
 import com.teamacronymcoders.base.materialsystem.materials.MaterialBuilder;
 import com.teamacronymcoders.base.materialsystem.parts.PartBuilder;
+import com.teamacronymcoders.base.materialsystem.parttype.ItemPartType;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -31,11 +32,11 @@ public class ModuleMaterials extends ModuleBase {
 	public static final Block charcoal_block = null;
 	public static final Item charcoal_powder = null;
 	public static Color brassColor = new Color(251, 194, 99);
-	String[] vanillaParts = new String[] { "ore", "plate", "dust", "molten", "crushed_ore", "solution", "crystal" };
-	String[] metalParts = new String[] { "ore", "crushed_ore", "solution", "crystal", "ingot", "nugget", "plate",
+	String[] vanillaParts = new String[] { "ore", "plate", "dust", "molten", "crushed_ore", "solution", "crystal", "ore_rock" };
+	String[] metalParts = new String[] { "ore", "crushed_ore", "ore_rock", "solution", "crystal", "ingot", "nugget", "plate",
 			"dust", "block", "molten" };
-	String[] alloyParts = Arrays.copyOfRange(metalParts, 4, metalParts.length);
-	String[] compatParts = new String[] { "crushed_ore", "solution", "crystal" };
+	String[] alloyParts = Arrays.copyOfRange(metalParts, 5, metalParts.length);
+	String[] compatParts = new String[] { "crushed_ore", "solution", "crystal", "ore_rock" };
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -45,6 +46,9 @@ public class ModuleMaterials extends ModuleBase {
 			new PartBuilder().setOwnerId(SAR.getId()).setName("Solution").setOreDictName("solution")
 					.setPartType(MaterialSystem.getPartType("fluid")).build();
 
+			new PartBuilder().setOwnerId(SAR.getId()).setName("Ore Rock").setOreDictName("rock").setPartType(MaterialSystem.getPartType("item")).setOverlay(true).build();
+
+			
 			Material iron = new MaterialBuilder().setName("Iron").setColor(Color.GRAY).setHasEffect(false).build();
 			Material gold = new MaterialBuilder().setName("Gold").setColor(Color.YELLOW).setHasEffect(false).build();
 
@@ -71,23 +75,34 @@ public class ModuleMaterials extends ModuleBase {
 
 			SAR.registerPartsForMaterial(iron, vanillaParts);
 			MaterialSystem.getMaterialPart("iron_ore").getData().addDataValue("variants", "gravel,sand");
+			//TODO Can I make this a default property of the Part?
+			MaterialSystem.getMaterialPart("iron_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME, "1");
 
 			SAR.registerPartsForMaterial(gold, vanillaParts);
 			MaterialSystem.getMaterialPart("gold_ore").getData().addDataValue("variants", "gravel,sand");
+			MaterialSystem.getMaterialPart("gold_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME, "1");
 
 			SAR.registerPartsForMaterial(copper, metalParts);
 			MaterialSystem.getMaterialPart("copper_ore").getData().addDataValue("variants", "stone,gravel,sand");
+			MaterialSystem.getMaterialPart("copper_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME, "1");
 
 			SAR.registerPartsForMaterial(zinc, metalParts);
 			MaterialSystem.getMaterialPart("zinc_ore").getData().addDataValue("variants", "stone,gravel,sand");
+			MaterialSystem.getMaterialPart("zinc_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME, "1");
 
 			SAR.registerPartsForMaterial(steel, alloyParts);
+			MaterialSystem.getMaterialPart("steel_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME, "1");
 
 			SAR.registerPartsForMaterial(brass, alloyParts);
+			MaterialSystem.getMaterialPart("brass_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME, "1");
 
+			//TODO Do this for all 'known metals'
 			SAR.registerPartsForMaterial(tin, compatParts);
+			MaterialSystem.getMaterialPart("tin_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME, "1");
 			SAR.registerPartsForMaterial(aluminum, compatParts);
+			MaterialSystem.getMaterialPart("aluminum_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME, "1");
 			SAR.registerPartsForMaterial(lead, compatParts);
+			MaterialSystem.getMaterialPart("lead_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME, "1");
 		}
 		catch(MaterialException e) {
 			e.printStackTrace();

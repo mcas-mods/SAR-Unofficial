@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "steamagerevolution:items/ore_rock",
+        "layer1": "steamagerevolution:items/ore_rock_overlay"
+    }
+}
