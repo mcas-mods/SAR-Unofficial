@@ -37,7 +37,6 @@ public class ModuleMining extends ModuleBase {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-	
 		super.preInit(event);
 	}
 	

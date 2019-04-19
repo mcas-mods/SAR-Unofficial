@@ -2,9 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
 
 import com.teamacronymcoders.base.renderer.entity.minecart.RenderMinecartBase;
 
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraftforge.fml.common.FMLLog;
 
 public class RenderMinecartOreCarrier extends RenderMinecartBase<EntityMinecartOreCarrier> {
 
@@ -14,7 +12,6 @@ public class RenderMinecartOreCarrier extends RenderMinecartBase<EntityMinecartO
 
     @Override
     protected void renderBlock(EntityMinecartOreCarrier entity, float partialTicks) {
-        FMLLog.warning("Works");
         super.renderBlock(entity, partialTicks);
     }
 }

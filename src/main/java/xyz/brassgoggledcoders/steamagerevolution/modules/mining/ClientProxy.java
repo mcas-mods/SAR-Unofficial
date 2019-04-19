@@ -11,11 +11,11 @@ public class ClientProxy  implements IModuleProxy {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
+		RenderingRegistry.registerEntityRenderingHandler(EntityMinecartOreCarrier.class, RenderMinecartOreCarrier::new);
 	}
 
 	@Override
-	public void init(FMLInitializationEvent event) {
-		RenderingRegistry.registerEntityRenderingHandler(EntityMinecartOreCarrier.class, RenderMinecartOreCarrier::new);
+	public void init(FMLInitializationEvent event) {	
 	}
 
 	@Override
