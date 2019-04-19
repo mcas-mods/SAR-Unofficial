@@ -7,24 +7,19 @@ import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.modulesystem.dependencies.IDependency;
 import com.teamacronymcoders.base.modulesystem.dependencies.ModuleDependency;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
+import com.teamacronymcoders.base.registrysystem.EntityRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.EntityEntry;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillOutput;
 
 @Module(value = SteamAgeRevolution.MODID)
-@EventBusSubscriber(modid = SteamAgeRevolution.MODID)
+//@EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class ModuleMining extends ModuleBase {
 	
 	String[] metals = new String[] {"Iron", "Gold"};
@@ -70,6 +65,8 @@ public class ModuleMining extends ModuleBase {
 		
 		blockRegistry.register(new BlockDrillFrame());
 		blockRegistry.register(new BlockDrillOutput());
+		
+		blockRegistry.register(new BlockHeavyOreLoader());
 	}
 	
 	@Override
@@ -78,11 +75,10 @@ public class ModuleMining extends ModuleBase {
 		itemRegistry.register(new ItemMinecartOreCarrier());
 	}
 	
-	@SubscribeEvent
-	public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
-        int networkID = 0;
-		EntityRegistry.registerModEntity(new ResourceLocation(SteamAgeRevolution.MODID, "heavyore_minecart"), EntityMinecartOreCarrier.class,
-				"heavyore_minecart", networkID++, SteamAgeRevolution.MODID, 64, 1, true);
+	@Override
+	public void registerEntities(ConfigRegistry configRegistry, EntityRegistry entityRegistry) {
+		super.registerEntities(configRegistry, entityRegistry);
+		entityRegistry.register(EntityMinecartOreCarrier.class);
 	}
 
 }

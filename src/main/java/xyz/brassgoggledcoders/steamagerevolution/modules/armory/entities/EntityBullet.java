@@ -10,7 +10,6 @@ public class EntityBullet extends EntityThrowable {
 
 	public EntityBullet(World worldIn) {
 		super(worldIn);
-		// TODO Auto-generated constructor stub
 	}
 
 	public EntityBullet(World worldIn, EntityPlayer playerIn) {

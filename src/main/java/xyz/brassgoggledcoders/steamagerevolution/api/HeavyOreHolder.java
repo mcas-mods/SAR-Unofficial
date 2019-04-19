@@ -38,20 +38,6 @@ public class HeavyOreHolder implements IHeavyOreHolder {
 		}
 		return false;
 	}
-	
-	public static class Storage implements IStorage<IHeavyOreHolder> {
-
-		@Override
-		public NBTBase writeNBT(Capability<IHeavyOreHolder> capability, IHeavyOreHolder instance, EnumFacing side) {
-			return instance.serializeNBT();
-		}
-
-		@Override
-		public void readNBT(Capability<IHeavyOreHolder> capability, IHeavyOreHolder instance, EnumFacing side, NBTBase nbt) {
-			instance.deserializeNBT((NBTTagCompound)nbt);
-		}
-		
-	}
 
 	@Override
 	public NBTTagCompound serializeNBT() {

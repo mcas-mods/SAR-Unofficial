@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution;
 
+import com.teamacronymcoders.base.capability.NBTCapStorage;
+
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -39,7 +41,7 @@ public class SARCapabilities {
 
 			}
 		}, FurnaceFumeProducer.class);
-		CapabilityManager.INSTANCE.register(IHeavyOreHolder.class, new HeavyOreHolder.Storage(), HeavyOreHolder::new);
+		CapabilityManager.INSTANCE.register(IHeavyOreHolder.class, new NBTCapStorage<IHeavyOreHolder>(), HeavyOreHolder::new);
 	}
 
 	@SubscribeEvent
