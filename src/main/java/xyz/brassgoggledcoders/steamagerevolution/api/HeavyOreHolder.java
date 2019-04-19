@@ -11,7 +11,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
 
-public class HeavyOreHolderImpl implements IHeavyOreHolder {
+public class HeavyOreHolder implements IHeavyOreHolder {
 	
 	public HashMap<String, Integer> oreLevels = Maps.newHashMap();
 
@@ -28,11 +28,6 @@ public class HeavyOreHolderImpl implements IHeavyOreHolder {
 	@Override
 	public void setOreLevel(String oreName, Integer oreLevel) {
 		oreLevels.put(oreName, oreLevel);
-	}
-	
-	@Override
-	public HashMap<String, Integer> getMap() {
-		return oreLevels;
 	}
 	
 	public boolean transfer(IHeavyOreHolder to) {

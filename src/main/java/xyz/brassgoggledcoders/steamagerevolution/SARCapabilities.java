@@ -13,7 +13,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xyz.brassgoggledcoders.steamagerevolution.api.FurnaceFumeProducer;
-import xyz.brassgoggledcoders.steamagerevolution.api.HeavyOreHolderImpl;
+import xyz.brassgoggledcoders.steamagerevolution.api.HeavyOreHolder;
 import xyz.brassgoggledcoders.steamagerevolution.api.IFumeProducer;
 import xyz.brassgoggledcoders.steamagerevolution.api.IHeavyOreHolder;
 
@@ -39,7 +39,7 @@ public class SARCapabilities {
 
 			}
 		}, FurnaceFumeProducer.class);
-		CapabilityManager.INSTANCE.register(IHeavyOreHolder.class, new HeavyOreHolderImpl.Storage(), HeavyOreHolderImpl::new);
+		CapabilityManager.INSTANCE.register(IHeavyOreHolder.class, new HeavyOreHolder.Storage(), HeavyOreHolder::new);
 	}
 
 	@SubscribeEvent

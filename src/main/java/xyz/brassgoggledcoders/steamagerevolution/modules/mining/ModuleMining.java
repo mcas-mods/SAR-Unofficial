@@ -10,19 +10,30 @@ import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.EntityEntry;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillOutput;
 
 @Module(value = SteamAgeRevolution.MODID)
-//@EventBusSubscriber(modid = SteamAgeRevolution.MODID)
+@EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class ModuleMining extends ModuleBase {
 	
 	String[] metals = new String[] {"Iron", "Gold"};
 	String[] rocks = new String[] {"Stone"};
+	
+	@Override
+	public String getClientProxyPath() {
+		return "xyz.brassgoggledcoders.steamagerevolution.modules.mining.ClientProxy";
+	}
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -53,6 +64,7 @@ public class ModuleMining extends ModuleBase {
 	
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
+		super.registerBlocks(configRegistry, blockRegistry);
 		for(String type : metals) {
 			blockRegistry.register(new BlockHeavyOre(type));
 		}
@@ -63,11 +75,15 @@ public class ModuleMining extends ModuleBase {
 	
 	@Override
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
-//		for(String type : metals) {
-//			Item rock = new ItemRock(type);
-//			itemRegistry.register(rock);
-//			OreDictionary.registerOre("rock" + type, rock);
-//		}
+		super.registerItems(configRegistry, itemRegistry);
+		itemRegistry.register(new ItemMinecartOreCarrier());
+	}
+	
+	@SubscribeEvent
+	public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
+        int networkID = 0;
+		EntityRegistry.registerModEntity(new ResourceLocation(SteamAgeRevolution.MODID, "heavyore_minecart"), EntityMinecartOreCarrier.class,
+				"heavyore_minecart", networkID++, SteamAgeRevolution.MODID, 64, 1, true);
 	}
 
 }

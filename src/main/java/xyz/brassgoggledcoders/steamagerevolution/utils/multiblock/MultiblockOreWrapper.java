@@ -39,14 +39,6 @@ public class MultiblockOreWrapper implements IHeavyOreHolder {
 			tile.getMultiblockController().oreLevels.put(oreName, oreLevel);
 		}
 	}
-
-	@Override
-	public HashMap<String, Integer> getMap() {
-		if(tile.isConnected()) {
-			return tile.getMultiblockController().oreLevels;
-		}
-		return null;
-	}
 	
 	@Override
 	public NBTTagCompound serializeNBT() {

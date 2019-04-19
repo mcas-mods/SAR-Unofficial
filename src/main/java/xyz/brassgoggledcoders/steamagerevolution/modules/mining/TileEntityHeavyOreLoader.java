@@ -15,7 +15,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.capabilities.Capability;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
-import xyz.brassgoggledcoders.steamagerevolution.api.HeavyOreHolderImpl;
+import xyz.brassgoggledcoders.steamagerevolution.api.HeavyOreHolder;
 import xyz.brassgoggledcoders.steamagerevolution.api.IHeavyOreHolder;
 
 public class TileEntityHeavyOreLoader extends TileEntitySidedBase<IHeavyOreHolder> implements ITickable {
@@ -24,7 +24,7 @@ public class TileEntityHeavyOreLoader extends TileEntitySidedBase<IHeavyOreHolde
     private IHeavyOreHolder buffer;
     
     public TileEntityHeavyOreLoader() {
-    	buffer = new HeavyOreHolderImpl();
+    	buffer = new HeavyOreHolder();
     }
 
     @Override
@@ -83,7 +83,7 @@ public class TileEntityHeavyOreLoader extends TileEntitySidedBase<IHeavyOreHolde
     }
 
     private boolean transfer(IHeavyOreHolder internalCapability, IHeavyOreHolder otherCapability) {
-		return ((HeavyOreHolderImpl)internalCapability).transfer(otherCapability);
+		return ((HeavyOreHolder)internalCapability).transfer(otherCapability);
 	}
 
 	private boolean tryTransferToTile(SideType sideType, EnumFacing facing) {
