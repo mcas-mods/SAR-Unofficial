@@ -2,20 +2,17 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
-import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -41,7 +38,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerDrill extends SARMultiblockInventory {
+public class ControllerDrill extends SARMultiblockInventory<InventoryOreHolder> {
 
 	private static final String name = "[" +
 			SteamAgeRevolution.MODNAME + "]";
@@ -184,7 +181,6 @@ public class ControllerDrill extends SARMultiblockInventory {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		// TODO Auto-generated method stub
 		return new GuiDrill(entityPlayer, this);
 	}
 

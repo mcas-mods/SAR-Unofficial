@@ -19,9 +19,9 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeMachineHelper;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
-public abstract class SARMultiblockInventory extends SARMultiblockBase implements ISmartStackCallback, IHasInventory {
+public abstract class SARMultiblockInventory<I extends InventoryMachine> extends SARMultiblockBase implements ISmartStackCallback, IHasInventory<I> {
 
-	public InventoryMachine inventory;
+	public I inventory;
 	@SideOnly(Side.CLIENT)
 	public int currentMaxTicks;
 	protected int currentTicks = 0;
@@ -127,12 +127,12 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase implement
 	}
 
 	@Override
-	public InventoryMachine getInventory() {
+	public I getInventory() {
 		return inventory;
 	}
 
 	@Override
-	public void setInventory(InventoryMachine inventory) {
+	public void setInventory(I inventory) {
 		this.inventory = inventory;
 	}
 

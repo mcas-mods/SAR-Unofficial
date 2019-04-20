@@ -17,7 +17,7 @@ public class MultiblockOreWrapper implements IHeavyOreHolder {
 	@Override
 	public int getOreAmount(String oreName) {
 		if(tile.isConnected()) {
-			return tile.getMultiblockController().oreLevels.get(oreName);
+			return tile.getMultiblockController().getInventory().ore.getOreHolder().getOreAmount(oreName);
 		}
 		else {
 			return 0;
@@ -27,7 +27,7 @@ public class MultiblockOreWrapper implements IHeavyOreHolder {
 	@Override
 	public boolean hasOre(String oreName) {
 		if(tile.isConnected()) {
-			return tile.getMultiblockController().oreLevels.containsKey(oreName);
+			return tile.getMultiblockController().getInventory().ore.getOreHolder().hasOre(oreName);
 		}
 		return false;
 	}
@@ -35,31 +35,22 @@ public class MultiblockOreWrapper implements IHeavyOreHolder {
 	@Override
 	public void setOreAmount(String oreName, Integer oreLevel) {
 		if(tile.isConnected()) {
-			tile.getMultiblockController().oreLevels.put(oreName, oreLevel);
+			tile.getMultiblockController().getInventory().ore.getOreHolder().setOreAmount(oreName, oreLevel);
 		}
 	}
 	
 	@Override
 	public NBTTagCompound serializeNBT() {
-	
 		if(tile.isConnected()) {
-		NBTTagCompound data = new NBTTagCompound();
-		data.setInteger("size", tile.getMultiblockController().oreLevels.size());
-		int i = 0;
-		for(Entry<String, Integer> entry : tile.getMultiblockController().oreLevels.entrySet()) {
-			data.setString("ore" + i, entry.getKey());
-			data.setInteger("oreValue" + i, entry.getValue());
-			i++;
-		}
-		return data;
+			return tile.getMultiblockController().getInventory().ore.getOreHolder().serializeNBT();
 		}
 		return new NBTTagCompound();
 	}
 
 	@Override
 	public void deserializeNBT(NBTTagCompound tag) {
-			for(int i = 0; i < tag.getInteger("size"); i++) {
-				setOreAmount(tag.getString("ore" + i), tag.getInteger("oreValue" + i));
+		if(tile.isConnected()) {
+			tile.getMultiblockController().getInventory().ore.getOreHolder().deserializeNBT(tag);
 		}
 	}
 
