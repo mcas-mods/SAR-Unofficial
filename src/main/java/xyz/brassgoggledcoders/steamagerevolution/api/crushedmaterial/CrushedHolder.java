@@ -2,6 +2,8 @@ package xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public class CrushedHolder implements ICrushedHolder {
 	
 	@Nullable
@@ -33,8 +35,8 @@ public class CrushedHolder implements ICrushedHolder {
 
 	@Override
 	public boolean fill(CrushedStack stackIn) {
-		if(stackIn.material == this.stack.material && stackIn.amount <= (this.getHolderCapacity() - this.getAmount())) {
-			this.stack.amount += stackIn.amount;
+		if((this.stack == null || stackIn.getMaterial() == this.stack.getMaterial()) && stackIn.amount <= (this.getHolderCapacity() - this.getAmount())) {
+			this.stack = new CrushedStack(stackIn.material, this.getAmount() + stackIn.amount);
 			return true;
 		}
 		return false;
@@ -42,7 +44,7 @@ public class CrushedHolder implements ICrushedHolder {
 
 	@Override
 	public boolean drain(ICrushedMaterial material, int toDrain) {
-		if(material == this.stack.material && this.stack.amount >= toDrain) {
+		if(this.stack != null && material == this.stack.getMaterial() && this.stack.amount >= toDrain) {
 			this.stack.amount -= toDrain;
 			if(stack.amount <= 0) {
 				stack = null;
@@ -50,6 +52,11 @@ public class CrushedHolder implements ICrushedHolder {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void setInternal(CrushedStack toSet) {
+		this.stack = toSet;
 	}
 
 }

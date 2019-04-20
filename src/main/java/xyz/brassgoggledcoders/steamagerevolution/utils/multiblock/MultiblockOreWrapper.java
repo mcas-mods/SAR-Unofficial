@@ -1,7 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
-import java.util.Map.Entry;
-
 import net.minecraft.nbt.NBTTagCompound;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHolder;
@@ -35,7 +33,7 @@ public class MultiblockOreWrapper implements ICrushedHandler {
 		if(tile.isConnected()) {
 			tile.getMultiblockController().getInventory().ore.getHandler().getHolders();
 		}
-		return null;
+		return new ICrushedHolder[0];
 	}
 
 }

@@ -14,7 +14,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
 @SideOnly(Side.CLIENT)
 public class GuiDrill extends GuiInventory {
 	
-	public GuiDrill(EntityPlayer player, IHasInventory holder) {
+	public GuiDrill(EntityPlayer player, IHasInventory<InventoryOreHolder> holder) {
 		super(player, holder);
 	}
 
@@ -22,9 +22,9 @@ public class GuiDrill extends GuiInventory {
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		InventoryPieceOre inventoryPiece = ((InventoryOreHolder) holder.getInventory()).ore;
-		ICrushedHandler oreHolder = inventoryPiece.getHandler();
-		for(int i = 0; i < 3; i++) {
-			this.drawCenteredString(fontRenderer, "Here", inventoryPiece.getX(i), inventoryPiece.getY(i), Color.BLACK.getRGB());
+		ICrushedHandler oreHandler = inventoryPiece.getHandler();
+		if(oreHandler.getHolders() != null && oreHandler.getHolders().length > 0 && oreHandler.getHolders()[0].getCrushed() != null) {
+			this.drawCenteredString(fontRenderer, oreHandler.getHolders()[0].getCrushed().getMaterial().getTranslationKey(), inventoryPiece.getX(0), inventoryPiece.getY(0), Color.BLACK.getRGB());
 		}
 	}
 }

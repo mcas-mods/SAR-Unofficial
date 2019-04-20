@@ -18,13 +18,13 @@ public class InventoryOreHolder extends InventoryMachine {
 	@Override
 	public NBTTagCompound serializeNBT() {
 		NBTTagCompound tag = super.serializeNBT();
-		tag.setTag("oreInventory", ore.holder.serializeNBT());
+		tag.setTag("ore", ore.handler.serializeNBT());
 		return tag;
 	}
 
 	@Override
 	public void deserializeNBT(NBTTagCompound tag) {
-		ore.holder.deserializeNBT(tag.getCompoundTag("oreInventory"));
 		super.deserializeNBT(tag);
+		ore.handler.deserializeNBT(tag.getCompoundTag("ore"));
 	}
 }

@@ -29,6 +29,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHolder;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedStack;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryOreHolder;
@@ -63,7 +64,7 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryOreHolder> 
 						new int[] { yOffset + 16, yOffset + 16, yOffset + 16,
 								yOffset + 32 + slotGap, yOffset + 32 + slotGap, yOffset + 32 + slotGap,
 								yOffset + 48 + slotGap * 2, yOffset + 48 + slotGap * 2, yOffset + 48 + slotGap * 2}),
-				new InventoryPieceOre(new CrushedHandler(), new int[] { 10, 10, 10 }, new int[] { 50, 60, 70 }),
+				new InventoryPieceOre(new CrushedHandler(new CrushedHolder(null, 30)), 100, 50),
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 13, 9)));
 	}
 
@@ -92,7 +93,7 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryOreHolder> 
 				if (!WORLD.isAirBlock(pos) && state.getBlockHardness(WORLD, pos) >= 0 && WORLD.getTileEntity(pos) == null && allowedToBreak(state, WORLD, pos, fakePlayer.get())) {
 					if(state.getBlock() instanceof BlockHeavyOre) {
 						BlockHeavyOre ore = (BlockHeavyOre) state.getBlock();
-						ICrushedHandler oreHolder = ((InventoryOreHolder)this.getInventory()).ore.getHandler();
+						ICrushedHandler oreHolder = this.getInventory().ore.getHandler();
 						//if(!oreHolder.hasOre(ore.type)) {
 						//	oreHolder.setOreAmount(ore.type, 0);
 						//}

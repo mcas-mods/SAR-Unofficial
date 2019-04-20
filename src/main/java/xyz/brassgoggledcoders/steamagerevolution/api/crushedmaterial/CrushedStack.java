@@ -17,14 +17,20 @@ public class CrushedStack implements INBTSerializable<NBTTagCompound> {
 	@Override
 	public NBTTagCompound serializeNBT() {
 		NBTTagCompound tag = new NBTTagCompound();
-		tag.setString("name", material.getRegistryName().toString());
+		tag.setString("name", getMaterial().getRegistryName().toString());
 		tag.setInteger("amount", amount);
-		return null;
+		return tag;
 	}
 
 	@Override
 	public void deserializeNBT(NBTTagCompound nbt) {
-		this.material = SteamAgeRevolution.materialRegistry.getEntry(new ResourceLocation(nbt.getString("name")));
-		this.amount = nbt.getInteger("amount");
+		if(!nbt.isEmpty()) {
+			this.material = SteamAgeRevolution.materialRegistry.getEntry(new ResourceLocation(nbt.getString("name")));
+			this.amount = nbt.getInteger("amount");
+		}
+	}
+
+	public ICrushedMaterial getMaterial() {
+		return material;
 	}
 }

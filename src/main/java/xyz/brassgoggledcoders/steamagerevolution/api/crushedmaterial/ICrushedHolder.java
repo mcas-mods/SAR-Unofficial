@@ -13,4 +13,7 @@ public interface ICrushedHolder {
 	boolean fill(CrushedStack material);
 	
 	boolean drain(ICrushedMaterial type, int toDrain);
+	
+	@Deprecated
+	void setInternal(CrushedStack toSet);
 }

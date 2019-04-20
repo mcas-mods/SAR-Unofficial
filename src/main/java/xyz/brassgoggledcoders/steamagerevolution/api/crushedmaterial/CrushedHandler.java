@@ -13,18 +13,30 @@ public class CrushedHandler implements ICrushedHandler {
 	@Override
 	public NBTTagCompound serializeNBT() {
 		NBTTagCompound data = new NBTTagCompound();
-		data.setInteger("size", holders.length);
 		int i = 0;
 		for(ICrushedHolder holder : holders) {
-			data.setTag(Integer.toString(i), holder.getCrushed().serializeNBT());
+			if(holder.getCrushed() != null) {
+				data.setTag(Integer.toString(i), holder.getCrushed().serializeNBT());
+			}
+			else {
+				data.setTag(Integer.toString(i), new NBTTagCompound());
+			}
+			i++;
 		}
+		data.setInteger("size", i);
 		return data;
 	}
 
 	@Override
 	public void deserializeNBT(NBTTagCompound tag) {
 		for(int i = 0; i < tag.getInteger("size"); i++) {
-			holders[i].getCrushed().deserializeNBT((NBTTagCompound) tag.getTag(Integer.toString(i)));
+			NBTTagCompound subTag = (NBTTagCompound) tag.getTag(Integer.toString(i));
+			if(!subTag.isEmpty()) {
+				//TODO
+				CrushedStack stack = new CrushedStack(null, 0);
+				stack.deserializeNBT(subTag);
+				holders[i].setInternal(stack);
+			}
 		}
 	}
 
