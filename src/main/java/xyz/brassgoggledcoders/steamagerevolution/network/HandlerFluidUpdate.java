@@ -5,7 +5,9 @@ import com.teamacronymcoders.base.multiblock.MultiblockTileEntityBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.fml.common.network.simpleimpl.*;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
 
 public class HandlerFluidUpdate implements IMessageHandler<PacketFluidUpdate, IMessage> {

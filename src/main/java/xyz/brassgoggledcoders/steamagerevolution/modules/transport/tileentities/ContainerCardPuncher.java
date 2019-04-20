@@ -6,7 +6,10 @@ import com.teamacronymcoders.base.containers.ContainerBase;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.*;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.SlotItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.transport.ItemPunchcard;
 
 public class ContainerCardPuncher extends ContainerBase {

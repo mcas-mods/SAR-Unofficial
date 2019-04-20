@@ -3,7 +3,9 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.storage;
 import com.teamacronymcoders.base.modulesystem.proxies.IModuleProxy;
 
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.MultiblockTankRenderer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.multiblock.tank.tileentities.TileEntityTankCasing;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.renderers.TileEntityFluidIORenderer;

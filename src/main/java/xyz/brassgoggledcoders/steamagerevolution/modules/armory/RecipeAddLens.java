@@ -1,7 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.*;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;

@@ -2,14 +2,12 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.mojang.authlib.GameProfile;
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 
@@ -32,11 +30,14 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.api.HeavyOreHolder;
+import xyz.brassgoggledcoders.steamagerevolution.api.IHeavyOreHolder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.BlockHeavyOre;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryOreHolder;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryPieceOre;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceItem;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
@@ -49,15 +50,13 @@ public class ControllerDrill extends SARMultiblockInventory {
 	ArrayList<BlockPos> positions = Lists.newArrayList();
 	int currentPosition = 0;
 	
-	public HashMap<String, Integer> oreLevels = Maps.newHashMap();
-
 	protected ControllerDrill(World world) {
 		super(world);
 		// TODO Util methods for positioning x/y grids of slots would be handy
 		int xOffset = 84;
 		int yOffset = -1;
 		int slotGap = 2;
-		this.setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 40, 32), null,
+		this.setInventory(new InventoryOreHolder(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 40, 32),
 				new InventoryPieceItem(new ItemStackHandlerSmart(9, this),
 						new int[] { xOffset + 16, xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2,
 								xOffset + 16, xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2,
@@ -65,7 +64,7 @@ public class ControllerDrill extends SARMultiblockInventory {
 						new int[] { yOffset + 16, yOffset + 16, yOffset + 16,
 								yOffset + 32 + slotGap, yOffset + 32 + slotGap, yOffset + 32 + slotGap,
 								yOffset + 48 + slotGap * 2, yOffset + 48 + slotGap * 2, yOffset + 48 + slotGap * 2}),
-				null,
+				new InventoryPieceOre(new HeavyOreHolder(), new int[] { 10, 10, 10 }, new int[] { 50, 60, 70 }),
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 13, 9)));
 	}
 
@@ -94,10 +93,11 @@ public class ControllerDrill extends SARMultiblockInventory {
 				if (!WORLD.isAirBlock(pos) && state.getBlockHardness(WORLD, pos) >= 0 && WORLD.getTileEntity(pos) == null && allowedToBreak(state, WORLD, pos, fakePlayer.get())) {
 					if(state.getBlock() instanceof BlockHeavyOre) {
 						BlockHeavyOre ore = (BlockHeavyOre) state.getBlock();
-						if(!oreLevels.containsKey(ore.type)) {
-							oreLevels.put(ore.type, 0);
+						IHeavyOreHolder oreHolder = ((InventoryOreHolder)this.getInventory()).ore.getOreHolder();
+						if(!oreHolder.hasOre(ore.type)) {
+							oreHolder.setOreAmount(ore.type, 0);
 						}
-						oreLevels.put(ore.type, oreLevels.get(ore.type) + 1);
+						oreHolder.setOreAmount(ore.type, oreHolder.getOreAmount(ore.type) + 1);
 						int chunks = state.getValue(BlockHeavyOre.CHUNKS).intValue();
 						if(chunks > 1) {
 							WORLD.setBlockState(pos, state.withProperty(BlockHeavyOre.CHUNKS, chunks - 1), 2);
@@ -128,27 +128,6 @@ public class ControllerDrill extends SARMultiblockInventory {
 			this.currentTicks++;
 		}
 		return true;
-	}
-	
-	@Override
-	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		oreLevels.clear();
-		for(int i = 0; i < data.getInteger("size"); i++) {
-			oreLevels.put(data.getString("ore" + i), data.getInteger("oreValue" + i));
-		}
-		super.onAttachedPartWithMultiblockData(part, data);
-	}
-
-	@Override
-	public void writeToDisk(NBTTagCompound data) {
-		data.setInteger("size", oreLevels.size());
-		int i = 0;
-		for(Entry<String, Integer> entry : oreLevels.entrySet()) {
-			data.setString("ore" + i, entry.getKey());
-			data.setInteger("oreValue" + i, entry.getValue());
-			i++;
-		}
-		super.writeToDisk(data);
 	}
 	
 	public static boolean allowedToBreak(IBlockState state, World world, BlockPos pos, EntityPlayer entityPlayer) {

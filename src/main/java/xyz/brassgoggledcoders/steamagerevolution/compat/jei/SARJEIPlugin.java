@@ -2,13 +2,24 @@ package xyz.brassgoggledcoders.steamagerevolution.compat.jei;
 
 import java.util.Collection;
 
-import mezz.jei.api.*;
+import mezz.jei.api.IJeiHelpers;
+import mezz.jei.api.IModPlugin;
+import mezz.jei.api.IModRegistry;
+import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.gui.ITooltipCallback;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.*;
+import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.AlloyForgeRecipeCategory;
+import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.CastingBlockRecipeCategory;
+import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.CrucibleRecipeCategory;
+import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.DistillerRecipeCategory;
+import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.FumeCollectorRecipeCategory;
+import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.SARRecipeCategory;
+import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.SteamFurnaceRecipeCategory;
+import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.SteamHammerRecipeCategory;
+import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.VatRecipeCategory;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeRegistry;
 

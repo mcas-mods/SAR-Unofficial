@@ -1,6 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
-import java.util.HashMap;
 import java.util.Map.Entry;
 
 import net.minecraft.nbt.NBTTagCompound;
@@ -34,7 +33,7 @@ public class MultiblockOreWrapper implements IHeavyOreHolder {
 	}
 
 	@Override
-	public void setOreLevel(String oreName, Integer oreLevel) {
+	public void setOreAmount(String oreName, Integer oreLevel) {
 		if(tile.isConnected()) {
 			tile.getMultiblockController().oreLevels.put(oreName, oreLevel);
 		}
@@ -60,7 +59,7 @@ public class MultiblockOreWrapper implements IHeavyOreHolder {
 	@Override
 	public void deserializeNBT(NBTTagCompound tag) {
 			for(int i = 0; i < tag.getInteger("size"); i++) {
-				setOreLevel(tag.getString("ore" + i), tag.getInteger("oreValue" + i));
+				setOreAmount(tag.getString("ore" + i), tag.getInteger("oreValue" + i));
 		}
 	}
 

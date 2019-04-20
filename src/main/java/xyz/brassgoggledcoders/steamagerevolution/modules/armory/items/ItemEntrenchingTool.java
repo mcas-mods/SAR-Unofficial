@@ -6,9 +6,7 @@ import com.teamacronymcoders.base.items.tools.IAreaBreakingTool;
 import com.teamacronymcoders.base.items.tools.ItemShovelBase;
 import com.teamacronymcoders.base.util.TinkersUtils;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;

@@ -1,7 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
 
 import java.awt.Color;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

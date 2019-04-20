@@ -3,7 +3,9 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking;
 import com.teamacronymcoders.base.modulesystem.proxies.IModuleProxy;
 
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.tileentities.TileEntitySteamHammerAnvil;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.tileentities.TileEntitySteamHammerAnvilRenderer;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.tileentities.TileEntityCastingBench;

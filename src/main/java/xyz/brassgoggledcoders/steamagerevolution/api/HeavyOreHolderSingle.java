@@ -1,10 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.api;
 
-import java.util.HashMap;
-import java.util.Map.Entry;
-
-import com.google.common.collect.Maps;
-
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -27,14 +22,14 @@ public class HeavyOreHolderSingle implements IHeavyOreHolder {
 	}
 
 	@Override
-	public void setOreLevel(String oreName, Integer oreLevel) {
+	public void setOreAmount(String oreName, Integer oreLevel) {
 		this.oreName = oreName;
 		this.oreLevel = oreLevel;
 	}
 	
 	public boolean transfer(IHeavyOreHolder to) {
-		to.setOreLevel(oreName, to.getOreAmount(oreName) + 1);
-		this.setOreLevel(oreName, oreLevel - 1);
+		to.setOreAmount(oreName, to.getOreAmount(oreName) + 1);
+		this.setOreAmount(oreName, oreLevel - 1);
 		return true;
 	}
 	
@@ -62,7 +57,7 @@ public class HeavyOreHolderSingle implements IHeavyOreHolder {
 
 	@Override
 	public void deserializeNBT(NBTTagCompound tag) {
-		setOreLevel(tag.getString("ore"), tag.getInteger("oreValue"));
+		setOreAmount(tag.getString("ore"), tag.getInteger("oreValue"));
 	}
 
 }

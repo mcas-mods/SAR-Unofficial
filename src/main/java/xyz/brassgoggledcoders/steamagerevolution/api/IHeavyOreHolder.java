@@ -8,5 +8,5 @@ public interface IHeavyOreHolder extends INBTSerializable<NBTTagCompound> {
 	
 	public boolean hasOre(String oreName);
 	
-	public void setOreLevel(String oreName, Integer oreLevel);
+	public void setOreAmount(String oreName, Integer oreLevel);
 }

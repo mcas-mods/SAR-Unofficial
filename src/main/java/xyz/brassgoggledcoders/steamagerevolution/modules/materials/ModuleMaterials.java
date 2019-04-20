@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.util.Arrays;
 
 import com.teamacronymcoders.base.items.ItemBase;
-import com.teamacronymcoders.base.materialsystem.*;
+import com.teamacronymcoders.base.materialsystem.MaterialException;
+import com.teamacronymcoders.base.materialsystem.MaterialSystem;
+import com.teamacronymcoders.base.materialsystem.MaterialUser;
 import com.teamacronymcoders.base.materialsystem.materials.Material;
 import com.teamacronymcoders.base.materialsystem.materials.MaterialBuilder;
 import com.teamacronymcoders.base.materialsystem.parts.PartBuilder;

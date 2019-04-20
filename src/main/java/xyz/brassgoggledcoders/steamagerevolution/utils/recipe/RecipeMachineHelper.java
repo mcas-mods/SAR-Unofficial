@@ -1,6 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 import org.apache.commons.lang3.ArrayUtils;

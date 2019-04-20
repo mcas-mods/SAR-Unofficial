@@ -10,16 +10,22 @@ import com.teamacronymcoders.base.items.ItemBase;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.GunPartRegistry;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IGunPart;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IGunPart.GunPartType;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IMechanism;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IMechanism.ActionType;
 
 public class ItemGun extends ItemBase {

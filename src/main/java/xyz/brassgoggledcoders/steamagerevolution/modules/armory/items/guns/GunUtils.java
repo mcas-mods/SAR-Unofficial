@@ -9,8 +9,12 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IAmmo.AmmoType;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.GunPartRegistry;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IBarrel;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IChamber;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IGunPart;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IGunPart.GunPartType;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IStock;
 
 public class GunUtils {
 	public static ItemStack findAmmo(EntityPlayer player, ItemStack gunStack, AmmoType type) {

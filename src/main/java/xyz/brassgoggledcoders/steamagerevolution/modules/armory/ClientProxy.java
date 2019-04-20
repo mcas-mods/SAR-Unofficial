@@ -3,7 +3,9 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 import com.teamacronymcoders.base.modulesystem.proxies.IModuleProxy;
 
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemLens;
 
 public class ClientProxy implements IModuleProxy {
