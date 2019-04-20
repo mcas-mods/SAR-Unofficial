@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -17,7 +17,10 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.api.HeavyOreHolderSingle;
+import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHolder;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.GuiOreMinecart;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartOreCarrier;
 
 public class EntityMinecartOreCarrier extends EntityMinecartBase implements IHasGui {
 
@@ -37,7 +40,7 @@ public class EntityMinecartOreCarrier extends EntityMinecartBase implements IHas
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == SARCapabilities.HEAVYORE_HOLDER) {
-			return SARCapabilities.HEAVYORE_HOLDER.cast(new HeavyOreHolderSingle());
+			return SARCapabilities.HEAVYORE_HOLDER.cast(new CrushedHandler(new CrushedHolder(null, 100)));
 		}
 		return super.getCapability(capability, facing);
 	}

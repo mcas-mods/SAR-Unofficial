@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartOreCarrier;
 
 @SideOnly(Side.CLIENT)
 public class GuiOreMinecart extends GuiInventory {
@@ -21,6 +22,6 @@ public class GuiOreMinecart extends GuiInventory {
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.drawCenteredString(this.fontRenderer, "Amount: "+ this.cart.getCapability(SARCapabilities.HEAVYORE_HOLDER, null).getOreAmount("Gold"), 50, 50, Color.BLACK.getRGB()); 
+		this.drawCenteredString(this.fontRenderer, "Amount: "+ this.cart.getCapability(SARCapabilities.HEAVYORE_HOLDER, null).getHolders()[0].getAmount(), 50, 50, Color.BLACK.getRGB()); 
 	}
 }

@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks;
 
 import com.teamacronymcoders.base.blocks.BlockSidedBase;
 
@@ -6,10 +6,11 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.TileEntityHeavyOreLoader;
 
 public class BlockHeavyOreLoader extends BlockSidedBase<TileEntityHeavyOreLoader> {
 
-	protected BlockHeavyOreLoader() {
+	public BlockHeavyOreLoader() {
 		super(Material.IRON, "heavyore_loader");
 	}
 

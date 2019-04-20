@@ -15,16 +15,16 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.capabilities.Capability;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
-import xyz.brassgoggledcoders.steamagerevolution.api.HeavyOreHolder;
-import xyz.brassgoggledcoders.steamagerevolution.api.IHeavyOreHolder;
+import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
 
-public class TileEntityHeavyOreLoader extends TileEntitySidedBase<IHeavyOreHolder> implements ITickable {
+public class TileEntityHeavyOreLoader extends TileEntitySidedBase<ICrushedHandler> implements ITickable {
     int updateTest = -1;
     
-    private IHeavyOreHolder buffer;
+    private ICrushedHandler buffer;
     
     public TileEntityHeavyOreLoader() {
-    	buffer = new HeavyOreHolder();
+    	buffer = new CrushedHandler();
     }
 
     @Override
@@ -72,7 +72,7 @@ public class TileEntityHeavyOreLoader extends TileEntitySidedBase<IHeavyOreHolde
         return false;
     }
 
-    private boolean transfer(SideType sideType, IHeavyOreHolder otherCapability) {
+    private boolean transfer(SideType sideType, ICrushedHandler otherCapability) {
         if (sideType == SideType.INPUT) {
             return transfer(otherCapability, this.getInternalCapability());
         } else if (sideType == SideType.OUTPUT) {
@@ -82,8 +82,9 @@ public class TileEntityHeavyOreLoader extends TileEntitySidedBase<IHeavyOreHolde
         }
     }
 
-    private boolean transfer(IHeavyOreHolder internalCapability, IHeavyOreHolder otherCapability) {
-		return ((HeavyOreHolder)internalCapability).transfer(otherCapability);
+    private boolean transfer(ICrushedHandler internalCapability, ICrushedHandler otherCapability) {
+		return false;
+    	//return ((CrushedHandler)internalCapability).transfer(otherCapability);
 	}
 
 	private boolean tryTransferToTile(SideType sideType, EnumFacing facing) {
@@ -105,22 +106,22 @@ public class TileEntityHeavyOreLoader extends TileEntitySidedBase<IHeavyOreHolde
     }
 
     @Override
-    public Capability<IHeavyOreHolder> getCapabilityType() { 
+    public Capability<ICrushedHandler> getCapabilityType() { 
         return SARCapabilities.HEAVYORE_HOLDER;
     }
 
     @Override
-    public IHeavyOreHolder getInternalCapability() {
+    public ICrushedHandler getInternalCapability() {
         return buffer;
     }
 
     @Override
-    public IHeavyOreHolder getOutputCapability() {
+    public ICrushedHandler getOutputCapability() {
         return buffer;
     }
 
     @Override
-    public IHeavyOreHolder getInputCapability() {
+    public ICrushedHandler getInputCapability() {
         return buffer;
     }
 }

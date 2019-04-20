@@ -3,46 +3,22 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 import java.util.Map.Entry;
 
 import net.minecraft.nbt.NBTTagCompound;
-import xyz.brassgoggledcoders.steamagerevolution.api.IHeavyOreHolder;
+import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHolder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.ControllerDrill;
 
-public class MultiblockOreWrapper implements IHeavyOreHolder {
+public class MultiblockOreWrapper implements ICrushedHandler {
 
 	final SARMultiblockTileBase<ControllerDrill> tile;
 
 	public MultiblockOreWrapper(SARMultiblockTileBase<ControllerDrill> tile) {
 		this.tile = tile;
 	}
-
-	@Override
-	public int getOreAmount(String oreName) {
-		if(tile.isConnected()) {
-			return tile.getMultiblockController().getInventory().ore.getOreHolder().getOreAmount(oreName);
-		}
-		else {
-			return 0;
-		}
-	}
-
-	@Override
-	public boolean hasOre(String oreName) {
-		if(tile.isConnected()) {
-			return tile.getMultiblockController().getInventory().ore.getOreHolder().hasOre(oreName);
-		}
-		return false;
-	}
-
-	@Override
-	public void setOreAmount(String oreName, Integer oreLevel) {
-		if(tile.isConnected()) {
-			tile.getMultiblockController().getInventory().ore.getOreHolder().setOreAmount(oreName, oreLevel);
-		}
-	}
 	
 	@Override
 	public NBTTagCompound serializeNBT() {
 		if(tile.isConnected()) {
-			return tile.getMultiblockController().getInventory().ore.getOreHolder().serializeNBT();
+			return tile.getMultiblockController().getInventory().ore.getHandler().serializeNBT();
 		}
 		return new NBTTagCompound();
 	}
@@ -50,8 +26,16 @@ public class MultiblockOreWrapper implements IHeavyOreHolder {
 	@Override
 	public void deserializeNBT(NBTTagCompound tag) {
 		if(tile.isConnected()) {
-			tile.getMultiblockController().getInventory().ore.getOreHolder().deserializeNBT(tag);
+			tile.getMultiblockController().getInventory().ore.getHandler().deserializeNBT(tag);
 		}
+	}
+
+	@Override
+	public ICrushedHolder[] getHolders() {
+		if(tile.isConnected()) {
+			tile.getMultiblockController().getInventory().ore.getHandler().getHolders();
+		}
+		return null;
 	}
 
 }

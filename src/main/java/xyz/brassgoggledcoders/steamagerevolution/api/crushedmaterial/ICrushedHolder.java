@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.api;
+package xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial;
 
 import javax.annotation.Nullable;
 

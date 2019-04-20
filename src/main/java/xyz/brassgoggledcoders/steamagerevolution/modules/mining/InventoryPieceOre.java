@@ -1,22 +1,22 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
 
-import xyz.brassgoggledcoders.steamagerevolution.api.IHeavyOreHolder;
+import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece;
 
 public class InventoryPieceOre extends InventoryPiece {
 	
-	IHeavyOreHolder holder;
+	ICrushedHandler holder;
 
-	public InventoryPieceOre(IHeavyOreHolder holder, int xPos, int yPos) {
+	public InventoryPieceOre(ICrushedHandler holder, int xPos, int yPos) {
 		this(holder, new int[] {xPos}, new int[] {yPos});
 	}
 	
-	public InventoryPieceOre(IHeavyOreHolder holder, int[] xPos, int[] yPos) {
+	public InventoryPieceOre(ICrushedHandler holder, int[] xPos, int[] yPos) {
 		super(xPos, yPos);
 		this.holder = holder;
 	}
 	
-	public IHeavyOreHolder getOreHolder() {
+	public ICrushedHandler getHandler() {
 		return holder;
 	}
 

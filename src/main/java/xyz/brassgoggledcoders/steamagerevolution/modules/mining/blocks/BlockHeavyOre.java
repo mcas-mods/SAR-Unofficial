@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks;
 
 import com.teamacronymcoders.base.blocks.BlockBase;
 import com.teamacronymcoders.base.util.OreDictUtils;

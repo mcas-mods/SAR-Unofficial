@@ -14,6 +14,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -27,11 +28,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.api.HeavyOreHolder;
-import xyz.brassgoggledcoders.steamagerevolution.api.IHeavyOreHolder;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.BlockHeavyOre;
+import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedStack;
+import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryOreHolder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryPieceOre;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOre;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
@@ -61,7 +63,7 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryOreHolder> 
 						new int[] { yOffset + 16, yOffset + 16, yOffset + 16,
 								yOffset + 32 + slotGap, yOffset + 32 + slotGap, yOffset + 32 + slotGap,
 								yOffset + 48 + slotGap * 2, yOffset + 48 + slotGap * 2, yOffset + 48 + slotGap * 2}),
-				new InventoryPieceOre(new HeavyOreHolder(), new int[] { 10, 10, 10 }, new int[] { 50, 60, 70 }),
+				new InventoryPieceOre(new CrushedHandler(), new int[] { 10, 10, 10 }, new int[] { 50, 60, 70 }),
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 13, 9)));
 	}
 
@@ -90,11 +92,12 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryOreHolder> 
 				if (!WORLD.isAirBlock(pos) && state.getBlockHardness(WORLD, pos) >= 0 && WORLD.getTileEntity(pos) == null && allowedToBreak(state, WORLD, pos, fakePlayer.get())) {
 					if(state.getBlock() instanceof BlockHeavyOre) {
 						BlockHeavyOre ore = (BlockHeavyOre) state.getBlock();
-						IHeavyOreHolder oreHolder = ((InventoryOreHolder)this.getInventory()).ore.getOreHolder();
-						if(!oreHolder.hasOre(ore.type)) {
-							oreHolder.setOreAmount(ore.type, 0);
-						}
-						oreHolder.setOreAmount(ore.type, oreHolder.getOreAmount(ore.type) + 1);
+						ICrushedHandler oreHolder = ((InventoryOreHolder)this.getInventory()).ore.getHandler();
+						//if(!oreHolder.hasOre(ore.type)) {
+						//	oreHolder.setOreAmount(ore.type, 0);
+						//}
+						//oreHolder.setOreAmount(ore.type, oreHolder.getOreAmount(ore.type) + 1);
+						oreHolder.getHolders()[0].fill(new CrushedStack(SteamAgeRevolution.materialRegistry.getEntry(new ResourceLocation(ore.getRegistryName().getNamespace(), ore.type)), 1));
 						int chunks = state.getValue(BlockHeavyOre.CHUNKS).intValue();
 						if(chunks > 1) {
 							WORLD.setBlockState(pos, state.withProperty(BlockHeavyOre.CHUNKS, chunks - 1), 2);

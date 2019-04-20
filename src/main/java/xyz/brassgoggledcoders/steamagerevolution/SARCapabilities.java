@@ -15,16 +15,16 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xyz.brassgoggledcoders.steamagerevolution.api.FurnaceFumeProducer;
-import xyz.brassgoggledcoders.steamagerevolution.api.HeavyOreHolder;
 import xyz.brassgoggledcoders.steamagerevolution.api.IFumeProducer;
-import xyz.brassgoggledcoders.steamagerevolution.api.IHeavyOreHolder;
+import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
 
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class SARCapabilities {
 	@CapabilityInject(IFumeProducer.class)
 	public static Capability<IFumeProducer> FUME_PRODUCER;
-	@CapabilityInject(IHeavyOreHolder.class)
-	public static Capability<IHeavyOreHolder> HEAVYORE_HOLDER;
+	@CapabilityInject(ICrushedHandler.class)
+	public static Capability<ICrushedHandler> HEAVYORE_HOLDER;
 
 	@SuppressWarnings("deprecation")
 	public static void register() {
@@ -41,7 +41,7 @@ public class SARCapabilities {
 
 			}
 		}, FurnaceFumeProducer.class);
-		CapabilityManager.INSTANCE.register(IHeavyOreHolder.class, new NBTCapStorage<IHeavyOreHolder>(), HeavyOreHolder::new);
+		CapabilityManager.INSTANCE.register(ICrushedHandler.class, new NBTCapStorage<ICrushedHandler>(), CrushedHandler::new);
 	}
 
 	@SubscribeEvent
