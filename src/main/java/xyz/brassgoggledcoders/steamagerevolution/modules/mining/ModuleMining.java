@@ -44,7 +44,6 @@ public class ModuleMining extends ModuleBase {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
-		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerCrushedCartSync.class, PacketCrushedCartSync.class, Side.SERVER);
 	}
 	
 	@Override

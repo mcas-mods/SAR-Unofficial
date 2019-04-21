@@ -76,6 +76,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 		//		Side.SERVER);
 		//SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerGunCraft.class, PacketGunCraft.class,
 		//		Side.SERVER);
+		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerCrushedCartSync.class, PacketCrushedCartSync.class, Side.CLIENT);
 		SARCapabilities.register();
 		MinecraftForge.EVENT_BUS.post(new CrushedMaterialRegistryEvent(materialRegistry, CrushedMaterialRegistry.class));
 	}

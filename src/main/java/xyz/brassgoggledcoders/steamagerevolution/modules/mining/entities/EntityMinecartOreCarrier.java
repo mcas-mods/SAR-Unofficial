@@ -37,7 +37,7 @@ public class EntityMinecartOreCarrier extends EntityMinecartBase implements IHas
 	
 	public EntityMinecartOreCarrier(World world) {
 		super(world);
-		this.setInventory(new InventoryCrushed(new InventoryPieceCrushed(new CrushedHandlerCart(this, new CrushedHolder(15)), 0, 0)));
+		this.setInventory(new InventoryCrushed(new InventoryPieceCrushed(new CrushedHandlerCart(this, new CrushedHolder(15)), 83, 16)));
 	}
 	
 	@Override
@@ -68,13 +68,8 @@ public class EntityMinecartOreCarrier extends EntityMinecartBase implements IHas
     
     @Override
     public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
-        if (player.isSneaking()) {
-        	GuiOpener.openEntityGui(SteamAgeRevolution.instance, this, player, world);
-        	return true;
-        }
-        else {
-        	return super.processInitialInteract(player, hand);
-        }
+        GuiOpener.openEntityGui(SteamAgeRevolution.instance, this, player, world);
+        return super.processInitialInteract(player, hand);
     }
 
 	@Override
