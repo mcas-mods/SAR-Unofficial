@@ -7,7 +7,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public class CrushedStack implements INBTSerializable<NBTTagCompound> {
 	ICrushedMaterial material;
-	int amount;
+	public int amount;
 	
 	public CrushedStack(ICrushedMaterial material, int amount) {
 		this.material = material;

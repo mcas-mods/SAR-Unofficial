@@ -20,7 +20,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHolder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.GuiCrushed;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryCrushed;
@@ -38,7 +37,7 @@ public class EntityMinecartOreCarrier extends EntityMinecartBase implements IHas
 	
 	public EntityMinecartOreCarrier(World world) {
 		super(world);
-		this.setInventory(new InventoryCrushed(new InventoryPieceCrushed(new CrushedHandler(new CrushedHolder(15)), 0, 0)));
+		this.setInventory(new InventoryCrushed(new InventoryPieceCrushed(new CrushedHandlerCart(this, new CrushedHolder(15)), 0, 0)));
 	}
 	
 	@Override

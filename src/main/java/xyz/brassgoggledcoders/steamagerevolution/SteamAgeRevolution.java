@@ -23,11 +23,13 @@ import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedMate
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedMaterialRegistry.CrushedMaterialRegistryEvent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerCardPunch;
+import xyz.brassgoggledcoders.steamagerevolution.network.HandlerCrushedCartSync;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerGunCraft;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerItemUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketCardPunch;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketCrushedCartSync;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketGunCraft;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
@@ -70,10 +72,10 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 				PacketMultiFluidUpdate.class, Side.CLIENT);
 		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerItemUpdate.class, PacketItemUpdate.class,
 				Side.CLIENT);
-		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerCardPunch.class, PacketCardPunch.class,
-				Side.SERVER);
-		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerGunCraft.class, PacketGunCraft.class,
-				Side.SERVER);
+		//SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerCardPunch.class, PacketCardPunch.class,
+		//		Side.SERVER);
+		//SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerGunCraft.class, PacketGunCraft.class,
+		//		Side.SERVER);
 		SARCapabilities.register();
 		MinecraftForge.EVENT_BUS.post(new CrushedMaterialRegistryEvent(materialRegistry, CrushedMaterialRegistry.class));
 	}

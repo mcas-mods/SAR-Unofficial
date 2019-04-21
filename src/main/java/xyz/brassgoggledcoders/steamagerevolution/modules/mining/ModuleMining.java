@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedMaterial;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedMaterialRegistry;
@@ -26,6 +27,8 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrill
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartOreCarrier;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartOreCarrier;
+import xyz.brassgoggledcoders.steamagerevolution.network.HandlerCrushedCartSync;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketCrushedCartSync;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
@@ -41,6 +44,7 @@ public class ModuleMining extends ModuleBase {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
+		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerCrushedCartSync.class, PacketCrushedCartSync.class, Side.SERVER);
 	}
 	
 	@Override

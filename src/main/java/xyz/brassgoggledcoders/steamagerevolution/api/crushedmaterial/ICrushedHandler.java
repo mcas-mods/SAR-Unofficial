@@ -10,4 +10,8 @@ public interface ICrushedHandler extends INBTSerializable<NBTTagCompound> {
 	boolean fill(CrushedStack material);
 	
 	boolean drain(ICrushedMaterial type, int toDrain);
+	
+	default void onContentsChanged() {
+		
+	}
 }

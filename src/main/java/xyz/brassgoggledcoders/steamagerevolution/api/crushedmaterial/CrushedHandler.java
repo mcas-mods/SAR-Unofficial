@@ -4,7 +4,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class CrushedHandler implements ICrushedHandler {
 	
-	ICrushedHolder[] holders;
+	protected ICrushedHolder[] holders;
 	
 	public CrushedHandler(ICrushedHolder... holders) {
 		this.holders = holders;
@@ -51,6 +51,7 @@ public class CrushedHandler implements ICrushedHandler {
 			if(holder.getCrushed() == null || stackIn.material == holder.getCrushed().getMaterial()) {
 				if(stackIn.amount <= (holder.getHolderCapacity() - holder.getAmount())) {
 					holder.fill(stackIn);
+					this.onContentsChanged();
 					return true;
 				}
 			}
@@ -63,6 +64,7 @@ public class CrushedHandler implements ICrushedHandler {
 		for(ICrushedHolder holder : holders) {
 			if(holder.getCrushed() != null && material == holder.getCrushed().getMaterial() && holder.getCrushed().amount >= toDrain) {
 				holder.drain(material, toDrain);
+				this.onContentsChanged();
 				return true;
 			}
 		}

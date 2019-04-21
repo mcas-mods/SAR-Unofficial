@@ -2,9 +2,10 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "all": "steamagerevolution:blocks/drill_frame"
+      "pane": "steamagerevolution:blocks/fume_collector_bottom",
+      "edge": "steamagerevolution:blocks/fume_collector_bottom"
     },
-    "model": "cube_all",
+    "model": "pane_side",
     "uvlock": true,
     "transform": "forge:default-block"
   },
