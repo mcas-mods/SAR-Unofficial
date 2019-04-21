@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.teamacronymcoders.base.entities.EntityMinecartBase;
+import com.teamacronymcoders.base.guisystem.GuiOpener;
 import com.teamacronymcoders.base.guisystem.IHasGui;
 
 import net.minecraft.client.gui.Gui;
@@ -11,9 +12,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemMinecart;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
@@ -26,6 +31,8 @@ public class EntityMinecartOreCarrier extends EntityMinecartBase implements IHas
 
 	@ObjectHolder(SteamAgeRevolution.MODID + ":minecart_ore_carrier")
 	private static ItemMinecartOreCarrier itemMinecartOreCarrier;
+	
+	CrushedHandler handler = new CrushedHandler(new CrushedHolder(15));
 	
 	public EntityMinecartOreCarrier(World world) {
 		super(world);
@@ -40,10 +47,21 @@ public class EntityMinecartOreCarrier extends EntityMinecartBase implements IHas
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == SARCapabilities.CRUSHED_HANDLER) {
-			return SARCapabilities.CRUSHED_HANDLER.cast(new CrushedHandler(new CrushedHolder(null, 100)));
+			return SARCapabilities.CRUSHED_HANDLER.cast(handler);
 		}
 		return super.getCapability(capability, facing);
 	}
+	
+    @Override
+    public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+        if (player.isSneaking()) {
+        	GuiOpener.openEntityGui(SteamAgeRevolution.instance, this, player, world);
+        	return true;
+        }
+        else {
+        	return super.processInitialInteract(player, hand);
+        }
+    }
 
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {

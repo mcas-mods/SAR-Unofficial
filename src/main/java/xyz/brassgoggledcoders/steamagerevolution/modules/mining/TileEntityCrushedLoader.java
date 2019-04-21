@@ -20,10 +20,13 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHolder;
+import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedStack;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedMaterial;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
@@ -90,9 +93,14 @@ public class TileEntityCrushedLoader extends TileEntitySidedBase<ICrushedHandler
         }
     }
 
-    private boolean transfer(ICrushedHandler internalCapability, ICrushedHandler otherCapability) {
-		return false;
-    	//return ((CrushedHandler)internalCapability).transfer(otherCapability);
+    private boolean transfer(ICrushedHandler from, ICrushedHandler to) {
+    	if(from.getHolders().length > 0 && from.getHolders()[0].getCrushed() != null) {
+			ICrushedMaterial material = from.getHolders()[0].getCrushed().getMaterial();
+			int amount = from.getHolders()[0].getAmount();
+			from.drain(material, amount);
+			to.fill(new CrushedStack(material, amount));
+		}
+    	return false;
 	}
 
 	private boolean tryTransferToTile(SideType sideType, EnumFacing facing) {

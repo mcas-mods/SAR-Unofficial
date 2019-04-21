@@ -34,7 +34,6 @@ public class BlockCrushedLoader extends BlockSidedBase<TileEntityCrushedLoader> 
 	protected boolean handleAdditionalTileActions(World worldIn, TileEntityCrushedLoader tileEntity, EntityPlayer playerIn, EnumHand hand, ItemStack currentItem) {
 		BlockPos pos = tileEntity.getPos();
 		if(!playerIn.isSneaking()) {
-			FMLLog.warning("" + tileEntity.getInventory().ore.getHandler().getHolders()[0].getAmount());
 			GuiOpener.openTileEntityGui(getMod(), playerIn, worldIn, pos);
 			return true;
 		}
