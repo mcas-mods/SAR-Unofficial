@@ -23,7 +23,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.
 @SideOnly(Side.CLIENT)
 public class GuiInventory extends GuiContainer {
 	protected final IHasInventory holder;
-	private ResourceLocation guiTexture;
+	protected ResourceLocation guiTexture;
 
 	public GuiInventory(EntityPlayer player, IHasInventory holder) {
 		super(new ContainerInventory(player, holder));

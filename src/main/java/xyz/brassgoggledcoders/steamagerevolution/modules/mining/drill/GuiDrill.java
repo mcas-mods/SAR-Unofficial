@@ -1,8 +1,11 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill;
 
-import java.awt.Color;
+import java.util.List;
+
+import com.google.common.collect.Lists;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
@@ -23,8 +26,34 @@ public class GuiDrill extends GuiInventory {
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		InventoryPieceOre inventoryPiece = ((InventoryOreHolder) holder.getInventory()).ore;
 		ICrushedHandler oreHandler = inventoryPiece.getHandler();
-		if(oreHandler.getHolders() != null && oreHandler.getHolders().length > 0 && oreHandler.getHolders()[0].getCrushed() != null) {
-			this.drawCenteredString(fontRenderer, oreHandler.getHolders()[0].getCrushed().getMaterial().getTranslationKey(), inventoryPiece.getX(0), inventoryPiece.getY(0), Color.BLACK.getRGB());
+		if(oreHandler.getHolders()[0].getCrushed() != null) {
+		if(isPointInRegion(inventoryPiece.getX(0), inventoryPiece.getY(0),
+				8, 55, mouseX, mouseY)) {
+			if(oreHandler.getHolders()[0] != null) {
+				List<String> tooltip = Lists.newArrayList();
+				int capacity = oreHandler.getHolders()[0].getHolderCapacity();
+				if(oreHandler.getHolders()[0].getAmount() > 0) {
+					tooltip.add(oreHandler.getHolders()[0].getAmount() + "/" + capacity);
+					tooltip.add(oreHandler.getHolders()[0].getCrushed().getMaterial().getTranslationKey());
+				}
+				else {
+					// TODO Localization
+					tooltip.add("Empty");
+				}
+				this.drawHoveringText(tooltip, mouseX, mouseY, fontRenderer);
+			}
+		}
+		}
+	}	
+
+	@Override
+	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+		InventoryPieceOre inventoryPiece = ((InventoryOreHolder) holder.getInventory()).ore;
+		ICrushedHandler oreHandler = inventoryPiece.getHandler();
+		if(oreHandler.getHolders()[0].getCrushed() != null) {
+			mc.renderEngine.bindTexture(guiTexture);
+			this.drawTexturedModalRect(guiLeft + inventoryPiece.getX(0), guiTop + inventoryPiece.getY(0), 176, 100, 8, 55);
 		}
 	}
 }

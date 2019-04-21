@@ -53,8 +53,8 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryOreHolder> 
 	protected ControllerDrill(World world) {
 		super(world);
 		// TODO Util methods for positioning x/y grids of slots would be handy
-		int xOffset = 84;
-		int yOffset = -1;
+		int xOffset = 49;
+		int yOffset = 1;
 		int slotGap = 2;
 		this.setInventory(new InventoryOreHolder(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 40, 32),
 				new InventoryPieceItem(new ItemStackHandlerSmart(9, this),
@@ -64,7 +64,7 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryOreHolder> 
 						new int[] { yOffset + 16, yOffset + 16, yOffset + 16,
 								yOffset + 32 + slotGap, yOffset + 32 + slotGap, yOffset + 32 + slotGap,
 								yOffset + 48 + slotGap * 2, yOffset + 48 + slotGap * 2, yOffset + 48 + slotGap * 2}),
-				new InventoryPieceOre(new CrushedHandler(new CrushedHolder(null, 30)), 100, 50),
+				new InventoryPieceOre(new CrushedHandler(new CrushedHolder(null, 30)), 126, 15),
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 13, 9)));
 	}
 
@@ -87,18 +87,14 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryOreHolder> 
 		if (this.getCurrentProgress() >= 20) {
 			if (currentPosition < positions.size()) {
 				BlockPos pos = positions.get(currentPosition);
-				// FMLLog.warning(WORLD.getBlockState(position).getBlock().getLocalizedName());
 				//Skip air, skip unbreakable blocks, skip tile entities and skip blocks that are otherwise unharvestable
 				IBlockState state = WORLD.getBlockState(pos);
 				if (!WORLD.isAirBlock(pos) && state.getBlockHardness(WORLD, pos) >= 0 && WORLD.getTileEntity(pos) == null && allowedToBreak(state, WORLD, pos, fakePlayer.get())) {
 					if(state.getBlock() instanceof BlockHeavyOre) {
 						BlockHeavyOre ore = (BlockHeavyOre) state.getBlock();
 						ICrushedHandler oreHolder = this.getInventory().ore.getHandler();
-						//if(!oreHolder.hasOre(ore.type)) {
-						//	oreHolder.setOreAmount(ore.type, 0);
-						//}
-						//oreHolder.setOreAmount(ore.type, oreHolder.getOreAmount(ore.type) + 1);
 						oreHolder.getHolders()[0].fill(new CrushedStack(SteamAgeRevolution.materialRegistry.getEntry(new ResourceLocation(ore.getRegistryName().getNamespace(), ore.type)), 1));
+						this.markReferenceCoordForUpdate();
 						int chunks = state.getValue(BlockHeavyOre.CHUNKS).intValue();
 						if(chunks > 1) {
 							WORLD.setBlockState(pos, state.withProperty(BlockHeavyOre.CHUNKS, chunks - 1), 2);
@@ -115,7 +111,6 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryOreHolder> 
 							ItemHandlerHelper.insertItemStacked(this.getInventory().getOutputHandler(), drop, false);
 						}
 						WORLD.destroyBlock(pos, false);
-						//WORLD.getBlockState(pos).getBlock().onPlayerDestroy(WORLD, pos, state);
 						ForgeEventFactory.fireBlockHarvesting(drops, WORLD, pos, state, 0, 0, false, fakePlayer.get());
 					}
 					SteamAgeRevolution.instance.getLogger().devInfo("Mining " + pos.toString());

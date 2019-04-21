@@ -14,7 +14,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerCrucible extends SARMultiblockInventory {
+public class ControllerCrucible extends SARMultiblockInventory<InventoryMachine> {
 
 	BlockPos minimumInteriorPos;
 	BlockPos maximumInteriorPos;
