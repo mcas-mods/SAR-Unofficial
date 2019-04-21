@@ -44,13 +44,12 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockI
 
 public class ControllerDrill extends SARMultiblockInventory<InventoryCrushed> {
 
-	private static final String name = "[" +
-			SteamAgeRevolution.MODNAME + "]";
+	private static final String name = "[" + SteamAgeRevolution.MODNAME + "]";
 	private static final GameProfile profile = new GameProfile(UUID.nameUUIDFromBytes(name.getBytes()), name);
 
 	ArrayList<BlockPos> positions = Lists.newArrayList();
 	int currentPosition = 0;
-	
+
 	protected ControllerDrill(World world) {
 		super(world);
 		// TODO Util methods for positioning x/y grids of slots would be handy
@@ -59,12 +58,12 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryCrushed> {
 		int slotGap = 2;
 		this.setInventory(new InventoryCrushed(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 40, 32),
 				new InventoryPieceItem(new ItemStackHandlerSmart(9, this),
-						new int[] { xOffset + 16, xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2,
-								xOffset + 16, xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2,
-								xOffset + 16, xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2},
-						new int[] { yOffset + 16, yOffset + 16, yOffset + 16,
-								yOffset + 32 + slotGap, yOffset + 32 + slotGap, yOffset + 32 + slotGap,
-								yOffset + 48 + slotGap * 2, yOffset + 48 + slotGap * 2, yOffset + 48 + slotGap * 2}),
+						new int[] { xOffset + 16, xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2, xOffset + 16,
+								xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2, xOffset + 16,
+								xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2 },
+						new int[] { yOffset + 16, yOffset + 16, yOffset + 16, yOffset + 32 + slotGap,
+								yOffset + 32 + slotGap, yOffset + 32 + slotGap, yOffset + 48 + slotGap * 2,
+								yOffset + 48 + slotGap * 2, yOffset + 48 + slotGap * 2 }),
 				new InventoryPieceCrushed(new CrushedHandler(new CrushedHolder(null, 30)), 126, 15),
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 13, 9)));
 	}
@@ -83,32 +82,33 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryCrushed> {
 
 	@Override
 	protected boolean updateServer() {
-		WeakReference<FakePlayer> fakePlayer = new
-		WeakReference<FakePlayer>(FakePlayerFactory.get((WorldServer) WORLD, profile));
+		WeakReference<FakePlayer> fakePlayer = new WeakReference<FakePlayer>(
+				FakePlayerFactory.get((WorldServer) WORLD, profile));
 		if (this.getCurrentProgress() >= 20) {
 			if (currentPosition < positions.size()) {
 				BlockPos pos = positions.get(currentPosition);
-				//Skip air, skip unbreakable blocks, skip tile entities and skip blocks that are otherwise unharvestable
+				// Skip air, skip unbreakable blocks, skip tile entities and skip blocks that
+				// are otherwise unharvestable
 				IBlockState state = WORLD.getBlockState(pos);
-				if (!WORLD.isAirBlock(pos) && state.getBlockHardness(WORLD, pos) >= 0 && WORLD.getTileEntity(pos) == null && allowedToBreak(state, WORLD, pos, fakePlayer.get())) {
-					if(state.getBlock() instanceof BlockHeavyOre) {
+				if (!WORLD.isAirBlock(pos) && state.getBlockHardness(WORLD, pos) >= 0
+						&& WORLD.getTileEntity(pos) == null && allowedToBreak(state, WORLD, pos, fakePlayer.get())) {
+					if (state.getBlock() instanceof BlockHeavyOre) {
 						BlockHeavyOre ore = (BlockHeavyOre) state.getBlock();
 						ICrushedHandler oreHolder = this.getInventory().ore.getHandler();
-						oreHolder.getHolders()[0].fill(new CrushedStack(SteamAgeRevolution.materialRegistry.getEntry(new ResourceLocation(ore.getRegistryName().getNamespace(), ore.type)), 1));
+						oreHolder.getHolders()[0].fill(new CrushedStack(SteamAgeRevolution.materialRegistry
+								.getEntry(new ResourceLocation(ore.getRegistryName().getNamespace(), ore.type)), 1));
 						this.markReferenceCoordForUpdate();
 						int chunks = state.getValue(BlockHeavyOre.CHUNKS).intValue();
-						if(chunks > 1) {
+						if (chunks > 1) {
 							WORLD.setBlockState(pos, state.withProperty(BlockHeavyOre.CHUNKS, chunks - 1), 2);
-							
-						}
-						else {
+
+						} else {
 							WORLD.destroyBlock(pos, false);
 						}
-					}
-					else { 
+					} else {
 						NonNullList<ItemStack> drops = NonNullList.create();
 						state.getBlock().getDrops(drops, WORLD, pos, state, 0);
-						for(ItemStack drop : drops) {
+						for (ItemStack drop : drops) {
 							ItemHandlerHelper.insertItemStacked(this.getInventory().getOutputHandler(), drop, false);
 						}
 						WORLD.destroyBlock(pos, false);
@@ -126,14 +126,14 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryCrushed> {
 		}
 		return true;
 	}
-	
+
 	public static boolean allowedToBreak(IBlockState state, World world, BlockPos pos, EntityPlayer entityPlayer) {
-        if (!state.getBlock().canEntityDestroy(state, world, pos, entityPlayer)) {
-            return false;
-        }
-        BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(world, pos, state, entityPlayer);
-        MinecraftForge.EVENT_BUS.post(event);
-        return !event.isCanceled();
+		if (!state.getBlock().canEntityDestroy(state, world, pos, entityPlayer)) {
+			return false;
+		}
+		BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(world, pos, state, entityPlayer);
+		MinecraftForge.EVENT_BUS.post(event);
+		return !event.isCanceled();
 	}
 
 	@Override
@@ -176,7 +176,6 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryCrushed> {
 	public int getMinimumZSize() {
 		return 4;
 	}
-	
 
 	@SideOnly(Side.CLIENT)
 	@Override

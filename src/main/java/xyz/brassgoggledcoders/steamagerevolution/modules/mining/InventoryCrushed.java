@@ -8,13 +8,13 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.
 public class InventoryCrushed extends InventoryMachine {
 
 	public InventoryPieceCrushed ore;
-	
+
 	public InventoryCrushed(InventoryPieceCrushed ore) {
 		this(null, null, ore, null);
 	}
-	
-	public InventoryCrushed(InventoryPieceItem itemInput,
-			InventoryPieceItem itemOutput, InventoryPieceCrushed ore, InventoryPieceFluid steamTank) {
+
+	public InventoryCrushed(InventoryPieceItem itemInput, InventoryPieceItem itemOutput, InventoryPieceCrushed ore,
+			InventoryPieceFluid steamTank) {
 		super(itemInput, null, itemOutput, null, steamTank);
 		this.ore = ore;
 	}

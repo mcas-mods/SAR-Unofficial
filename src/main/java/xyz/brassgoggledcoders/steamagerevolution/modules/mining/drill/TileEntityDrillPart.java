@@ -27,15 +27,17 @@ public abstract class TileEntityDrillPart extends SARMultiblockTileInventory<Con
 	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
 		return true;
 	}
-	
+
 	@Override
 	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
 		return true;
 	}
+
 	@Override
 	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
 		return true;
 	}
+
 	@Override
 	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
 		return true;

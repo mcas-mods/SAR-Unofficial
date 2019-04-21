@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
 public class BlockDrillOutput extends BlockMultiblockBase<TileEntityDrillFrame> {
-	
+
 	public BlockDrillOutput() {
 		super(Material.IRON, "drill_output");
 	}

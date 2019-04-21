@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartOreCarrier;
 
-public class ClientProxy  implements IModuleProxy {
+public class ClientProxy implements IModuleProxy {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -17,7 +17,7 @@ public class ClientProxy  implements IModuleProxy {
 	}
 
 	@Override
-	public void init(FMLInitializationEvent event) {	
+	public void init(FMLInitializationEvent event) {
 	}
 
 	@Override

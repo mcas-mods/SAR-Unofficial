@@ -22,7 +22,7 @@ public class TileEntityDrillOutput extends TileEntityDrillPart implements ITicka
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if(capability == SARCapabilities.CRUSHED_HANDLER) {
+		if (capability == SARCapabilities.CRUSHED_HANDLER) {
 			return SARCapabilities.CRUSHED_HANDLER.cast(new MultiblockOreWrapper(this));
 		}
 		return super.getCapability(capability, facing);
@@ -31,12 +31,15 @@ public class TileEntityDrillOutput extends TileEntityDrillPart implements ITicka
 	@Override
 	public void update() {
 		TileEntity tileEntity = this.getWorld().getTileEntity(getPos().down());
-		if(this.isConnected() && tileEntity != null && tileEntity.hasCapability(SARCapabilities.CRUSHED_HANDLER, EnumFacing.UP)) {
-			if(this.getMultiblockController().inventory.ore.getHandler().getHolders()[0].getCrushed() != null) {
-				ICrushedMaterial material = this.getMultiblockController().inventory.ore.getHandler().getHolders()[0].getCrushed().getMaterial();
+		if (this.isConnected() && tileEntity != null
+				&& tileEntity.hasCapability(SARCapabilities.CRUSHED_HANDLER, EnumFacing.UP)) {
+			if (this.getMultiblockController().inventory.ore.getHandler().getHolders()[0].getCrushed() != null) {
+				ICrushedMaterial material = this.getMultiblockController().inventory.ore.getHandler().getHolders()[0]
+						.getCrushed().getMaterial();
 				int amount = this.getMultiblockController().inventory.ore.getHandler().getHolders()[0].getAmount();
 				this.getMultiblockController().inventory.ore.getHandler().drain(material, amount);
-				tileEntity.getCapability(SARCapabilities.CRUSHED_HANDLER, EnumFacing.UP).fill(new CrushedStack(material, amount));
+				tileEntity.getCapability(SARCapabilities.CRUSHED_HANDLER, EnumFacing.UP)
+						.fill(new CrushedStack(material, amount));
 			}
 		}
 	}

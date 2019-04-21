@@ -32,14 +32,15 @@ public class EntityMinecartOreCarrier extends EntityMinecartBase implements IHas
 
 	@ObjectHolder(SteamAgeRevolution.MODID + ":minecart_ore_carrier")
 	private static ItemMinecartOreCarrier itemMinecartOreCarrier;
-	
+
 	InventoryCrushed inventory;
-	
+
 	public EntityMinecartOreCarrier(World world) {
 		super(world);
-		this.setInventory(new InventoryCrushed(new InventoryPieceCrushed(new CrushedHandlerCart(this, new CrushedHolder(15)), 83, 16)));
+		this.setInventory(new InventoryCrushed(
+				new InventoryPieceCrushed(new CrushedHandlerCart(this, new CrushedHolder(15)), 83, 16)));
 	}
-	
+
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
 		return capability == SARCapabilities.CRUSHED_HANDLER || super.hasCapability(capability, facing);
@@ -48,29 +49,29 @@ public class EntityMinecartOreCarrier extends EntityMinecartBase implements IHas
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if(capability == SARCapabilities.CRUSHED_HANDLER) {
+		if (capability == SARCapabilities.CRUSHED_HANDLER) {
 			return SARCapabilities.CRUSHED_HANDLER.cast(inventory.ore.getHandler());
 		}
 		return super.getCapability(capability, facing);
 	}
-	
-    @Override
-    protected void readEntityFromNBT(NBTTagCompound compound) {
-        super.readEntityFromNBT(compound);
-        this.inventory.deserializeNBT(compound.getCompoundTag("inventory"));
-    }
 
-    @Override
-    protected void writeEntityToNBT(@Nonnull NBTTagCompound compound) {
-        super.writeEntityToNBT(compound);
-        compound.setTag("inventory", this.inventory.serializeNBT());
-    }
-    
-    @Override
-    public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
-        GuiOpener.openEntityGui(SteamAgeRevolution.instance, this, player, world);
-        return super.processInitialInteract(player, hand);
-    }
+	@Override
+	protected void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		this.inventory.deserializeNBT(compound.getCompoundTag("inventory"));
+	}
+
+	@Override
+	protected void writeEntityToNBT(@Nonnull NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setTag("inventory", this.inventory.serializeNBT());
+	}
+
+	@Override
+	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+		GuiOpener.openEntityGui(SteamAgeRevolution.instance, this, player, world);
+		return super.processInitialInteract(player, hand);
+	}
 
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
@@ -107,7 +108,7 @@ public class EntityMinecartOreCarrier extends EntityMinecartBase implements IHas
 	@Override
 	public void setCurrentRecipe(SARMachineRecipe recipe) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -125,7 +126,7 @@ public class EntityMinecartOreCarrier extends EntityMinecartBase implements IHas
 	@Override
 	public void setCurrentTicks(int ticks) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

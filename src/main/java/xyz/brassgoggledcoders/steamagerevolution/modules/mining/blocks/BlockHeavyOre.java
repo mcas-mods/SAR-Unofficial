@@ -16,7 +16,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockHeavyOre extends BlockBase {
-	
+
 	public static final PropertyInteger CHUNKS = PropertyInteger.create("chunks", 1, 8);
 	ItemStack drop;
 	public String type;
@@ -27,38 +27,36 @@ public class BlockHeavyOre extends BlockBase {
 		this.setDefaultState(this.blockState.getBaseState().withProperty(CHUNKS, 8));
 		drop = OreDictUtils.getPreferredItemStack("rock" + type);
 	}
-	
-	@Override
-	public IBlockState getStateFromMeta(int meta)
-    {
-        return this.getDefaultState().withProperty(CHUNKS, meta + 1);
-    }
-	
-	@Override
-	public int getMetaFromState(IBlockState state)
-    {
-        return state.getValue(CHUNKS).intValue() - 1;
-    }
 
 	@Override
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {CHUNKS});
-    }
+	public IBlockState getStateFromMeta(int meta) {
+		return this.getDefaultState().withProperty(CHUNKS, meta + 1);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(CHUNKS).intValue() - 1;
+	}
+
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] { CHUNKS });
+	}
 
 	@Override
 	public void onPlayerDestroy(World world, BlockPos pos, IBlockState state) {
 		int chunks = state.getValue(BlockHeavyOre.CHUNKS).intValue();
-		if(!world.isRemote && chunks > 1) {
-			EntityItem itemE = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), ((BlockHeavyOre)state.getBlock()).drop);
+		if (!world.isRemote && chunks > 1) {
+			EntityItem itemE = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(),
+					((BlockHeavyOre) state.getBlock()).drop);
 			world.spawnEntity(itemE);
 			world.setBlockState(pos, state.withProperty(BlockHeavyOre.CHUNKS, chunks - 1), 2);
 		}
 	}
 
 	@Override
-	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
-    {
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state,
+			int fortune) {
 		drops.add(drop);
-    }
+	}
 }
