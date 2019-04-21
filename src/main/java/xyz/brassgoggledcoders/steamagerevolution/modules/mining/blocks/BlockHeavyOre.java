@@ -9,6 +9,7 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -24,8 +25,9 @@ public class BlockHeavyOre extends BlockBase {
 	public BlockHeavyOre(String type) {
 		super(Material.ROCK, "heavy_ore_" + type.toLowerCase());
 		this.type = type;
+		this.drop = OreDictUtils.getPreferredItemStack("rock" + type);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(CHUNKS, 8));
-		drop = OreDictUtils.getPreferredItemStack("rock" + type);
+		this.setHardness(75F);
 	}
 
 	@Override
