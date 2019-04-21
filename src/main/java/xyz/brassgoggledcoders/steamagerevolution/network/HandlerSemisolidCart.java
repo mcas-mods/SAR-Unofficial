@@ -7,14 +7,14 @@ import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartOreCarrier;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartSemisolid;
 
-public class HandlerCrushedCartSync implements IMessageHandler<PacketCrushedCartSync, IMessage> {
-	public HandlerCrushedCartSync() {
+public class HandlerSemisolidCart implements IMessageHandler<PacketSemisolidCart, IMessage> {
+	public HandlerSemisolidCart() {
 	}
 
 	@Override
-	public IMessage onMessage(PacketCrushedCartSync message, MessageContext ctx) {
+	public IMessage onMessage(PacketSemisolidCart message, MessageContext ctx) {
 		Minecraft minecraft = Minecraft.getMinecraft();
 		final WorldClient worldClient = minecraft.world;
 		minecraft.addScheduledTask(new Runnable() {
@@ -26,10 +26,10 @@ public class HandlerCrushedCartSync implements IMessageHandler<PacketCrushedCart
 		return null;
 	}
 
-	private void processMessage(WorldClient worldClient, PacketCrushedCartSync message) {
+	private void processMessage(WorldClient worldClient, PacketSemisolidCart message) {
 		Entity entity = worldClient.getEntityByID(message.id);
-		if(entity instanceof EntityMinecartOreCarrier) {
-			((EntityMinecartOreCarrier)entity).getInventory().ore.getHandler().deserializeNBT(message.tag);
+		if(entity instanceof EntityMinecartSemisolid) {
+			((EntityMinecartSemisolid)entity).getInventory().ore.getHandler().deserializeNBT(message.tag);
 		}
 	}
 }

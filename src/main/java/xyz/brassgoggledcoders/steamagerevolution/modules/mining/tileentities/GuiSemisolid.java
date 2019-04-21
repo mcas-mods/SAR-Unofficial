@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities;
 
 import java.util.List;
 
@@ -9,22 +9,22 @@ import com.google.common.collect.Lists;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
 
 @SideOnly(Side.CLIENT)
-public class GuiCrushed extends GuiInventory {
+public class GuiSemisolid extends GuiInventory {
 
-	public GuiCrushed(EntityPlayer player, IHasInventory<InventoryCrushed> holder, String textureOverride) {
+	public GuiSemisolid(EntityPlayer player, IHasInventory<InventorySemisolid> holder, String textureOverride) {
 		super(player, holder, textureOverride);
 	}
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		InventoryPieceCrushed inventoryPiece = ((InventoryCrushed) holder.getInventory()).ore;
-		ICrushedHandler oreHandler = inventoryPiece.getHandler();
+		InventoryPieceSemisolid inventoryPiece = ((InventorySemisolid) holder.getInventory()).ore;
+		ISemisolidHandler oreHandler = inventoryPiece.getHandler();
 		if (oreHandler.getHolders()[0].getCrushed() != null) {
 			if (isPointInRegion(inventoryPiece.getX(0), inventoryPiece.getY(0), 8, 55, mouseX, mouseY)) {
 				if (oreHandler.getHolders()[0] != null) {
@@ -46,8 +46,8 @@ public class GuiCrushed extends GuiInventory {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
-		InventoryPieceCrushed inventoryPiece = ((InventoryCrushed) holder.getInventory()).ore;
-		ICrushedHandler oreHandler = inventoryPiece.getHandler();
+		InventoryPieceSemisolid inventoryPiece = ((InventorySemisolid) holder.getInventory()).ore;
+		ISemisolidHandler oreHandler = inventoryPiece.getHandler();
 		if (oreHandler.getHolders()[0].getCrushed() != null) {
 			mc.renderEngine.bindTexture(guiTexture);
 			int rgb = oreHandler.getHolders()[0].getCrushed().getMaterial().getColor();

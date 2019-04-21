@@ -1,15 +1,15 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities;
 
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHandler;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHolder;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketCrushedCartSync;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHolder;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketSemisolidCart;
 
-public class CrushedHandlerCart extends CrushedHandler {
+public class CrushedHandlerCart extends SemisolidHandler {
 
-	EntityMinecartOreCarrier cart;
+	EntityMinecartSemisolid cart;
 
-	public CrushedHandlerCart(EntityMinecartOreCarrier carrier, ICrushedHolder... holders) {
+	public CrushedHandlerCart(EntityMinecartSemisolid carrier, ISemisolidHolder... holders) {
 		super(holders);
 		this.cart = carrier;
 	}
@@ -18,7 +18,7 @@ public class CrushedHandlerCart extends CrushedHandler {
 	public void onContentsChanged() {
 		if (!this.cart.getEntityWorld().isRemote) {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketCrushedCartSync(cart.getEntityId(), cart.getInventory().ore.getHandler().serializeNBT()),
+					new PacketSemisolidCart(cart.getEntityId(), cart.getInventory().ore.getHandler().serializeNBT()),
 					cart);
 		}
 	}

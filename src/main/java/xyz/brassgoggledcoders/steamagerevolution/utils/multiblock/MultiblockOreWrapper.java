@@ -1,13 +1,13 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
 import net.minecraft.nbt.NBTTagCompound;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedStack;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHolder;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedMaterial;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHolder;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.ControllerDrill;
 
-public class MultiblockOreWrapper implements ICrushedHandler {
+public class MultiblockOreWrapper implements ISemisolidHandler {
 
 	final SARMultiblockTileBase<ControllerDrill> tile;
 
@@ -31,15 +31,15 @@ public class MultiblockOreWrapper implements ICrushedHandler {
 	}
 
 	@Override
-	public ICrushedHolder[] getHolders() {
+	public ISemisolidHolder[] getHolders() {
 		if(tile.isConnected()) {
 			tile.getMultiblockController().getInventory().ore.getHandler().getHolders();
 		}
-		return new ICrushedHolder[0];
+		return new ISemisolidHolder[0];
 	}
 
 	@Override
-	public boolean fill(CrushedStack material) {
+	public boolean fill(SemisolidStack material) {
 		if(tile.isConnected()) {
 			tile.getMultiblockController().getInventory().ore.getHandler().fill(material);
 		}
@@ -47,7 +47,7 @@ public class MultiblockOreWrapper implements ICrushedHandler {
 	}
 
 	@Override
-	public boolean drain(ICrushedMaterial type, int toDrain) {
+	public boolean drain(ISemisolid type, int toDrain) {
 		if(tile.isConnected()) {
 			tile.getMultiblockController().getInventory().ore.getHandler().drain(type, toDrain);
 		}

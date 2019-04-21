@@ -1,19 +1,19 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities;
 
 import net.minecraft.nbt.NBTTagCompound;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
 
-public class InventoryCrushed extends InventoryMachine {
+public class InventorySemisolid extends InventoryMachine {
 
-	public InventoryPieceCrushed ore;
+	public InventoryPieceSemisolid ore;
 
-	public InventoryCrushed(InventoryPieceCrushed ore) {
+	public InventorySemisolid(InventoryPieceSemisolid ore) {
 		this(null, null, ore, null);
 	}
 
-	public InventoryCrushed(InventoryPieceItem itemInput, InventoryPieceItem itemOutput, InventoryPieceCrushed ore,
+	public InventorySemisolid(InventoryPieceItem itemInput, InventoryPieceItem itemOutput, InventoryPieceSemisolid ore,
 			InventoryPieceFluid steamTank) {
 		super(itemInput, null, itemOutput, null, steamTank);
 		this.ore = ore;

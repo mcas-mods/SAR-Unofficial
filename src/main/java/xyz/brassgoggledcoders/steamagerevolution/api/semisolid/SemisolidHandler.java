@@ -1,12 +1,12 @@
-package xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial;
+package xyz.brassgoggledcoders.steamagerevolution.api.semisolid;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-public class CrushedHandler implements ICrushedHandler {
+public class SemisolidHandler implements ISemisolidHandler {
 	
-	protected ICrushedHolder[] holders;
+	protected ISemisolidHolder[] holders;
 	
-	public CrushedHandler(ICrushedHolder... holders) {
+	public SemisolidHandler(ISemisolidHolder... holders) {
 		this.holders = holders;
 	}
 
@@ -14,7 +14,7 @@ public class CrushedHandler implements ICrushedHandler {
 	public NBTTagCompound serializeNBT() {
 		NBTTagCompound data = new NBTTagCompound();
 		int i = 0;
-		for(ICrushedHolder holder : holders) {
+		for(ISemisolidHolder holder : holders) {
 			if(holder.getCrushed() != null) {
 				data.setTag(Integer.toString(i), holder.getCrushed().serializeNBT());
 			}
@@ -33,7 +33,7 @@ public class CrushedHandler implements ICrushedHandler {
 			NBTTagCompound subTag = (NBTTagCompound) tag.getTag(Integer.toString(i));
 			if(!subTag.isEmpty()) {
 				//TODO
-				CrushedStack stack = new CrushedStack(null, 0);
+				SemisolidStack stack = new SemisolidStack(null, 0);
 				stack.deserializeNBT(subTag);
 				holders[i].setInternal(stack);
 			}
@@ -41,13 +41,13 @@ public class CrushedHandler implements ICrushedHandler {
 	}
 
 	@Override
-	public ICrushedHolder[] getHolders() {
+	public ISemisolidHolder[] getHolders() {
 		return holders;
 	}
 
 	@Override
-	public boolean fill(CrushedStack stackIn) {
-		for(ICrushedHolder holder : holders) {
+	public boolean fill(SemisolidStack stackIn) {
+		for(ISemisolidHolder holder : holders) {
 			if(holder.getCrushed() == null || stackIn.material == holder.getCrushed().getMaterial()) {
 				if(stackIn.amount <= (holder.getHolderCapacity() - holder.getAmount())) {
 					holder.fill(stackIn);
@@ -60,8 +60,8 @@ public class CrushedHandler implements ICrushedHandler {
 	}
 
 	@Override
-	public boolean drain(ICrushedMaterial material, int toDrain) {
-		for(ICrushedHolder holder : holders) {
+	public boolean drain(ISemisolid material, int toDrain) {
+		for(ISemisolidHolder holder : holders) {
 			if(holder.getCrushed() != null && material == holder.getCrushed().getMaterial() && holder.getCrushed().amount >= toDrain) {
 				holder.drain(material, toDrain);
 				this.onContentsChanged();

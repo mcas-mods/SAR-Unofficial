@@ -11,26 +11,26 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.TileEntityCrushedLoader;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.TileEntitySemisolidLoader;
 
-public class BlockCrushedLoader extends BlockSidedBase<TileEntityCrushedLoader> {
+public class BlockSemisolidLoader extends BlockSidedBase<TileEntitySemisolidLoader> {
 
-	public BlockCrushedLoader() {
+	public BlockSemisolidLoader() {
 		super(Material.IRON, "crushed_loader");
 	}
 
 	@Override
 	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityCrushedLoader.class;
+		return TileEntitySemisolidLoader.class;
 	}
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityCrushedLoader();
+		return new TileEntitySemisolidLoader();
 	}
 
 	@Override
-	protected boolean handleAdditionalTileActions(World worldIn, TileEntityCrushedLoader tileEntity,
+	protected boolean handleAdditionalTileActions(World worldIn, TileEntitySemisolidLoader tileEntity,
 			EntityPlayer playerIn, EnumHand hand, ItemStack currentItem) {
 		BlockPos pos = tileEntity.getPos();
 		if (!playerIn.isSneaking()) {

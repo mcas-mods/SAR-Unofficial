@@ -26,10 +26,10 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedStack;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHolder;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartOreCarrier;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHolder;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartSemisolid;
 
 public class BlockRailDumping extends BlockRailBase
 		implements IHasBlockStateMapper, IHasItemBlock, IHasModel, IAmBlock {
@@ -86,12 +86,12 @@ public class BlockRailDumping extends BlockRailBase
 		IBlockState state = world.getBlockState(pos);
 		if (state.getValue(POWERED)) {
 			TileEntity te = world.getTileEntity(pos.down());
-			if (cart instanceof EntityMinecartOreCarrier && te != null
-					&& te.hasCapability(SARCapabilities.CRUSHED_HANDLER, EnumFacing.UP)) {
-				EntityMinecartOreCarrier carrier = (EntityMinecartOreCarrier) cart;
-				ICrushedHolder cartHolder = carrier.getInventory().ore.getHandler().getHolders()[0];
+			if (cart instanceof EntityMinecartSemisolid && te != null
+					&& te.hasCapability(SARCapabilities.SEMISOLID_HANDLER, EnumFacing.UP)) {
+				EntityMinecartSemisolid carrier = (EntityMinecartSemisolid) cart;
+				ISemisolidHolder cartHolder = carrier.getInventory().ore.getHandler().getHolders()[0];
 				if (cartHolder.getAmount() > 0) {
-					ICrushedHandler handler = te.getCapability(SARCapabilities.CRUSHED_HANDLER, EnumFacing.UP);
+					ISemisolidHandler handler = te.getCapability(SARCapabilities.SEMISOLID_HANDLER, EnumFacing.UP);
 					if ((handler.getHolders()[0].getCrushed() == null || cartHolder.getCrushed()
 							.getMaterial() == handler.getHolders()[0].getCrushed().getMaterial())
 							&& cartHolder.getAmount() <= (handler.getHolders()[0].getHolderCapacity()

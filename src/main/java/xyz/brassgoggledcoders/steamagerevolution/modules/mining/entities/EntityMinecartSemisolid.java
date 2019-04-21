@@ -20,37 +20,37 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHolder;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.GuiCrushed;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryCrushed;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryPieceCrushed;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartOreCarrier;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHolder;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartSemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.GuiSemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.InventorySemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.InventoryPieceSemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
-public class EntityMinecartOreCarrier extends EntityMinecartBase implements IHasGui, IHasInventory<InventoryCrushed> {
+public class EntityMinecartSemisolid extends EntityMinecartBase implements IHasGui, IHasInventory<InventorySemisolid> {
 
 	@ObjectHolder(SteamAgeRevolution.MODID + ":minecart_ore_carrier")
-	private static ItemMinecartOreCarrier itemMinecartOreCarrier;
+	private static ItemMinecartSemisolid itemMinecartSemisolid;
 
-	InventoryCrushed inventory;
+	InventorySemisolid inventory;
 
-	public EntityMinecartOreCarrier(World world) {
+	public EntityMinecartSemisolid(World world) {
 		super(world);
-		this.setInventory(new InventoryCrushed(
-				new InventoryPieceCrushed(new CrushedHandlerCart(this, new CrushedHolder(15)), 83, 16)));
+		this.setInventory(new InventorySemisolid(
+				new InventoryPieceSemisolid(new CrushedHandlerCart(this, new SemisolidHolder(15)), 83, 16)));
 	}
 
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-		return capability == SARCapabilities.CRUSHED_HANDLER || super.hasCapability(capability, facing);
+		return capability == SARCapabilities.SEMISOLID_HANDLER || super.hasCapability(capability, facing);
 	}
 
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if (capability == SARCapabilities.CRUSHED_HANDLER) {
-			return SARCapabilities.CRUSHED_HANDLER.cast(inventory.ore.getHandler());
+		if (capability == SARCapabilities.SEMISOLID_HANDLER) {
+			return SARCapabilities.SEMISOLID_HANDLER.cast(inventory.ore.getHandler());
 		}
 		return super.getCapability(capability, facing);
 	}
@@ -75,7 +75,7 @@ public class EntityMinecartOreCarrier extends EntityMinecartBase implements IHas
 
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiCrushed(entityPlayer, this, "crushed_single");
+		return new GuiSemisolid(entityPlayer, this, "crushed_single");
 	}
 
 	@Override
@@ -86,7 +86,7 @@ public class EntityMinecartOreCarrier extends EntityMinecartBase implements IHas
 
 	@Override
 	public ItemMinecart getItem() {
-		return itemMinecartOreCarrier;
+		return itemMinecartSemisolid;
 	}
 
 	@Override
@@ -130,12 +130,12 @@ public class EntityMinecartOreCarrier extends EntityMinecartBase implements IHas
 	}
 
 	@Override
-	public InventoryCrushed getInventory() {
+	public InventorySemisolid getInventory() {
 		return inventory;
 	}
 
 	@Override
-	public void setInventory(InventoryCrushed inventory) {
+	public void setInventory(InventorySemisolid inventory) {
 		this.inventory = inventory;
 	}
 

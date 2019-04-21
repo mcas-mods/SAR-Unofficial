@@ -7,13 +7,13 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartOreCarrier;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartSemisolid;
 
 public class ClientProxy implements IModuleProxy {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		RenderingRegistry.registerEntityRenderingHandler(EntityMinecartOreCarrier.class, RenderMinecartBase::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityMinecartSemisolid.class, RenderMinecartBase::new);
 	}
 
 	@Override

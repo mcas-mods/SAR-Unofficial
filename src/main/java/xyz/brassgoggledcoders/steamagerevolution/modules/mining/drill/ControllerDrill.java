@@ -28,21 +28,21 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHandler;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHolder;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedStack;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.GuiCrushed;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryCrushed;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryPieceCrushed;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHolder;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOre;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.GuiSemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.InventorySemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.InventoryPieceSemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerDrill extends SARMultiblockInventory<InventoryCrushed> {
+public class ControllerDrill extends SARMultiblockInventory<InventorySemisolid> {
 
 	private static final String name = "[" + SteamAgeRevolution.MODNAME + "]";
 	private static final GameProfile profile = new GameProfile(UUID.nameUUIDFromBytes(name.getBytes()), name);
@@ -56,7 +56,7 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryCrushed> {
 		int xOffset = 49;
 		int yOffset = 1;
 		int slotGap = 2;
-		this.setInventory(new InventoryCrushed(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 40, 32),
+		this.setInventory(new InventorySemisolid(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 40, 32),
 				new InventoryPieceItem(new ItemStackHandlerSmart(9, this),
 						new int[] { xOffset + 16, xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2, xOffset + 16,
 								xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2, xOffset + 16,
@@ -64,7 +64,7 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryCrushed> {
 						new int[] { yOffset + 16, yOffset + 16, yOffset + 16, yOffset + 32 + slotGap,
 								yOffset + 32 + slotGap, yOffset + 32 + slotGap, yOffset + 48 + slotGap * 2,
 								yOffset + 48 + slotGap * 2, yOffset + 48 + slotGap * 2 }),
-				new InventoryPieceCrushed(new CrushedHandler(new CrushedHolder(null, 30)), 126, 15),
+				new InventoryPieceSemisolid(new SemisolidHandler(new SemisolidHolder(null, 30)), 126, 15),
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 13, 9)));
 	}
 
@@ -94,8 +94,8 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryCrushed> {
 						&& WORLD.getTileEntity(pos) == null && allowedToBreak(state, WORLD, pos, fakePlayer.get())) {
 					if (state.getBlock() instanceof BlockHeavyOre) {
 						BlockHeavyOre ore = (BlockHeavyOre) state.getBlock();
-						ICrushedHandler oreHolder = this.getInventory().ore.getHandler();
-						oreHolder.getHolders()[0].fill(new CrushedStack(SteamAgeRevolution.materialRegistry
+						ISemisolidHandler oreHolder = this.getInventory().ore.getHandler();
+						oreHolder.getHolders()[0].fill(new SemisolidStack(SteamAgeRevolution.materialRegistry
 								.getEntry(new ResourceLocation(ore.getRegistryName().getNamespace(), ore.type)), 1));
 						this.markReferenceCoordForUpdate();
 						int chunks = state.getValue(BlockHeavyOre.CHUNKS).intValue();
@@ -180,7 +180,7 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryCrushed> {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiCrushed(entityPlayer, this, "");
+		return new GuiSemisolid(entityPlayer, this, "");
 	}
 
 }

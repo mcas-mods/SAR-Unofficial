@@ -18,15 +18,15 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedMaterial;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedMaterialRegistry;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockCrushedLoader;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.Semisolid;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidRegistry;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockSemisolidLoader;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOre;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockRailDumping;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartOreCarrier;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartOreCarrier;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartSemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartSemisolid;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
@@ -76,26 +76,27 @@ public class ModuleMining extends ModuleBase {
 		blockRegistry.register(new BlockDrillOutput());
 
 		blockRegistry.register(new BlockRailDumping());
-		blockRegistry.register(new BlockCrushedLoader());
+		blockRegistry.register(new BlockSemisolidLoader());
 	}
 
 	@SubscribeEvent
-	public static void registerCargo(CrushedMaterialRegistry.CrushedMaterialRegistryEvent registerEvent) {
+	public static void registerCargo(SemisolidRegistry.SemisolidRegistryEvent registerEvent) {
 		for (String type : metals) {
-			registerEvent.getRegistry().addEntry(new CrushedMaterial(type.toLowerCase(), Color.GRAY.getRGB()));
+			//TODO
+			registerEvent.getRegistry().addEntry(new Semisolid(type.toLowerCase(), Color.GRAY.getRGB()));
 		}
 	}
 
 	@Override
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
 		super.registerItems(configRegistry, itemRegistry);
-		itemRegistry.register(new ItemMinecartOreCarrier());
+		itemRegistry.register(new ItemMinecartSemisolid());
 	}
 
 	@Override
 	public void registerEntities(ConfigRegistry configRegistry, EntityRegistry entityRegistry) {
 		super.registerEntities(configRegistry, entityRegistry);
-		entityRegistry.register(EntityMinecartOreCarrier.class);
+		entityRegistry.register(EntityMinecartSemisolid.class);
 	}
 
 }

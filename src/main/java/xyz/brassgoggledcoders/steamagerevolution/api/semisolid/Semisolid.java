@@ -1,14 +1,14 @@
-package xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial;
+package xyz.brassgoggledcoders.steamagerevolution.api.semisolid;
 
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
-public class CrushedMaterial implements ICrushedMaterial {
+public class Semisolid implements ISemisolid {
 
 	String name;
 	int color;
 	
-	public CrushedMaterial(String name, int color) {
+	public Semisolid(String name, int color) {
 		this.name = name;
 		this.color = color;
 	}

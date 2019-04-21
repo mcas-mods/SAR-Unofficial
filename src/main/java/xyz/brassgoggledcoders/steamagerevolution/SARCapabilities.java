@@ -16,15 +16,15 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xyz.brassgoggledcoders.steamagerevolution.api.FurnaceFumeProducer;
 import xyz.brassgoggledcoders.steamagerevolution.api.IFumeProducer;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHandler;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHandler;
 
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class SARCapabilities {
 	@CapabilityInject(IFumeProducer.class)
 	public static Capability<IFumeProducer> FUME_PRODUCER;
-	@CapabilityInject(ICrushedHandler.class)
-	public static Capability<ICrushedHandler> CRUSHED_HANDLER;
+	@CapabilityInject(ISemisolidHandler.class)
+	public static Capability<ISemisolidHandler> SEMISOLID_HANDLER;
 
 	@SuppressWarnings("deprecation")
 	public static void register() {
@@ -41,7 +41,7 @@ public class SARCapabilities {
 
 			}
 		}, FurnaceFumeProducer.class);
-		CapabilityManager.INSTANCE.register(ICrushedHandler.class, new NBTCapStorage<ICrushedHandler>(), CrushedHandler::new);
+		CapabilityManager.INSTANCE.register(ISemisolidHandler.class, new NBTCapStorage<ISemisolidHandler>(), SemisolidHandler::new);
 	}
 
 	@SubscribeEvent

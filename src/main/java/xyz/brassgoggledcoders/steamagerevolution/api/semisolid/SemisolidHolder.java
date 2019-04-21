@@ -1,24 +1,24 @@
-package xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial;
+package xyz.brassgoggledcoders.steamagerevolution.api.semisolid;
 
 import javax.annotation.Nullable;
 
-public class CrushedHolder implements ICrushedHolder {
+public class SemisolidHolder implements ISemisolidHolder {
 	
 	@Nullable
-	protected CrushedStack stack; 
+	protected SemisolidStack stack; 
 	protected int capacity;
 	
-	public CrushedHolder(int capacity) {
+	public SemisolidHolder(int capacity) {
 		this(null, capacity);
 	}
 	
-	public CrushedHolder(CrushedStack material, int capacity) {
+	public SemisolidHolder(SemisolidStack material, int capacity) {
 		this.stack = material;
 		this.capacity = capacity;
 	}
 
 	@Override
-	public CrushedStack getCrushed() {
+	public SemisolidStack getCrushed() {
 		return stack;
 	}
 
@@ -36,16 +36,16 @@ public class CrushedHolder implements ICrushedHolder {
 	}
 
 	@Override
-	public boolean fill(CrushedStack stackIn) {
+	public boolean fill(SemisolidStack stackIn) {
 		if((this.stack == null || stackIn.getMaterial() == this.stack.getMaterial()) && stackIn.amount <= (this.getHolderCapacity() - this.getAmount())) {
-			this.stack = new CrushedStack(stackIn.material, this.getAmount() + stackIn.amount);
+			this.stack = new SemisolidStack(stackIn.material, this.getAmount() + stackIn.amount);
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public boolean drain(ICrushedMaterial material, int toDrain) {
+	public boolean drain(ISemisolid material, int toDrain) {
 		if(this.stack != null && material == this.stack.getMaterial() && this.stack.amount >= toDrain) {
 			this.stack.amount -= toDrain;
 			if(stack.amount <= 0) {
@@ -57,7 +57,7 @@ public class CrushedHolder implements ICrushedHolder {
 	}
 
 	@Override
-	public void setInternal(CrushedStack toSet) {
+	public void setInternal(SemisolidStack toSet) {
 		this.stack = toSet;
 	}
 

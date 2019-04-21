@@ -5,15 +5,15 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
-public class PacketCrushedCartSync implements IMessage {
+public class PacketSemisolidCart implements IMessage {
 
 	public int id;
 	public NBTTagCompound tag;
 
-	public PacketCrushedCartSync() {
+	public PacketSemisolidCart() {
 	}
 
-	public PacketCrushedCartSync(int id, NBTTagCompound tag) {
+	public PacketSemisolidCart(int id, NBTTagCompound tag) {
 		this.id = id;
 		this.tag = tag;
 	}

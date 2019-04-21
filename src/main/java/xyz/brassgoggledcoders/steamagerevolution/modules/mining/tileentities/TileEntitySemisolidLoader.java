@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,22 +21,22 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHandler;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHolder;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedStack;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedMaterial;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHolder;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
-public class TileEntityCrushedLoader extends TileEntitySidedBase<ICrushedHandler>
-		implements ITickable, IHasInventory<InventoryCrushed>, IHasGui {
-	InventoryCrushed inventory;
+public class TileEntitySemisolidLoader extends TileEntitySidedBase<ISemisolidHandler>
+		implements ITickable, IHasInventory<InventorySemisolid>, IHasGui {
+	InventorySemisolid inventory;
 	int updateTest = -1;
 
-	public TileEntityCrushedLoader() {
+	public TileEntitySemisolidLoader() {
 		this.setInventory(
-				new InventoryCrushed(new InventoryPieceCrushed(new CrushedHandler(new CrushedHolder(60)), 83, 16)));
+				new InventorySemisolid(new InventoryPieceSemisolid(new SemisolidHandler(new SemisolidHolder(60)), 83, 16)));
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class TileEntityCrushedLoader extends TileEntitySidedBase<ICrushedHandler
 		return false;
 	}
 
-	private boolean transfer(SideType sideType, ICrushedHandler otherCapability) {
+	private boolean transfer(SideType sideType, ISemisolidHandler otherCapability) {
 		if (sideType == SideType.INPUT) {
 			return transfer(otherCapability, this.getInternalCapability());
 		} else if (sideType == SideType.OUTPUT) {
@@ -94,12 +94,12 @@ public class TileEntityCrushedLoader extends TileEntitySidedBase<ICrushedHandler
 		}
 	}
 
-	private boolean transfer(ICrushedHandler from, ICrushedHandler to) {
+	private boolean transfer(ISemisolidHandler from, ISemisolidHandler to) {
 		if (from.getHolders().length > 0 && from.getHolders()[0].getCrushed() != null) {
-			ICrushedMaterial material = from.getHolders()[0].getCrushed().getMaterial();
+			ISemisolid material = from.getHolders()[0].getCrushed().getMaterial();
 			int amount = from.getHolders()[0].getAmount();
 			from.drain(material, amount);
-			to.fill(new CrushedStack(material, amount));
+			to.fill(new SemisolidStack(material, amount));
 		}
 		return false;
 	}
@@ -122,22 +122,22 @@ public class TileEntityCrushedLoader extends TileEntitySidedBase<ICrushedHandler
 	}
 
 	@Override
-	public Capability<ICrushedHandler> getCapabilityType() {
-		return SARCapabilities.CRUSHED_HANDLER;
+	public Capability<ISemisolidHandler> getCapabilityType() {
+		return SARCapabilities.SEMISOLID_HANDLER;
 	}
 
 	@Override
-	public ICrushedHandler getInternalCapability() {
+	public ISemisolidHandler getInternalCapability() {
 		return this.getInventory().ore.getHandler();
 	}
 
 	@Override
-	public ICrushedHandler getOutputCapability() {
+	public ISemisolidHandler getOutputCapability() {
 		return this.getInventory().ore.getHandler();
 	}
 
 	@Override
-	public ICrushedHandler getInputCapability() {
+	public ISemisolidHandler getInputCapability() {
 		return this.getInventory().ore.getHandler();
 	}
 
@@ -157,12 +157,12 @@ public class TileEntityCrushedLoader extends TileEntitySidedBase<ICrushedHandler
 	}
 
 	@Override
-	public InventoryCrushed getInventory() {
+	public InventorySemisolid getInventory() {
 		return this.inventory;
 	}
 
 	@Override
-	public void setInventory(InventoryCrushed inventory) {
+	public void setInventory(InventorySemisolid inventory) {
 		this.inventory = inventory;
 	}
 
@@ -193,7 +193,7 @@ public class TileEntityCrushedLoader extends TileEntitySidedBase<ICrushedHandler
 
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiCrushed(entityPlayer, this, "crushed_single");
+		return new GuiSemisolid(entityPlayer, this, "crushed_single");
 	}
 
 	@Override

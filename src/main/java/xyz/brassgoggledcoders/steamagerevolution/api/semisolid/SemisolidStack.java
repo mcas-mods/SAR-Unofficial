@@ -1,15 +1,15 @@
-package xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial;
+package xyz.brassgoggledcoders.steamagerevolution.api.semisolid;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
-public class CrushedStack implements INBTSerializable<NBTTagCompound> {
-	ICrushedMaterial material;
+public class SemisolidStack implements INBTSerializable<NBTTagCompound> {
+	ISemisolid material;
 	public int amount;
 	
-	public CrushedStack(ICrushedMaterial material, int amount) {
+	public SemisolidStack(ISemisolid material, int amount) {
 		this.material = material;
 		this.amount = amount;
 	}
@@ -30,7 +30,7 @@ public class CrushedStack implements INBTSerializable<NBTTagCompound> {
 		}
 	}
 
-	public ICrushedMaterial getMaterial() {
+	public ISemisolid getMaterial() {
 		return material;
 	}
 }

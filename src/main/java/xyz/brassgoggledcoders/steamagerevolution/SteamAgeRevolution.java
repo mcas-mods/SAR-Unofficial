@@ -19,17 +19,17 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedMaterialRegistry;
-import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedMaterialRegistry.CrushedMaterialRegistryEvent;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidRegistry;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidRegistry.SemisolidRegistryEvent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerCardPunch;
-import xyz.brassgoggledcoders.steamagerevolution.network.HandlerCrushedCartSync;
+import xyz.brassgoggledcoders.steamagerevolution.network.HandlerSemisolidCart;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerGunCraft;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerItemUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketCardPunch;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketCrushedCartSync;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketSemisolidCart;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketGunCraft;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
@@ -50,7 +50,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 	@SidedProxy(clientSide = "xyz.brassgoggledcoders.steamagerevolution.proxies.ClientProxy", serverSide = "xyz.brassgoggledcoders.steamagerevolution.proxies.CommonProxy")
 	public static xyz.brassgoggledcoders.steamagerevolution.proxies.CommonProxy proxy;
 	
-	public static CrushedMaterialRegistry materialRegistry = new CrushedMaterialRegistry();
+	public static SemisolidRegistry materialRegistry = new SemisolidRegistry();
 
 	static {
 		FluidRegistry.enableUniversalBucket();
@@ -76,9 +76,9 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 		//		Side.SERVER);
 		//SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerGunCraft.class, PacketGunCraft.class,
 		//		Side.SERVER);
-		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerCrushedCartSync.class, PacketCrushedCartSync.class, Side.CLIENT);
+		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerSemisolidCart.class, PacketSemisolidCart.class, Side.CLIENT);
 		SARCapabilities.register();
-		MinecraftForge.EVENT_BUS.post(new CrushedMaterialRegistryEvent(materialRegistry, CrushedMaterialRegistry.class));
+		MinecraftForge.EVENT_BUS.post(new SemisolidRegistryEvent(materialRegistry, SemisolidRegistry.class));
 	}
 
 	@Override
