@@ -62,6 +62,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
+		this.getLibProxy().addSidedBlockDomain();
 		proxy.registerModels();
 		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerFluidUpdate.class, PacketFluidUpdate.class,
 				Side.CLIENT);

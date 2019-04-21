@@ -4,27 +4,35 @@ import java.util.List;
 import java.util.Optional;
 
 import com.teamacronymcoders.base.blocks.properties.SideType;
+import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.tileentities.TileEntitySidedBase;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHolder;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
-public class TileEntityHeavyOreLoader extends TileEntitySidedBase<ICrushedHandler> implements ITickable {
+public class TileEntityCrushedLoader extends TileEntitySidedBase<ICrushedHandler> implements ITickable, IHasInventory<InventoryCrushed>, IHasGui {
+	InventoryCrushed inventory;
     int updateTest = -1;
     
-    private ICrushedHandler buffer;
-    
-    public TileEntityHeavyOreLoader() {
-    	buffer = new CrushedHandler();
+    public TileEntityCrushedLoader() {
+    	this.setInventory(new InventoryCrushed(new InventoryPieceCrushed(new CrushedHandler(new CrushedHolder(60)), 0, 0)));
     }
 
     @Override
@@ -97,31 +105,91 @@ public class TileEntityHeavyOreLoader extends TileEntitySidedBase<ICrushedHandle
 
     @Override
     protected void readCapability(NBTTagCompound data) {
-        buffer.deserializeNBT(data.getCompoundTag("inventory"));
+    	//NO-OP
     }
 
     @Override
     protected void writeCapability(NBTTagCompound data) {
-    	data.setTag("inventory", buffer.serializeNBT());
+    	//NO-OP
     }
 
     @Override
     public Capability<ICrushedHandler> getCapabilityType() { 
-        return SARCapabilities.HEAVYORE_HOLDER;
+        return SARCapabilities.CRUSHED_HANDLER;
     }
 
     @Override
     public ICrushedHandler getInternalCapability() {
-        return buffer;
+        return this.getInventory().ore.getHandler();
     }
 
     @Override
     public ICrushedHandler getOutputCapability() {
-        return buffer;
+        return this.getInventory().ore.getHandler();
     }
 
     @Override
     public ICrushedHandler getInputCapability() {
-        return buffer;
+        return this.getInventory().ore.getHandler();
     }
+
+	@Override
+	public World getMachineWorld() {
+		return this.getWorld();
+	}
+
+	@Override
+	public BlockPos getMachinePos() {
+		return this.getPos();
+	}
+
+	@Override
+	public String getName() {
+		return "Crushed Material Loader";
+	}
+
+	@Override
+	public InventoryCrushed getInventory() {
+		return this.inventory;
+	}
+
+	@Override
+	public void setInventory(InventoryCrushed inventory) {
+		this.inventory = inventory;
+	}
+
+	@Override
+	public SARMachineRecipe getCurrentRecipe() {
+		return null;
+	}
+
+	@Override
+	public void setCurrentRecipe(SARMachineRecipe recipe) {
+		
+	}
+
+	@Override
+	public int getCurrentProgress() {
+		return 0;
+	}
+
+	@Override
+	public int getCurrentMaxTicks() {
+		return 0;
+	}
+
+	@Override
+	public void setCurrentTicks(int ticks) {
+		
+	}
+
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		return new GuiLoader(entityPlayer, this);
+	}
+
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		return null;
+	}
 }

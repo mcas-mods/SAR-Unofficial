@@ -33,14 +33,14 @@ public class EntityMinecartOreCarrier extends EntityMinecartBase implements IHas
 	
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-		return capability == SARCapabilities.HEAVYORE_HOLDER || super.hasCapability(capability, facing);
+		return capability == SARCapabilities.CRUSHED_HANDLER || super.hasCapability(capability, facing);
 	}
 
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if(capability == SARCapabilities.HEAVYORE_HOLDER) {
-			return SARCapabilities.HEAVYORE_HOLDER.cast(new CrushedHandler(new CrushedHolder(null, 100)));
+		if(capability == SARCapabilities.CRUSHED_HANDLER) {
+			return SARCapabilities.CRUSHED_HANDLER.cast(new CrushedHandler(new CrushedHolder(null, 100)));
 		}
 		return super.getCapability(capability, facing);
 	}

@@ -32,8 +32,8 @@ import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHand
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHolder;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedStack;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryOreHolder;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryPieceOre;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryCrushed;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryPieceCrushed;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOre;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
@@ -41,7 +41,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerDrill extends SARMultiblockInventory<InventoryOreHolder> {
+public class ControllerDrill extends SARMultiblockInventory<InventoryCrushed> {
 
 	private static final String name = "[" +
 			SteamAgeRevolution.MODNAME + "]";
@@ -56,7 +56,7 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryOreHolder> 
 		int xOffset = 49;
 		int yOffset = 1;
 		int slotGap = 2;
-		this.setInventory(new InventoryOreHolder(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 40, 32),
+		this.setInventory(new InventoryCrushed(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 40, 32),
 				new InventoryPieceItem(new ItemStackHandlerSmart(9, this),
 						new int[] { xOffset + 16, xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2,
 								xOffset + 16, xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2,
@@ -64,7 +64,7 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryOreHolder> 
 						new int[] { yOffset + 16, yOffset + 16, yOffset + 16,
 								yOffset + 32 + slotGap, yOffset + 32 + slotGap, yOffset + 32 + slotGap,
 								yOffset + 48 + slotGap * 2, yOffset + 48 + slotGap * 2, yOffset + 48 + slotGap * 2}),
-				new InventoryPieceOre(new CrushedHandler(new CrushedHolder(null, 30)), 126, 15),
+				new InventoryPieceCrushed(new CrushedHandler(new CrushedHolder(null, 30)), 126, 15),
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 13, 9)));
 	}
 

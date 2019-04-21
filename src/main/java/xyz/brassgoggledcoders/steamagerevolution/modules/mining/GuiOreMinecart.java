@@ -22,6 +22,6 @@ public class GuiOreMinecart extends GuiInventory {
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.drawCenteredString(this.fontRenderer, "Amount: "+ this.cart.getCapability(SARCapabilities.HEAVYORE_HOLDER, null).getHolders()[0].getAmount(), 50, 50, Color.BLACK.getRGB()); 
+		this.drawCenteredString(this.fontRenderer, "Amount: "+ this.cart.getCapability(SARCapabilities.CRUSHED_HANDLER, null).getHolders()[0].getAmount(), 50, 50, Color.BLACK.getRGB()); 
 	}
 }

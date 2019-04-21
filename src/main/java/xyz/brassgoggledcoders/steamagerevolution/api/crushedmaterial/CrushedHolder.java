@@ -10,6 +10,10 @@ public class CrushedHolder implements ICrushedHolder {
 	protected CrushedStack stack; 
 	protected int capacity;
 	
+	public CrushedHolder(int capacity) {
+		this(null, capacity);
+	}
+	
 	public CrushedHolder(CrushedStack material, int capacity) {
 		this.stack = material;
 		this.capacity = capacity;

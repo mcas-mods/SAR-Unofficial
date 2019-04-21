@@ -21,7 +21,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedMaterial;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedMaterialRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOre;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOreLoader;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockCrushedLoader;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartOreCarrier;
@@ -74,7 +74,7 @@ public class ModuleMining extends ModuleBase {
 		blockRegistry.register(new BlockDrillFrame());
 		blockRegistry.register(new BlockDrillOutput());
 		
-		blockRegistry.register(new BlockHeavyOreLoader());
+		blockRegistry.register(new BlockCrushedLoader());
 	}
 	
 	@SubscribeEvent

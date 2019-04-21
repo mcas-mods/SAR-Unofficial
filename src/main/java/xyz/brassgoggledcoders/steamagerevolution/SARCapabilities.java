@@ -24,7 +24,7 @@ public class SARCapabilities {
 	@CapabilityInject(IFumeProducer.class)
 	public static Capability<IFumeProducer> FUME_PRODUCER;
 	@CapabilityInject(ICrushedHandler.class)
-	public static Capability<ICrushedHandler> HEAVYORE_HOLDER;
+	public static Capability<ICrushedHandler> CRUSHED_HANDLER;
 
 	@SuppressWarnings("deprecation")
 	public static void register() {

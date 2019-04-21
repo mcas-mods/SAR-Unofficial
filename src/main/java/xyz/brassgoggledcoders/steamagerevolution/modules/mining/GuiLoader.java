@@ -1,30 +1,33 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
 
 import java.util.List;
 
 import com.google.common.collect.Lists;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.fluids.FluidTank;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryCrushed;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryPieceCrushed;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
 
 @SideOnly(Side.CLIENT)
-public class GuiDrill extends GuiInventory {
+public class GuiLoader extends GuiInventory {
 	
-	public GuiDrill(EntityPlayer player, IHasInventory<InventoryCrushed> holder) {
-		super(player, holder);
+	TileEntityCrushedLoader loader;
+	protected ResourceLocation guiTexture = new ResourceLocation(SteamAgeRevolution.MODID,
+			"textures/gui/ore_cart.png");
+	
+	public GuiLoader(EntityPlayer player, TileEntityCrushedLoader loader) {
+		super(player, loader);
+		this.loader = loader;
 	}
-
+	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		InventoryPieceCrushed inventoryPiece = ((InventoryCrushed) holder.getInventory()).ore;
+		InventoryPieceCrushed inventoryPiece = ((InventoryCrushed) this.loader.getInventory()).ore;
 		ICrushedHandler oreHandler = inventoryPiece.getHandler();
 		if(oreHandler.getHolders()[0].getCrushed() != null) {
 		if(isPointInRegion(inventoryPiece.getX(0), inventoryPiece.getY(0),
@@ -49,11 +52,12 @@ public class GuiDrill extends GuiInventory {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
-		InventoryPieceCrushed inventoryPiece = ((InventoryCrushed) holder.getInventory()).ore;
+		InventoryPieceCrushed inventoryPiece = ((InventoryCrushed) this.loader.getInventory()).ore;
 		ICrushedHandler oreHandler = inventoryPiece.getHandler();
 		if(oreHandler.getHolders()[0].getCrushed() != null) {
 			mc.renderEngine.bindTexture(guiTexture);
 			this.drawTexturedModalRect(guiLeft + inventoryPiece.getX(0), guiTop + inventoryPiece.getY(0), 176, 100, 8, 55);
 		}
 	}
+	
 }
