@@ -2,6 +2,8 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
 
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+
 import com.google.common.collect.Lists;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -50,7 +52,17 @@ public class GuiCrushed extends GuiInventory {
 		ICrushedHandler oreHandler = inventoryPiece.getHandler();
 		if(oreHandler.getHolders()[0].getCrushed() != null) {
 			mc.renderEngine.bindTexture(guiTexture);
-			this.drawTexturedModalRect(guiLeft + inventoryPiece.getX(0), guiTop + inventoryPiece.getY(0), 176, 100, 8, 55);
+			int rgb = oreHandler.getHolders()[0].getCrushed().getMaterial().getColor();
+			int red = (rgb >> 16) & 0xFF;
+			int green = (rgb >> 8) & 0xFF;
+			int blue = rgb & 0xFF;
+			GL11.glColor3f(red, green, blue);
+			int amount = oreHandler.getHolders()[0].getAmount();
+			int capacity = oreHandler.getHolders()[0].getHolderCapacity();
+			int height = 55;
+			int renderAmount = (int) Math.max(Math.min(height, amount * height / capacity), 1);
+			this.drawTexturedModalRect(guiLeft + inventoryPiece.getX(0), guiTop + inventoryPiece.getY(0) + (height - renderAmount), 176, 100, 8, renderAmount);
+			GL11.glColor3f(0, 0, 0);
 		}
 	}
 }
