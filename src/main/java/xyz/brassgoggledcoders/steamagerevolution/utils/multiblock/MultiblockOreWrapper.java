@@ -1,8 +1,10 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
 import net.minecraft.nbt.NBTTagCompound;
+import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedStack;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHolder;
+import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedMaterial;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.ControllerDrill;
 
 public class MultiblockOreWrapper implements ICrushedHandler {
@@ -34,6 +36,22 @@ public class MultiblockOreWrapper implements ICrushedHandler {
 			tile.getMultiblockController().getInventory().ore.getHandler().getHolders();
 		}
 		return new ICrushedHolder[0];
+	}
+
+	@Override
+	public boolean fill(CrushedStack material) {
+		if(tile.isConnected()) {
+			tile.getMultiblockController().getInventory().ore.getHandler().fill(material);
+		}
+		return false;
+	}
+
+	@Override
+	public boolean drain(ICrushedMaterial type, int toDrain) {
+		if(tile.isConnected()) {
+			tile.getMultiblockController().getInventory().ore.getHandler().drain(type, toDrain);
+		}
+		return false;
 	}
 
 }

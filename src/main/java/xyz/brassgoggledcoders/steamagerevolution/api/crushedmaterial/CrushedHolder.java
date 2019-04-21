@@ -2,8 +2,6 @@ package xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.nbt.NBTTagCompound;
-
 public class CrushedHolder implements ICrushedHolder {
 	
 	@Nullable

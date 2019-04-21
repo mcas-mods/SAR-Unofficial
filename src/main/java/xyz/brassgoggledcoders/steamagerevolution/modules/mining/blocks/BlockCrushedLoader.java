@@ -11,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.TileEntityCrushedLoader;
 
 public class BlockCrushedLoader extends BlockSidedBase<TileEntityCrushedLoader> {
@@ -32,7 +33,8 @@ public class BlockCrushedLoader extends BlockSidedBase<TileEntityCrushedLoader> 
 	@Override
 	protected boolean handleAdditionalTileActions(World worldIn, TileEntityCrushedLoader tileEntity, EntityPlayer playerIn, EnumHand hand, ItemStack currentItem) {
 		BlockPos pos = tileEntity.getPos();
-		if(!playerIn.isSneaking() && getTileEntity(worldIn, pos).isPresent()) {
+		if(!playerIn.isSneaking()) {
+			FMLLog.warning("" + tileEntity.getInventory().ore.getHandler().getHolders()[0].getAmount());
 			GuiOpener.openTileEntityGui(getMod(), playerIn, worldIn, pos);
 			return true;
 		}

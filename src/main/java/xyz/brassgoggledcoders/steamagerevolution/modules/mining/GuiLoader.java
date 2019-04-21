@@ -5,10 +5,8 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
 
@@ -16,8 +14,6 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
 public class GuiLoader extends GuiInventory {
 	
 	TileEntityCrushedLoader loader;
-	protected ResourceLocation guiTexture = new ResourceLocation(SteamAgeRevolution.MODID,
-			"textures/gui/ore_cart.png");
 	
 	public GuiLoader(EntityPlayer player, TileEntityCrushedLoader loader) {
 		super(player, loader);

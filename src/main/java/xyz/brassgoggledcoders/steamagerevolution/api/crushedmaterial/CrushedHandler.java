@@ -45,4 +45,28 @@ public class CrushedHandler implements ICrushedHandler {
 		return holders;
 	}
 
+	@Override
+	public boolean fill(CrushedStack stackIn) {
+		for(ICrushedHolder holder : holders) {
+			if(holder.getCrushed() == null || stackIn.material == holder.getCrushed().getMaterial()) {
+				if(stackIn.amount <= (holder.getHolderCapacity() - holder.getAmount())) {
+					holder.fill(stackIn);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean drain(ICrushedMaterial material, int toDrain) {
+		for(ICrushedHolder holder : holders) {
+			if(holder.getCrushed() != null && material == holder.getCrushed().getMaterial() && holder.getCrushed().amount >= toDrain) {
+				holder.drain(material, toDrain);
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

@@ -32,7 +32,7 @@ public class TileEntityCrushedLoader extends TileEntitySidedBase<ICrushedHandler
     int updateTest = -1;
     
     public TileEntityCrushedLoader() {
-    	this.setInventory(new InventoryCrushed(new InventoryPieceCrushed(new CrushedHandler(new CrushedHolder(60)), 0, 0)));
+    	this.setInventory(new InventoryCrushed(new InventoryPieceCrushed(new CrushedHandler(new CrushedHolder(60)), 83, 16)));
     }
 
     @Override
@@ -105,16 +105,16 @@ public class TileEntityCrushedLoader extends TileEntitySidedBase<ICrushedHandler
 
     @Override
     protected void readCapability(NBTTagCompound data) {
-    	//NO-OP
+    	this.inventory.deserializeNBT(data.getCompoundTag("inventory"));
     }
 
     @Override
     protected void writeCapability(NBTTagCompound data) {
-    	//NO-OP
+    	data.setTag("inventory", this.inventory.serializeNBT());
     }
 
     @Override
-    public Capability<ICrushedHandler> getCapabilityType() { 
+    public Capability<ICrushedHandler> getCapabilityType() {
         return SARCapabilities.CRUSHED_HANDLER;
     }
 
