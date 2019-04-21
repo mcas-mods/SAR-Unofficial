@@ -24,11 +24,19 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.
 public class GuiInventory extends GuiContainer {
 	protected final IHasInventory holder;
 	protected ResourceLocation guiTexture;
-
+	
 	public GuiInventory(EntityPlayer player, IHasInventory holder) {
+		this(player, holder, "");
+	}
+
+	public GuiInventory(EntityPlayer player, IHasInventory holder, String textureOverride) {
 		super(new ContainerInventory(player, holder));
+		String name = textureOverride;
+		if(textureOverride.isEmpty()) {
+			name = holder.getName().toLowerCase().replace(' ', '_');
+		}
 		guiTexture = new ResourceLocation(SteamAgeRevolution.MODID,
-				"textures/gui/" + holder.getName().toLowerCase().replace(' ', '_') + ".png");
+				"textures/gui/" + name + ".png");
 		this.holder = holder;
 	}
 

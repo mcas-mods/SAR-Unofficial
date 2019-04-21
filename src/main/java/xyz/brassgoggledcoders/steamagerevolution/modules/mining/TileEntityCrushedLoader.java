@@ -20,7 +20,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHolder;
@@ -193,7 +192,7 @@ public class TileEntityCrushedLoader extends TileEntitySidedBase<ICrushedHandler
 
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiLoader(entityPlayer, this);
+		return new GuiCrushed(entityPlayer, this, "crushed_single");
 	}
 
 	@Override

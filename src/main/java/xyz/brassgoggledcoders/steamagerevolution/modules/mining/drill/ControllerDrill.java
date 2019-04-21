@@ -32,6 +32,7 @@ import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHand
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedHolder;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.CrushedStack;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.GuiCrushed;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryCrushed;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryPieceCrushed;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOre;
@@ -180,7 +181,7 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryCrushed> {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiDrill(entityPlayer, this);
+		return new GuiCrushed(entityPlayer, this, "");
 	}
 
 }

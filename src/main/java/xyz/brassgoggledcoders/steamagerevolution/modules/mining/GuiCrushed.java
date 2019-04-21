@@ -1,24 +1,21 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
 
 import java.util.List;
 
 import com.google.common.collect.Lists;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.api.crushedmaterial.ICrushedHandler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryCrushed;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.InventoryPieceCrushed;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
 
 @SideOnly(Side.CLIENT)
-public class GuiDrill extends GuiInventory {
+public class GuiCrushed extends GuiInventory {
 	
-	public GuiDrill(EntityPlayer player, IHasInventory<InventoryCrushed> holder) {
-		super(player, holder);
+	public GuiCrushed(EntityPlayer player, IHasInventory<InventoryCrushed> holder, String textureOverride) {
+		super(player, holder, textureOverride);
 	}
 
 	@Override
