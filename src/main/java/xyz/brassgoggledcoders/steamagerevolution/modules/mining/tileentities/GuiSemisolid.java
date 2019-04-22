@@ -11,12 +11,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
 
 @SideOnly(Side.CLIENT)
 public class GuiSemisolid extends GuiInventory {
 
-	public GuiSemisolid(EntityPlayer player, IHasInventory<InventorySemisolid> holder, String textureOverride) {
+	public GuiSemisolid(EntityPlayer player, IMachineHasInventory<InventorySemisolid> holder, String textureOverride) {
 		super(player, holder, textureOverride);
 	}
 

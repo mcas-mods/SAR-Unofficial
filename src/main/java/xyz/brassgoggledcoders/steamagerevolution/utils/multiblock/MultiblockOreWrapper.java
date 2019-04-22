@@ -1,10 +1,10 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 
 import net.minecraft.nbt.NBTTagCompound;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHolder;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.ControllerDrill;
 
 public class MultiblockOreWrapper implements ISemisolidHandler {

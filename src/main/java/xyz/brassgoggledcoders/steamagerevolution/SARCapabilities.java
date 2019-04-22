@@ -16,8 +16,8 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xyz.brassgoggledcoders.steamagerevolution.api.FurnaceFumeProducer;
 import xyz.brassgoggledcoders.steamagerevolution.api.IFumeProducer;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHandler;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHandler;
 
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class SARCapabilities {

@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
 import java.awt.Color;
 import java.util.List;
 
+import com.teamacronymcoders.base.materialsystem.MaterialSystem;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.modulesystem.dependencies.IDependency;
@@ -20,9 +21,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.Semisolid;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidRegistry;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockSemisolidLoader;
+import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMaterials;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOre;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockRailDumping;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockSemisolidLoader;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartSemisolid;
@@ -31,8 +33,6 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMineca
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class ModuleMining extends ModuleBase {
-
-	static String[] metals = new String[] { "Iron", "Gold" };
 
 	@Override
 	public String getClientProxyPath() {
@@ -68,7 +68,7 @@ public class ModuleMining extends ModuleBase {
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
 		super.registerBlocks(configRegistry, blockRegistry);
-		for (String type : metals) {
+		for (String type : ModuleMaterials.knownMetalTypes) {
 			blockRegistry.register(new BlockHeavyOre(type));
 		}
 
@@ -80,10 +80,13 @@ public class ModuleMining extends ModuleBase {
 	}
 
 	@SubscribeEvent
-	public static void registerCargo(SemisolidRegistry.SemisolidRegistryEvent registerEvent) {
-		for (String type : metals) {
-			//TODO
-			registerEvent.getRegistry().addEntry(new Semisolid(type.toLowerCase(), Color.GRAY.getRGB()));
+	public static void registerSemisolids(SemisolidRegistry.SemisolidRegistryEvent registerEvent) {
+		for (String type : ModuleMaterials.knownMetalTypes) {
+			int color = Color.GRAY.getRGB();
+			if(MaterialSystem.getMaterial(type) != null) {
+				color = MaterialSystem.getMaterial(type).getColor().getRGB();
+			}
+			registerEvent.getRegistry().addEntry(new Semisolid(type.toLowerCase(), color));
 		}
 	}
 

@@ -1,8 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking;
 
-import java.util.List;
-
-import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -32,7 +29,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
-import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMaterials;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.blocks.BlockCastingBench;
@@ -65,8 +61,6 @@ public class ModuleMetalworking extends ModuleBase {
 	public static final Item die = null;
 	public static final Item hammer = null;
 	public static final Block steamhammer_frame = null;
-
-	public static List<String> knownMetalTypes = Lists.newArrayList();
 
 	public static DamageSource damageSourceHammer = new DamageSource("hammer").setDifficultyScaled()
 			.setDamageBypassesArmor().setDamageIsAbsolute();
@@ -104,7 +98,7 @@ public class ModuleMetalworking extends ModuleBase {
 				.setFluidOutputs(FluidRegistry.getFluidStack("steel", RecipeUtil.VALUE_BLOCK))
 				.setSteamCost(Fluid.BUCKET_VOLUME * 10).setCraftTime(6000).build();
 
-		for(String metal : knownMetalTypes) {
+		for(String metal : ModuleMaterials.knownMetalTypes) {
 
 			// Known to be non-null because it is how metal types are known
 			String ingot = "ingot" + metal;
@@ -190,21 +184,6 @@ public class ModuleMetalworking extends ModuleBase {
 		}
 	}
 
-	@SubscribeEvent
-	public static void onOreRegistered(OreDictionary.OreRegisterEvent event) {
-		String name = event.getName();
-		String[] splitName = name.split("(?=[A-Z])");
-		if(splitName.length == 2) {
-			if(splitName[0].equals("ingot")) {
-				String metalType = splitName[1];
-				if(!knownMetalTypes.contains(metalType)) {
-					knownMetalTypes.add(metalType);
-					SteamAgeRevolution.instance.getLogger().devInfo("Metal type detected: " + metalType);
-				}
-			}
-		}
-	}
-
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		getConfigRegistry().addEntry("plateCount", new ConfigEntry("balance", "plateCount", Type.INTEGER, "1"));
@@ -212,8 +191,8 @@ public class ModuleMetalworking extends ModuleBase {
 		getConfigRegistry().addEntry("dustCount", new ConfigEntry("balance", "dustCount", Type.INTEGER, "1"));
 		dustCount = getConfigRegistry().getInt("dustCount", 1);
 		getConfigRegistry().addCategoryComment("balance", "Adjust number of items produced in recipes", "General");
-		knownMetalTypes.add("Iron");
-		knownMetalTypes.add("Gold");
+		ModuleMaterials.knownMetalTypes.add("Iron");
+		ModuleMaterials.knownMetalTypes.add("Gold");
 		super.preInit(event);
 	}
 

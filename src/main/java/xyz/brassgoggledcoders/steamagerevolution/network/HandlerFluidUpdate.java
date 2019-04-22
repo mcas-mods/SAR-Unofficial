@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
 
 public class HandlerFluidUpdate implements IMessageHandler<PacketFluidUpdate, IMessage> {
 	public HandlerFluidUpdate() {
@@ -30,13 +30,13 @@ public class HandlerFluidUpdate implements IMessageHandler<PacketFluidUpdate, IM
 
 	private void processMessage(WorldClient worldClient, PacketFluidUpdate message) {
 		TileEntity te = worldClient.getTileEntity(message.pos);
-		if(te instanceof IHasInventory) {
-			IHasInventory tile = (IHasInventory) te;
+		if(te instanceof IMachineHasInventory) {
+			IMachineHasInventory tile = (IMachineHasInventory) te;
 			tile.getInventory().updateFluid(message);
 		}
 		else {
 			MultiblockTileEntityBase<?> tile = (MultiblockTileEntityBase<?>) te;
-			IHasInventory controller = (IHasInventory) tile.getMultiblockController();
+			IMachineHasInventory controller = (IMachineHasInventory) tile.getMultiblockController();
 			controller.getInventory().updateFluid(message);
 		}
 	}

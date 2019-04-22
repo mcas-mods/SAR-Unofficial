@@ -22,7 +22,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeMachineHelpe
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 public abstract class SARMachineTileEntity extends TileEntityBase
-		implements ITickable, ISmartStackCallback, IHasGui, IHasInventory {
+		implements ITickable, ISmartStackCallback, IHasGui, IMachineHasInventory {
 
 	public int currentTicks = 0;
 	public InventoryMachine inventory;

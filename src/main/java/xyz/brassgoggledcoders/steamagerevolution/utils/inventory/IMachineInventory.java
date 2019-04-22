@@ -7,7 +7,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSma
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
-public interface ISARMachineInventory {
+public interface IMachineInventory {
 	@Nullable
 	public ItemStackHandlerExtractSpecific getInputHandler();
 

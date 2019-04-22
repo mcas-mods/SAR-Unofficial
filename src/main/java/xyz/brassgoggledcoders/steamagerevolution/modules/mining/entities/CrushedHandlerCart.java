@@ -1,8 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities;
 
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHolder;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketSemisolidCart;
 
 public class CrushedHandlerCart extends SemisolidHandler {

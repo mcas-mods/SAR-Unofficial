@@ -15,7 +15,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceProgressBar;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
-public class InventoryMachine implements ISARMachineInventory, INBTSerializable<NBTTagCompound>, ISmartTankCallback {
+public class InventoryMachine implements IMachineInventory, INBTSerializable<NBTTagCompound>, ISmartTankCallback {
 
 	public InventoryPieceItem itemInput;
 	public InventoryPieceFluid fluidInput;
@@ -185,7 +185,7 @@ public class InventoryMachine implements ISARMachineInventory, INBTSerializable<
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTankSmart tank, TankType type, IHasInventory parent) {
+	public void onTankContentsChanged(FluidTankSmart tank, TankType type, IMachineHasInventory parent) {
 		if(tank instanceof MultiFluidTank) {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
 					new PacketMultiFluidUpdate(parent.getMachinePos(), ((MultiFluidTank) tank).fluids,

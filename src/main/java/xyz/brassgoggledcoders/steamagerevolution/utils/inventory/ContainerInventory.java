@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerInventory extends ContainerBase {
-	public ContainerInventory(EntityPlayer player, IHasInventory holder) {
+	public ContainerInventory(EntityPlayer player, IMachineHasInventory holder) {
 		if(holder.getInventory().itemInput != null) {
 			for(int i = 0; i < holder.getInventory().itemInput.getHandler().getSlots(); i++) {
 				addSlotToContainer(new SlotItemHandler(holder.getInventory().itemInput.getHandler(), i,

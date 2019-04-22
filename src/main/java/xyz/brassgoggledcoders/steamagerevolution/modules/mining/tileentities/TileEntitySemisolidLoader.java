@@ -21,16 +21,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHolder;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHandler;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 public class TileEntitySemisolidLoader extends TileEntitySidedBase<ISemisolidHandler>
-		implements ITickable, IHasInventory<InventorySemisolid>, IHasGui {
+		implements ITickable, IMachineHasInventory<InventorySemisolid>, IHasGui {
 	InventorySemisolid inventory;
 	int updateTest = -1;
 

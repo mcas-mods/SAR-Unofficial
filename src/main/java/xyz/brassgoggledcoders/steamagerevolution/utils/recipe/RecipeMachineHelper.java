@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
 
 public class RecipeMachineHelper {
@@ -92,7 +92,7 @@ public class RecipeMachineHelper {
 		return false;
 	}
 
-	public static boolean canRun(World world, BlockPos pos, IHasInventory handler, String name,
+	public static boolean canRun(World world, BlockPos pos, IMachineHasInventory handler, String name,
 			SARMachineRecipe currentRecipe, InventoryMachine inventory) {
 		if(currentRecipe != null) {
 			if(inventory.getSteamTank() == null

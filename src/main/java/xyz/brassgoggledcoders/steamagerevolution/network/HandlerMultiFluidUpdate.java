@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
 
 public class HandlerMultiFluidUpdate implements IMessageHandler<PacketMultiFluidUpdate, IMessage> {
 	public HandlerMultiFluidUpdate() {
@@ -31,13 +31,13 @@ public class HandlerMultiFluidUpdate implements IMessageHandler<PacketMultiFluid
 
 	private void processMessage(WorldClient worldClient, PacketMultiFluidUpdate message) {
 		TileEntity te = worldClient.getTileEntity(message.pos);
-		if(te instanceof IHasInventory) {
-			ISmartTankCallback tile = ((IHasInventory) te).getInventory();
+		if(te instanceof IMachineHasInventory) {
+			ISmartTankCallback tile = ((IMachineHasInventory) te).getInventory();
 			tile.updateFluid(message);
 		}
 		else {
 			MultiblockTileEntityBase<?> tile = (MultiblockTileEntityBase<?>) te;
-			ISmartTankCallback controller = ((IHasInventory) tile.getMultiblockController()).getInventory();
+			ISmartTankCallback controller = ((IMachineHasInventory) tile.getMultiblockController()).getInventory();
 			controller.updateFluid(message);
 		}
 	}

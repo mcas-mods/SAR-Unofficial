@@ -23,12 +23,12 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHolder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartSemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.GuiSemisolid;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.InventorySemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.InventoryPieceSemisolid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.InventorySemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
-public class EntityMinecartSemisolid extends EntityMinecartBase implements IHasGui, IHasInventory<InventorySemisolid> {
+public class EntityMinecartSemisolid extends EntityMinecartBase implements IHasGui, IMachineHasInventory<InventorySemisolid> {
 
 	@ObjectHolder(SteamAgeRevolution.MODID + ":minecart_ore_carrier")
 	private static ItemMinecartSemisolid itemMinecartSemisolid;

@@ -8,19 +8,18 @@ import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeMachineHelper;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
-public abstract class SARMultiblockInventory<I extends InventoryMachine> extends SARMultiblockBase implements ISmartStackCallback, IHasInventory<I> {
+public abstract class SARMultiblockInventory<I extends InventoryMachine> extends SARMultiblockBase implements ISmartStackCallback, IMachineHasInventory<I> {
 
 	public I inventory;
 	@SideOnly(Side.CLIENT)

@@ -22,14 +22,14 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.
 
 @SideOnly(Side.CLIENT)
 public class GuiInventory extends GuiContainer {
-	protected final IHasInventory holder;
+	protected final IMachineHasInventory holder;
 	protected ResourceLocation guiTexture;
 	
-	public GuiInventory(EntityPlayer player, IHasInventory holder) {
+	public GuiInventory(EntityPlayer player, IMachineHasInventory holder) {
 		this(player, holder, "");
 	}
 
-	public GuiInventory(EntityPlayer player, IHasInventory holder, String textureOverride) {
+	public GuiInventory(EntityPlayer player, IMachineHasInventory holder, String textureOverride) {
 		super(new ContainerInventory(player, holder));
 		String name = textureOverride;
 		if(textureOverride.isEmpty()) {

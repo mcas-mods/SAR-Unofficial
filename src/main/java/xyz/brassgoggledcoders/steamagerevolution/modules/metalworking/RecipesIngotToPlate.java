@@ -15,6 +15,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMaterials;
 
 @ObjectHolder(SteamAgeRevolution.MODID)
 public class RecipesIngotToPlate extends net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe>
@@ -36,7 +37,7 @@ public class RecipesIngotToPlate extends net.minecraftforge.registries.IForgeReg
 					continue;
 				}
 				// TODO
-				for(String metal : ModuleMetalworking.knownMetalTypes) {
+				for(String metal : ModuleMaterials.knownMetalTypes) {
 					if(OreDictionary.containsMatch(false, OreDictionary.getOres("ingot" + metal, false), itemstack)) {
 						hasIngot = true;
 					}
