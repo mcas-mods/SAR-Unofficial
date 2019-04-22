@@ -25,7 +25,7 @@ public class SemisolidStack implements INBTSerializable<NBTTagCompound> {
 	@Override
 	public void deserializeNBT(NBTTagCompound nbt) {
 		if(!nbt.isEmpty()) {
-			this.material = SteamAgeRevolution.materialRegistry.getEntry(new ResourceLocation(nbt.getString("name")));
+			this.material = SteamAgeRevolution.semisolidRegistry.getEntry(new ResourceLocation(nbt.getString("name")));
 			this.amount = nbt.getInteger("amount");
 		}
 	}

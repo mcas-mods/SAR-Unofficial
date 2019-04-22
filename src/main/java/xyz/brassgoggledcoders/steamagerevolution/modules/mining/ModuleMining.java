@@ -27,13 +27,17 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockRail
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockSemisolidLoader;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillOutput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartDrilling;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartSemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartDrilling;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartSemisolid;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class ModuleMining extends ModuleBase {
 
+	String[] oreTypes = new String[] {"Iron", "Gold", "Coal"};
+	
 	@Override
 	public String getClientProxyPath() {
 		return "xyz.brassgoggledcoders.steamagerevolution.modules.mining.ClientProxy";
@@ -68,7 +72,9 @@ public class ModuleMining extends ModuleBase {
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
 		super.registerBlocks(configRegistry, blockRegistry);
-		for (String type : ModuleMaterials.knownMetalTypes) {
+		
+		for (String type : oreTypes) {
+			//TODO Integrate into the material system
 			blockRegistry.register(new BlockHeavyOre(type));
 		}
 
@@ -83,6 +89,7 @@ public class ModuleMining extends ModuleBase {
 	public static void registerSemisolids(SemisolidRegistry.SemisolidRegistryEvent registerEvent) {
 		for (String type : ModuleMaterials.knownMetalTypes) {
 			int color = Color.GRAY.getRGB();
+			//TODO Integrated the Semisolid registry into the MaterialSystem as a custom part type
 			if(MaterialSystem.getMaterial(type) != null) {
 				color = MaterialSystem.getMaterial(type).getColor().getRGB();
 			}
@@ -94,12 +101,14 @@ public class ModuleMining extends ModuleBase {
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
 		super.registerItems(configRegistry, itemRegistry);
 		itemRegistry.register(new ItemMinecartSemisolid());
+		itemRegistry.register(new ItemMinecartDrilling());
 	}
 
 	@Override
 	public void registerEntities(ConfigRegistry configRegistry, EntityRegistry entityRegistry) {
 		super.registerEntities(configRegistry, entityRegistry);
 		entityRegistry.register(EntityMinecartSemisolid.class);
+		entityRegistry.register(EntityMinecartDrilling.class);
 	}
 
 }

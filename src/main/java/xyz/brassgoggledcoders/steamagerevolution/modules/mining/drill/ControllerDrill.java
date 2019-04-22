@@ -1,6 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -9,30 +8,17 @@ import org.apache.commons.lang3.tuple.Pair;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.common.util.FakePlayerFactory;
-import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHolder;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOre;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.MiningUtils;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.GuiSemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.InventoryPieceSemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.InventorySemisolid;
@@ -45,7 +31,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockI
 public class ControllerDrill extends SARMultiblockInventory<InventorySemisolid> {
 
 	private static final String name = "[" + SteamAgeRevolution.MODNAME + "]";
-	private static final GameProfile profile = new GameProfile(UUID.nameUUIDFromBytes(name.getBytes()), name);
+	public static final GameProfile profile = new GameProfile(UUID.nameUUIDFromBytes(name.getBytes()), name);
 
 	ArrayList<BlockPos> positions = Lists.newArrayList();
 	int currentPosition = 0;
@@ -82,40 +68,10 @@ public class ControllerDrill extends SARMultiblockInventory<InventorySemisolid> 
 
 	@Override
 	protected boolean updateServer() {
-		WeakReference<FakePlayer> fakePlayer = new WeakReference<FakePlayer>(
-				FakePlayerFactory.get((WorldServer) WORLD, profile));
 		if (this.getCurrentProgress() >= 20) {
 			if (currentPosition < positions.size()) {
 				BlockPos pos = positions.get(currentPosition);
-				// Skip air, skip unbreakable blocks, skip tile entities and skip blocks that
-				// are otherwise unharvestable
-				IBlockState state = WORLD.getBlockState(pos);
-				if (!WORLD.isAirBlock(pos) && state.getBlockHardness(WORLD, pos) >= 0
-						&& WORLD.getTileEntity(pos) == null && allowedToBreak(state, WORLD, pos, fakePlayer.get())) {
-					if (state.getBlock() instanceof BlockHeavyOre) {
-						BlockHeavyOre ore = (BlockHeavyOre) state.getBlock();
-						ISemisolidHandler oreHolder = this.getInventory().ore.getHandler();
-						oreHolder.getHolders()[0].fill(new SemisolidStack(SteamAgeRevolution.materialRegistry
-								.getEntry(new ResourceLocation(ore.getRegistryName().getNamespace(), ore.type)), 1));
-						this.markReferenceCoordForUpdate();
-						int chunks = state.getValue(BlockHeavyOre.CHUNKS).intValue();
-						if (chunks > 1) {
-							WORLD.setBlockState(pos, state.withProperty(BlockHeavyOre.CHUNKS, chunks - 1), 2);
-
-						} else {
-							WORLD.destroyBlock(pos, false);
-						}
-					} else {
-						NonNullList<ItemStack> drops = NonNullList.create();
-						state.getBlock().getDrops(drops, WORLD, pos, state, 0);
-						for (ItemStack drop : drops) {
-							ItemHandlerHelper.insertItemStacked(this.getInventory().getOutputHandler(), drop, false);
-						}
-						WORLD.destroyBlock(pos, false);
-						ForgeEventFactory.fireBlockHarvesting(drops, WORLD, pos, state, 0, 0, false, fakePlayer.get());
-					}
-					SteamAgeRevolution.instance.getLogger().devInfo("Mining " + pos.toString());
-				}
+				MiningUtils.doMining(WORLD, pos, this.getInventory().getOutputHandler(), this.getInventory().ore.getHandler());
 				currentPosition++;
 			} else {
 				currentPosition = 0;
@@ -125,15 +81,6 @@ public class ControllerDrill extends SARMultiblockInventory<InventorySemisolid> 
 			this.currentTicks++;
 		}
 		return true;
-	}
-
-	public static boolean allowedToBreak(IBlockState state, World world, BlockPos pos, EntityPlayer entityPlayer) {
-		if (!state.getBlock().canEntityDestroy(state, world, pos, entityPlayer)) {
-			return false;
-		}
-		BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(world, pos, state, entityPlayer);
-		MinecraftForge.EVENT_BUS.post(event);
-		return !event.isCanceled();
 	}
 
 	@Override

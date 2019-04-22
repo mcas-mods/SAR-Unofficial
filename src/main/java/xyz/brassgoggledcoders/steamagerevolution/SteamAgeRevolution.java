@@ -46,7 +46,8 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 	@SidedProxy(clientSide = "xyz.brassgoggledcoders.steamagerevolution.proxies.ClientProxy", serverSide = "xyz.brassgoggledcoders.steamagerevolution.proxies.CommonProxy")
 	public static xyz.brassgoggledcoders.steamagerevolution.proxies.CommonProxy proxy;
 	
-	public static SemisolidRegistry materialRegistry = new SemisolidRegistry();
+	@Deprecated
+	public static SemisolidRegistry semisolidRegistry = new SemisolidRegistry();
 
 	static {
 		FluidRegistry.enableUniversalBucket();
@@ -74,7 +75,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 		//		Side.SERVER);
 		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerSemisolidCart.class, PacketSemisolidCart.class, Side.CLIENT);
 		SARCapabilities.register();
-		MinecraftForge.EVENT_BUS.post(new SemisolidRegistryEvent(materialRegistry, SemisolidRegistry.class));
+		MinecraftForge.EVENT_BUS.post(new SemisolidRegistryEvent(semisolidRegistry, SemisolidRegistry.class));
 	}
 
 	@Override
