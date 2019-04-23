@@ -34,7 +34,7 @@ public class ControllerGrinder extends SARMultiblockInventory<InventorySemisolid
 
 	@Override
 	public int getMaximumYSize() {
-		return 2;
+		return 3;
 	}
 
 }

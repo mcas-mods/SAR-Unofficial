@@ -142,6 +142,7 @@ death.attack.hammer=%1$s was flattened.
 death.attack.gas=%1$s's lungs dissolved.
 death.attack.acid=%1$s became a part of the solution.
 death.attack.bullet=%1$s took a bullet to the knee.
+death.attack.grinder=%1$s got left in the dust.
 
 #Guide
 item.guide.steamagerevolution=Steam Age Guide

@@ -62,7 +62,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.blocks.BlockVatFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.blocks.BlockVatOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.utils.BlockDamagingFluid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.BlockDamagingFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.MachineRecipeBuilder;
 
 @Module(value = SteamAgeRevolution.MODID)

@@ -10,7 +10,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockOreWrapper;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.MultiblockOreWrapper;
 
 public class TileEntityDrillOutput extends TileEntityDrillPart implements ITickable {
 

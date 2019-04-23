@@ -11,6 +11,7 @@ import com.teamacronymcoders.base.registrysystem.EntityRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
+import net.minecraft.util.DamageSource;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -29,6 +30,9 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMineca
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class ModuleMining extends ModuleBase {
 
+	public static DamageSource damageSourceGrinder = new DamageSource("grinder").setDifficultyScaled().setDamageBypassesArmor()
+			.setDamageIsAbsolute();
+	
 	@Override
 	public String getClientProxyPath() {
 		return "xyz.brassgoggledcoders.steamagerevolution.modules.mining.ClientProxy";

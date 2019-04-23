@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
 
 import net.minecraft.nbt.NBTTagCompound;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolid;
@@ -6,12 +6,15 @@ import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHandler
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHolder;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.ControllerDrill;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.InventorySemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileBase;
 
-public class MultiblockOreWrapper implements ISemisolidHandler {
+public class MultiblockOreWrapper<T extends SARMultiblockTileBase<SARMultiblockInventory<InventorySemisolid>>> implements ISemisolidHandler {
 
-	final SARMultiblockTileBase<ControllerDrill> tile;
+	final T tile;
 
-	public MultiblockOreWrapper(SARMultiblockTileBase<ControllerDrill> tile) {
+	public MultiblockOreWrapper(T tile) {
 		this.tile = tile;
 	}
 	
