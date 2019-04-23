@@ -50,4 +50,8 @@ public class SemisolidRegistry {
 			return reg;
 		}
     }
+
+	public boolean hasEntry(ResourceLocation name) {
+		return this.entries.containsKey(name);
+	}
 }

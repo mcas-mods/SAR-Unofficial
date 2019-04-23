@@ -47,6 +47,7 @@ public class ModuleMaterials extends ModuleBase {
 			"plate", "dust", "block", "molten" };
 	String[] alloyParts = Arrays.copyOfRange(metalParts, 6, metalParts.length);
 	String[] compatParts = new String[] { "heavy_ore", "crushed_ore", "solution", "crystal", "ore_rock" };
+	
 	public static List<String> knownMetalTypes = Lists.newArrayList();
 
 	@Override
@@ -54,6 +55,7 @@ public class ModuleMaterials extends ModuleBase {
 		PartType heavyOre = new HeavyOrePartType();
 		MaterialSystem.registerPartType(heavyOre);
 		registerPart("Heavy Ore", heavyOre);
+		
 		try {
 			MaterialUser SAR = SteamAgeRevolution.instance.getMaterialUser();
 

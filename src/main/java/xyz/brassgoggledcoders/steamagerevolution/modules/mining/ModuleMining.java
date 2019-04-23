@@ -1,10 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
 
-import java.awt.Color;
 import java.util.List;
 
-import com.teamacronymcoders.base.materialsystem.MaterialSystem;
-import com.teamacronymcoders.base.materialsystem.parttype.PartType;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.modulesystem.dependencies.IDependency;
@@ -18,12 +15,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.Semisolid;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidRegistry;
-import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMaterials;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOre;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockRailDumping;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockSemisolidLoader;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillFrame;
@@ -37,8 +29,6 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMineca
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class ModuleMining extends ModuleBase {
 
-	String[] oreTypes = new String[] {"Iron", "Gold", "Coal"};
-	
 	@Override
 	public String getClientProxyPath() {
 		return "xyz.brassgoggledcoders.steamagerevolution.modules.mining.ClientProxy";
@@ -74,28 +64,11 @@ public class ModuleMining extends ModuleBase {
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
 		super.registerBlocks(configRegistry, blockRegistry);
 		
-		for (String type : oreTypes) {
-			//TODO Integrate into the material system
-			//blockRegistry.register(new BlockHeavyOre(type));
-		}
-
 		blockRegistry.register(new BlockDrillFrame());
 		blockRegistry.register(new BlockDrillOutput());
 
 		blockRegistry.register(new BlockRailDumping());
 		blockRegistry.register(new BlockSemisolidLoader());
-	}
-
-	@SubscribeEvent
-	public static void registerSemisolids(SemisolidRegistry.SemisolidRegistryEvent registerEvent) {
-		for (String type : ModuleMaterials.knownMetalTypes) {
-			int color = Color.GRAY.getRGB();
-			//TODO Integrated the Semisolid registry into the MaterialSystem as a custom part type
-			if(MaterialSystem.getMaterial(type) != null) {
-				color = MaterialSystem.getMaterial(type).getColor().getRGB();
-			}
-			registerEvent.getRegistry().addEntry(new Semisolid(type.toLowerCase(), color));
-		}
 	}
 
 	@Override
