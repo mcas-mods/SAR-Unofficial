@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.List;
 
 import com.teamacronymcoders.base.materialsystem.MaterialSystem;
+import com.teamacronymcoders.base.materialsystem.parttype.PartType;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.modulesystem.dependencies.IDependency;
@@ -75,7 +76,7 @@ public class ModuleMining extends ModuleBase {
 		
 		for (String type : oreTypes) {
 			//TODO Integrate into the material system
-			blockRegistry.register(new BlockHeavyOre(type));
+			//blockRegistry.register(new BlockHeavyOre(type));
 		}
 
 		blockRegistry.register(new BlockDrillFrame());

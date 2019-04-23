@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.google.common.collect.Lists;
+import com.teamacronymcoders.base.Base;
 import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.materialsystem.MaterialException;
 import com.teamacronymcoders.base.materialsystem.MaterialSystem;
@@ -13,6 +14,7 @@ import com.teamacronymcoders.base.materialsystem.materials.Material;
 import com.teamacronymcoders.base.materialsystem.materials.MaterialBuilder;
 import com.teamacronymcoders.base.materialsystem.parts.PartBuilder;
 import com.teamacronymcoders.base.materialsystem.parttype.ItemPartType;
+import com.teamacronymcoders.base.materialsystem.parttype.PartType;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -29,6 +31,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.HeavyOrePartType;
 
 @ObjectHolder(SteamAgeRevolution.MODID)
 @Module(value = SteamAgeRevolution.MODID)
@@ -38,16 +41,19 @@ public class ModuleMaterials extends ModuleBase {
 	public static final Block charcoal_block = null;
 	public static final Item charcoal_powder = null;
 	public static Color brassColor = new Color(251, 194, 99);
-	String[] vanillaParts = new String[] { "ore", "plate", "dust", "molten", "crushed_ore", "solution", "crystal",
+	String[] vanillaParts = new String[] { "ore", "heavy_ore", "plate", "dust", "molten", "crushed_ore", "solution", "crystal",
 			"ore_rock" };
-	String[] metalParts = new String[] { "ore", "crushed_ore", "ore_rock", "solution", "crystal", "ingot", "nugget",
+	String[] metalParts = new String[] { "ore", "heavy_ore", "crushed_ore", "ore_rock", "solution", "crystal", "ingot", "nugget",
 			"plate", "dust", "block", "molten" };
-	String[] alloyParts = Arrays.copyOfRange(metalParts, 5, metalParts.length);
-	String[] compatParts = new String[] { "crushed_ore", "solution", "crystal", "ore_rock" };
+	String[] alloyParts = Arrays.copyOfRange(metalParts, 6, metalParts.length);
+	String[] compatParts = new String[] { "heavy_ore", "crushed_ore", "solution", "crystal", "ore_rock" };
 	public static List<String> knownMetalTypes = Lists.newArrayList();
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
+		PartType heavyOre = new HeavyOrePartType();
+		MaterialSystem.registerPartType(heavyOre);
+		registerPart("Heavy Ore", heavyOre);
 		try {
 			MaterialUser SAR = SteamAgeRevolution.instance.getMaterialUser();
 
@@ -185,4 +191,16 @@ public class ModuleMaterials extends ModuleBase {
 	public String getName() {
 		return "Materials";
 	}
+	
+	private void registerPart(String name, PartType partType) {
+        registerPart(new PartBuilder().setName(name).setPartType(partType));
+    }
+
+    private void registerPart(PartBuilder partBuilder) {
+        try {
+            partBuilder.build();
+        } catch (MaterialException e) {
+            Base.instance.getLogger().getLogger().error(e);
+        }
+}
 }
