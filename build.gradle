@@ -196,7 +196,7 @@ task("uploadJars", dependsOn: "reobf") {
 }
 
 String getVersion() {
-    String version = "${mod_version}"
+    String version = "${minecraft_version}-${mod_version}"
     String branch = project.hasProperty("branch") ? project.branch : ""
 
     if(branch != "") {
