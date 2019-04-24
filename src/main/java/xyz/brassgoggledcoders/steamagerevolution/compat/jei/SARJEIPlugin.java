@@ -16,6 +16,7 @@ import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.CastingBl
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.CrucibleRecipeCategory;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.DistillerRecipeCategory;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.FumeCollectorRecipeCategory;
+import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.GrinderRecipeCategory;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.SARRecipeCategory;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.SteamFurnaceRecipeCategory;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.SteamHammerRecipeCategory;
@@ -63,6 +64,8 @@ public class SARJEIPlugin implements IModPlugin {
 
 		add(registry, RecipeRegistry.getRecipesForMachine("distiller"), DistillerRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.distiller_frame));
+		
+		add(registry, RecipeRegistry.getRecipesForMachine("grinder"), GrinderRecipeCategory.uid, new ItemStack(JEIObjectHolder.furnace_casing));
 
 		// add(registry, SawmillRecipe.getRecipeList(), SawmillRecipeCategory.uid,
 		// new ItemStack(JEIObjectHolder.sawmill_casing));

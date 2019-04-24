@@ -3,6 +3,8 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks;
 import java.util.List;
 import java.util.function.Predicate;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import com.teamacronymcoders.base.IBaseMod;
 import com.teamacronymcoders.base.blocks.IAmBlock;
 import com.teamacronymcoders.base.blocks.IHasBlockStateMapper;
@@ -24,6 +26,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHolder;
@@ -90,7 +93,7 @@ public class BlockRailDumping extends BlockRailBase
 				ISemisolidHolder cartHolder = carrier.getInventory().ore.getHandler().getHolders()[0];
 				if (cartHolder.getAmount() > 0) {
 					ISemisolidHandler handler = te.getCapability(SARCapabilities.SEMISOLID_HANDLER, EnumFacing.UP);
-					if ((handler.getHolders()[0].getCrushed() == null || cartHolder.getCrushed()
+					if (ArrayUtils.isNotEmpty(handler.getHolders()) && (handler.getHolders()[0].getCrushed() == null || cartHolder.getCrushed()
 							.getMaterial() == handler.getHolders()[0].getCrushed().getMaterial())
 							&& cartHolder.getAmount() <= (handler.getHolders()[0].getHolderCapacity()
 									- handler.getHolders()[0].getAmount())) {

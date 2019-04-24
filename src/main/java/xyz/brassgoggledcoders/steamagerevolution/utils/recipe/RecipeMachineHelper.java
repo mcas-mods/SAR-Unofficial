@@ -132,7 +132,7 @@ public class RecipeMachineHelper {
 				.findAny().isPresent();
 	}
 
-	private static boolean hasRequiredItems(InventoryMachine inventory, SARMachineRecipe recipe) {
+	public static boolean hasRequiredItems(InventoryMachine inventory, SARMachineRecipe recipe) {
 		if(ArrayUtils.isNotEmpty(recipe.getItemInputs())) {
 			return Arrays.stream(recipe.getItemInputs()).map(ing -> handlerHasItems(inventory, ing))
 					.reduce((a, b) -> a && b).orElse(false);

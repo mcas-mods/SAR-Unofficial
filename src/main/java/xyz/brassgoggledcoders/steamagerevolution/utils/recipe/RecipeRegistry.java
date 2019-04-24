@@ -11,7 +11,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 public class RecipeRegistry {
 	private static HashMap<String, ArrayList<SARMachineRecipe>> recipeMasterlist = Maps.newHashMap();
 
-	protected static void addRecipe(String crafter, SARMachineRecipe recipe) {
+	public static void addRecipe(String crafter, SARMachineRecipe recipe) {
 		if(!recipeMasterlist.containsKey(crafter)) {
 			SteamAgeRevolution.instance.getLogger().devInfo("Recipe machine " + crafter + " did not exist, creating");
 			recipeMasterlist.put(crafter, Lists.newArrayList());

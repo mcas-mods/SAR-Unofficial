@@ -10,19 +10,28 @@ import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.EntityRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
+import com.teamacronymcoders.base.util.OreDictUtils;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockRailDumping;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockSemisolidLoader;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartDrilling;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartSemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.grinder.BlockGrinderFrame;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.grinder.BlockGrinderInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartDrilling;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartSemisolid;
 
@@ -63,6 +72,16 @@ public class ModuleMining extends ModuleBase {
 	public String getName() {
 		return "Mining";
 	}
+	
+	@SubscribeEvent
+	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+		for(ISemisolid ssolid : SteamAgeRevolution.semisolidRegistry.getEntries()) {
+			ItemStack crushedOreStack = OreDictUtils.getPreferredItemStack("crushedOre" + ssolid.getRegistryName().getPath());
+			if(!crushedOreStack.isEmpty()) {
+				new SemisolidRecipe.Builder("grinder").setSemisolidInputs(new SemisolidStack(ssolid, 1)).setItemOutputs(crushedOreStack).build();
+			}
+		}
+	}
 
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
@@ -73,6 +92,9 @@ public class ModuleMining extends ModuleBase {
 
 		blockRegistry.register(new BlockRailDumping());
 		blockRegistry.register(new BlockSemisolidLoader());
+		
+		blockRegistry.register(new BlockGrinderFrame());
+		blockRegistry.register(new BlockGrinderInput());
 	}
 
 	@Override

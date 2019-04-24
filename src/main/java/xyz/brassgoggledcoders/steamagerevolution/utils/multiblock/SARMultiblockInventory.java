@@ -25,7 +25,7 @@ public abstract class SARMultiblockInventory<I extends InventoryMachine> extends
 	@SideOnly(Side.CLIENT)
 	public int currentMaxTicks;
 	protected int currentTicks = 0;
-	SARMachineRecipe currentRecipe;
+	protected SARMachineRecipe currentRecipe;
 
 	protected SARMultiblockInventory(World world) {
 		super(world);

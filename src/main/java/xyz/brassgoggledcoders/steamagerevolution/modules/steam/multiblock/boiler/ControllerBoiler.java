@@ -27,7 +27,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerBoiler extends SARMultiblockInventory {
+public class ControllerBoiler extends SARMultiblockInventory<InventoryMachine> {
 
 	public static final int fuelDivisor = 3;
 	public static final int fluidConversionPerTick = 5;

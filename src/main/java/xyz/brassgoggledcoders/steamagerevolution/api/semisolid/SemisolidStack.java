@@ -33,4 +33,13 @@ public class SemisolidStack implements INBTSerializable<NBTTagCompound> {
 	public ISemisolid getMaterial() {
 		return material;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o instanceof SemisolidStack) {
+			SemisolidStack otherStack = (SemisolidStack) o;
+			return otherStack.material == this.material && otherStack.amount == this.amount;
+		}
+		return false;
+	}
 }

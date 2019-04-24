@@ -23,7 +23,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerSteamHammer extends SARMultiblockInventory {
+public class ControllerSteamHammer extends SARMultiblockInventory<InventoryMachine> {
 
 	public String dieType = "";
 	BlockPos center = null;

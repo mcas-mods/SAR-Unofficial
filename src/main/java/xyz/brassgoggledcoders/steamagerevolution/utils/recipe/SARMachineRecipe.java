@@ -21,6 +21,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.oredict.OreIngredient;
+import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
 
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei", striprefs = true)
 public class SARMachineRecipe implements IRecipeWrapper {
@@ -34,7 +35,7 @@ public class SARMachineRecipe implements IRecipeWrapper {
 	protected final ItemStack[] itemOutputs;
 	@Nullable
 	protected final FluidStack[] fluidOutputs;
-	@Nonnull
+ 	@Nonnull
 	private final String crafter;
 	@Nonnull
 	public int networkID;

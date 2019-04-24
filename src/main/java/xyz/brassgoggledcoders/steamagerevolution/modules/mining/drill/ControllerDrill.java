@@ -50,7 +50,7 @@ public class ControllerDrill extends SARMultiblockInventory<InventorySemisolid> 
 						new int[] { yOffset + 16, yOffset + 16, yOffset + 16, yOffset + 32 + slotGap,
 								yOffset + 32 + slotGap, yOffset + 32 + slotGap, yOffset + 48 + slotGap * 2,
 								yOffset + 48 + slotGap * 2, yOffset + 48 + slotGap * 2 }),
-				new InventoryPieceSemisolid(new SemisolidHandler(new SemisolidHolder(null, 30)), 126, 15),
+				new InventoryPieceSemisolid(new SemisolidHandler(new SemisolidHolder(30)), 126, 15),
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 13, 9)));
 	}
 
