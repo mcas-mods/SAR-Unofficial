@@ -12,18 +12,22 @@ import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import com.teamacronymcoders.base.util.OreDictUtils;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import stanhebben.zenscript.util.StringUtil;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.SemisolidRecipe.Builder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockRailDumping;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockSemisolidLoader;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.BlockDrillFrame;
@@ -34,6 +38,8 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mining.grinder.BlockGri
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.grinder.BlockGrinderInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartDrilling;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartSemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeRegistry;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
@@ -76,9 +82,9 @@ public class ModuleMining extends ModuleBase {
 	@SubscribeEvent
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 		for(ISemisolid ssolid : SteamAgeRevolution.semisolidRegistry.getEntries()) {
-			ItemStack crushedOreStack = OreDictUtils.getPreferredItemStack("crushedOre" + ssolid.getRegistryName().getPath());
+			ItemStack crushedOreStack = OreDictUtils.getPreferredItemStack("crushedOre" + StringUtil.capitalize(ssolid.getRegistryName().getPath()));
 			if(!crushedOreStack.isEmpty()) {
-				new SemisolidRecipe.Builder("grinder").setSemisolidInputs(new SemisolidStack(ssolid, 1)).setItemOutputs(crushedOreStack).build();
+				((Builder) new SemisolidRecipe.Builder("grinder").setItemOutputs(crushedOreStack)).setSemisolidInputs(new SemisolidStack(ssolid, 1)).setCraftTime(10).build();
 			}
 		}
 	}

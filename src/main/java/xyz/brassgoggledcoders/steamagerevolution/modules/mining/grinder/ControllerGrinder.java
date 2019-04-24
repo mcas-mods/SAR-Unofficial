@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHandler;
@@ -34,17 +35,17 @@ public class ControllerGrinder extends SARMultiblockInventory<InventorySemisolid
 	protected ControllerGrinder(World world) {
 		super(world);
 		this.setInventory(new InventorySemisolid(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 0, 0),
-				new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 0, 0),
-				new InventoryPieceSemisolid(new SemisolidHandler(new SemisolidHolder(30)), 126, 15),
+				new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 121, 32),
+				new InventoryPieceSemisolid(new SemisolidHandler(new SemisolidHolder(30)), 65, 15),
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 13, 9)));
 	}
-	
+
 	@Override
 	protected void onFinish() {
-		if(this.getCurrentRecipe() instanceof SemisolidRecipe) {
+		if (this.getCurrentRecipe() instanceof SemisolidRecipe) {
 			SemisolidRecipe r = (SemisolidRecipe) this.getCurrentRecipe();
-			if(ArrayUtils.isNotEmpty(r.getSemisolidInputs())) {
-				for(SemisolidStack stack : r.getSemisolidInputs()) {
+			if (ArrayUtils.isNotEmpty(r.getSemisolidInputs())) {
+				for (SemisolidStack stack : r.getSemisolidInputs()) {
 					this.getInventory().ore.getHandler().drain(stack.getMaterial(), stack.amount);
 				}
 			}
@@ -54,42 +55,41 @@ public class ControllerGrinder extends SARMultiblockInventory<InventorySemisolid
 
 	@Override
 	protected boolean canRun() {
-		if(currentRecipe != null) {
-			if(inventory.getSteamTank() == null
+		if (currentRecipe != null) {
+			if (inventory.getSteamTank() == null
 					|| inventory.getSteamTank().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
 				return true;
 			}
-		}
-		else {
-			Optional<SARMachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(this.getName()).parallelStream()
-					/*.filter(r -> hasRequiredFluids(inventory, r))*/.filter(r -> RecipeMachineHelper.hasRequiredItems(inventory, r)).filter(r -> hasRequiredSemisolids(inventory, r))
-					.findFirst();
-			if(recipe.isPresent()) {
+		} else {
+			Optional<SARMachineRecipe> recipe = RecipeRegistry.getRecipesForMachine("grinder").parallelStream()
+					/* .filter(r -> hasRequiredFluids(inventory, r)) */.filter(
+							r -> RecipeMachineHelper.hasRequiredItems(inventory, r))
+					.filter(r -> hasRequiredSemisolids(inventory, r)).findFirst();
+			if (recipe.isPresent()) {
 				this.setCurrentRecipe(recipe.get());
 			}
 		}
 		return false;
 	}
-	
+
 	private static boolean hasRequiredSemisolids(InventorySemisolid inventory, SARMachineRecipe recipe) {
-		if(recipe instanceof SemisolidRecipe) {
-			SemisolidRecipe r = (SemisolidRecipe) recipe;
-			if(ArrayUtils.isNotEmpty(r.getSemisolidInputs())) {
-				// Stream the fluid stacks
-				return Arrays.stream(r.getSemisolidInputs())
-						// Apply to each element and output result to stream
-						.map(stack -> handlersHaveMaterial(inventory, stack))
-						// Reduce list of booleans into one - so will only evaluate true if every
-						// boolean is true
-						.reduce((a, b) -> a && b).orElse(false);
-			}
+		SemisolidRecipe r = (SemisolidRecipe) recipe;
+		if (ArrayUtils.isNotEmpty(r.getSemisolidInputs())) {
+			// Stream the fluid stacks
+			return Arrays.stream(r.getSemisolidInputs())
+					// Apply to each element and output result to stream
+					.map(stack -> handlersHaveMaterial(inventory, stack))
+					// Reduce list of booleans into one - so will only evaluate true if every
+					// boolean is true
+					.reduce((a, b) -> a && b).orElse(false);
 		}
 		return true;
 	}
-	
-	private static boolean handlersHaveMaterial(InventorySemisolid inventory, SemisolidStack stack) {
-		return Arrays
-				.asList(inventory.ore.getHandler().getHolders()).stream().filter(Objects::nonNull).map(holder -> holder.getCrushed()).anyMatch(sta -> sta.equals(stack));
+
+	private static boolean handlersHaveMaterial(InventorySemisolid inventory, SemisolidStack recipeStack) {
+		return Arrays.asList(inventory.ore.getHandler().getHolders()).stream().filter(Objects::nonNull)
+				.map(holder -> holder.getCrushed()).filter(Objects::nonNull)
+				.anyMatch(sta -> sta.getMaterial() == recipeStack.getMaterial() && sta.amount >= recipeStack.amount);
 	}
 
 	@Override
@@ -116,12 +116,11 @@ public class ControllerGrinder extends SARMultiblockInventory<InventorySemisolid
 	public int getMaximumYSize() {
 		return 3;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
 		return new GuiSemisolid(entityPlayer, this, "");
 	}
-
 
 }

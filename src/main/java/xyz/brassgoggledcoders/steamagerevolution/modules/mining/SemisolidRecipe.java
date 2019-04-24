@@ -52,6 +52,7 @@ public class SemisolidRecipe extends SARMachineRecipe {
 			return this;
 		}
 
+		@Override
 		public SemisolidRecipe build() {
 			//validate(); TODO
 			SemisolidRecipe recipe = new SemisolidRecipe(crafter, itemInputs, fluidInputs, semisolidInputs, ticksToProcess,
