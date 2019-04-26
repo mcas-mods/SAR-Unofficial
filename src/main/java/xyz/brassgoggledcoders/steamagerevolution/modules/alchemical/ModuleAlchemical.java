@@ -19,29 +19,19 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.init.PotionTypes;
+import net.minecraft.init.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.potion.PotionHelper;
-import net.minecraft.potion.PotionType;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.potion.*;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -52,15 +42,8 @@ import net.minecraftforge.registries.IRegistryDelegate;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.blocks.BlockFumeCollector;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.items.ItemFlask;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.blocks.BlockDistillerFluidInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.blocks.BlockDistillerFluidOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.blocks.BlockDistillerFrame;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.blocks.BlockDistillerHotplate;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.blocks.BlockDistillerItemOutput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.blocks.BlockDistillerRadiator;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.blocks.BlockVatFluidInput;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.blocks.BlockVatFrame;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.blocks.BlockVatOutput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.vat.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.BlockDamagingFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.MachineRecipeBuilder;
@@ -141,7 +124,7 @@ public class ModuleAlchemical extends ModuleBase {
 						.setFluidOutputs(getPotionFluidStack(outputObj.getRegistryName().getPath(), VALUE_BOTTLE))
 						.setFluidInputs(getPotionFluidStack(((IRegistryDelegate<PotionType>) input.get(mixPredicate))
 								.get().getRegistryName().getPath(), VALUE_BOTTLE))
-						.setItemInputs(((Ingredient) reagent.get(reagent)).getMatchingStacks()[0]).build();
+						.setItemInputs(((Ingredient) reagent.get(mixPredicate)).getMatchingStacks()[0]).build();
 			}
 		}
 		catch(Exception x) {

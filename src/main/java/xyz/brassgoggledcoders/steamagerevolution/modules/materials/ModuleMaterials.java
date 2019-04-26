@@ -174,20 +174,6 @@ public class ModuleMaterials extends ModuleBase {
 	}
 
 	@Override
-	public void configure(ConfigRegistry configRegistry) {
-		// configRegistry.addEntry(new ConfigEntry("General", "autodetectMetals",
-		// Type.BOOLEAN, "true", "Should SAR query the oredictionary for new metals and
-		// setup recipes for them? "));
-		// configRegistry.addEntry(new ConfigEntry("General", "knownMetals",
-		// Type.STRING, "Iron,Gold",
-		// "Ore Dictionary metals that SAR will attempt setup recipes and associated
-		// items for.", false, true));
-		// ModuleMaterials.knownMetalTypes =
-		// Lists.newArrayList(SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class,
-		// "CONFIG").getEntry("knownMetals").getStringArray());
-	}
-
-	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
 		blockRegistry.register(new BlockCharcoal());
 	}
