@@ -7,9 +7,7 @@ import java.util.List;
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.Base;
 import com.teamacronymcoders.base.items.ItemBase;
-import com.teamacronymcoders.base.materialsystem.MaterialException;
-import com.teamacronymcoders.base.materialsystem.MaterialSystem;
-import com.teamacronymcoders.base.materialsystem.MaterialUser;
+import com.teamacronymcoders.base.materialsystem.*;
 import com.teamacronymcoders.base.materialsystem.materials.Material;
 import com.teamacronymcoders.base.materialsystem.materials.MaterialBuilder;
 import com.teamacronymcoders.base.materialsystem.parts.PartBuilder;
@@ -24,9 +22,7 @@ import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
@@ -41,23 +37,25 @@ public class ModuleMaterials extends ModuleBase {
 	public static final Block charcoal_block = null;
 	public static final Item charcoal_powder = null;
 	public static Color brassColor = new Color(251, 194, 99);
-	String[] vanillaParts = new String[] { "ore", "heavy_ore", "plate", "dust", "molten", "crushed_ore", "solution", "crystal",
-			"ore_rock" };
-	String[] metalParts = new String[] { "ore", "heavy_ore", "crushed_ore", "ore_rock", "solution", "crystal", "ingot", "nugget",
-			"plate", "dust", "block", "molten" };
+	String[] vanillaParts = new String[] { "ore", "heavy_ore", "plate", "dust", "molten", "crushed_ore", "solution",
+			"crystal", "ore_rock", "lattice" };
+	String[] metalParts = new String[] { "ore", "heavy_ore", "crushed_ore", "ore_rock", "solution", "crystal", "ingot",
+			"nugget", "plate", "dust", "block", "molten", "lattice" };
 	String[] alloyParts = Arrays.copyOfRange(metalParts, 6, metalParts.length);
-	String[] compatParts = new String[] { "heavy_ore", "crushed_ore", "solution", "crystal", "ore_rock" };
-	
+	String[] compatParts = new String[] { "heavy_ore", "crushed_ore", "solution", "crystal", "ore_rock", "lattice" };
+
 	public static List<String> knownMetalTypes = Lists.newArrayList();
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		PartType heavyOre = new HeavyOrePartType();
-		MaterialSystem.registerPartType(heavyOre);
-		registerPart("Heavy Ore", heavyOre);
-		
 		try {
 			MaterialUser SAR = SteamAgeRevolution.instance.getMaterialUser();
+
+			PartType heavyOre = new HeavyOrePartType();
+			MaterialSystem.registerPartType(heavyOre);
+			registerPart("Heavy Ore", heavyOre);
+
+			registerPart("Lattice", MaterialSystem.getPartType("block"));
 
 			new PartBuilder().setOwnerId(SAR.getId()).setName("Solution").setOreDictName("solution")
 					.setPartType(MaterialSystem.getPartType("fluid")).build();
@@ -94,41 +92,52 @@ public class ModuleMaterials extends ModuleBase {
 			// TODO Can I make this a default property of the Part?
 			MaterialSystem.getMaterialPart("iron_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
 					"1");
+			MaterialSystem.getMaterialPart("iron_lattice").getData().addDataValue("transparent", "true");
 
 			SAR.registerPartsForMaterial(gold, vanillaParts);
 			MaterialSystem.getMaterialPart("gold_ore").getData().addDataValue("variants", "gravel,sand");
 			MaterialSystem.getMaterialPart("gold_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
 					"1");
+			MaterialSystem.getMaterialPart("gold_lattice").getData().addDataValue("transparent", "true");
 
 			SAR.registerPartsForMaterial(copper, metalParts);
 			MaterialSystem.getMaterialPart("copper_ore").getData().addDataValue("variants", "stone,gravel,sand");
 			MaterialSystem.getMaterialPart("copper_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
 					"1");
+			MaterialSystem.getMaterialPart("copper_lattice").getData().addDataValue("transparent", "true");
 
 			SAR.registerPartsForMaterial(zinc, metalParts);
 			MaterialSystem.getMaterialPart("zinc_ore").getData().addDataValue("variants", "stone,gravel,sand");
 			MaterialSystem.getMaterialPart("zinc_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
 					"1");
+			MaterialSystem.getMaterialPart("zinc_lattice").getData().addDataValue("transparent", "true");
 
 			SAR.registerPartsForMaterial(steel, alloyParts);
 			MaterialSystem.getMaterialPart("steel_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
 					"1");
+			MaterialSystem.getMaterialPart("steel_lattice").getData().addDataValue("transparent", "true");
 
 			SAR.registerPartsForMaterial(brass, alloyParts);
 			MaterialSystem.getMaterialPart("brass_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
 					"1");
+			MaterialSystem.getMaterialPart("brass_lattice").getData().addDataValue("transparent", "true");
 
 			// TODO Do this for all 'known metals'
+			// Only register when present in oredict
 			SAR.registerPartsForMaterial(tin, compatParts);
 			MaterialSystem.getMaterialPart("tin_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
 					"1");
+			MaterialSystem.getMaterialPart("tin_lattice").getData().addDataValue("transparent", "true");
 			SAR.registerPartsForMaterial(aluminum, compatParts);
 			MaterialSystem.getMaterialPart("aluminum_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
 					"1");
+			MaterialSystem.getMaterialPart("aluminum_lattice").getData().addDataValue("transparent", "true");
 			SAR.registerPartsForMaterial(lead, compatParts);
 			MaterialSystem.getMaterialPart("lead_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
 					"1");
-		} catch (MaterialException e) {
+			MaterialSystem.getMaterialPart("lead_lattice").getData().addDataValue("transparent", "true");
+		}
+		catch(MaterialException e) {
 			e.printStackTrace();
 		}
 		super.preInit(event);
@@ -143,14 +152,15 @@ public class ModuleMaterials extends ModuleBase {
 		OreDictionary.registerOre("dustCharcoal", charcoal_powder);
 		super.init(event);
 	}
-	
+
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 		super.postInit(event);
-		//SteamAgeRevolution.instance.getLogger().devInfo(knownMetalTypes.toString());
-		//SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class, "CONFIG").updateEntry("knownMetals", String.join(",", knownMetalTypes));
+		// SteamAgeRevolution.instance.getLogger().devInfo(knownMetalTypes.toString());
+		// SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class,
+		// "CONFIG").updateEntry("knownMetals", String.join(",", knownMetalTypes));
 	}
-	
+
 	@SubscribeEvent
 	public static void onOreRegistered(OreDictionary.OreRegisterEvent event) {
 		String name = event.getName();
@@ -165,13 +175,19 @@ public class ModuleMaterials extends ModuleBase {
 			}
 		}
 	}
-	
+
 	@Override
 	public void configure(ConfigRegistry configRegistry) {
-		//configRegistry.addEntry(new ConfigEntry("General", "autodetectMetals", Type.BOOLEAN, "true", "Should SAR query the oredictionary for new metals and setup recipes for them? "));
-		//configRegistry.addEntry(new ConfigEntry("General", "knownMetals", Type.STRING, "Iron,Gold",
-		//		"Ore Dictionary metals that SAR will attempt setup recipes and associated items for.", false, true));
-		//ModuleMaterials.knownMetalTypes = Lists.newArrayList(SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class, "CONFIG").getEntry("knownMetals").getStringArray());
+		// configRegistry.addEntry(new ConfigEntry("General", "autodetectMetals",
+		// Type.BOOLEAN, "true", "Should SAR query the oredictionary for new metals and
+		// setup recipes for them? "));
+		// configRegistry.addEntry(new ConfigEntry("General", "knownMetals",
+		// Type.STRING, "Iron,Gold",
+		// "Ore Dictionary metals that SAR will attempt setup recipes and associated
+		// items for.", false, true));
+		// ModuleMaterials.knownMetalTypes =
+		// Lists.newArrayList(SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class,
+		// "CONFIG").getEntry("knownMetals").getStringArray());
 	}
 
 	@Override
@@ -193,16 +209,17 @@ public class ModuleMaterials extends ModuleBase {
 	public String getName() {
 		return "Materials";
 	}
-	
-	private void registerPart(String name, PartType partType) {
-        registerPart(new PartBuilder().setName(name).setPartType(partType));
-    }
 
-    private void registerPart(PartBuilder partBuilder) {
-        try {
-            partBuilder.build();
-        } catch (MaterialException e) {
-            Base.instance.getLogger().getLogger().error(e);
-        }
-}
+	private void registerPart(String name, PartType partType) {
+		registerPart(new PartBuilder().setOwnerId(this.getMod().getID()).setName(name).setPartType(partType));
+	}
+
+	private void registerPart(PartBuilder partBuilder) {
+		try {
+			partBuilder.build();
+		}
+		catch(MaterialException e) {
+			Base.instance.getLogger().getLogger().error(e);
+		}
+	}
 }
