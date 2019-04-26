@@ -19,43 +19,47 @@ import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.Semisolid;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOre;
 
 public class HeavyOrePartType extends BlockPartType {
-    public HeavyOrePartType() {
-        this("heavy_ore");
-    }
+	public HeavyOrePartType() {
+		this("heavy_ore");
+	}
 
-    public HeavyOrePartType(String name) {
-        this(name, new ArrayList<>());
-    }
+	public HeavyOrePartType(String name) {
+		this(name, new ArrayList<>());
+	}
 
-    public HeavyOrePartType(String name, List<PartDataPiece> dataPieces) {
-        super(name, setupData(dataPieces));
-    }
+	public HeavyOrePartType(String name, List<PartDataPiece> dataPieces) {
+		super(name, setupData(dataPieces));
+	}
 
-    private static List<PartDataPiece> setupData(List<PartDataPiece> blockDataPieces) {
-        blockDataPieces.add(new PartDataPiece("hardness", false));
-        blockDataPieces.add(new PartDataPiece("resistance", false));
-        blockDataPieces.add(new PartDataPiece("harvestLevel", false));
-        blockDataPieces.add(new PartDataPiece("harvestTool", false));
-        return blockDataPieces;
-    }
+	private static List<PartDataPiece> setupData(List<PartDataPiece> blockDataPieces) {
+		blockDataPieces.add(new PartDataPiece("hardness", false));
+		blockDataPieces.add(new PartDataPiece("resistance", false));
+		blockDataPieces.add(new PartDataPiece("harvestLevel", false));
+		blockDataPieces.add(new PartDataPiece("harvestTool", false));
+		return blockDataPieces;
+	}
 
-    @Override
-    public void setup(@Nonnull MaterialPart materialPart, @Nonnull MaterialUser materialUser) {
-    	String name = materialPart.getMaterial().getOreDictSuffix();
-		BlockHeavyOre ore = new BlockHeavyOre(name);
-    	materialUser.getMod().getRegistryHolder().getRegistry(BlockRegistry.class, "BLOCK").register(ore);
-    	if(!SteamAgeRevolution.instance.semisolidRegistry.hasEntry(new ResourceLocation(materialUser.getId(), name))) {
-    		SteamAgeRevolution.instance.semisolidRegistry.addEntry(new Semisolid(name, materialPart.getColor()));
-    	}
-    }
+	@Override
+	public void setup(@Nonnull MaterialPart materialPart, @Nonnull MaterialUser materialUser) {
+		String name = materialPart.getMaterial().getOreDictSuffix();
+		BlockHeavyOre ore = new BlockHeavyOre(materialPart, name);
+		materialUser.getMod().getRegistryHolder().getRegistry(BlockRegistry.class, "BLOCK").register(ore);
+		if(!SteamAgeRevolution.instance.semisolidRegistry.hasEntry(new ResourceLocation(materialUser.getId(), name))) {
+			SteamAgeRevolution.instance.semisolidRegistry.addEntry(new Semisolid(name, materialPart.getColor()));
+		}
+	}
 
-    @Override
-    public ItemStack getItemStack(MaterialPart materialPart) {
-    	BlockRegistry registry = materialPart.getMaterialUser().getMod().getRegistryHolder().getRegistry(BlockRegistry.class, "BLOCK");
-        ItemStack itemStack = ItemStack.EMPTY;
-        if (registry.get(new ResourceLocation(materialPart.getMaterialUser().getMod().getID(), materialPart.getUnlocalizedName())) != null) {
-            itemStack = new ItemStack(Item.getItemFromBlock(registry.get(new ResourceLocation(materialPart.getMaterialUser().getMod().getID(), materialPart.getUnlocalizedName()))));
-        }
-        return itemStack;
-    }
+	@Override
+	public ItemStack getItemStack(MaterialPart materialPart) {
+		BlockRegistry registry = materialPart.getMaterialUser().getMod().getRegistryHolder()
+				.getRegistry(BlockRegistry.class, "BLOCK");
+		ItemStack itemStack = ItemStack.EMPTY;
+		if(registry.get(new ResourceLocation(materialPart.getMaterialUser().getMod().getID(),
+				materialPart.getUnlocalizedName())) != null) {
+			itemStack = new ItemStack(Item
+					.getItemFromBlock(registry.get(new ResourceLocation(materialPart.getMaterialUser().getMod().getID(),
+							materialPart.getUnlocalizedName()))));
+		}
+		return itemStack;
+	}
 }

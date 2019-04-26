@@ -38,11 +38,11 @@ public class ModuleMaterials extends ModuleBase {
 	public static final Item charcoal_powder = null;
 	public static Color brassColor = new Color(251, 194, 99);
 	String[] vanillaParts = new String[] { "ore", "heavy_ore", "plate", "dust", "molten", "crushed_ore", "solution",
-			"crystal", "ore_rock", "lattice" };
-	String[] metalParts = new String[] { "ore", "heavy_ore", "crushed_ore", "ore_rock", "solution", "crystal", "ingot",
-			"nugget", "plate", "dust", "block", "molten", "lattice" };
+			"crystal", "lattice" };
+	String[] metalParts = new String[] { "ore", "heavy_ore", "crushed_ore", "solution", "crystal", "ingot", "nugget",
+			"plate", "dust", "block", "molten", "lattice" };
 	String[] alloyParts = Arrays.copyOfRange(metalParts, 6, metalParts.length);
-	String[] compatParts = new String[] { "heavy_ore", "crushed_ore", "solution", "crystal", "ore_rock", "lattice" };
+	String[] compatParts = new String[] { "heavy_ore", "crushed_ore", "solution", "crystal", "lattice" };
 
 	public static List<String> knownMetalTypes = Lists.newArrayList();
 
@@ -59,9 +59,6 @@ public class ModuleMaterials extends ModuleBase {
 
 			new PartBuilder().setOwnerId(SAR.getId()).setName("Solution").setOreDictName("solution")
 					.setPartType(MaterialSystem.getPartType("fluid")).build();
-
-			new PartBuilder().setOwnerId(SAR.getId()).setName("Ore Rock").setOreDictName("rock")
-					.setPartType(MaterialSystem.getPartType("item")).setOverlay(true).build();
 
 			Material iron = new MaterialBuilder().setName("Iron").setColor(Color.GRAY).setHasEffect(false).build();
 			Material gold = new MaterialBuilder().setName("Gold").setColor(Color.YELLOW).setHasEffect(false).build();
