@@ -4,6 +4,7 @@ import com.teamacronymcoders.base.containers.ContainerBase;
 import com.teamacronymcoders.base.util.inventory.SlotHandlerOutput;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerInventory extends ContainerBase {
@@ -26,6 +27,12 @@ public class ContainerInventory extends ContainerBase {
 	@Override
 	public boolean canInteractWith(EntityPlayer playerIn) {
 		return true;
+	}
+
+	// TODO
+	@Override
+	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
+		return ItemStack.EMPTY;
 	}
 
 }
