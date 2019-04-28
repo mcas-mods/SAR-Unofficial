@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.google.common.collect.Lists;
+import com.teamacronymcoders.base.client.models.generator.generatedmodel.IGeneratedModel;
 import com.teamacronymcoders.base.items.IHasSubItems;
 import com.teamacronymcoders.base.items.ItemBase;
 
@@ -75,5 +77,10 @@ public class ItemCanister extends ItemBase implements IHasSubItems {
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		return internal.getFluid() != null;
+	}
+
+	@Override
+	public List<IGeneratedModel> getGeneratedModels() {
+		return Lists.newArrayList();
 	}
 }
