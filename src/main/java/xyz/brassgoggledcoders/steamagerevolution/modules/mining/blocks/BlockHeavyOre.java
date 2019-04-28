@@ -35,7 +35,7 @@ public class BlockHeavyOre extends BlockBase implements IHasGeneratedModel, IHas
 	public static final PropertyInteger CHUNKS = PropertyInteger.create("chunks", 1, 8);
 	ItemStack drop;
 	public String type;
-	MaterialPart materialPart;
+	public MaterialPart materialPart;
 
 	public BlockHeavyOre(MaterialPart part, String type) {
 		super(Material.ROCK, "heavy_ore_" + type.toLowerCase());

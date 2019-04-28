@@ -15,16 +15,13 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHolder;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartSemisolid;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.GuiSemisolid;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.InventoryPieceSemisolid;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.InventorySemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.*;
 
 public class EntityMinecartSemisolid extends EntityMinecartInventory<InventorySemisolid> {
 
-	@ObjectHolder(SteamAgeRevolution.MODID + ":minecart_ore_carrier")
+	@ObjectHolder(SteamAgeRevolution.MODID + ":minecart_semisolid")
 	private static final ItemMinecart cartItem = null;
-	
+
 	public EntityMinecartSemisolid(World world) {
 		super(world);
 		this.setInventory(new InventorySemisolid(
@@ -39,7 +36,7 @@ public class EntityMinecartSemisolid extends EntityMinecartInventory<InventorySe
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if (capability == SARCapabilities.SEMISOLID_HANDLER) {
+		if(capability == SARCapabilities.SEMISOLID_HANDLER) {
 			return SARCapabilities.SEMISOLID_HANDLER.cast(inventory.ore.getHandler());
 		}
 		return super.getCapability(capability, facing);

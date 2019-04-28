@@ -16,7 +16,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.Til
 public class BlockSemisolidLoader extends BlockSidedBase<TileEntitySemisolidLoader> {
 
 	public BlockSemisolidLoader() {
-		super(Material.IRON, "crushed_loader");
+		super(Material.IRON, "semisolid_loader");
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class BlockSemisolidLoader extends BlockSidedBase<TileEntitySemisolidLoad
 	protected boolean handleAdditionalTileActions(World worldIn, TileEntitySemisolidLoader tileEntity,
 			EntityPlayer playerIn, EnumHand hand, ItemStack currentItem) {
 		BlockPos pos = tileEntity.getPos();
-		if (!playerIn.isSneaking()) {
+		if(!playerIn.isSneaking()) {
 			GuiOpener.openTileEntityGui(getMod(), playerIn, worldIn, pos);
 			return true;
 		}

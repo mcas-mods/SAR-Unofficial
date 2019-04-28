@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities;
 
 import com.teamacronymcoders.base.renderer.entity.minecart.RenderMinecartBase;
 
@@ -6,7 +6,6 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartDrilling;
 
 public class RenderMinecartDrilling extends RenderMinecartBase<EntityMinecartDrilling> {
 	

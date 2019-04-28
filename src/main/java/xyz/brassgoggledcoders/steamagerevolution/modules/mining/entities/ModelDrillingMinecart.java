@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

@@ -3,6 +3,7 @@ itemGroup.steamagerevolution=Steam Age Revolution
 # Parts
 steamagerevolution.part.solution=%s Solution
 steamagerevolution.part.lattice=%s Lattice
+steamagerevolution.part.heavy_ore=%s Heavy Ore
 
 #Items
 item.steamagerevolution.charcoal_powder.name=Charcoal Powder
@@ -35,6 +36,9 @@ item.steamagerevolution.flask.name=Flask
 
 item.steamagerevolution.lens.name=Lens
 item.steamagerevolution.goggles.name=Goggles
+
+item.steamagerevolution.minecart_drilling.name=Seam Miner Cart
+item.steamagerevolution.minecart_semisolid.name=Semisolid Carrier Cart
 
 #Blocks
 tile.steamagerevolution.fluid_io.name=Fluid IO
@@ -110,8 +114,16 @@ tile.steamagerevolution.charcoal_block.name=Charcoal Block
 tile.steamagerevolution.steam_vent.name=Steam Vent
 tile.steamagerevolution.basic_fluid_tank.name=Basic Fluid Tank
 
+tile.steamagerevolution.semisolid_loader.name=Semisolid Material Loader
+tile.steamagerevolution.dump_rail.name=Dumping Rail
+tile.steamagerevolution.grinder_frame.name=Grinder Frame
+tile.steamagerevolution.grinder_input.name=Grinder Blades
+
 #Entities
 entity.dead_inventor.name=Dead Inventor
+entity.entityminecartdrilling.name=Seam Miner Cart
+entity.entityminecartsemisolid.name=Semisolid Carrier Cart
+
 
 #Advancements
 advancement.steamagerevolution.ore=A New Age
@@ -129,7 +141,6 @@ steamagerevolution.multiblock.validation.distiller_radiator=Bottom layer of the 
 steamagerevolution.multiblock.validation.distiller_hotplate=Second-from-bottom layer of the Distiller must be composed entirely of hotplate blocks
 
 #Other
-
 
 fluid.steam=Steam
 fluid.sulphur_dioxide=Sulphur Dioxide

@@ -10,7 +10,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityM
 public class ItemMinecartSemisolid extends ItemMinecartBase {
 
 	public ItemMinecartSemisolid() {
-		super("ore_carrier");
+		super("semisolid");
 	}
 
 	@Override
