@@ -49,7 +49,7 @@ public class TileEntityPortableBoiler extends SARMachineTileEntity {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return (T) inventory.getInputTank();
 		}
 		return super.getCapability(capability, facing);
@@ -62,13 +62,12 @@ public class TileEntityPortableBoiler extends SARMachineTileEntity {
 
 	@Override
 	public void onActiveTick() {
-		if(currentTicks == 0) {
-			if(!inventory.getInputHandler().getStackInSlot(0).isEmpty()) {
+		if (currentTicks == 0) {
+			if (!inventory.getInputHandler().getStackInSlot(0).isEmpty()) {
 				currentTicks = TileEntityFurnace.getItemBurnTime(inventory.getInputHandler().getStackInSlot(0));
 				inventory.getInputHandler().extractItem(0, 1, false);
 			}
-		}
-		else {
+		} else {
 			int fluidAmount = Fluid.BUCKET_VOLUME / 20;
 			inventory.getInputTank().drain(fluidAmount, true);
 			inventory.getSteamTank().fill(FluidRegistry.getFluidStack("steam", fluidAmount), true);

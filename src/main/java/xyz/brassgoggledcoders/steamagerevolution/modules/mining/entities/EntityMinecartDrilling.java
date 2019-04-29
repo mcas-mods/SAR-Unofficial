@@ -9,7 +9,6 @@ import net.minecraft.item.ItemMinecart;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHolder;
@@ -22,7 +21,7 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventorySem
 
 	@ObjectHolder(SteamAgeRevolution.MODID + ":minecart_drilling")
 	private static final ItemMinecart cartItem = null;
-	
+
 	public EntityMinecartDrilling(World world) {
 		super(world);
 		this.setInventory(new InventorySemisolid(
@@ -45,45 +44,44 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventorySem
 	}
 
 	@Override
-	public void onActivatorRailPass(int blockX, int blockY, int blockZ, boolean receivingPower)
-    {
-		if(receivingPower) {
+	public void onActivatorRailPass(int blockX, int blockY, int blockZ, boolean receivingPower) {
+		if (receivingPower) {
 			BlockPos pos = new BlockPos(blockX, blockY, blockZ);
-		    if (BlockRailBase.isRailBlock(this.world, pos)) {
-		    	BlockRailBase rail = (BlockRailBase) this.getEntityWorld().getBlockState(pos).getBlock();
-		    	EnumRailDirection direction = rail.getRailDirection(getEntityWorld(), pos, this.getEntityWorld().getBlockState(pos), this);
-		    	EnumFacing cartFacing = this.getAdjustedHorizontalFacing();
-		    	switch(direction) {
-		    	case NORTH_SOUTH:
-		    		if(EnumFacing.NORTH.equals(cartFacing)) { 
-		    				this.doMining(EnumFacing.WEST);
-		    		}
-		    		else {
-		    			this.doMining(EnumFacing.EAST);
-		    		}
-		    		break;
-		    	case EAST_WEST:
-		    		if(EnumFacing.WEST.equals(cartFacing)) {
-		    			this.doMining(EnumFacing.NORTH);
-		    		}
-		    		else {
-		    			this.doMining(EnumFacing.SOUTH);
-		    		}
-		    		break;
+			if (BlockRailBase.isRailBlock(this.world, pos)) {
+				BlockRailBase rail = (BlockRailBase) this.getEntityWorld().getBlockState(pos).getBlock();
+				EnumRailDirection direction = rail.getRailDirection(getEntityWorld(), pos,
+						this.getEntityWorld().getBlockState(pos), this);
+				EnumFacing cartFacing = this.getAdjustedHorizontalFacing();
+				switch (direction) {
+				case NORTH_SOUTH:
+					if (EnumFacing.NORTH.equals(cartFacing)) {
+						this.doMining(EnumFacing.WEST);
+					} else {
+						this.doMining(EnumFacing.EAST);
+					}
+					break;
+				case EAST_WEST:
+					if (EnumFacing.WEST.equals(cartFacing)) {
+						this.doMining(EnumFacing.NORTH);
+					} else {
+						this.doMining(EnumFacing.SOUTH);
+					}
+					break;
 				default:
 					break;
-		    	}
-		    }
+				}
+			}
 		}
-    }
+	}
 
 	private void doMining(EnumFacing facingToMine) {
-		//for(int i = 0; i < 3; i++) {
+		// for(int i = 0; i < 3; i++) {
 		BlockPos target = this.getPosition().offset(facingToMine);
-		if(!world.isAirBlock(target)) {
-			MiningUtils.doMining(this.getEntityWorld(), target, this.getInventory().getOutputHandler(), this.getInventory().ore.getHandler());
+		if (!world.isAirBlock(target)) {
+			MiningUtils.doMining(this.getEntityWorld(), target, this.getInventory().getOutputHandler(),
+					this.getInventory().ore.getHandler());
 		}
-		//}
+		// }
 	}
-	
+
 }

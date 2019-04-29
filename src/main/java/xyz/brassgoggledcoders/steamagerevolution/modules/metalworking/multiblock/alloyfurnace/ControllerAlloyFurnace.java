@@ -49,10 +49,9 @@ public class ControllerAlloyFurnace extends SARMultiblockInventory {
 	@Override
 	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
 		Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
-		if(block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) {
+		if (block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) {
 			return true;
-		}
-		else {
+		} else {
 			validatorCallback
 					.setLastError(new ValidationError("steamagerevolution.multiblock.validation.alloyforgeinterior"));
 			return false;

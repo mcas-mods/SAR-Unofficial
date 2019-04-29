@@ -12,7 +12,7 @@ public class ItemStackHandlerSmart extends ItemStackHandlerExtractSpecific {
 
 	@Override
 	protected void onContentsChanged(int slot) {
-		if(controller != null) {
+		if (controller != null) {
 			((ISmartStackCallback) controller).onContentsChanged(slot);
 		}
 	}

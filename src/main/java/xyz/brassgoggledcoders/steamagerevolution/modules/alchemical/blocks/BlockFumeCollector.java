@@ -32,12 +32,12 @@ public class BlockFumeCollector extends BlockTEBase<TileEntityFumeCollector> {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		TileEntityFumeCollector te = getTileEntity(worldIn, pos).get();
-		if(!worldIn.isRemote && te != null) {
-			if(playerIn.isSneaking()) {
-				playerIn.sendStatusMessage(com.teamacronymcoders.base.util.TextUtils.representTankContents(te.tank), true);
+		if (!worldIn.isRemote && te != null) {
+			if (playerIn.isSneaking()) {
+				playerIn.sendStatusMessage(com.teamacronymcoders.base.util.TextUtils.representTankContents(te.tank),
+						true);
 				return true;
-			}
-			else {
+			} else {
 				return FluidUtil.interactWithFluidHandler(playerIn, hand, worldIn, pos, facing);
 			}
 		}

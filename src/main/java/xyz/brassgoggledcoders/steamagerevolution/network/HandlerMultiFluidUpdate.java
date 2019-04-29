@@ -31,11 +31,10 @@ public class HandlerMultiFluidUpdate implements IMessageHandler<PacketMultiFluid
 
 	private void processMessage(WorldClient worldClient, PacketMultiFluidUpdate message) {
 		TileEntity te = worldClient.getTileEntity(message.pos);
-		if(te instanceof IMachineHasInventory) {
+		if (te instanceof IMachineHasInventory) {
 			ISmartTankCallback tile = ((IMachineHasInventory) te).getInventory();
 			tile.updateFluid(message);
-		}
-		else {
+		} else {
 			MultiblockTileEntityBase<?> tile = (MultiblockTileEntityBase<?>) te;
 			ISmartTankCallback controller = ((IMachineHasInventory) tile.getMultiblockController()).getInventory();
 			controller.updateFluid(message);

@@ -7,12 +7,12 @@ public class TileEntityGrinderFrame extends TileEntityGrinderPart {
 	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
 		return true;
 	}
-	
+
 	@Override
 	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
 		return true;
 	}
-	
+
 	@Override
 	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
 		return true;

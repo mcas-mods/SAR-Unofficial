@@ -19,7 +19,8 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeMachineHelper;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
-public abstract class SARMultiblockInventory<I extends InventoryMachine> extends SARMultiblockBase implements ISmartStackCallback, IMachineHasInventory<I> {
+public abstract class SARMultiblockInventory<I extends InventoryMachine> extends SARMultiblockBase
+		implements ISmartStackCallback, IMachineHasInventory<I> {
 
 	public I inventory;
 	@SideOnly(Side.CLIENT)
@@ -34,12 +35,12 @@ public abstract class SARMultiblockInventory<I extends InventoryMachine> extends
 	@Override
 	protected boolean updateServer() {
 		onTick();
-		if(canRun()) {
-			if(currentTicks <= currentRecipe.getTicksPerOperation()) { // TODO
+		if (canRun()) {
+			if (currentTicks <= currentRecipe.getTicksPerOperation()) { // TODO
 				currentTicks++;
 			}
 			onActiveTick();
-			if(canFinish()) {
+			if (canFinish()) {
 				onFinish();
 				currentTicks = 0;
 				currentRecipe = null;
@@ -80,7 +81,7 @@ public abstract class SARMultiblockInventory<I extends InventoryMachine> extends
 	}
 
 	protected boolean canRun() {
-		if(currentRecipe != null) {
+		if (currentRecipe != null) {
 			// TODO Send this (much!) less often!
 			markReferenceCoordForUpdate();
 		}

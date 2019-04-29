@@ -35,14 +35,14 @@ public class SARJEIPlugin implements IModPlugin {
 
 	// TODO JEI Should display amounts automatically?
 	public static ITooltipCallback<FluidStack> fluidTooltipCallback = new SARFluidTooltipCallback();
-	
+
 	public static final IIngredientType<SemisolidStack> SEMISOLID = () -> SemisolidStack.class;
-	
+
 	@Override
 	public void registerIngredients(IModIngredientRegistration registry) {
 		registry.register(SEMISOLID, create(), new IngredientHelperSemisolid(), new IngredientRendererSemisolid());
 	}
-	
+
 	public static List<SemisolidStack> create() {
 		List<SemisolidStack> ssolidStacks = new ArrayList<>();
 
@@ -88,7 +88,8 @@ public class SARJEIPlugin implements IModPlugin {
 
 		add(registry, RecipeRegistry.getRecipesForMachine("distiller"), DistillerRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.distiller_frame));
-		add(registry, RecipeRegistry.getRecipesForMachine("grinder"), GrinderRecipeCategory.uid, new ItemStack(JEIObjectHolder.grinder_frame));
+		add(registry, RecipeRegistry.getRecipesForMachine("grinder"), GrinderRecipeCategory.uid,
+				new ItemStack(JEIObjectHolder.grinder_frame));
 
 		// add(registry, SawmillRecipe.getRecipeList(), SawmillRecipeCategory.uid,
 		// new ItemStack(JEIObjectHolder.sawmill_casing));

@@ -52,11 +52,11 @@ public class ItemGoggles extends ItemArmorBase implements IGoggles {
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
 		tooltip.add("Lenses:");
-		if(!stack.hasTagCompound()) {
+		if (!stack.hasTagCompound()) {
 			return;
 		}
-		for(int i = 0; i < ModuleArmory.lenseTypes.size(); i++) {
-			if(stack.getTagCompound().getBoolean("lens" + i)) {
+		for (int i = 0; i < ModuleArmory.lenseTypes.size(); i++) {
+			if (stack.getTagCompound().getBoolean("lens" + i)) {
 				// TODO tooltip text colours
 				tooltip.add(WordUtils.capitalize(I18n.translateToLocal(ModuleArmory.lenseTypes.get(i).getColorName())));
 			}
@@ -65,19 +65,19 @@ public class ItemGoggles extends ItemArmorBase implements IGoggles {
 
 	@Override
 	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
-		if(!stack.hasTagCompound()) {
+		if (!stack.hasTagCompound()) {
 			stack.setTagCompound(new NBTTagCompound());
 		}
 	}
 
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-		if(!stack.hasTagCompound()) {
+		if (!stack.hasTagCompound()) {
 			stack.setTagCompound(new NBTTagCompound());
 		}
 
-		for(int i = 0; i < ModuleArmory.lenseTypes.size(); i++) {
-			if(stack.getTagCompound().getBoolean("lens" + i)) {
+		for (int i = 0; i < ModuleArmory.lenseTypes.size(); i++) {
+			if (stack.getTagCompound().getBoolean("lens" + i)) {
 				ModuleArmory.lenseTypes.get(i).onArmorTick(world, player, stack);
 			}
 		}
@@ -94,7 +94,7 @@ public class ItemGoggles extends ItemArmorBase implements IGoggles {
 	@SideOnly(Side.CLIENT)
 	public void renderHelmetOverlay(ItemStack stack, EntityPlayer player, ScaledResolution resolution,
 			float partialTicks) {
-		if((ClientHelper.player() == null) || (ClientHelper.screen() != null)) {
+		if ((ClientHelper.player() == null) || (ClientHelper.screen() != null)) {
 			return;
 		}
 
@@ -109,12 +109,11 @@ public class ItemGoggles extends ItemArmorBase implements IGoggles {
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
-		for(int len = 0; len < ModuleArmory.lenseTypes.size(); len++) {
-			if(stack.getTagCompound().getBoolean("lens" + EnumDyeColor.CYAN.getMetadata())) {
+		for (int len = 0; len < ModuleArmory.lenseTypes.size(); len++) {
+			if (stack.getTagCompound().getBoolean("lens" + EnumDyeColor.CYAN.getMetadata())) {
 				FMLClientHandler.instance().getClient().renderEngine.bindTexture(overlay2);
 				break;
-			}
-			else {
+			} else {
 				FMLClientHandler.instance().getClient().renderEngine.bindTexture(overlay);
 				continue;
 			}
@@ -137,7 +136,7 @@ public class ItemGoggles extends ItemArmorBase implements IGoggles {
 	@Optional.Method(modid = "thaumcraft")
 	@Override
 	public boolean showIngamePopups(ItemStack stack, EntityLivingBase arg1) {
-		if(!stack.hasTagCompound()) {
+		if (!stack.hasTagCompound()) {
 			stack.setTagCompound(new NBTTagCompound());
 		}
 		return stack.getTagCompound().getBoolean("lens" + EnumDyeColor.PURPLE.getMetadata());

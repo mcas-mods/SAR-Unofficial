@@ -20,7 +20,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Property.Type;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -32,10 +34,22 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMateria
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.blocks.BlockCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemDie;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemHammer;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.*;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.*;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.*;
-import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFluidInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFluidOutput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.blocks.BlockAlloyFurnaceFrame;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.BlockCrucibleCasing;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.BlockCrucibleFluidOutput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.BlockCrucibleItemInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.crucible.blocks.BlockCrucibleSteamInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerAnvil;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerFrame;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerHammer;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.hammer.blocks.BlockSteamHammerShielding;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.blocks.BlockSteelworksCarbonInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.blocks.BlockSteelworksFrame;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.blocks.BlockSteelworksIronInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.blocks.BlockSteelworksSteamInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.steelworks.blocks.BlockSteelworksSteelOutput;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.MachineRecipeBuilder;
 
@@ -84,7 +98,7 @@ public class ModuleMetalworking extends ModuleBase {
 				.setFluidOutputs(FluidRegistry.getFluidStack("steel", RecipeUtil.VALUE_BLOCK))
 				.setSteamCost(Fluid.BUCKET_VOLUME * 10).setCraftTime(6000).build();
 
-		for(String metal : ModuleMaterials.knownMetalTypes) {
+		for (String metal : ModuleMaterials.knownMetalTypes) {
 
 			// Known to be non-null because it is how metal types are known
 			String ingot = "ingot" + metal;
@@ -110,7 +124,7 @@ public class ModuleMetalworking extends ModuleBase {
 			FluidStack solution = FluidRegistry.getFluidStack(metal.toLowerCase() + "_solution",
 					RecipeUtil.VALUE_NUGGET * 4);
 
-			if(molten != null) {
+			if (molten != null) {
 				FluidStack moltenCopy = molten.copy();
 				moltenCopy.amount = RecipeUtil.VALUE_NUGGET;
 				new MachineRecipeBuilder("crucible").setItemInputs(nugget).setFluidOutputs(moltenCopy)
@@ -125,42 +139,42 @@ public class ModuleMetalworking extends ModuleBase {
 				new MachineRecipeBuilder("casting bench").setFluidInputs(molten).setItemOutputs(ingotStack)
 						.setCraftTime(2400).build();
 			}
-			if(!plateStack.isEmpty()) {
+			if (!plateStack.isEmpty()) {
 				ItemStack plateCopy = plateStack.copy();
 				plateCopy.setCount(plateCount);
 				new MachineRecipeBuilder("steam hammer").setItemInputs(ingot).setItemOutputs(plateCopy).build();
 			}
-			if(!gearStack.isEmpty()) {
+			if (!gearStack.isEmpty()) {
 				// TODO
 				// SteamHammerRecipe.addSteamHammerRecipe(ingot, gear, "gear");
 			}
-			if(!ore.isEmpty()) {
+			if (!ore.isEmpty()) {
 				// TODO: Use 'our' stacks not preferred
-				if(FurnaceRecipes.instance().getSmeltingResult(oreStack).isEmpty()) {
+				if (FurnaceRecipes.instance().getSmeltingResult(oreStack).isEmpty()) {
 					GameRegistry.addSmelting(oreStack, ingotStack, 0.5F);
 				}
 			}
-			if(!dust.isEmpty()) {
+			if (!dust.isEmpty()) {
 				// TODO: Use 'our' stacks not preferred
-				if(FurnaceRecipes.instance().getSmeltingResult(dustStack).isEmpty()) {
+				if (FurnaceRecipes.instance().getSmeltingResult(dustStack).isEmpty()) {
 					GameRegistry.addSmelting(dustStack, ingotStack, 0.5F);
 				}
 			}
-			if(!crushedOreStack.isEmpty()) {
+			if (!crushedOreStack.isEmpty()) {
 				ItemStack nuggetCopy = nuggetStack.copy();
 				nuggetCopy.setCount(3);
-				if(FurnaceRecipes.instance().getSmeltingResult(nuggetStack).isEmpty()) {
+				if (FurnaceRecipes.instance().getSmeltingResult(nuggetStack).isEmpty()) {
 					GameRegistry.addSmelting(crushedOreStack, nuggetCopy, 0.1f);
 				}
 				ItemStack crushedOreCopy = crushedOreStack.copy();
 				crushedOreCopy.setCount(4);
 				new MachineRecipeBuilder("steam hammer").setItemInputs(ore).setItemOutputs(crushedOreCopy).build();
 			}
-			if(!crystalStack.isEmpty()) {
-				if(!nugget.isEmpty() && FurnaceRecipes.instance().getSmeltingResult(crystalStack).isEmpty()) {
+			if (!crystalStack.isEmpty()) {
+				if (!nugget.isEmpty() && FurnaceRecipes.instance().getSmeltingResult(crystalStack).isEmpty()) {
 					GameRegistry.addSmelting(crystalStack, nuggetStack, 0.3f);
 				}
-				if(solution != null) {
+				if (solution != null) {
 					new MachineRecipeBuilder("vat").setFluidOutputs(solution)
 							.setFluidInputs(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 4))
 							.setItemInputs(crushedOre).build();

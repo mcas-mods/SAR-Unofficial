@@ -32,7 +32,7 @@ public class MultiFluidTank extends FluidTankSmart {
 	}
 
 	public static FluidStack copyFluidStackWithAmount(FluidStack stack, int amount) {
-		if(stack == null) {
+		if (stack == null) {
 			return null;
 		}
 		FluidStack fs = new FluidStack(stack, amount);
@@ -41,9 +41,9 @@ public class MultiFluidTank extends FluidTankSmart {
 
 	public static FluidStack drain(int remove, FluidStack removeFrom, Iterator<FluidStack> removeIt, boolean doDrain) {
 		int amount = Math.min(remove, removeFrom.amount);
-		if(doDrain) {
+		if (doDrain) {
 			removeFrom.amount -= amount;
-			if(removeFrom.amount <= 0) {
+			if (removeFrom.amount <= 0) {
 				removeIt.remove();
 			}
 		}
@@ -52,12 +52,12 @@ public class MultiFluidTank extends FluidTankSmart {
 
 	@Override
 	public MultiFluidTank readFromNBT(NBTTagCompound nbt) {
-		if(nbt.hasKey("fluids")) {
+		if (nbt.hasKey("fluids")) {
 			fluids.clear();
 			NBTTagList tagList = nbt.getTagList("fluids", 10);
-			for(int i = 0; i < tagList.tagCount(); i++) {
+			for (int i = 0; i < tagList.tagCount(); i++) {
 				FluidStack fs = FluidStack.loadFluidStackFromNBT(tagList.getCompoundTagAt(i));
-				if(fs != null) {
+				if (fs != null) {
 					fluids.add(fs);
 				}
 			}
@@ -68,8 +68,8 @@ public class MultiFluidTank extends FluidTankSmart {
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		NBTTagList tagList = new NBTTagList();
-		for(FluidStack fs : fluids) {
-			if(fs != null) {
+		for (FluidStack fs : fluids) {
+			if (fs != null) {
 				tagList.appendTag(fs.writeToNBT(new NBTTagCompound()));
 			}
 		}
@@ -91,7 +91,7 @@ public class MultiFluidTank extends FluidTankSmart {
 	@Override
 	public int getFluidAmount() {
 		int sum = 0;
-		for(FluidStack fs : fluids) {
+		for (FluidStack fs : fluids) {
 			sum += fs.amount;
 		}
 		return sum;
@@ -106,7 +106,7 @@ public class MultiFluidTank extends FluidTankSmart {
 	public FluidTankInfo getInfo() {
 		FluidStack fs = getFluid();
 		int capacity = this.capacity - getFluidAmount();
-		if(fs != null) {
+		if (fs != null) {
 			capacity += fs.amount;
 		}
 		return new FluidTankInfo(fs, capacity);
@@ -115,7 +115,7 @@ public class MultiFluidTank extends FluidTankSmart {
 	// FIXME
 	@Override
 	public IFluidTankProperties[] getTankProperties() {
-		if(tankProperties == null) {
+		if (tankProperties == null) {
 			tankProperties = new IFluidTankProperties[] { new FluidTankPropertiesWrapper(this) };
 		}
 		return tankProperties;
@@ -125,11 +125,11 @@ public class MultiFluidTank extends FluidTankSmart {
 	public int fill(FluidStack resource, boolean doFill) {
 		int space = capacity - getFluidAmount();
 		int toFill = Math.min(resource.amount, space);
-		if(!doFill) {
+		if (!doFill) {
 			return toFill;
 		}
-		for(FluidStack fs : fluids) {
-			if(fs.isFluidEqual(resource)) {
+		for (FluidStack fs : fluids) {
+			if (fs.isFluidEqual(resource)) {
 				fs.amount += toFill;
 				onContentsChanged();
 				return toFill;
@@ -143,18 +143,18 @@ public class MultiFluidTank extends FluidTankSmart {
 	@Nullable
 	@Override
 	public FluidStack drain(FluidStack resource, boolean doDrain) {
-		if(fluids.isEmpty()) {
+		if (fluids.isEmpty()) {
 			return null;
 		}
 		Iterator<FluidStack> it = fluids.iterator();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			FluidStack fs = it.next();
-			if(fs.isFluidEqual(resource)) {
+			if (fs.isFluidEqual(resource)) {
 				int amount = Math.min(resource.amount, fs.amount);
-				if(doDrain) {
+				if (doDrain) {
 					onContentsChanged();
 					fs.amount -= amount;
-					if(fs.amount <= 0) {
+					if (fs.amount <= 0) {
 						it.remove();
 					}
 				}
@@ -167,7 +167,7 @@ public class MultiFluidTank extends FluidTankSmart {
 	@Nullable
 	@Override
 	public FluidStack drain(int maxDrain, boolean doDrain) {
-		if(fluids.isEmpty()) {
+		if (fluids.isEmpty()) {
 			return null;
 		}
 		return drain(new FluidStack(getFluid(), maxDrain), doDrain);

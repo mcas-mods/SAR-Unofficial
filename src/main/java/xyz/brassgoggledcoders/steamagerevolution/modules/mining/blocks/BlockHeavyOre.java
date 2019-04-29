@@ -7,9 +7,13 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.teamacronymcoders.base.blocks.*;
+import com.teamacronymcoders.base.blocks.BlockBase;
+import com.teamacronymcoders.base.blocks.IHasBlockColor;
+import com.teamacronymcoders.base.blocks.IHasBlockStateMapper;
 import com.teamacronymcoders.base.client.models.generator.IHasGeneratedModel;
-import com.teamacronymcoders.base.client.models.generator.generatedmodel.*;
+import com.teamacronymcoders.base.client.models.generator.generatedmodel.GeneratedModel;
+import com.teamacronymcoders.base.client.models.generator.generatedmodel.IGeneratedModel;
+import com.teamacronymcoders.base.client.models.generator.generatedmodel.ModelType;
 import com.teamacronymcoders.base.materialsystem.materialparts.MaterialPart;
 import com.teamacronymcoders.base.util.OreDictUtils;
 import com.teamacronymcoders.base.util.files.templates.TemplateFile;
@@ -65,7 +69,7 @@ public class BlockHeavyOre extends BlockBase implements IHasGeneratedModel, IHas
 	@Override
 	public void onPlayerDestroy(World world, BlockPos pos, IBlockState state) {
 		int chunks = state.getValue(BlockHeavyOre.CHUNKS).intValue();
-		if(!world.isRemote && chunks > 1) {
+		if (!world.isRemote && chunks > 1) {
 			EntityItem itemE = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(),
 					((BlockHeavyOre) state.getBlock()).drop);
 			world.spawnEntity(itemE);

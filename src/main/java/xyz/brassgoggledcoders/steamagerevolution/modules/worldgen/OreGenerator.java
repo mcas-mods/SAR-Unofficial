@@ -22,23 +22,23 @@ public class OreGenerator implements IWorldGenerator {
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
 			IChunkProvider chunkProvider) {
-		switch(world.provider.getDimension()) {
-			case -1:
-				break;
-			case 0:
-				generateSurface(world, random, chunkX * 16, chunkZ * 16);
-				break;
-			case 1:
-				break;
+		switch (world.provider.getDimension()) {
+		case -1:
+			break;
+		case 0:
+			generateSurface(world, random, chunkX * 16, chunkZ * 16);
+			break;
+		case 1:
+			break;
 		}
 	}
 
 	// The actual generation method.
 	private void generateSurface(World world, Random rand, int chunkX, int chunkZ) {
-		for(OreEntry entry : oresToGenerate) {
-			if(SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class, "CONFIG")
+		for (OreEntry entry : oresToGenerate) {
+			if (SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class, "CONFIG")
 					.getBoolean("do" + entry.config + "OreGen", true)) {
-				for(int k = 0; k < entry.rarity; k++) {
+				for (int k = 0; k < entry.rarity; k++) {
 					int startX = chunkX + rand.nextInt(16);
 					int startZ = chunkZ + rand.nextInt(16);
 					int startY = rand.nextInt(entry.maxY);

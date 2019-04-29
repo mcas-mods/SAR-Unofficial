@@ -43,18 +43,18 @@ public class VatRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 
 	@Override
 	public void setRecipe(IRecipeLayout recipeLayout, SARMachineRecipe recipeWrapper, IIngredients ingredients) {
-		for(int i = 0; i < recipeWrapper.getFluidInputs().length; i++) {
+		for (int i = 0; i < recipeWrapper.getFluidInputs().length; i++) {
 			FluidStack stack = recipeWrapper.getFluidInputs()[i].getFluid();
-			if(stack != null) {
+			if (stack != null) {
 				recipeLayout.getFluidStacks().init(i, true, 1 + (i * 39), 1, 20, 60,
 						ControllerVat.inputCapacity / recipeWrapper.getFluidInputs().length, true, null);
 				recipeLayout.getFluidStacks().set(i, recipeWrapper.getFluidInputs()[i].getFluid());
 			}
 		}
-		if(recipeWrapper.getItemInputs() != null) {
-			for(int i2 = 0; i2 < recipeWrapper.getItemInputs().length; i2++) {
+		if (recipeWrapper.getItemInputs() != null) {
+			for (int i2 = 0; i2 < recipeWrapper.getItemInputs().length; i2++) {
 				ItemStack stack = recipeWrapper.getItemInputs()[i2].getMatchingStacks()[0];
-				if(!stack.isEmpty()) {
+				if (!stack.isEmpty()) {
 					recipeLayout.getItemStacks().init(i2 + 3, true, 2 + (i2 * 40) - i2, 105);
 					recipeLayout.getItemStacks().set(i2 + 3, recipeWrapper.getItemInputs()[i2].getMatchingStacks()[0]);// TODO
 				}

@@ -30,11 +30,10 @@ public class HandlerFluidUpdate implements IMessageHandler<PacketFluidUpdate, IM
 
 	private void processMessage(WorldClient worldClient, PacketFluidUpdate message) {
 		TileEntity te = worldClient.getTileEntity(message.pos);
-		if(te instanceof IMachineHasInventory) {
+		if (te instanceof IMachineHasInventory) {
 			IMachineHasInventory tile = (IMachineHasInventory) te;
 			tile.getInventory().updateFluid(message);
-		}
-		else {
+		} else {
 			MultiblockTileEntityBase<?> tile = (MultiblockTileEntityBase<?>) te;
 			IMachineHasInventory controller = (IMachineHasInventory) tile.getMultiblockController();
 			controller.getInventory().updateFluid(message);

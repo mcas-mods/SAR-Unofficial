@@ -41,16 +41,16 @@ public class ControllerDistiller extends SARMultiblockInventory {
 		BlockPos second = new BlockPos(getMaximumCoord().getX(), getMinimumCoord().getY(), getMaximumCoord().getZ());
 
 		// Get all blocks in bottom layer of machine & check they're radiators
-		for(BlockPos pos : BlockPos.getAllInBox(first, second)) {
-			if(WORLD.getBlockState(pos).getBlock() != ModuleAlchemical.distiller_radiator) {
+		for (BlockPos pos : BlockPos.getAllInBox(first, second)) {
+			if (WORLD.getBlockState(pos).getBlock() != ModuleAlchemical.distiller_radiator) {
 				validatorCallback.setLastError(
 						new ValidationError("steamagerevolution.multiblock.validation.distiller_radiator"));
 				return false;
 			}
 		}
 		// Same for second layer, check they're hotplates
-		for(BlockPos pos : BlockPos.getAllInBox(first.up(), second.up())) {
-			if(WORLD.getBlockState(pos).getBlock() != ModuleAlchemical.distiller_hotplate) {
+		for (BlockPos pos : BlockPos.getAllInBox(first.up(), second.up())) {
+			if (WORLD.getBlockState(pos).getBlock() != ModuleAlchemical.distiller_hotplate) {
 				validatorCallback.setLastError(
 						new ValidationError("steamagerevolution.multiblock.validation.distiller_hotplate"));
 				return false;

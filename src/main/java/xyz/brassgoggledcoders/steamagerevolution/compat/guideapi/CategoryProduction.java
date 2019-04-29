@@ -1,6 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.guideapi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
@@ -36,7 +39,7 @@ public class CategoryProduction {
 		BookUtils.addBasicEntry(entries, keyBase, "steam_hammer", new ItemStack(BookObjectHolder.steamhammer_frame),
 				true);
 
-		for(EntryAbstract entry : entries.values()) {
+		for (EntryAbstract entry : entries.values()) {
 			PageHelper.setPagesToUnicode(entry.pageList);
 		}
 

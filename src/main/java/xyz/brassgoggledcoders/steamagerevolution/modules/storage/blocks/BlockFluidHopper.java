@@ -118,7 +118,7 @@ public class BlockFluidHopper extends BlockTEBase<TileEntityFluidHopper> {
 			float hitZ, int meta, EntityLivingBase placer) {
 		EnumFacing enumfacing = facing.getOpposite();
 
-		if(enumfacing == EnumFacing.UP) {
+		if (enumfacing == EnumFacing.UP) {
 			enumfacing = EnumFacing.DOWN;
 		}
 
@@ -152,7 +152,7 @@ public class BlockFluidHopper extends BlockTEBase<TileEntityFluidHopper> {
 		int i = 0;
 		i = i | state.getValue(FACING).getIndex();
 
-		if(!state.getValue(ENABLED).booleanValue()) {
+		if (!state.getValue(ENABLED).booleanValue()) {
 			i |= 8;
 		}
 
@@ -168,7 +168,7 @@ public class BlockFluidHopper extends BlockTEBase<TileEntityFluidHopper> {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		TileEntityFluidHopper te = getTileEntity(worldIn, pos).get();
-		if(te != null && !playerIn.isSneaking()) {
+		if (te != null && !playerIn.isSneaking()) {
 			FluidUtil.interactWithFluidHandler(playerIn, hand, worldIn, pos, facing);
 		}
 		return false;

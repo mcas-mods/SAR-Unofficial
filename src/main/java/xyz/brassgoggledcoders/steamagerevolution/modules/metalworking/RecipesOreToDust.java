@@ -27,18 +27,18 @@ public class RecipesOreToDust extends net.minecraftforge.registries.IForgeRegist
 	public boolean matches(InventoryCrafting inv, World worldIn) {
 		boolean hasHammer = false;
 		boolean hasOre = false;
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack itemstack = inv.getStackInSlot(i);
-			if(!itemstack.isEmpty()) {
+			if (!itemstack.isEmpty()) {
 				Item item = itemstack.getItem();
 
-				if(item == hammer) {
+				if (item == hammer) {
 					hasHammer = true;
 					continue;
 				}
 				// TODO
-				for(String metal : ModuleMaterials.knownMetalTypes) {
-					if(OreDictionary.containsMatch(false, OreDictionary.getOres("ore" + metal, false), itemstack)) {
+				for (String metal : ModuleMaterials.knownMetalTypes) {
+					if (OreDictionary.containsMatch(false, OreDictionary.getOres("ore" + metal, false), itemstack)) {
 						hasOre = true;
 					}
 				}
@@ -50,12 +50,12 @@ public class RecipesOreToDust extends net.minecraftforge.registries.IForgeRegist
 	// TODO
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack itemstack = inv.getStackInSlot(i);
-			if(!itemstack.isEmpty()) {
-				for(int id : OreDictionary.getOreIDs(itemstack)) {
+			if (!itemstack.isEmpty()) {
+				for (int id : OreDictionary.getOreIDs(itemstack)) {
 					String name = OreDictionary.getOreName(id);
-					if(name.contains("ore")) {
+					if (name.contains("ore")) {
 						ItemStack dust = OreDictUtils.getPreferredItemStack("dust" + name.substring(3));
 						dust.setCount(ModuleMetalworking.dustCount);
 						return dust;
@@ -81,13 +81,12 @@ public class RecipesOreToDust extends net.minecraftforge.registries.IForgeRegist
 	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
 		final NonNullList<ItemStack> remainingItems = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
 
-		for(int i = 0; i < remainingItems.size(); ++i) {
+		for (int i = 0; i < remainingItems.size(); ++i) {
 			final ItemStack itemstack = inv.getStackInSlot(i);
 
-			if(!itemstack.isEmpty() && itemstack.getItem() == hammer) {
+			if (!itemstack.isEmpty() && itemstack.getItem() == hammer) {
 				remainingItems.set(i, damageItem(itemstack.copy()));
-			}
-			else {
+			} else {
 				remainingItems.set(i, ForgeHooks.getContainerItem(itemstack));
 			}
 		}
@@ -97,7 +96,7 @@ public class RecipesOreToDust extends net.minecraftforge.registries.IForgeRegist
 
 	private ItemStack damageItem(final ItemStack stack) {
 		final EntityPlayer craftingPlayer = ForgeHooks.getCraftingPlayer();
-		if(stack.attemptDamageItem(1, craftingPlayer.getRNG(),
+		if (stack.attemptDamageItem(1, craftingPlayer.getRNG(),
 				craftingPlayer instanceof EntityPlayerMP ? (EntityPlayerMP) craftingPlayer : null)) {
 			ForgeEventFactory.onPlayerDestroyItem(craftingPlayer, stack, null);
 			return ItemStack.EMPTY;

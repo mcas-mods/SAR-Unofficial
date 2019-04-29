@@ -25,11 +25,10 @@ public class TileEntityCastingBench extends SARMachineTileEntity {
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		if(facing.getAxis() == Axis.Y) {
+		if (facing.getAxis() == Axis.Y) {
 			return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 					|| super.hasCapability(capability, facing);
-		}
-		else {
+		} else {
 			return (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
 					|| super.hasCapability(capability, facing);
 		}
@@ -38,10 +37,9 @@ public class TileEntityCastingBench extends SARMachineTileEntity {
 	// TODO Automatic siding
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(inventory.getInputTank());
-		}
-		else if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+		} else if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory.getOutputHandler());
 		}
 		return super.getCapability(capability, facing);

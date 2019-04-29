@@ -18,14 +18,14 @@ public class MultiblockInventoryWrapper implements IItemHandler, IItemHandlerMod
 
 	@Override
 	public void setStackInSlot(int slot, ItemStack stack) {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
+		if (tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
 			tile.getMultiblockController().getInventory().getItemHandler(output).setStackInSlot(slot, stack);
 		}
 	}
 
 	@Override
 	public int getSlots() {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
+		if (tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
 			return tile.getMultiblockController().getInventory().getItemHandler(output).getSlots();
 		}
 		return 0;
@@ -33,7 +33,7 @@ public class MultiblockInventoryWrapper implements IItemHandler, IItemHandlerMod
 
 	@Override
 	public ItemStack getStackInSlot(int slot) {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
+		if (tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
 			return tile.getMultiblockController().getInventory().getItemHandler(output).getStackInSlot(slot);
 		}
 		return ItemStack.EMPTY;
@@ -41,7 +41,7 @@ public class MultiblockInventoryWrapper implements IItemHandler, IItemHandlerMod
 
 	@Override
 	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
+		if (tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
 			return tile.getMultiblockController().getInventory().getItemHandler(output).insertItem(slot, stack,
 					simulate);
 		}
@@ -50,7 +50,7 @@ public class MultiblockInventoryWrapper implements IItemHandler, IItemHandlerMod
 
 	@Override
 	public ItemStack extractItem(int slot, int amount, boolean simulate) {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
+		if (tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
 			return tile.getMultiblockController().getInventory().getItemHandler(output).extractItem(slot, amount,
 					simulate);
 		}
@@ -59,7 +59,7 @@ public class MultiblockInventoryWrapper implements IItemHandler, IItemHandlerMod
 
 	@Override
 	public int getSlotLimit(int slot) {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
+		if (tile.isConnected() && tile.getMultiblockController().getInventory().getItemHandler(output) != null) {
 			return tile.getMultiblockController().getInventory().getItemHandler(output).getSlotLimit(slot);
 		}
 		return 0;

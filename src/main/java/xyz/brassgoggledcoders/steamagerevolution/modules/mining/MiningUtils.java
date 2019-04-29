@@ -36,23 +36,24 @@ public class MiningUtils {
 		return !event.isCanceled();
 	}
 
-	public static void doMining(World world, BlockPos pos, IItemHandler itemHandler, @Nullable ISemisolidHandler semisolidHandler) {
+	public static void doMining(World world, BlockPos pos, IItemHandler itemHandler,
+			@Nullable ISemisolidHandler semisolidHandler) {
 		WeakReference<FakePlayer> fakePlayer = new WeakReference<FakePlayer>(
 				FakePlayerFactory.get((WorldServer) world, ControllerDrill.profile));
 		// Skip air, skip unbreakable blocks, skip tile entities and skip blocks that
 		// are otherwise unharvestable
 		IBlockState state = world.getBlockState(pos);
-		if (!world.isAirBlock(pos) && state.getBlockHardness(world, pos) >= 0
-				&& world.getTileEntity(pos) == null && allowedToBreak(state, world, pos, fakePlayer.get())) {
+		if (!world.isAirBlock(pos) && state.getBlockHardness(world, pos) >= 0 && world.getTileEntity(pos) == null
+				&& allowedToBreak(state, world, pos, fakePlayer.get())) {
 			if (semisolidHandler != null && state.getBlock() instanceof BlockHeavyOre) {
 				BlockHeavyOre ore = (BlockHeavyOre) state.getBlock();
 				semisolidHandler.fill(new SemisolidStack(SteamAgeRevolution.semisolidRegistry
 						.getEntry(new ResourceLocation(ore.getRegistryName().getNamespace(), ore.type)), 1));
-				//markReferenceCoordForUpdate();
+				// markReferenceCoordForUpdate();
 				int chunks = state.getValue(BlockHeavyOre.CHUNKS).intValue();
 				if (chunks > 1) {
 					world.setBlockState(pos, state.withProperty(BlockHeavyOre.CHUNKS, chunks - 1), 2);
-	
+
 				} else {
 					world.destroyBlock(pos, false);
 				}

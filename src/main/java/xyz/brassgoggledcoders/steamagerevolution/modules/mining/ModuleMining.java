@@ -6,7 +6,9 @@ import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.modulesystem.dependencies.IDependency;
 import com.teamacronymcoders.base.modulesystem.dependencies.ModuleDependency;
-import com.teamacronymcoders.base.registrysystem.*;
+import com.teamacronymcoders.base.registrysystem.BlockRegistry;
+import com.teamacronymcoders.base.registrysystem.EntityRegistry;
+import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import com.teamacronymcoders.base.util.OreDictUtils;
 
@@ -15,7 +17,9 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import stanhebben.zenscript.util.StringUtil;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
@@ -71,10 +75,10 @@ public class ModuleMining extends ModuleBase {
 
 	@SubscribeEvent
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-		for(ISemisolid ssolid : SteamAgeRevolution.semisolidRegistry.getEntries()) {
+		for (ISemisolid ssolid : SteamAgeRevolution.semisolidRegistry.getEntries()) {
 			ItemStack crushedOreStack = OreDictUtils
 					.getPreferredItemStack("crushedOre" + StringUtil.capitalize(ssolid.getRegistryName().getPath()));
-			if(!crushedOreStack.isEmpty()) {
+			if (!crushedOreStack.isEmpty()) {
 				((Builder) new SemisolidRecipe.Builder("grinder").setItemOutputs(crushedOreStack))
 						.setSemisolidInputs(new SemisolidStack(ssolid, 1)).setCraftTime(10).build();
 			}

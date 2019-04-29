@@ -1,7 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mining.grinder;
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
-import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileInventory;

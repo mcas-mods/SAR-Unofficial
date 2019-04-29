@@ -25,7 +25,7 @@ public class TileEntityGrinderInput extends TileEntityGrinderPart {
 		}
 		return super.getCapability(capability, facing);
 	}
-	
+
 	@Override
 	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
 		return true;

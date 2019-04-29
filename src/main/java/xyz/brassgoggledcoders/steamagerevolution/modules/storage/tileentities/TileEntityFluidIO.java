@@ -27,20 +27,20 @@ public class TileEntityFluidIO extends SARMachineTileEntity {
 
 	@Override
 	public void onTick() {
-		if(!inventory.getInputHandler().getStackInSlot(0).isEmpty()) {
+		if (!inventory.getInputHandler().getStackInSlot(0).isEmpty()) {
 			IFluidHandler itemFluid = inventory.getInputHandler().getStackInSlot(0)
 					.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-			if(itemFluid != null && itemFluid.drain(fluidTransferRate, false) != null && inventory.getInputTank()
+			if (itemFluid != null && itemFluid.drain(fluidTransferRate, false) != null && inventory.getInputTank()
 					.fill(itemFluid.drain(fluidTransferRate, false), false) == fluidTransferRate) {
 				inventory.getInputTank().fill(itemFluid.drain(fluidTransferRate, true), true);
 				markDirty();
 				sendBlockUpdate();
 			}
 		}
-		if(!inventory.getInputHandler().getStackInSlot(1).isEmpty()) {
+		if (!inventory.getInputHandler().getStackInSlot(1).isEmpty()) {
 			IFluidHandler itemFluid = inventory.getInputHandler().getStackInSlot(1)
 					.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-			if(itemFluid != null && inventory.getInputTank().getFluidAmount() > 0 && itemFluid
+			if (itemFluid != null && inventory.getInputTank().getFluidAmount() > 0 && itemFluid
 					.fill(inventory.getInputTank().drain(fluidTransferRate, false), false) == fluidTransferRate) {
 				itemFluid.fill(inventory.getInputTank().drain(fluidTransferRate, true), true);
 				markDirty();
@@ -57,7 +57,7 @@ public class TileEntityFluidIO extends SARMachineTileEntity {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return (T) inventory.getInputTank();
 		}
 		return super.getCapability(capability, facing);

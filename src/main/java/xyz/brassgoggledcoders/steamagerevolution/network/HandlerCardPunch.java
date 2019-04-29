@@ -20,7 +20,7 @@ public class HandlerCardPunch implements IMessageHandler<PacketCardPunch, IMessa
 		WorldServer worldServer = serverPlayer.getServerWorld();
 		worldServer.addScheduledTask(() -> {
 			BlockPos pos = message.pos;
-			if(worldServer.isBlockLoaded(pos, false)) {
+			if (worldServer.isBlockLoaded(pos, false)) {
 				TileEntity te = worldServer.getTileEntity(message.pos);
 				((TileEntityCardPuncher) te).doPunch();
 			}

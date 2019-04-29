@@ -96,8 +96,8 @@ public class ControllerSteamHammer extends SARMultiblockInventory<InventoryMachi
 
 	@Override
 	protected void onTick() {
-		for(EntityItem item : WORLD.getEntitiesWithinAABB(EntityItem.class, interior)) {
-			if(ItemHandlerHelper.insertItem(inventory.getInputHandler(), item.getItem(), true).isEmpty()) {
+		for (EntityItem item : WORLD.getEntitiesWithinAABB(EntityItem.class, interior)) {
+			if (ItemHandlerHelper.insertItem(inventory.getInputHandler(), item.getItem(), true).isEmpty()) {
 				ItemHandlerHelper.insertItem(inventory.getInputHandler(), item.getItem(), false);
 				item.setDead();
 			}

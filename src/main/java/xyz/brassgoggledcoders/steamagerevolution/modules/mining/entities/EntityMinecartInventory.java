@@ -16,14 +16,15 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInve
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
-public abstract class EntityMinecartInventory<I extends InventoryMachine> extends EntityMinecartBase implements IHasGui, IMachineHasInventory<I> {
+public abstract class EntityMinecartInventory<I extends InventoryMachine> extends EntityMinecartBase
+		implements IHasGui, IMachineHasInventory<I> {
 
 	I inventory;
-	
+
 	public EntityMinecartInventory(World world) {
 		super(world);
 	}
-	
+
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);
@@ -35,13 +36,13 @@ public abstract class EntityMinecartInventory<I extends InventoryMachine> extend
 		super.writeEntityToNBT(compound);
 		compound.setTag("inventory", this.inventory.serializeNBT());
 	}
-	
+
 	@Override
 	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
 		GuiOpener.openEntityGui(SteamAgeRevolution.instance, this, player, world);
 		return super.processInitialInteract(player, hand);
 	}
-	
+
 	@Override
 	public World getMachineWorld() {
 		return this.getEntityWorld();
@@ -81,7 +82,7 @@ public abstract class EntityMinecartInventory<I extends InventoryMachine> extend
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	public I getInventory() {
 		return inventory;

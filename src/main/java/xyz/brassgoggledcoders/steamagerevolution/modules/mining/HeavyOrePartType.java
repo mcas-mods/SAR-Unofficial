@@ -44,7 +44,7 @@ public class HeavyOrePartType extends BlockPartType {
 		String name = materialPart.getMaterial().getOreDictSuffix();
 		BlockHeavyOre ore = new BlockHeavyOre(materialPart, name);
 		materialUser.getMod().getRegistryHolder().getRegistry(BlockRegistry.class, "BLOCK").register(ore);
-		if(!SteamAgeRevolution.instance.semisolidRegistry.hasEntry(new ResourceLocation(materialUser.getId(), name))) {
+		if (!SteamAgeRevolution.instance.semisolidRegistry.hasEntry(new ResourceLocation(materialUser.getId(), name))) {
 			SteamAgeRevolution.instance.semisolidRegistry.addEntry(new Semisolid(name, materialPart.getColor()));
 		}
 	}
@@ -54,7 +54,7 @@ public class HeavyOrePartType extends BlockPartType {
 		BlockRegistry registry = materialPart.getMaterialUser().getMod().getRegistryHolder()
 				.getRegistry(BlockRegistry.class, "BLOCK");
 		ItemStack itemStack = ItemStack.EMPTY;
-		if(registry.get(new ResourceLocation(materialPart.getMaterialUser().getMod().getID(),
+		if (registry.get(new ResourceLocation(materialPart.getMaterialUser().getMod().getID(),
 				materialPart.getUnlocalizedName())) != null) {
 			itemStack = new ItemStack(Item
 					.getItemFromBlock(registry.get(new ResourceLocation(materialPart.getMaterialUser().getMod().getID(),

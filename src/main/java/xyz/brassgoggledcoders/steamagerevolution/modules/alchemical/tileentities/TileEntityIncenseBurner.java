@@ -24,7 +24,7 @@ public class TileEntityIncenseBurner extends SARMachineTileEntity {
 	// TODO Automatic siding
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory.getInputHandler());
 		}
 		return super.getCapability(capability, facing);

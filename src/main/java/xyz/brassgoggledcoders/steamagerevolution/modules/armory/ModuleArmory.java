@@ -71,7 +71,7 @@ public class ModuleArmory extends ModuleBase {
 
 	@ObjectHolder(SteamAgeRevolution.MODID + ":goggles")
 	public static final Item goggles = null;
-	
+
 	@ObjectHolder(SteamAgeRevolution.MODID + ":iron_drill")
 	public static final Item drill = null;
 
@@ -86,7 +86,7 @@ public class ModuleArmory extends ModuleBase {
 
 	@SubscribeEvent
 	public static void onOreRegistered(OreDictionary.OreRegisterEvent event) {
-		if(event.getName().contains("ore")) {
+		if (event.getName().contains("ore")) {
 			KNOWN_ORES.add(Block.getBlockFromItem(event.getOre().getItem()));
 		}
 	}
@@ -101,13 +101,13 @@ public class ModuleArmory extends ModuleBase {
 //				11111);
 //		
 //	}
-	
+
 	@Override
 	public void registerEntities(ConfigRegistry configRegistry, EntityRegistry entityRegistry) {
 		super.registerEntities(configRegistry, entityRegistry);
 		entityRegistry.register(EntityDeadInventor.class);
-		net.minecraftforge.fml.common.registry.EntityRegistry.addSpawn(EntityDeadInventor.class, 10, 1, 2, EnumCreatureType.MONSTER, Biomes.DESERT,
-			Biomes.ROOFED_FOREST, Biomes.JUNGLE, Biomes.EXTREME_HILLS);// TODO
+		net.minecraftforge.fml.common.registry.EntityRegistry.addSpawn(EntityDeadInventor.class, 10, 1, 2,
+				EnumCreatureType.MONSTER, Biomes.DESERT, Biomes.ROOFED_FOREST, Biomes.JUNGLE, Biomes.EXTREME_HILLS);// TODO
 	}
 
 	@Override
@@ -139,8 +139,8 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemLens());
 		itemRegistry.register(new ItemGoggles());
 
-		for(int i = 0; i < 16; ++i) {
-			if(i == EnumDyeColor.GREEN.getMetadata()) {
+		for (int i = 0; i < 16; ++i) {
+			if (i == EnumDyeColor.GREEN.getMetadata()) {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
 					// TODO Switch to a brightness increaser instead of a potion effect
 					@Override
@@ -155,24 +155,21 @@ public class ModuleArmory extends ModuleBase {
 						return "Grants night vision";
 					}
 				});
-			}
-			else if(i == EnumDyeColor.CYAN.getMetadata()) {
+			} else if (i == EnumDyeColor.CYAN.getMetadata()) {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
 					@Override
 					public String getEffect() {
 						return "Lessens the goggle overlay";
 					}
 				});
-			}
-			else if(i == EnumDyeColor.SILVER.getMetadata()) {
+			} else if (i == EnumDyeColor.SILVER.getMetadata()) {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
 					@Override
 					public String getEffect() {
 						return "Makes the goggles act as a OneProbe probe";
 					}
 				});
-			}
-			else if(i == EnumDyeColor.WHITE.getMetadata()) {
+			} else if (i == EnumDyeColor.WHITE.getMetadata()) {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
 					@Override
 					public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
@@ -185,44 +182,39 @@ public class ModuleArmory extends ModuleBase {
 						return "Protects you against blindness";
 					}
 				});
-			}
-			else if(i == EnumDyeColor.LIGHT_BLUE.getMetadata()) {
+			} else if (i == EnumDyeColor.LIGHT_BLUE.getMetadata()) {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
 					@Override
 					public String getEffect() {
 						return "Removes water fog";
 					}
 				});
-			}
-			else if(i == EnumDyeColor.ORANGE.getMetadata()) {
+			} else if (i == EnumDyeColor.ORANGE.getMetadata()) {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
 					@Override
 					public String getEffect() {
 						return "Removes lava fog";
 					}
 				});
-			}
-			else if(i == EnumDyeColor.BLACK.getMetadata()) {
+			} else if (i == EnumDyeColor.BLACK.getMetadata()) {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
 					@Override
 					public String getEffect() {
 						return "Removes world fog";
 					}
 				});
-			}
-			else if(i == EnumDyeColor.PURPLE.getMetadata()) {
+			} else if (i == EnumDyeColor.PURPLE.getMetadata()) {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
 					@Override
 					public String getEffect() {
 						return "Makes the goggles act as Goggles of Revealing";
 					}
 				});
-			}
-			else {
+			} else {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i));
 			}
 		}
-		
+
 		itemRegistry.register(new ItemEntrenchingTool("entrenching_tool", ToolMaterial.IRON));
 
 		/*

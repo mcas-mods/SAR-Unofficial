@@ -30,19 +30,19 @@ public class ControllerCrucible extends SARMultiblockInventory<InventoryMachine>
 	// FIXME Caching
 	@Override
 	protected void onMachineAssembled() {
-		Pair<BlockPos, BlockPos> interiorPositions = com.teamacronymcoders.base.util.PositionUtils.shrinkPositionCubeBy(getMinimumCoord(),
-				getMaximumCoord(), 1);
+		Pair<BlockPos, BlockPos> interiorPositions = com.teamacronymcoders.base.util.PositionUtils
+				.shrinkPositionCubeBy(getMinimumCoord(), getMaximumCoord(), 1);
 		minimumInteriorPos = interiorPositions.getLeft();
 		maximumInteriorPos = interiorPositions.getRight();
 
 		int blocksInside = 0;
 		// TODO Expensive for loop just to increment an integer
-		for(BlockPos pos : BlockPos.getAllInBoxMutable(minimumInteriorPos, maximumInteriorPos)) {
+		for (BlockPos pos : BlockPos.getAllInBoxMutable(minimumInteriorPos, maximumInteriorPos)) {
 			blocksInside++;
 		}
 		// Size internal tank accordingly
 		MultiFluidTank newTank = new MultiFluidTank(blocksInside * Fluid.BUCKET_VOLUME, this, 1);
-		if(inventory.getOutputTank().fluids != null) {
+		if (inventory.getOutputTank().fluids != null) {
 			newTank.fluids.addAll(inventory.getOutputTank().fluids);
 		}
 		inventory.setFluidOutput(newTank);

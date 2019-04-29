@@ -33,7 +33,7 @@ public abstract class TileEntityTankPart extends SARMultiblockTileBase<Controlle
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
-		if(isConnected()) {
+		if (isConnected()) {
 			ControllerTank controller = getMultiblockController();
 			nbttagcompound.setTag("tank", controller.tank.writeToNBT(new NBTTagCompound()));
 		}
@@ -44,7 +44,7 @@ public abstract class TileEntityTankPart extends SARMultiblockTileBase<Controlle
 	@Override
 	public NBTTagCompound getUpdateTag() {
 		NBTTagCompound nbt = super.writeToNBT(new NBTTagCompound());
-		if(isConnected()) {
+		if (isConnected()) {
 			ControllerTank controller = getMultiblockController();
 			nbt.setTag("tank", controller.tank.writeToNBT(new NBTTagCompound()));
 		}
@@ -54,7 +54,7 @@ public abstract class TileEntityTankPart extends SARMultiblockTileBase<Controlle
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-		if(isConnected()) {
+		if (isConnected()) {
 			ControllerTank controller = getMultiblockController();
 			controller.tank.readFromNBT(pkt.getNbtCompound().getCompoundTag("tank"));
 		}

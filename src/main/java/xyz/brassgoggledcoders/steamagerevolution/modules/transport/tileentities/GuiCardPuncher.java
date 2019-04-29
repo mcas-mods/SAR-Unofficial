@@ -46,7 +46,7 @@ public class GuiCardPuncher extends GuiContainer {
 	// TODO JEI Ghost item support
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException {
-		if(button.enabled) {
+		if (button.enabled) {
 			SteamAgeRevolution.instance.getPacketHandler().sendToServer(new PacketCardPunch(tile.getPos()));
 		}
 	}

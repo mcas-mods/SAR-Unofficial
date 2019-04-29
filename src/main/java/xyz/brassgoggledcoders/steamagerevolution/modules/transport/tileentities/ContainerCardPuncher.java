@@ -25,8 +25,8 @@ public class ContainerCardPuncher extends ContainerBase {
 		addSlotToContainer(new SlotItemHandler(codeInv, 2, 62, 16));
 		// Items
 		int slotNum = 3;
-		for(int horizontal = 0; horizontal < 4; horizontal++) {
-			for(int vertical = 0; vertical < 4; vertical++) {
+		for (int horizontal = 0; horizontal < 4; horizontal++) {
+			for (int vertical = 0; vertical < 4; vertical++) {
 
 				addSlotToContainer(
 						new SlotItemHandler(codeInv, slotNum++, 98 + (horizontal * 18), 8 + (vertical * 18)));

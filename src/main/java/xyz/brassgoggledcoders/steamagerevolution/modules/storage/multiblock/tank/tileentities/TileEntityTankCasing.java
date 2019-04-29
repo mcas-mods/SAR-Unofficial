@@ -15,11 +15,10 @@ public class TileEntityTankCasing extends TileEntityTankPart {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public net.minecraft.util.math.AxisAlignedBB getRenderBoundingBox() {
-		if(isConnected()) {
+		if (isConnected()) {
 			return new AxisAlignedBB(getMultiblockController().getMinimumCoord(),
 					getMultiblockController().getMaximumCoord());
-		}
-		else {
+		} else {
 			return super.getRenderBoundingBox();
 		}
 	}

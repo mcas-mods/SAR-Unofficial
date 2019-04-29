@@ -38,10 +38,9 @@ public class ItemCanister extends ItemBase implements IHasSubItems {
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		FluidStack fluid = internal.getFluid();
-		if(fluid == null) {
+		if (fluid == null) {
 			tooltip.add("0mB/" + capacity + "mB");
-		}
-		else {
+		} else {
 			tooltip.add(fluid.getLocalizedName());
 			tooltip.add(fluid.amount + "mB/" + capacity + "mB");
 		}
@@ -50,7 +49,7 @@ public class ItemCanister extends ItemBase implements IHasSubItems {
 	@Override
 	public List<ItemStack> getAllSubItems(List<ItemStack> itemStacks) {
 		itemStacks.add(new ItemStack(ModuleStorage.canister));
-		for(Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
+		for (Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
 			ItemStack filledStack = new ItemStack(ModuleStorage.canister);
 			filledStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
 					.fill(new FluidStack(fluid, capacity), true);

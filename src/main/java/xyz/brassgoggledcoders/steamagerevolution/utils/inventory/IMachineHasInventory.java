@@ -10,7 +10,7 @@ public interface IMachineHasInventory<I extends InventoryMachine> extends IMachi
 	public I getInventory();
 
 	public void setInventory(I inventory);
-	
+
 	@Deprecated
 	public SARMachineRecipe getCurrentRecipe();
 

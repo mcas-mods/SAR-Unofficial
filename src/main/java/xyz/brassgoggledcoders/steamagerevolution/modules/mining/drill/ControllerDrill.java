@@ -71,7 +71,8 @@ public class ControllerDrill extends SARMultiblockInventory<InventorySemisolid> 
 		if (this.getCurrentProgress() >= 20) {
 			if (currentPosition < positions.size()) {
 				BlockPos pos = positions.get(currentPosition);
-				MiningUtils.doMining(WORLD, pos, this.getInventory().getOutputHandler(), this.getInventory().ore.getHandler());
+				MiningUtils.doMining(WORLD, pos, this.getInventory().getOutputHandler(),
+						this.getInventory().ore.getHandler());
 				currentPosition++;
 			} else {
 				currentPosition = 0;

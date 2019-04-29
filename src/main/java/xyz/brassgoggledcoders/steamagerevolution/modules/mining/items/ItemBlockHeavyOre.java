@@ -24,11 +24,10 @@ public class ItemBlockHeavyOre extends ItemBlockModel<BlockHeavyOre> implements 
 	@Override
 	public String getItemStackDisplayName(ItemStack stack) {
 		Material material = this.getActualBlock().materialPart.getMaterial();
-		if(I18n.canTranslate(material.getTranslationKey())) {
+		if (I18n.canTranslate(material.getTranslationKey())) {
 			String materialDisplayName = I18n.translateToLocal(material.getTranslationKey());
 			return I18n.translateToLocalFormatted("steamagerevolution.part.heavy_ore", materialDisplayName);
-		}
-		else {
+		} else {
 			return I18n.translateToLocalFormatted("steamagerevolution.part.heavy_ore", material.getName());
 		}
 	}

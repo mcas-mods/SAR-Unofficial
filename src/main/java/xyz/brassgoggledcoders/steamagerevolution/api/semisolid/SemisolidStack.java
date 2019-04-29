@@ -8,7 +8,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 public class SemisolidStack implements INBTSerializable<NBTTagCompound> {
 	ISemisolid material;
 	public int amount;
-	
+
 	public SemisolidStack(ISemisolid material, int amount) {
 		this.material = material;
 		this.amount = amount;
@@ -24,7 +24,7 @@ public class SemisolidStack implements INBTSerializable<NBTTagCompound> {
 
 	@Override
 	public void deserializeNBT(NBTTagCompound nbt) {
-		if(!nbt.isEmpty()) {
+		if (!nbt.isEmpty()) {
 			this.material = SteamAgeRevolution.semisolidRegistry.getEntry(new ResourceLocation(nbt.getString("name")));
 			this.amount = nbt.getInteger("amount");
 		}
@@ -33,10 +33,10 @@ public class SemisolidStack implements INBTSerializable<NBTTagCompound> {
 	public ISemisolid getMaterial() {
 		return material;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
-		if(o instanceof SemisolidStack) {
+		if (o instanceof SemisolidStack) {
 			SemisolidStack otherStack = (SemisolidStack) o;
 			return otherStack.material == this.material && otherStack.amount == this.amount;
 		}

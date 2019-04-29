@@ -56,8 +56,8 @@ public class ControllerBoiler extends SARMultiblockInventory<InventoryMachine> {
 	protected boolean updateServer() {
 
 		// Logic must of course run before checking if it should explode...!
-		for(BlockPos pos : attachedValves) {
-			if(WORLD.isBlockPowered(pos)) {
+		for (BlockPos pos : attachedValves) {
+			if (WORLD.isBlockPowered(pos)) {
 				inventory.getSteamTank().drain(Fluid.BUCKET_VOLUME, true);
 				pressure = 1.0F;
 				updateRedstoneOutputLevels();
@@ -65,17 +65,17 @@ public class ControllerBoiler extends SARMultiblockInventory<InventoryMachine> {
 			}
 		}
 
-		if(ModuleSteam.enableDestruction && pressure > maxPressure) {
+		if (ModuleSteam.enableDestruction && pressure > maxPressure) {
 			// Whoopsyboom
 			WORLD.createExplosion(null, getReferenceCoord().getX(), getReferenceCoord().getY(),
 					getReferenceCoord().getZ(), 10 * pressure, true);
 			return true;
 		}
 
-		if(currentBurnTime == 0) {
-			for(int i = 0; i < inventory.getInputHandler().getSlots(); i++) {
+		if (currentBurnTime == 0) {
+			for (int i = 0; i < inventory.getInputHandler().getSlots(); i++) {
 				ItemStack fuel = inventory.getInputHandler().getStackInSlot(i);
-				if(!fuel.isEmpty() && TileEntityFurnace.getItemBurnTime(fuel) != 0) {
+				if (!fuel.isEmpty() && TileEntityFurnace.getItemBurnTime(fuel) != 0) {
 					currentBurnTime = (TileEntityFurnace.getItemBurnTime(fuel) / fuelDivisor);
 					// TODO
 					fuel.shrink(1);
@@ -83,23 +83,21 @@ public class ControllerBoiler extends SARMultiblockInventory<InventoryMachine> {
 					return true;
 				}
 			}
-			if(inventory.getInputTank().getFluidAmount() != 0) {
+			if (inventory.getInputTank().getFluidAmount() != 0) {
 				// TODO
-				if(inventory.getInputTank().getFluid().getFluid() == FluidRegistry.LAVA) {
+				if (inventory.getInputTank().getFluid().getFluid() == FluidRegistry.LAVA) {
 					currentBurnTime = 1000;
 					return true;
 				}
 			}
-		}
-		else {
-			if(inventory.getOutputTank().getFluidAmount() >= fluidConversionPerTick) {
-				if(inventory.getSteamTank()
+		} else {
+			if (inventory.getOutputTank().getFluidAmount() >= fluidConversionPerTick) {
+				if (inventory.getSteamTank()
 						.getFluidAmount() <= (inventory.getSteamTank().getCapacity() - fluidConversionPerTick)) {
 					inventory.getSteamTank()
 							.fill(new FluidStack(FluidRegistry.getFluid("steam"), fluidConversionPerTick), true);
 					inventory.getOutputTank().drain(fluidConversionPerTick, true);
-				}
-				else {
+				} else {
 					pressure += 0.01F;
 					updateRedstoneOutputLevels();
 				}
@@ -147,13 +145,11 @@ public class ControllerBoiler extends SARMultiblockInventory<InventoryMachine> {
 
 	@Override
 	protected void onBlockAdded(IMultiblockPart newPart) {
-		if(newPart instanceof TileEntityBoilerPressureMonitor) {
+		if (newPart instanceof TileEntityBoilerPressureMonitor) {
 			attachedMonitors.add(newPart.getWorldPosition());
-		}
-		else if(newPart instanceof TileEntityBoilerPressureValve) {
+		} else if (newPart instanceof TileEntityBoilerPressureValve) {
 			attachedValves.add(newPart.getWorldPosition());
-		}
-		else if(newPart instanceof TileEntityBoilerGauge) {
+		} else if (newPart instanceof TileEntityBoilerGauge) {
 			hasWindow = true;
 		}
 	}
@@ -161,20 +157,19 @@ public class ControllerBoiler extends SARMultiblockInventory<InventoryMachine> {
 	@Override
 	protected void onBlockRemoved(IMultiblockPart oldPart) {
 
-		if(oldPart instanceof TileEntityBoilerGauge && hasWindow == true) {
+		if (oldPart instanceof TileEntityBoilerGauge && hasWindow == true) {
 			hasWindow = connectedParts.stream().noneMatch(part -> part instanceof TileEntityBoilerGauge);
 		}
 
-		if(oldPart instanceof TileEntityBoilerPressureMonitor) {
+		if (oldPart instanceof TileEntityBoilerPressureMonitor) {
 			attachedMonitors.remove(oldPart.getWorldPosition());
-		}
-		else if(oldPart instanceof TileEntityBoilerPressureValve) {
+		} else if (oldPart instanceof TileEntityBoilerPressureValve) {
 			attachedValves.remove(oldPart.getWorldPosition());
 		}
 	}
 
 	private void updateRedstoneOutputLevels() {
-		for(BlockPos pos : attachedMonitors) {
+		for (BlockPos pos : attachedMonitors) {
 			// FMLLog.warning(pos.toString());
 			WORLD.updateComparatorOutputLevel(pos, ModuleSteam.boilerPressureMonitor);
 		}
@@ -187,8 +182,8 @@ public class ControllerBoiler extends SARMultiblockInventory<InventoryMachine> {
 
 	@Override
 	protected void onMachineAssembled() {
-		Pair<BlockPos, BlockPos> interiorPositions = com.teamacronymcoders.base.util.PositionUtils.shrinkPositionCubeBy(getMinimumCoord(),
-				getMaximumCoord(), 1);
+		Pair<BlockPos, BlockPos> interiorPositions = com.teamacronymcoders.base.util.PositionUtils
+				.shrinkPositionCubeBy(getMinimumCoord(), getMaximumCoord(), 1);
 		minimumInteriorPos = interiorPositions.getLeft();
 		maximumInteriorPos = interiorPositions.getRight();
 		super.onMachineAssembled();

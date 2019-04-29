@@ -30,7 +30,7 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 
 	@Override
 	public InventoryMachine getInventory() {
-		if(inventory == null) {
+		if (inventory == null) {
 			throw new RuntimeException("Whoops. Machine Inventory NOT SET. Fix this.");
 		}
 		return inventory;
@@ -81,10 +81,10 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 	@Override
 	public void update() {
 		onTick();
-		if(canRun()) {
+		if (canRun()) {
 			onActiveTick();
 			currentTicks++;
-			if(canFinish()) {
+			if (canFinish()) {
 				onFinish();
 			}
 		}

@@ -7,7 +7,9 @@ import java.util.List;
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.Base;
 import com.teamacronymcoders.base.items.ItemBase;
-import com.teamacronymcoders.base.materialsystem.*;
+import com.teamacronymcoders.base.materialsystem.MaterialException;
+import com.teamacronymcoders.base.materialsystem.MaterialSystem;
+import com.teamacronymcoders.base.materialsystem.MaterialUser;
 import com.teamacronymcoders.base.materialsystem.materials.Material;
 import com.teamacronymcoders.base.materialsystem.materials.MaterialBuilder;
 import com.teamacronymcoders.base.materialsystem.parts.PartBuilder;
@@ -22,7 +24,9 @@ import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
@@ -133,8 +137,7 @@ public class ModuleMaterials extends ModuleBase {
 			MaterialSystem.getMaterialPart("lead_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
 					"1");
 			MaterialSystem.getMaterialPart("lead_lattice").getData().addDataValue("transparent", "true");
-		}
-		catch(MaterialException e) {
+		} catch (MaterialException e) {
 			e.printStackTrace();
 		}
 		super.preInit(event);
@@ -162,10 +165,10 @@ public class ModuleMaterials extends ModuleBase {
 	public static void onOreRegistered(OreDictionary.OreRegisterEvent event) {
 		String name = event.getName();
 		String[] splitName = name.split("(?=[A-Z])");
-		if(splitName.length == 2) {
-			if(splitName[0].equals("ingot")) {
+		if (splitName.length == 2) {
+			if (splitName[0].equals("ingot")) {
 				String metalType = splitName[1];
-				if(!ModuleMaterials.knownMetalTypes.contains(metalType)) {
+				if (!ModuleMaterials.knownMetalTypes.contains(metalType)) {
 					ModuleMaterials.knownMetalTypes.add(metalType);
 					SteamAgeRevolution.instance.getLogger().devInfo("Metal type detected: " + metalType);
 				}
@@ -200,8 +203,7 @@ public class ModuleMaterials extends ModuleBase {
 	private void registerPart(PartBuilder partBuilder) {
 		try {
 			partBuilder.build();
-		}
-		catch(MaterialException e) {
+		} catch (MaterialException e) {
 			Base.instance.getLogger().getLogger().error(e);
 		}
 	}

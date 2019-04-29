@@ -1,6 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.guideapi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.teamacronymcoders.base.util.OreDictUtils;
 
@@ -42,7 +45,7 @@ public class CategoryBasics {
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "alloy_entry"),
 				new EntryItemStack(alloyEntry, keyBase + "alloy", OreDictUtils.getPreferredItemStack("ingotBrass")));
 
-		for(EntryAbstract entry : entries.values()) {
+		for (EntryAbstract entry : entries.values()) {
 			PageHelper.setPagesToUnicode(entry.pageList);
 		}
 

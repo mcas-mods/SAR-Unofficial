@@ -64,7 +64,7 @@ public class ModuleSteam extends ModuleBase {
 				new ResourceLocation(SteamAgeRevolution.MODID, "fluids/steam_flow")).setGaseous(true)
 						.setTemperature(1000).setViscosity(200);
 
-		if(!(FluidRegistry.isFluidRegistered(steam))) { // Soft registration
+		if (!(FluidRegistry.isFluidRegistered(steam))) { // Soft registration
 			FluidRegistry.registerFluid(steam);
 			FluidRegistry.addBucketForFluid(steam);
 		}

@@ -24,12 +24,12 @@ public class RecipeMachineHelper {
 		boolean extractedItems = true;
 		boolean extractedFluids = true;
 		boolean extractedSteam = true;
-		if(ArrayUtils.isNotEmpty(currentRecipe.getItemInputs())) {
+		if (ArrayUtils.isNotEmpty(currentRecipe.getItemInputs())) {
 			// TODO Shouldn't be looping twice here
 			int matched = 0;
-			for(Ingredient input : currentRecipe.getItemInputs()) {
-				for(int i = 0; i < inventory.getInputHandler().getSlots(); i++) {
-					if(input.apply(inventory.getInputHandler().getStackInSlot(i))) {
+			for (Ingredient input : currentRecipe.getItemInputs()) {
+				for (int i = 0; i < inventory.getInputHandler().getSlots(); i++) {
+					if (input.apply(inventory.getInputHandler().getStackInSlot(i))) {
 						inventory.getInputHandler().extractItem(i, 1, false);
 						matched++;
 					}
@@ -37,38 +37,35 @@ public class RecipeMachineHelper {
 			}
 			extractedItems = (currentRecipe.getItemInputs().length == matched);
 		}
-		if(ArrayUtils.isNotEmpty(currentRecipe.getFluidInputs())) {
-			for(IngredientFluidStack input : currentRecipe.getFluidInputs()) {
-				if(inventory.getInputTank().drain(input.getFluid(), false) != null
+		if (ArrayUtils.isNotEmpty(currentRecipe.getFluidInputs())) {
+			for (IngredientFluidStack input : currentRecipe.getFluidInputs()) {
+				if (inventory.getInputTank().drain(input.getFluid(), false) != null
 						&& inventory.getInputTank().drain(input.getFluid(), false).amount == input.getFluid().amount) {
 					inventory.getInputTank().drain(input.getFluid(), true);
-				}
-				else {
+				} else {
 					extractedFluids = false;
 				}
 			}
 		}
-		if(inventory.steamTank != null) {
-			if(inventory.steamTank.getHandler().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
+		if (inventory.steamTank != null) {
+			if (inventory.steamTank.getHandler().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
 				inventory.steamTank.getHandler().drain(currentRecipe.getSteamUsePerCraft(), true);
-			}
-			else {
+			} else {
 				extractedSteam = false;
 			}
 		}
-		if(extractedItems && extractedFluids && extractedSteam) {
-			if(ArrayUtils.isNotEmpty(currentRecipe.getItemOutputs())) {
-				for(ItemStack output : currentRecipe.getItemOutputs().clone()) {
+		if (extractedItems && extractedFluids && extractedSteam) {
+			if (ArrayUtils.isNotEmpty(currentRecipe.getItemOutputs())) {
+				for (ItemStack output : currentRecipe.getItemOutputs().clone()) {
 					ItemHandlerHelper.insertItem(inventory.getOutputHandler(), output.copy(), false);
 				}
 			}
-			if(ArrayUtils.isNotEmpty(currentRecipe.getFluidOutputs())) {
-				for(FluidStack output : currentRecipe.getFluidOutputs().clone()) {
+			if (ArrayUtils.isNotEmpty(currentRecipe.getFluidOutputs())) {
+				for (FluidStack output : currentRecipe.getFluidOutputs().clone()) {
 					inventory.getOutputTank().fill(output.copy(), true);
 				}
 			}
-		}
-		else {
+		} else {
 			SteamAgeRevolution.instance.getLogger()
 					.info("Machine encountered recipe error at final stage. This should not happen..." + extractedItems
 							+ "/" + extractedFluids + "/" + extractedSteam);
@@ -76,14 +73,14 @@ public class RecipeMachineHelper {
 	}
 
 	public static boolean canFinish(int currentTicks, SARMachineRecipe currentRecipe, InventoryMachine inventory) {
-		if(currentRecipe != null && currentTicks >= currentRecipe.getTicksPerOperation()) {
+		if (currentRecipe != null && currentTicks >= currentRecipe.getTicksPerOperation()) {
 			boolean roomForItems = true;
 			boolean roomForFluids = true;
-			if(ArrayUtils.isNotEmpty(currentRecipe.getItemOutputs())) {
+			if (ArrayUtils.isNotEmpty(currentRecipe.getItemOutputs())) {
 				roomForItems = Arrays.asList(currentRecipe.getItemOutputs()).parallelStream().allMatch(
 						output -> ItemHandlerHelper.insertItem(inventory.getOutputHandler(), output, true).isEmpty());
 			}
-			if(ArrayUtils.isNotEmpty(currentRecipe.getFluidOutputs())) {
+			if (ArrayUtils.isNotEmpty(currentRecipe.getFluidOutputs())) {
 				roomForFluids = Arrays.asList(currentRecipe.getFluidOutputs()).parallelStream()
 						.allMatch(output -> inventory.getOutputTank().fill(output, false) == output.amount);
 			}
@@ -94,17 +91,16 @@ public class RecipeMachineHelper {
 
 	public static boolean canRun(World world, BlockPos pos, IMachineHasInventory handler, String name,
 			SARMachineRecipe currentRecipe, InventoryMachine inventory) {
-		if(currentRecipe != null) {
-			if(inventory.getSteamTank() == null
+		if (currentRecipe != null) {
+			if (inventory.getSteamTank() == null
 					|| inventory.getSteamTank().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
 				return true;
 			}
-		}
-		else {
+		} else {
 			Optional<SARMachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(name).parallelStream()
 					.filter(r -> hasRequiredFluids(inventory, r)).filter(r -> hasRequiredItems(inventory, r))
 					.findFirst();
-			if(recipe.isPresent()) {
+			if (recipe.isPresent()) {
 				currentRecipe = recipe.get();
 				handler.setCurrentRecipe(currentRecipe);
 			}
@@ -113,7 +109,7 @@ public class RecipeMachineHelper {
 	}
 
 	private static boolean hasRequiredFluids(InventoryMachine inventory, SARMachineRecipe recipe) {
-		if(ArrayUtils.isNotEmpty(recipe.getFluidInputs())) {
+		if (ArrayUtils.isNotEmpty(recipe.getFluidInputs())) {
 			// Stream the fluid stacks
 			return Arrays.stream(recipe.getFluidInputs())
 					// Apply tanksHaveFluid to each element and output result to stream
@@ -133,7 +129,7 @@ public class RecipeMachineHelper {
 	}
 
 	public static boolean hasRequiredItems(InventoryMachine inventory, SARMachineRecipe recipe) {
-		if(ArrayUtils.isNotEmpty(recipe.getItemInputs())) {
+		if (ArrayUtils.isNotEmpty(recipe.getItemInputs())) {
 			return Arrays.stream(recipe.getItemInputs()).map(ing -> handlerHasItems(inventory, ing))
 					.reduce((a, b) -> a && b).orElse(false);
 		}

@@ -24,7 +24,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.
 public class GuiInventory extends GuiContainer {
 	protected final IMachineHasInventory holder;
 	protected ResourceLocation guiTexture;
-	
+
 	public GuiInventory(EntityPlayer player, IMachineHasInventory holder) {
 		this(player, holder, "");
 	}
@@ -32,11 +32,10 @@ public class GuiInventory extends GuiContainer {
 	public GuiInventory(EntityPlayer player, IMachineHasInventory holder, String textureOverride) {
 		super(new ContainerInventory(player, holder));
 		String name = textureOverride;
-		if(textureOverride.isEmpty()) {
+		if (textureOverride.isEmpty()) {
 			name = holder.getName().toLowerCase().replace(' ', '_');
 		}
-		guiTexture = new ResourceLocation(SteamAgeRevolution.MODID,
-				"textures/gui/" + name + ".png");
+		guiTexture = new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/" + name + ".png");
 		this.holder = holder;
 	}
 
@@ -46,20 +45,19 @@ public class GuiInventory extends GuiContainer {
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
 		MultiFluidTank fluidInputs = holder.getInventory().getInputTank();
-		if(fluidInputs != null) {
+		if (fluidInputs != null) {
 			// TODO Work this into TextUtils#representTankContents
-			for(int i = 0; i < fluidInputs.getMaxFluids(); i++) {
-				if(isPointInRegion(holder.getInventory().fluidInput.getX(i), holder.getInventory().fluidInput.getY(i),
+			for (int i = 0; i < fluidInputs.getMaxFluids(); i++) {
+				if (isPointInRegion(holder.getInventory().fluidInput.getX(i), holder.getInventory().fluidInput.getY(i),
 						20, 55, mouseX, mouseY)) {
 					List<String> tooltip = Lists.newArrayList();
 					int capacity = fluidInputs.getCapacity();
 					capacity /= fluidInputs.getMaxFluids();
-					if(fluidInputs.fluids.size() > i) {
+					if (fluidInputs.fluids.size() > i) {
 						tooltip.add(com.teamacronymcoders.base.util.TextUtils
 								.representTankContents(new FluidTank(fluidInputs.fluids.get(i), capacity))
 								.getFormattedText());
-					}
-					else {
+					} else {
 						// TODO Localization
 						tooltip.add("Empty");
 					}
@@ -68,19 +66,18 @@ public class GuiInventory extends GuiContainer {
 			}
 		}
 		MultiFluidTank fluidOutputs = holder.getInventory().getOutputTank();
-		if(fluidOutputs != null) {
-			for(int i = 0; i < fluidOutputs.getMaxFluids(); i++) {
-				if(isPointInRegion(holder.getInventory().fluidOutput.getX(i), holder.getInventory().fluidOutput.getY(i),
-						20, 55, mouseX, mouseY)) {
+		if (fluidOutputs != null) {
+			for (int i = 0; i < fluidOutputs.getMaxFluids(); i++) {
+				if (isPointInRegion(holder.getInventory().fluidOutput.getX(i),
+						holder.getInventory().fluidOutput.getY(i), 20, 55, mouseX, mouseY)) {
 					List<String> tooltip = Lists.newArrayList();
 					int capacity = fluidOutputs.getCapacity();
 					capacity /= fluidOutputs.getMaxFluids();
-					if(fluidOutputs.fluids.size() > i) {
+					if (fluidOutputs.fluids.size() > i) {
 						tooltip.add(com.teamacronymcoders.base.util.TextUtils
 								.representTankContents(new FluidTank(fluidOutputs.fluids.get(i), capacity))
 								.getFormattedText());
-					}
-					else {
+					} else {
 						// TODO Localization
 						tooltip.add("Empty");
 					}
@@ -89,26 +86,24 @@ public class GuiInventory extends GuiContainer {
 			}
 		}
 		FluidTankSingleSmart steamTank = holder.getInventory().getSteamHandler();
-		if(steamTank != null) {
-			if(isPointInRegion(holder.getInventory().steamTank.getX(0), holder.getInventory().steamTank.getY(0), 20, 55,
-					mouseX, mouseY)) {
+		if (steamTank != null) {
+			if (isPointInRegion(holder.getInventory().steamTank.getX(0), holder.getInventory().steamTank.getY(0), 20,
+					55, mouseX, mouseY)) {
 				this.drawHoveringText(
 						com.teamacronymcoders.base.util.TextUtils.representTankContents(steamTank).getFormattedText(),
 						mouseX, mouseY);
 			}
 		}
 		InventoryPieceProgressBar progressBar = holder.getInventory().progressBar;
-		if(progressBar != null) {
-			if(isPointInRegion(progressBar.getX(0), progressBar.getY(0), 24, 16, mouseX, mouseY)) {
-				if(holder.getCurrentMaxTicks() == 0) {
+		if (progressBar != null) {
+			if (isPointInRegion(progressBar.getX(0), progressBar.getY(0), 24, 16, mouseX, mouseY)) {
+				if (holder.getCurrentMaxTicks() == 0) {
 					this.drawHoveringText(TextFormatting.RED.toString() + "No recipe", mouseX, mouseY); // TODO
 					// Localization
-				}
-				else if(GuiScreen.isShiftKeyDown()) {
+				} else if (GuiScreen.isShiftKeyDown()) {
 					this.drawHoveringText(holder.getCurrentProgress() + "/" + holder.getCurrentMaxTicks() + " ticks",
 							mouseX, mouseY);
-				}
-				else {
+				} else {
 					this.drawHoveringText(
 							holder.getCurrentProgress() / 20 + "/" + holder.getCurrentMaxTicks() / 20 + " seconds",
 							mouseX, mouseY);
@@ -124,19 +119,19 @@ public class GuiInventory extends GuiContainer {
 		int y = (height - ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
-		if(holder.getInventory().steamTank != null) {
+		if (holder.getInventory().steamTank != null) {
 			addTank(holder.getInventory().steamTank);
 		}
 
-		if(holder.getInventory().fluidInput != null) {
+		if (holder.getInventory().fluidInput != null) {
 			addTank(holder.getInventory().fluidInput);
 		}
 
-		if(holder.getInventory().fluidOutput != null) {
+		if (holder.getInventory().fluidOutput != null) {
 			addTank(holder.getInventory().fluidOutput);
 		}
 
-		if(holder.getInventory().progressBar != null && holder.getCurrentMaxTicks() > 0) {
+		if (holder.getInventory().progressBar != null && holder.getCurrentMaxTicks() > 0) {
 			mc.renderEngine.bindTexture(guiTexture);
 			int progress = holder.getCurrentProgress();// TODO this needs packet synced
 			int total = holder.getCurrentMaxTicks();
@@ -148,20 +143,19 @@ public class GuiInventory extends GuiContainer {
 
 	private void addTank(InventoryPieceFluid piece) {
 		FluidTank tank = piece.getHandler();
-		if(tank instanceof MultiFluidTank) {
+		if (tank instanceof MultiFluidTank) {
 			MultiFluidTank multitank = (MultiFluidTank) tank;
-			for(int i = 0; i < multitank.fluids.size(); i++) {
+			for (int i = 0; i < multitank.fluids.size(); i++) {
 				draw(multitank.fluids.get(i), multitank.getCapacity() / multitank.fluids.size(), piece.getX(i),
 						piece.getY(i));
 			}
-		}
-		else {
+		} else {
 			draw(tank.getFluid(), tank.getCapacity(), piece.getX(0), piece.getY(0));
 		}
 	}
 
 	private void draw(FluidStack stack, int capacity, int xPos, int yPos) {
-		if(stack != null && stack.getFluid() != null && stack.amount > 0) {
+		if (stack != null && stack.getFluid() != null && stack.amount > 0) {
 			GuiHelper.renderGuiTank(stack, capacity, stack.amount, guiLeft + xPos, guiTop + yPos, 20, 60);
 			mc.renderEngine.bindTexture(guiTexture);
 			this.drawTexturedModalRect(guiLeft + xPos, guiTop + yPos + 6, 176, 14, 20, 49);

@@ -35,7 +35,7 @@ public class TileEntitySteamHammerAnvil extends TileEntitySteamHammerPart implem
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new MultiblockInventoryWrapper(this, false));
 		}
 		return super.getCapability(capability, facing);
@@ -44,11 +44,10 @@ public class TileEntitySteamHammerAnvil extends TileEntitySteamHammerPart implem
 	@SideOnly(Side.CLIENT)
 	@Override
 	public net.minecraft.util.math.AxisAlignedBB getRenderBoundingBox() {
-		if(isConnected()) {
+		if (isConnected()) {
 			return new AxisAlignedBB(getMultiblockController().getMinimumCoord(),
 					getMultiblockController().getMaximumCoord());
-		}
-		else {
+		} else {
 			return super.getRenderBoundingBox();
 		}
 	}

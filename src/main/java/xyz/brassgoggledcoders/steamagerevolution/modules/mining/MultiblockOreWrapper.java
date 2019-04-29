@@ -1,7 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHolder;
@@ -21,18 +20,18 @@ public class MultiblockOreWrapper implements ISemisolidHandler {
 
 	@Override
 	public NBTTagCompound serializeNBT() {
-		//NO-OP
+		// NO-OP
 		return new NBTTagCompound();
 	}
 
 	@Override
 	public void deserializeNBT(NBTTagCompound tag) {
-		//NO-OP;
+		// NO-OP;
 	}
 
 	@Override
 	public ISemisolidHolder[] getHolders() {
-		if(tile.isConnected() && tile.getMultiblockController().isAssembled()) {
+		if (tile.isConnected() && tile.getMultiblockController().isAssembled()) {
 			return tile.getMultiblockController().getInventory().ore.getHandler().getHolders();
 		}
 		return new ISemisolidHolder[0];
@@ -40,7 +39,7 @@ public class MultiblockOreWrapper implements ISemisolidHandler {
 
 	@Override
 	public boolean fill(SemisolidStack material) {
-		if(tile.isConnected() && tile.getMultiblockController().isAssembled()) {
+		if (tile.isConnected() && tile.getMultiblockController().isAssembled()) {
 			return tile.getMultiblockController().getInventory().ore.getHandler().fill(material);
 		}
 		return false;
@@ -48,7 +47,7 @@ public class MultiblockOreWrapper implements ISemisolidHandler {
 
 	@Override
 	public boolean drain(ISemisolid type, int toDrain) {
-		if(tile.isConnected() && tile.getMultiblockController().isAssembled()) {
+		if (tile.isConnected() && tile.getMultiblockController().isAssembled()) {
 			return tile.getMultiblockController().getInventory().ore.getHandler().drain(type, toDrain);
 		}
 		return false;

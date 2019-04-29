@@ -7,12 +7,12 @@ public class Semisolid implements ISemisolid {
 
 	String name;
 	int color;
-	
+
 	public Semisolid(String name, int color) {
 		this.name = name;
 		this.color = color;
 	}
-	
+
 	@Override
 	public String getTranslationKey() {
 		return "crushedmaterial." + name;

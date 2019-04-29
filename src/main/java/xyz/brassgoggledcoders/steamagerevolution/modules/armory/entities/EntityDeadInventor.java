@@ -41,12 +41,13 @@ public class EntityDeadInventor extends EntitySkeleton {
 
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
-		if(!(entityIn instanceof EntityLivingBase)) { // Wut
+		if (!(entityIn instanceof EntityLivingBase)) { // Wut
 			return false;
 		}
 		ItemStack stack = getHeldItemMainhand();
-		if(!stack.isEmpty()) {
-			// Of course I have to manually call that...despite the fact the Entity instance in the method
+		if (!stack.isEmpty()) {
+			// Of course I have to manually call that...despite the fact the Entity instance
+			// in the method
 			// is generic
 			stack.getItem().hitEntity(stack, (EntityLivingBase) entityIn, this);
 		}
@@ -55,14 +56,14 @@ public class EntityDeadInventor extends EntitySkeleton {
 
 	@Override
 	public void setCombatTask() {
-		if(world != null && !world.isRemote) {
+		if (world != null && !world.isRemote) {
 			tasks.removeTask(aiRocket);
 			ItemStack itemstack = getHeldItemMainhand();
 
-			if(itemstack.getItem() == ModuleArmory.rocket_fist) {
+			if (itemstack.getItem() == ModuleArmory.rocket_fist) {
 				int i = 20;
 
-				if(world.getDifficulty() != EnumDifficulty.HARD) {
+				if (world.getDifficulty() != EnumDifficulty.HARD) {
 					i = 40;
 				}
 
@@ -77,7 +78,7 @@ public class EntityDeadInventor extends EntitySkeleton {
 		ItemStack stack = getHeldItemMainhand();
 		// Shouldn't need the second check because its already done in AI but you never
 		// know
-		if(!stack.isEmpty() && stack.getItem() == ModuleArmory.rocket_fist) {
+		if (!stack.isEmpty() && stack.getItem() == ModuleArmory.rocket_fist) {
 			((ItemRocketFist) stack.getItem()).doFistBoost(this, stack, 0); // TODO Set charge factor thing
 			// TODO Make two tasks compatible
 			tasks.removeTask(aiRocket);

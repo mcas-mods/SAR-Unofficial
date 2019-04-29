@@ -28,7 +28,7 @@ public class EventHandlerClient {
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public static void onDrawBlockSelectionBox(DrawBlockHighlightEvent event) {
-		if((event.getPlayer().inventory.armorItemInSlot(3) != null)
+		if ((event.getPlayer().inventory.armorItemInSlot(3) != null)
 				&& (event.getPlayer().inventory.armorItemInSlot(3).getItem() == ModuleArmory.goggles)) {
 			drawSelectionBox(event.getPlayer(), event.getTarget(), event.getPartialTicks());
 			event.setCanceled(true);
@@ -36,7 +36,7 @@ public class EventHandlerClient {
 	}
 
 	private static void drawSelectionBox(EntityPlayer player, RayTraceResult mop, float partialTicks) {
-		if(mop.typeOfHit == RayTraceResult.Type.BLOCK) {
+		if (mop.typeOfHit == RayTraceResult.Type.BLOCK) {
 			GlStateManager.pushMatrix();
 			GlStateManager.enableBlend();
 			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA,
@@ -50,7 +50,7 @@ public class EventHandlerClient {
 			BlockPos pos = mop.getBlockPos();
 			IBlockState state = world.getBlockState(pos);
 
-			if(!world.isAirBlock(pos)) {
+			if (!world.isAirBlock(pos)) {
 				double dx = player.lastTickPosX + ((player.posX - player.lastTickPosX) * partialTicks);
 				double dy = player.lastTickPosY + ((player.posY - player.lastTickPosY) * partialTicks);
 				double dz = player.lastTickPosZ + ((player.posZ - player.lastTickPosZ) * partialTicks);
@@ -63,8 +63,7 @@ public class EventHandlerClient {
 			GlStateManager.enableTexture2D();
 			GlStateManager.disableBlend();
 			GlStateManager.popMatrix();
-		}
-		else if(mop.typeOfHit == RayTraceResult.Type.ENTITY) {
+		} else if (mop.typeOfHit == RayTraceResult.Type.ENTITY) {
 			GlStateManager.pushMatrix();
 			GlStateManager.enableBlend();
 			GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA,
@@ -76,7 +75,7 @@ public class EventHandlerClient {
 			float offset = 0.002F;
 			Entity entity = mop.entityHit;
 
-			if(entity != null) {
+			if (entity != null) {
 				entity.setPosition(entity.posX, entity.posY, entity.posZ);
 				double dx = player.lastTickPosX + ((player.posX - player.lastTickPosX) * partialTicks);
 				double dy = player.lastTickPosY + ((player.posY - player.lastTickPosY) * partialTicks);
@@ -132,24 +131,22 @@ public class EventHandlerClient {
 	@SubscribeEvent(receiveCanceled = true)
 	public static void fogEvent(FogDensity event) {
 		Entity entity = event.getEntity();
-		if(entity instanceof EntityPlayer) {
+		if (entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
 			// if(player.isInsideOfMaterial(Material.WATER))
 			ItemStack stack = player.inventory.armorInventory.get(3);
-			if(!stack.isEmpty() && stack.getItem() == ModuleArmory.goggles) {
+			if (!stack.isEmpty() && stack.getItem() == ModuleArmory.goggles) {
 				event.setCanceled(true);
-				if(!stack.hasTagCompound()) {
+				if (!stack.hasTagCompound()) {
 					stack.setTagCompound(new NBTTagCompound());
 				}
-				if(player.isInsideOfMaterial(Material.WATER)
+				if (player.isInsideOfMaterial(Material.WATER)
 						&& stack.getTagCompound().getBoolean("lens" + EnumDyeColor.LIGHT_BLUE.getMetadata())) {
 					event.setDensity(0.0F);
-				}
-				else if(player.isInsideOfMaterial(Material.LAVA)
+				} else if (player.isInsideOfMaterial(Material.LAVA)
 						&& stack.getTagCompound().getBoolean("lens" + EnumDyeColor.ORANGE.getMetadata())) {
 					event.setDensity(0.0F);
-				}
-				else if(stack.getTagCompound().getBoolean("lens" + EnumDyeColor.BLACK.getMetadata())) {
+				} else if (stack.getTagCompound().getBoolean("lens" + EnumDyeColor.BLACK.getMetadata())) {
 					event.setDensity(0.0F);
 				}
 			}

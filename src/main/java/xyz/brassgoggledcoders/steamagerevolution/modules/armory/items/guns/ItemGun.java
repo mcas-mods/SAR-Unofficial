@@ -45,10 +45,9 @@ public class ItemGun extends ItemBase {
 		tooltip.add(GunUtils.getOrCreateTagCompound(stack).getString("MECHANISM"));
 		tooltip.add(GunUtils.getOrCreateTagCompound(stack).getString("CHAMBER"));
 		tooltip.add(GunUtils.getOrCreateTagCompound(stack).getString("STOCK"));
-		if(GunUtils.getOrCreateTagCompound(stack).getBoolean("isLoaded")) {
+		if (GunUtils.getOrCreateTagCompound(stack).getBoolean("isLoaded")) {
 			tooltip.add("Loaded");
-		}
-		else {
+		} else {
 			tooltip.add("Unloaded");
 		}
 		super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -68,14 +67,13 @@ public class ItemGun extends ItemBase {
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		ItemStack stack = playerIn.getHeldItem(handIn);
 
-		if(!GunUtils.getOrCreateTagCompound(stack).getBoolean("isLoaded")) {
+		if (!GunUtils.getOrCreateTagCompound(stack).getBoolean("isLoaded")) {
 			playerIn.setActiveHand(handIn);
 			return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
-		}
-		else {
-			for(int i = 0; i < GunPartType.values().length; i++) { // TODO Don't hardcode number of parts
+		} else {
+			for (int i = 0; i < GunPartType.values().length; i++) { // TODO Don't hardcode number of parts
 				IGunPart part = GunUtils.getPartFromGun(stack, GunPartType.values()[i]);
-				if(part != null) {
+				if (part != null) {
 					part.onItemRightClick(worldIn, playerIn, handIn);
 				}
 			}
@@ -86,9 +84,9 @@ public class ItemGun extends ItemBase {
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase entityLiving, int count) {
-		for(int i = 0; i < GunPartType.values().length; i++) { // TODO Don't hardcode number of parts
+		for (int i = 0; i < GunPartType.values().length; i++) { // TODO Don't hardcode number of parts
 			IGunPart part = GunUtils.getPartFromGun(stack, GunPartType.values()[i]);
-			if(part != null) {
+			if (part != null) {
 				part.onUsingTick(stack, entityLiving, count);
 			}
 		}
@@ -97,9 +95,9 @@ public class ItemGun extends ItemBase {
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 		int i = getMaxItemUseDuration(stack) - timeLeft;
-		if(i < 60) {
+		if (i < 60) {
 			ItemStack ammo = GunUtils.findAmmo((EntityPlayer) entityLiving, stack); // FIXME
-			if(!ammo.isEmpty()) {
+			if (!ammo.isEmpty()) {
 				GunUtils.getOrCreateTagCompound(stack).setTag("loaded", ammo.writeToNBT(new NBTTagCompound()));
 				ammo.shrink(1);
 				GunUtils.getOrCreateTagCompound(stack).setBoolean("isLoaded", true);
@@ -111,7 +109,7 @@ public class ItemGun extends ItemBase {
 
 	@Override
 	public int getMaxItemUseDuration(ItemStack stack) {
-		if(!GunUtils.getOrCreateTagCompound(stack).getBoolean("isLoaded") || ActionType.AUTO.equals(
+		if (!GunUtils.getOrCreateTagCompound(stack).getBoolean("isLoaded") || ActionType.AUTO.equals(
 				((IMechanism) GunPartRegistry.getPart(GunUtils.getOrCreateTagCompound(stack).getString("MECHANISM")))
 						.getActionType())) {
 			return 72000;

@@ -21,7 +21,6 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.oredict.OreIngredient;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
 
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei", striprefs = true)
 public class SARMachineRecipe implements IRecipeWrapper {
@@ -35,7 +34,7 @@ public class SARMachineRecipe implements IRecipeWrapper {
 	protected final ItemStack[] itemOutputs;
 	@Nullable
 	protected final FluidStack[] fluidOutputs;
- 	@Nonnull
+	@Nonnull
 	private final String crafter;
 	@Nonnull
 	public int networkID;
@@ -82,24 +81,24 @@ public class SARMachineRecipe implements IRecipeWrapper {
 	@Optional.Method(modid = "jei")
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		if(ArrayUtils.isNotEmpty(fluidIngredients)) {
+		if (ArrayUtils.isNotEmpty(fluidIngredients)) {
 			ArrayList<FluidStack> fluids = Lists.newArrayList();
-			for(IngredientFluidStack fs : fluidIngredients) {
+			for (IngredientFluidStack fs : fluidIngredients) {
 				fluids.add(fs.getFluid());
 			}
 			ingredients.setInputs(FluidStack.class, fluids);
 		}
-		if(ArrayUtils.isNotEmpty(itemIngredients)) {
+		if (ArrayUtils.isNotEmpty(itemIngredients)) {
 			ArrayList<List<ItemStack>> items = Lists.newArrayList();
-			for(Ingredient ing : itemIngredients) {
+			for (Ingredient ing : itemIngredients) {
 				items.add(Arrays.asList(ing.getMatchingStacks())); // TODO
 			}
 			ingredients.setInputLists(ItemStack.class, items);
 		}
-		if(ArrayUtils.isNotEmpty(fluidOutputs)) {
+		if (ArrayUtils.isNotEmpty(fluidOutputs)) {
 			ingredients.setOutputs(FluidStack.class, Arrays.asList(fluidOutputs));
 		}
-		if(ArrayUtils.isNotEmpty(itemOutputs)) {
+		if (ArrayUtils.isNotEmpty(itemOutputs)) {
 			ingredients.setOutputs(ItemStack.class, Arrays.asList(itemOutputs));
 		}
 	}
@@ -124,11 +123,11 @@ public class SARMachineRecipe implements IRecipeWrapper {
 		}
 
 		public MachineRecipeBuilder setFluidInputs(FluidStack... fluids) {
-			if(fluids == null) {
+			if (fluids == null) {
 				return this;
 			}
 			ArrayList<IngredientFluidStack> ingredients = Lists.newArrayList();
-			for(FluidStack fs : fluids) {
+			for (FluidStack fs : fluids) {
 				ingredients.add(new IngredientFluidStack(fs));
 			}
 			fluidInputs = ingredients.toArray(new IngredientFluidStack[ingredients.size()]);
@@ -136,15 +135,14 @@ public class SARMachineRecipe implements IRecipeWrapper {
 		}
 
 		public MachineRecipeBuilder setItemInputs(Object... items) {
-			if(items == null) {
+			if (items == null) {
 				return this;
 			}
 			ArrayList<Ingredient> ingredients = Lists.newArrayList();
-			for(Object input : items) {
-				if(input instanceof String) {
+			for (Object input : items) {
+				if (input instanceof String) {
 					ingredients.add(new OreIngredient((String) input));
-				}
-				else {
+				} else {
 					ingredients.add(Ingredient.fromStacks((ItemStack) input));
 				}
 			}
@@ -153,14 +151,14 @@ public class SARMachineRecipe implements IRecipeWrapper {
 		}
 
 		public MachineRecipeBuilder setFluidOutputs(FluidStack... fluid) {
-			if(fluid != null) {
+			if (fluid != null) {
 				fluidOutputs = fluid;
 			}
 			return this;
 		}
 
 		public MachineRecipeBuilder setItemOutputs(ItemStack... items) {
-			if(items != null) {
+			if (items != null) {
 				itemOutputs = items;
 			}
 			return this;
@@ -185,10 +183,10 @@ public class SARMachineRecipe implements IRecipeWrapper {
 		}
 
 		private void validate() {
-			if(ArrayUtils.isEmpty(itemInputs) && ArrayUtils.isEmpty(fluidInputs)) {
+			if (ArrayUtils.isEmpty(itemInputs) && ArrayUtils.isEmpty(fluidInputs)) {
 				throw new IllegalArgumentException("Recipe must have at least one input");
 			}
-			if(ArrayUtils.isEmpty(itemInputs) && ArrayUtils.isEmpty(fluidInputs)) {
+			if (ArrayUtils.isEmpty(itemInputs) && ArrayUtils.isEmpty(fluidInputs)) {
 				throw new IllegalArgumentException("Recipe must have at least one output");
 			}
 		}

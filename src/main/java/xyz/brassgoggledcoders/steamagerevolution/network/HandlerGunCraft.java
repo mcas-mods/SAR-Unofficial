@@ -20,7 +20,7 @@ public class HandlerGunCraft implements IMessageHandler<PacketGunCraft, IMessage
 		WorldServer worldServer = serverPlayer.getServerWorld();
 		worldServer.addScheduledTask(() -> {
 			BlockPos pos = message.pos;
-			if(worldServer.isBlockLoaded(pos, false)) {
+			if (worldServer.isBlockLoaded(pos, false)) {
 				TileEntity te = worldServer.getTileEntity(message.pos);
 				((TileEntityGunsmithingBench) te).attemptCraft();
 			}

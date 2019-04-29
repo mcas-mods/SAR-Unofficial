@@ -35,8 +35,8 @@ public class TileEntitySemisolidLoader extends TileEntitySidedBase<ISemisolidHan
 	int updateTest = -1;
 
 	public TileEntitySemisolidLoader() {
-		this.setInventory(
-				new InventorySemisolid(new InventoryPieceSemisolid(new SemisolidHandler(new SemisolidHolder(60)), 83, 16)));
+		this.setInventory(new InventorySemisolid(
+				new InventoryPieceSemisolid(new SemisolidHandler(new SemisolidHolder(60)), 83, 16)));
 	}
 
 	@Override

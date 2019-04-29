@@ -31,25 +31,25 @@ public class TileEntityPneumaticSender extends TileEntitySlowTick {
 
 	@Override
 	public void updateTile() {
-		if(getWorld().isRemote) {
+		if (getWorld().isRemote) {
 			return;
 		}
 
-		if(!hasCache) {
+		if (!hasCache) {
 			recalculateCache(getWorld(), getPos());
 		}
 
-		if(sendInventory != null && recieveInventory != null) {
+		if (sendInventory != null && recieveInventory != null) {
 			// TODO Rewrite inventory handling
-			for(int i = 0; i < sendInventory.getSlots(); i++) {
-				if(ItemHandlerHelper
+			for (int i = 0; i < sendInventory.getSlots(); i++) {
+				if (ItemHandlerHelper
 						.insertItem(recieveInventory, sendInventory.getStackInSlot(i).copy().splitStack(rate), true)
 						.isEmpty()) {
 					getWorld().playSound(null, getPos(), SoundEvents.ENTITY_CAT_HISS, SoundCategory.BLOCKS, 1, 1);
 					ItemHandlerHelper.insertItem(recieveInventory, sendInventory.getStackInSlot(i).splitStack(rate),
 							false);
-					for(int i2 = 0; i2 < maxDistance; i2++) {
-						if(tubePositions[i2] != null) {
+					for (int i2 = 0; i2 < maxDistance; i2++) {
+						if (tubePositions[i2] != null) {
 							SteamAgeRevolution.proxy.spawnSmoke(getPos());
 							SteamAgeRevolution.proxy.spawnSmoke(tubePositions[i2]);
 						}
@@ -64,28 +64,25 @@ public class TileEntityPneumaticSender extends TileEntitySlowTick {
 		SteamAgeRevolution.instance.getLogger().devInfo("Recalc Cache");
 		facing = worldIn.getBlockState(pos).getValue(BlockPneumaticSender.FACING);
 		TileEntity behind = getWorld().getTileEntity(pos.offset(facing.getOpposite()));
-		if(behind != null
+		if (behind != null
 				&& behind.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing.getOpposite())) {
 			sendInventory = behind.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing.getOpposite());
-		}
-		else {
+		} else {
 			sendInventory = null;
 		}
 		tubePositions = new BlockPos[maxDistance];
-		for(int i = 1; i < maxDistance; i++) {
+		for (int i = 1; i < maxDistance; i++) {
 			BlockPos currentPos = pos.offset(facing, i);
 			Block block = world.getBlockState(currentPos).getBlock();
-			if(block == ModuleTransport.pneumaticRouter) {
+			if (block == ModuleTransport.pneumaticRouter) {
 				recieveInventory = getWorld().getTileEntity(getPos().offset(facing, i))
 						.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
 				return;
-			}
-			else if(block == ModuleTransport.pneumaticTube
+			} else if (block == ModuleTransport.pneumaticTube
 					&& getWorld().getBlockState(currentPos).getValue(BlockPneumaticTube.AXIS) == facing.getAxis()) {
 				tubePositions[i] = currentPos;
 				continue;
-			}
-			else {
+			} else {
 				recieveInventory = null;
 				tubePositions = null;
 				return;

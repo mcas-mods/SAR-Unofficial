@@ -23,29 +23,27 @@ public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntit
 		GlStateManager.depthMask(true);
 		int i;
 
-		if(tile != null && tile.hasWorld()) {
+		if (tile != null && tile.hasWorld()) {
 			i = tile.getBlockMetadata();
-		}
-		else {
+		} else {
 			i = 0;
 		}
 
-		if(destroyStage >= 0) {
+		if (destroyStage >= 0) {
 			bindTexture(DESTROY_STAGES[destroyStage]);
 			GlStateManager.matrixMode(5890);
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(4.0F, 4.0F, 1.0F);
 			GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
 			GlStateManager.matrixMode(5888);
-		}
-		else {
+		} else {
 			bindTexture(TEXTURE_NORMAL);
 		}
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 
-		if(destroyStage < 0) {
+		if (destroyStage < 0) {
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		}
 
@@ -54,26 +52,26 @@ public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntit
 		GlStateManager.translate(0.5F, 0.5F, 0.5F);
 		int j = 0;
 
-		if(i == 2) {
+		if (i == 2) {
 			j = 180;
 		}
 
-		if(i == 3) {
+		if (i == 3) {
 			j = 0;
 		}
 
-		if(i == 4) {
+		if (i == 4) {
 			j = 90;
 		}
 
-		if(i == 5) {
+		if (i == 5) {
 			j = -90;
 		}
 
 		GlStateManager.rotate(j, 0.0F, 1.0F, 0.0F);
 		GlStateManager.translate(-0.5F, -0.5F, -0.5F);
 		float f = 0;
-		if(tile != null) {
+		if (tile != null) {
 			f = tile.prevLidAngle + (tile.lidAngle - tile.prevLidAngle) * partialTicks;
 		}
 
@@ -85,7 +83,7 @@ public class TileEntityTrunkRenderer extends TileEntitySpecialRenderer<TileEntit
 		GlStateManager.popMatrix();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
-		if(destroyStage >= 0) {
+		if (destroyStage >= 0) {
 			GlStateManager.matrixMode(5890);
 			GlStateManager.popMatrix();
 			GlStateManager.matrixMode(5888);

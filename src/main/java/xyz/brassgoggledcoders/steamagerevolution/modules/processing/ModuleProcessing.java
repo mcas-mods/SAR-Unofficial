@@ -36,7 +36,7 @@ public class ModuleProcessing extends ModuleBase {
 	@SubscribeEvent
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 
-		for(Entry<ItemStack, ItemStack> recipe : FurnaceRecipes.instance().getSmeltingList().entrySet()) {
+		for (Entry<ItemStack, ItemStack> recipe : FurnaceRecipes.instance().getSmeltingList().entrySet()) {
 			new MachineRecipeBuilder("steam furnace").setItemInputs(recipe.getKey()).setItemOutputs(recipe.getValue())
 					.setSteamCost(1000).setCraftTime(1000).build();
 		}

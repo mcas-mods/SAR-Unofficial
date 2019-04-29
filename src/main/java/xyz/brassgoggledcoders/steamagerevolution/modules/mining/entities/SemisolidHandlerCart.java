@@ -15,7 +15,7 @@ public class SemisolidHandlerCart extends SemisolidHandler {
 		this.cart = cart;
 	}
 
-	//TODO USe DataManager so this is autosynced
+	// TODO USe DataManager so this is autosynced
 	@Override
 	public void onContentsChanged() {
 		if (!this.cart.getEntityWorld().isRemote) {

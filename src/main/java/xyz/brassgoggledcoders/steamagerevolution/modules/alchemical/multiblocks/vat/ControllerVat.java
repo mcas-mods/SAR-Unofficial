@@ -41,10 +41,10 @@ public class ControllerVat extends SARMultiblockInventory {
 
 	@Override
 	protected void onTick() {
-		for(Entity entity : WORLD.getEntitiesWithinAABB(Entity.class, bounds)) {
-			if(entity instanceof EntityItem) {
+		for (Entity entity : WORLD.getEntitiesWithinAABB(Entity.class, bounds)) {
+			if (entity instanceof EntityItem) {
 				EntityItem item = (EntityItem) entity;
-				if(ItemHandlerHelper.insertItem(inventory.getInputHandler(), item.getItem(), true).isEmpty()) {
+				if (ItemHandlerHelper.insertItem(inventory.getInputHandler(), item.getItem(), true).isEmpty()) {
 					ItemHandlerHelper.insertItem(inventory.getInputHandler(), item.getItem(), false);
 					item.setDead();
 				}
@@ -52,14 +52,13 @@ public class ControllerVat extends SARMultiblockInventory {
 			// Simulate contact with fluid in vat when an entity falls in. TODO change
 			// bounds based on fluid fill level
 			FluidStack fluid = null;
-			if(inventory.getOutputTank().getFluid() != null) {
+			if (inventory.getOutputTank().getFluid() != null) {
 				fluid = inventory.getOutputTank().getFluid();
-			}
-			else if(inventory.getInputTank().getFluid() != null) {
+			} else if (inventory.getInputTank().getFluid() != null) {
 				fluid = inventory.getInputTank().getFluid();
 			}
-			if(fluid != null && fluid.getFluid() != null && fluid.getFluid().getBlock() != null) {
-				if(fluid.getFluid().getTemperature() >= FluidRegistry.LAVA.getTemperature()) {
+			if (fluid != null && fluid.getFluid() != null && fluid.getFluid().getBlock() != null) {
+				if (fluid.getFluid().getTemperature() >= FluidRegistry.LAVA.getTemperature()) {
 					entity.setFire(5);
 				}
 				Block fluidBlock = fluid.getFluid().getBlock();
@@ -71,8 +70,8 @@ public class ControllerVat extends SARMultiblockInventory {
 
 	@Override
 	protected void onMachineAssembled() {
-		Pair<BlockPos, BlockPos> interiorPositions = com.teamacronymcoders.base.util.PositionUtils.shrinkPositionCubeBy(getMinimumCoord(),
-				getMaximumCoord(), 1);
+		Pair<BlockPos, BlockPos> interiorPositions = com.teamacronymcoders.base.util.PositionUtils
+				.shrinkPositionCubeBy(getMinimumCoord(), getMaximumCoord(), 1);
 		minimumInteriorPos = interiorPositions.getLeft();
 		maximumInteriorPos = interiorPositions.getRight();
 		bounds = new AxisAlignedBB(getMinimumCoord(), getMaximumCoord());

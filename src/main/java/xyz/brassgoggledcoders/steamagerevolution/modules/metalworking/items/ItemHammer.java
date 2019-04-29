@@ -34,17 +34,17 @@ public class ItemHammer extends ItemBase {
 
 	@Override
 	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
-		if(player.world.isRemote || player.capabilities.isCreativeMode) {
+		if (player.world.isRemote || player.capabilities.isCreativeMode) {
 			return false;
 		}
 		IBlockState state = player.world.getBlockState(pos);
 		Block block = state.getBlock();
 		ItemStack oreStack = new ItemStack(Item.getItemFromBlock(block));
-		ItemStack dust = OreDictUtils.getPreferredItemStack("dust" + OreDictionary.getOreName(OreDictionary.getOreIDs(oreStack)[0]).substring(3));
-		if(!dust.isEmpty())
-		{
-			//TODO Gotta be a better way to do this
-			for(int i = 0; i < ModuleMetalworking.dustCount; i++) {
+		ItemStack dust = OreDictUtils.getPreferredItemStack(
+				"dust" + OreDictionary.getOreName(OreDictionary.getOreIDs(oreStack)[0]).substring(3));
+		if (!dust.isEmpty()) {
+			// TODO Gotta be a better way to do this
+			for (int i = 0; i < ModuleMetalworking.dustCount; i++) {
 				EntityItem entityitem = new EntityItem(player.world, pos.getX(), pos.getY(), pos.getZ(), dust);
 				entityitem.setDefaultPickupDelay();
 				player.world.spawnEntity(entityitem);

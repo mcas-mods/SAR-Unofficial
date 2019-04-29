@@ -32,8 +32,8 @@ public class ItemClockworkWings extends ItemArmorBase {
 
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-		if(!player.capabilities.allowFlying && (player.getFoodStats().getFoodLevel() != 0)) {
-			if(!stack.hasTagCompound()) {
+		if (!player.capabilities.allowFlying && (player.getFoodStats().getFoodLevel() != 0)) {
+			if (!stack.hasTagCompound()) {
 				stack.setTagCompound(new NBTTagCompound());
 			}
 
@@ -41,30 +41,27 @@ public class ItemClockworkWings extends ItemArmorBase {
 			boolean shouldBoost = ClientHelper.settings().keyBindJump.isKeyDown();
 			boolean wasJumping = tag.getBoolean("isJumping");
 
-			if(shouldBoost) {
-				if(wasJumping) {
+			if (shouldBoost) {
+				if (wasJumping) {
 					shouldBoost = false;
-				}
-				else {
+				} else {
 					tag.setBoolean("isJumping", true);
 				}
-			}
-			else if(wasJumping) {
+			} else if (wasJumping) {
 				tag.setBoolean("isJumping", false);
 			}
 
-			if(/* (SteamAgeRevolution.proxy.isScreenEmpty()) && */ (player.posY < 160) && shouldBoost) {
+			if (/* (SteamAgeRevolution.proxy.isScreenEmpty()) && */ (player.posY < 160) && shouldBoost) {
 				player.addExhaustion(hungerPerTick);
 
-				if(player.motionY > 0.0D) {
+				if (player.motionY > 0.0D) {
 					player.motionY += 0.3D;
-				}
-				else {
+				} else {
 					player.motionY += 0.4D;
 				}
 			}
 
-			if((player.motionY < 0.0D) && player.isSneaking() && !player.onGround) {
+			if ((player.motionY < 0.0D) && player.isSneaking() && !player.onGround) {
 				player.addExhaustion(hungerPerTick / 6);
 				player.motionY /= 1.4D;
 
@@ -72,12 +69,12 @@ public class ItemClockworkWings extends ItemArmorBase {
 				player.motionZ *= 1.05D;
 			}
 
-			if(!player.onGround) {
+			if (!player.onGround) {
 				player.motionX *= 1.04D;
 				player.motionZ *= 1.04D;
 			}
 
-			if(player.fallDistance > 0) {
+			if (player.fallDistance > 0) {
 				player.addExhaustion(hungerPerTick / 4);
 				player.fallDistance = 0;
 			}

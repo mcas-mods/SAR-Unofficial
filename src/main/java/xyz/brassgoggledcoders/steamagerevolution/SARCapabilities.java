@@ -41,12 +41,13 @@ public class SARCapabilities {
 
 			}
 		}, FurnaceFumeProducer.class);
-		CapabilityManager.INSTANCE.register(ISemisolidHandler.class, new NBTCapStorage<ISemisolidHandler>(), SemisolidHandler::new);
+		CapabilityManager.INSTANCE.register(ISemisolidHandler.class, new NBTCapStorage<ISemisolidHandler>(),
+				SemisolidHandler::new);
 	}
 
 	@SubscribeEvent
 	public static void attachTileCapabilities(AttachCapabilitiesEvent<TileEntity> event) {
-		if(event.getObject() instanceof TileEntityFurnace) {
+		if (event.getObject() instanceof TileEntityFurnace) {
 			event.addCapability(new ResourceLocation(SteamAgeRevolution.MODID, "fume_collector"),
 					new FurnaceCapabilityProvider((TileEntityFurnace) event.getObject()));
 		}

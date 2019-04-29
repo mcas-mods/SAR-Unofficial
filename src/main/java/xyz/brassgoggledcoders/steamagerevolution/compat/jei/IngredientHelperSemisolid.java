@@ -1,15 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.jei;
 
 import mezz.jei.api.ingredients.IIngredientHelper;
-import mezz.jei.gui.overlay.IngredientGrid;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
 
 public class IngredientHelperSemisolid implements IIngredientHelper<SemisolidStack> {
 
 	@Override
 	public SemisolidStack getMatch(Iterable<SemisolidStack> ingredients, SemisolidStack ingredientToMatch) {
-		for(SemisolidStack ingredient : ingredients) {
-			if(ingredientToMatch.equals(ingredient)) {
+		for (SemisolidStack ingredient : ingredients) {
+			if (ingredientToMatch.equals(ingredient)) {
 				return ingredient;
 			}
 		}
@@ -48,8 +47,7 @@ public class IngredientHelperSemisolid implements IIngredientHelper<SemisolidSta
 
 	@Override
 	public String getErrorInfo(SemisolidStack ingredient) {
-		return ingredient.getMaterial().getTranslationKey();//TODO
+		return ingredient.getMaterial().getTranslationKey();// TODO
 	}
-
 
 }

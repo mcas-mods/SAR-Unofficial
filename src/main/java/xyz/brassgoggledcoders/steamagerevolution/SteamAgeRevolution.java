@@ -13,13 +13,22 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidRegistry.SemisolidRegistryEvent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
-import xyz.brassgoggledcoders.steamagerevolution.network.*;
+import xyz.brassgoggledcoders.steamagerevolution.network.HandlerFluidUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.network.HandlerItemUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.network.HandlerMultiFluidUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.network.HandlerSemisolidCart;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketSemisolidCart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.StackComparator;
 
 @Mod(modid = SteamAgeRevolution.MODID, name = SteamAgeRevolution.MODNAME, version = SteamAgeRevolution.MODVERSION, dependencies = SteamAgeRevolution.DEPENDENCIES)

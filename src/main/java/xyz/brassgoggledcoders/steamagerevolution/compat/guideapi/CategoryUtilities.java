@@ -1,6 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.guideapi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
@@ -62,7 +65,7 @@ public class CategoryUtilities {
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "aesthetic_entry"),
 				new EntryItemStack(aestheticEntry, keyBase + "aesthetic", new ItemStack(BookObjectHolder.trunk)));
 
-		for(EntryAbstract entry : entries.values()) {
+		for (EntryAbstract entry : entries.values()) {
 			PageHelper.setPagesToUnicode(entry.pageList);
 		}
 

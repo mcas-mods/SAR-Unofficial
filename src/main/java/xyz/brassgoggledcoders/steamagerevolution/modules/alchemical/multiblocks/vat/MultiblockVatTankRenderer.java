@@ -19,19 +19,18 @@ public class MultiblockVatTankRenderer extends TileEntitySpecialRenderer<TileEnt
 		// RE last check - ensures we only render once. Save delegate should be at
 		// reference coord - lowest x,y,z etc -
 		// so should always be casing.
-		if(tile.isConnected() && tile.getMultiblockController().isAssembled() && tile.isMultiblockSaveDelegate()) {
+		if (tile.isConnected() && tile.getMultiblockController().isAssembled() && tile.isMultiblockSaveDelegate()) {
 			ControllerVat t = tile.getMultiblockController();
 			FluidTank tank = t.inventory.getOutputTank();
 			FluidStack fluid = null;
-			if(tank.getFluid() != null) {
+			if (tank.getFluid() != null) {
 				fluid = tank.getFluid();
-			}
-			else if(t.inventory.getInputTank().getFluid() != null) {
+			} else if (t.inventory.getInputTank().getFluid() != null) {
 				tank = t.inventory.getInputTank();
 				fluid = t.inventory.getInputTank().getFluid();
 			}
 
-			if(fluid != null) {
+			if (fluid != null) {
 				double x1 = t.minimumInteriorPos.getX() - tile.getPos().getX();
 				double y1 = t.minimumInteriorPos.getY() - tile.getPos().getY();
 				double z1 = t.minimumInteriorPos.getZ() - tile.getPos().getZ();

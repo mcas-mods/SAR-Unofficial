@@ -15,9 +15,9 @@ public class ItemStackHandlerExtractSpecific extends ItemStackHandler {
 	}
 
 	public boolean extractStack(ItemStack stack) {
-		for(int i = 0; i < stacks.size(); i++) {
-			if(containsItemStack(stacks.get(i), stack)) {
-				if(extractItem(i, stack.getCount(), true).isEmpty()) {
+		for (int i = 0; i < stacks.size(); i++) {
+			if (containsItemStack(stacks.get(i), stack)) {
+				if (extractItem(i, stack.getCount(), true).isEmpty()) {
 					extractItem(i, stack.getCount(), false);
 					return true;
 				}

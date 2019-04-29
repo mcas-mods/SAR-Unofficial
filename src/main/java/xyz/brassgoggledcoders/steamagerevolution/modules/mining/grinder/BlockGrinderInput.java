@@ -27,7 +27,8 @@ public class BlockGrinderInput extends BlockMultiblockBase<TileEntityGrinderInpu
 
 	@Override
 	public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-		//TODO Only do slight damage unless the grinder is running, in which case do loads.
+		// TODO Only do slight damage unless the grinder is running, in which case do
+		// loads.
 		entityIn.attackEntityFrom(ModuleMining.damageSourceGrinder, 3F);
 	}
 }

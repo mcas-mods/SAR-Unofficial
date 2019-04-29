@@ -65,12 +65,12 @@ public class BlockTankWindow extends BlockMultiblockBase<TileEntityTankWindow> {
 	@Override
 	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
 		Optional<TileEntityTankWindow> te = getTileEntity(world, pos);
-		if(te.isPresent()) {
+		if (te.isPresent()) {
 			TileEntityTankWindow window = te.get();
 			ControllerTank multiblockController = window.getMultiblockController();
-			if(window.isConnected() && multiblockController.isAssembled()) {
+			if (window.isConnected() && multiblockController.isAssembled()) {
 				FluidStack fluid = multiblockController.tank.getFluid();
-				if(fluid != null) {
+				if (fluid != null) {
 					return fluid.getFluid().getLuminosity();
 				}
 			}

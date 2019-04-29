@@ -27,8 +27,8 @@ public class HandlerSemisolidCart implements IMessageHandler<PacketSemisolidCart
 
 	private void processMessage(WorldClient worldClient, PacketSemisolidCart message) {
 		Entity entity = worldClient.getEntityByID(message.id);
-		if(entity instanceof EntityMinecartSemisolid) {
-			((EntityMinecartSemisolid)entity).getInventory().ore.getHandler().deserializeNBT(message.tag);
+		if (entity instanceof EntityMinecartSemisolid) {
+			((EntityMinecartSemisolid) entity).getInventory().ore.getHandler().deserializeNBT(message.tag);
 		}
 	}
 }

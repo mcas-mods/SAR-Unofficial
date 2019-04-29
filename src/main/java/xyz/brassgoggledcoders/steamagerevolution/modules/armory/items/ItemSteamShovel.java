@@ -52,10 +52,9 @@ public class ItemSteamShovel extends ItemSpade implements IHasModel, IModAware {
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		FluidStack fluid = internal.getFluid();
-		if(fluid == null) {
+		if (fluid == null) {
 			tooltip.add("0mB/" + capacity + "mB");
-		}
-		else {
+		} else {
 			tooltip.add(fluid.getLocalizedName());
 			tooltip.add(fluid.amount + "mB/" + capacity + "mB");
 		}
@@ -81,10 +80,9 @@ public class ItemSteamShovel extends ItemSpade implements IHasModel, IModAware {
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
+		if (internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
 			return super.getDestroySpeed(stack, state);
-		}
-		else {
+		} else {
 			return 0.0F;
 		}
 	}
@@ -94,11 +92,10 @@ public class ItemSteamShovel extends ItemSpade implements IHasModel, IModAware {
 			EntityLivingBase entityLiving) {
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
+		if (internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
 			internal.drain(steamUsePerBlock, true);
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -121,7 +118,7 @@ public class ItemSteamShovel extends ItemSpade implements IHasModel, IModAware {
 	@Override
 	@ParametersAreNonnullByDefault
 	public void getSubItems(@Nullable CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if(tab != null && tab == getCreativeTab() || tab == CreativeTabs.SEARCH) {
+		if (tab != null && tab == getCreativeTab() || tab == CreativeTabs.SEARCH) {
 			subItems.addAll(getAllSubItems(Lists.newArrayList()));
 		}
 	}
@@ -135,7 +132,7 @@ public class ItemSteamShovel extends ItemSpade implements IHasModel, IModAware {
 	@Override
 	@Nonnull
 	public Item setCreativeTab(@Nonnull CreativeTabs tab) {
-		if(!creativeTabSet) {
+		if (!creativeTabSet) {
 			super.setCreativeTab(tab);
 			creativeTabSet = true;
 		}

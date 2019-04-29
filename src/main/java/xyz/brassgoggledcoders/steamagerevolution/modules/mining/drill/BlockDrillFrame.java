@@ -25,7 +25,7 @@ public class BlockDrillFrame extends BlockMultiblockBase<TileEntityDrillFrame> {
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
 		return new TileEntityDrillFrame();
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	@Override
 	public BlockRenderLayer getRenderLayer() {
@@ -42,11 +42,13 @@ public class BlockDrillFrame extends BlockMultiblockBase<TileEntityDrillFrame> {
 		return false;
 	}
 
-	//@Override
-	//@SideOnly(Side.CLIENT)
-	//public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
-	//	return worldIn.getBlockState(pos.offset(side)).getBlock() == this ? false : true;
-	//}
+	// @Override
+	// @SideOnly(Side.CLIENT)
+	// public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess
+	// worldIn, BlockPos pos, EnumFacing side) {
+	// return worldIn.getBlockState(pos.offset(side)).getBlock() == this ? false :
+	// true;
+	// }
 
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {

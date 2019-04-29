@@ -1,6 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.guideapi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
@@ -49,7 +52,7 @@ public class CategoryTransportStorage {
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "tank_entry"),
 				new EntryItemStack(tankEntry, keyBase + "tank", new ItemStack(BookObjectHolder.tank_valve)));
 
-		for(EntryAbstract entry : entries.values()) {
+		for (EntryAbstract entry : entries.values()) {
 			PageHelper.setPagesToUnicode(entry.pageList);
 		}
 

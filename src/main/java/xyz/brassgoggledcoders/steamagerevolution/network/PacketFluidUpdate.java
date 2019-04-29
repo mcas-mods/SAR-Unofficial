@@ -34,7 +34,7 @@ public class PacketFluidUpdate implements IMessage {
 	public void toBytes(ByteBuf buf) {
 		buf.writeLong(pos.toLong());
 		NBTTagCompound tag = new NBTTagCompound();
-		if(fluid != null) {
+		if (fluid != null) {
 			fluid.writeToNBT(tag);
 		}
 		ByteBufUtils.writeTag(buf, tag);
