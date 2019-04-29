@@ -2,12 +2,16 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import com.teamacronymcoders.base.util.inventory.IngredientFluidStack;
 
+import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
+import scala.actors.threadpool.Arrays;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
@@ -32,6 +36,15 @@ public class SemisolidRecipe extends SARMachineRecipe {
 	
 	public SemisolidStack[] getSemisolidOutputs() {
 		return semisolidOutputs;
+	}
+	
+	@Optional.Method(modid = "jei")
+	@Override
+	public void getIngredients(IIngredients ingredients) {
+		if(ArrayUtils.isNotEmpty(semisolidIngredients)) {
+			ingredients.setInputs(SemisolidStack.class, Arrays.asList(semisolidIngredients));
+		}
+		super.getIngredients(ingredients);
 	}
 	
 	public static class Builder extends MachineRecipeBuilder {
