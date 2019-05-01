@@ -49,7 +49,7 @@ public class ModuleMaterials extends ModuleBase {
 	String[] compatParts = new String[] { "heavy_ore", "crushed_ore", "solution", "crystal", "lattice" };
 
 	public static List<String> knownMetalTypes = Lists.newArrayList();
-
+	
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		try {

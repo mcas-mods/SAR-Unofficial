@@ -26,6 +26,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.SemisolidRecipe.Builder;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOreGenerator;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockRailDumping;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockSemisolidLoader;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartDrilling;
@@ -34,6 +35,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mining.grinder.BlockGri
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.grinder.BlockGrinderInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartDrilling;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartSemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.modules.worldgen.OreGenerator;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
@@ -41,6 +43,9 @@ public class ModuleMining extends ModuleBase {
 
 	public static DamageSource damageSourceGrinder = new DamageSource("grinder").setDifficultyScaled()
 			.setDamageBypassesArmor().setDamageIsAbsolute();
+	
+	//TODO: Auto build this list from registered heavy ores?
+	static String[] materials = {"iron", "gold", "copper", "zinc", "tin", "aluminum", "lead"};
 
 	@Override
 	public String getClientProxyPath() {
@@ -91,6 +96,11 @@ public class ModuleMining extends ModuleBase {
 
 		// blockRegistry.register(new BlockDrillFrame());
 		// blockRegistry.register(new BlockDrillOutput());
+		
+		for(String type : materials) {
+			blockRegistry.register(new BlockHeavyOreGenerator(type));
+			OreGenerator.heavyOresToGenerate.add(type);
+		}
 
 		blockRegistry.register(new BlockRailDumping());
 		blockRegistry.register(new BlockSemisolidLoader());
