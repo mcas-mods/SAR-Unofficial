@@ -22,6 +22,7 @@ import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -42,11 +43,11 @@ public class ModuleMaterials extends ModuleBase {
 	public static final Item charcoal_powder = null;
 	public static Color brassColor = new Color(251, 194, 99);
 	String[] vanillaParts = new String[] { "ore", "heavy_ore", "plate", "dust", "molten", "crushed_ore", "solution",
-			"crystal", "lattice" };
-	String[] metalParts = new String[] { "ore", "heavy_ore", "crushed_ore", "solution", "crystal", "ingot", "nugget",
+			"crystal", "lattice", "ore_rock" };
+	String[] metalParts = new String[] { "ore", "heavy_ore", "crushed_ore", "ore_rock", "solution", "crystal", "ingot", "nugget",
 			"plate", "dust", "block", "molten", "lattice" };
 	String[] alloyParts = Arrays.copyOfRange(metalParts, 6, metalParts.length);
-	String[] compatParts = new String[] { "heavy_ore", "crushed_ore", "solution", "crystal", "lattice" };
+	String[] compatParts = new String[] { "heavy_ore", "crushed_ore", "solution", "crystal", "lattice", "ore_rock" };
 
 	public static List<String> knownMetalTypes = Lists.newArrayList();
 	
@@ -89,65 +90,49 @@ public class ModuleMaterials extends ModuleBase {
 			MaterialSystem.getMaterialPart("sulphur_ore").getData().addDataValue("drops", "oredict:crystalSulphur");
 
 			SAR.registerPartsForMaterial(iron, vanillaParts);
-			MaterialSystem.getMaterialPart("iron_ore").getData().addDataValue("variants", "gravel,sand");
-			// TODO Can I make this a default property of the Part?
-			MaterialSystem.getMaterialPart("iron_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
-					"1");
-			MaterialSystem.getMaterialPart("iron_lattice").getData().addDataValue("transparent", "true");
-
+			setDataDefaults("iron", true);
+				
 			SAR.registerPartsForMaterial(gold, vanillaParts);
-			MaterialSystem.getMaterialPart("gold_ore").getData().addDataValue("variants", "gravel,sand");
-			MaterialSystem.getMaterialPart("gold_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
-					"1");
-			MaterialSystem.getMaterialPart("gold_lattice").getData().addDataValue("transparent", "true");
-
+			setDataDefaults("gold", true);
+			
 			SAR.registerPartsForMaterial(copper, metalParts);
-			MaterialSystem.getMaterialPart("copper_ore").getData().addDataValue("variants", "stone,gravel,sand");
-			MaterialSystem.getMaterialPart("copper_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
-					"1");
-			MaterialSystem.getMaterialPart("copper_lattice").getData().addDataValue("transparent", "true");
-
+			setDataDefaults("copper", true);
+			
 			SAR.registerPartsForMaterial(zinc, metalParts);
-			MaterialSystem.getMaterialPart("zinc_ore").getData().addDataValue("variants", "stone,gravel,sand");
-			MaterialSystem.getMaterialPart("zinc_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
-					"1");
-			MaterialSystem.getMaterialPart("zinc_lattice").getData().addDataValue("transparent", "true");
-
+			setDataDefaults("zinc", true);
+			
 			SAR.registerPartsForMaterial(steel, alloyParts);
-			MaterialSystem.getMaterialPart("steel_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
-					"1");
-			MaterialSystem.getMaterialPart("steel_lattice").getData().addDataValue("transparent", "true");
+			setDataDefaults("steel", false);
 
 			SAR.registerPartsForMaterial(brass, alloyParts);
-			MaterialSystem.getMaterialPart("brass_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
-					"1");
-			MaterialSystem.getMaterialPart("brass_lattice").getData().addDataValue("transparent", "true");
-
+			setDataDefaults("brass", false);
+			
 			// TODO Do this for all 'known metals'
 			// Only register when present in oredict
 			SAR.registerPartsForMaterial(tin, compatParts);
-			MaterialSystem.getMaterialPart("tin_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
-					"1");
-			MaterialSystem.getMaterialPart("tin_lattice").getData().addDataValue("transparent", "true");
+			setDataDefaults("tin", true);
 			SAR.registerPartsForMaterial(aluminum, compatParts);
-			MaterialSystem.getMaterialPart("aluminum_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
-					"1");
-			MaterialSystem.getMaterialPart("aluminum_lattice").getData().addDataValue("transparent", "true");
+			setDataDefaults("aluminum", true);
 			SAR.registerPartsForMaterial(lead, compatParts);
-			MaterialSystem.getMaterialPart("lead_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
-					"1");
-			MaterialSystem.getMaterialPart("lead_lattice").getData().addDataValue("transparent", "true");
+			setDataDefaults("lead", true);
+			
 		} catch (MaterialException e) {
 			e.printStackTrace();
 		}
 		super.preInit(event);
 	}
+	
+	public void setDataDefaults(String name, boolean isOre) {
+		if(isOre) {
+			MaterialSystem.getMaterialPart(name + "_ore").getData().addDataValue("resistance", "10");
+			MaterialSystem.getMaterialPart(name + "_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
+				"1");
+		}
+		MaterialSystem.getMaterialPart(name + "lead_lattice").getData().addDataValue("transparent", "true");
+	}
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-		// TODO
-		// FurnaceRecipes.instance().addSmeltingRecipe(OreDictUtils.getPreferredItemStack("dustBrass"),
-		// OreDictUtils.getPreferredItemStack("ingotBrass"), 0.7f);
 		OreDictionary.registerOre("blockCharcoal", charcoal_block);
 		OreDictionary.registerOre("dustCharcoal", charcoal_powder);
 		super.init(event);

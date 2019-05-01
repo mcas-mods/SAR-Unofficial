@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
@@ -61,7 +62,7 @@ public class VatRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 			}
 		}
 		recipeLayout.getFluidStacks().init(6, false, 124, 50, 20, 60, ControllerVat.outputCapacity, true, null);
-		recipeLayout.getFluidStacks().set(6, ingredients.getOutputs(FluidStack.class).get(0));
+		recipeLayout.getFluidStacks().set(6, ingredients.getOutputs(VanillaTypes.FLUID).get(0));
 
 		recipeLayout.getFluidStacks().addTooltipCallback(SARJEIPlugin.fluidTooltipCallback);
 	}

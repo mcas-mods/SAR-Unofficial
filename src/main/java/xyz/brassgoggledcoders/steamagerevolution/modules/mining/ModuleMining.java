@@ -12,6 +12,7 @@ import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import com.teamacronymcoders.base.util.OreDictUtils;
 
+import net.minecraft.item.ItemMinecart;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.DamageSource;
@@ -21,6 +22,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import stanhebben.zenscript.util.StringUtil;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolid;
@@ -39,10 +41,15 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.worldgen.OreGenerator;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
+@ObjectHolder(SteamAgeRevolution.MODID)
 public class ModuleMining extends ModuleBase {
 
 	public static DamageSource damageSourceGrinder = new DamageSource("grinder").setDifficultyScaled()
 			.setDamageBypassesArmor().setDamageIsAbsolute();
+	
+	public static final ItemMinecart minecart_semisolid = null;
+	public static final ItemMinecart minecart_drilling = null;
+
 	
 	//TODO: Auto build this list from registered heavy ores?
 	static String[] materials = {"iron", "gold", "copper", "zinc", "tin", "aluminum", "lead"};

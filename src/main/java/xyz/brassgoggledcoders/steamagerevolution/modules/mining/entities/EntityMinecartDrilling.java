@@ -9,18 +9,16 @@ import net.minecraft.item.ItemMinecart;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHolder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.MiningUtils;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.ModuleMining;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.GuiSemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.InventoryPieceSemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.InventorySemisolid;
 
 public class EntityMinecartDrilling extends EntityMinecartInventory<InventorySemisolid> {
-
-	@ObjectHolder(SteamAgeRevolution.MODID + ":minecart_drilling")
-	private static final ItemMinecart cartItem = null;
 
 	public EntityMinecartDrilling(World world) {
 		super(world);
@@ -28,6 +26,7 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventorySem
 				new InventoryPieceSemisolid(new SemisolidHandlerCart(this, new SemisolidHolder(15)), 83, 16)));
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
 		return new GuiSemisolid(entityPlayer, this, "crushed_single");
@@ -40,7 +39,7 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventorySem
 
 	@Override
 	public ItemMinecart getItem() {
-		return cartItem;
+		return ModuleMining.minecart_drilling;
 	}
 
 	@Override

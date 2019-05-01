@@ -56,7 +56,7 @@ public class OreGenerator implements IWorldGenerator {
 			}
 		}
 		for(String entry : heavyOresToGenerate) {
-			if(rand.nextInt(15) == 0) {
+			if(rand.nextInt(30) == 0) {
 				int startX = chunkX + rand.nextInt(16) + 8;
 				int startZ = chunkZ + rand.nextInt(16) + 8;
 				int startY = rand.nextInt(20);

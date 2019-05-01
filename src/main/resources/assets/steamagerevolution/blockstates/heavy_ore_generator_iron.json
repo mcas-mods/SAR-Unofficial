@@ -2,7 +2,7 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "all": "steamagerevolution:blocks/heavy_ore_generator_iron"
+      "all": "blocks/stone"
     },
     "model": "cube_all",
     "uvlock": true,

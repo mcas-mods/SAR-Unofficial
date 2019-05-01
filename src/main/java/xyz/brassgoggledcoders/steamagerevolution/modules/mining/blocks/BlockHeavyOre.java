@@ -37,7 +37,6 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemBlockH
 public class BlockHeavyOre extends BlockBase implements IHasGeneratedModel, IHasBlockStateMapper, IHasBlockColor {
 
 	public static final PropertyInteger CHUNKS = PropertyInteger.create("chunks", 1, 8);
-	ItemStack drop;
 	public String type;
 	public MaterialPart materialPart;
 
@@ -45,7 +44,6 @@ public class BlockHeavyOre extends BlockBase implements IHasGeneratedModel, IHas
 		super(Material.ROCK, "heavy_ore_" + type.toLowerCase());
 		this.materialPart = part;
 		this.type = type;
-		this.drop = OreDictUtils.getPreferredItemStack("rock" + type);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(CHUNKS, 8));
 		this.setHardness(75F);
 		this.setItemBlock(new ItemBlockHeavyOre(this));
@@ -71,7 +69,7 @@ public class BlockHeavyOre extends BlockBase implements IHasGeneratedModel, IHas
 		int chunks = state.getValue(BlockHeavyOre.CHUNKS).intValue();
 		if (!world.isRemote && chunks > 1) {
 			EntityItem itemE = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(),
-					((BlockHeavyOre) state.getBlock()).drop);
+					OreDictUtils.getPreferredItemStack("rock" + org.apache.commons.lang3.StringUtils.capitalize(type)));
 			world.spawnEntity(itemE);
 			world.setBlockState(pos, state.withProperty(BlockHeavyOre.CHUNKS, chunks - 1), 2);
 		}
@@ -80,7 +78,7 @@ public class BlockHeavyOre extends BlockBase implements IHasGeneratedModel, IHas
 	@Override
 	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state,
 			int fortune) {
-		drops.add(drop);
+		drops.add(OreDictUtils.getPreferredItemStack("rock" + org.apache.commons.lang3.StringUtils.capitalize(type)));
 	}
 
 	@Override
