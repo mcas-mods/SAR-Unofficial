@@ -31,6 +31,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootTable;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemBlockHeavyOre;
 
@@ -64,23 +67,31 @@ public class BlockHeavyOre extends BlockBase implements IHasGeneratedModel, IHas
 		return new BlockStateContainer(this, new IProperty[] { CHUNKS });
 	}
 
+	//TODO Fix nothing being dropped on the final mining
 	@Override
 	public void onPlayerDestroy(World world, BlockPos pos, IBlockState state) {
 		int chunks = state.getValue(BlockHeavyOre.CHUNKS).intValue();
 		if (!world.isRemote && chunks > 1) {
-			EntityItem itemE = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(),
-					OreDictUtils.getPreferredItemStack("rock" + org.apache.commons.lang3.StringUtils.capitalize(type)));
-			world.spawnEntity(itemE);
+			this.dropBlockAsItemWithChance(world, pos, state, 0, 0);
 			world.setBlockState(pos, state.withProperty(BlockHeavyOre.CHUNKS, chunks - 1), 2);
 		}
 	}
-
+	
 	@Override
-	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state,
-			int fortune) {
-		drops.add(OreDictUtils.getPreferredItemStack("rock" + org.apache.commons.lang3.StringUtils.capitalize(type)));
-	}
-
+	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
+    {
+        if (!worldIn.isRemote && !worldIn.restoringBlockSnapshots) // do not drop items while restoring blockstates, prevents item dupe
+        {
+        	WorldServer ws = (WorldServer) worldIn;
+			LootTable table = ws.getLootTableManager().getLootTableFromLocation(new ResourceLocation(SteamAgeRevolution.MODID, "heavy_ore_" + type));
+			LootContext ctx = new LootContext.Builder(ws).build();
+			List<ItemStack> stacks = table.generateLootForPools(ws.rand, ctx);
+			for(ItemStack stack : stacks) {
+				spawnAsEntity(worldIn, pos, stack);
+			}
+        }
+    }
+	
 	@Override
 	public List<String> getModelNames(List<String> modelNames) {
 		modelNames.add("materials/" + this.getName());

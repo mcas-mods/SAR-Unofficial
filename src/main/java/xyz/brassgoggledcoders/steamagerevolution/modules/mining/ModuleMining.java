@@ -16,6 +16,9 @@ import net.minecraft.item.ItemMinecart;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -50,9 +53,7 @@ public class ModuleMining extends ModuleBase {
 	public static final ItemMinecart minecart_semisolid = null;
 	public static final ItemMinecart minecart_drilling = null;
 
-	
-	//TODO: Auto build this list from registered heavy ores?
-	static String[] materials = {"iron", "gold", "copper", "zinc", "tin", "aluminum", "lead"};
+	static String[] materials = {"iron", "gold", "copper", "zinc"};//, "tin", "aluminum", "lead"};
 
 	@Override
 	public String getClientProxyPath() {
@@ -62,6 +63,10 @@ public class ModuleMining extends ModuleBase {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
+		for(String material : materials) {
+			LootTableList.register(new ResourceLocation(SteamAgeRevolution.MODID, "heavy_ore_" + material));
+		}
+		LootFunctionManager.registerFunction(new LootFunctionOredict.Serializer());
 	}
 
 	@Override
