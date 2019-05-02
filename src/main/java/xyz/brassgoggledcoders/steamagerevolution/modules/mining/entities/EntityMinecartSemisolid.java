@@ -15,7 +15,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.HandlerForceSta
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
 
-public class EntityMinecartSemisolid extends EntityMinecartInventory<InventoryMachine> {
+public class EntityMinecartSemisolid extends EntityMinecartInventory<InventoryMachine>  {
 	
 	public EntityMinecartSemisolid(World world) {
 		super(world);

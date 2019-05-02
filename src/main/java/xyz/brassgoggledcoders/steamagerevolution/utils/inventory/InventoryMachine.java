@@ -75,6 +75,7 @@ public class InventoryMachine implements IMachineInventory, INBTSerializable<NBT
 		return this;
 	}
 
+	//TODO Move away from concept of fixed inputs and outputs and allow arbitrary numbers of handlers which may or may not be designated as IOs for recipe purposes
 	@Override
 	public ItemStackHandlerExtractSpecific getInputHandler() {
 		if (itemInput == null) {

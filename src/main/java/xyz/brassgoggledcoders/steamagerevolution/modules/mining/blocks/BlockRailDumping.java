@@ -24,6 +24,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartInventory;
 
 public class BlockRailDumping extends BlockRailBase
 		implements IHasBlockStateMapper, IHasItemBlock, IHasModel, IAmBlock {
@@ -77,9 +81,22 @@ public class BlockRailDumping extends BlockRailBase
 
 	@Override
 	public void onMinecartPass(World world, EntityMinecart cart, BlockPos pos) {
-		IBlockState state = world.getBlockState(pos);
-		if (state.getValue(POWERED)) {
-			TileEntity te = world.getTileEntity(pos.down());
+		if(cart instanceof EntityMinecartInventory) {
+			IBlockState state = world.getBlockState(pos);
+			if (state.getValue(POWERED)) {
+				//TODO
+				TileEntity te = world.getTileEntity(pos.down(2));
+				if(te != null && te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP)) {
+					IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
+					IItemHandler cartHandler = cart.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+					for(int i = 0; i < cartHandler.getSlots(); i++) {
+						if(ItemHandlerHelper.insertItem(handler, cartHandler.getStackInSlot(i), true).isEmpty()) {
+							ItemHandlerHelper.insertItem(handler, cartHandler.getStackInSlot(i), false);
+							break;
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -106,7 +123,6 @@ public class BlockRailDumping extends BlockRailBase
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
 	public IBlockState getStateFromMeta(int meta) {
 		IBlockState blockState = this.getDefaultState();
 		if (meta > 7) {
