@@ -7,7 +7,6 @@ import com.teamacronymcoders.base.BaseModFoundation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -18,17 +17,13 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidRegistry;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidRegistry.SemisolidRegistryEvent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerItemUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerMultiFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.network.HandlerSemisolidCart;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketSemisolidCart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.StackComparator;
 
 @Mod(modid = SteamAgeRevolution.MODID, name = SteamAgeRevolution.MODNAME, version = SteamAgeRevolution.MODVERSION, dependencies = SteamAgeRevolution.DEPENDENCIES)
@@ -44,9 +39,6 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 	public static CreativeTabs tab = new SARTab();
 	@SidedProxy(clientSide = "xyz.brassgoggledcoders.steamagerevolution.proxies.ClientProxy", serverSide = "xyz.brassgoggledcoders.steamagerevolution.proxies.CommonProxy")
 	public static xyz.brassgoggledcoders.steamagerevolution.proxies.CommonProxy proxy;
-
-	@Deprecated
-	public static SemisolidRegistry semisolidRegistry = new SemisolidRegistry();
 
 	static {
 		FluidRegistry.enableUniversalBucket();
@@ -68,16 +60,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 				PacketMultiFluidUpdate.class, Side.CLIENT);
 		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerItemUpdate.class, PacketItemUpdate.class,
 				Side.CLIENT);
-		// SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerCardPunch.class,
-		// PacketCardPunch.class,
-		// Side.SERVER);
-		// SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerGunCraft.class,
-		// PacketGunCraft.class,
-		// Side.SERVER);
-		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerSemisolidCart.class,
-				PacketSemisolidCart.class, Side.CLIENT);
 		SARCapabilities.register();
-		MinecraftForge.EVENT_BUS.post(new SemisolidRegistryEvent(semisolidRegistry, SemisolidRegistry.class));
 	}
 
 	@Override

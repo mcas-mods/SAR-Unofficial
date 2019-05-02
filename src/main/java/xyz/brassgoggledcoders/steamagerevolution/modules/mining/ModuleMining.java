@@ -28,9 +28,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import stanhebben.zenscript.util.StringUtil;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolid;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.SemisolidRecipe.Builder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOreGenerator;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockRailDumping;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockSemisolidLoader;
@@ -41,6 +38,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mining.grinder.BlockGri
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartDrilling;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartSemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.modules.worldgen.OreGenerator;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.MachineRecipeBuilder;
 
 @Module(value = SteamAgeRevolution.MODID)
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
@@ -92,12 +90,13 @@ public class ModuleMining extends ModuleBase {
 
 	@SubscribeEvent
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-		for (ISemisolid ssolid : SteamAgeRevolution.semisolidRegistry.getEntries()) {
+		for (String material : materials) {
+			ItemStack rockStack = OreDictUtils
+					.getPreferredItemStack("rock" + StringUtil.capitalize(material));
 			ItemStack crushedOreStack = OreDictUtils
-					.getPreferredItemStack("crushedOre" + StringUtil.capitalize(ssolid.getRegistryName().getPath()));
-			if (!crushedOreStack.isEmpty()) {
-				((Builder) new SemisolidRecipe.Builder("grinder").setItemOutputs(crushedOreStack))
-						.setSemisolidInputs(new SemisolidStack(ssolid, 1)).setCraftTime(10).build();
+					.getPreferredItemStack("crushedOre" + StringUtil.capitalize(material));
+			if (!rockStack.isEmpty() && !crushedOreStack.isEmpty()) {
+				new MachineRecipeBuilder("grinder").setItemInputs(rockStack).setItemOutputs(crushedOreStack).setCraftTime(10).build();
 			}
 		}
 	}

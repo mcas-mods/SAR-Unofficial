@@ -14,8 +14,6 @@ import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.Semisolid;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOre;
 
 public class HeavyOrePartType extends BlockPartType {
@@ -44,9 +42,6 @@ public class HeavyOrePartType extends BlockPartType {
 		String name = materialPart.getMaterial().getOreDictSuffix();
 		BlockHeavyOre ore = new BlockHeavyOre(materialPart, name);
 		materialUser.getMod().getRegistryHolder().getRegistry(BlockRegistry.class, "BLOCK").register(ore);
-		if (!SteamAgeRevolution.instance.semisolidRegistry.hasEntry(new ResourceLocation(materialUser.getId(), name))) {
-			SteamAgeRevolution.instance.semisolidRegistry.addEntry(new Semisolid(name, materialPart.getColor()));
-		}
 	}
 
 	@Override

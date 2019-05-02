@@ -1,7 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.teamacronymcoders.base.blocks.properties.SideType;
 import com.teamacronymcoders.base.guisystem.IHasGui;
@@ -20,23 +19,23 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolid;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHandler;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHandler;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHolder;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidStack;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.HandlerForceStack;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
-public class TileEntitySemisolidLoader extends TileEntitySidedBase<ISemisolidHandler>
-		implements ITickable, IMachineHasInventory<InventorySemisolid>, IHasGui {
-	InventorySemisolid inventory;
+public class TileEntitySemisolidLoader extends TileEntitySidedBase<IItemHandler>
+		implements ITickable, IMachineHasInventory<InventoryMachine>, IHasGui {
+	InventoryMachine inventory;
 	int updateTest = -1;
 
 	public TileEntitySemisolidLoader() {
-		this.setInventory(new InventorySemisolid(
-				new InventoryPieceSemisolid(new SemisolidHandler(new SemisolidHolder(60)), 83, 16)));
+		this.setInventory(new InventoryMachine(new InventoryPieceItem(new HandlerForceStack(8), new int[] {0,0,0,0,0,0,0,0}, new int[] {0,0,0,0,0,0,0,0}), null, null, null, null));
 	}
 
 	@Override
@@ -78,37 +77,39 @@ public class TileEntitySemisolidLoader extends TileEntitySidedBase<ISemisolidHan
 		EnumFacing opposite = facing.getOpposite();
 		if (entity.getPosition().equals(this.getPos().offset(facing))) {
 			if (entity.hasCapability(this.getCapabilityType(), opposite)) {
-				return transfer(sideType, entity.getCapability(this.getCapabilityType(), opposite));
+				//return transfer(sideType, entity.getCapability(this.getCapabilityType(), opposite));
 			}
 		}
 		return false;
 	}
 
-	private boolean transfer(SideType sideType, ISemisolidHandler otherCapability) {
+	private boolean transfer(SideType sideType, IItemHandler otherCapability) {
 		if (sideType == SideType.INPUT) {
-			return transfer(otherCapability, this.getInternalCapability());
+			//return transfer(otherCapability, this.getInternalCapability());
 		} else if (sideType == SideType.OUTPUT) {
-			return transfer(this.getInternalCapability(), otherCapability);
+			//return transfer(this.getInternalCapability(), otherCapability);
 		} else {
 			return false;
-		}
-	}
-
-	private boolean transfer(ISemisolidHandler from, ISemisolidHandler to) {
-		if (from.getHolders().length > 0 && from.getHolders()[0].getCrushed() != null) {
-			ISemisolid material = from.getHolders()[0].getCrushed().getMaterial();
-			int amount = from.getHolders()[0].getAmount();
-			from.drain(material, amount);
-			to.fill(new SemisolidStack(material, amount));
 		}
 		return false;
 	}
 
+	private boolean transfer(IItemHandler from, IItemHandler to) {
+//		if (from.getHolders().length > 0 && from.getHolders()[0].getCrushed() != null) {
+//			ISemisolid material = from.getHolders()[0].getCrushed().getMaterial();
+//			int amount = from.getHolders()[0].getAmount();
+//			from.drain(material, amount);
+//			to.fill(new SemisolidStack(material, amount));
+//		}
+		return false;
+	}
+
 	private boolean tryTransferToTile(SideType sideType, EnumFacing facing) {
-		return Optional.ofNullable(world.getTileEntity(this.getPos().offset(facing)))
-				.filter(tileEntity -> tileEntity.hasCapability(this.getCapabilityType(), facing.getOpposite()))
-				.map(tileEntity -> tileEntity.getCapability(this.getCapabilityType(), facing.getOpposite()))
-				.map(cap -> transfer(sideType, cap)).orElse(false);
+		return false;
+//		return Optional.ofNullable(world.getTileEntity(this.getPos().offset(facing)))
+//				.filter(tileEntity -> tileEntity.hasCapability(this.getCapabilityType(), facing.getOpposite()))
+//				.map(tileEntity -> tileEntity.getCapability(this.getCapabilityType(), facing.getOpposite()))
+//				.map(cap -> transfer(sideType, cap)).orElse(false);
 	}
 
 	@Override
@@ -122,23 +123,23 @@ public class TileEntitySemisolidLoader extends TileEntitySidedBase<ISemisolidHan
 	}
 
 	@Override
-	public Capability<ISemisolidHandler> getCapabilityType() {
-		return SARCapabilities.SEMISOLID_HANDLER;
+	public Capability<IItemHandler> getCapabilityType() {
+		return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY;
 	}
 
 	@Override
-	public ISemisolidHandler getInternalCapability() {
-		return this.getInventory().ore.getHandler();
+	public IItemHandler getInternalCapability() {
+		return this.inventory.getInputHandler();
 	}
 
 	@Override
-	public ISemisolidHandler getOutputCapability() {
-		return this.getInventory().ore.getHandler();
+	public IItemHandler getOutputCapability() {
+		return this.inventory.getOutputHandler();
 	}
 
 	@Override
-	public ISemisolidHandler getInputCapability() {
-		return this.getInventory().ore.getHandler();
+	public IItemHandler getInputCapability() {
+		return this.inventory.getInputHandler();
 	}
 
 	@Override
@@ -157,12 +158,12 @@ public class TileEntitySemisolidLoader extends TileEntitySidedBase<ISemisolidHan
 	}
 
 	@Override
-	public InventorySemisolid getInventory() {
+	public InventoryMachine getInventory() {
 		return this.inventory;
 	}
 
 	@Override
-	public void setInventory(InventorySemisolid inventory) {
+	public void setInventory(InventoryMachine inventory) {
 		this.inventory = inventory;
 	}
 
@@ -193,11 +194,11 @@ public class TileEntitySemisolidLoader extends TileEntitySidedBase<ISemisolidHan
 
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiSemisolid(entityPlayer, this, "crushed_single");
+		return new GuiInventory(entityPlayer, this);
 	}
 
 	@Override
 	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return null;
+		return new ContainerInventory(entityPlayer, this);
 	}
 }

@@ -1,7 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution;
 
-import com.teamacronymcoders.base.capability.NBTCapStorage;
-
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -16,16 +14,11 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import xyz.brassgoggledcoders.steamagerevolution.api.FurnaceFumeProducer;
 import xyz.brassgoggledcoders.steamagerevolution.api.IFumeProducer;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHandler;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHandler;
 
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class SARCapabilities {
 	@CapabilityInject(IFumeProducer.class)
 	public static Capability<IFumeProducer> FUME_PRODUCER;
-	@CapabilityInject(ISemisolidHandler.class)
-	public static Capability<ISemisolidHandler> SEMISOLID_HANDLER;
-
 	@SuppressWarnings("deprecation")
 	public static void register() {
 		CapabilityManager.INSTANCE.register(IFumeProducer.class, new Capability.IStorage<IFumeProducer>() {
@@ -41,8 +34,6 @@ public class SARCapabilities {
 
 			}
 		}, FurnaceFumeProducer.class);
-		CapabilityManager.INSTANCE.register(ISemisolidHandler.class, new NBTCapStorage<ISemisolidHandler>(),
-				SemisolidHandler::new);
 	}
 
 	@SubscribeEvent

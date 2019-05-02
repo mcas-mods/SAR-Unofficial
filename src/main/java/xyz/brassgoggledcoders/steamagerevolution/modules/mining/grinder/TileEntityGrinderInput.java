@@ -7,25 +7,25 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.MultiblockOreWrapper;
+import net.minecraftforge.items.CapabilityItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockInventoryWrapper;
 
 public class TileEntityGrinderInput extends TileEntityGrinderPart {
 
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-		return capability == SARCapabilities.SEMISOLID_HANDLER || super.hasCapability(capability, facing);
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
 	}
 
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if (capability == SARCapabilities.SEMISOLID_HANDLER) {
-			return SARCapabilities.SEMISOLID_HANDLER.cast(new MultiblockOreWrapper(this));
+		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new MultiblockInventoryWrapper(this, false));
 		}
 		return super.getCapability(capability, facing);
 	}
-
+	
 	@Override
 	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
 		return true;

@@ -11,30 +11,30 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHolder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.MiningUtils;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.ModuleMining;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.GuiSemisolid;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.InventoryPieceSemisolid;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.InventorySemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.HandlerForceStack;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
 
-public class EntityMinecartDrilling extends EntityMinecartInventory<InventorySemisolid> {
+public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryMachine> {
 
 	public EntityMinecartDrilling(World world) {
 		super(world);
-		this.setInventory(new InventorySemisolid(
-				new InventoryPieceSemisolid(new SemisolidHandlerCart(this, new SemisolidHolder(15)), 83, 16)));
+		this.setInventory(new InventoryMachine(null, null, new InventoryPieceItem(new HandlerForceStack(3), new int[] {0,0,0}, new int[] {0,0,0}), null, null));
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiSemisolid(entityPlayer, this, "crushed_single");
+		return new GuiInventory(entityPlayer, this);
 	}
 
 	@Override
 	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return null;
+		return new ContainerInventory(entityPlayer, this);
 	}
 
 	@Override
@@ -74,13 +74,10 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventorySem
 	}
 
 	private void doMining(EnumFacing facingToMine) {
-		// for(int i = 0; i < 3; i++) {
 		BlockPos target = this.getPosition().offset(facingToMine);
 		if (!world.isAirBlock(target)) {
-			MiningUtils.doMining(this.getEntityWorld(), target, this.getInventory().getOutputHandler(),
-					this.getInventory().ore.getHandler());
+			MiningUtils.doMining(this.getEntityWorld(), target, this.getInventory().getOutputHandler());
 		}
-		// }
 	}
 
 }

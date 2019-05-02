@@ -3,8 +3,6 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks;
 import java.util.List;
 import java.util.function.Predicate;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.teamacronymcoders.base.IBaseMod;
 import com.teamacronymcoders.base.blocks.IAmBlock;
 import com.teamacronymcoders.base.blocks.IHasBlockStateMapper;
@@ -26,10 +24,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHandler;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.ISemisolidHolder;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartSemisolid;
 
 public class BlockRailDumping extends BlockRailBase
 		implements IHasBlockStateMapper, IHasItemBlock, IHasModel, IAmBlock {
@@ -86,24 +80,7 @@ public class BlockRailDumping extends BlockRailBase
 		IBlockState state = world.getBlockState(pos);
 		if (state.getValue(POWERED)) {
 			TileEntity te = world.getTileEntity(pos.down());
-			if (cart instanceof EntityMinecartSemisolid && te != null
-					&& te.hasCapability(SARCapabilities.SEMISOLID_HANDLER, EnumFacing.UP)) {
-				EntityMinecartSemisolid carrier = (EntityMinecartSemisolid) cart;
-				ISemisolidHolder cartHolder = carrier.getInventory().ore.getHandler().getHolders()[0];
-				if (cartHolder.getAmount() > 0) {
-					ISemisolidHandler handler = te.getCapability(SARCapabilities.SEMISOLID_HANDLER, EnumFacing.UP);
-					if (ArrayUtils.isNotEmpty(handler.getHolders())
-							&& (handler.getHolders()[0].getCrushed() == null || cartHolder.getCrushed()
-									.getMaterial() == handler.getHolders()[0].getCrushed().getMaterial())
-							&& cartHolder.getAmount() <= (handler.getHolders()[0].getHolderCapacity()
-									- handler.getHolders()[0].getAmount())) {
-						handler.fill(cartHolder.getCrushed());
-						cartHolder.drain(cartHolder.getCrushed().getMaterial(), cartHolder.getAmount());
-					}
-				}
-			}
 		}
-		super.onMinecartPass(world, cart, pos);
 	}
 
 	@Override

@@ -8,27 +8,19 @@ import org.apache.commons.lang3.tuple.Pair;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
 
-import net.minecraft.client.gui.Gui;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHandler;
-import xyz.brassgoggledcoders.steamagerevolution.api.semisolid.SemisolidHolder;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.MiningUtils;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.GuiSemisolid;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.InventoryPieceSemisolid;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.tileentities.InventorySemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerDrill extends SARMultiblockInventory<InventorySemisolid> {
+public class ControllerDrill extends SARMultiblockInventory<InventoryMachine> {
 
 	private static final String name = "[" + SteamAgeRevolution.MODNAME + "]";
 	public static final GameProfile profile = new GameProfile(UUID.nameUUIDFromBytes(name.getBytes()), name);
@@ -42,15 +34,14 @@ public class ControllerDrill extends SARMultiblockInventory<InventorySemisolid> 
 		int xOffset = 49;
 		int yOffset = 1;
 		int slotGap = 2;
-		this.setInventory(new InventorySemisolid(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 40, 32),
+		this.setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 40, 32), null,
 				new InventoryPieceItem(new ItemStackHandlerSmart(9, this),
 						new int[] { xOffset + 16, xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2, xOffset + 16,
 								xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2, xOffset + 16,
 								xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2 },
 						new int[] { yOffset + 16, yOffset + 16, yOffset + 16, yOffset + 32 + slotGap,
 								yOffset + 32 + slotGap, yOffset + 32 + slotGap, yOffset + 48 + slotGap * 2,
-								yOffset + 48 + slotGap * 2, yOffset + 48 + slotGap * 2 }),
-				new InventoryPieceSemisolid(new SemisolidHandler(new SemisolidHolder(30)), 126, 15),
+								yOffset + 48 + slotGap * 2, yOffset + 48 + slotGap * 2 }), null,
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 13, 9)));
 	}
 
@@ -71,8 +62,7 @@ public class ControllerDrill extends SARMultiblockInventory<InventorySemisolid> 
 		if (this.getCurrentProgress() >= 20) {
 			if (currentPosition < positions.size()) {
 				BlockPos pos = positions.get(currentPosition);
-				MiningUtils.doMining(WORLD, pos, this.getInventory().getOutputHandler(),
-						this.getInventory().ore.getHandler());
+				MiningUtils.doMining(WORLD, pos, this.getInventory().getOutputHandler());
 				currentPosition++;
 			} else {
 				currentPosition = 0;
@@ -123,12 +113,6 @@ public class ControllerDrill extends SARMultiblockInventory<InventorySemisolid> 
 	@Override
 	public int getMinimumZSize() {
 		return 4;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiSemisolid(entityPlayer, this, "");
 	}
 
 }
