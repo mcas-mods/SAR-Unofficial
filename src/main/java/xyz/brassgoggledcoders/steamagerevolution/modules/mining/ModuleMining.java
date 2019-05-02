@@ -114,7 +114,7 @@ public class ModuleMining extends ModuleBase {
 		}
 
 		blockRegistry.register(new BlockRailDumping());
-		blockRegistry.register(new BlockSemisolidLoader());
+		//blockRegistry.register(new BlockSemisolidLoader());
 
 		blockRegistry.register(new BlockGrinderFrame());
 		blockRegistry.register(new BlockGrinderInput());

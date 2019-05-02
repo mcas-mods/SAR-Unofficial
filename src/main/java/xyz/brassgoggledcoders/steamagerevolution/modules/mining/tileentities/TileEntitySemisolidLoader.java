@@ -25,17 +25,17 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerInvent
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.HandlerForceStack;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 public class TileEntitySemisolidLoader extends TileEntitySidedBase<IItemHandler>
-		implements ITickable, IMachineHasInventory<InventoryMachine>, IHasGui {
-	InventoryMachine inventory;
+		implements ITickable, IMachineHasInventory<InventoryRecipeMachine>, IHasGui {
+	InventoryRecipeMachine inventory;
 	int updateTest = -1;
 
 	public TileEntitySemisolidLoader() {
-		this.setInventory(new InventoryMachine(new InventoryPieceItem(new HandlerForceStack(8), new int[] {0,0,0,0,0,0,0,0}, new int[] {0,0,0,0,0,0,0,0}), null, null, null, null));
+		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new HandlerForceStack(8), new int[] {0,0,0,0,0,0,0,0}, new int[] {0,0,0,0,0,0,0,0}), null, null, null, null));
 	}
 
 	@Override
@@ -158,12 +158,12 @@ public class TileEntitySemisolidLoader extends TileEntitySidedBase<IItemHandler>
 	}
 
 	@Override
-	public InventoryMachine getInventory() {
+	public InventoryRecipeMachine getInventory() {
 		return this.inventory;
 	}
 
 	@Override
-	public void setInventory(InventoryMachine inventory) {
+	public void setInventory(InventoryRecipeMachine inventory) {
 		this.inventory = inventory;
 	}
 

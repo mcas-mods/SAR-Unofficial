@@ -15,7 +15,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceProgressBar;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
-public class InventoryMachine implements IMachineInventory, INBTSerializable<NBTTagCompound>, ISmartTankCallback {
+public class InventoryRecipeMachine implements IMachineInventory, INBTSerializable<NBTTagCompound>, ISmartTankCallback {
 
 	public InventoryPieceItem itemInput;
 	public InventoryPieceFluid fluidInput;
@@ -25,13 +25,13 @@ public class InventoryMachine implements IMachineInventory, INBTSerializable<NBT
 	public InventoryPieceProgressBar progressBar;
 
 	// @Deprecated
-	public InventoryMachine(InventoryPieceFluid fluidInput, InventoryPieceFluid fluidOutput,
+	public InventoryRecipeMachine(InventoryPieceFluid fluidInput, InventoryPieceFluid fluidOutput,
 			InventoryPieceFluid steamTank) {
 		this(null, fluidInput, null, fluidOutput, steamTank);
 	}
 
 	// @Deprecated
-	public InventoryMachine(InventoryPieceItem itemInput, InventoryPieceFluid fluidInput, InventoryPieceItem itemOutput,
+	public InventoryRecipeMachine(InventoryPieceItem itemInput, InventoryPieceFluid fluidInput, InventoryPieceItem itemOutput,
 			InventoryPieceFluid fluidOutput, InventoryPieceFluid steamTank) {
 		this.itemInput = itemInput;
 		this.fluidInput = fluidInput;
@@ -70,7 +70,7 @@ public class InventoryMachine implements IMachineInventory, INBTSerializable<NBT
 //		}
 //	}
 
-	public InventoryMachine setProgressBar(InventoryPieceProgressBar bar) {
+	public InventoryRecipeMachine setProgressBar(InventoryPieceProgressBar bar) {
 		progressBar = bar;
 		return this;
 	}

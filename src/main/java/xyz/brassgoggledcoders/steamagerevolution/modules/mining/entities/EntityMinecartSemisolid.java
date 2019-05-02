@@ -12,14 +12,14 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mining.ModuleMining;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerForceStack;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.HandlerForceStack;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
 
-public class EntityMinecartSemisolid extends EntityMinecartInventory<InventoryMachine>  {
+public class EntityMinecartSemisolid extends EntityMinecartInventory<InventoryRecipeMachine>  {
 	
 	public EntityMinecartSemisolid(World world) {
 		super(world);
-		this.setInventory(new InventoryMachine(new InventoryPieceItem(new HandlerForceStack(8), new int[] {0,16,32,48,100,120,140,160}, new int[] {0,0,0,0,0,0,0,0}), null, null, null, null));
+		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new HandlerForceStack(8), new int[] {0,16,32,48,100,120,140,160}, new int[] {0,0,0,0,0,0,0,0}), null, null, null, null));
 	}
 
 	@SideOnly(Side.CLIENT)

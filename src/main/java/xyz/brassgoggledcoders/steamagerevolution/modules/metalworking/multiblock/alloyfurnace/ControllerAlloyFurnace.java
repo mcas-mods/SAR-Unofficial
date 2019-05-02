@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
@@ -21,7 +21,7 @@ public class ControllerAlloyFurnace extends SARMultiblockInventory {
 
 	public ControllerAlloyFurnace(World world) {
 		super(world);
-		setInventory(new InventoryMachine(
+		setInventory(new InventoryRecipeMachine(
 				new InventoryPieceFluid(new MultiFluidTank(inputCapacity, this, 2), new int[] { 22, 78 },
 						new int[] { 11, 11 }),
 				new InventoryPieceFluid(new MultiFluidTank(outputCapacity, this, 1), 134, 17), null));

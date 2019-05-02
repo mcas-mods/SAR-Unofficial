@@ -17,10 +17,10 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 
 public class RecipeMachineHelper {
-	public static void onFinish(SARMachineRecipe currentRecipe, InventoryMachine inventory) {
+	public static void onFinish(SARMachineRecipe currentRecipe, InventoryRecipeMachine inventory) {
 		boolean extractedItems = true;
 		boolean extractedFluids = true;
 		boolean extractedSteam = true;
@@ -72,7 +72,7 @@ public class RecipeMachineHelper {
 		}
 	}
 
-	public static boolean canFinish(int currentTicks, SARMachineRecipe currentRecipe, InventoryMachine inventory) {
+	public static boolean canFinish(int currentTicks, SARMachineRecipe currentRecipe, InventoryRecipeMachine inventory) {
 		if (currentRecipe != null && currentTicks >= currentRecipe.getTicksPerOperation()) {
 			boolean roomForItems = true;
 			boolean roomForFluids = true;
@@ -90,7 +90,7 @@ public class RecipeMachineHelper {
 	}
 
 	public static boolean canRun(World world, BlockPos pos, IMachineHasInventory handler, String name,
-			SARMachineRecipe currentRecipe, InventoryMachine inventory) {
+			SARMachineRecipe currentRecipe, InventoryRecipeMachine inventory) {
 		if (currentRecipe != null) {
 			if (inventory.getSteamTank() == null
 					|| inventory.getSteamTank().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
@@ -108,7 +108,7 @@ public class RecipeMachineHelper {
 		return false;
 	}
 
-	private static boolean hasRequiredFluids(InventoryMachine inventory, SARMachineRecipe recipe) {
+	private static boolean hasRequiredFluids(InventoryRecipeMachine inventory, SARMachineRecipe recipe) {
 		if (ArrayUtils.isNotEmpty(recipe.getFluidInputs())) {
 			// Stream the fluid stacks
 			return Arrays.stream(recipe.getFluidInputs())
@@ -121,14 +121,14 @@ public class RecipeMachineHelper {
 		return true;
 	}
 
-	private static boolean tanksHaveFluid(InventoryMachine inventory, IngredientFluidStack stack) {
+	private static boolean tanksHaveFluid(InventoryRecipeMachine inventory, IngredientFluidStack stack) {
 		return Arrays
 				.asList(inventory.getInputTank()).stream().filter(Objects::nonNull).filter(tank -> tank.fluids.stream()
 						.filter(Objects::nonNull).anyMatch(fluid -> fluid.containsFluid(stack.getFluid())))
 				.findAny().isPresent();
 	}
 
-	public static boolean hasRequiredItems(InventoryMachine inventory, SARMachineRecipe recipe) {
+	public static boolean hasRequiredItems(InventoryRecipeMachine inventory, SARMachineRecipe recipe) {
 		if (ArrayUtils.isNotEmpty(recipe.getItemInputs())) {
 			return Arrays.stream(recipe.getItemInputs()).map(ing -> handlerHasItems(inventory, ing))
 					.reduce((a, b) -> a && b).orElse(false);
@@ -136,7 +136,7 @@ public class RecipeMachineHelper {
 		return true;
 	}
 
-	private static boolean handlerHasItems(InventoryMachine inventory, Ingredient ingredient) {
+	private static boolean handlerHasItems(InventoryRecipeMachine inventory, Ingredient ingredient) {
 		return IntStream.range(0, inventory.getInputHandler().getSlots())
 				.mapToObj(slotNum -> inventory.getInputHandler().getStackInSlot(slotNum))
 				.filter(inputStack -> ingredient.apply(inputStack)).findAny().isPresent();

@@ -21,13 +21,13 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureValve;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerBoiler extends SARMultiblockInventory<InventoryMachine> {
+public class ControllerBoiler extends SARMultiblockInventory<InventoryRecipeMachine> {
 
 	public static final int fuelDivisor = 3;
 	public static final int fluidConversionPerTick = 5;
@@ -45,7 +45,7 @@ public class ControllerBoiler extends SARMultiblockInventory<InventoryMachine> {
 		super(world);
 		attachedMonitors = new HashSet<BlockPos>();
 		attachedValves = new HashSet<BlockPos>();
-		setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerFuel(1, this), 81, 32),
+		setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new ItemStackHandlerFuel(1, this), 81, 32),
 				new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 1), 0, 0), null,
 				/* TODO: having water tank as output is...hacky */new InventoryPieceFluid(
 						new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 1), 50, 9),

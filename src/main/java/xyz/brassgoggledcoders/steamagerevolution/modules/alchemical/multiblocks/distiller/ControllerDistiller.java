@@ -9,7 +9,7 @@ import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.ModuleAlchemical;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceProgressBar;
@@ -22,7 +22,7 @@ public class ControllerDistiller extends SARMultiblockInventory {
 
 	public ControllerDistiller(World world) {
 		super(world);
-		setInventory(new InventoryMachine(null,
+		setInventory(new InventoryRecipeMachine(null,
 				new InventoryPieceFluid(new MultiFluidTank(tankCapacity, this, 1), 41, 9),
 				new InventoryPieceItem(new ItemStackHandlerExtractSpecific(1), 149, 32),
 				new InventoryPieceFluid(new MultiFluidTank(tankCapacity, this, 1), 97, 9),

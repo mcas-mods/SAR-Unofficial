@@ -14,12 +14,12 @@ import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeMachineHelper;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
-public abstract class SARMultiblockInventory<I extends InventoryMachine> extends SARMultiblockBase
+public abstract class SARMultiblockInventory<I extends InventoryRecipeMachine> extends SARMultiblockBase
 		implements ISmartStackCallback, IMachineHasInventory<I> {
 
 	public I inventory;

@@ -14,13 +14,13 @@ import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.MiningUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerDrill extends SARMultiblockInventory<InventoryMachine> {
+public class ControllerDrill extends SARMultiblockInventory<InventoryRecipeMachine> {
 
 	private static final String name = "[" + SteamAgeRevolution.MODNAME + "]";
 	public static final GameProfile profile = new GameProfile(UUID.nameUUIDFromBytes(name.getBytes()), name);
@@ -34,7 +34,7 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryMachine> {
 		int xOffset = 49;
 		int yOffset = 1;
 		int slotGap = 2;
-		this.setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 40, 32), null,
+		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 40, 32), null,
 				new InventoryPieceItem(new ItemStackHandlerSmart(9, this),
 						new int[] { xOffset + 16, xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2, xOffset + 16,
 								xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2, xOffset + 16,

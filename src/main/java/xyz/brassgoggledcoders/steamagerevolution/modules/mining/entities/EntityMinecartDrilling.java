@@ -16,14 +16,14 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mining.ModuleMining;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.HandlerForceStack;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
 
-public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryMachine> {
+public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryRecipeMachine> {
 
 	public EntityMinecartDrilling(World world) {
 		super(world);
-		this.setInventory(new InventoryMachine(null, null, new InventoryPieceItem(new HandlerForceStack(3), new int[] {0,0,0}, new int[] {0,0,0}), null, null));
+		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new HandlerForceStack(3), new int[] {0,0,0}, new int[] {0,0,0}), null, null, null, null));
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -76,7 +76,7 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryMac
 	private void doMining(EnumFacing facingToMine) {
 		BlockPos target = this.getPosition().offset(facingToMine);
 		if (!world.isAirBlock(target)) {
-			MiningUtils.doMining(this.getEntityWorld(), target, this.getInventory().getOutputHandler());
+			MiningUtils.doMining(this.getEntityWorld(), target, this.getInventory().getInputHandler());
 		}
 	}
 

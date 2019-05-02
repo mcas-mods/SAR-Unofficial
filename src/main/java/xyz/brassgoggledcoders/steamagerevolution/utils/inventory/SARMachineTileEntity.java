@@ -25,11 +25,11 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 		implements ITickable, ISmartStackCallback, IHasGui, IMachineHasInventory {
 
 	public int currentTicks = 0;
-	public InventoryMachine inventory;
+	public InventoryRecipeMachine inventory;
 	SARMachineRecipe currentRecipe;
 
 	@Override
-	public InventoryMachine getInventory() {
+	public InventoryRecipeMachine getInventory() {
 		if (inventory == null) {
 			throw new RuntimeException("Whoops. Machine Inventory NOT SET. Fix this.");
 		}
@@ -37,7 +37,7 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 	}
 
 	@Override
-	public void setInventory(InventoryMachine inventory) {
+	public void setInventory(InventoryRecipeMachine inventory) {
 		this.inventory = inventory;
 	}
 
