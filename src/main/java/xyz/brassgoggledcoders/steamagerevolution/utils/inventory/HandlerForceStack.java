@@ -22,14 +22,15 @@ public class HandlerForceStack extends ItemStackHandlerExtractSpecific {
 	
 	//TODO Bluuuuurgh
 	@Override
-	public void onContentsChanged(int slot)
+	public void setStackInSlot(int from, @Nonnull ItemStack stack)
     {
-		for(int i = 0; i < this.getSlots(); i++) {
-			for(int i2 = 0; i < this.getSlots(); i2++)
-			if(this.getStackInSlot(i).getCount() < this.getSlotLimit(i) && ItemStack.areItemsEqual(this.getStackInSlot(i), this.getStackInSlot(i2))) {
-				this.setStackInSlot(i, this.getStackInSlot(i2));
-				this.getStackInSlot(i2).setCount(0);
+		for(int to = 0; to < this.getSlots(); to++) {
+			if(this.getStackInSlot(to).isItemEqual(stack)) {
+				int count = this.getStackInSlot(to).getCount();
+				this.stacks.set(to, new ItemStack(stack.getItem(), stack.getCount() + count, stack.getMetadata()));
+				return;
 			}
 		}
+		super.setStackInSlot(from, stack);
     }
 }
