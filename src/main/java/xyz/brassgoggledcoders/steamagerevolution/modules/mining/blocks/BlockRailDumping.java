@@ -17,8 +17,10 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -47,6 +49,18 @@ public class BlockRailDumping extends BlockRailBase
 		this.setDefaultState(this.getBlockState().getBaseState().withProperty(POWERED, false)
 				.withProperty(SHAPE, EnumRailDirection.NORTH_SOUTH).withProperty(NORTH_WEST, true));
 	}
+	
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
+    {
+		this.updateState(state, worldIn, pos, blockIn);
+    }
+	
+	@Override
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+    {
+		this.updateState(state, worldIn, pos, worldIn.getBlockState(pos).getBlock());
+    }
 
 	@Override
 	public IBaseMod getMod() {
@@ -84,15 +98,19 @@ public class BlockRailDumping extends BlockRailBase
 		if(cart instanceof EntityMinecartInventory) {
 			IBlockState state = world.getBlockState(pos);
 			if (state.getValue(POWERED)) {
-				//TODO
-				TileEntity te = world.getTileEntity(pos.down(2));
+				TileEntity te = world.getTileEntity(pos.down());
 				if(te != null && te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP)) {
 					IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
 					IItemHandler cartHandler = cart.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+					//Custom transfer handling required because of forced stacks
 					for(int i = 0; i < cartHandler.getSlots(); i++) {
-						if(ItemHandlerHelper.insertItem(handler, cartHandler.getStackInSlot(i), true).isEmpty()) {
-							ItemHandlerHelper.insertItem(handler, cartHandler.getStackInSlot(i), false);
-							break;
+						for(int i2 = 0; i2 < handler.getSlots(); i2++) {
+							if(handler.isItemValid(i2, cartHandler.getStackInSlot(i))) {
+								if(handler.insertItem(i2, cartHandler.extractItem(i, 1, true), true).isEmpty()) {
+									handler.insertItem(i2, cartHandler.extractItem(i, 1, false), false);
+									break;
+								}
+							}
 						}
 					}
 				}

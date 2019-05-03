@@ -17,20 +17,19 @@ public class HandlerForceStack extends ItemStackHandlerExtractSpecific {
 		if(stack.hasTagCompound() || stack.getItem().getMaxDamage(stack) > 0) {
 			return 1;
 		}
-		//return 64;
         return getSlotLimit(slot);
     }
 	
+	//TODO Bluuuuurgh
 	@Override
-    @Nonnull
-    public ItemStack extractItem(int slot, int amount, boolean simulate)
+	public void onContentsChanged(int slot)
     {
-        validateSlotIndex(slot);
-        ItemStack existing = this.stacks.get(slot);
-
-        if(existing.getMaxStackSize() < this.getSlotLimit(slot)) {
-        	amount = existing.getMaxStackSize();
-        }
-        return super.extractItem(slot, amount, simulate);
+		for(int i = 0; i < this.getSlots(); i++) {
+			for(int i2 = 0; i < this.getSlots(); i2++)
+			if(this.getStackInSlot(i).getCount() < this.getSlotLimit(i) && ItemStack.areItemsEqual(this.getStackInSlot(i), this.getStackInSlot(i2))) {
+				this.setStackInSlot(i, this.getStackInSlot(i2));
+				this.getStackInSlot(i2).setCount(0);
+			}
+		}
     }
 }

@@ -113,7 +113,7 @@ public class ModuleMining extends ModuleBase {
 			OreGenerator.heavyOresToGenerate.add(type);
 		}
 
-		blockRegistry.register(new BlockRailDumping());
+		//blockRegistry.register(new BlockRailDumping());
 		//blockRegistry.register(new BlockSemisolidLoader());
 
 		blockRegistry.register(new BlockGrinderFrame());

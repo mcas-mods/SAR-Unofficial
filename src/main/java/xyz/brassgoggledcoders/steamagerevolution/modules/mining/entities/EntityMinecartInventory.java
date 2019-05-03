@@ -20,7 +20,6 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockInventoryWrapper;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> extends EntityMinecartBase
@@ -127,7 +126,6 @@ public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> 
 
 	@Override
 	public ItemStack getStackInSlot(int index) {
-		// TODO Auto-generated method stub
 		ItemStack stack = this.getInventory().getInputHandler().getStackInSlot(index);
 		return stack;
 	}

@@ -15,7 +15,6 @@ import com.teamacronymcoders.base.client.models.generator.generatedmodel.Generat
 import com.teamacronymcoders.base.client.models.generator.generatedmodel.IGeneratedModel;
 import com.teamacronymcoders.base.client.models.generator.generatedmodel.ModelType;
 import com.teamacronymcoders.base.materialsystem.materialparts.MaterialPart;
-import com.teamacronymcoders.base.util.OreDictUtils;
 import com.teamacronymcoders.base.util.files.templates.TemplateFile;
 import com.teamacronymcoders.base.util.files.templates.TemplateManager;
 
@@ -24,9 +23,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -66,8 +63,7 @@ public class BlockHeavyOre extends BlockBase implements IHasGeneratedModel, IHas
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, new IProperty[] { CHUNKS });
 	}
-
-	//TODO Fix nothing being dropped on the final mining
+	
 	@Override
 	public void onPlayerDestroy(World world, BlockPos pos, IBlockState state) {
 		int chunks = state.getValue(BlockHeavyOre.CHUNKS).intValue();
@@ -75,6 +71,7 @@ public class BlockHeavyOre extends BlockBase implements IHasGeneratedModel, IHas
 			this.dropBlockAsItemWithChance(world, pos, state, 0, 0);
 			world.setBlockState(pos, state.withProperty(BlockHeavyOre.CHUNKS, chunks - 1), 2);
 		}
+		super.onPlayerDestroy(world, pos, state);
 	}
 	
 	@Override
