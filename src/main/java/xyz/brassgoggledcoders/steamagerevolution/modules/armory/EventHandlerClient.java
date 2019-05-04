@@ -1,11 +1,17 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
@@ -25,6 +31,9 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 @EventBusSubscriber(value = Side.CLIENT, modid = SteamAgeRevolution.MODID)
 public class EventHandlerClient {
+	
+	public final static TextureAtlasSprite[] destroyBlockIcons = new TextureAtlasSprite[10];
+	
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public static void onDrawBlockSelectionBox(DrawBlockHighlightEvent event) {
@@ -152,4 +161,13 @@ public class EventHandlerClient {
 			}
 		}
 	}
+	
+	@SubscribeEvent
+	public static void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {
+	    TextureMap texturemap = Minecraft.getMinecraft().getTextureMapBlocks();
+
+		    for(int i = 0; i < destroyBlockIcons.length; ++i) {
+		      destroyBlockIcons[i] = texturemap.getAtlasSprite("minecraft:blocks/destroy_stage_" + i);
+		    }
+		}
 }

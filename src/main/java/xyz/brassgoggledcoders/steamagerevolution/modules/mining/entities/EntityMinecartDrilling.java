@@ -21,6 +21,8 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.
 
 public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryRecipeMachine> {
 
+	BlockPos miningLocation;
+	
 	public EntityMinecartDrilling(World world) {
 		super(world);
 		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new HandlerForceStack(3), new int[] {0,0,0}, new int[] {0,0,0}), null, null, null, null));
@@ -73,10 +75,18 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryRec
 		}
 	}
 
+	//TODO Blockbreak animation
 	private void doMining(EnumFacing facingToMine) {
 		BlockPos target = this.getPosition().offset(facingToMine);
 		if (!world.isAirBlock(target)) {
-			MiningUtils.doMining(this.getEntityWorld(), target, this.getInventory().getInputHandler());
+			if(getCurrentProgress() >= (world.getBlockState(target).getBlockHardness(world, target) * 100)) {
+				MiningUtils.doMining(this.getEntityWorld(), target, this.getInventory().getInputHandler());
+				miningLocation = null;
+			}
+			else {
+				miningLocation = target;
+				this.setCurrentTicks(this.getCurrentProgress() + 1);
+			}
 		}
 	}
 
