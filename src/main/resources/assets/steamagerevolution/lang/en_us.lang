@@ -120,9 +120,9 @@ tile.steamagerevolution.grinder_frame.name=Grinder Frame
 tile.steamagerevolution.grinder_input.name=Grinder Blades
 
 #Entities
-entity.dead_inventor.name=Dead Inventor
+entity.entitydeadinventor.name=Dead Inventor
 entity.entityminecartdrilling.name=Seam Miner Cart
-entity.entityminecartsemisolid.name=Semisolid Carrier Cart
+entity.entityminecartcarrier.name=Carrier Cart
 
 
 #Advancements

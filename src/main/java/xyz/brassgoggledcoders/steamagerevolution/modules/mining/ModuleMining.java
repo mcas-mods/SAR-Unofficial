@@ -29,12 +29,12 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import stanhebben.zenscript.util.StringUtil;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOreGenerator;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartCarrier;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartDrilling;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartSemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.grinder.BlockGrinderFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.grinder.BlockGrinderInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartCarrier;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartDrilling;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartSemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.modules.worldgen.OreGenerator;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.MachineRecipeBuilder;
 
@@ -46,7 +46,7 @@ public class ModuleMining extends ModuleBase {
 	public static DamageSource damageSourceGrinder = new DamageSource("grinder").setDifficultyScaled()
 			.setDamageBypassesArmor().setDamageIsAbsolute();
 	
-	public static final ItemMinecart minecart_semisolid = null;
+	public static final ItemMinecart minecart_carrier = null;
 	public static final ItemMinecart minecart_drilling = null;
 
 	static String[] materials = {"iron", "gold", "copper", "zinc"};//, "tin", "aluminum", "lead"};
@@ -104,7 +104,7 @@ public class ModuleMining extends ModuleBase {
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
 		super.registerBlocks(configRegistry, blockRegistry);
 
-		// blockRegistry.register(new BlockDrillFrame());
+		//blockRegistry.register(new BlockDrillFrame());
 		// blockRegistry.register(new BlockDrillOutput());
 		
 		for(String type : materials) {
@@ -122,14 +122,14 @@ public class ModuleMining extends ModuleBase {
 	@Override
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
 		super.registerItems(configRegistry, itemRegistry);
-		itemRegistry.register(new ItemMinecartSemisolid());
+		itemRegistry.register(new ItemMinecartCarrier());
 		itemRegistry.register(new ItemMinecartDrilling());
 	}
 
 	@Override
 	public void registerEntities(ConfigRegistry configRegistry, EntityRegistry entityRegistry) {
 		super.registerEntities(configRegistry, entityRegistry);
-		entityRegistry.register(EntityMinecartSemisolid.class);
+		entityRegistry.register(EntityMinecartCarrier.class);
 		entityRegistry.register(EntityMinecartDrilling.class);
 	}
 

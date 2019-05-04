@@ -29,7 +29,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.ClientProxyMining;
 
@@ -66,7 +65,6 @@ public class RenderMinecartDrilling extends RenderMinecartBase<EntityMinecartDri
 	public void drawBlockDamageTexture(Tessellator tessellatorIn, BufferBuilder bufferBuilder, BlockPos pos, float partialTicks, World world, float progressIn) {
 	    TextureManager renderEngine = Minecraft.getMinecraft().renderEngine;
 	    IBlockState iblockstate = world.getBlockState(pos);
-	    //TODO Feed in Fakeplayer?
 	    int progress = (int) Math.floor((progressIn * 10F) - 1); // 0-10
 
 	    if(progress < 0) {

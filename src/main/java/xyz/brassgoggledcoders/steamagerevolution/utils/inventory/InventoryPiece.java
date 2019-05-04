@@ -1,5 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 
+import org.apache.commons.lang3.tuple.Pair;
+
+import scala.actors.threadpool.Arrays;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
@@ -60,10 +64,18 @@ public class InventoryPiece {
 		public InventoryPieceItem(ItemStackHandlerExtractSpecific handler, int[] xPos, int[] yPos) {
 			super(xPos, yPos);
 			this.handler = handler;
+			if(handler instanceof HandlerForceStack) {
+				SteamAgeRevolution.instance.getLogger().devInfo(Arrays.toString(xPos));
+				SteamAgeRevolution.instance.getLogger().devInfo(Arrays.toString(yPos));
+			}
 		}
 
 		public InventoryPieceItem(ItemStackHandlerExtractSpecific handler, int xPos, int yPos) {
 			this(handler, new int[] { xPos }, new int[] { yPos });
+		}
+		
+		public InventoryPieceItem(ItemStackHandlerExtractSpecific handler, Pair<int[], int[]> posPair) {
+			this(handler, posPair.getLeft(), posPair.getRight());
 		}
 
 		public ItemStackHandlerExtractSpecific getHandler() {

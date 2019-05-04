@@ -10,6 +10,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
+@Deprecated
 public class BlockDrillFrame extends BlockMultiblockBase<TileEntityDrillFrame> {
 
 	public BlockDrillFrame() {

@@ -2,10 +2,13 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
 
 import java.lang.ref.WeakReference;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -17,11 +20,12 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.ControllerDrill;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
 
+@Deprecated //Move me somewhere sane on feature end
 public class MiningUtils {
 
 	public static boolean allowedToBreak(IBlockState state, World world, BlockPos pos, EntityPlayer entityPlayer) {
@@ -33,7 +37,6 @@ public class MiningUtils {
 		return !event.isCanceled();
 	}
 
-	//TODO Account for breaking speed
 	public static void doMining(World world, BlockPos pos, IItemHandler itemHandler) {
 		//TODO Player tool
 		WeakReference<FakePlayer> fakePlayer = new WeakReference<FakePlayer>(
@@ -57,6 +60,20 @@ public class MiningUtils {
 				world.destroyBlock(pos, false);
 				ForgeEventFactory.fireBlockHarvesting(drops, world, pos, state, 0, 0, false, fakePlayer.get());
 		}
+	}
+	
+	//This took me a surprisngly long time. To be fair, I did get a U in Math. 
+	//And apparently English too...
+	public static Pair<int[], int[]> getGUIPositionGrid(int xStart, int yStart, int xSize, int ySize) {
+		int[] xPositions = new int[xSize * ySize];
+		int[] yPositions = new int[xSize * ySize];
+		for (int vertical = 0; vertical < ySize; ++vertical) {
+            for (int horizontal = 0; horizontal < xSize; ++horizontal) {
+                xPositions[horizontal + (vertical * ySize)] = xStart + (horizontal * 18);
+                yPositions[horizontal + (vertical * ySize)] = yStart + (vertical * 18);
+            }
+        }
+		return Pair.of(xPositions, yPositions);
 	}
 
 }

@@ -22,7 +22,6 @@ import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -47,7 +46,7 @@ public class ModuleMaterials extends ModuleBase {
 	String[] metalParts = new String[] { "ore", "heavy_ore", "crushed_ore", "ore_rock", "solution", "crystal", "ingot", "nugget",
 			"plate", "dust", "block", "molten", "lattice" };
 	String[] alloyParts = Arrays.copyOfRange(metalParts, 6, metalParts.length);
-	String[] compatParts = new String[] { "heavy_ore", "crushed_ore", "solution", "crystal", "lattice", "ore_rock" };
+	String[] compatParts = new String[] { "crushed_ore", "solution", "crystal", "lattice", "ore_rock" };
 
 	public static List<String> knownMetalTypes = Lists.newArrayList();
 	

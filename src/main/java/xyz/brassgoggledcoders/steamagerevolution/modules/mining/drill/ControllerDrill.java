@@ -14,9 +14,9 @@ import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.MiningUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
@@ -30,18 +30,9 @@ public class ControllerDrill extends SARMultiblockInventory<InventoryRecipeMachi
 
 	protected ControllerDrill(World world) {
 		super(world);
-		// TODO Util methods for positioning x/y grids of slots would be handy
-		int xOffset = 49;
-		int yOffset = 1;
-		int slotGap = 2;
+		Pair<int[], int[]> pos = MiningUtils.getGUIPositionGrid(49, 10, 3, 3);
 		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 40, 32), null,
-				new InventoryPieceItem(new ItemStackHandlerSmart(9, this),
-						new int[] { xOffset + 16, xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2, xOffset + 16,
-								xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2, xOffset + 16,
-								xOffset + 32 + slotGap, xOffset + 48 + slotGap * 2 },
-						new int[] { yOffset + 16, yOffset + 16, yOffset + 16, yOffset + 32 + slotGap,
-								yOffset + 32 + slotGap, yOffset + 32 + slotGap, yOffset + 48 + slotGap * 2,
-								yOffset + 48 + slotGap * 2, yOffset + 48 + slotGap * 2 }), null,
+				new InventoryPieceItem(new ItemStackHandlerSmart(9, this), pos.getLeft(), pos.getRight()), null,
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 13, 9)));
 	}
 

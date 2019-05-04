@@ -5,17 +5,17 @@ import com.teamacronymcoders.base.items.minecart.ItemMinecartBase;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartSemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartCarrier;
 
-public class ItemMinecartSemisolid extends ItemMinecartBase {
+public class ItemMinecartCarrier extends ItemMinecartBase {
 
-	public ItemMinecartSemisolid() {
-		super("semisolid");
+	public ItemMinecartCarrier() {
+		super("carrier");
 	}
 
 	@Override
 	public EntityMinecartBase getEntityFromItem(World world, ItemStack itemStack) {
-		return new EntityMinecartSemisolid(world);
+		return new EntityMinecartCarrier(world);
 	}
 
 }

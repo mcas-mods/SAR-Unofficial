@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartDrilling;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartSemisolid;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartCarrier;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.RenderMinecartDrilling;
 
 public class ClientProxyMining implements IModuleProxy {
@@ -19,7 +19,7 @@ public class ClientProxyMining implements IModuleProxy {
 	
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		RenderingRegistry.registerEntityRenderingHandler(EntityMinecartSemisolid.class, RenderMinecartBase::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityMinecartCarrier.class, RenderMinecartBase::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityMinecartDrilling.class, RenderMinecartDrilling::new);
 	}
 

@@ -8,24 +8,25 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.MiningUtils;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.ModuleMining;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerForceStack;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.HandlerForceStack;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 
-public class EntityMinecartSemisolid extends EntityMinecartInventory<InventoryRecipeMachine>  {
+public class EntityMinecartCarrier extends EntityMinecartInventory<InventoryRecipeMachine>  {
 	
-	public EntityMinecartSemisolid(World world) {
+	public EntityMinecartCarrier(World world) {
 		super(world);
-		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new HandlerForceStack(8), new int[] {0,16,32,48,100,120,140,160}, new int[] {0,0,0,0,0,0,0,0}), null, null, null, null));
+		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new HandlerForceStack(8), MiningUtils.getGUIPositionGrid(52, 30, 4, 2)), null, null, null, null));
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiInventory(entityPlayer, this);
+		return new GuiInventory(entityPlayer, this, "carrier_cart");
 	}
 
 	@Override
@@ -35,6 +36,6 @@ public class EntityMinecartSemisolid extends EntityMinecartInventory<InventoryRe
 
 	@Override
 	public ItemMinecart getItem() {
-		return ModuleMining.minecart_semisolid;
+		return ModuleMining.minecart_carrier;
 	}
 }
