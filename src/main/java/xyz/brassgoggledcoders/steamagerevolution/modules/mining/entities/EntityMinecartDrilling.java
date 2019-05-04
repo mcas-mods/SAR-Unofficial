@@ -1,27 +1,39 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities;
 
+import java.lang.ref.WeakReference;
+
+import com.google.common.base.Optional;
+
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.BlockRailBase.EnumRailDirection;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemMinecart;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.MiningUtils;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.ModuleMining;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.ControllerDrill;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.HandlerForceStack;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 
 public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryRecipeMachine> {
 
-	BlockPos miningLocation;
+	public static final DataParameter<Optional<BlockPos>> MINING_POS = EntityDataManager.<Optional<BlockPos>>createKey(EntityMinecartDrilling.class, DataSerializers.OPTIONAL_BLOCK_POS);
+	public static final DataParameter<Float> MINING_PROGRESS = EntityDataManager.<Float>createKey(EntityMinecartDrilling.class, DataSerializers.FLOAT);
 	
 	public EntityMinecartDrilling(World world) {
 		super(world);
@@ -43,6 +55,14 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryRec
 	public ItemMinecart getItem() {
 		return ModuleMining.minecart_drilling;
 	}
+	
+	@Override
+	protected void entityInit()
+    {
+		this.dataManager.register(MINING_POS, Optional.absent());
+		this.dataManager.register(MINING_PROGRESS, 0F);
+		super.entityInit();
+    }
 
 	@Override
 	public void onActivatorRailPass(int blockX, int blockY, int blockZ, boolean receivingPower) {
@@ -77,17 +97,24 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryRec
 
 	//TODO Blockbreak animation
 	private void doMining(EnumFacing facingToMine) {
+		WeakReference<FakePlayer> fakePlayer = new WeakReference<FakePlayer>(
+				FakePlayerFactory.get((WorldServer) world, ControllerDrill.profile));
 		BlockPos target = this.getPosition().offset(facingToMine);
 		if (!world.isAirBlock(target)) {
-			if(getCurrentProgress() >= (world.getBlockState(target).getBlockHardness(world, target) * 100)) {
+			if(this.getDataManager().get(MINING_PROGRESS).floatValue() >= 1.0F) {
 				MiningUtils.doMining(this.getEntityWorld(), target, this.getInventory().getInputHandler());
-				miningLocation = null;
+				this.getDataManager().set(MINING_POS, Optional.absent());
+				this.getDataManager().set(MINING_PROGRESS, 0F);
+				return;
 			}
 			else {
-				miningLocation = target;
-				this.setCurrentTicks(this.getCurrentProgress() + 1);
+				this.getDataManager().set(MINING_POS, Optional.of(target));
+				this.getDataManager().set(MINING_PROGRESS, this.getDataManager().get(MINING_PROGRESS) + world.getBlockState(target).getPlayerRelativeBlockHardness(fakePlayer.get(), world, target));
+				return;
 			}
 		}
+		//If we can't mine, reset. TODO Reset on cart move?
+		this.getDataManager().set(MINING_PROGRESS, 0F);
 	}
 
 }

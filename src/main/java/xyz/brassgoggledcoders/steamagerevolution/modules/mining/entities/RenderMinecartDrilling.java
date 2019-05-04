@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 
 import org.lwjgl.opengl.GL11;
 
+import com.google.common.base.Optional;
 import com.teamacronymcoders.base.renderer.entity.minecart.RenderMinecartBase;
 
 import net.minecraft.block.Block;
@@ -11,7 +12,6 @@ import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockEnderChest;
 import net.minecraft.block.BlockSign;
 import net.minecraft.block.BlockSkull;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
@@ -24,12 +24,14 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.EventHandlerClient;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.ClientProxyMining;
 
 public class RenderMinecartDrilling extends RenderMinecartBase<EntityMinecartDrilling> {
 
@@ -44,8 +46,9 @@ public class RenderMinecartDrilling extends RenderMinecartBase<EntityMinecartDri
 	@Override
     public void doRender(@Nonnull EntityMinecartDrilling entity, double x, double y, double z, float entityYaw, float partialTicks) {
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
-		if(entity.miningLocation != null) {
-			this.drawBlockDamageTexture(Tessellator.getInstance(), Tessellator.getInstance().getBuffer(), entity.miningLocation, partialTicks, entity.getEntityWorld());
+		Optional<BlockPos> blockPos = entity.getDataManager().get(EntityMinecartDrilling.MINING_POS);
+		if(blockPos.isPresent()) {
+			this.drawBlockDamageTexture(Tessellator.getInstance(), Tessellator.getInstance().getBuffer(), blockPos.get(), partialTicks, entity.getEntityWorld(), entity.getDataManager().get(EntityMinecartDrilling.MINING_PROGRESS).floatValue());
 		}
 	}
 
@@ -58,12 +61,13 @@ public class RenderMinecartDrilling extends RenderMinecartBase<EntityMinecartDri
 	protected ResourceLocation getEntityTexture(EntityMinecartDrilling entity) {
 		return TEX;
 	}
-	
-	//Copied from TiCon who copied it from Vanilla's RenderManager
-	public void drawBlockDamageTexture(Tessellator tessellatorIn, BufferBuilder bufferBuilder, BlockPos blockpos, float partialTicks, World world) {
+
+	//Copied from TiCon (who copied it from Vanilla's RenderManager)
+	public void drawBlockDamageTexture(Tessellator tessellatorIn, BufferBuilder bufferBuilder, BlockPos pos, float partialTicks, World world, float progressIn) {
 	    TextureManager renderEngine = Minecraft.getMinecraft().renderEngine;
-	    //TODO
-	    int progress = (int) (Minecraft.getMinecraft().playerController.curBlockDamageMP * 10f) - 1; // 0-10
+	    IBlockState iblockstate = world.getBlockState(pos);
+	    //TODO Feed in Fakeplayer?
+	    int progress = (int) Math.floor((progressIn * 10F) - 1); // 0-10
 
 	    if(progress < 0) {
 	      return;
@@ -82,11 +86,16 @@ public class RenderMinecartDrilling extends RenderMinecartBase<EntityMinecartDri
 	    //preRenderDamagedBlocks END
 
 	    bufferBuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-	    bufferBuilder.setTranslation(blockpos.getX(), blockpos.getY(), blockpos.getZ());
+	    //Don't try and translate to where we want to render, instead translate relative to the player for viewport
+	    Entity entityIn = Minecraft.getMinecraft().player;
+		double d0 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * partialTicks;
+	    double d1 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * partialTicks;
+	    double d2 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * partialTicks;
+	    bufferBuilder.setTranslation(-d0, -d1, -d2);
 	    bufferBuilder.noColor();
 	    
-		  Block block = world.getBlockState(blockpos).getBlock();
-		  TileEntity te = world.getTileEntity(blockpos);
+		  Block block = world.getBlockState(pos).getBlock();
+		  TileEntity te = world.getTileEntity(pos);
 		  boolean hasBreak = block instanceof BlockChest || block instanceof BlockEnderChest
 		                     || block instanceof BlockSign || block instanceof BlockSkull;
 		  if(!hasBreak) {
@@ -94,12 +103,10 @@ public class RenderMinecartDrilling extends RenderMinecartBase<EntityMinecartDri
 		  }
 		  
 		  if(!hasBreak) {
-		    IBlockState iblockstate = world.getBlockState(blockpos);
-		
-		    if(iblockstate.getBlock().isAir(iblockstate, world, blockpos)) {
-		      TextureAtlasSprite textureatlassprite = EventHandlerClient.destroyBlockIcons[progress];
+		    if(!iblockstate.getBlock().isAir(iblockstate, world, pos)) {
+		      TextureAtlasSprite textureatlassprite = ((ClientProxyMining)SteamAgeRevolution.instance.getModuleHandler().getModule("Mining").getModuleProxy().get()).listener.destroyBlockIcons[progress];
 		      BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
-		      blockrendererdispatcher.renderBlockDamage(iblockstate, blockpos, textureatlassprite, world);
+		      blockrendererdispatcher.renderBlockDamage(iblockstate, pos, textureatlassprite, world);
 		    }
 		  }
 

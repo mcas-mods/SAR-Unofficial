@@ -3,6 +3,8 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
 import com.teamacronymcoders.base.modulesystem.proxies.IModuleProxy;
 import com.teamacronymcoders.base.renderer.entity.minecart.RenderMinecartBase;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -11,8 +13,10 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityM
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartSemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.RenderMinecartDrilling;
 
-public class ClientProxy implements IModuleProxy {
-
+public class ClientProxyMining implements IModuleProxy {
+	
+	public ResourceListener listener;
+	
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		RenderingRegistry.registerEntityRenderingHandler(EntityMinecartSemisolid.class, RenderMinecartBase::new);
@@ -25,5 +29,7 @@ public class ClientProxy implements IModuleProxy {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
+		listener = new ResourceListener();
+		((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(listener);
 	}
 }

@@ -29,8 +29,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import stanhebben.zenscript.util.StringUtil;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOreGenerator;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockRailDumping;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockSemisolidLoader;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartDrilling;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartSemisolid;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.grinder.BlockGrinderFrame;
@@ -55,7 +53,7 @@ public class ModuleMining extends ModuleBase {
 
 	@Override
 	public String getClientProxyPath() {
-		return "xyz.brassgoggledcoders.steamagerevolution.modules.mining.ClientProxy";
+		return "xyz.brassgoggledcoders.steamagerevolution.modules.mining.ClientProxyMining";
 	}
 
 	@Override
@@ -75,6 +73,7 @@ public class ModuleMining extends ModuleBase {
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 		super.postInit(event);
+		
 	}
 
 	@Override
