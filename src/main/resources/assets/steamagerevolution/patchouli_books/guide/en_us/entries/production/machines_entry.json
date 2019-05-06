@@ -11,7 +11,7 @@
 {
             "type": "relations",
             "title": "Multiblocks",
-            "entries": ["steamagerevolution:production/alloy_forge_entry", "steamagerevolution:production/boiler_entry", "steamagerevolution:production/crucible_entry", "steamagerevolution:production/steam_hammer_entry", "steamagerevolution:production/steelworks_entry", "steamagerevolution:alchemical/vat_entry", "steamagerevolution:alchemical/distiller_entry"]
+            "entries": ["steamagerevolution:production/alloy_forge_entry", "steamagerevolution:production/boiler_entry", "steamagerevolution:production/crucible_entry", "steamagerevolution:production/steam_hammer_entry", "steamagerevolution:production/steelworks_entry", "steamagerevolution:alchemical/vat_entry", "steamagerevolution:alchemical/distiller_entry", "steamagerevolution:mining/grinder"]
         }
     ]
 }

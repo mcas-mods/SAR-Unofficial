@@ -1,0 +1,12 @@
+{
+    "name": "Prospecting",
+    "icon": "minecraft:gold_ingot",
+    "category": "mining_category",
+    "priority": true,
+    "pages": [
+        {
+            "type": "text",
+            "text": "Very rarely, you may come across a 'tell' - a small glint of ore embedded in rock. It signifies a rich ore deposit hidden in the rocks around you. Right click the tell with a $(item)Hammer$() and a $(thing)Heavy Ore Seam$() will be revealed in the surrounding stone. Seams are long thin deposits that can be tens of blocks long."
+        }
+    ]
+}

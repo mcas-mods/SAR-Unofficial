@@ -9,7 +9,6 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.teamacronymcoders.base.Base;
 import com.teamacronymcoders.base.Reference;
 import com.teamacronymcoders.base.blocks.BlockBase;
 import com.teamacronymcoders.base.blocks.IHasBlockColor;
@@ -56,7 +55,7 @@ public class BlockHeavyOreIndicator extends BlockBase implements IHasGeneratedMo
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-        return Item.getItemFromBlock(Blocks.STONE);
+        return Item.getItemFromBlock(Blocks.COBBLESTONE);
     }
 	
 	@Override
