@@ -39,6 +39,8 @@ public class SARJEIPlugin implements IModPlugin {
 				new FumeCollectorRecipeCategory(), new DistillerRecipeCategory(), new GrinderRecipeCategory());
 	}
 
+	//TODO Steam consumption support
+	//TODO GUI Widget for processing time
 	@Override
 	public void register(IModRegistry registry) {
 		add(registry, RecipeRegistry.getRecipesForMachine("steam hammer"), SteamHammerRecipeCategory.uid,
