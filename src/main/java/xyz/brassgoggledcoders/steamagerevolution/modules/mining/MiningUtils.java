@@ -28,9 +28,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOreIndicator;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.ControllerDrill;
 
 @Deprecated //Move me somewhere sane on feature end
 public class MiningUtils {
@@ -47,7 +45,7 @@ public class MiningUtils {
 	public static void doMining(World world, BlockPos pos, IItemHandler itemHandler) {
 		//TODO Player tool
 		WeakReference<FakePlayer> fakePlayer = new WeakReference<FakePlayer>(
-				FakePlayerFactory.get((WorldServer) world, ControllerDrill.profile));
+				FakePlayerFactory.get((WorldServer) world, ModuleMining.profile));
 		// Skip air, skip unbreakable blocks, skip tile entities and skip blocks that
 		// are otherwise unharvestable
 		IBlockState state = world.getBlockState(pos);

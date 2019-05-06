@@ -1,7 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
 
 import java.util.List;
+import java.util.UUID;
 
+import com.mojang.authlib.GameProfile;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.modulesystem.dependencies.IDependency;
@@ -30,14 +32,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import stanhebben.zenscript.util.StringUtil;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOreIndicator;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartCarrier;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartDrilling;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.grinder.BlockGrinderFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.grinder.BlockGrinderInput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartCarrier;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartDrilling;
-import xyz.brassgoggledcoders.steamagerevolution.modules.worldgen.OreGenerator;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.MachineRecipeBuilder;
 
 @Module(value = SteamAgeRevolution.MODID)
@@ -47,6 +47,8 @@ public class ModuleMining extends ModuleBase {
 
 	public static DamageSource damageSourceGrinder = new DamageSource("grinder").setDifficultyScaled()
 			.setDamageBypassesArmor().setDamageIsAbsolute();
+	private static final String name = "[" + SteamAgeRevolution.MODNAME + "]";
+	public static final GameProfile profile = new GameProfile(UUID.nameUUIDFromBytes(name.getBytes()), name);
 	
 	public static final ItemMinecart minecart_carrier = null;
 	public static final ItemMinecart minecart_drilling = null;

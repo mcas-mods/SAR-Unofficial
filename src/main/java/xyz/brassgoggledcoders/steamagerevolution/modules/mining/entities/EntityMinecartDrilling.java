@@ -23,7 +23,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.MiningUtils;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.ModuleMining;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.ControllerDrill;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerForceStack;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.HandlerForceStack;
@@ -95,10 +94,9 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryRec
 		}
 	}
 
-	//TODO Blockbreak animation
 	private void doMining(EnumFacing facingToMine) {
 		WeakReference<FakePlayer> fakePlayer = new WeakReference<FakePlayer>(
-				FakePlayerFactory.get((WorldServer) world, ControllerDrill.profile));
+				FakePlayerFactory.get((WorldServer) world, ModuleMining.profile));
 		BlockPos target = this.getPosition().offset(facingToMine);
 		if (!world.isAirBlock(target)) {
 			if(this.getDataManager().get(MINING_PROGRESS).floatValue() >= 1.0F) {
