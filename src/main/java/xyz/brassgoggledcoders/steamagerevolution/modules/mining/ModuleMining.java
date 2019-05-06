@@ -47,8 +47,8 @@ public class ModuleMining extends ModuleBase {
 
 	public static DamageSource damageSourceGrinder = new DamageSource("grinder").setDifficultyScaled()
 			.setDamageBypassesArmor().setDamageIsAbsolute();
-	private static final String name = "[" + SteamAgeRevolution.MODNAME + "]";
-	public static final GameProfile profile = new GameProfile(UUID.nameUUIDFromBytes(name.getBytes()), name);
+	private static String name = "[" + SteamAgeRevolution.MODNAME + "]";
+	public static GameProfile profile = new GameProfile(UUID.nameUUIDFromBytes(name.getBytes()), name);
 	
 	public static final ItemMinecart minecart_carrier = null;
 	public static final ItemMinecart minecart_drilling = null;

@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
@@ -40,4 +41,11 @@ public class HandlerForceStack extends ItemStackHandlerExtractSpecific {
 		}
 		super.setStackInSlot(from, stack);
     }
+	
+	@Override
+	public void onContentsChanged(int slot) {
+		if(this.holder instanceof IInventory) {
+			((IInventory) this.holder).markDirty();
+		}
+	}
 }

@@ -51,6 +51,7 @@ public class BlockHeavyOre extends BlockBase implements IHasGeneratedModel, IHas
 		this.setItemBlock(new ItemBlockHeavyOre<>(this, "heavy_ore", materialPart.getMaterial()));
 	}
 
+	//TODO Visual depletion of ore
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState().withProperty(CHUNKS, meta + 1);

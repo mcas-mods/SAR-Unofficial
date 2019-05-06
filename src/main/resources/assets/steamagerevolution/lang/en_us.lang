@@ -39,7 +39,7 @@ item.steamagerevolution.lens.name=Lens
 item.steamagerevolution.goggles.name=Goggles
 
 item.steamagerevolution.minecart_drilling.name=Seam Miner Cart
-item.steamagerevolution.minecart_semisolid.name=Semisolid Carrier Cart
+item.steamagerevolution.minecart_carrier.name=Ore Carrier Cart
 
 #Blocks
 tile.steamagerevolution.fluid_io.name=Fluid IO

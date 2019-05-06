@@ -154,7 +154,6 @@ public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> 
 
 	@Override
 	public void markDirty() {
-		this.markDirty();
 	}
 
 	@Override
@@ -190,5 +189,4 @@ public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> 
 
 	@Override
 	public void clear() {}
-
 }
