@@ -2,12 +2,15 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.teamacronymcoders.base.Base;
+import com.teamacronymcoders.base.Reference;
 import com.teamacronymcoders.base.blocks.BlockBase;
 import com.teamacronymcoders.base.blocks.IHasBlockColor;
 import com.teamacronymcoders.base.blocks.IHasBlockStateMapper;
@@ -20,75 +23,60 @@ import com.teamacronymcoders.base.util.files.templates.TemplateFile;
 import com.teamacronymcoders.base.util.files.templates.TemplateManager;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.LootTable;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.MiningUtils;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemBlockHeavyOre;
 
-public class BlockHeavyOre extends BlockBase implements IHasGeneratedModel, IHasBlockStateMapper, IHasBlockColor {
+public class BlockHeavyOreIndicator extends BlockBase implements IHasGeneratedModel, IHasBlockStateMapper, IHasBlockColor {
 
-	public static final PropertyInteger CHUNKS = PropertyInteger.create("chunks", 1, 8);
-	public String type;
-	public MaterialPart materialPart;
-
-	public BlockHeavyOre(MaterialPart part, String type) {
-		super(Material.ROCK, type.toLowerCase() + "_heavy_ore");
-		this.materialPart = part;
-		this.type = type;
-		this.setDefaultState(this.blockState.getBaseState().withProperty(CHUNKS, 8));
-		this.setHardness(75F);
-		this.setItemBlock(new ItemBlockHeavyOre<>(this, "heavy_ore", materialPart.getMaterial()));
+	BlockHeavyOre type;
+	
+	public BlockHeavyOreIndicator(BlockHeavyOre ore, MaterialPart part) {
+		super(Material.ROCK, ore.type.toLowerCase() + "_heavy_ore_indicator");
+		this.setItemBlock(new ItemBlockHeavyOre<>(this, "heavy_ore_indicator", part.getMaterial()));
+		this.type = ore;
 	}
-
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(CHUNKS, meta + 1);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(CHUNKS).intValue() - 1;
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] { CHUNKS });
+	
+	public BlockHeavyOre getOre() {
+		return type;
 	}
 	
 	@Override
-	public void onPlayerDestroy(World world, BlockPos pos, IBlockState state) {
-		int chunks = state.getValue(BlockHeavyOre.CHUNKS).intValue();
-		if (!world.isRemote && chunks > 1) {
-			this.dropBlockAsItemWithChance(world, pos, state, 0, 0);
-			world.setBlockState(pos, state.withProperty(BlockHeavyOre.CHUNKS, chunks - 1), 2);
-		}
-		super.onPlayerDestroy(world, pos, state);
-	}
-	
-	@Override
-	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
+	public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-        if (!worldIn.isRemote && !worldIn.restoringBlockSnapshots) // do not drop items while restoring blockstates, prevents item dupe
-        {
-        	WorldServer ws = (WorldServer) worldIn;
-			LootTable table = ws.getLootTableManager().getLootTableFromLocation(new ResourceLocation(SteamAgeRevolution.MODID, "heavy_ore_" + type));
-			LootContext ctx = new LootContext.Builder(ws).build();
-			List<ItemStack> stacks = table.generateLootForPools(ws.rand, ctx);
-			for(ItemStack stack : stacks) {
-				spawnAsEntity(worldIn, pos, stack);
+        return Item.getItemFromBlock(Blocks.STONE);
+    }
+	
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+    {
+		if(playerIn.getHeldItem(hand).getItem() == ModuleMetalworking.hammer) {
+			if(facing.equals(EnumFacing.UP) || facing.equals(EnumFacing.DOWN)) {
+				facing = EnumFacing.byHorizontalIndex(worldIn.rand.nextInt(3));
 			}
-        }
+			EnumFacing toGenerate;
+			do {
+				//Randomly pick a direction for the seam from all horizontal directions
+				toGenerate = EnumFacing.byHorizontalIndex(worldIn.rand.nextInt(3));
+			}
+			//If facing is towards the player, reroll
+			while(facing.getOpposite().equals(toGenerate));
+			MiningUtils.generateOreSeam(worldIn, pos, facing, 10 + worldIn.rand.nextInt(10), 4 + worldIn.rand.nextInt(2), 3 + worldIn.rand.nextInt(3));
+			return true;
+		}
+        return false;
     }
 	
 	@Override
@@ -107,10 +95,16 @@ public class BlockHeavyOre extends BlockBase implements IHasGeneratedModel, IHas
 		List<IGeneratedModel> models = Lists.newArrayList();
 		this.getResourceLocations(Lists.newArrayList()).forEach(resourceLocation -> {
 			TemplateFile templateFile = TemplateManager
-					.getTemplateFile(new ResourceLocation(SteamAgeRevolution.MODID, "heavy_ore"));
+					.getTemplateFile(new ResourceLocation(Reference.MODID, "ore_block_state"));
 			Map<String, String> replacements = Maps.newHashMap();
+			replacements.put("texture",
+					new ResourceLocation("minecraft:blocks/stone").toString());
+			replacements.put("particle",
+					new ResourceLocation("minecraft:blocks/stone").toString());
+			replacements.put("ore_shadow",
+					new ResourceLocation(Reference.MODID, "blocks/ore_shadow").toString());
 			replacements.put("ore",
-					new ResourceLocation(SteamAgeRevolution.instance.getID(), "blocks/heavy_ore").toString());
+					new ResourceLocation(Reference.MODID, "blocks/poor_ore").toString());
 			templateFile.replaceContents(replacements);
 			models.add(new GeneratedModel("materials/" + this.getName(), ModelType.BLOCKSTATE,
 					templateFile.getFileContents()));
@@ -127,6 +121,7 @@ public class BlockHeavyOre extends BlockBase implements IHasGeneratedModel, IHas
 
 	@Override
 	public int colorMultiplier(IBlockState state, @Nullable IBlockAccess world, @Nullable BlockPos pos, int tintIndex) {
-		return materialPart.getColor();
+		return type.materialPart.getColor();
 	}
+
 }

@@ -4,6 +4,7 @@ itemGroup.steamagerevolution=Steam Age Revolution
 steamagerevolution.part.solution=%s Solution
 steamagerevolution.part.lattice=%s Lattice
 steamagerevolution.part.heavy_ore=%s Heavy Ore
+steamagerevolution.part.heavy_ore_indicator=%s Heavy Ore Tell
 
 #Items
 item.steamagerevolution.charcoal_powder.name=Charcoal Powder

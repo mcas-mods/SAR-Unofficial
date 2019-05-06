@@ -1,10 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items;
 
-import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.util.OreDictUtils;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,23 +11,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.ItemPickaxeBase;
 
-public class ItemHammer extends ItemBase {
+public class ItemHammer extends ItemPickaxeBase {
 
 	public ItemHammer() {
-		super("hammer");
-		setMaxStackSize(1);
-		setMaxDamage(ToolMaterial.IRON.getMaxUses());
-	}
-
-	@Override
-	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-		return state.getMaterial() == Material.ROCK ? 5F : 0F;
-	}
-
-	@Override
-	public boolean canHarvestBlock(IBlockState blockIn) {
-		return blockIn.getMaterial() == Material.ROCK;
+		super(ToolMaterial.IRON, "hammer");
 	}
 
 	@Override
@@ -53,6 +40,6 @@ public class ItemHammer extends ItemBase {
 			itemstack.damageItem(1, player);
 			return true;
 		}
-		return false;
+		return super.onBlockStartBreak(itemstack, pos, player);
 	}
 }

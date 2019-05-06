@@ -30,7 +30,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import stanhebben.zenscript.util.StringUtil;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOreGenerator;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOreIndicator;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartCarrier;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartDrilling;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.grinder.BlockGrinderFrame;
@@ -114,18 +114,6 @@ public class ModuleMining extends ModuleBase {
 	@Override
 	public void registerBlocks(ConfigRegistry configRegistry, BlockRegistry blockRegistry) {
 		super.registerBlocks(configRegistry, blockRegistry);
-
-		//blockRegistry.register(new BlockDrillFrame());
-		// blockRegistry.register(new BlockDrillOutput());
-		
-		for(String type : materials) {
-			blockRegistry.register(new BlockHeavyOreGenerator(type));
-			OreGenerator.heavyOresToGenerate.add(type);
-		}
-
-		//blockRegistry.register(new BlockRailDumping());
-		//blockRegistry.register(new BlockSemisolidLoader());
-
 		blockRegistry.register(new BlockGrinderFrame());
 		blockRegistry.register(new BlockGrinderInput());
 	}

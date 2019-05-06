@@ -15,6 +15,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOre;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOreIndicator;
+import xyz.brassgoggledcoders.steamagerevolution.modules.worldgen.OreGenerator;
 
 public class HeavyOrePartType extends BlockPartType {
 	public HeavyOrePartType() {
@@ -41,7 +43,10 @@ public class HeavyOrePartType extends BlockPartType {
 	public void setup(@Nonnull MaterialPart materialPart, @Nonnull MaterialUser materialUser) {
 		String name = materialPart.getMaterial().getOreDictSuffix();
 		BlockHeavyOre ore = new BlockHeavyOre(materialPart, name);
-		materialUser.getMod().getRegistryHolder().getRegistry(BlockRegistry.class, "BLOCK").register(ore);
+		BlockRegistry registry = materialUser.getMod().getRegistryHolder().getRegistry(BlockRegistry.class, "BLOCK");
+		registry.register(ore);
+		registry.register(new BlockHeavyOreIndicator(ore, materialPart));
+		OreGenerator.heavyOresToGenerate.add(name);
 	}
 
 	@Override
