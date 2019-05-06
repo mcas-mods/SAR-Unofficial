@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 import java.util.List;
 
 import com.google.common.collect.Lists;
+import com.teamacronymcoders.base.containers.ContainerBase;
 import com.teamacronymcoders.base.util.GuiHelper;
 
 import net.minecraft.client.gui.GuiScreen;
@@ -26,11 +27,15 @@ public class GuiInventory extends GuiContainer {
 	protected ResourceLocation guiTexture;
 
 	public GuiInventory(EntityPlayer player, IMachineHasInventory holder) {
-		this(player, holder, "");
+		this(player, holder, new ContainerInventory(player, holder), "");
+	}
+	
+	public GuiInventory(EntityPlayer player, IMachineHasInventory holder, ContainerBase containerInstance) {
+		this(player, holder, containerInstance, "");
 	}
 
-	public GuiInventory(EntityPlayer player, IMachineHasInventory holder, String textureOverride) {
-		super(new ContainerInventory(player, holder));
+	public GuiInventory(EntityPlayer player, IMachineHasInventory holder, ContainerBase containerInstance, String textureOverride) {
+		super(containerInstance);
 		String name = textureOverride;
 		if (textureOverride.isEmpty()) {
 			name = holder.getName().toLowerCase().replace(' ', '_');

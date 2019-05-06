@@ -64,10 +64,6 @@ public class InventoryPiece {
 		public InventoryPieceItem(ItemStackHandlerExtractSpecific handler, int[] xPos, int[] yPos) {
 			super(xPos, yPos);
 			this.handler = handler;
-			if(handler instanceof HandlerForceStack) {
-				SteamAgeRevolution.instance.getLogger().devInfo(Arrays.toString(xPos));
-				SteamAgeRevolution.instance.getLogger().devInfo(Arrays.toString(yPos));
-			}
 		}
 
 		public InventoryPieceItem(ItemStackHandlerExtractSpecific handler, int xPos, int yPos) {

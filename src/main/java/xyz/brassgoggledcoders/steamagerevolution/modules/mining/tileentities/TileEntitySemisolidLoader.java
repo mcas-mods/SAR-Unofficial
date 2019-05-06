@@ -35,7 +35,7 @@ public class TileEntitySemisolidLoader extends TileEntitySidedBase<IItemHandler>
 	int updateTest = -1;
 
 	public TileEntitySemisolidLoader() {
-		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new HandlerForceStack(8), new int[] {0,0,0,0,0,0,0,0}, new int[] {0,0,0,0,0,0,0,0}), null, null, null, null));
+		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new HandlerForceStack(this, 8), new int[] {0,0,0,0,0,0,0,0}, new int[] {0,0,0,0,0,0,0,0}), null, null, null, null));
 	}
 
 	@Override

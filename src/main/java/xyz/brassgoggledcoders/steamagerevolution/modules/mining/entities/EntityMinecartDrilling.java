@@ -2,8 +2,6 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities;
 
 import java.lang.ref.WeakReference;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import com.google.common.base.Optional;
 
 import net.minecraft.block.BlockRailBase;
@@ -27,7 +25,6 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mining.MiningUtils;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.ModuleMining;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.drill.ControllerDrill;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerForceStack;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.HandlerForceStack;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
@@ -40,13 +37,13 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryRec
 	
 	public EntityMinecartDrilling(World world) {
 		super(world);
-		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new HandlerForceStack(3), MiningUtils.getGUIPositionGrid(62, 31, 3, 1)), null, null, null, null));
+		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new HandlerForceStack(this, 3), MiningUtils.getGUIPositionGrid(62, 31, 3, 1)), null, null, null, null));
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiInventory(entityPlayer, this);
+		return new GuiInventory(entityPlayer, this, new ContainerForceStack(entityPlayer, this));
 	}
 
 	@Override

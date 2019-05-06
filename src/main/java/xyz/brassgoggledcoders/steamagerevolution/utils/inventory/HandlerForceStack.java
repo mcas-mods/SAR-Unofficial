@@ -6,8 +6,12 @@ import net.minecraft.item.ItemStack;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 public class HandlerForceStack extends ItemStackHandlerExtractSpecific {
-	public HandlerForceStack(int slots) {
+	
+	final IMachineHasInventory holder;
+	
+	public HandlerForceStack(IMachineHasInventory holder, int slots) {
 		super(slots);
+		this.holder = holder;
 	}
 
 	@Override
@@ -24,11 +28,14 @@ public class HandlerForceStack extends ItemStackHandlerExtractSpecific {
 	@Override
 	public void setStackInSlot(int from, @Nonnull ItemStack stack)
     {
-		for(int to = 0; to < this.getSlots(); to++) {
-			if(this.getStackInSlot(to).isItemEqual(stack)) {
-				int count = this.getStackInSlot(to).getCount();
-				this.stacks.set(to, new ItemStack(stack.getItem(), stack.getCount() + count, stack.getMetadata()));
-				return;
+		//If this happens on both sides wierd shit happens 
+		if(!holder.getMachineWorld().isRemote) {
+			for(int to = 0; to < this.getSlots(); to++) {
+				if(this.getStackInSlot(to).isItemEqual(stack)) {
+					int count = this.getStackInSlot(to).getCount();
+					this.stacks.set(to, new ItemStack(stack.getItem(), stack.getCount() + count, stack.getMetadata()));
+					return;
+				}
 			}
 		}
 		super.setStackInSlot(from, stack);

@@ -20,6 +20,8 @@ public class ContainerForceStack extends ContainerBase {
 			}
 		}
 		createPlayerSlots(player.inventory);
+		//Make sure the changes made in HandlerForceStack are sent to the client
+		this.detectAndSendChanges();
 	}
 
 	@Override

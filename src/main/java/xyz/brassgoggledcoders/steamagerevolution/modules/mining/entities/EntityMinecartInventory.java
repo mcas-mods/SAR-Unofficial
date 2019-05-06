@@ -153,7 +153,9 @@ public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> 
 	}
 
 	@Override
-	public void markDirty() {}
+	public void markDirty() {
+		this.markDirty();
+	}
 
 	@Override
 	public boolean isUsableByPlayer(EntityPlayer player) {

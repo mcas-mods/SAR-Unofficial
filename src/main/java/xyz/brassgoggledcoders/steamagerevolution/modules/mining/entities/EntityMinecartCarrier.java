@@ -20,13 +20,13 @@ public class EntityMinecartCarrier extends EntityMinecartInventory<InventoryReci
 	
 	public EntityMinecartCarrier(World world) {
 		super(world);
-		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new HandlerForceStack(8), MiningUtils.getGUIPositionGrid(52, 30, 4, 2)), null, null, null, null));
+		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new HandlerForceStack(this, 8), MiningUtils.getGUIPositionGrid(52, 30, 4, 2)), null, null, null, null));
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiInventory(entityPlayer, this, "carrier_cart");
+		return new GuiInventory(entityPlayer, this, new ContainerForceStack(entityPlayer, this), "carrier_cart");
 	}
 
 	@Override
