@@ -12,6 +12,7 @@ import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import com.teamacronymcoders.base.util.OreDictUtils;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemMinecart;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -20,6 +21,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -95,8 +97,17 @@ public class ModuleMining extends ModuleBase {
 			ItemStack crushedOreStack = OreDictUtils
 					.getPreferredItemStack("crushedOre" + StringUtil.capitalize(material));
 			if (!rockStack.isEmpty() && !crushedOreStack.isEmpty()) {
-				new MachineRecipeBuilder("grinder").setItemInputs(rockStack).setItemOutputs(crushedOreStack).setCraftTime(10).build();
+				ItemStack co = crushedOreStack.copy();
+				co.setCount(2);
+				new MachineRecipeBuilder("grinder").setItemInputs(rockStack).setItemOutputs(co).setCraftTime(20).setSteamCost(Fluid.BUCKET_VOLUME / 2).build();
 			}
+			
+			new MachineRecipeBuilder("grinder").setItemInputs(new ItemStack(Blocks.STONE))
+			.setItemOutputs(new ItemStack(Blocks.COBBLESTONE)).setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(10).build();
+			new MachineRecipeBuilder("grinder").setItemInputs(new ItemStack(Blocks.COBBLESTONE))
+				.setItemOutputs(new ItemStack(Blocks.GRAVEL)).setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(10).build();
+			new MachineRecipeBuilder("grinder").setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(10).setItemInputs(new ItemStack(Blocks.GRAVEL))
+				.setItemOutputs(new ItemStack(Blocks.SAND)).setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(10).build();
 		}
 	}
 

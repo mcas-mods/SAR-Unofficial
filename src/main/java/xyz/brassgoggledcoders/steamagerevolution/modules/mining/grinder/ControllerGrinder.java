@@ -6,6 +6,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSma
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceProgressBar;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
@@ -13,9 +14,10 @@ public class ControllerGrinder extends SARMultiblockInventory<InventoryRecipeMac
 
 	protected ControllerGrinder(World world) {
 		super(world);
-		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 0, 0), null,
-				new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 121, 32), null,
-				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 13, 9)));
+		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 58, 32),
+				null, new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 121, 32), null,
+				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 10, 9))
+						.setProgressBar(new InventoryPieceProgressBar(87, 33)));
 	}
 
 	@Override

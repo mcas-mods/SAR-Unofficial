@@ -2,9 +2,12 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "all": "steamagerevolution:blocks/grinder_input"
+      "top": "steamagerevolution:blocks/grinder_blades", 
+       "bottom": "steamagerevolution:blocks/grinder_frame",
+        "side": "steamagerevolution:blocks/grinder_frame",
+        "particle": "#side" 
     },
-    "model": "cube_all",
+    "model": "cube_bottom_top",
     "uvlock": true,
     "transform": "forge:default-block"
   },

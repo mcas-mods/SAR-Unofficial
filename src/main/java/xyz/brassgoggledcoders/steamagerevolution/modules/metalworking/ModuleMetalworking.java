@@ -74,13 +74,6 @@ public class ModuleMetalworking extends ModuleBase {
 		event.getRegistry().register(new RecipesIngotToPlate()
 				.setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "ingot_to_plate")));
 
-		new MachineRecipeBuilder("steam hammer").setItemInputs(new ItemStack(Blocks.STONE))
-				.setItemOutputs(new ItemStack(Blocks.COBBLESTONE)).build();
-		new MachineRecipeBuilder("steam hammer").setItemInputs(new ItemStack(Blocks.COBBLESTONE))
-				.setItemOutputs(new ItemStack(Blocks.GRAVEL)).build();
-		new MachineRecipeBuilder("steam hammer").setItemInputs(new ItemStack(Blocks.GRAVEL))
-				.setItemOutputs(new ItemStack(Blocks.SAND)).build();
-
 		new MachineRecipeBuilder("alloy forge")
 				.setFluidInputs(FluidRegistry.getFluidStack("copper", RecipeUtil.VALUE_INGOT),
 						FluidRegistry.getFluidStack("zinc", RecipeUtil.VALUE_INGOT))
@@ -168,7 +161,7 @@ public class ModuleMetalworking extends ModuleBase {
 				}
 				ItemStack crushedOreCopy = crushedOreStack.copy();
 				crushedOreCopy.setCount(4);
-				new MachineRecipeBuilder("steam hammer").setItemInputs(ore).setItemOutputs(crushedOreCopy).build();
+				
 			}
 			if (!crystalStack.isEmpty()) {
 				if (!nugget.isEmpty() && FurnaceRecipes.instance().getSmeltingResult(crystalStack).isEmpty()) {
