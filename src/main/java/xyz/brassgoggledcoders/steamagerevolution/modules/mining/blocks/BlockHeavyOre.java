@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
@@ -24,6 +25,7 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -41,7 +43,7 @@ public class BlockHeavyOre extends BlockBase implements IHasGeneratedModel, IHas
 	public MaterialPart materialPart;
 
 	public BlockHeavyOre(MaterialPart part, String type) {
-		super(Material.ROCK, "heavy_ore_" + type.toLowerCase());
+		super(Material.ROCK, type.toLowerCase() + "_heavy_ore");
 		this.materialPart = part;
 		this.type = type;
 		this.setDefaultState(this.blockState.getBaseState().withProperty(CHUNKS, 8));
@@ -107,8 +109,7 @@ public class BlockHeavyOre extends BlockBase implements IHasGeneratedModel, IHas
 			TemplateFile templateFile = TemplateManager
 					.getTemplateFile(new ResourceLocation(SteamAgeRevolution.MODID, "heavy_ore"));
 			Map<String, String> replacements = Maps.newHashMap();
-
-			replacements.put("texture",
+			replacements.put("ore",
 					new ResourceLocation(SteamAgeRevolution.instance.getID(), "blocks/heavy_ore").toString());
 			templateFile.replaceContents(replacements);
 			models.add(new GeneratedModel("materials/" + this.getName(), ModelType.BLOCKSTATE,
@@ -117,6 +118,12 @@ public class BlockHeavyOre extends BlockBase implements IHasGeneratedModel, IHas
 
 		return models;
 	}
+	
+	@Override
+    @Nonnull
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
 
 	@Override
 	public int colorMultiplier(IBlockState state, @Nullable IBlockAccess world, @Nullable BlockPos pos, int tintIndex) {

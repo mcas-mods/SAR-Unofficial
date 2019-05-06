@@ -41,7 +41,7 @@ public class ModuleMaterials extends ModuleBase {
 	public static final Block charcoal_block = null;
 	public static final Item charcoal_powder = null;
 	public static Color brassColor = new Color(251, 194, 99);
-	String[] vanillaParts = new String[] { "ore", "heavy_ore", "plate", "dust", "molten", "crushed_ore", "solution",
+	String[] vanillaParts = new String[] { "heavy_ore", "plate", "dust", "molten", "crushed_ore", "solution",
 			"crystal", "lattice", "ore_rock" };
 	String[] metalParts = new String[] { "ore", "heavy_ore", "crushed_ore", "ore_rock", "solution", "crystal", "ingot", "nugget",
 			"plate", "dust", "block", "molten", "lattice" };
@@ -140,9 +140,6 @@ public class ModuleMaterials extends ModuleBase {
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 		super.postInit(event);
-		// SteamAgeRevolution.instance.getLogger().devInfo(knownMetalTypes.toString());
-		// SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class,
-		// "CONFIG").updateEntry("knownMetals", String.join(",", knownMetalTypes));
 	}
 
 	@SubscribeEvent
@@ -168,11 +165,6 @@ public class ModuleMaterials extends ModuleBase {
 	@Override
 	public void registerItems(ConfigRegistry configRegistry, ItemRegistry itemRegistry) {
 		itemRegistry.register(new ItemBase("charcoal_powder"));
-	}
-
-	@Override
-	public String getClientProxyPath() {
-		return "xyz.brassgoggledcoders.steamagerevolution.modules.materials.ClientProxy";
 	}
 
 	@Override

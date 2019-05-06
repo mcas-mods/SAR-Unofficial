@@ -2,10 +2,11 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "texture": "steamagerevolution:blocks/heavy_ore",
-      "particle": "steamagerevolution:blocks/heavy_ore"
+      "particle": "minecraft:blocks/stone",
+      "texture": "minecraft:blocks/stone",
+      "ore": "steamagerevolution:blocks/heavy_ore"
     },
-    "model": "base:storage",
+    "model": "base:ore",
     "uvlock": true,
     "transform": "forge:default-block"
   },
