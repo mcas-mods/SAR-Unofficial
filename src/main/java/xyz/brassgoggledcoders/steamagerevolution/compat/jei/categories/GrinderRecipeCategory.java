@@ -20,7 +20,7 @@ public class GrinderRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 	public void setRecipe(IRecipeLayout recipeLayout, SARMachineRecipe recipeWrapper, IIngredients ingredients) {
 		recipeLayout.getItemStacks().init(0, true, 0, 0);
 		recipeLayout.getItemStacks().init(1, false, 63, 0);
-
+		
 		recipeLayout.getItemStacks().set(0, ingredients.getInputs(VanillaTypes.ITEM).get(0));
 		recipeLayout.getItemStacks().set(1, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 	}

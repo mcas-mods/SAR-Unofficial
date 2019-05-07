@@ -46,7 +46,7 @@ public class VatRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 			FluidStack stack = recipeWrapper.getFluidInputs()[i].getFluid();
 			if (stack != null) {
 				recipeLayout.getFluidStacks().init(i, true, 1 + (i * 25), 1, 20, 60,
-						ControllerVat.inputCapacity / recipeWrapper.getFluidInputs().length, true, null);
+						ControllerVat.inputCapacity / recipeWrapper.getFluidInputs().length, true, SARJEIPlugin.tankBackground);
 				recipeLayout.getFluidStacks().set(i, recipeWrapper.getFluidInputs()[i].getFluid());
 			}
 		}
@@ -59,7 +59,7 @@ public class VatRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 				}
 			}
 		}
-		recipeLayout.getFluidStacks().init(6, false, 132, 1, 20, 60, ControllerVat.outputCapacity, true, null);
+		recipeLayout.getFluidStacks().init(6, false, 132, 1, 20, 60, ControllerVat.outputCapacity, true, SARJEIPlugin.tankBackground);
 		recipeLayout.getFluidStacks().set(6, ingredients.getOutputs(VanillaTypes.FLUID).get(0));
 
 		recipeLayout.getFluidStacks().addTooltipCallback(SARJEIPlugin.fluidTooltipCallback);

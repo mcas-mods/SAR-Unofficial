@@ -9,7 +9,8 @@ public abstract class SARRecipeCategory<T extends IRecipeWrapper> implements IRe
 
 	protected static IGuiHelper helper;
 	String uid, name;
-
+	
+	
 	public SARRecipeCategory(String uid, String name) {
 		this.uid = uid;
 		this.name = name;
@@ -33,5 +34,4 @@ public abstract class SARRecipeCategory<T extends IRecipeWrapper> implements IRe
 	public String getModName() {
 		return SteamAgeRevolution.MODNAME;
 	}
-
 }

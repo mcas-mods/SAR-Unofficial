@@ -1,6 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,15 +12,21 @@ import org.apache.commons.lang3.ArrayUtils;
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.util.inventory.IngredientFluidStack;
 
+import mezz.jei.api.gui.IDrawableAnimated;
+import mezz.jei.api.gui.IDrawableAnimated.StartDirection;
+import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.oredict.OreIngredient;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
 
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei", striprefs = true)
 public class SARMachineRecipe implements IRecipeWrapper {
@@ -102,13 +107,6 @@ public class SARMachineRecipe implements IRecipeWrapper {
 		if (ArrayUtils.isNotEmpty(itemOutputs)) {
 			ingredients.setOutputs(VanillaTypes.ITEM, Arrays.asList(itemOutputs));
 		}
-	}
-
-	@Override
-	@Optional.Method(modid = "jei")
-	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-		minecraft.fontRenderer.drawString(ticksToProcess + " ticks to process", recipeWidth - 52, recipeHeight - 5,
-				Color.red.getRGB());
 	}
 
 	public static class MachineRecipeBuilder {
