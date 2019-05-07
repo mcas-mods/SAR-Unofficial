@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.util.inventory.IngredientFluidStack;
 
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -86,20 +87,20 @@ public class SARMachineRecipe implements IRecipeWrapper {
 			for (IngredientFluidStack fs : fluidIngredients) {
 				fluids.add(fs.getFluid());
 			}
-			ingredients.setInputs(FluidStack.class, fluids);
+			ingredients.setInputs(VanillaTypes.FLUID, fluids);
 		}
 		if (ArrayUtils.isNotEmpty(itemIngredients)) {
 			ArrayList<List<ItemStack>> items = Lists.newArrayList();
 			for (Ingredient ing : itemIngredients) {
 				items.add(Arrays.asList(ing.getMatchingStacks())); // TODO
 			}
-			ingredients.setInputLists(ItemStack.class, items);
+			ingredients.setInputLists(VanillaTypes.ITEM, items);
 		}
 		if (ArrayUtils.isNotEmpty(fluidOutputs)) {
-			ingredients.setOutputs(FluidStack.class, Arrays.asList(fluidOutputs));
+			ingredients.setOutputs(VanillaTypes.FLUID, Arrays.asList(fluidOutputs));
 		}
 		if (ArrayUtils.isNotEmpty(itemOutputs)) {
-			ingredients.setOutputs(ItemStack.class, Arrays.asList(itemOutputs));
+			ingredients.setOutputs(VanillaTypes.ITEM, Arrays.asList(itemOutputs));
 		}
 	}
 

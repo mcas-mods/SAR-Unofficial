@@ -1,19 +1,22 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories;
 
+import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
+import net.minecraft.util.ResourceLocation;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.multiblock.alloyfurnace.ControllerAlloyFurnace;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 public class AlloyForgeRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 
-	public static final String uid = "alloyforge";
+	public static final String uid = "alloyfurnace";
 	// private final IDrawable tankOverlay;
 
 	public AlloyForgeRecipeCategory() {
-		super(uid, "Alloy Forge");
+		super(uid, "Alloy Furnace");
 		// TODO
 		// tankOverlay = helper.createDrawable(background, 134, 55, 20, 49, 7, 5, 0, 0);
 	}
@@ -28,6 +31,11 @@ public class AlloyForgeRecipeCategory extends SARRecipeCategory<SARMachineRecipe
 		guiFluidStacks.set(0, ingredients.getInputs(VanillaTypes.FLUID).get(0));
 		guiFluidStacks.set(1, ingredients.getInputs(VanillaTypes.FLUID).get(1));
 		guiFluidStacks.set(2, ingredients.getOutputs(VanillaTypes.FLUID).get(0));
+	}
+	
+	@Override
+	public IDrawable getBackground() {
+		return helper.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/alloy_furnace.png"), 21, 10, 134, 62);
 	}
 
 }

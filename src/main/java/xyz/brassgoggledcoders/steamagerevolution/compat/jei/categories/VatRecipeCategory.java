@@ -37,9 +37,7 @@ public class VatRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 
 	@Override
 	public IDrawable getBackground() {
-		// 144, 122
-		return helper.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/jei/vat.png"), 0, 0,
-				146, 125);
+		return helper.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/vat.png"), 11, 8, 153, 62);
 	}
 
 	@Override
@@ -47,7 +45,7 @@ public class VatRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 		for (int i = 0; i < recipeWrapper.getFluidInputs().length; i++) {
 			FluidStack stack = recipeWrapper.getFluidInputs()[i].getFluid();
 			if (stack != null) {
-				recipeLayout.getFluidStacks().init(i, true, 1 + (i * 39), 1, 20, 60,
+				recipeLayout.getFluidStacks().init(i, true, 1 + (i * 25), 1, 20, 60,
 						ControllerVat.inputCapacity / recipeWrapper.getFluidInputs().length, true, null);
 				recipeLayout.getFluidStacks().set(i, recipeWrapper.getFluidInputs()[i].getFluid());
 			}
@@ -56,12 +54,12 @@ public class VatRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 			for (int i2 = 0; i2 < recipeWrapper.getItemInputs().length; i2++) {
 				ItemStack stack = recipeWrapper.getItemInputs()[i2].getMatchingStacks()[0];
 				if (!stack.isEmpty()) {
-					recipeLayout.getItemStacks().init(i2 + 3, true, 2 + (i2 * 40) - i2, 105);
+					recipeLayout.getItemStacks().init(i2 + 3, true, 76, 2 + (i2 * 18));
 					recipeLayout.getItemStacks().set(i2 + 3, recipeWrapper.getItemInputs()[i2].getMatchingStacks()[0]);// TODO
 				}
 			}
 		}
-		recipeLayout.getFluidStacks().init(6, false, 124, 50, 20, 60, ControllerVat.outputCapacity, true, null);
+		recipeLayout.getFluidStacks().init(6, false, 132, 1, 20, 60, ControllerVat.outputCapacity, true, null);
 		recipeLayout.getFluidStacks().set(6, ingredients.getOutputs(VanillaTypes.FLUID).get(0));
 
 		recipeLayout.getFluidStacks().addTooltipCallback(SARJEIPlugin.fluidTooltipCallback);
