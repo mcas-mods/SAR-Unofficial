@@ -52,7 +52,6 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemSteamS
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemSteamSword;
 
 @Module(value = SteamAgeRevolution.MODID)
-@EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class ModuleArmory extends ModuleBase {
 
 	public static final ToolMaterial STEAM = EnumHelper.addToolMaterial("TOOL_STEAM", 2, -1, 12.0F, 3.0F, 0);
@@ -81,13 +80,6 @@ public class ModuleArmory extends ModuleBase {
 	@Override
 	public String getClientProxyPath() {
 		return "xyz.brassgoggledcoders.steamagerevolution.modules.armory.ClientProxy";
-	}
-
-	@SubscribeEvent
-	public static void onOreRegistered(OreDictionary.OreRegisterEvent event) {
-		if(event.getName().contains("ore")) {
-			KNOWN_ORES.add(Block.getBlockFromItem(event.getOre().getItem()));
-		}
 	}
 
 	@SubscribeEvent
@@ -262,13 +254,7 @@ public class ModuleArmory extends ModuleBase {
 		 *
 		 */
 	}
-
-	@SubscribeEvent
-	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-		event.getRegistry().register(
-				new RecipeAddLens().setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "add_lens")));
-	}
-
+	
 	@Override
 	public String getName() {
 		return "Armoury";
