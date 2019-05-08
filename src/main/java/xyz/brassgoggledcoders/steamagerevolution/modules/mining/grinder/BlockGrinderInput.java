@@ -3,11 +3,14 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mining.grinder;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.ModuleMining;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
@@ -33,8 +36,17 @@ public class BlockGrinderInput extends BlockMultiblockBase<TileEntityGrinderInpu
 	public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
 		float damage = 3F;
 		if(this.getTileEntity(worldIn, pos).isPresent() && this.getTileEntity(worldIn, pos).get().isConnected()) {
-			if(this.getTileEntity(worldIn, pos).get().getMultiblockController().getCurrentProgress() > 0) {
+			ControllerGrinder controller = this.getTileEntity(worldIn, pos).get().getMultiblockController();
+			if(controller.getCurrentProgress() > 0) {
 				damage = 20F;
+			}
+			if(entityIn instanceof EntityItem) {
+				EntityItem item = (EntityItem) entityIn;
+				ItemStack stack = item.getItem();
+				if(ItemHandlerHelper.insertItem(controller.getInventory().getInputHandler(), stack, true).isEmpty()) {
+					ItemHandlerHelper.insertItem(controller.getInventory().getInputHandler(), stack, false);
+					item.setDead();
+				}
 			}
 		}
 		entityIn.attackEntityFrom(ModuleMining.damageSourceGrinder, damage);
