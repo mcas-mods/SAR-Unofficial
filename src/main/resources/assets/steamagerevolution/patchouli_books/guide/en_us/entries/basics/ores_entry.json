@@ -2,6 +2,7 @@
     "name": "New Ores",
     "icon": "minecraft:iron_ore",
     "category": "basics_category",
+    "priority": true,
     "pages": [
         {
             "type": "text",

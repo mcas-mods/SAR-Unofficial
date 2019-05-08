@@ -9,7 +9,7 @@
         },
         {
             "type": "crafting",
-            "recipe": "steamagerevolution:brass_dust"
+            "recipe": "steamagerevolution:items/brass_dust"
         },
         {
             "type": "smelting",

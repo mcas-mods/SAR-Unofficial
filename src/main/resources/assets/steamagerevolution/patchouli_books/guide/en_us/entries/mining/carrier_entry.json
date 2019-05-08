@@ -6,6 +6,10 @@
         {
             "type": "text",
             "text": "This minecart is an ore hopper, able to carry a huge amount of ore rock between mining outposts and processing stations."
+        },
+        {
+            "type": "crafting",
+            "recipe": "steamagerevolution:items/carrier_cart"
         }
     ]
 }

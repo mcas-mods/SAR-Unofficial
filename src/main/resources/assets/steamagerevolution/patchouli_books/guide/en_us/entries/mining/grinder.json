@@ -7,6 +7,15 @@
         {
             "type": "text",
             "text": "The $(thing)Grinder$() is a multiblock which serves to grind stuff into smaller stuff - stone into gravel, gravel into sand and so on. More importantly, it grinds ore rock into crushed ore, which stacks normally. Don't fall into it, it will quite happily grind you too!"
+        },
+        {
+            "type": "crafting",
+            "recipe": "steamagerevolution:blocks/multiblock/grinder_frame",
+            "recipe2": "steamagerevolution:blocks/multiblock/grinder_input"
+        },
+        {
+            "type": "crafting",
+            "recipe": "steamagerevolution:blocks/multiblock/grinder_output"
         }
     ]
 }
