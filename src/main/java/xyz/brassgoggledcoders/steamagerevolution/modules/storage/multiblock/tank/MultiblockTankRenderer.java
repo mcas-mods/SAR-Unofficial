@@ -19,7 +19,7 @@ public class MultiblockTankRenderer extends TileEntitySpecialRenderer<TileEntity
 		// RE last check - ensures we only render once. Save delegate should be at
 		// reference coord - lowest x,y,z etc -
 		// so should always be casing.
-		if(tile.isConnected() && tile.getMultiblockController().isAssembled() && tile.isMultiblockSaveDelegate()) {
+		if (tile.isConnected() && tile.getMultiblockController().isAssembled() && tile.isMultiblockSaveDelegate()) {
 			ControllerTank t = tile.getMultiblockController();
 			FluidTank tank = t.tank;
 			FluidStack fluid = tank.getFluid();
@@ -30,7 +30,7 @@ public class MultiblockTankRenderer extends TileEntitySpecialRenderer<TileEntity
 			double x2 = t.maximumInteriorPos.getX() - tile.getPos().getX();
 			double z2 = t.maximumInteriorPos.getZ() - tile.getPos().getZ();
 
-			if(fluid != null) {
+			if (fluid != null) {
 				BlockPos minPos = new BlockPos(x1, y1, z1);
 				BlockPos maxPos = new BlockPos(x2, y1, z2);
 				float d = RenderingUtils.FLUID_OFFSET;

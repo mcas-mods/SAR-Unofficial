@@ -13,7 +13,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -34,13 +36,11 @@ public class BlockPneumaticSender extends BlockTEBase<TileEntityPneumaticSender>
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		EnumFacing f = state.getValue(FACING);
-		if(f == EnumFacing.NORTH || f == EnumFacing.SOUTH) {
+		if (f == EnumFacing.NORTH || f == EnumFacing.SOUTH) {
 			return BlockPneumaticTube.Z_TUBE_AABB;
-		}
-		else if(f == EnumFacing.EAST || f == EnumFacing.WEST) {
+		} else if (f == EnumFacing.EAST || f == EnumFacing.WEST) {
 			return BlockPneumaticTube.X_TUBE_AABB;
-		}
-		else {
+		} else {
 			return BlockPneumaticTube.Y_TUBE_AABB;
 		}
 	}
@@ -69,7 +69,7 @@ public class BlockPneumaticSender extends BlockTEBase<TileEntityPneumaticSender>
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if(!playerIn.getHeldItem(hand).isEmpty()
+		if (!playerIn.getHeldItem(hand).isEmpty()
 				&& playerIn.getHeldItem(hand).hasCapability(Capabilities.TOOL, facing)) {
 			worldIn.setBlockState(pos, state.cycleProperty(FACING));
 			return true;

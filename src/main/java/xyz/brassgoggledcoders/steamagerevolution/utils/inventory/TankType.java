@@ -14,15 +14,15 @@ public enum TankType {
 	}
 
 	public static TankType getTypeFromID(int id) {
-		switch(id) {
-			case 0:
-				return INPUT;
-			case 1:
-				return OUTPUT;
-			case -1:
-				return STEAM;
-			default:
-				return UNDEFINED;
+		switch (id) {
+		case 0:
+			return INPUT;
+		case 1:
+			return OUTPUT;
+		case -1:
+			return STEAM;
+		default:
+			return UNDEFINED;
 		}
 	}
 }

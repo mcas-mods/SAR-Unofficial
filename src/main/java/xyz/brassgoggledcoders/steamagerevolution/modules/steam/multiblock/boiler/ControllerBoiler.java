@@ -12,18 +12,22 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
-import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerGauge;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureMonitor;
+import xyz.brassgoggledcoders.steamagerevolution.modules.steam.multiblock.boiler.tileentities.TileEntityBoilerPressureValve;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceItem;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerBoiler extends SARMultiblockInventory {
+public class ControllerBoiler extends SARMultiblockInventory<InventoryRecipeMachine> {
 
 	public static final int fuelDivisor = 3;
 	public static final int fluidConversionPerTick = 5;
@@ -41,7 +45,7 @@ public class ControllerBoiler extends SARMultiblockInventory {
 		super(world);
 		attachedMonitors = new HashSet<BlockPos>();
 		attachedValves = new HashSet<BlockPos>();
-		setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerFuel(1, this), 81, 32),
+		setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new ItemStackHandlerFuel(1, this), 81, 32),
 				new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 1), 0, 0), null,
 				/* TODO: having water tank as output is...hacky */new InventoryPieceFluid(
 						new MultiFluidTank(Fluid.BUCKET_VOLUME * 16, this, 1), 50, 9),
@@ -52,8 +56,8 @@ public class ControllerBoiler extends SARMultiblockInventory {
 	protected boolean updateServer() {
 
 		// Logic must of course run before checking if it should explode...!
-		for(BlockPos pos : attachedValves) {
-			if(WORLD.isBlockPowered(pos)) {
+		for (BlockPos pos : attachedValves) {
+			if (WORLD.isBlockPowered(pos)) {
 				inventory.getSteamTank().drain(Fluid.BUCKET_VOLUME, true);
 				pressure = 1.0F;
 				updateRedstoneOutputLevels();
@@ -61,17 +65,17 @@ public class ControllerBoiler extends SARMultiblockInventory {
 			}
 		}
 
-		if(ModuleSteam.enableDestruction && pressure > maxPressure) {
+		if (ModuleSteam.enableDestruction && pressure > maxPressure) {
 			// Whoopsyboom
 			WORLD.createExplosion(null, getReferenceCoord().getX(), getReferenceCoord().getY(),
 					getReferenceCoord().getZ(), 10 * pressure, true);
 			return true;
 		}
 
-		if(currentBurnTime == 0) {
-			for(int i = 0; i < inventory.getInputHandler().getSlots(); i++) {
+		if (currentBurnTime == 0) {
+			for (int i = 0; i < inventory.getInputHandler().getSlots(); i++) {
 				ItemStack fuel = inventory.getInputHandler().getStackInSlot(i);
-				if(!fuel.isEmpty() && TileEntityFurnace.getItemBurnTime(fuel) != 0) {
+				if (!fuel.isEmpty() && TileEntityFurnace.getItemBurnTime(fuel) != 0) {
 					currentBurnTime = (TileEntityFurnace.getItemBurnTime(fuel) / fuelDivisor);
 					// TODO
 					fuel.shrink(1);
@@ -79,23 +83,21 @@ public class ControllerBoiler extends SARMultiblockInventory {
 					return true;
 				}
 			}
-			if(inventory.getInputTank().getFluidAmount() != 0) {
+			if (inventory.getInputTank().getFluidAmount() != 0) {
 				// TODO
-				if(inventory.getInputTank().getFluid().getFluid() == FluidRegistry.LAVA) {
+				if (inventory.getInputTank().getFluid().getFluid() == FluidRegistry.LAVA) {
 					currentBurnTime = 1000;
 					return true;
 				}
 			}
-		}
-		else {
-			if(inventory.getOutputTank().getFluidAmount() >= fluidConversionPerTick) {
-				if(inventory.getSteamTank()
+		} else {
+			if (inventory.getOutputTank().getFluidAmount() >= fluidConversionPerTick) {
+				if (inventory.getSteamTank()
 						.getFluidAmount() <= (inventory.getSteamTank().getCapacity() - fluidConversionPerTick)) {
 					inventory.getSteamTank()
 							.fill(new FluidStack(FluidRegistry.getFluid("steam"), fluidConversionPerTick), true);
 					inventory.getOutputTank().drain(fluidConversionPerTick, true);
-				}
-				else {
+				} else {
 					pressure += 0.01F;
 					updateRedstoneOutputLevels();
 				}
@@ -143,13 +145,11 @@ public class ControllerBoiler extends SARMultiblockInventory {
 
 	@Override
 	protected void onBlockAdded(IMultiblockPart newPart) {
-		if(newPart instanceof TileEntityBoilerPressureMonitor) {
+		if (newPart instanceof TileEntityBoilerPressureMonitor) {
 			attachedMonitors.add(newPart.getWorldPosition());
-		}
-		else if(newPart instanceof TileEntityBoilerPressureValve) {
+		} else if (newPart instanceof TileEntityBoilerPressureValve) {
 			attachedValves.add(newPart.getWorldPosition());
-		}
-		else if(newPart instanceof TileEntityBoilerGauge) {
+		} else if (newPart instanceof TileEntityBoilerGauge) {
 			hasWindow = true;
 		}
 	}
@@ -157,20 +157,19 @@ public class ControllerBoiler extends SARMultiblockInventory {
 	@Override
 	protected void onBlockRemoved(IMultiblockPart oldPart) {
 
-		if(oldPart instanceof TileEntityBoilerGauge && hasWindow == true) {
+		if (oldPart instanceof TileEntityBoilerGauge && hasWindow == true) {
 			hasWindow = connectedParts.stream().noneMatch(part -> part instanceof TileEntityBoilerGauge);
 		}
 
-		if(oldPart instanceof TileEntityBoilerPressureMonitor) {
+		if (oldPart instanceof TileEntityBoilerPressureMonitor) {
 			attachedMonitors.remove(oldPart.getWorldPosition());
-		}
-		else if(oldPart instanceof TileEntityBoilerPressureValve) {
+		} else if (oldPart instanceof TileEntityBoilerPressureValve) {
 			attachedValves.remove(oldPart.getWorldPosition());
 		}
 	}
 
 	private void updateRedstoneOutputLevels() {
-		for(BlockPos pos : attachedMonitors) {
+		for (BlockPos pos : attachedMonitors) {
 			// FMLLog.warning(pos.toString());
 			WORLD.updateComparatorOutputLevel(pos, ModuleSteam.boilerPressureMonitor);
 		}
@@ -183,8 +182,8 @@ public class ControllerBoiler extends SARMultiblockInventory {
 
 	@Override
 	protected void onMachineAssembled() {
-		Pair<BlockPos, BlockPos> interiorPositions = com.teamacronymcoders.base.util.PositionUtils.shrinkPositionCubeBy(getMinimumCoord(),
-				getMaximumCoord(), 1);
+		Pair<BlockPos, BlockPos> interiorPositions = com.teamacronymcoders.base.util.PositionUtils
+				.shrinkPositionCubeBy(getMinimumCoord(), getMaximumCoord(), 1);
 		minimumInteriorPos = interiorPositions.getLeft();
 		maximumInteriorPos = interiorPositions.getRight();
 		super.onMachineAssembled();

@@ -15,6 +15,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMaterials;
 
 @ObjectHolder(SteamAgeRevolution.MODID)
 public class RecipesIngotToPlate extends net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe>
@@ -26,18 +27,18 @@ public class RecipesIngotToPlate extends net.minecraftforge.registries.IForgeReg
 	public boolean matches(InventoryCrafting inv, World worldIn) {
 		boolean hasHammer = false;
 		boolean hasIngot = false;
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack itemstack = inv.getStackInSlot(i);
-			if(!itemstack.isEmpty()) {
+			if (!itemstack.isEmpty()) {
 				Item item = itemstack.getItem();
 
-				if(item == hammer) {
+				if (item == hammer) {
 					hasHammer = true;
 					continue;
 				}
 				// TODO
-				for(String metal : ModuleMetalworking.knownMetalTypes) {
-					if(OreDictionary.containsMatch(false, OreDictionary.getOres("ingot" + metal, false), itemstack)) {
+				for (String metal : ModuleMaterials.knownMetalTypes) {
+					if (OreDictionary.containsMatch(false, OreDictionary.getOres("ingot" + metal, false), itemstack)) {
 						hasIngot = true;
 					}
 				}
@@ -49,12 +50,12 @@ public class RecipesIngotToPlate extends net.minecraftforge.registries.IForgeReg
 	// TODO
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack itemstack = inv.getStackInSlot(i);
-			if(!itemstack.isEmpty()) {
-				for(int id : OreDictionary.getOreIDs(itemstack)) {
+			if (!itemstack.isEmpty()) {
+				for (int id : OreDictionary.getOreIDs(itemstack)) {
 					String name = OreDictionary.getOreName(id);
-					if(name.contains("ingot")) {
+					if (name.contains("ingot")) {
 						ItemStack plate = OreDictUtils.getPreferredItemStack("plate" + name.substring(5));
 						plate.setCount(ModuleMetalworking.plateCount);
 						return plate;
@@ -80,13 +81,12 @@ public class RecipesIngotToPlate extends net.minecraftforge.registries.IForgeReg
 	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
 		final NonNullList<ItemStack> remainingItems = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
 
-		for(int i = 0; i < remainingItems.size(); ++i) {
+		for (int i = 0; i < remainingItems.size(); ++i) {
 			final ItemStack itemstack = inv.getStackInSlot(i);
 
-			if(!itemstack.isEmpty() && itemstack.getItem() == hammer) {
+			if (!itemstack.isEmpty() && itemstack.getItem() == hammer) {
 				remainingItems.set(i, damageItem(itemstack.copy()));
-			}
-			else {
+			} else {
 				remainingItems.set(i, ForgeHooks.getContainerItem(itemstack));
 			}
 		}
@@ -96,7 +96,7 @@ public class RecipesIngotToPlate extends net.minecraftforge.registries.IForgeReg
 
 	private ItemStack damageItem(final ItemStack stack) {
 		final EntityPlayer craftingPlayer = ForgeHooks.getCraftingPlayer();
-		if(stack.attemptDamageItem(1, craftingPlayer.getRNG(),
+		if (stack.attemptDamageItem(1, craftingPlayer.getRNG(),
 				craftingPlayer instanceof EntityPlayerMP ? (EntityPlayerMP) craftingPlayer : null)) {
 			ForgeEventFactory.onPlayerDestroyItem(craftingPlayer, stack, null);
 			return ItemStack.EMPTY;

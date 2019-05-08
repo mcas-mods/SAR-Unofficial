@@ -30,13 +30,12 @@ public abstract class BlockMultiblockBase<T extends MultiblockTileEntityBase<?>>
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		MultiblockTileEntityBase<?> tile = getTileEntity(worldIn, pos).get();
-		if(tile != null && tile.isConnected()) {
-			if(tile.getMultiblockController().isAssembled()) {
+		if (tile != null && tile.isConnected()) {
+			if (tile.getMultiblockController().isAssembled()) {
 				GuiOpener.openMultiblockGui(getMod(), playerIn, worldIn, pos);
 				return true;
-			}
-			else {
-				if(playerIn.isSneaking() && tile.getMultiblockController().getLastError() != null) {
+			} else {
+				if (playerIn.isSneaking() && tile.getMultiblockController().getLastError() != null) {
 					playerIn.sendStatusMessage(tile.getMultiblockController().getLastError().getChatMessage(), true);
 					return true;
 				}
@@ -53,21 +52,21 @@ public abstract class BlockMultiblockBase<T extends MultiblockTileEntityBase<?>>
 
 		// TODO Localisation
 		tooltip.add("Multiblock: " + controller.getName());
-		if(controller.getMinimumYSize() > 1) {
+		if (controller.getMinimumYSize() > 1) {
 			tooltip.add("Minimum Size (XYZ): " + controller.getMinimumXSize() + "x" + controller.getMinimumYSize() + "x"
 					+ controller.getMinimumZSize());
 		}
-		if(controller.getMaximumXSize() != -1) { // TODO
+		if (controller.getMaximumXSize() != -1) { // TODO
 			tooltip.add("Maximum Size (XYZ): " + controller.getMaximumXSize() + "x" + controller.getMaximumYSize() + "x"
 					+ controller.getMaximumZSize());
 		}
-		if(tile.getPartFunction() != null) {
+		if (tile.getPartFunction() != null) {
 			tooltip.add("Part function: " + tile.getPartFunction());
 		}
 		String[] positions = new String[] { "Frame", "Sides", "Top", "Bottom", "Interior" };
 		String valid = "Valid part positions: ";
-		for(int possiblePositions = 0; possiblePositions < 5; possiblePositions++) {
-			if(tile.getValidPositions()[possiblePositions]) {
+		for (int possiblePositions = 0; possiblePositions < 5; possiblePositions++) {
+			if (tile.getValidPositions()[possiblePositions]) {
 				valid += positions[possiblePositions] + ",";
 			}
 		}

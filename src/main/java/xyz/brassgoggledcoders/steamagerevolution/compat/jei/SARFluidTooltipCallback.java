@@ -11,7 +11,7 @@ import net.minecraftforge.fluids.FluidStack;
 public class SARFluidTooltipCallback implements ITooltipCallback<FluidStack> {
 	@Override
 	public void onTooltip(int slotIndex, boolean input, FluidStack ingredient, List<String> tooltip) {
-		if(ingredient.tag != null && ingredient.tag.hasKey("Potion")) {
+		if (ingredient.tag != null && ingredient.tag.hasKey("Potion")) {
 			ItemStack dummy = new ItemStack(Blocks.BEDROCK);
 			dummy.setTagInfo("Potion", ingredient.tag.getTag("Potion"));
 			PotionUtils.addPotionTooltip(dummy, tooltip, 1.0F);

@@ -11,16 +11,16 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 public class RecipeRegistry {
 	private static HashMap<String, ArrayList<SARMachineRecipe>> recipeMasterlist = Maps.newHashMap();
 
-	protected static void addRecipe(String crafter, SARMachineRecipe recipe) {
-		if(!recipeMasterlist.containsKey(crafter)) {
+	public static void addRecipe(String crafter, SARMachineRecipe recipe) {
+		if (!recipeMasterlist.containsKey(crafter)) {
 			SteamAgeRevolution.instance.getLogger().devInfo("Recipe machine " + crafter + " did not exist, creating");
 			recipeMasterlist.put(crafter, Lists.newArrayList());
 		}
 		ArrayList<SARMachineRecipe> recipeList = recipeMasterlist.get(crafter);
-		if(recipeList.contains(recipe)) {
+		//FIXME Check for duplicate inputs here
+		if (recipeList.contains(recipe)) {
 			SteamAgeRevolution.instance.getLogger().devError("Attempted to add duplicate recipe");
-		}
-		else {
+		} else {
 			recipeList.add(recipe);
 		}
 	}
@@ -30,7 +30,7 @@ public class RecipeRegistry {
 	}
 
 	public static ArrayList<SARMachineRecipe> getRecipesForMachine(String machineType) {
-		if(!recipeMasterlist.containsKey(machineType)) {
+		if (!recipeMasterlist.containsKey(machineType)) {
 			recipeMasterlist.put(machineType, Lists.newArrayList());
 		}
 		return recipeMasterlist.get(machineType);

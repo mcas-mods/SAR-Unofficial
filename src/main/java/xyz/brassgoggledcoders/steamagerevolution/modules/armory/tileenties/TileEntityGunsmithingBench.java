@@ -43,12 +43,12 @@ public class TileEntityGunsmithingBench extends TileEntityBase implements IHasGu
 	}
 
 	public void attemptCraft() {
-		if(inventory.getStackInSlot(0).isEmpty()) {
+		if (inventory.getStackInSlot(0).isEmpty()) {
 			ItemStack gunStack = new ItemStack(ModuleArmory.gun);
 			NBTTagCompound tag = GunUtils.getOrCreateTagCompound(gunStack);
-			for(int i = 1; /* Ignore output slot */ i < inventory.getSlots(); i++) {
+			for (int i = 1; /* Ignore output slot */ i < inventory.getSlots(); i++) {
 				ItemStack partStack = inventory.getStackInSlot(i);
-				if(!partStack.isEmpty() && partStack.getItem() instanceof IGunPart) {
+				if (!partStack.isEmpty() && partStack.getItem() instanceof IGunPart) {
 					IGunPart part = (IGunPart) partStack.getItem();
 					// TODO Doesn't yet allow for duplicate parts (e.g. double barrel)
 					tag.setString(part.getPartType().toString(), part.getPartName());

@@ -37,14 +37,14 @@ public class TileEntityCardPuncher extends TileEntityInventoryBase implements IH
 		ItemStack cardIn = inventory.getStackInSlot(0);
 		ItemStack cardOut = inventory.getStackInSlot(1);
 		ItemStack dye = inventory.getStackInSlot(2);
-		if(!cardIn.isEmpty() && cardOut.isEmpty()) {
+		if (!cardIn.isEmpty() && cardOut.isEmpty()) {
 			NBTTagCompound tag = new NBTTagCompound();
-			if(dye.getItem() instanceof ItemDye) {
+			if (dye.getItem() instanceof ItemDye) {
 				tag.setInteger("dye", dye.getMetadata());
 			}
 			// TODO This is funky - in a bad way
 			NonNullList<ItemStack> tempStacks = NonNullList.create();
-			for(int i = 3; i < 13; i++) {
+			for (int i = 3; i < 13; i++) {
 				tempStacks.add(inventory.getStackInSlot(i));
 			}
 			ItemStackHandler tempHandler = new ItemStackHandler(tempStacks);

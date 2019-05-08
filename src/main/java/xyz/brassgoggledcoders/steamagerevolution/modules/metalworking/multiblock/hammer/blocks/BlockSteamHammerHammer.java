@@ -34,9 +34,9 @@ public class BlockSteamHammerHammer extends BlockMultiblockBase<TileEntitySteamH
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		ItemStack held = playerIn.getHeldItem(hand);
-		if(!held.isEmpty() && held.getItem() == ModuleMetalworking.die) {
+		if (!held.isEmpty() && held.getItem() == ModuleMetalworking.die) {
 			TileEntitySteamHammerHammer hammer = (TileEntitySteamHammerHammer) worldIn.getTileEntity(pos);
-			if(hammer != null && hammer.isConnected()) {
+			if (hammer != null && hammer.isConnected()) {
 				hammer.getMultiblockController().dieType = ItemDie.getDieNameFromMeta(held);
 				held.setCount(0);
 				return true;

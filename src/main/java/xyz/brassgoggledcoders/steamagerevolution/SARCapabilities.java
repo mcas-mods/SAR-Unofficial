@@ -6,7 +6,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -17,7 +19,7 @@ import xyz.brassgoggledcoders.steamagerevolution.api.IFumeProducer;
 public class SARCapabilities {
 	@CapabilityInject(IFumeProducer.class)
 	public static Capability<IFumeProducer> FUME_PRODUCER;
-
+	@SuppressWarnings("deprecation")
 	public static void register() {
 		CapabilityManager.INSTANCE.register(IFumeProducer.class, new Capability.IStorage<IFumeProducer>() {
 			@Override
@@ -36,7 +38,7 @@ public class SARCapabilities {
 
 	@SubscribeEvent
 	public static void attachTileCapabilities(AttachCapabilitiesEvent<TileEntity> event) {
-		if(event.getObject() instanceof TileEntityFurnace) {
+		if (event.getObject() instanceof TileEntityFurnace) {
 			event.addCapability(new ResourceLocation(SteamAgeRevolution.MODID, "fume_collector"),
 					new FurnaceCapabilityProvider((TileEntityFurnace) event.getObject()));
 		}

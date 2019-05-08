@@ -24,20 +24,19 @@ public class ItemPunchcard extends ItemBase {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		if(stack.hasTagCompound()) {
+		if (stack.hasTagCompound()) {
 			NBTTagCompound tag = stack.getTagCompound();
 			ItemStackHandler items = new ItemStackHandler(16);
 			items.deserializeNBT(tag.getCompoundTag("inventory"));
 			tooltip.add("Color: " + EnumDyeColor.byMetadata(tag.getInteger("dye")));
 			tooltip.add("Items: ");
-			for(int i = 0; i < items.getSlots(); i++) {
+			for (int i = 0; i < items.getSlots(); i++) {
 				ItemStack item = items.getStackInSlot(i);
-				if(!item.isEmpty()) {
+				if (!item.isEmpty()) {
 					tooltip.add(item.getDisplayName());
 				}
 			}
-		}
-		else {
+		} else {
 			tooltip.add("Not programmed");
 		}
 	}

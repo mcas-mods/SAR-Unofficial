@@ -17,13 +17,13 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceItem;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerSteamHammer extends SARMultiblockInventory {
+public class ControllerSteamHammer extends SARMultiblockInventory<InventoryRecipeMachine> {
 
 	public String dieType = "";
 	BlockPos center = null;
@@ -32,7 +32,7 @@ public class ControllerSteamHammer extends SARMultiblockInventory {
 	public ControllerSteamHammer(World world) {
 		super(world);
 		// TODO Investigate if possible to have same handler for input and output
-		setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 0, 0), null,
+		setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 0, 0), null,
 				new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 0, 0), null,
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this), 0, 0)));
 	}
@@ -96,8 +96,8 @@ public class ControllerSteamHammer extends SARMultiblockInventory {
 
 	@Override
 	protected void onTick() {
-		for(EntityItem item : WORLD.getEntitiesWithinAABB(EntityItem.class, interior)) {
-			if(ItemHandlerHelper.insertItem(inventory.getInputHandler(), item.getItem(), true).isEmpty()) {
+		for (EntityItem item : WORLD.getEntitiesWithinAABB(EntityItem.class, interior)) {
+			if (ItemHandlerHelper.insertItem(inventory.getInputHandler(), item.getItem(), true).isEmpty()) {
 				ItemHandlerHelper.insertItem(inventory.getInputHandler(), item.getItem(), false);
 				item.setDead();
 			}

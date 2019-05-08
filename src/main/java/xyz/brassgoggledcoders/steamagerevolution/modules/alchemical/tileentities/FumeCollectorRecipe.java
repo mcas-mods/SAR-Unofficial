@@ -21,7 +21,7 @@ public class FumeCollectorRecipe implements IRecipeWrapper {
 
 	public FumeCollectorRecipe(ItemStack fuel, FluidStack fluid, float chance) {
 		this.fuel = fuel;
-		if(chance > 1.0f) {
+		if (chance > 1.0f) {
 			chance = 1.0f;
 		}
 		this.chance = chance;
@@ -33,8 +33,8 @@ public class FumeCollectorRecipe implements IRecipeWrapper {
 	}
 
 	public static FumeCollectorRecipe getRecipe(ItemStack fuel) {
-		for(FumeCollectorRecipe r : recipeList) {
-			if(fuel.isItemEqual(r.fuel)) {
+		for (FumeCollectorRecipe r : recipeList) {
+			if (fuel.isItemEqual(r.fuel)) {
 				return r;
 			}
 		}

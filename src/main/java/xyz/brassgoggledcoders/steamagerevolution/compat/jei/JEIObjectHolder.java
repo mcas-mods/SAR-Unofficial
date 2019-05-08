@@ -16,4 +16,5 @@ public class JEIObjectHolder {
 	public static final Block vat_output = null;
 	public static final Block fume_collector = null;
 	public static final Block sawmill_casing = null;
+	public static final Block grinder_frame = null;
 }

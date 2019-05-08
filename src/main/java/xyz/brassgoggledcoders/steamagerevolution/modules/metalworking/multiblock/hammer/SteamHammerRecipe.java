@@ -30,7 +30,7 @@ public class SteamHammerRecipe extends SARMachineRecipe {
 	@Override
 	@Optional.Method(modid = "jei")
 	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-		if(!dieType.isEmpty()) {
+		if (!dieType.isEmpty()) {
 			minecraft.fontRenderer.drawString("Requires die: " + dieType, recipeWidth / 2, recipeHeight / 2,
 					Color.gray.getRGB());
 		}

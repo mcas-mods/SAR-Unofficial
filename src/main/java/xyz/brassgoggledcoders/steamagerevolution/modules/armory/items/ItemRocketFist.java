@@ -16,7 +16,10 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -68,10 +71,9 @@ public class ItemRocketFist extends ItemBase {
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		FluidStack fluid = internal.getFluid();
-		if(fluid == null) {
+		if (fluid == null) {
 			tooltip.add("0mB/" + capacity + "mB");
-		}
-		else {
+		} else {
 			tooltip.add(fluid.getLocalizedName());
 			tooltip.add(fluid.amount + "mB/" + capacity + "mB");
 		}
@@ -82,10 +84,10 @@ public class ItemRocketFist extends ItemBase {
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		int i = 1;
 		// TODO Make more granular
-		if(timeLeft == 0) {
+		if (timeLeft == 0) {
 			i = 3;
 		}
-		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
+		if (internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
 			entityIn.motionX += (entityIn.getLookVec().normalize().x * i);
 			entityIn.motionY += (entityIn.getLookVec().normalize().y * i);
 			entityIn.motionZ += (entityIn.getLookVec().normalize().z * i);
@@ -100,7 +102,7 @@ public class ItemRocketFist extends ItemBase {
 		SteamAgeRevolution.instance.getLogger().devInfo("Entity hit method called");
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
+		if (internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
 			target.world.createExplosion(null, target.posX, target.posY, target.posZ, 0.5F, false);
 			internal.drain(steamUsePerBlock * 10, true);
 			return true;
@@ -136,7 +138,7 @@ public class ItemRocketFist extends ItemBase {
 	@Override
 	@ParametersAreNonnullByDefault
 	public void getSubItems(@Nullable CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if(tab != null && tab == getCreativeTab() || tab == CreativeTabs.SEARCH) {
+		if (tab != null && tab == getCreativeTab() || tab == CreativeTabs.SEARCH) {
 			subItems.addAll(getAllSubItems(Lists.newArrayList()));
 		}
 	}

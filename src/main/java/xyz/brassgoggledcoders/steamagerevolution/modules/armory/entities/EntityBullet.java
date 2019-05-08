@@ -10,7 +10,6 @@ public class EntityBullet extends EntityThrowable {
 
 	public EntityBullet(World worldIn) {
 		super(worldIn);
-		// TODO Auto-generated constructor stub
 	}
 
 	public EntityBullet(World worldIn, EntityPlayer playerIn) {
@@ -19,7 +18,7 @@ public class EntityBullet extends EntityThrowable {
 
 	@Override
 	protected void onImpact(RayTraceResult result) {
-		if(result.typeOfHit == RayTraceResult.Type.ENTITY) {
+		if (result.typeOfHit == RayTraceResult.Type.ENTITY) {
 			result.entityHit.attackEntityFrom(ModuleArmory.damageSourceBullet, 5F);
 		}
 	}

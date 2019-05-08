@@ -12,9 +12,9 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.steam.ModuleSteam;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.InventoryPieceItem;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.SARMachineTileEntity;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
@@ -23,7 +23,7 @@ public class TileEntityPortableBoiler extends SARMachineTileEntity {
 	int currentBurnTime = 0;
 
 	public TileEntityPortableBoiler() {
-		setInventory(new InventoryMachine(new InventoryPieceItem(new ItemStackHandlerExtractSpecific(1), 0, 0),
+		setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new ItemStackHandlerExtractSpecific(1), 0, 0),
 				new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME, this, 1), 0, 0), null, null,
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this), 0, 0)));
 	}
@@ -49,7 +49,7 @@ public class TileEntityPortableBoiler extends SARMachineTileEntity {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return (T) inventory.getInputTank();
 		}
 		return super.getCapability(capability, facing);
@@ -62,13 +62,12 @@ public class TileEntityPortableBoiler extends SARMachineTileEntity {
 
 	@Override
 	public void onActiveTick() {
-		if(currentTicks == 0) {
-			if(!inventory.getInputHandler().getStackInSlot(0).isEmpty()) {
+		if (currentTicks == 0) {
+			if (!inventory.getInputHandler().getStackInSlot(0).isEmpty()) {
 				currentTicks = TileEntityFurnace.getItemBurnTime(inventory.getInputHandler().getStackInSlot(0));
 				inventory.getInputHandler().extractItem(0, 1, false);
 			}
-		}
-		else {
+		} else {
 			int fluidAmount = Fluid.BUCKET_VOLUME / 20;
 			inventory.getInputTank().drain(fluidAmount, true);
 			inventory.getSteamTank().fill(FluidRegistry.getFluidStack("steam", fluidAmount), true);

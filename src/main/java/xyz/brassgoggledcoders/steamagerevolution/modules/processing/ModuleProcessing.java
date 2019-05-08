@@ -20,7 +20,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.BlockFurnaceCasing;
+import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.BlockFurnaceItemInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.BlockFurnaceItemOutput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.furnace.blocks.BlockFurnaceSteamInput;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.MachineRecipeBuilder;
 
 @Module(value = SteamAgeRevolution.MODID)
@@ -33,7 +36,7 @@ public class ModuleProcessing extends ModuleBase {
 	@SubscribeEvent
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 
-		for(Entry<ItemStack, ItemStack> recipe : FurnaceRecipes.instance().getSmeltingList().entrySet()) {
+		for (Entry<ItemStack, ItemStack> recipe : FurnaceRecipes.instance().getSmeltingList().entrySet()) {
 			new MachineRecipeBuilder("steam furnace").setItemInputs(recipe.getKey()).setItemOutputs(recipe.getValue())
 					.setSteamCost(1000).setCraftTime(1000).build();
 		}

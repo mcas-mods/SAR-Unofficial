@@ -22,22 +22,22 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeMachineHelpe
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 public abstract class SARMachineTileEntity extends TileEntityBase
-		implements ITickable, ISmartStackCallback, IHasGui, IHasInventory {
+		implements ITickable, ISmartStackCallback, IHasGui, IMachineHasInventory {
 
 	public int currentTicks = 0;
-	public InventoryMachine inventory;
+	public InventoryRecipeMachine inventory;
 	SARMachineRecipe currentRecipe;
 
 	@Override
-	public InventoryMachine getInventory() {
-		if(inventory == null) {
+	public InventoryRecipeMachine getInventory() {
+		if (inventory == null) {
 			throw new RuntimeException("Whoops. Machine Inventory NOT SET. Fix this.");
 		}
 		return inventory;
 	}
 
 	@Override
-	public void setInventory(InventoryMachine inventory) {
+	public void setInventory(InventoryRecipeMachine inventory) {
 		this.inventory = inventory;
 	}
 
@@ -81,10 +81,10 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 	@Override
 	public void update() {
 		onTick();
-		if(canRun()) {
+		if (canRun()) {
 			onActiveTick();
 			currentTicks++;
-			if(canFinish()) {
+			if (canFinish()) {
 				onFinish();
 			}
 		}

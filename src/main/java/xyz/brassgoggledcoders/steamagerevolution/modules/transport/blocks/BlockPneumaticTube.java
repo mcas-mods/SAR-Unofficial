@@ -11,9 +11,11 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.EnumFacing.AxisDirection;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -37,20 +39,20 @@ public class BlockPneumaticTube extends BlockBase {
 
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-		switch(state.getValue(AXIS)) {
-			case Y:
-				return Y_TUBE_AABB;
-			case Z:
-				return Z_TUBE_AABB;
-			default:
-				return X_TUBE_AABB;
+		switch (state.getValue(AXIS)) {
+		case Y:
+			return Y_TUBE_AABB;
+		case Z:
+			return Z_TUBE_AABB;
+		default:
+			return X_TUBE_AABB;
 		}
 	}
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if(!playerIn.getHeldItem(hand).isEmpty()
+		if (!playerIn.getHeldItem(hand).isEmpty()
 				&& playerIn.getHeldItem(hand).hasCapability(Capabilities.TOOL, facing)) {
 			state.cycleProperty(AXIS);
 			return true;
@@ -88,13 +90,13 @@ public class BlockPneumaticTube extends BlockBase {
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		switch(meta) {
-			case 0:
-				return getDefaultState().withProperty(AXIS, Axis.X);
-			case 1:
-				return getDefaultState().withProperty(AXIS, Axis.Z);
-			case 2:
-				return getDefaultState().withProperty(AXIS, Axis.Y);
+		switch (meta) {
+		case 0:
+			return getDefaultState().withProperty(AXIS, Axis.X);
+		case 1:
+			return getDefaultState().withProperty(AXIS, Axis.Z);
+		case 2:
+			return getDefaultState().withProperty(AXIS, Axis.Y);
 		}
 		return getDefaultState();
 	}
@@ -102,13 +104,11 @@ public class BlockPneumaticTube extends BlockBase {
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		Axis axis = state.getValue(AXIS);
-		if(axis == Axis.Z) {
+		if (axis == Axis.Z) {
 			return 1;
-		}
-		else if(axis == Axis.Y) {
+		} else if (axis == Axis.Y) {
 			return 2;
-		}
-		else {
+		} else {
 			return 0;
 		}
 	}
@@ -132,16 +132,16 @@ public class BlockPneumaticTube extends BlockBase {
 	}
 
 	private void findAndNotifySenderToRecalcCache(World worldIn, BlockPos pos, IBlockState state) {
-		for(int i = 1; i < TileEntityPneumaticSender.maxDistance; i++) {
+		for (int i = 1; i < TileEntityPneumaticSender.maxDistance; i++) {
 			BlockPos checkPos = pos.offset(EnumFacing.getFacingFromAxis(AxisDirection.POSITIVE, state.getValue(AXIS)),
 					i);
-			if(worldIn.getBlockState(checkPos).getBlock() == ModuleTransport.pneumaticSender) {
+			if (worldIn.getBlockState(checkPos).getBlock() == ModuleTransport.pneumaticSender) {
 				((TileEntityPneumaticSender) worldIn.getTileEntity(checkPos)).recalculateCache(worldIn, checkPos);
 				return;
 			}
 			BlockPos checkNeg = pos.offset(EnumFacing.getFacingFromAxis(AxisDirection.NEGATIVE, state.getValue(AXIS)),
 					i);
-			if(worldIn.getBlockState(checkNeg).getBlock() == ModuleTransport.pneumaticSender) {
+			if (worldIn.getBlockState(checkNeg).getBlock() == ModuleTransport.pneumaticSender) {
 				((TileEntityPneumaticSender) worldIn.getTileEntity(checkNeg)).recalculateCache(worldIn, checkNeg);
 				return;
 			}

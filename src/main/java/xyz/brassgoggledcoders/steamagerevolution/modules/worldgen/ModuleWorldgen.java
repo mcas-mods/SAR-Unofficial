@@ -26,10 +26,10 @@ public class ModuleWorldgen extends ModuleBase {
 		SubBlockSystem system = SteamAgeRevolution.instance.getSubBlockSystem();
 		getConfigRegistry().addEntry(new ConfigEntry("Generation", "doCopperOreGen", Type.BOOLEAN, "true"));
 		OreGenerator.oresToGenerate
-				.add(new OreEntry("Copper", 16, 64, 8, system.getSubBlock("copper_ore_stone").getBlockState()));
+				.add(new OreEntry("Copper", 16, 64, 8, system.getSubBlock("copper_ore").getBlockState()));
 		getConfigRegistry().addEntry(new ConfigEntry("Generation", "doZincOreGen", Type.BOOLEAN, "true"));
 		OreGenerator.oresToGenerate
-				.add(new OreEntry("Zinc", 10, 40, 6, system.getSubBlock("zinc_ore_stone").getBlockState()));
+				.add(new OreEntry("Zinc", 10, 40, 6, system.getSubBlock("zinc_ore").getBlockState()));
 		getConfigRegistry().addEntry(new ConfigEntry("Generation", "doSulphurOreGen", Type.BOOLEAN, "true"));
 		OreGenerator.oresToGenerate
 				.add(new OreEntry("Sulphur", 6, 55, 4, system.getSubBlock("sulphur_ore").getBlockState()));

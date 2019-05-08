@@ -1,7 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories;
 
 import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawable;
+import mezz.jei.api.gui.IDrawableAnimated;
+import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.util.ResourceLocation;
@@ -11,21 +12,18 @@ public abstract class SARRecipeCategory<T extends IRecipeWrapper> implements IRe
 
 	protected static IGuiHelper helper;
 	String uid, name;
-	ResourceLocation background;
-
+	
+	IDrawableAnimated arrow;
+	
 	public SARRecipeCategory(String uid, String name) {
 		this.uid = uid;
 		this.name = name;
-		background = new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/jei/" + uid + ".png");
+		IDrawableStatic arrowDrawable = helper.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/steelworks.png"), 176, 83, 24, 17);
+		this.arrow = helper.createAnimatedDrawable(arrowDrawable, 20, IDrawableAnimated.StartDirection.LEFT, false);
 	}
 
 	public static void setGuiHelper(IGuiHelper helper) {
 		SARRecipeCategory.helper = helper;
-	}
-
-	@Override
-	public IDrawable getBackground() {
-		return helper.createDrawable(background, 0, 0, 134, 65);
 	}
 
 	@Override
@@ -42,5 +40,4 @@ public abstract class SARRecipeCategory<T extends IRecipeWrapper> implements IRe
 	public String getModName() {
 		return SteamAgeRevolution.MODNAME;
 	}
-
 }

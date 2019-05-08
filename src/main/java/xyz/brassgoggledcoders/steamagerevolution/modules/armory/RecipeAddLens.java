@@ -1,7 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.*;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -12,16 +14,15 @@ public class RecipeAddLens extends net.minecraftforge.registries.IForgeRegistryE
 	public boolean matches(InventoryCrafting inv, World worldIn) {
 		boolean hasGoggles = false;
 		boolean hasLens = false;
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack itemstack = inv.getStackInSlot(i);
-			if(!itemstack.isEmpty()) {
+			if (!itemstack.isEmpty()) {
 				Item item = itemstack.getItem();
 
-				if(item == ModuleArmory.goggles) {
+				if (item == ModuleArmory.goggles) {
 					hasGoggles = true;
 					continue;
-				}
-				else if(item == ModuleArmory.lens) {
+				} else if (item == ModuleArmory.lens) {
 					hasLens = true;
 					continue;
 				}
@@ -34,32 +35,30 @@ public class RecipeAddLens extends net.minecraftforge.registries.IForgeRegistryE
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
 		ItemStack goggles = null;
 		ItemStack lens = null;
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack itemstack = inv.getStackInSlot(i);
-			if(!itemstack.isEmpty()) {
+			if (!itemstack.isEmpty()) {
 				Item item = itemstack.getItem();
 
-				if(item == ModuleArmory.goggles) {
+				if (item == ModuleArmory.goggles) {
 					goggles = itemstack.copy();
 					continue;
-				}
-				else if(item == ModuleArmory.lens) {
+				} else if (item == ModuleArmory.lens) {
 					lens = itemstack.copy();
 					continue;
 				}
 			}
 		}
-		if(goggles != null && lens != null) {
-			if(!goggles.hasTagCompound()) {
+		if (goggles != null && lens != null) {
+			if (!goggles.hasTagCompound()) {
 				goggles.setTagCompound(new NBTTagCompound());
 			}
 			goggles.getTagCompound().setBoolean("lens" + lens.getMetadata(), true);
-			if(lens.getMetadata() == EnumDyeColor.SILVER.getMetadata()) {
+			if (lens.getMetadata() == EnumDyeColor.SILVER.getMetadata()) {
 				goggles.getTagCompound().setInteger("theoneprobe", 1);
 			}
 			return goggles;
-		}
-		else {
+		} else {
 			return null;
 		}
 	}

@@ -10,10 +10,15 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.*;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ContainerChest;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -38,7 +43,7 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IHasGui,
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return (T) inventory;
 		}
 		return super.getCapability(capability, facing);
@@ -46,7 +51,7 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IHasGui,
 
 	@Override
 	public boolean hasCapability(Capability<?> capObject, EnumFacing side) {
-		if(capObject == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+		if (capObject == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return true;
 		}
 		return super.hasCapability(capObject, side);
@@ -55,8 +60,8 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IHasGui,
 	@Override
 	public NBTTagCompound writeToDisk(NBTTagCompound tag) {
 		NBTTagCompound inv = new NBTTagCompound();
-		for(int i = 0; i < inventory.getSlots(); i++) {
-			if(!inventory.getStackInSlot(i).isEmpty()) {
+		for (int i = 0; i < inventory.getSlots(); i++) {
+			if (!inventory.getStackInSlot(i).isEmpty()) {
 				inv.setTag("slot" + i, inventory.getStackInSlot(i).serializeNBT());
 			}
 		}
@@ -66,7 +71,7 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IHasGui,
 
 	@Override
 	public void readFromDisk(NBTTagCompound tag) {
-		for(int i = 0; i < inventory.getSlots(); i++) {
+		for (int i = 0; i < inventory.getSlots(); i++) {
 			inventory.setStackInSlot(i, new ItemStack(tag.getCompoundTag("inventory").getCompoundTag("slot" + i)));
 		}
 	}
@@ -79,7 +84,7 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IHasGui,
 
 		prevLidAngle = lidAngle;
 
-		if(numPlayersUsing > 0 && lidAngle == 0.0F) {
+		if (numPlayersUsing > 0 && lidAngle == 0.0F) {
 			double d1 = i + 0.5D;
 			double d2 = k + 0.5D;
 
@@ -87,21 +92,20 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IHasGui,
 					0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 		}
 
-		if(numPlayersUsing == 0 && lidAngle > 0.0F || numPlayersUsing > 0 && lidAngle < 1.0F) {
+		if (numPlayersUsing == 0 && lidAngle > 0.0F || numPlayersUsing > 0 && lidAngle < 1.0F) {
 			float f2 = lidAngle;
 
-			if(numPlayersUsing > 0) {
+			if (numPlayersUsing > 0) {
 				lidAngle += 0.1F;
-			}
-			else {
+			} else {
 				lidAngle -= 0.1F;
 			}
 
-			if(lidAngle > 1.0F) {
+			if (lidAngle > 1.0F) {
 				lidAngle = 1.0F;
 			}
 
-			if(lidAngle < 0.5F && f2 >= 0.5F) {
+			if (lidAngle < 0.5F && f2 >= 0.5F) {
 				double d3 = i + 0.5D;
 				double d0 = k + 0.5D;
 
@@ -109,7 +113,7 @@ public class TileEntityTrunk extends TileEntityInventoryBase implements IHasGui,
 						SoundCategory.BLOCKS, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
 			}
 
-			if(lidAngle < 0.0F) {
+			if (lidAngle < 0.0F) {
 				lidAngle = 0.0F;
 			}
 		}

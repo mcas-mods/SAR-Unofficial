@@ -9,8 +9,10 @@ import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.ModuleAlchemical;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryMachine.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceProgressBar;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
@@ -20,7 +22,7 @@ public class ControllerDistiller extends SARMultiblockInventory {
 
 	public ControllerDistiller(World world) {
 		super(world);
-		setInventory(new InventoryMachine(null,
+		setInventory(new InventoryRecipeMachine(null,
 				new InventoryPieceFluid(new MultiFluidTank(tankCapacity, this, 1), 41, 9),
 				new InventoryPieceItem(new ItemStackHandlerExtractSpecific(1), 149, 32),
 				new InventoryPieceFluid(new MultiFluidTank(tankCapacity, this, 1), 97, 9),
@@ -39,16 +41,16 @@ public class ControllerDistiller extends SARMultiblockInventory {
 		BlockPos second = new BlockPos(getMaximumCoord().getX(), getMinimumCoord().getY(), getMaximumCoord().getZ());
 
 		// Get all blocks in bottom layer of machine & check they're radiators
-		for(BlockPos pos : BlockPos.getAllInBox(first, second)) {
-			if(WORLD.getBlockState(pos).getBlock() != ModuleAlchemical.distiller_radiator) {
+		for (BlockPos pos : BlockPos.getAllInBox(first, second)) {
+			if (WORLD.getBlockState(pos).getBlock() != ModuleAlchemical.distiller_radiator) {
 				validatorCallback.setLastError(
 						new ValidationError("steamagerevolution.multiblock.validation.distiller_radiator"));
 				return false;
 			}
 		}
 		// Same for second layer, check they're hotplates
-		for(BlockPos pos : BlockPos.getAllInBox(first.up(), second.up())) {
-			if(WORLD.getBlockState(pos).getBlock() != ModuleAlchemical.distiller_hotplate) {
+		for (BlockPos pos : BlockPos.getAllInBox(first.up(), second.up())) {
+			if (WORLD.getBlockState(pos).getBlock() != ModuleAlchemical.distiller_hotplate) {
 				validatorCallback.setLastError(
 						new ValidationError("steamagerevolution.multiblock.validation.distiller_hotplate"));
 				return false;

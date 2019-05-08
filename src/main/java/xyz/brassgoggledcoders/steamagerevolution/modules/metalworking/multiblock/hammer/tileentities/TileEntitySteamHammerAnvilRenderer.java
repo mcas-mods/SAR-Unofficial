@@ -23,14 +23,14 @@ public class TileEntitySteamHammerAnvilRenderer extends TileEntitySpecialRendere
 	public void render(TileEntitySteamHammerAnvil tile, double x, double y, double z, float partialTicks,
 			int destroyStage, float alpha) {
 		// Stolen from TiCon :)
-		if(!tile.isConnected() || !tile.getMultiblockController().isAssembled()) {
+		if (!tile.isConnected() || !tile.getMultiblockController().isAssembled()) {
 			return;
 		}
 		ItemStack stack = tile.getMultiblockController().inventory.getInputHandler().getStackInSlot(0);
-		if(stack.isEmpty()) {
+		if (stack.isEmpty()) {
 			stack = tile.getMultiblockController().inventory.getOutputHandler().getStackInSlot(0);
 		}
-		if(!stack.isEmpty()) {
+		if (!stack.isEmpty()) {
 			RenderingUtils.pre(x, y, z);
 			int brightness = tile.getWorld().getCombinedLight(tile.getPos(), 0);
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, brightness % 0x10000 / 1f,
@@ -39,7 +39,7 @@ public class TileEntitySteamHammerAnvilRenderer extends TileEntitySpecialRendere
 			GlStateManager.translate(0.5f, 1.5f, 0.5f);
 			GlStateManager.scale(0.5f, 0.5f, 0.5f);
 
-			if(!(stack.getItem() instanceof ItemBlock)
+			if (!(stack.getItem() instanceof ItemBlock)
 					|| Block.getBlockFromItem(stack.getItem()) instanceof BlockPane) {
 				GlStateManager.rotate(-90, 1, 0, 0);
 			}

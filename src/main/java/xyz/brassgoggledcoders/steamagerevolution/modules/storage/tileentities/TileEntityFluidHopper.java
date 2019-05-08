@@ -10,7 +10,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks.BlockFluidHopper;
@@ -29,7 +31,7 @@ public class TileEntityFluidHopper extends TileEntitySlowTick {
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(buffer);
 		}
 		return super.getCapability(capability, facing);
@@ -38,27 +40,27 @@ public class TileEntityFluidHopper extends TileEntitySlowTick {
 	@Override
 	public void updateTile() {
 		super.updateTile();
-		if(world.isRemote) {
+		if (world.isRemote) {
 			return;
 		}
 
-		if(!hasCache) {
+		if (!hasCache) {
 			recalculateCache(getWorld(), getPos(), getWorld().getBlockState(getPos()), null);
 		}
 
-		if(BlockFluidHopper.isEnabled(getBlockMetadata())) {
-			if(toPos != null) {
+		if (BlockFluidHopper.isEnabled(getBlockMetadata())) {
+			if (toPos != null) {
 				IFluidHandler to = getWorld().getTileEntity(toPos).getCapability(
 						CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
 						PositionUtils.getFacingFromPositions(getPos(), toPos));
-				if(to != null) { // TODO This should not happen
+				if (to != null) { // TODO This should not happen
 					FluidUtil.tryFluidTransfer(to, buffer, Fluid.BUCKET_VOLUME, true);
 				}
 			}
-			if(hasFrom) {
+			if (hasFrom) {
 				IFluidHandler from = getWorld().getTileEntity(getPos().up())
 						.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.DOWN);
-				if(from != null) { // TODO Neither should this
+				if (from != null) { // TODO Neither should this
 					FluidUtil.tryFluidTransfer(buffer, from, Fluid.BUCKET_VOLUME, true);
 				}
 			}
@@ -76,7 +78,7 @@ public class TileEntityFluidHopper extends TileEntitySlowTick {
 	public NBTTagCompound writeToDisk(NBTTagCompound tag) {
 		buffer.writeToNBT(tag);
 		tag.setBoolean("from", hasFrom);
-		if(toPos != null) {
+		if (toPos != null) {
 			tag.setLong("to", toPos.toLong());
 		}
 		return tag;
@@ -86,29 +88,26 @@ public class TileEntityFluidHopper extends TileEntitySlowTick {
 		hasCache = true;
 		boolean flag = !worldIn.isBlockPowered(pos);
 
-		if(flag != state.getValue(BlockFluidHopper.ENABLED).booleanValue()) {
+		if (flag != state.getValue(BlockFluidHopper.ENABLED).booleanValue()) {
 			worldIn.setBlockState(pos, state.withProperty(BlockFluidHopper.ENABLED, Boolean.valueOf(flag)), 4);
 		}
 
-		if(fromPos == null) {
+		if (fromPos == null) {
 			fromPos = pos.offset(state.getValue(BlockFluidHopper.FACING));
 		}
 		EnumFacing facing = PositionUtils.getFacingFromPositions(pos, fromPos);
-		if(facing == EnumFacing.DOWN) {
+		if (facing == EnumFacing.DOWN) {
 			TileEntity up = worldIn.getTileEntity(pos.up());
-			if(up != null && up.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing)) {
+			if (up != null && up.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing)) {
 				hasFrom = true;
-			}
-			else {
+			} else {
 				hasFrom = false;
 			}
-		}
-		else if(facing == state.getValue(BlockFluidHopper.FACING).getOpposite()) {
+		} else if (facing == state.getValue(BlockFluidHopper.FACING).getOpposite()) {
 			TileEntity pointed = worldIn.getTileEntity(fromPos);
-			if(pointed != null && pointed.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing)) {
+			if (pointed != null && pointed.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing)) {
 				toPos = fromPos;
-			}
-			else {
+			} else {
 				toPos = null;
 			}
 		}

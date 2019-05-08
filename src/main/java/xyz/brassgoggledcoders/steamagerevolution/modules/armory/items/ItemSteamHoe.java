@@ -2,7 +2,9 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items;
 
 import java.util.List;
 
-import javax.annotation.*;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.IBaseMod;
@@ -12,9 +14,14 @@ import com.teamacronymcoders.base.client.models.IHasModel;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemHoe;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -47,10 +54,9 @@ public class ItemSteamHoe extends ItemHoe implements IHasModel, IModAware {
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		FluidStack fluid = internal.getFluid();
-		if(fluid == null) {
+		if (fluid == null) {
 			tooltip.add("0mB/" + capacity + "mB");
-		}
-		else {
+		} else {
 			tooltip.add(fluid.getLocalizedName());
 			tooltip.add(fluid.amount + "mB/" + capacity + "mB");
 		}
@@ -62,11 +68,10 @@ public class ItemSteamHoe extends ItemHoe implements IHasModel, IModAware {
 		ItemStack stack = player.getHeldItem(hand);
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
+		if (internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
 			internal.drain(steamUsePerBlock, true);
 			return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
-		}
-		else {
+		} else {
 			return EnumActionResult.FAIL;
 		}
 	}
@@ -105,7 +110,7 @@ public class ItemSteamHoe extends ItemHoe implements IHasModel, IModAware {
 	@Override
 	@ParametersAreNonnullByDefault
 	public void getSubItems(@Nullable CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if(tab != null && tab == getCreativeTab() || tab == CreativeTabs.SEARCH) {
+		if (tab != null && tab == getCreativeTab() || tab == CreativeTabs.SEARCH) {
 			subItems.addAll(getAllSubItems(Lists.newArrayList()));
 		}
 	}
@@ -119,7 +124,7 @@ public class ItemSteamHoe extends ItemHoe implements IHasModel, IModAware {
 	@Override
 	@Nonnull
 	public Item setCreativeTab(@Nonnull CreativeTabs tab) {
-		if(!creativeTabSet) {
+		if (!creativeTabSet) {
 			super.setCreativeTab(tab);
 			creativeTabSet = true;
 		}

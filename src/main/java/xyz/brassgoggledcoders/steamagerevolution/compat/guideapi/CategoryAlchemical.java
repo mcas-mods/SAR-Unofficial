@@ -27,7 +27,7 @@ public class CategoryAlchemical {
 
 		BookUtils.addBasicEntry(entries, keyBase, "synth", new ItemStack(Items.SLIME_BALL), false);
 
-		for(EntryAbstract entry : entries.values()) {
+		for (EntryAbstract entry : entries.values()) {
 			PageHelper.setPagesToUnicode(entry.pageList);
 		}
 

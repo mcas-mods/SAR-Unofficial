@@ -8,7 +8,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -43,7 +45,7 @@ public class BlockPortableBoiler extends BlockGUIBase<TileEntityPortableBoiler> 
 	@Override
 	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player,
 			boolean willHarvest) {
-		if(willHarvest) {
+		if (willHarvest) {
 			return true;
 		}
 		return super.removedByPlayer(state, world, pos, player, willHarvest);
@@ -59,7 +61,7 @@ public class BlockPortableBoiler extends BlockGUIBase<TileEntityPortableBoiler> 
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
 			ItemStack stack) {
-		if(stack.hasTagCompound()) {
+		if (stack.hasTagCompound()) {
 			worldIn.getTileEntity(pos).deserializeNBT(stack.getTagCompound().getCompoundTag("teData"));
 		}
 	}
@@ -67,11 +69,10 @@ public class BlockPortableBoiler extends BlockGUIBase<TileEntityPortableBoiler> 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if(playerIn.getHeldItem(hand).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
+		if (playerIn.getHeldItem(hand).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
 			getTileEntity(worldIn, pos)
 					.ifPresent(te -> FluidUtil.interactWithFluidHandler(playerIn, hand, worldIn, pos, facing));
-		}
-		else {
+		} else {
 			return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
 		}
 		return false;

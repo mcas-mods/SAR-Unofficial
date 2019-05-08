@@ -8,7 +8,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.items.*;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.modules.transport.blocks.BlockPneumaticRouter;
 
 public class TileEntityPneumaticRouter extends TileEntityInventoryBase implements ITickable {
@@ -37,26 +39,25 @@ public class TileEntityPneumaticRouter extends TileEntityInventoryBase implement
 
 	@Override
 	public void update() {
-		if(ticks == tickRate) {
+		if (ticks == tickRate) {
 			updateTile();
 			ticks = 0;
-		}
-		else {
+		} else {
 			ticks++;
 		}
 	}
 
 	public void updateTile() {
-		if(world.isRemote) {
+		if (world.isRemote) {
 			return;
 		}
-		if(!hasCache) {
+		if (!hasCache) {
 			recalculateCache(getWorld(), getPos(), getWorld().getBlockState(getPos()), null);
 		}
 
 		IItemHandler handler = this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-		for(int i = 0; i < handler.getSlots(); i++) {
-			if(ItemHandlerHelper.insertItem(otherHandler, handler.getStackInSlot(i).copy().splitStack(1), true)
+		for (int i = 0; i < handler.getSlots(); i++) {
+			if (ItemHandlerHelper.insertItem(otherHandler, handler.getStackInSlot(i).copy().splitStack(1), true)
 					.isEmpty()) {
 				ItemHandlerHelper.insertItem(otherHandler, handler.getStackInSlot(i).splitStack(1), false);
 			}
@@ -64,11 +65,11 @@ public class TileEntityPneumaticRouter extends TileEntityInventoryBase implement
 	}
 
 	public void recalculateCache(World worldIn, BlockPos pos, IBlockState state, BlockPos fromPos) {
-		if(fromPos == null) {
+		if (fromPos == null) {
 			fromPos = pos.offset(state.getValue(BlockPneumaticRouter.FACING));
 		}
 		TileEntity other = getWorld().getTileEntity(fromPos);
-		if(other != null && other.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,
+		if (other != null && other.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,
 				state.getValue(BlockPneumaticRouter.FACING).getOpposite())) {
 			otherHandler = other.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,
 					state.getValue(BlockPneumaticRouter.FACING).getOpposite());

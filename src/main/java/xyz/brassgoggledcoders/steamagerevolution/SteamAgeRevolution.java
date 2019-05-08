@@ -9,25 +9,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
-import xyz.brassgoggledcoders.steamagerevolution.network.HandlerCardPunch;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.network.HandlerGunCraft;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerItemUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerMultiFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketCardPunch;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketGunCraft;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.StackComparator;
@@ -58,6 +52,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
+		this.getLibProxy().addSidedBlockDomain();
 		proxy.registerModels();
 		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerFluidUpdate.class, PacketFluidUpdate.class,
 				Side.CLIENT);
@@ -65,10 +60,6 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 				PacketMultiFluidUpdate.class, Side.CLIENT);
 		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerItemUpdate.class, PacketItemUpdate.class,
 				Side.CLIENT);
-		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerCardPunch.class, PacketCardPunch.class,
-				Side.SERVER);
-		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerGunCraft.class, PacketGunCraft.class,
-				Side.SERVER);
 		SARCapabilities.register();
 	}
 
@@ -76,8 +67,6 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
-		FMLInterModComms.sendFunctionMessage("theoneprobe", "getTheOneProbe",
-				"xyz.brassgoggledcoders.steamagerevolution.compat.oneprobe.OneProbeCompat");
 	}
 
 	@Override

@@ -2,13 +2,13 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.fluids;
 
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
 
 public class FluidTankSingleSmart extends FluidTankSmart {
 
 	private String fluidName;
 
-	public FluidTankSingleSmart(int capacity, String fluidName, IHasInventory parent) {
+	public FluidTankSingleSmart(int capacity, String fluidName, IMachineHasInventory parent) {
 		super(capacity, parent);
 		this.fluidName = fluidName;
 	}

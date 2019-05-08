@@ -38,31 +38,32 @@ public class ItemLens extends ItemBase implements IHasSubItems {
 		// TODO This is likely a fragile way of storing, but it feels unnecessary to use
 		// a hashmap
 		int i = 0;
-		for(ILens lens : ModuleArmory.lenseTypes) {
+		for (ILens lens : ModuleArmory.lenseTypes) {
 			itemStacks.add(new ItemStack(this, 1, i++));
 		}
 		return itemStacks;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
 		tooltip.add("Effect:");
 		tooltip.add(ModuleArmory.lenseTypes.get(stack.getMetadata()).getEffect());
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Override
-	public String getItemStackDisplayName(ItemStack stack)
-    {
-        return WordUtils.capitalize(I18n.translateToLocal(ModuleArmory.lenseTypes.get(stack.getMetadata()).getColorName())) + " " + super.getItemStackDisplayName(stack);
-    }
+	public String getItemStackDisplayName(ItemStack stack) {
+		return WordUtils
+				.capitalize(I18n.translateToLocal(ModuleArmory.lenseTypes.get(stack.getMetadata()).getColorName()))
+				+ " " + super.getItemStackDisplayName(stack);
+	}
 
 	public static class LensTintHandler implements IItemColor {
 
 		@Override
 		public int colorMultiplier(ItemStack stack, int tintIndex) {
-			if(tintIndex == 1) {
+			if (tintIndex == 1) {
 				return ModuleArmory.lenseTypes.get(stack.getMetadata()).getColor();
 			}
 			return -1;

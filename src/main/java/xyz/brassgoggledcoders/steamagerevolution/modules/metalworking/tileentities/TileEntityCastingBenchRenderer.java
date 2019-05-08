@@ -17,7 +17,7 @@ public class TileEntityCastingBenchRenderer extends TileEntitySpecialRenderer<Ti
 		FluidTank tank = tile.inventory.getInputTank();
 		FluidStack liquid = tank.getFluid();
 
-		if(liquid != null) {
+		if (liquid != null) {
 
 			float height = ((float) liquid.amount) / (float) tank.getCapacity();
 

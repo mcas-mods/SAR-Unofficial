@@ -12,7 +12,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -58,7 +60,7 @@ public class BlockSteamVent extends BlockTEBase<TileEntitySteamVent> {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if(!playerIn.getHeldItem(hand).isEmpty()
+		if (!playerIn.getHeldItem(hand).isEmpty()
 				&& playerIn.getHeldItem(hand).hasCapability(Capabilities.TOOL, facing)) {
 			worldIn.setBlockState(pos, worldIn.getBlockState(pos).cycleProperty(FACING));
 			return true;
@@ -69,8 +71,8 @@ public class BlockSteamVent extends BlockTEBase<TileEntitySteamVent> {
 
 	@Override
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-		if(!worldIn.isRemote) {
-			if(worldIn.isBlockPowered(pos)) {
+		if (!worldIn.isRemote) {
+			if (worldIn.isBlockPowered(pos)) {
 				action(worldIn, pos);
 			}
 		}
@@ -78,8 +80,8 @@ public class BlockSteamVent extends BlockTEBase<TileEntitySteamVent> {
 
 	@Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-		if(!worldIn.isRemote) {
-			if(worldIn.isBlockPowered(pos)) {
+		if (!worldIn.isRemote) {
+			if (worldIn.isBlockPowered(pos)) {
 				action(worldIn, pos);
 			}
 		}
@@ -87,9 +89,9 @@ public class BlockSteamVent extends BlockTEBase<TileEntitySteamVent> {
 
 	public void action(World world, BlockPos pos) {
 		TileEntitySteamVent tile = getTileEntity(world, pos).get();
-		if(tile.tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
+		if (tile.tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
 			EnumFacing f = world.getBlockState(pos).getValue(BlockSteamVent.FACING);
-			for(EntityLivingBase e : world.getEntitiesWithinAABB(EntityLivingBase.class,
+			for (EntityLivingBase e : world.getEntitiesWithinAABB(EntityLivingBase.class,
 					new AxisAlignedBB(pos.offset(f)).grow(3F))) {
 				e.attackEntityFrom(DamageSource.IN_FIRE, 3F);
 			}

@@ -41,7 +41,7 @@ public class BlockIncenseSpray extends BlockBase {
 
 	@Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-		if(worldIn.getBlockState(pos.down()).getBlock() != ModuleAlchemical.incense) {
+		if (worldIn.getBlockState(pos.down()).getBlock() != ModuleAlchemical.incense) {
 			worldIn.setBlockToAir(pos);
 		}
 	}

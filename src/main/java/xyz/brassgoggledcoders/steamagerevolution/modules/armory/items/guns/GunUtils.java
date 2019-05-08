@@ -9,22 +9,24 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.IAmmo.AmmoType;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.*;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.GunPartRegistry;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IBarrel;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IChamber;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IGunPart;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IGunPart.GunPartType;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IStock;
 
 public class GunUtils {
 	public static ItemStack findAmmo(EntityPlayer player, ItemStack gunStack, AmmoType type) {
-		if(isValidAmmo(player.getHeldItem(EnumHand.OFF_HAND), type)) {
+		if (isValidAmmo(player.getHeldItem(EnumHand.OFF_HAND), type)) {
 			return player.getHeldItem(EnumHand.OFF_HAND);
-		}
-		else if(isValidAmmo(player.getHeldItem(EnumHand.MAIN_HAND), type)) {
+		} else if (isValidAmmo(player.getHeldItem(EnumHand.MAIN_HAND), type)) {
 			return player.getHeldItem(EnumHand.MAIN_HAND);
-		}
-		else {
-			for(int i = 0; i < player.inventory.getSizeInventory(); ++i) {
+		} else {
+			for (int i = 0; i < player.inventory.getSizeInventory(); ++i) {
 				ItemStack itemstack = player.inventory.getStackInSlot(i);
 
-				if(isValidAmmo(itemstack, type)) {
+				if (isValidAmmo(itemstack, type)) {
 					return itemstack;
 				}
 			}
@@ -34,7 +36,7 @@ public class GunUtils {
 
 	public static boolean isValidAmmoContainer(ItemStack stack, AmmoType type) {
 		Item item = stack.getItem();
-		if(item instanceof IAmmoContainer) {
+		if (item instanceof IAmmoContainer) {
 			return ((IAmmoContainer) item).getContainedAmmo().equals(type);
 		}
 		return false;
@@ -43,17 +45,15 @@ public class GunUtils {
 	public static ItemStack findAmmo(EntityPlayer player, ItemStack gunStack) {
 		IChamber part = (IChamber) GunPartRegistry
 				.getPart(GunUtils.getOrCreateTagCompound(gunStack).getString(GunPartType.CHAMBER.toString()));
-		if(GunUtils.isValidAmmo(player.getHeldItem(EnumHand.OFF_HAND), part.getAcceptedType())) {
+		if (GunUtils.isValidAmmo(player.getHeldItem(EnumHand.OFF_HAND), part.getAcceptedType())) {
 			return player.getHeldItem(EnumHand.OFF_HAND);
-		}
-		else if(GunUtils.isValidAmmo(player.getHeldItem(EnumHand.MAIN_HAND), part.getAcceptedType())) {
+		} else if (GunUtils.isValidAmmo(player.getHeldItem(EnumHand.MAIN_HAND), part.getAcceptedType())) {
 			return player.getHeldItem(EnumHand.MAIN_HAND);
-		}
-		else {
-			for(int i = 0; i < player.inventory.getSizeInventory(); ++i) {
+		} else {
+			for (int i = 0; i < player.inventory.getSizeInventory(); ++i) {
 				ItemStack itemstack = player.inventory.getStackInSlot(i);
 
-				if(GunUtils.isValidAmmo(itemstack, part.getAcceptedType())) {
+				if (GunUtils.isValidAmmo(itemstack, part.getAcceptedType())) {
 					return itemstack;
 				}
 			}
@@ -63,14 +63,14 @@ public class GunUtils {
 
 	public static boolean isValidAmmo(ItemStack stack, AmmoType type) {
 		Item item = stack.getItem();
-		if(item instanceof IAmmo) {
+		if (item instanceof IAmmo) {
 			return ((IAmmo) item).getAmmoType().equals(type);
 		}
 		return false;
 	}
 
 	public static NBTTagCompound getOrCreateTagCompound(ItemStack stack) {
-		if(!stack.hasTagCompound()) {
+		if (!stack.hasTagCompound()) {
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setBoolean("isLoaded", false);
 			stack.setTagCompound(tag);

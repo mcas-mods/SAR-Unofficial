@@ -11,18 +11,22 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeMachineHelper;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
-public abstract class SARMultiblockInventory extends SARMultiblockBase implements ISmartStackCallback, IHasInventory {
+public abstract class SARMultiblockInventory<I extends InventoryRecipeMachine> extends SARMultiblockBase
+		implements ISmartStackCallback, IMachineHasInventory<I> {
 
-	public InventoryMachine inventory;
+	public I inventory;
 	@SideOnly(Side.CLIENT)
 	public int currentMaxTicks;
 	protected int currentTicks = 0;
-	SARMachineRecipe currentRecipe;
+	protected SARMachineRecipe currentRecipe;
 
 	protected SARMultiblockInventory(World world) {
 		super(world);
@@ -31,12 +35,12 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase implement
 	@Override
 	protected boolean updateServer() {
 		onTick();
-		if(canRun()) {
-			if(currentTicks <= currentRecipe.getTicksPerOperation()) { // TODO
+		if (canRun()) {
+			if (currentTicks <= currentRecipe.getTicksPerOperation()) { // TODO
 				currentTicks++;
 			}
 			onActiveTick();
-			if(canFinish()) {
+			if (canFinish()) {
 				onFinish();
 				currentTicks = 0;
 				currentRecipe = null;
@@ -77,7 +81,7 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase implement
 	}
 
 	protected boolean canRun() {
-		if(currentRecipe != null) {
+		if (currentRecipe != null) {
 			// TODO Send this (much!) less often!
 			markReferenceCoordForUpdate();
 		}
@@ -124,12 +128,12 @@ public abstract class SARMultiblockInventory extends SARMultiblockBase implement
 	}
 
 	@Override
-	public InventoryMachine getInventory() {
+	public I getInventory() {
 		return inventory;
 	}
 
 	@Override
-	public void setInventory(InventoryMachine inventory) {
+	public void setInventory(I inventory) {
 		this.inventory = inventory;
 	}
 

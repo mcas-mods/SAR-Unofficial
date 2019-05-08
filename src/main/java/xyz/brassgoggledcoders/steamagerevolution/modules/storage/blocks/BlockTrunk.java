@@ -14,7 +14,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -78,26 +80,22 @@ public class BlockTrunk extends BlockGUIBase<TileEntityTrunk> implements IHasIte
 		boolean flag2 = this == worldIn.getBlockState(blockpos2).getBlock();
 		boolean flag3 = this == worldIn.getBlockState(blockpos3).getBlock();
 
-		if(!flag && !flag1 && !flag2 && !flag3) {
+		if (!flag && !flag1 && !flag2 && !flag3) {
 			worldIn.setBlockState(pos, state, 3);
-		}
-		else if(enumfacing.getAxis() != EnumFacing.Axis.X || !flag && !flag1) {
-			if(enumfacing.getAxis() == EnumFacing.Axis.Z && (flag2 || flag3)) {
-				if(flag2) {
+		} else if (enumfacing.getAxis() != EnumFacing.Axis.X || !flag && !flag1) {
+			if (enumfacing.getAxis() == EnumFacing.Axis.Z && (flag2 || flag3)) {
+				if (flag2) {
 					worldIn.setBlockState(blockpos2, state, 3);
-				}
-				else {
+				} else {
 					worldIn.setBlockState(blockpos3, state, 3);
 				}
 
 				worldIn.setBlockState(pos, state, 3);
 			}
-		}
-		else {
-			if(flag) {
+		} else {
+			if (flag) {
 				worldIn.setBlockState(blockpos, state, 3);
-			}
-			else {
+			} else {
 				worldIn.setBlockState(blockpos1, state, 3);
 			}
 
@@ -109,7 +107,7 @@ public class BlockTrunk extends BlockGUIBase<TileEntityTrunk> implements IHasIte
 	public IBlockState getStateFromMeta(int meta) {
 		EnumFacing enumfacing = EnumFacing.byIndex(meta);
 
-		if(enumfacing.getAxis() == EnumFacing.Axis.Y) {
+		if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
 			enumfacing = EnumFacing.NORTH;
 		}
 

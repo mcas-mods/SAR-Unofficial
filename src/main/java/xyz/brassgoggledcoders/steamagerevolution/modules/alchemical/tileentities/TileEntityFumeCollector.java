@@ -8,7 +8,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
@@ -26,21 +28,21 @@ public class TileEntityFumeCollector extends TileEntitySlowTick {
 	// TODO this probably really doesn't need to be ticking.
 	@Override
 	public void updateTile() {
-		if(world.isRemote) {
+		if (world.isRemote) {
 			return;
 		}
 		BlockPos below = getPos().down();
 		TileEntity te = getWorld().getTileEntity(below);
-		if(te != null && te.hasCapability(SARCapabilities.FUME_PRODUCER, EnumFacing.DOWN)) {
+		if (te != null && te.hasCapability(SARCapabilities.FUME_PRODUCER, EnumFacing.DOWN)) {
 			IFumeProducer producer = te.getCapability(SARCapabilities.FUME_PRODUCER, EnumFacing.DOWN);
-			if(producer.isBurning()) {
+			if (producer.isBurning()) {
 				SteamAgeRevolution.instance.getLogger().devInfo("Fume collector has burning producer");
 				ItemStack fuel = producer.getCurrentFuel();
-				if(!fuel.isEmpty()) {
+				if (!fuel.isEmpty()) {
 					FumeCollectorRecipe r = FumeCollectorRecipe.getRecipe(fuel);
-					if(r != null && getWorld().rand.nextFloat() < r.chance) {
+					if (r != null && getWorld().rand.nextFloat() < r.chance) {
 						FluidStack fume = r.output;
-						if(tank.fill(fume, false) == fume.amount) {
+						if (tank.fill(fume, false) == fume.amount) {
 							tank.fill(fume, true);
 						}
 					}
@@ -56,7 +58,7 @@ public class TileEntityFumeCollector extends TileEntitySlowTick {
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
 		}
 		return super.getCapability(capability, facing);

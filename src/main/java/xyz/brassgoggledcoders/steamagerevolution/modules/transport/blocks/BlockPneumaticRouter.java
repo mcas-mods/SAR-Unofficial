@@ -31,7 +31,7 @@ public class BlockPneumaticRouter extends BlockTEBase<TileEntityPneumaticRouter>
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if(!playerIn.getHeldItem(hand).isEmpty()
+		if (!playerIn.getHeldItem(hand).isEmpty()
 				&& playerIn.getHeldItem(hand).hasCapability(Capabilities.TOOL, facing)) {
 			worldIn.setBlockState(pos, state.cycleProperty(FACING));
 			((TileEntityPneumaticRouter) worldIn.getTileEntity(pos)).recalculateCache(worldIn, pos, state, null);

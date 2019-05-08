@@ -5,7 +5,9 @@ import java.util.Optional;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -63,12 +65,12 @@ public class BlockTankWindow extends BlockMultiblockBase<TileEntityTankWindow> {
 	@Override
 	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
 		Optional<TileEntityTankWindow> te = getTileEntity(world, pos);
-		if(te.isPresent()) {
+		if (te.isPresent()) {
 			TileEntityTankWindow window = te.get();
 			ControllerTank multiblockController = window.getMultiblockController();
-			if(window.isConnected() && multiblockController.isAssembled()) {
+			if (window.isConnected() && multiblockController.isAssembled()) {
 				FluidStack fluid = multiblockController.tank.getFluid();
-				if(fluid != null) {
+				if (fluid != null) {
 					return fluid.getFluid().getLuminosity();
 				}
 			}

@@ -8,6 +8,7 @@ import com.teamacronymcoders.base.items.ItemBase;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
+import com.teamacronymcoders.base.registrysystem.EntityRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
@@ -31,13 +32,10 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.EntityEntry;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ILens.VanillaLens;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityDeadInventor;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemClockworkWings;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemDrill;
@@ -73,6 +71,9 @@ public class ModuleArmory extends ModuleBase {
 	@ObjectHolder(SteamAgeRevolution.MODID + ":goggles")
 	public static final Item goggles = null;
 
+	@ObjectHolder(SteamAgeRevolution.MODID + ":iron_drill")
+	public static final Item drill = null;
+
 	public static final HashSet<Block> KNOWN_ORES = new HashSet<Block>();
 
 	public static ArrayList<ILens> lenseTypes = Lists.newArrayList();
@@ -82,16 +83,12 @@ public class ModuleArmory extends ModuleBase {
 		return "xyz.brassgoggledcoders.steamagerevolution.modules.armory.ClientProxy";
 	}
 
-	@SubscribeEvent
-	public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
-		int networkID = 0;
-		EntityRegistry.registerModEntity(new ResourceLocation(SteamAgeRevolution.MODID, "bullet"), EntityBullet.class,
-				"bullet", networkID++, SteamAgeRevolution.MODID, 64, 1, true);
-		EntityRegistry.registerModEntity(new ResourceLocation(SteamAgeRevolution.MODID, "dead_inventor"),
-				EntityDeadInventor.class, "dead_inventor", networkID++, SteamAgeRevolution.MODID, 64, 1, true, 0,
-				11111);
-		EntityRegistry.addSpawn(EntityDeadInventor.class, 10, 1, 2, EnumCreatureType.MONSTER, Biomes.DESERT,
-				Biomes.ROOFED_FOREST, Biomes.JUNGLE, Biomes.EXTREME_HILLS);// TODO
+	@Override
+	public void registerEntities(ConfigRegistry configRegistry, EntityRegistry entityRegistry) {
+		super.registerEntities(configRegistry, entityRegistry);
+		entityRegistry.register(EntityDeadInventor.class);
+		net.minecraftforge.fml.common.registry.EntityRegistry.addSpawn(EntityDeadInventor.class, 10, 1, 2,
+				EnumCreatureType.MONSTER, Biomes.DESERT, Biomes.ROOFED_FOREST, Biomes.JUNGLE, Biomes.EXTREME_HILLS);// TODO
 	}
 
 	@Override
@@ -123,8 +120,8 @@ public class ModuleArmory extends ModuleBase {
 		itemRegistry.register(new ItemLens());
 		itemRegistry.register(new ItemGoggles());
 
-		for(int i = 0; i < 16; ++i) {
-			if(i == EnumDyeColor.GREEN.getMetadata()) {
+		for (int i = 0; i < 16; ++i) {
+			if (i == EnumDyeColor.GREEN.getMetadata()) {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
 					// TODO Switch to a brightness increaser instead of a potion effect
 					@Override
@@ -139,24 +136,21 @@ public class ModuleArmory extends ModuleBase {
 						return "Grants night vision";
 					}
 				});
-			}
-			else if(i == EnumDyeColor.CYAN.getMetadata()) {
+			} else if (i == EnumDyeColor.CYAN.getMetadata()) {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
 					@Override
 					public String getEffect() {
 						return "Lessens the goggle overlay";
 					}
 				});
-			}
-			else if(i == EnumDyeColor.SILVER.getMetadata()) {
+			} else if (i == EnumDyeColor.SILVER.getMetadata()) {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
 					@Override
 					public String getEffect() {
 						return "Makes the goggles act as a OneProbe probe";
 					}
 				});
-			}
-			else if(i == EnumDyeColor.WHITE.getMetadata()) {
+			} else if (i == EnumDyeColor.WHITE.getMetadata()) {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
 					@Override
 					public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
@@ -169,44 +163,39 @@ public class ModuleArmory extends ModuleBase {
 						return "Protects you against blindness";
 					}
 				});
-			}
-			else if(i == EnumDyeColor.LIGHT_BLUE.getMetadata()) {
+			} else if (i == EnumDyeColor.LIGHT_BLUE.getMetadata()) {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
 					@Override
 					public String getEffect() {
 						return "Removes water fog";
 					}
 				});
-			}
-			else if(i == EnumDyeColor.ORANGE.getMetadata()) {
+			} else if (i == EnumDyeColor.ORANGE.getMetadata()) {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
 					@Override
 					public String getEffect() {
 						return "Removes lava fog";
 					}
 				});
-			}
-			else if(i == EnumDyeColor.BLACK.getMetadata()) {
+			} else if (i == EnumDyeColor.BLACK.getMetadata()) {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
 					@Override
 					public String getEffect() {
 						return "Removes world fog";
 					}
 				});
-			}
-			else if(i == EnumDyeColor.PURPLE.getMetadata()) {
+			} else if (i == EnumDyeColor.PURPLE.getMetadata()) {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i) {
 					@Override
 					public String getEffect() {
 						return "Makes the goggles act as Goggles of Revealing";
 					}
 				});
-			}
-			else {
+			} else {
 				ModuleArmory.lenseTypes.add(new VanillaLens(i));
 			}
 		}
-		
+
 		itemRegistry.register(new ItemEntrenchingTool("entrenching_tool", ToolMaterial.IRON));
 
 		/*

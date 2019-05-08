@@ -2,12 +2,19 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.materials;
 
 import java.awt.Color;
 import java.util.Arrays;
+import java.util.List;
 
+import com.google.common.collect.Lists;
+import com.teamacronymcoders.base.Base;
 import com.teamacronymcoders.base.items.ItemBase;
-import com.teamacronymcoders.base.materialsystem.*;
+import com.teamacronymcoders.base.materialsystem.MaterialException;
+import com.teamacronymcoders.base.materialsystem.MaterialSystem;
+import com.teamacronymcoders.base.materialsystem.MaterialUser;
 import com.teamacronymcoders.base.materialsystem.materials.Material;
 import com.teamacronymcoders.base.materialsystem.materials.MaterialBuilder;
 import com.teamacronymcoders.base.materialsystem.parts.PartBuilder;
+import com.teamacronymcoders.base.materialsystem.parttype.ItemPartType;
+import com.teamacronymcoders.base.materialsystem.parttype.PartType;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -18,10 +25,14 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.HeavyOrePartType;
 
 @ObjectHolder(SteamAgeRevolution.MODID)
 @Module(value = SteamAgeRevolution.MODID)
@@ -31,16 +42,25 @@ public class ModuleMaterials extends ModuleBase {
 	public static final Block charcoal_block = null;
 	public static final Item charcoal_powder = null;
 	public static Color brassColor = new Color(251, 194, 99);
-	String[] vanillaParts = new String[] { "ore", "plate", "dust", "molten", "crushed_ore", "solution", "crystal" };
-	String[] metalParts = new String[] { "ore", "crushed_ore", "solution", "crystal", "ingot", "nugget", "plate",
-			"dust", "block", "molten" };
-	String[] alloyParts = Arrays.copyOfRange(metalParts, 4, metalParts.length);
-	String[] compatParts = new String[] { "crushed_ore", "solution", "crystal" };
+	String[] vanillaParts = new String[] { "heavy_ore", "plate", "dust", "molten", "crushed_ore", "solution",
+			"crystal", "lattice", "ore_rock" };
+	String[] metalParts = new String[] { "ore", "heavy_ore", "crushed_ore", "ore_rock", "solution", "crystal", "ingot", "nugget",
+			"plate", "dust", "block", "molten", "lattice" };
+	String[] alloyParts = Arrays.copyOfRange(metalParts, 6, metalParts.length);
+	String[] compatParts = new String[] { "crushed_ore", "solution", "crystal", "lattice", "ore_rock" };
 
+	public static List<String> knownMetalTypes = Lists.newArrayList();
+	
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		try {
 			MaterialUser SAR = SteamAgeRevolution.instance.getMaterialUser();
+
+			PartType heavyOre = new HeavyOrePartType();
+			MaterialSystem.registerPartType(heavyOre);
+			registerPart("Heavy Ore", heavyOre);
+
+			registerPart("Lattice", MaterialSystem.getPartType("block"));
 
 			new PartBuilder().setOwnerId(SAR.getId()).setName("Solution").setOreDictName("solution")
 					.setPartType(MaterialSystem.getPartType("fluid")).build();
@@ -70,39 +90,75 @@ public class ModuleMaterials extends ModuleBase {
 			MaterialSystem.getMaterialPart("sulphur_ore").getData().addDataValue("drops", "oredict:crystalSulphur");
 
 			SAR.registerPartsForMaterial(iron, vanillaParts);
-			MaterialSystem.getMaterialPart("iron_ore").getData().addDataValue("variants", "gravel,sand");
-
+			setDataDefaults("iron", true);
+				
 			SAR.registerPartsForMaterial(gold, vanillaParts);
-			MaterialSystem.getMaterialPart("gold_ore").getData().addDataValue("variants", "gravel,sand");
-
+			setDataDefaults("gold", true);
+			
 			SAR.registerPartsForMaterial(copper, metalParts);
-			MaterialSystem.getMaterialPart("copper_ore").getData().addDataValue("variants", "stone,gravel,sand");
-
+			setDataDefaults("copper", true);
+			
 			SAR.registerPartsForMaterial(zinc, metalParts);
-			MaterialSystem.getMaterialPart("zinc_ore").getData().addDataValue("variants", "stone,gravel,sand");
-
+			setDataDefaults("zinc", true);
+			
 			SAR.registerPartsForMaterial(steel, alloyParts);
+			setDataDefaults("steel", false);
 
 			SAR.registerPartsForMaterial(brass, alloyParts);
-
+			setDataDefaults("brass", false);
+			
+			// TODO Do this for all 'known metals'
+			// Only register when present in oredict
 			SAR.registerPartsForMaterial(tin, compatParts);
+			setDataDefaults("tin", true);
 			SAR.registerPartsForMaterial(aluminum, compatParts);
+			setDataDefaults("aluminum", true);
 			SAR.registerPartsForMaterial(lead, compatParts);
-		}
-		catch(MaterialException e) {
+			setDataDefaults("lead", true);
+			
+		} catch (MaterialException e) {
 			e.printStackTrace();
 		}
 		super.preInit(event);
 	}
+	
+	public void setDataDefaults(String name, boolean isOre) {
+		if(isOre) {
+			MaterialSystem.getMaterialPart(name + "_ore").getData().addDataValue("resistance", "10");
+			MaterialSystem.getMaterialPart(name + "_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
+				"1");
+		}
+		MaterialSystem.getMaterialPart(name + "lead_lattice").getData().addDataValue("transparent", "true");
+	}
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-		// TODO
-		// FurnaceRecipes.instance().addSmeltingRecipe(OreDictUtils.getPreferredItemStack("dustBrass"),
-		// OreDictUtils.getPreferredItemStack("ingotBrass"), 0.7f);
 		OreDictionary.registerOre("blockCharcoal", charcoal_block);
 		OreDictionary.registerOre("dustCharcoal", charcoal_powder);
 		super.init(event);
+	}
+
+	@Override
+	public void postInit(FMLPostInitializationEvent event) {
+		super.postInit(event);
+	}
+
+	@SubscribeEvent
+	public static void onOreRegistered(OreDictionary.OreRegisterEvent event) {
+		String name = event.getName();
+		String[] splitName = name.split("(?=[A-Z])");
+		if (splitName.length == 2) {
+			if (splitName[0].equals("ingot")) {
+				String metalType = splitName[1];
+				if (!ModuleMaterials.knownMetalTypes.contains(metalType)) {
+					ModuleMaterials.knownMetalTypes.add(metalType);
+					SteamAgeRevolution.instance.getLogger().devInfo("Metal type detected: " + metalType);
+				}
+			}
+		}
+		if(event.getName().contains("ore")) {
+			ModuleArmory.KNOWN_ORES.add(Block.getBlockFromItem(event.getOre().getItem()));
+		}
 	}
 
 	@Override
@@ -116,12 +172,19 @@ public class ModuleMaterials extends ModuleBase {
 	}
 
 	@Override
-	public String getClientProxyPath() {
-		return "xyz.brassgoggledcoders.steamagerevolution.modules.materials.ClientProxy";
-	}
-
-	@Override
 	public String getName() {
 		return "Materials";
+	}
+
+	private void registerPart(String name, PartType partType) {
+		registerPart(new PartBuilder().setOwnerId(this.getMod().getID()).setName(name).setPartType(partType));
+	}
+
+	private void registerPart(PartBuilder partBuilder) {
+		try {
+			partBuilder.build();
+		} catch (MaterialException e) {
+			Base.instance.getLogger().getLogger().error(e);
+		}
 	}
 }

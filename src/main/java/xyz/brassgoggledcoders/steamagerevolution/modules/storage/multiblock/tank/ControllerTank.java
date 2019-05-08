@@ -42,7 +42,7 @@ public class ControllerTank extends SARMultiblockBase {
 
 		int blocksInside = 0;
 		// TODO Expensive for loop just to increment an integer
-		for(BlockPos pos : BlockPos.getAllInBox(minimumInteriorPos, maximumInteriorPos)) {
+		for (BlockPos pos : BlockPos.getAllInBox(minimumInteriorPos, maximumInteriorPos)) {
 			blocksInside++;
 		}
 		// Size internal tank accordingly

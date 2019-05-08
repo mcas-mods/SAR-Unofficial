@@ -2,6 +2,9 @@ itemGroup.steamagerevolution=Steam Age Revolution
 
 # Parts
 steamagerevolution.part.solution=%s Solution
+steamagerevolution.part.lattice=%s Lattice
+steamagerevolution.part.heavy_ore=%s Heavy Ore
+steamagerevolution.part.heavy_ore_indicator=%s Heavy Ore Tell
 
 #Items
 item.steamagerevolution.charcoal_powder.name=Charcoal Powder
@@ -34,6 +37,9 @@ item.steamagerevolution.flask.name=Flask
 
 item.steamagerevolution.lens.name=Lens
 item.steamagerevolution.goggles.name=Goggles
+
+item.steamagerevolution.minecart_drilling.name=Seam Miner Cart
+item.steamagerevolution.minecart_carrier.name=Ore Carrier Cart
 
 #Blocks
 tile.steamagerevolution.fluid_io.name=Fluid IO
@@ -76,7 +82,6 @@ tile.steamagerevolution.furnace_casing.name=Steam Furnace Casing
 tile.steamagerevolution.furnace_item_input.name=Steam Furnace Item Input
 tile.steamagerevolution.furnace_item_output.name=Steam Furnace Item Output
 tile.steamagerevolution.furnace_steam_input.name=Steam Furnace Steam Input
-tile.steamagerevolution.furnace_mode_toggle.name=Steam Furnace Mode Toggle
 
 tile.steamagerevolution.crucible_item_input.name=Crucible Item Input
 tile.steamagerevolution.crucible_steam_input.name=Crucible Steam Input
@@ -108,10 +113,15 @@ tile.steamagerevolution.distiller_item_output.name=Distiller Item Output
 tile.steamagerevolution.fluid_hopper.name=Fluid Hopper
 tile.steamagerevolution.charcoal_block.name=Charcoal Block
 tile.steamagerevolution.steam_vent.name=Steam Vent
-tile.steamagerevolution.basic_fluid_tank.name=Basic Fluid Tank
+
+tile.steamagerevolution.grinder_frame.name=Grinder Frame
+tile.steamagerevolution.grinder_input.name=Grinder Blades
+tile.steamagerevolution.grinder_output.name=Grinder Output
 
 #Entities
-entity.dead_inventor.name=Dead Inventor
+entity.entitydeadinventor.name=Dead Inventor
+entity.entityminecartdrilling.name=Seam Miner Cart
+entity.entityminecartcarrier.name=Carrier Cart
 
 #Advancements
 advancement.steamagerevolution.ore=A New Age
@@ -121,7 +131,6 @@ advancement.steamagerevolution.hammer.desc=Pulverise zinc and copper, combine th
 advancement.steamagerevolution.brass=Brass Monkeys
 advancement.steamagerevolution.brass.desc=A new material! The foundation of everything to come...
 
-
 #Multiblock validation
 steamagerevolution.multiblock.validation.missingrequired=Multiblock is missing required part: %s
 steamagerevolution.multiblock.validation.alloyforgeinterior=Interior of the alloy forge must be filled with lava
@@ -129,8 +138,6 @@ steamagerevolution.multiblock.validation.distiller_radiator=Bottom layer of the 
 steamagerevolution.multiblock.validation.distiller_hotplate=Second-from-bottom layer of the Distiller must be composed entirely of hotplate blocks
 
 #Other
-
-
 fluid.steam=Steam
 fluid.sulphur_dioxide=Sulphur Dioxide
 fluid.sulphuric_acid=Sulphuric Acid
@@ -141,6 +148,7 @@ death.attack.hammer=%1$s was flattened.
 death.attack.gas=%1$s's lungs dissolved.
 death.attack.acid=%1$s became a part of the solution.
 death.attack.bullet=%1$s took a bullet to the knee.
+death.attack.grinder=%1$s got left in the dust.
 
 #Guide
 item.guide.steamagerevolution=Steam Age Guide

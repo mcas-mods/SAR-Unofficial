@@ -14,7 +14,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.fml.relauncher.Side;
@@ -38,10 +40,9 @@ public class ItemCanister extends ItemBase implements IHasSubItems {
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		FluidStack fluid = internal.getFluid();
-		if(fluid == null) {
+		if (fluid == null) {
 			tooltip.add("0mB/" + capacity + "mB");
-		}
-		else {
+		} else {
 			tooltip.add(fluid.getLocalizedName());
 			tooltip.add(fluid.amount + "mB/" + capacity + "mB");
 		}
@@ -50,7 +51,7 @@ public class ItemCanister extends ItemBase implements IHasSubItems {
 	@Override
 	public List<ItemStack> getAllSubItems(List<ItemStack> itemStacks) {
 		itemStacks.add(new ItemStack(ModuleStorage.canister));
-		for(Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
+		for (Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
 			ItemStack filledStack = new ItemStack(ModuleStorage.canister);
 			filledStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
 					.fill(new FluidStack(fluid, capacity), true);

@@ -2,9 +2,13 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items;
 
 import java.util.List;
 
-import javax.annotation.*;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
-import com.google.common.collect.*;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
 import com.teamacronymcoders.base.IBaseMod;
 import com.teamacronymcoders.base.IModAware;
 import com.teamacronymcoders.base.client.models.IHasModel;
@@ -15,7 +19,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
@@ -49,10 +55,9 @@ public class ItemSteamSword extends ItemSword implements IHasModel, IModAware {
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		FluidStack fluid = internal.getFluid();
-		if(fluid == null) {
+		if (fluid == null) {
 			tooltip.add("0mB/" + capacity + "mB");
-		}
-		else {
+		} else {
 			tooltip.add(fluid.getLocalizedName());
 			tooltip.add(fluid.amount + "mB/" + capacity + "mB");
 		}
@@ -62,11 +67,10 @@ public class ItemSteamSword extends ItemSword implements IHasModel, IModAware {
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
+		if (internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
 			internal.drain(steamUsePerBlock, true);
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -80,7 +84,7 @@ public class ItemSteamSword extends ItemSword implements IHasModel, IModAware {
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 
-		if(slot == EntityEquipmentSlot.MAINHAND && internal.getFluid() != null) {
+		if (slot == EntityEquipmentSlot.MAINHAND && internal.getFluid() != null) {
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
 					new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 3.0F + getAttackDamage(), 0));
 			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
@@ -124,7 +128,7 @@ public class ItemSteamSword extends ItemSword implements IHasModel, IModAware {
 	@Override
 	@ParametersAreNonnullByDefault
 	public void getSubItems(@Nullable CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if(tab != null && tab == getCreativeTab() || tab == CreativeTabs.SEARCH) {
+		if (tab != null && tab == getCreativeTab() || tab == CreativeTabs.SEARCH) {
 			subItems.addAll(getAllSubItems(Lists.newArrayList()));
 		}
 	}
@@ -138,7 +142,7 @@ public class ItemSteamSword extends ItemSword implements IHasModel, IModAware {
 	@Override
 	@Nonnull
 	public Item setCreativeTab(@Nonnull CreativeTabs tab) {
-		if(!creativeTabSet) {
+		if (!creativeTabSet) {
 			super.setCreativeTab(tab);
 			creativeTabSet = true;
 		}

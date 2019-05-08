@@ -1,8 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.metalworking;
 
-import java.util.List;
-
-import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -32,7 +29,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
-import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
 import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMaterials;
@@ -67,8 +63,6 @@ public class ModuleMetalworking extends ModuleBase {
 	public static final Item hammer = null;
 	public static final Block steamhammer_frame = null;
 
-	public static List<String> knownMetalTypes = Lists.newArrayList();
-
 	public static DamageSource damageSourceHammer = new DamageSource("hammer").setDifficultyScaled()
 			.setDamageBypassesArmor().setDamageIsAbsolute();
 
@@ -80,13 +74,6 @@ public class ModuleMetalworking extends ModuleBase {
 				new RecipesOreToDust().setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "ore_to_dust")));
 		event.getRegistry().register(new RecipesIngotToPlate()
 				.setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "ingot_to_plate")));
-
-		new MachineRecipeBuilder("steam hammer").setItemInputs(new ItemStack(Blocks.STONE))
-				.setItemOutputs(new ItemStack(Blocks.COBBLESTONE)).build();
-		new MachineRecipeBuilder("steam hammer").setItemInputs(new ItemStack(Blocks.COBBLESTONE))
-				.setItemOutputs(new ItemStack(Blocks.GRAVEL)).build();
-		new MachineRecipeBuilder("steam hammer").setItemInputs(new ItemStack(Blocks.GRAVEL))
-				.setItemOutputs(new ItemStack(Blocks.SAND)).build();
 
 		new MachineRecipeBuilder("alloy forge")
 				.setFluidInputs(FluidRegistry.getFluidStack("copper", RecipeUtil.VALUE_INGOT),
@@ -105,7 +92,7 @@ public class ModuleMetalworking extends ModuleBase {
 				.setFluidOutputs(FluidRegistry.getFluidStack("steel", RecipeUtil.VALUE_BLOCK))
 				.setSteamCost(Fluid.BUCKET_VOLUME * 10).setCraftTime(6000).build();
 
-		for(String metal : knownMetalTypes) {
+		for (String metal : ModuleMaterials.knownMetalTypes) {
 
 			// Known to be non-null because it is how metal types are known
 			String ingot = "ingot" + metal;
@@ -131,7 +118,7 @@ public class ModuleMetalworking extends ModuleBase {
 			FluidStack solution = FluidRegistry.getFluidStack(metal.toLowerCase() + "_solution",
 					RecipeUtil.VALUE_NUGGET * 4);
 
-			if(molten != null) {
+			if (molten != null) {
 				FluidStack moltenCopy = molten.copy();
 				moltenCopy.amount = RecipeUtil.VALUE_NUGGET;
 				new MachineRecipeBuilder("crucible").setItemInputs(nugget).setFluidOutputs(moltenCopy)
@@ -146,40 +133,42 @@ public class ModuleMetalworking extends ModuleBase {
 				new MachineRecipeBuilder("casting bench").setFluidInputs(molten).setItemOutputs(ingotStack)
 						.setCraftTime(2400).build();
 			}
-			if(!plateStack.isEmpty()) {
+			if (!plateStack.isEmpty()) {
 				ItemStack plateCopy = plateStack.copy();
 				plateCopy.setCount(plateCount);
 				new MachineRecipeBuilder("steam hammer").setItemInputs(ingot).setItemOutputs(plateCopy).build();
 			}
-			if(!gearStack.isEmpty()) {
+			if (!gearStack.isEmpty()) {
 				// TODO
 				// SteamHammerRecipe.addSteamHammerRecipe(ingot, gear, "gear");
 			}
-			if(!ore.isEmpty()) {
+			if (!ore.isEmpty()) {
 				// TODO: Use 'our' stacks not preferred
-				if(FurnaceRecipes.instance().getSmeltingResult(oreStack).isEmpty()) {
+				if (FurnaceRecipes.instance().getSmeltingResult(oreStack).isEmpty()) {
 					GameRegistry.addSmelting(oreStack, ingotStack, 0.5F);
 				}
 			}
-			if(!dust.isEmpty()) {
+			if (!dust.isEmpty()) {
 				// TODO: Use 'our' stacks not preferred
-				if(FurnaceRecipes.instance().getSmeltingResult(dustStack).isEmpty()) {
+				if (FurnaceRecipes.instance().getSmeltingResult(dustStack).isEmpty()) {
 					GameRegistry.addSmelting(dustStack, ingotStack, 0.5F);
 				}
 			}
-			if(!crushedOreStack.isEmpty()) {
+			if (!crushedOreStack.isEmpty()) {
 				ItemStack nuggetCopy = nuggetStack.copy();
 				nuggetCopy.setCount(3);
-				GameRegistry.addSmelting(crushedOreStack, nuggetCopy, 0.1f);
+				if (FurnaceRecipes.instance().getSmeltingResult(nuggetStack).isEmpty()) {
+					GameRegistry.addSmelting(crushedOreStack, nuggetCopy, 0.1f);
+				}
 				ItemStack crushedOreCopy = crushedOreStack.copy();
 				crushedOreCopy.setCount(4);
-				new MachineRecipeBuilder("steam hammer").setItemInputs(ore).setItemOutputs(crushedOreCopy).build();
+				
 			}
-			if(!crystalStack.isEmpty()) {
-				if(!nugget.isEmpty()) {
+			if (!crystalStack.isEmpty()) {
+				if (!nugget.isEmpty() && FurnaceRecipes.instance().getSmeltingResult(crystalStack).isEmpty()) {
 					GameRegistry.addSmelting(crystalStack, nuggetStack, 0.3f);
 				}
-				if(solution != null) {
+				if (solution != null) {
 					new MachineRecipeBuilder("vat").setFluidOutputs(solution)
 							.setFluidInputs(FluidRegistry.getFluidStack("sulphuric_acid", Fluid.BUCKET_VOLUME / 4))
 							.setItemInputs(crushedOre).build();
@@ -191,24 +180,6 @@ public class ModuleMetalworking extends ModuleBase {
 		}
 	}
 
-	@SubscribeEvent
-	public static void onOreRegistered(OreDictionary.OreRegisterEvent event) {
-		String name = event.getName();
-		String[] splitName = name.split("(?=[A-Z])");
-		if(splitName.length == 2) {
-			if(splitName[0].equals("ingot")) {
-				String metalType = splitName[1];
-				if(!knownMetalTypes.contains(metalType)) {
-					knownMetalTypes.add(metalType);
-					SteamAgeRevolution.instance.getLogger().devInfo("Metal type detected: " + metalType);
-				}
-			}
-		}
-		if(event.getName().contains("ore")) {
-			ModuleArmory.KNOWN_ORES.add(Block.getBlockFromItem(event.getOre().getItem()));
-		}
-	}
-
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		getConfigRegistry().addEntry("plateCount", new ConfigEntry("balance", "plateCount", Type.INTEGER, "1"));
@@ -216,8 +187,8 @@ public class ModuleMetalworking extends ModuleBase {
 		getConfigRegistry().addEntry("dustCount", new ConfigEntry("balance", "dustCount", Type.INTEGER, "1"));
 		dustCount = getConfigRegistry().getInt("dustCount", 1);
 		getConfigRegistry().addCategoryComment("balance", "Adjust number of items produced in recipes", "General");
-		knownMetalTypes.add("Iron");
-		knownMetalTypes.add("Gold");
+		ModuleMaterials.knownMetalTypes.add("Iron");
+		ModuleMaterials.knownMetalTypes.add("Gold");
 		super.preInit(event);
 	}
 

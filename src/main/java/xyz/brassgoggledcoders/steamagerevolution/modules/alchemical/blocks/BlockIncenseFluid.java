@@ -11,7 +11,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
@@ -28,7 +30,7 @@ public class BlockIncenseFluid extends BlockFluidBase {
 	@Override
 	public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state,
 			@Nonnull Random rand) {
-		if(world.isAirBlock(pos.up())) {
+		if (world.isAirBlock(pos.up())) {
 			world.setBlockState(pos.up(), ModuleAlchemical.incense_spray.getDefaultState());
 		}
 		super.updateTick(world, pos, state, rand);
@@ -36,7 +38,7 @@ public class BlockIncenseFluid extends BlockFluidBase {
 
 	@Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-		if(isSourceBlock(worldIn, pos) && worldIn.getBlockState(pos.down()) != ModuleAlchemical.incense_burner) {
+		if (isSourceBlock(worldIn, pos) && worldIn.getBlockState(pos.down()) != ModuleAlchemical.incense_burner) {
 			worldIn.setBlockToAir(pos);
 		}
 		super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
@@ -70,13 +72,10 @@ public class BlockIncenseFluid extends BlockFluidBase {
 	/**
 	 * Called when entities are moving to check if they are inside a liquid
 	 *
-	 * @param world
-	 *            world that is being tested.
-	 * @param pos
-	 *            block thats being tested.
-	 * @param boundingBox
-	 *            box to test, generally the bounds of an entity that are besting
-	 *            tested.
+	 * @param world       world that is being tested.
+	 * @param pos         block thats being tested.
+	 * @param boundingBox box to test, generally the bounds of an entity that are
+	 *                    besting tested.
 	 * @return null for default behavior, true if the box is within the material,
 	 *         false if it was not.
 	 */

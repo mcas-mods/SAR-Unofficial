@@ -2,7 +2,9 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items;
 
 import java.util.List;
 
-import javax.annotation.*;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.IBaseMod;
@@ -13,7 +15,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemPickaxe;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -48,10 +52,9 @@ public class ItemSteamPickaxe extends ItemPickaxe implements IHasModel, IModAwar
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		FluidStack fluid = internal.getFluid();
-		if(fluid == null) {
+		if (fluid == null) {
 			tooltip.add("0mB/" + capacity + "mB");
-		}
-		else {
+		} else {
 			tooltip.add(fluid.getLocalizedName());
 			tooltip.add(fluid.amount + "mB/" + capacity + "mB");
 		}
@@ -77,10 +80,9 @@ public class ItemSteamPickaxe extends ItemPickaxe implements IHasModel, IModAwar
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
+		if (internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
 			return super.getDestroySpeed(stack, state);
-		}
-		else {
+		} else {
 			return 0.0F;
 		}
 	}
@@ -90,11 +92,10 @@ public class ItemSteamPickaxe extends ItemPickaxe implements IHasModel, IModAwar
 			EntityLivingBase entityLiving) {
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-		if(internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
+		if (internal.getFluid() != null && internal.getFluid().amount >= steamUsePerBlock) {
 			internal.drain(steamUsePerBlock, true);
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -117,7 +118,7 @@ public class ItemSteamPickaxe extends ItemPickaxe implements IHasModel, IModAwar
 	@Override
 	@ParametersAreNonnullByDefault
 	public void getSubItems(@Nullable CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if(tab != null && tab == getCreativeTab() || tab == CreativeTabs.SEARCH) {
+		if (tab != null && tab == getCreativeTab() || tab == CreativeTabs.SEARCH) {
 			subItems.addAll(getAllSubItems(Lists.newArrayList()));
 		}
 	}
@@ -131,7 +132,7 @@ public class ItemSteamPickaxe extends ItemPickaxe implements IHasModel, IModAwar
 	@Override
 	@Nonnull
 	public Item setCreativeTab(@Nonnull CreativeTabs tab) {
-		if(!creativeTabSet) {
+		if (!creativeTabSet) {
 			super.setCreativeTab(tab);
 			creativeTabSet = true;
 		}

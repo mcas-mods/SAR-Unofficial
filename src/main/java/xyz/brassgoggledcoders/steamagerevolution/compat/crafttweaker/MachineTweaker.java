@@ -28,32 +28,32 @@ public class MachineTweaker {
 		FluidStack[] fluidInputsStack = null;
 		ItemStack[] itemOutputsStack = null;
 		FluidStack[] fluidOutputsStack = null;
-		if(itemInputs != null) {
-			if(Arrays.asList(itemInputs).stream().anyMatch(ingredient -> ingredient instanceof ILiquidStack)) {
+		if (itemInputs != null) {
+			if (Arrays.asList(itemInputs).stream().anyMatch(ingredient -> ingredient instanceof ILiquidStack)) {
 				SteamAgeRevolution.instance.getLogger().error(
 						"Attempted to use a liquid ingredient where only ore/itemstack is valid. This recipe will not be added");
 				return;
 			}
 			itemInputsObj = new Object[itemInputs.length];
-			for(int i = 0; i < itemInputs.length; i++) {
+			for (int i = 0; i < itemInputs.length; i++) {
 				itemInputsObj[i] = CTHelper.toObject(itemInputs[i]);
 			}
 		}
-		if(fluidInputs != null) {
+		if (fluidInputs != null) {
 			fluidInputsStack = new FluidStack[fluidInputs.length];
-			for(int i = 0; i < fluidInputs.length; i++) {
+			for (int i = 0; i < fluidInputs.length; i++) {
 				fluidInputsStack[i] = CTHelper.toFluidStack(fluidInputs[i]);
 			}
 		}
-		if(itemOutputs != null) {
+		if (itemOutputs != null) {
 			itemOutputsStack = new ItemStack[itemOutputs.length];
-			for(int i = 0; i < itemOutputs.length; i++) {
+			for (int i = 0; i < itemOutputs.length; i++) {
 				itemOutputsStack[i] = CTHelper.toItemStack(itemOutputs[i]);
 			}
 		}
-		if(fluidOutputs != null) {
+		if (fluidOutputs != null) {
 			fluidOutputsStack = new FluidStack[fluidOutputs.length];
-			for(int i = 0; i < fluidOutputsStack.length; i++) {
+			for (int i = 0; i < fluidOutputsStack.length; i++) {
 				fluidOutputsStack[i] = CTHelper.toFluidStack(fluidOutputs[i]);
 			}
 		}
@@ -102,23 +102,21 @@ public class MachineTweaker {
 		@Override
 		public void apply() {
 			ArrayList<SARMachineRecipe> recipeList = RecipeRegistry.getRecipesForMachine(crafter);
-			for(SARMachineRecipe r : recipeList) {
+			for (SARMachineRecipe r : recipeList) {
 				boolean itemOutputMatches = false;
 				boolean fluidOutputMatches = false;
 				// TODO Make this match more flexibly
-				if(ArrayUtils.isNotEmpty(itemOutputs)) {
+				if (ArrayUtils.isNotEmpty(itemOutputs)) {
 					itemOutputMatches = r.getItemOutputs().equals(itemOutputs);
-				}
-				else {
+				} else {
 					itemOutputMatches = true;
 				}
-				if(ArrayUtils.isNotEmpty(fluidOutputs)) {
+				if (ArrayUtils.isNotEmpty(fluidOutputs)) {
 					fluidOutputMatches = r.getFluidOutputs().equals(fluidOutputs);
-				}
-				else {
+				} else {
 					fluidOutputMatches = true;
 				}
-				if(itemOutputMatches && fluidOutputMatches) {
+				if (itemOutputMatches && fluidOutputMatches) {
 					recipeList.remove(r);
 				}
 			}

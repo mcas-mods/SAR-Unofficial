@@ -11,7 +11,9 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -41,7 +43,7 @@ public class ItemAmmoContainer extends ItemBase implements IAmmoContainer {
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		ItemStack stack = playerIn.getHeldItem(handIn);
 		ItemStack ammo = GunUtils.findAmmo(playerIn, stack, type);
-		if(!ammo.isEmpty()) {
+		if (!ammo.isEmpty()) {
 			ammo.shrink(1);
 			getOrCreateTagCompound(stack).setInteger("count", (getOrCreateTagCompound(stack).getInteger("count") + 1));
 		}
@@ -65,7 +67,7 @@ public class ItemAmmoContainer extends ItemBase implements IAmmoContainer {
 	}
 
 	public static NBTTagCompound getOrCreateTagCompound(ItemStack stack) {
-		if(!stack.hasTagCompound()) {
+		if (!stack.hasTagCompound()) {
 			NBTTagCompound tag = new NBTTagCompound();
 			stack.setTagCompound(tag);
 		}

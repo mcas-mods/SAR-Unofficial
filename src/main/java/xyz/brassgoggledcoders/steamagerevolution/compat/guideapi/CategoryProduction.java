@@ -1,12 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.guideapi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.entry.EntryItemStack;
-import amerifrance.guideapi.page.PageJsonRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
@@ -22,7 +24,8 @@ public class CategoryProduction {
 
 		List<IPage> boilerEntry = new ArrayList<IPage>();
 		boilerEntry.addAll(PageHelper.pagesForLongText(I18n.translateToLocalFormatted(keyBase + "boiler.info")));
-		boilerEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "boiler_casing")));
+		// boilerEntry.add(new PageJsonRecipe(new
+		// ResourceLocation(SteamAgeRevolution.MODID, "boiler_casing")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "boiler_entry"),
 				new EntryItemStack(boilerEntry, keyBase + "boiler", new ItemStack(BookObjectHolder.boiler_casing)));
 
@@ -36,7 +39,7 @@ public class CategoryProduction {
 		BookUtils.addBasicEntry(entries, keyBase, "steam_hammer", new ItemStack(BookObjectHolder.steamhammer_frame),
 				true);
 
-		for(EntryAbstract entry : entries.values()) {
+		for (EntryAbstract entry : entries.values()) {
 			PageHelper.setPagesToUnicode(entry.pageList);
 		}
 

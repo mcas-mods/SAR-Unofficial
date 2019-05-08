@@ -9,7 +9,7 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerSimpleSlots extends ContainerBase {
 	public ContainerSimpleSlots(EntityPlayer player, TileEntity tile, int slots) {
-		for(int i = 0; i < slots; i++) {
+		for (int i = 0; i < slots; i++) {
 			addSlotToContainer(new SlotItemHandler(
 					tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), i, 80 + (i * 18), 31));
 		}

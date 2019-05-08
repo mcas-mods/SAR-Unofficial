@@ -8,15 +8,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerInventory extends ContainerBase {
-	public ContainerInventory(EntityPlayer player, IHasInventory holder) {
-		if(holder.getInventory().itemInput != null) {
-			for(int i = 0; i < holder.getInventory().itemInput.getHandler().getSlots(); i++) {
+	public ContainerInventory(EntityPlayer player, IMachineHasInventory holder) {
+		if (holder.getInventory().itemInput != null) {
+			for (int i = 0; i < holder.getInventory().itemInput.getHandler().getSlots(); i++) {
 				addSlotToContainer(new SlotItemHandler(holder.getInventory().itemInput.getHandler(), i,
 						holder.getInventory().itemInput.getX(i), holder.getInventory().itemInput.getY(i)));
 			}
 		}
-		if(holder.getInventory().itemOutput != null) {
-			for(int i = 0; i < holder.getInventory().itemOutput.getHandler().getSlots(); i++) {
+		if (holder.getInventory().itemOutput != null) {
+			for (int i = 0; i < holder.getInventory().itemOutput.getHandler().getSlots(); i++) {
 				addSlotToContainer(new SlotHandlerOutput(holder.getInventory().itemOutput.getHandler(), i,
 						holder.getInventory().itemOutput.getX(i), holder.getInventory().itemOutput.getY(i)));
 			}

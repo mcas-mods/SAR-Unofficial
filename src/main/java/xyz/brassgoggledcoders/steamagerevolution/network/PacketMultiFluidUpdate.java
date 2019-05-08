@@ -31,11 +31,11 @@ public class PacketMultiFluidUpdate implements IMessage {
 		pos = BlockPos.fromLong(buf.readLong());
 		int size = buf.readInt();
 		fluids = Lists.newArrayListWithCapacity(size);
-		for(int i = 0; i < size; i++) {
+		for (int i = 0; i < size; i++) {
 			NBTTagCompound tag = ByteBufUtils.readTag(buf);
-			if(tag != null) {
+			if (tag != null) {
 				FluidStack stack = FluidStack.loadFluidStackFromNBT(tag);
-				if(stack != null) {
+				if (stack != null) {
 					fluids.add(stack);
 				}
 			}
@@ -47,7 +47,7 @@ public class PacketMultiFluidUpdate implements IMessage {
 	public void toBytes(ByteBuf buf) {
 		buf.writeLong(pos.toLong());
 		buf.writeInt(fluids.size());
-		for(FluidStack stack : fluids) {
+		for (FluidStack stack : fluids) {
 			ByteBufUtils.writeTag(buf, stack.writeToNBT(new NBTTagCompound()));
 		}
 		buf.writeInt(id);

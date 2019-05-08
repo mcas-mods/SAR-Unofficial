@@ -27,7 +27,7 @@ public class ItemDie extends ItemBase implements IHasSubItems {
 
 	@Override
 	public List<ItemStack> getAllSubItems(List<ItemStack> itemStacks) {
-		for(int i = 0; i < dieShapes.length; i++) {
+		for (int i = 0; i < dieShapes.length; i++) {
 			itemStacks.add(new ItemStack(getItem(), 1, i));
 		}
 		return itemStacks;

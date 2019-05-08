@@ -6,7 +6,10 @@ import com.teamacronymcoders.base.containers.ContainerBase;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.*;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.SlotItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.modules.transport.ItemPunchcard;
 
 public class ContainerCardPuncher extends ContainerBase {
@@ -22,8 +25,8 @@ public class ContainerCardPuncher extends ContainerBase {
 		addSlotToContainer(new SlotItemHandler(codeInv, 2, 62, 16));
 		// Items
 		int slotNum = 3;
-		for(int horizontal = 0; horizontal < 4; horizontal++) {
-			for(int vertical = 0; vertical < 4; vertical++) {
+		for (int horizontal = 0; horizontal < 4; horizontal++) {
+			for (int vertical = 0; vertical < 4; vertical++) {
 
 				addSlotToContainer(
 						new SlotItemHandler(codeInv, slotNum++, 98 + (horizontal * 18), 8 + (vertical * 18)));

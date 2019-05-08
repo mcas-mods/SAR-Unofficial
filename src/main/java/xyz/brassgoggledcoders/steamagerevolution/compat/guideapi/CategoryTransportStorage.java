@@ -1,12 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.guideapi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.entry.EntryItemStack;
-import amerifrance.guideapi.page.PageJsonRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
@@ -20,7 +22,8 @@ public class CategoryTransportStorage {
 
 		List<IPage> canisterEntry = new ArrayList<IPage>();
 		canisterEntry.addAll(PageHelper.pagesForLongText(I18n.translateToLocalFormatted(keyBase + "canister.info")));
-		canisterEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "canister")));
+		// canisterEntry.add(new PageJsonRecipe(new
+		// ResourceLocation(SteamAgeRevolution.MODID, "canister")));
 		// TODO Recipe handling
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "canister_entry"),
 				new EntryItemStack(canisterEntry, keyBase + "canister", new ItemStack(BookObjectHolder.canister)));
@@ -28,7 +31,8 @@ public class CategoryTransportStorage {
 		List<IPage> fluidHopperEntry = new ArrayList<IPage>();
 		fluidHopperEntry
 				.addAll(PageHelper.pagesForLongText(I18n.translateToLocalFormatted(keyBase + "fluid_hopper.info")));
-		fluidHopperEntry.add(new PageJsonRecipe(new ResourceLocation(SteamAgeRevolution.MODID, "fluid_hopper")));
+		// fluidHopperEntry.add(new PageJsonRecipe(new
+		// ResourceLocation(SteamAgeRevolution.MODID, "fluid_hopper")));
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "fluid_hopper_entry"), new EntryItemStack(
 				fluidHopperEntry, keyBase + "fluid_hopper", new ItemStack(BookObjectHolder.fluid_hopper)));
 
@@ -48,7 +52,7 @@ public class CategoryTransportStorage {
 		entries.put(new ResourceLocation(SteamAgeRevolution.MODID, "tank_entry"),
 				new EntryItemStack(tankEntry, keyBase + "tank", new ItemStack(BookObjectHolder.tank_valve)));
 
-		for(EntryAbstract entry : entries.values()) {
+		for (EntryAbstract entry : entries.values()) {
 			PageHelper.setPagesToUnicode(entry.pageList);
 		}
 

@@ -18,7 +18,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -44,21 +46,20 @@ public class ItemFlask extends ItemBase implements IHasSubItems {
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
 		EntityPlayer entityplayer = entityLiving instanceof EntityPlayer ? (EntityPlayer) entityLiving : null;
 
-		if(entityplayer != null) {
-			if(!worldIn.isRemote) {
+		if (entityplayer != null) {
+			if (!worldIn.isRemote) {
 				FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 						.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-				if(internal.getFluid() != null && internal.getFluid().amount >= ModuleAlchemical.VALUE_BOTTLE) {
-					for(PotionEffect potioneffect : PotionUtils.getEffectsFromTag(internal.getFluid().tag)) {
-						if(potioneffect.getPotion().isInstant()) {
+				if (internal.getFluid() != null && internal.getFluid().amount >= ModuleAlchemical.VALUE_BOTTLE) {
+					for (PotionEffect potioneffect : PotionUtils.getEffectsFromTag(internal.getFluid().tag)) {
+						if (potioneffect.getPotion().isInstant()) {
 							potioneffect.getPotion().affectEntity(entityplayer, entityplayer, entityLiving,
 									potioneffect.getAmplifier(), 1.0D);
-						}
-						else {
+						} else {
 							entityLiving.addPotionEffect(new PotionEffect(potioneffect));
 						}
 					}
-					if(!entityplayer.capabilities.isCreativeMode) {
+					if (!entityplayer.capabilities.isCreativeMode) {
 						internal.drain(ModuleAlchemical.VALUE_BOTTLE, true);
 					}
 				}
@@ -91,12 +92,11 @@ public class ItemFlask extends ItemBase implements IHasSubItems {
 		FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 				.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		FluidStack fluid = internal.getFluid();
-		if(fluid == null) {
+		if (fluid == null) {
 			tooltip.add("0mB/" + capacity + "mB");
-		}
-		else {
+		} else {
 			tooltip.add(fluid.getLocalizedName());
-			if(fluid.tag != null && fluid.tag.hasKey("Potion")) {
+			if (fluid.tag != null && fluid.tag.hasKey("Potion")) {
 				ItemStack dummy = new ItemStack(Blocks.BEDROCK);
 				dummy.setTagInfo("Potion", fluid.tag.getTag("Potion"));
 				PotionUtils.addPotionTooltip(dummy, tooltip, 1.0F);

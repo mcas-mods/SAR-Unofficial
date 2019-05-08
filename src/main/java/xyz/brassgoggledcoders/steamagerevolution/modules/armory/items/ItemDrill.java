@@ -32,11 +32,11 @@ public class ItemDrill extends ItemToolBase implements IAreaBreakingTool {
 		World world = player.getEntityWorld();
 
 		// TODO Move this to earlier
-		if(ModuleArmory.KNOWN_ORES.contains(world.getBlockState(pos).getBlock())) {
+		if (ModuleArmory.KNOWN_ORES.contains(world.getBlockState(pos).getBlock())) {
 			return true;
 		}
 
-		for(BlockPos extra : TinkersUtils.calcAOEBlocks(stack, world, player, pos, 3, 3, 1)) {
+		for (BlockPos extra : TinkersUtils.calcAOEBlocks(stack, world, player, pos, 3, 3, 1)) {
 			TinkersUtils.breakExtraBlock(stack, world, player, extra, pos);
 		}
 		return false;
@@ -45,12 +45,12 @@ public class ItemDrill extends ItemToolBase implements IAreaBreakingTool {
 	@Override
 	public boolean canHarvestBlock(IBlockState blockIn, ItemStack stack) {
 		Block block = blockIn.getBlock();
-		if(block == Blocks.OBSIDIAN) {
+		if (block == Blocks.OBSIDIAN) {
 			return toolMaterial.getHarvestLevel() == 3;
 		}
 		return Items.STONE_SHOVEL.canHarvestBlock(blockIn, stack);
 	}
-	
+
 	@Override
 	public RayTraceResult rayTrace(@Nonnull World worldIn, @Nonnull EntityPlayer playerIn, boolean useLiquids) {
 		return super.rayTrace(worldIn, playerIn, useLiquids);
