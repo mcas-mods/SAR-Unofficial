@@ -65,16 +65,9 @@ public class BlockHeavyOreIndicator extends BlockBase implements IHasGeneratedMo
 			if(facing.equals(EnumFacing.UP) || facing.equals(EnumFacing.DOWN)) {
 				facing = EnumFacing.byHorizontalIndex(worldIn.rand.nextInt(3));
 			}
-			EnumFacing toGenerate;
-			do {
-				//Randomly pick a direction for the seam from all horizontal directions
-				toGenerate = EnumFacing.byHorizontalIndex(worldIn.rand.nextInt(3));
-			}
-			//If facing is towards the player, reroll
-			while(facing.getOpposite().equals(toGenerate));
-			MiningUtils.generateOreSeam(worldIn, pos, facing, 10 + worldIn.rand.nextInt(10), 4 + worldIn.rand.nextInt(2), 3 + worldIn.rand.nextInt(3));
+			MiningUtils.generateOreSeam(worldIn, pos, facing.getOpposite(), 10 + worldIn.rand.nextInt(10), 4 + worldIn.rand.nextInt(2), 3 + worldIn.rand.nextInt(3));
 			return true;
-		}
+    	}
         return false;
     }
 	

@@ -87,11 +87,7 @@ public class MiningUtils {
 		if (world.isRemote) {
 			return;
 		}
-		if (world.isAreaLoaded(start, 16 * 6, false)
-				&& world.getChunkProvider().isChunkGeneratedAt(Utils.getChunkXFromBlock(start),
-						Utils.getChunkZFromBlock(start))
-				&& world.getChunkProvider().isChunkGeneratedAt(Utils.getChunkXFromBlock(start) + 3,
-						Utils.getChunkZFromBlock(start) + 3) && world.getChunkProvider().isChunkGeneratedAt(Utils.getChunkXFromBlock(start) - 3, Utils.getChunkZFromBlock(start) - 3)) {
+		if (world.isAreaLoaded(start, lengthM + widthM, false)) {
 			BlockHeavyOreIndicator sourceBlock = (BlockHeavyOreIndicator) world.getBlockState(start)
 					.getBlock();
 			Block block = sourceBlock.getOre();
@@ -119,8 +115,6 @@ public class MiningUtils {
 						}
 					}
 				}
-				world.setBlockState(start, Blocks.STONE.getDefaultState());
-			} else {
 				world.setBlockState(start, Blocks.STONE.getDefaultState());
 			}
 		}
