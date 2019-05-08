@@ -1,16 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities;
 
-import com.teamacronymcoders.base.materialsystem.MaterialSystem;
-import com.teamacronymcoders.base.materialsystem.items.ItemMaterialPart;
-import com.teamacronymcoders.base.materialsystem.materialparts.MaterialPart;
-import com.teamacronymcoders.base.materialsystem.materials.Material;
-
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemMinecart;
 import net.minecraft.item.ItemStack;
@@ -35,7 +26,7 @@ public class EntityMinecartCarrier extends EntityMinecartInventory<InventoryReci
 	
 	public EntityMinecartCarrier(World world) {
 		super(world);
-		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new HandlerForceStack(this, 8), MiningUtils.getGUIPositionGrid(52, 30, 4, 2)), null, null, null, null));
+		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new HandlerForceStack(this, 8), MiningUtils.getGUIPositionGrid(53, 31, 4, 2)), null, null, null, null));
 	}
 	
 	@Override

@@ -1,17 +1,20 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.render;
 
+import javax.annotation.Nonnull;
+
 import org.lwjgl.opengl.GL11;
 
 import com.teamacronymcoders.base.renderer.entity.minecart.RenderMinecartBase;
 import com.teamacronymcoders.base.util.RenderingUtils;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPane;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
@@ -24,6 +27,35 @@ public class RenderMinecartCarrier extends RenderMinecartBase<EntityMinecartCarr
 	
 	public RenderMinecartCarrier(RenderManager renderManagerIn) {
 		super(renderManagerIn);
+	}
+	
+	@Override
+    public void doRender(@Nonnull EntityMinecartCarrier entity, double x, double y, double z, float entityYaw, float partialTicks) {
+		super.doRender(entity, x, y, z, entityYaw, partialTicks);
+//		ItemStack stack = entity.getDataManager().get(EntityMinecartCarrier.CONTENTS);
+//		if (!stack.isEmpty()) {
+//			GlStateManager.pushMatrix();
+//			RenderingUtils.pre(x, y, z);
+//			int brightness = entity.getBrightnessForRender();
+//			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, brightness % 0x10000 / 1f,
+//					brightness / 0x10000 / 1f);
+//
+//			GlStateManager.translate(0.5F, 1f, -0.5F);
+//			GlStateManager.scale(0.5f, 0.5f, 0.5f);
+//
+//			if (!(stack.getItem() instanceof ItemBlock)
+//					|| Block.getBlockFromItem(stack.getItem()) instanceof BlockPane) {
+//				GlStateManager.rotate(-90, 1, 0, 0);
+//			}
+//
+//			GL11.glDepthMask(false);
+//			IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack,
+//					entity.getEntityWorld(), null);
+//			Minecraft.getMinecraft().getRenderItem().renderItem(stack, model);
+//			GL11.glDepthMask(true);
+//			RenderingUtils.post();
+//			GlStateManager.popMatrix();
+//		}
 	}
 	
 	@Override
@@ -45,6 +77,7 @@ public class RenderMinecartCarrier extends RenderMinecartBase<EntityMinecartCarr
 					break;
 				}
 			}
+			GlStateManager.pushMatrix();
 			RenderingUtils.pre(0, 0, 0);
 			float red = (float) (color >> 16 & 255) / 255.0F;
 			float green = (float) (color >> 8 & 255) / 255.0F;
@@ -52,6 +85,7 @@ public class RenderMinecartCarrier extends RenderMinecartBase<EntityMinecartCarr
 			GlStateManager.color(red, green, blue);
 			this.model.renderContents(0.0625F);
 			RenderingUtils.post();
+			GlStateManager.popMatrix();
 			GlStateManager.color(1F, 1F, 1F);
 		}
 	}

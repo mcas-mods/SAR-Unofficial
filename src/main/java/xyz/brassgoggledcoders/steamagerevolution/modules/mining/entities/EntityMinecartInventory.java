@@ -132,6 +132,7 @@ public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> 
 
 	@Override
 	public ItemStack decrStackSize(int index, int count) {
+		this.markDirty();
 		return this.getInventory().getInputHandler().extractItem(index, count, false);
 	}
 
@@ -139,11 +140,13 @@ public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> 
 	public ItemStack removeStackFromSlot(int index) {
 		ItemStack stack = this.getInventory().getInputHandler().getStackInSlot(index);
 		this.getInventory().getInputHandler().setStackInSlot(index, ItemStack.EMPTY);
+		this.markDirty();
 		return stack;
 	}
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
+		this.markDirty();
 		this.getInventory().getInputHandler().setStackInSlot(index, stack);
 	}
 
