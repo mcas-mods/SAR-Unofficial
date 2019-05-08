@@ -17,6 +17,7 @@ public class RecipeRegistry {
 			recipeMasterlist.put(crafter, Lists.newArrayList());
 		}
 		ArrayList<SARMachineRecipe> recipeList = recipeMasterlist.get(crafter);
+		//FIXME Check for duplicate inputs here
 		if (recipeList.contains(recipe)) {
 			SteamAgeRevolution.instance.getLogger().devError("Attempted to add duplicate recipe");
 		} else {

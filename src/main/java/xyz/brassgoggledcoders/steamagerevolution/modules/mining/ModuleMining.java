@@ -3,6 +3,8 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.mining;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.mojang.authlib.GameProfile;
 import com.teamacronymcoders.base.modulesystem.Module;
 import com.teamacronymcoders.base.modulesystem.ModuleBase;
@@ -14,6 +16,7 @@ import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import com.teamacronymcoders.base.util.OreDictUtils;
 
+import io.netty.util.internal.StringUtil;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemMinecart;
 import net.minecraft.item.ItemStack;
@@ -30,7 +33,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
-import stanhebben.zenscript.util.StringUtil;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartCarrier;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartDrilling;
@@ -95,23 +97,30 @@ public class ModuleMining extends ModuleBase {
 	@SubscribeEvent
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 		for (String material : materials) {
+			ItemStack oreStack = OreDictUtils.getPreferredItemStack("ore" + StringUtils.capitalize(material));
 			ItemStack rockStack = OreDictUtils
-					.getPreferredItemStack("rock" + StringUtil.capitalize(material));
+					.getPreferredItemStack("rock" + StringUtils.capitalize(material));
 			ItemStack crushedOreStack = OreDictUtils
-					.getPreferredItemStack("crushedOre" + StringUtil.capitalize(material));
-			if (!rockStack.isEmpty() && !crushedOreStack.isEmpty()) {
-				ItemStack co = crushedOreStack.copy();
-				co.setCount(2);
-				new MachineRecipeBuilder("grinder").setItemInputs(rockStack).setItemOutputs(co).setCraftTime(20).setSteamCost(Fluid.BUCKET_VOLUME / 2).build();
+					.getPreferredItemStack("crushedOre" + StringUtils.capitalize(material));
+			if(!crushedOreStack.isEmpty()) {
+				if(!oreStack.isEmpty()) {
+					ItemStack co = crushedOreStack.copy();
+					co.setCount(3);
+					new MachineRecipeBuilder("grinder").setItemInputs(oreStack).setItemOutputs(co).setCraftTime(80).setSteamCost(Fluid.BUCKET_VOLUME).build();
+				}
+				if (!rockStack.isEmpty()) {
+					ItemStack co = crushedOreStack.copy();
+					co.setCount(5);
+					new MachineRecipeBuilder("grinder").setItemInputs(rockStack).setItemOutputs(co).setCraftTime(40).setSteamCost(Fluid.BUCKET_VOLUME / 2).build();
+				}
 			}
-			
-			new MachineRecipeBuilder("grinder").setItemInputs(new ItemStack(Blocks.STONE))
-			.setItemOutputs(new ItemStack(Blocks.COBBLESTONE)).setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(10).build();
-			new MachineRecipeBuilder("grinder").setItemInputs(new ItemStack(Blocks.COBBLESTONE))
-				.setItemOutputs(new ItemStack(Blocks.GRAVEL)).setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(10).build();
-			new MachineRecipeBuilder("grinder").setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(10).setItemInputs(new ItemStack(Blocks.GRAVEL))
-				.setItemOutputs(new ItemStack(Blocks.SAND)).setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(10).build();
 		}
+		new MachineRecipeBuilder("grinder").setItemInputs(new ItemStack(Blocks.STONE))
+		.setItemOutputs(new ItemStack(Blocks.COBBLESTONE)).setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(10).setSteamCost(Fluid.BUCKET_VOLUME / 10).build();
+		new MachineRecipeBuilder("grinder").setItemInputs(new ItemStack(Blocks.COBBLESTONE))
+			.setItemOutputs(new ItemStack(Blocks.GRAVEL)).setSteamCost(Fluid.BUCKET_VOLUME / 10).setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(10).build();
+		new MachineRecipeBuilder("grinder").setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(10).setItemInputs(new ItemStack(Blocks.GRAVEL))
+			.setItemOutputs(new ItemStack(Blocks.SAND)).setSteamCost(Fluid.BUCKET_VOLUME / 10).setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(10).build();
 	}
 
 	@Override
