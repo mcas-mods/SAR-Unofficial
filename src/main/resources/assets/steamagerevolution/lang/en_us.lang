@@ -113,18 +113,15 @@ tile.steamagerevolution.distiller_item_output.name=Distiller Item Output
 tile.steamagerevolution.fluid_hopper.name=Fluid Hopper
 tile.steamagerevolution.charcoal_block.name=Charcoal Block
 tile.steamagerevolution.steam_vent.name=Steam Vent
-tile.steamagerevolution.basic_fluid_tank.name=Basic Fluid Tank
 
-tile.steamagerevolution.semisolid_loader.name=Semisolid Material Loader
-tile.steamagerevolution.dump_rail.name=Dumping Rail
 tile.steamagerevolution.grinder_frame.name=Grinder Frame
 tile.steamagerevolution.grinder_input.name=Grinder Blades
+tile.steamagerevolution.grinder_output.name=Grinder Output
 
 #Entities
 entity.entitydeadinventor.name=Dead Inventor
 entity.entityminecartdrilling.name=Seam Miner Cart
 entity.entityminecartcarrier.name=Carrier Cart
-
 
 #Advancements
 advancement.steamagerevolution.ore=A New Age
@@ -134,7 +131,6 @@ advancement.steamagerevolution.hammer.desc=Pulverise zinc and copper, combine th
 advancement.steamagerevolution.brass=Brass Monkeys
 advancement.steamagerevolution.brass.desc=A new material! The foundation of everything to come...
 
-
 #Multiblock validation
 steamagerevolution.multiblock.validation.missingrequired=Multiblock is missing required part: %s
 steamagerevolution.multiblock.validation.alloyforgeinterior=Interior of the alloy forge must be filled with lava
@@ -142,7 +138,6 @@ steamagerevolution.multiblock.validation.distiller_radiator=Bottom layer of the 
 steamagerevolution.multiblock.validation.distiller_hotplate=Second-from-bottom layer of the Distiller must be composed entirely of hotplate blocks
 
 #Other
-
 fluid.steam=Steam
 fluid.sulphur_dioxide=Sulphur Dioxide
 fluid.sulphuric_acid=Sulphuric Acid

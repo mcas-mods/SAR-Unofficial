@@ -5,6 +5,7 @@ import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
@@ -37,6 +38,11 @@ public class AlloyFurnaceRecipeCategory extends SARRecipeCategory<SARMachineReci
 	@Override
 	public IDrawable getBackground() {
 		return helper.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/alloy_furnace.png"), 21, 10, 134, 62);
+	}
+	
+	@Override
+    public void drawExtras(Minecraft minecraft) {
+       // arrow.draw(minecraft, 103, 34);
 	}
 
 }

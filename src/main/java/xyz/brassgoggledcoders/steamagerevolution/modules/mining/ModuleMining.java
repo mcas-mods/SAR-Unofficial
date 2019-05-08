@@ -36,6 +36,7 @@ import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityM
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartDrilling;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.grinder.BlockGrinderFrame;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.grinder.BlockGrinderInput;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.grinder.BlockGrinderOutput;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartCarrier;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.items.ItemMinecartDrilling;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.MachineRecipeBuilder;
@@ -118,6 +119,7 @@ public class ModuleMining extends ModuleBase {
 		super.registerBlocks(configRegistry, blockRegistry);
 		blockRegistry.register(new BlockGrinderFrame());
 		blockRegistry.register(new BlockGrinderInput());
+		blockRegistry.register(new BlockGrinderOutput());
 	}
 
 	@Override

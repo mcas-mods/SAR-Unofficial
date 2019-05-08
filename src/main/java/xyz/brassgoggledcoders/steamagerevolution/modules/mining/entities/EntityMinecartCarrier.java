@@ -6,12 +6,17 @@ import com.teamacronymcoders.base.materialsystem.materialparts.MaterialPart;
 import com.teamacronymcoders.base.materialsystem.materials.Material;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemMinecart;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -26,10 +31,19 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipe
 
 public class EntityMinecartCarrier extends EntityMinecartInventory<InventoryRecipeMachine>  {
 	
+	public static final DataParameter<ItemStack> CONTENTS = EntityDataManager.createKey(EntityMinecartCarrier.class, DataSerializers.ITEM_STACK);
+	
 	public EntityMinecartCarrier(World world) {
 		super(world);
 		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new HandlerForceStack(this, 8), MiningUtils.getGUIPositionGrid(52, 30, 4, 2)), null, null, null, null));
 	}
+	
+	@Override
+	protected void entityInit()
+    {
+		this.dataManager.register(CONTENTS, ItemStack.EMPTY);
+		super.entityInit();
+    }
 
 	@SideOnly(Side.CLIENT)
 	@Override
@@ -51,19 +65,9 @@ public class EntityMinecartCarrier extends EntityMinecartInventory<InventoryReci
 	public void markDirty() {
 		for(int i = 0 ; i < this.getInventory().getInputHandler().getSlots(); i++) {
 			ItemStack stack = this.getInventory().getInputHandler().getStackInSlot(i);
-			//FIXME Horrible hack
-			if(stack.getItem() instanceof ItemMaterialPart) {
-				ItemMaterialPart part = (ItemMaterialPart) stack.getItem();
-				Material mat = part.getItemMaterialParts().get(stack.getItemDamage()).getMaterial();
-				MaterialPart heavy_ore = MaterialSystem.getMaterialPart(mat.getOreDictSuffix().toLowerCase() + "_heavy_ore");
-				if(Block.getBlockFromItem(heavy_ore.getItemStack().getItem()) != Blocks.AIR) {
-					this.setDisplayTile(Block.getBlockFromItem(heavy_ore.getItemStack().getItem()).getDefaultState());
-				}
-			}
 			if(!stack.isEmpty()) {
-				if(Block.getBlockFromItem(stack.getItem()) != Blocks.AIR) {
-					this.setDisplayTile(Block.getBlockFromItem(stack.getItem()).getDefaultState());
-				}
+				this.getDataManager().set(CONTENTS, stack);
+				break;
 			}
 		}
 		super.markDirty();

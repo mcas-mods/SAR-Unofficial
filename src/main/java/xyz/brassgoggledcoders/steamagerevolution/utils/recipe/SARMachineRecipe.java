@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -12,21 +13,14 @@ import org.apache.commons.lang3.ArrayUtils;
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.util.inventory.IngredientFluidStack;
 
-import mezz.jei.api.gui.IDrawableAnimated;
-import mezz.jei.api.gui.IDrawableAnimated.StartDirection;
-import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.oredict.OreIngredient;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
 
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei", striprefs = true)
 public class SARMachineRecipe implements IRecipeWrapper {
@@ -108,6 +102,18 @@ public class SARMachineRecipe implements IRecipeWrapper {
 			ingredients.setOutputs(VanillaTypes.ITEM, Arrays.asList(itemOutputs));
 		}
 	}
+	
+	//TODO
+//	@Optional.Method(modid = "jei")
+//	@Override
+//	public List<String> getTooltipStrings(int mouseX, int mouseY) {
+//		if((mouseX > 100 && mouseX < 130) && (mouseY > 10 && mouseY < 50)) {
+//			ArrayList<String> tooltip = new ArrayList<>();
+//			tooltip.add("Recipe time: " + this.getTicksPerOperation() + " ticks");
+//			return tooltip;
+//		}
+//		return Collections.emptyList();
+//	}
 
 	public static class MachineRecipeBuilder {
 		public String crafter;
