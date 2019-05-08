@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities;
+package xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.render;
 
 import javax.annotation.Nonnull;
 
@@ -31,6 +31,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.ClientProxyMining;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartDrilling;
 
 public class RenderMinecartDrilling extends RenderMinecartBase<EntityMinecartDrilling> {
 

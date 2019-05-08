@@ -10,8 +10,8 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartCarrier;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.EntityMinecartDrilling;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.RenderMinecartCarrier;
-import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.RenderMinecartDrilling;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.render.RenderMinecartCarrier;
+import xyz.brassgoggledcoders.steamagerevolution.modules.mining.entities.render.RenderMinecartDrilling;
 
 public class ClientProxyMining implements IModuleProxy {
 	
