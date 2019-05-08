@@ -14,6 +14,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
@@ -26,6 +27,7 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.modules.mining.blocks.BlockHeavyOreIndicator;
@@ -74,8 +76,8 @@ public class MiningUtils {
 		int[] yPositions = new int[xSize * ySize];
 		for (int vertical = 0; vertical < ySize; ++vertical) {
             for (int horizontal = 0; horizontal < xSize; ++horizontal) {
-                xPositions[horizontal + (vertical * ySize)] = xStart + (horizontal * 18);
-                yPositions[horizontal + (vertical * ySize)] = yStart + (vertical * 18);
+                xPositions[horizontal + (vertical * xSize)] = xStart + (horizontal * 18);
+                yPositions[horizontal + (vertical * xSize)] = yStart + (vertical * 18);
             }
         }
 		return Pair.of(xPositions, yPositions);
