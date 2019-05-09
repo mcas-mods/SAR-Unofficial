@@ -5,8 +5,6 @@ import java.util.Iterator;
 
 import javax.annotation.Nullable;
 
-import com.google.common.collect.Lists;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.FluidStack;
@@ -18,17 +16,18 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInve
 /**
  * @author BluSunrize - 20.02.2017
  */
-// FIXME
+//TODO The use of this in the Inv system needs rewriting. A multifluid tank for one fluid type is dumb. 
+@Deprecated
 public class MultiFluidTank extends FluidTankSmart {
 	private final int capacity;
-	// TODO Make this an actual limit, not just a representative
 	private final int maxFluids;
-	public ArrayList<FluidStack> fluids = Lists.newArrayList();
+	public ArrayList<FluidStack> fluids;
 
 	public MultiFluidTank(int capacity, IMachineHasInventory parent, int maxFluids) {
 		super(capacity, parent);
 		this.capacity = capacity;
 		this.maxFluids = maxFluids;
+		this.fluids = new ArrayList<>(maxFluids);
 	}
 
 	public static FluidStack copyFluidStackWithAmount(FluidStack stack, int amount) {
@@ -123,6 +122,10 @@ public class MultiFluidTank extends FluidTankSmart {
 
 	@Override
 	public int fill(FluidStack resource, boolean doFill) {
+		//May not insert more fluid types past the fluid limit
+		if(this.fluids.size() == maxFluids)  {
+			return 0;
+		}
 		int space = capacity - getFluidAmount();
 		int toFill = Math.min(resource.amount, space);
 		if (!doFill) {
