@@ -4,9 +4,7 @@ import java.util.HashSet;
 
 import javax.annotation.Nonnull;
 
-import com.teamacronymcoders.base.items.tools.IAreaBreakingTool;
 import com.teamacronymcoders.base.items.tools.ItemToolBase;
-import com.teamacronymcoders.base.util.TinkersUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -18,6 +16,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.IAreaBreakingTool;
+import xyz.brassgoggledcoders.steamagerevolution.utils.TinkersUtils;
 
 public class ItemDrill extends ItemToolBase implements IAreaBreakingTool {
 
@@ -52,8 +52,8 @@ public class ItemDrill extends ItemToolBase implements IAreaBreakingTool {
 	}
 
 	@Override
-	public RayTraceResult rayTrace(@Nonnull World worldIn, @Nonnull EntityPlayer playerIn, boolean useLiquids) {
-		return super.rayTrace(worldIn, playerIn, useLiquids);
+	public RayTraceResult rayTrace(@Nonnull World worldIn, @Nonnull EntityPlayer playerIn) {
+		return super.rayTrace(worldIn, playerIn, false);
 	}
 
 }

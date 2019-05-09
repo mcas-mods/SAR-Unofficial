@@ -2,15 +2,15 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.armory.items;
 
 import javax.annotation.Nonnull;
 
-import com.teamacronymcoders.base.items.tools.IAreaBreakingTool;
 import com.teamacronymcoders.base.items.tools.ItemShovelBase;
-import com.teamacronymcoders.base.util.TinkersUtils;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import xyz.brassgoggledcoders.steamagerevolution.utils.IAreaBreakingTool;
+import xyz.brassgoggledcoders.steamagerevolution.utils.TinkersUtils;
 
 public class ItemEntrenchingTool extends ItemShovelBase implements IAreaBreakingTool {
 
@@ -29,8 +29,8 @@ public class ItemEntrenchingTool extends ItemShovelBase implements IAreaBreaking
 	}
 
 	@Override
-	public RayTraceResult rayTrace(@Nonnull World worldIn, @Nonnull EntityPlayer playerIn, boolean useLiquids) {
-		return super.rayTrace(worldIn, playerIn, useLiquids);
+	public RayTraceResult rayTrace(@Nonnull World worldIn, @Nonnull EntityPlayer playerIn) {
+		return super.rayTrace(worldIn, playerIn, false);
 	}
 
 }
