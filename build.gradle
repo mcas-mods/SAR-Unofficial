@@ -78,9 +78,9 @@ minecraft {
 }
 
 dependencies {
-    //deobfCompile "com.teamacronymcoders.base:base:${base_version}-SNAPSHOT.+"
+    deobfCompile "com.teamacronymcoders.base:base:${base_version}-SNAPSHOT.+"
     deobfCompile "blusunrize:ImmersiveEngineering:${ie_version}"
-    //deobfProvided "mezz.jei:jei_${minecraft_version}:${jei_version}:api"
+    deobfProvided "mezz.jei:jei_${minecraft_version}:${jei_version}:api"
     //runtime "mezz.jei:jei_${minecraft_version}:${jei_version}"
     //deobfCompile "MCMultiPart:MCMultiPart-experimental:${mcmultipart_version}:universal"
     //deobfCompile "com.enderio.core:EnderCore:${minecraft_version}-${ecore_version}"
