@@ -4,14 +4,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerSteelworks extends SARMultiblockInventory {
+public class ControllerSteelworks extends SARMultiblockInventory<InventoryRecipeMachine> {
 
 	public ControllerSteelworks(World world) {
 		super(world);

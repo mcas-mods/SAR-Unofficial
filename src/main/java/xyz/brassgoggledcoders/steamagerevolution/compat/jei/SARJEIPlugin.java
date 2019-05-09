@@ -21,6 +21,7 @@ import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.GrinderRe
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.SARRecipeCategory;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.SteamFurnaceRecipeCategory;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.SteamHammerRecipeCategory;
+import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.SteelworksRecipeCategory;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.VatRecipeCategory;
 import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeRegistry;
@@ -39,7 +40,7 @@ public class SARJEIPlugin implements IModPlugin {
 		tankBackground = registry.getJeiHelpers().getGuiHelper().createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/vat.png"), 176, 8, 20, 60);
 		registry.addRecipeCategories(new SteamHammerRecipeCategory(), new AlloyFurnaceRecipeCategory(),
 				new CrucibleRecipeCategory(), new SteamFurnaceRecipeCategory(), new CastingBlockRecipeCategory(), new VatRecipeCategory(),
-				new FumeCollectorRecipeCategory(), new DistillerRecipeCategory(), new GrinderRecipeCategory());
+				new FumeCollectorRecipeCategory(), new DistillerRecipeCategory(), new GrinderRecipeCategory(), new SteelworksRecipeCategory());
 	}
 
 	//TODO Steam consumption support
@@ -48,29 +49,23 @@ public class SARJEIPlugin implements IModPlugin {
 	public void register(IModRegistry registry) {
 		add(registry, RecipeRegistry.getRecipesForMachine("steam hammer"), SteamHammerRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.steamhammer_anvil));
-
 		add(registry, RecipeRegistry.getRecipesForMachine("alloy forge"), AlloyFurnaceRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.alloy_furnace_frame));
-
 		add(registry, RecipeRegistry.getRecipesForMachine("crucible"), CrucibleRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.crucible_casing));
-
 		add(registry, RecipeRegistry.getRecipesForMachine("steam furnace"), SteamFurnaceRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.furnace_casing));
-
 		add(registry, RecipeRegistry.getRecipesForMachine("casting block"), CastingBlockRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.casting_bench));
-
 		add(registry, RecipeRegistry.getRecipesForMachine("vat"), VatRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.vat_output));
-
 		add(registry, FumeCollectorRecipe.getRecipeList(), FumeCollectorRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.fume_collector));
-
 		add(registry, RecipeRegistry.getRecipesForMachine("distiller"), DistillerRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.distiller_frame));
 		add(registry, RecipeRegistry.getRecipesForMachine("grinder"), GrinderRecipeCategory.uid,
 				new ItemStack(JEIObjectHolder.grinder_frame));
+		add(registry, RecipeRegistry.getRecipesForMachine("steelworks"), SteelworksRecipeCategory.uid, new ItemStack(JEIObjectHolder.steelworks_frame));
 	}
 
 	private void add(IModRegistry registry, Collection<?> recipeList, String id, ItemStack catalyst) {
