@@ -21,6 +21,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.M
 
 public class MachineTweaker {
 
+	//TODO Builder
 	public static void addRecipe(String machine, @Nullable IIngredient[] itemInputs,
 			@Nullable ILiquidStack[] fluidInputs, @Nullable IItemStack[] itemOutputs,
 			@Nullable ILiquidStack[] fluidOutputs, int timeToCraft, int steamCost) {
