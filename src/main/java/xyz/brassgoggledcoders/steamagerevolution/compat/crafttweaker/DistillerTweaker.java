@@ -21,4 +21,9 @@ public class DistillerTweaker {
 		MachineTweaker.removeRecipe("distiller", new ItemStack[] { CTHelper.toItemStack(outputStack) },
 				new FluidStack[] { CTHelper.toFluidStack(output) });
 	}
+	
+	@ZenMethod
+	public static void removeAll() {
+		MachineTweaker.removeAllRecipesFor("distiller");
+	}
 }
