@@ -23,6 +23,8 @@ public class CrafttweakerModule extends ModuleBase {
 		CraftTweakerAPI.registerClass(SteamFurnaceTweaker.class);
 		CraftTweakerAPI.registerClass(SteamHammerTweaker.class);
 		CraftTweakerAPI.registerClass(VatTweaker.class);
+		CraftTweakerAPI.registerClass(GrinderTweaker.class);
+		CraftTweakerAPI.registerClass(SteelworksTweaker.class);
 		super.preInit(event);
 	}
 
