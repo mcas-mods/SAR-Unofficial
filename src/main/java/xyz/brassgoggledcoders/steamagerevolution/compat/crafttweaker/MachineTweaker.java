@@ -128,4 +128,28 @@ public class MachineTweaker {
 		}
 
 	}
+
+	public static void removeAllRecipesFor(String machine) {
+		CraftTweakerAPI.apply(new RemoveAll(machine));
+	}
+	
+	protected static class RemoveAll implements IAction {
+
+		String machine;
+		
+		public RemoveAll(String machine) {
+			this.machine = machine;
+		}
+		
+		@Override
+		public void apply() {
+			RecipeRegistry.getRecipesForMachine(machine).clear();
+		}
+
+		@Override
+		public String describe() {
+			return "Removing all default recipes for " + machine;
+		}
+		
+	}
 }

@@ -19,4 +19,9 @@ public class GrinderTweaker {
 	public static void removeRecipe(IItemStack output) {
 		MachineTweaker.removeRecipe("grinder", new ItemStack[] { CTHelper.toItemStack(output) }, null);
 	}
+	
+	@ZenMethod
+	public static void removeAll() {
+		MachineTweaker.removeAllRecipesFor("grinder");
+	}
 }

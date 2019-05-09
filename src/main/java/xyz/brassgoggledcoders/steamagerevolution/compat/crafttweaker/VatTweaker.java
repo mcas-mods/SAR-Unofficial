@@ -19,4 +19,9 @@ public class VatTweaker {
 	public static void removeRecipe(ILiquidStack output) {
 		MachineTweaker.removeRecipe("vat", null, new FluidStack[] { CTHelper.toFluidStack(output) });
 	}
+	
+	@ZenMethod
+	public static void removeAll() {
+		MachineTweaker.removeAllRecipesFor("vat");
+	}
 }

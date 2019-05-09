@@ -18,4 +18,9 @@ public class SteamFurnaceTweaker {
 	public static void removeRecipe(IItemStack output) {
 		MachineTweaker.removeRecipe("steam furnace", new ItemStack[] { CTHelper.toItemStack(output) }, null);
 	}
+	
+	@ZenMethod
+	public static void removeAll() {
+		MachineTweaker.removeAllRecipesFor("steam furnace");
+	}
 }

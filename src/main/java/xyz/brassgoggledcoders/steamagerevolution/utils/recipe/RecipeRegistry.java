@@ -35,5 +35,4 @@ public class RecipeRegistry {
 		}
 		return recipeMasterlist.get(machineType);
 	}
-
 }

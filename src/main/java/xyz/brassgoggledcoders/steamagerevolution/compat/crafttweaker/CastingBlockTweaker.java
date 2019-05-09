@@ -18,4 +18,9 @@ public class CastingBlockTweaker {
 	public static void removeRecipe(IItemStack output) {
 		MachineTweaker.removeRecipe("casting block", new ItemStack[] { CTHelper.toItemStack(output) }, null);
 	}
+	
+	@ZenMethod
+	public static void removeAll() {
+		MachineTweaker.removeAllRecipesFor("casting block");
+	}
 }

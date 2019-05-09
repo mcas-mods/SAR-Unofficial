@@ -18,4 +18,9 @@ public class CrucibleTweaker {
 	public static void removeRecipe(ILiquidStack output) {
 		MachineTweaker.removeRecipe("crucible", null, new FluidStack[] { CTHelper.toFluidStack(output) });
 	}
+	
+	@ZenMethod
+	public static void removeAll() {
+		MachineTweaker.removeAllRecipesFor("crucible");
+	}
 }

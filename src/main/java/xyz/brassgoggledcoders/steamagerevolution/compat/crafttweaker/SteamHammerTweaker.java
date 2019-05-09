@@ -17,6 +17,11 @@ public class SteamHammerTweaker {
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
-		MachineTweaker.removeRecipe("steam furnace", new ItemStack[] { CTHelper.toItemStack(output) }, null);
+		MachineTweaker.removeRecipe("steam hammer", new ItemStack[] { CTHelper.toItemStack(output) }, null);
+	}
+
+	@ZenMethod
+	public static void removeAll() {
+		MachineTweaker.removeAllRecipesFor("steam hammer");
 	}
 }
