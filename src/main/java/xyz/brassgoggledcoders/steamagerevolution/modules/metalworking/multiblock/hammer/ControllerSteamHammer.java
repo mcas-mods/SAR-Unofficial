@@ -17,9 +17,10 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
@@ -32,15 +33,10 @@ public class ControllerSteamHammer extends SARMultiblockInventory<InventoryRecip
 	public ControllerSteamHammer(World world) {
 		super(world);
 		// TODO Investigate if possible to have same handler for input and output
-		setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 0, 0), null,
-				new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 0, 0), null,
-				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this), 0, 0)));
+		setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 35, 32), null,
+				new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 138, 32), null,
+				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this), 9, 11)).setProgressBar(new InventoryPieceProgressBar(103, 31)));
 	}
-
-	// @Override
-	// public ItemStackHandler getInventory(String toWrap) {
-	// return inventory;
-	// }
 
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
@@ -102,6 +98,7 @@ public class ControllerSteamHammer extends SARMultiblockInventory<InventoryRecip
 				item.setDead();
 			}
 		}
+		super.onTick();
 	}
 
 	@Override

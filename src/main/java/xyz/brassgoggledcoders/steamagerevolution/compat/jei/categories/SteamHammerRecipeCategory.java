@@ -18,8 +18,8 @@ public class SteamHammerRecipeCategory extends SARRecipeCategory<SARMachineRecip
 
 	@Override
 	public void setRecipe(IRecipeLayout recipeLayout, SARMachineRecipe recipeWrapper, IIngredients ingredients) {
-		recipeLayout.getItemStacks().init(0, true, 0, 0);
-		recipeLayout.getItemStacks().init(1, false, 109, 0);
+		recipeLayout.getItemStacks().init(0, true, 29, 24);
+		recipeLayout.getItemStacks().init(1, false, 132, 24);
 
 		recipeLayout.getItemStacks().set(0, ingredients.getInputs(VanillaTypes.ITEM).get(0));
 		recipeLayout.getItemStacks().set(1, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
@@ -27,6 +27,6 @@ public class SteamHammerRecipeCategory extends SARRecipeCategory<SARMachineRecip
 
 	@Override
 	public IDrawable getBackground() {
-		return helper.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/steam_hammer.png"), 28, 31, 127, 18);
+		return helper.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/steam_hammer.png"), 5, 7, 150, 68);
 	}
 }

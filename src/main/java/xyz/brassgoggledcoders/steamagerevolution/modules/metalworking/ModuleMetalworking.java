@@ -10,7 +10,6 @@ import com.teamacronymcoders.base.util.OreDictUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -30,7 +29,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
 import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMaterials;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.blocks.BlockCastingBench;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.items.ItemDie;
@@ -136,7 +134,7 @@ public class ModuleMetalworking extends ModuleBase {
 			if (!plateStack.isEmpty()) {
 				ItemStack plateCopy = plateStack.copy();
 				plateCopy.setCount(plateCount);
-				new MachineRecipeBuilder("steam hammer").setItemInputs(ingot).setItemOutputs(plateCopy).build();
+				new MachineRecipeBuilder("steam hammer").setItemInputs(ingot).setItemOutputs(plateCopy).setSteamCost(Fluid.BUCKET_VOLUME / 4).setCraftTime(20).build();
 			}
 			if (!gearStack.isEmpty()) {
 				// TODO
