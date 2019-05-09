@@ -3,19 +3,20 @@ package xyz.brassgoggledcoders.steamagerevolution.modules.processing.multiblock.
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerSteamFurnace extends SARMultiblockInventory {
+public class ControllerSteamFurnace extends SARMultiblockInventory<InventoryRecipeMachine> {
 
 	public ControllerSteamFurnace(World world) {
 		super(world);
 		setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 48, 33), null,
-				new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 107, 33), null,
-				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 13, 9)));
+				new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 108, 33), null,
+				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 13, 9)).setProgressBar(new InventoryPieceProgressBar(72, 33)));
 	}
 
 	@Override
