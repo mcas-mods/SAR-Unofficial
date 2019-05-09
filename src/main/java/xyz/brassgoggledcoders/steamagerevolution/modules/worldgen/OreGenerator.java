@@ -1,7 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.worldgen;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import com.google.common.collect.Lists;
@@ -10,12 +9,9 @@ import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.fml.common.IWorldGenerator;
@@ -61,7 +57,11 @@ public class OreGenerator implements IWorldGenerator {
 				int startZ = chunkZ + rand.nextInt(16) + 8;
 				int startY = rand.nextInt(20);
 				BlockPos startPos = new BlockPos(startX, startY, startZ);
-				world.setBlockState(startPos, Block.getBlockFromName(SteamAgeRevolution.MODID + ":heavy_ore_generator_" + entry).getDefaultState());
+				Block block = Block.getBlockFromName(SteamAgeRevolution.MODID + ":" + entry + "_heavy_ore_indicator");
+				if(block != null && world.getBlockState(startPos).getBlock() == Blocks.STONE) {
+					world.setBlockState(startPos, block.getDefaultState());
+					SteamAgeRevolution.instance.getLogger().devInfo("Generating " + entry + " ore tell at " + startPos.toString());
+				}
 			}
 		}
 	}
