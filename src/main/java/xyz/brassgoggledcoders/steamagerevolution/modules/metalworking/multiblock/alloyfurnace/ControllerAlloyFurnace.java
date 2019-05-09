@@ -14,7 +14,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
-public class ControllerAlloyFurnace extends SARMultiblockInventory {
+public class ControllerAlloyFurnace extends SARMultiblockInventory<InventoryRecipeMachine> {
 
 	public static int inputCapacity = RecipeUtil.VALUE_BLOCK * 8;
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
@@ -26,14 +26,6 @@ public class ControllerAlloyFurnace extends SARMultiblockInventory {
 						new int[] { 11, 11 }),
 				new InventoryPieceFluid(new MultiFluidTank(outputCapacity, this, 1), 134, 17), null));
 	}
-
-	// @Override
-	// protected FluidTank getTank(String toWrap) {
-	// if(toWrap.equalsIgnoreCase("input")) {
-	// return fluidInput;
-	// }
-	// return outputTank;
-	// }
 
 	@Override
 	protected boolean canRun() {
@@ -90,6 +82,6 @@ public class ControllerAlloyFurnace extends SARMultiblockInventory {
 
 	@Override
 	public String getName() {
-		return "Alloy Forge";
+		return "Alloy Furnace";
 	}
 }

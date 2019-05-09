@@ -15,12 +15,9 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 public class AlloyFurnaceRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 
 	public static final String uid = "alloyfurnace";
-	// private final IDrawable tankOverlay;
 
 	public AlloyFurnaceRecipeCategory() {
 		super(uid, "Alloy Furnace");
-		// TODO
-		// tankOverlay = helper.createDrawable(background, 134, 55, 20, 49, 7, 5, 0, 0);
 	}
 
 	@Override
