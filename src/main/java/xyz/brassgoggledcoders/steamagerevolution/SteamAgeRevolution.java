@@ -19,9 +19,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.modules.metalworking.ModuleMetalworking;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerFluidUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.network.HandlerIncreaseHunger;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerItemUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.HandlerMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketIncreaseHunger;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.StackComparator;
@@ -60,6 +62,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 				PacketMultiFluidUpdate.class, Side.CLIENT);
 		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerItemUpdate.class, PacketItemUpdate.class,
 				Side.CLIENT);
+		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerIncreaseHunger.class, PacketIncreaseHunger.class, Side.SERVER);
 		SARCapabilities.register();
 	}
 

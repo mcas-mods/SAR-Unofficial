@@ -1,19 +1,21 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Biomes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
+import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityBullet;
 import xyz.brassgoggledcoders.steamagerevolution.modules.armory.entities.EntityDeadInventor;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemClockworkWings;
 
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class EventHandler {
@@ -38,4 +40,15 @@ public class EventHandler {
 				Biomes.ROOFED_FOREST, Biomes.JUNGLE, Biomes.EXTREME_HILLS);// TODO
 	}
 
+	//No fall damage while wearing wings
+	@SubscribeEvent
+	public static void onLivingFall(LivingFallEvent event) { 
+		if(event.getEntityLiving() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+			if((player.getFoodStats().getFoodLevel() != 0) && player.inventory.armorInventory.get(2).getItem() == ModuleArmory.wings) {		
+				//player.addExhaustion(ItemClockworkWings.hungerPerTick / 4); TODO
+				event.setDamageMultiplier(0);	
+			}
+		}
+	}
 }

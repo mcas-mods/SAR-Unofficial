@@ -1,11 +1,15 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.armory;
 
+import com.teamacronymcoders.base.client.ClientHelper;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
@@ -19,14 +23,28 @@ import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.EntityViewRenderEvent.FogDensity;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.ItemClockworkWings;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketIncreaseHunger;
 
 @EventBusSubscriber(value = Side.CLIENT, modid = SteamAgeRevolution.MODID)
 public class EventHandlerClient {
-
-	@SideOnly(Side.CLIENT)
+	
+	//TODO Remember this fires on release
+	@SubscribeEvent
+	public static void onKeyPress(InputEvent.KeyInputEvent event) {
+		if(GameSettings.isKeyDown(ClientHelper.settings().keyBindJump)) {
+			EntityPlayer player = Minecraft.getMinecraft().player;
+			if(player.posY < 160 && player.getFoodStats().getFoodLevel() != 0 && player.inventory.armorInventory.get(2).getItem() == ModuleArmory.wings) {	
+				player.setVelocity(player.motionX, player.motionY + 0.3F, player.motionZ);
+				SteamAgeRevolution.instance.getPacketHandler().sendToServer(new PacketIncreaseHunger(ItemClockworkWings.hungerPerTick));
+			}
+		}
+	}
+	
 	@SubscribeEvent
 	public static void onDrawBlockSelectionBox(DrawBlockHighlightEvent event) {
 		if ((event.getPlayer().inventory.armorItemInSlot(3) != null)
