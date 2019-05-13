@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.modules.storage.blocks;
 
+import java.util.Optional;
+
 import com.teamacronymcoders.base.blocks.BlockGUIBase;
 
 import net.minecraft.block.material.Material;
@@ -63,12 +65,17 @@ public class BlockFluidIO extends BlockGUIBase<TileEntityFluidIO> {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if(playerIn.getHeldItem(hand).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
-			getTileEntity(worldIn, pos)
-					.ifPresent(te -> FluidUtil.interactWithFluidHandler(playerIn, hand, worldIn, pos, facing));
-			return true;
+			Optional<TileEntityFluidIO> te = getTileEntity(worldIn, pos);
+			if(te.isPresent()) {
+				if(FluidUtil.interactWithFluidHandler(playerIn, hand, worldIn, pos, facing)) {
+					te.get().sendBlockUpdate();
+					return true;
+				}
+			}
 		}
 		else {
 			return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
 		}
+		return false;
 	}
 }
