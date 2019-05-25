@@ -3,9 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 import javax.annotation.Nonnull;
 
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.SlotItemHandler;
+import net.minecraftforge.items.*;
 
 public class SlotForceStack extends SlotItemHandler {
 

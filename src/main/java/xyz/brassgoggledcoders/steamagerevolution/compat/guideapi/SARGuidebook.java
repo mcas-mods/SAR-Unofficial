@@ -3,9 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.compat.guideapi;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import amerifrance.guideapi.api.GuideAPI;
-import amerifrance.guideapi.api.GuideBook;
-import amerifrance.guideapi.api.IGuideBook;
+import amerifrance.guideapi.api.*;
 import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.category.CategoryItemStack;
 import net.minecraft.init.Items;
@@ -17,7 +15,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.materials.ModuleMaterials;
 
 @Optional.Interface(iface = "amerifrance.guideapi.api.GuideAPI", modid = "guideapi", striprefs = true)
 @GuideBook
@@ -35,7 +32,7 @@ public class SARGuidebook implements IGuideBook {
 		sarGuide.setWelcomeMessage("guide." + SteamAgeRevolution.MODID + ".title");
 		sarGuide.setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "guide"));
 		sarGuide.setDisplayName("item.guide." + SteamAgeRevolution.MODID);
-		sarGuide.setColor(ModuleMaterials.brassColor);
+		sarGuide.setColor(SteamAgeRevolution.brassColor);
 		sarGuide.setCreativeTab(SteamAgeRevolution.tab);
 		sarGuide.addCategory(new CategoryItemStack(CategoryBasics.buildCategory(),
 				"guide.steamagerevolution.category.basics", new ItemStack(BookObjectHolder.hammer)));

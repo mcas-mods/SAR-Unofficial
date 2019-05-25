@@ -6,8 +6,8 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.FumeCollectorRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.tileentities.TileEntityFumeCollector;
+import xyz.brassgoggledcoders.steamagerevolution.recipes.FumeCollectorRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.tileentities.TileEntityFumeCollector;
 
 public class FumeCollectorRecipeCategory extends SARRecipeCategory<FumeCollectorRecipe> {
 

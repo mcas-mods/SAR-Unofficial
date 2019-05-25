@@ -2,8 +2,6 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import scala.actors.threadpool.Arrays;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 

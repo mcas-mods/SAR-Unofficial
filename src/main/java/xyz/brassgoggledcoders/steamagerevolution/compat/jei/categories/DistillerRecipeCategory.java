@@ -7,7 +7,7 @@ import mezz.jei.api.ingredients.VanillaTypes;
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
-import xyz.brassgoggledcoders.steamagerevolution.modules.alchemical.multiblocks.distiller.ControllerDistiller;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller.ControllerDistiller;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 public class DistillerRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {

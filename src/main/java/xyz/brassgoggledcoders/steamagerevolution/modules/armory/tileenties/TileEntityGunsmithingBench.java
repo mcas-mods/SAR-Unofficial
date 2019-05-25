@@ -11,9 +11,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.ModuleArmory;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.GunUtils;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IGunPart;
+import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
+import xyz.brassgoggledcoders.steamagerevolution.items.guns.GunUtils;
+import xyz.brassgoggledcoders.steamagerevolution.items.guns.parts.IGunPart;
 
 public class TileEntityGunsmithingBench extends TileEntityBase implements IHasGui {
 
@@ -44,7 +44,7 @@ public class TileEntityGunsmithingBench extends TileEntityBase implements IHasGu
 
 	public void attemptCraft() {
 		if (inventory.getStackInSlot(0).isEmpty()) {
-			ItemStack gunStack = new ItemStack(ModuleArmory.gun);
+			ItemStack gunStack = new ItemStack(SARObjectHolder.gun);
 			NBTTagCompound tag = GunUtils.getOrCreateTagCompound(gunStack);
 			for (int i = 1; /* Ignore output slot */ i < inventory.getSlots(); i++) {
 				ItemStack partStack = inventory.getStackInSlot(i);

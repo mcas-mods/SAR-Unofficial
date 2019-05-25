@@ -8,7 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.modules.armory.items.guns.parts.IGunPart;
+import xyz.brassgoggledcoders.steamagerevolution.items.guns.parts.IGunPart;
 
 public class ContainerGunsmithingBench extends ContainerBase {
 	public ContainerGunsmithingBench(EntityPlayer player, TileEntityGunsmithingBench tile) {

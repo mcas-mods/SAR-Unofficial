@@ -1,9 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
