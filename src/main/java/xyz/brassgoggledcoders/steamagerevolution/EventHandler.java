@@ -7,7 +7,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
-@SuppressWarnings("deprecation")
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class EventHandler {
 
