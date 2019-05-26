@@ -42,4 +42,5 @@ public class SARObjectHolder {
 	public static final Block steelworks_frame = null;
 	public static final Block vat_output = null;
 	public static final Item wings = null;
+	public static final Block portable_boiler = null;
 }

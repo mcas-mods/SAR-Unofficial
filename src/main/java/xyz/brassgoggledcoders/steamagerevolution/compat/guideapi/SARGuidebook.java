@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.ModuleMaterials;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 @Optional.Interface(iface = "amerifrance.guideapi.api.GuideAPI", modid = "guideapi", striprefs = true)
@@ -32,7 +33,7 @@ public class SARGuidebook implements IGuideBook {
 		sarGuide.setWelcomeMessage("guide." + SteamAgeRevolution.MODID + ".title");
 		sarGuide.setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "guide"));
 		sarGuide.setDisplayName("item.guide." + SteamAgeRevolution.MODID);
-		sarGuide.setColor(SteamAgeRevolution.brassColor);
+		sarGuide.setColor(ModuleMaterials.brassColor);
 		sarGuide.setCreativeTab(SteamAgeRevolution.tab);
 		sarGuide.addCategory(new CategoryItemStack(CategoryBasics.buildCategory(),
 				"guide.steamagerevolution.category.basics", new ItemStack(BookObjectHolder.hammer)));

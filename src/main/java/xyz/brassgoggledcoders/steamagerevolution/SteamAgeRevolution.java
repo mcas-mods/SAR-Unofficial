@@ -7,15 +7,9 @@ import javax.annotation.Nonnull;
 
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
-import com.teamacronymcoders.base.Base;
 import com.teamacronymcoders.base.BaseModFoundation;
 import com.teamacronymcoders.base.blocks.BlockFluidBase;
 import com.teamacronymcoders.base.items.ItemBase;
-import com.teamacronymcoders.base.materialsystem.*;
-import com.teamacronymcoders.base.materialsystem.materials.MaterialBuilder;
-import com.teamacronymcoders.base.materialsystem.parts.PartBuilder;
-import com.teamacronymcoders.base.materialsystem.parttype.ItemPartType;
-import com.teamacronymcoders.base.materialsystem.parttype.PartType;
 import com.teamacronymcoders.base.registrysystem.*;
 import com.teamacronymcoders.base.registrysystem.config.ConfigEntry;
 import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
@@ -111,15 +105,6 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 	public static List<String> knownMetalTypes = Lists.newArrayList();
 	public static ArrayList<ILens> lenseTypes = Lists.newArrayList();
 
-	public static Color brassColor = new Color(251, 194, 99);
-	String[] vanillaParts = new String[] { "heavy_ore", "plate", "dust", "molten", "crushed_ore", "solution", "crystal",
-			"lattice", "ore_rock" };
-	String[] metalParts = new String[] { "ore", "heavy_ore", "crushed_ore", "ore_rock", "solution", "crystal", "ingot",
-			"nugget", "plate", "dust", "block", "molten", "lattice" };
-	String[] alloyParts = Arrays.copyOfRange(metalParts, 6, metalParts.length);
-	String[] compatParts = new String[] { "crushed_ore", "solution", "crystal", "lattice", "ore_rock" };
-	public static String[] heavyOreMaterials = { "iron", "gold", "copper", "zinc" };
-
 	public static String name = "[" + MODNAME + "]";
 	public static GameProfile profile = new GameProfile(UUID.nameUUIDFromBytes(name.getBytes()), name);
 
@@ -178,51 +163,6 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 
 		itemRegistry.register(new ItemEntrenchingTool("entrenching_tool", ToolMaterial.IRON));
 
-		/*
-		 * itemRegistry.register(new ItemGun()); itemRegistry.register(new
-		 * ItemAmmo("iron_ball", AmmoType.BALL, 2)); itemRegistry.register(new
-		 * ItemAmmo("cartridge", AmmoType.CARTRIDGE, 5)); itemRegistry.register(new
-		 * ItemMechanism("bolt_mechanism", ActionType.BOLT) {
-		 *
-		 * @Override public ActionResult<ItemStack> onItemRightClick(World worldIn,
-		 * EntityPlayer playerIn, EnumHand handIn) { ItemStack stack =
-		 * playerIn.getHeldItem(handIn);
-		 * if(GunUtils.getOrCreateTagCompound(stack).getBoolean("isLoaded")) {
-		 * GunUtils.shoot(worldIn, playerIn, stack);
-		 * stack.getTagCompound().setBoolean("isLoaded", false); } return
-		 * super.onItemRightClick(worldIn, playerIn, handIn); } });
-		 * itemRegistry.register(new ItemMechanism("semi_mechanism", ActionType.SEMI) {
-		 *
-		 * @Override public ActionResult<ItemStack> onItemRightClick(World worldIn,
-		 * EntityPlayer playerIn, EnumHand handIn) { ItemStack stack =
-		 * playerIn.getHeldItem(handIn);
-		 * if(GunUtils.getOrCreateTagCompound(stack).getBoolean("isLoaded")) {
-		 * GunUtils.shoot(worldIn, playerIn, stack); ItemStack ammo =
-		 * GunUtils.findAmmo(playerIn, stack); if(!ammo.isEmpty()) { ammo.shrink(1);
-		 * GunUtils.getOrCreateTagCompound(stack).setBoolean("isLoaded", true); } }
-		 * return super.onItemRightClick(worldIn, playerIn, handIn); } });
-		 * itemRegistry.register(new ItemMechanism("auto_mechanism", ActionType.AUTO) {
-		 *
-		 * @Override public ActionResult<ItemStack> onItemRightClick(World worldIn,
-		 * EntityPlayer playerIn, EnumHand handIn) { playerIn.setActiveHand(handIn);
-		 * return new ActionResult<ItemStack>(EnumActionResult.PASS,
-		 * playerIn.getHeldItem(handIn)); }
-		 *
-		 * @Override public void onUsingTick(ItemStack stack, EntityLivingBase
-		 * entityLiving, int count) { ItemStack ammo = GunUtils.findAmmo((EntityPlayer)
-		 * entityLiving, stack); if(!ammo.isEmpty()) { ammo.shrink(1);
-		 * GunUtils.shoot(entityLiving.getEntityWorld(), entityLiving, stack); } } });
-		 * itemRegistry.register(new ItemBarrel("short_barrel", 0, 0));
-		 * itemRegistry.register(new ItemBarrel("blunderbuss_barrel", -1.5F, 10));
-		 * itemRegistry.register(new ItemStock("standard_stock", 0.7F));
-		 * itemRegistry.register(new ItemStock("heavy_stock", 0.9F)); // TODO Slime
-		 * stock itemRegistry.register(new ItemChamber("ball_chamber", AmmoType.BALL));
-		 * itemRegistry.register(new ItemChamber("cartidge_chamber",
-		 * AmmoType.CARTRIDGE)); // itemRegistry.register(new
-		 * ItemAmmoContainer("cartridge_clip", 5, // AmmoType.CARTRIDGE));
-		 *
-		 */
-
 		itemRegistry.register(new ItemHammer());
 		itemRegistry.register(new ItemDie());
 	}
@@ -232,23 +172,6 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 		blockRegistry.register(new BlockPneumaticTube(Material.IRON, "pneumatic_tube"));
 		blockRegistry.register(new BlockPneumaticSender(Material.IRON, "pneumatic_sender"));
 		blockRegistry.register(new BlockPneumaticRouter(Material.IRON, "pneumatic_router"));
-
-		// hydraulicTube = new BlockHydraulicTube(Material.IRON, "hydraulic_tube");
-		// // blockRegistry.register(hydraulicTube);
-		// hydraulicSender = new BlockHydraulicSender(Material.IRON,
-		// "hydraulic_sender");
-		// // blockRegistry.register(hydraulicSender);
-		// hydraulicRouter = new BlockHydraulicRouter(Material.IRON,
-		// "hydraulic_router");
-		// // blockRegistry.register(hydraulicRouter);
-
-		// blockRegistry.register(new BlockSorterInput(Material.IRON, "sorter_input"));
-		// blockRegistry.register(new BlockSorterOutput(Material.IRON,
-		// "sorter_output"));
-		// blockRegistry.register(new BlockSorterFrame(Material.IRON, "sorter_frame"));
-		// blockRegistry.register(new BlockSorterBrain(Material.IRON, "sorter_brain"));
-		//
-		// blockRegistry.register(new BlockCardPuncher(Material.IRON, "card_puncher"));
 
 		// TODO Adjust properties
 		Fluid steam = new Fluid("steam", new ResourceLocation(SteamAgeRevolution.MODID, "fluids/steam"),
@@ -407,12 +330,6 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 		FluidRegistry.registerFluid(potion);
 		FluidRegistry.addBucketForFluid(potion);
 
-		// Fluid liquid_explosive =
-		// new Fluid("liquid_explosive", new ResourceLocation(SteamAgeRevolution.MODID,
-		// "fluids/liquid_explosive"),
-		// new ResourceLocation(SteamAgeRevolution.MODID, "fluids/liquid_explosive"));
-		// FluidRegistry.registerFluid(liquid_explosive);
-
 		FluidRegistry
 				.registerFluid(new Fluid("slime", new ResourceLocation(SteamAgeRevolution.MODID, "fluids/solution"),
 						new ResourceLocation(SteamAgeRevolution.MODID, "fluids/solution")) {
@@ -421,25 +338,6 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 						return Color.GREEN.getRGB();
 					}
 				});
-
-		/*
-		 * Fluid incense = new Fluid("incense", new
-		 * ResourceLocation(SteamAgeRevolution.MODID, "fluids/incense"), new
-		 * ResourceLocation(SteamAgeRevolution.MODID,
-		 * "fluids/incense_flow")).setGaseous(true).setDensity(-100)
-		 * .setViscosity(-100);
-		 *
-		 * if(!(FluidRegistry.isFluidRegistered(incense))) { // Soft registration
-		 * FluidRegistry.registerFluid(incense);
-		 * FluidRegistry.addBucketForFluid(incense); } blockRegistry.register(new
-		 * BlockIncenseFluid("incense", FluidRegistry.getFluid("incense"),
-		 * Material.WATER) {
-		 *
-		 * @Override public ResourceLocation getResourceLocation(IBlockState blockState)
-		 * { return new ResourceLocation(SteamAgeRevolution.MODID, "incense"); } });
-		 * blockRegistry.register(new BlockIncense()); blockRegistry.register(new
-		 * BlockIncenseSpray()); blockRegistry.register(new BlockIncenseBurner());
-		 */
 	}
 
 	@Override
@@ -471,83 +369,11 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 		SteamAgeRevolution.knownMetalTypes.add("Iron");
 		SteamAgeRevolution.knownMetalTypes.add("Gold");
 
-		for(String material : SteamAgeRevolution.heavyOreMaterials) {
+		for(String material : ModuleMaterials.heavyOreMaterials) {
 			LootTableList.register(new ResourceLocation(SteamAgeRevolution.MODID, "heavy_ore_" + material));
 		}
 		LootFunctionManager.registerFunction(new LootFunctionOredict.Serializer());
 
-		try {
-			MaterialUser SAR = SteamAgeRevolution.instance.getMaterialUser();
-
-			PartType heavyOre = new HeavyOrePartType();
-			MaterialSystem.registerPartType(heavyOre);
-			registerPart("Heavy Ore", heavyOre);
-
-			registerPart("Lattice", MaterialSystem.getPartType("block"));
-
-			new PartBuilder().setOwnerId(SAR.getId()).setName("Solution").setOreDictName("solution")
-					.setPartType(MaterialSystem.getPartType("fluid")).build();
-
-			com.teamacronymcoders.base.materialsystem.materials.Material iron = new MaterialBuilder().setName("Iron")
-					.setColor(Color.GRAY).setHasEffect(false).build();
-			com.teamacronymcoders.base.materialsystem.materials.Material gold = new MaterialBuilder().setName("Gold")
-					.setColor(Color.YELLOW).setHasEffect(false).build();
-
-			com.teamacronymcoders.base.materialsystem.materials.Material copper = new MaterialBuilder()
-					.setName("Copper").setColor(new Color(159, 61, 19)).setHasEffect(false).build();
-			com.teamacronymcoders.base.materialsystem.materials.Material zinc = new MaterialBuilder().setName("Zinc")
-					.setColor(new Color(133, 153, 154)).setHasEffect(false).build();
-
-			com.teamacronymcoders.base.materialsystem.materials.Material steel = new MaterialBuilder().setName("Steel")
-					.setColor(Color.DARK_GRAY).setHasEffect(false).build();
-			com.teamacronymcoders.base.materialsystem.materials.Material brass = new MaterialBuilder().setName("Brass")
-					.setColor(SteamAgeRevolution.brassColor).setHasEffect(false).build();
-
-			com.teamacronymcoders.base.materialsystem.materials.Material sulphur = new MaterialBuilder()
-					.setName("Sulphur").setColor(new Color(200, 200, 60)).setHasEffect(false).build();
-
-			com.teamacronymcoders.base.materialsystem.materials.Material tin = new MaterialBuilder().setName("Tin")
-					.setColor(Color.LIGHT_GRAY).setHasEffect(false).build();
-			com.teamacronymcoders.base.materialsystem.materials.Material aluminum = new MaterialBuilder()
-					.setName("Aluminum").setColor(Color.WHITE).setHasEffect(false).build();
-			com.teamacronymcoders.base.materialsystem.materials.Material lead = new MaterialBuilder().setName("Lead")
-					.setColor(Color.BLACK).setHasEffect(false).build();
-
-			SAR.registerPartsForMaterial(sulphur, "ore", "dust", "crystal");
-			MaterialSystem.getMaterialPart("sulphur_crystal").getData().addDataValue("burn", "1800");
-			MaterialSystem.getMaterialPart("sulphur_ore").getData().addDataValue("drops", "oredict:crystalSulphur");
-
-			SAR.registerPartsForMaterial(iron, vanillaParts);
-			setDataDefaults("iron", true);
-
-			SAR.registerPartsForMaterial(gold, vanillaParts);
-			setDataDefaults("gold", true);
-
-			SAR.registerPartsForMaterial(copper, metalParts);
-			setDataDefaults("copper", true);
-
-			SAR.registerPartsForMaterial(zinc, metalParts);
-			setDataDefaults("zinc", true);
-
-			SAR.registerPartsForMaterial(steel, alloyParts);
-			setDataDefaults("steel", false);
-
-			SAR.registerPartsForMaterial(brass, alloyParts);
-			setDataDefaults("brass", false);
-
-			// TODO Do this for all 'known metals'
-			// Only register when present in oredict
-			SAR.registerPartsForMaterial(tin, compatParts);
-			setDataDefaults("tin", true);
-			SAR.registerPartsForMaterial(aluminum, compatParts);
-			setDataDefaults("aluminum", true);
-			SAR.registerPartsForMaterial(lead, compatParts);
-			setDataDefaults("lead", true);
-
-		}
-		catch(MaterialException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -592,28 +418,6 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 		public void displayAllRelevantItems(@Nonnull NonNullList<ItemStack> items) {
 			super.displayAllRelevantItems(items);
 			items.sort(new StackComparator());
-		}
-	}
-
-	public void setDataDefaults(String name, boolean isOre) {
-		if(isOre) {
-			MaterialSystem.getMaterialPart(name + "_ore").getData().addDataValue("resistance", "10");
-			MaterialSystem.getMaterialPart(name + "_ore_rock").getData().addDataValue(ItemPartType.STACKSIZE_DATA_NAME,
-					"1");
-		}
-		MaterialSystem.getMaterialPart(name + "lead_lattice").getData().addDataValue("transparent", "true");
-	}
-
-	private void registerPart(String name, PartType partType) {
-		registerPart(new PartBuilder().setOwnerId(this.getID()).setName(name).setPartType(partType));
-	}
-
-	private void registerPart(PartBuilder partBuilder) {
-		try {
-			partBuilder.build();
-		}
-		catch(MaterialException e) {
-			Base.instance.getLogger().getLogger().error(e);
 		}
 	}
 }

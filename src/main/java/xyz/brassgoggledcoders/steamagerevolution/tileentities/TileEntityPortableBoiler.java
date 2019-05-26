@@ -1,5 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.tileentities;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
@@ -8,6 +9,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
@@ -32,13 +34,11 @@ public class TileEntityPortableBoiler extends SARMachineTileEntity {
 	}
 
 	public ItemStack createDrop() {
-		// ItemStack stack = new
-		// ItemStack(Item.getItemFromBlock(ModuleSteam.portable_boiler));
+		ItemStack stack = new ItemStack(Item.getItemFromBlock(SARObjectHolder.portable_boiler));
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setTag("teData", serializeNBT());
-		// stack.setTagCompound(tag);
-		return null;
-		// return stack;
+		stack.setTagCompound(tag);
+		return stack;
 	}
 
 	@Override

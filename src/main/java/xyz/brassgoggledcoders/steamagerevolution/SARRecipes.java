@@ -5,7 +5,6 @@ import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.teamacronymcoders.base.materialsystem.MaterialSystem;
 import com.teamacronymcoders.base.util.OreDictUtils;
 
 import net.minecraft.init.*;
@@ -36,13 +35,12 @@ public class SARRecipes {
 	@SuppressWarnings("unchecked")
 	@SubscribeEvent
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-
 		for(Entry<ItemStack, ItemStack> recipe : FurnaceRecipes.instance().getSmeltingList().entrySet()) {
 			new MachineRecipeBuilder("steam furnace").setItemInputs(recipe.getKey()).setItemOutputs(recipe.getValue())
 					.setSteamCost(1000).setCraftTime(1000).build();
 		}
 
-		for(String material : SteamAgeRevolution.heavyOreMaterials) {
+		for(String material : ModuleMaterials.heavyOreMaterials) {
 			ItemStack oreStack = OreDictUtils.getPreferredItemStack("ore" + StringUtils.capitalize(material));
 			ItemStack rockStack = OreDictUtils.getPreferredItemStack("rock" + StringUtils.capitalize(material));
 			ItemStack crushedOreStack = OreDictUtils
@@ -191,7 +189,7 @@ public class SARRecipes {
 				.setFluidOutputs(FluidRegistry.getFluidStack("liquid_glowstone", Fluid.BUCKET_VOLUME))
 				.setFluidInputs(FluidRegistry.getFluidStack("lava", Fluid.BUCKET_VOLUME))
 				.setItemInputs(new ItemStack(Items.REDSTONE, 4)).build();
-		FumeCollectorRecipe.addRecipe(MaterialSystem.getMaterialPart("sulphur_crystal").getItemStack(),
+		FumeCollectorRecipe.addRecipe(OreDictUtils.getPreferredItemStack("crystalSulphur"),
 				FluidRegistry.getFluidStack("sulphur_dioxide", Fluid.BUCKET_VOLUME), 0.1f);
 		new MachineRecipeBuilder("casting_block")
 				.setFluidInputs(FluidRegistry.getFluidStack("liquid_glowstone", Fluid.BUCKET_VOLUME))
