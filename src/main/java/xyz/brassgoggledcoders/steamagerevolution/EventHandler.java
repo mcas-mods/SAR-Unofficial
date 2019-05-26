@@ -1,7 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -38,6 +40,17 @@ public class EventHandler {
 				// player.addExhaustion(ItemClockworkWings.hungerPerTick / 4); TODO
 				event.setDamageMultiplier(0);
 			}
+		}
+	}
+
+	// Acidic fluids deal extra damage to armour
+	@SubscribeEvent
+	public static void onLivingHurt(LivingDamageEvent event) {
+		if(event.getSource() == SteamAgeRevolution.damageSourceAcid
+				|| event.getSource() == SteamAgeRevolution.damageSourceGas) {
+			EntityLivingBase living = event.getEntityLiving();
+			living.getArmorInventoryList()
+					.forEach(stack -> stack.damageItem(living.getEntityWorld().rand.nextInt(5), living));
 		}
 	}
 }

@@ -86,16 +86,14 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 
 	public static int VALUE_BOTTLE = 250;
 
-	// TODO Don't bypass armour, deal extra damage to it
-	public static DamageSource damageSourceGas = new DamageSource("gas").setDifficultyScaled().setDamageBypassesArmor()
+	// TODO Difficulty scaling. The default method results in no damage on peaceful.
+	public static DamageSource damageSourceGas = new DamageSource("gas").setDamageIsAbsolute();
+	public static DamageSource damageSourceAcid = new DamageSource("acid").setDamageIsAbsolute();
+	public static DamageSource damageSourceBullet = new DamageSource("bullet").setProjectile();
+	public static DamageSource damageSourceGrinder = new DamageSource("grinder").setDamageBypassesArmor()
 			.setDamageIsAbsolute();
-	public static DamageSource damageSourceAcid = new DamageSource("acid").setDifficultyScaled()
-			.setDamageBypassesArmor().setDamageIsAbsolute();
-	public static DamageSource damageSourceBullet = new DamageSource("bullet").setDifficultyScaled().setProjectile();
-	public static DamageSource damageSourceGrinder = new DamageSource("grinder").setDifficultyScaled()
-			.setDamageBypassesArmor().setDamageIsAbsolute();
-	public static DamageSource damageSourceHammer = new DamageSource("hammer").setDifficultyScaled()
-			.setDamageBypassesArmor().setDamageIsAbsolute();
+	public static DamageSource damageSourceHammer = new DamageSource("hammer").setDamageBypassesArmor()
+			.setDamageIsAbsolute();
 
 	public static final ToolMaterial STEAM = EnumHelper.addToolMaterial("TOOL_STEAM", 2, -1, 12.0F, 3.0F, 0);
 	public static final ArmorMaterial GOGGLES = EnumHelper.addArmorMaterial("ARMOR_GOGGLES", "goggles", -1,
