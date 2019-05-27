@@ -27,7 +27,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
 public class ItemFlask extends ItemBase implements IHasSubItems {
 
@@ -48,7 +48,7 @@ public class ItemFlask extends ItemBase implements IHasSubItems {
 			if (!worldIn.isRemote) {
 				FluidHandlerItemStack internal = (FluidHandlerItemStack) stack
 						.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-				if (internal.getFluid() != null && internal.getFluid().amount >= SteamAgeRevolution.VALUE_BOTTLE) {
+				if (internal.getFluid() != null && internal.getFluid().amount >= RecipeUtil.VALUE_BOTTLE) {
 					for (PotionEffect potioneffect : PotionUtils.getEffectsFromTag(internal.getFluid().tag)) {
 						if (potioneffect.getPotion().isInstant()) {
 							potioneffect.getPotion().affectEntity(entityplayer, entityplayer, entityLiving,
@@ -58,7 +58,7 @@ public class ItemFlask extends ItemBase implements IHasSubItems {
 						}
 					}
 					if (!entityplayer.capabilities.isCreativeMode) {
-						internal.drain(SteamAgeRevolution.VALUE_BOTTLE, true);
+						internal.drain(RecipeUtil.VALUE_BOTTLE, true);
 					}
 				}
 			}

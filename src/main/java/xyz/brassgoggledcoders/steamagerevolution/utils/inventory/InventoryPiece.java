@@ -51,7 +51,7 @@ public class InventoryPiece {
 			handler = tank;
 		}
 
-		public void setTankType(TankType type) {
+		public void setTankType(IOTYPE type) {
 			handler.setTankType(type);
 		}
 	}
@@ -67,13 +67,18 @@ public class InventoryPiece {
 		public InventoryPieceItem(ItemStackHandlerExtractSpecific handler, int xPos, int yPos) {
 			this(handler, new int[] { xPos }, new int[] { yPos });
 		}
-		
+
 		public InventoryPieceItem(ItemStackHandlerExtractSpecific handler, Pair<int[], int[]> posPair) {
 			this(handler, posPair.getLeft(), posPair.getRight());
 		}
 
 		public ItemStackHandlerExtractSpecific getHandler() {
 			return handler;
+		}
+
+		// TODO
+		public void setType(IOTYPE input) {
+			handler.setType(input);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
+package xyz.brassgoggledcoders.steamagerevolution.recipes;
 
 import com.google.gson.JsonObject;
 import com.teamacronymcoders.base.util.OreDictUtils;
@@ -10,6 +10,7 @@ import net.minecraft.util.*;
 import net.minecraftforge.common.crafting.IRecipeFactory;
 import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
 public class ShapelessOreResultRecipe extends ShapelessOreRecipe {
 

@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.recipe;
+package xyz.brassgoggledcoders.steamagerevolution.recipes;
 
 import java.util.ArrayList;
 import java.util.HashMap;

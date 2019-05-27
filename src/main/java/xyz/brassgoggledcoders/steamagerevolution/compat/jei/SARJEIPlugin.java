@@ -13,7 +13,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.*;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.FumeCollectorRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeRegistry;
+import xyz.brassgoggledcoders.steamagerevolution.recipes.RecipeRegistry;
 
 @JEIPlugin
 public class SARJEIPlugin implements IModPlugin {

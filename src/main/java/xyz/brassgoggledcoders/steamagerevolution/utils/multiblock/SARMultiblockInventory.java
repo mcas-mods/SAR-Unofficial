@@ -10,14 +10,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.recipes.RecipeMachineHelper;
+import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeMachineHelper;
-import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 public abstract class SARMultiblockInventory<I extends InventoryRecipeMachine> extends SARMultiblockBase
-		implements ISmartStackCallback, IMachineHasInventory<I> {
+		implements IMachineHasInventory<I> {
 
 	public I inventory;
 	@SideOnly(Side.CLIENT)
@@ -32,12 +30,12 @@ public abstract class SARMultiblockInventory<I extends InventoryRecipeMachine> e
 	@Override
 	protected boolean updateServer() {
 		onTick();
-		if (canRun()) {
-			if (currentTicks <= currentRecipe.getTicksPerOperation()) { // TODO
+		if(canRun()) {
+			if(currentTicks <= currentRecipe.getTicksPerOperation()) { // TODO
 				currentTicks++;
 			}
 			onActiveTick();
-			if (canFinish()) {
+			if(canFinish()) {
 				onFinish();
 				currentTicks = 0;
 				currentRecipe = null;
@@ -50,19 +48,6 @@ public abstract class SARMultiblockInventory<I extends InventoryRecipeMachine> e
 	protected void onTick() {
 		// NO-OP
 	}
-
-	// // // 'Simulate' recipe progress on client for progress bar rendering
-	// @Override
-	// protected void updateClient() {
-	// if(this.getCurrentMaxTicks() != 0) {
-	// if(this.getCurrentMaxTicks() >= currentTicks) {
-	// currentTicks++;
-	// }
-	// else {
-	// currentTicks = 0;
-	// }
-	// }
-	// }
 
 	protected void onActiveTick() {
 		// NO-OP
@@ -78,7 +63,7 @@ public abstract class SARMultiblockInventory<I extends InventoryRecipeMachine> e
 	}
 
 	protected boolean canRun() {
-		if (currentRecipe != null) {
+		if(currentRecipe != null) {
 			// TODO Send this (much!) less often!
 			markReferenceCoordForUpdate();
 		}
@@ -98,29 +83,14 @@ public abstract class SARMultiblockInventory<I extends InventoryRecipeMachine> e
 		data.setTag("inventory", inventory.serializeNBT());
 	}
 
-	// TODO
-	@Override
-	public void updateStack(PacketItemUpdate message) {
-
-	}
-
-	// TODO
-	@Override
-	public void onContentsChanged(int slot) {
-		currentRecipe = null;
-		currentTicks = 0;
-	}
-
 	@SideOnly(Side.CLIENT)
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		// TODO Auto-generated method stub
 		return new GuiInventory(entityPlayer, this);
 	}
 
 	@Override
 	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		// TODO Auto-generated method stub
 		return new ContainerInventory(entityPlayer, this);
 	}
 
@@ -141,6 +111,9 @@ public abstract class SARMultiblockInventory<I extends InventoryRecipeMachine> e
 
 	@Override
 	public void setCurrentRecipe(SARMachineRecipe recipe) {
+		if(recipe == null) {
+			this.setCurrentTicks(0);
+		}
 		currentRecipe = recipe;
 	}
 

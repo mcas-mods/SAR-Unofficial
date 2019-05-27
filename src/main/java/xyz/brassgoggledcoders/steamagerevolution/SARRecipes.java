@@ -23,8 +23,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.registries.IRegistryDelegate;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.*;
+import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe.MachineRecipeBuilder;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
-import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe.MachineRecipeBuilder;
 
 @SuppressWarnings("deprecation")
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
@@ -35,6 +35,13 @@ public class SARRecipes {
 	@SuppressWarnings("unchecked")
 	@SubscribeEvent
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+		event.getRegistry().register(
+				new RecipesOreToDust().setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "ore_to_dust")));
+		event.getRegistry().register(new RecipesIngotToPlate()
+				.setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "ingot_to_plate")));
+		event.getRegistry().register(
+				new RecipeAddLens().setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "add_lens")));
+
 		for(Entry<ItemStack, ItemStack> recipe : FurnaceRecipes.instance().getSmeltingList().entrySet()) {
 			new MachineRecipeBuilder("steam furnace").setItemInputs(recipe.getKey()).setItemOutputs(recipe.getValue())
 					.setSteamCost(1000).setCraftTime(1000).build();
@@ -69,11 +76,6 @@ public class SARRecipes {
 		new MachineRecipeBuilder("grinder").setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(10)
 				.setItemInputs(new ItemStack(Blocks.GRAVEL)).setItemOutputs(new ItemStack(Blocks.SAND))
 				.setSteamCost(Fluid.BUCKET_VOLUME / 10).setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(10).build();
-
-		event.getRegistry().register(
-				new RecipesOreToDust().setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "ore_to_dust")));
-		event.getRegistry().register(new RecipesIngotToPlate()
-				.setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "ingot_to_plate")));
 
 		new MachineRecipeBuilder("alloy forge")
 				.setFluidInputs(FluidRegistry.getFluidStack("copper", RecipeUtil.VALUE_INGOT),
@@ -200,8 +202,8 @@ public class SARRecipes {
 		// from vanilla
 		new MachineRecipeBuilder("vat")
 				.setFluidOutputs(SteamAgeRevolution.getPotionFluidStack(PotionTypes.AWKWARD.getRegistryName().getPath(),
-						SteamAgeRevolution.VALUE_BOTTLE))
-				.setFluidInputs(FluidRegistry.getFluidStack("water", SteamAgeRevolution.VALUE_BOTTLE))
+						RecipeUtil.VALUE_BOTTLE))
+				.setFluidInputs(FluidRegistry.getFluidStack("water", RecipeUtil.VALUE_BOTTLE))
 				.setItemInputs(new ItemStack(Items.NETHER_WART)).build();
 		// Stolen from ImmersiveEngineering (ta Malte!)
 		try {
@@ -223,10 +225,10 @@ public class SARRecipes {
 				PotionType outputObj = ((IRegistryDelegate<PotionType>) output.get(mixPredicate)).get();
 				new MachineRecipeBuilder("vat")
 						.setFluidOutputs(SteamAgeRevolution.getPotionFluidStack(outputObj.getRegistryName().getPath(),
-								SteamAgeRevolution.VALUE_BOTTLE))
+								RecipeUtil.VALUE_BOTTLE))
 						.setFluidInputs(SteamAgeRevolution
 								.getPotionFluidStack(((IRegistryDelegate<PotionType>) input.get(mixPredicate)).get()
-										.getRegistryName().getPath(), SteamAgeRevolution.VALUE_BOTTLE))
+										.getRegistryName().getPath(), RecipeUtil.VALUE_BOTTLE))
 						.setItemInputs(((Ingredient) reagent.get(mixPredicate)).getMatchingStacks()[0]).build();
 			}
 		}
@@ -256,7 +258,5 @@ public class SARRecipes {
 				.setItemOutputs(new ItemStack(Items.GLOWSTONE_DUST)).build();
 		new MachineRecipeBuilder("distiller").setFluidInputs(FluidRegistry.getFluidStack("slime", Fluid.BUCKET_VOLUME))
 				.setItemOutputs(new ItemStack(Item.getItemFromBlock(Blocks.SLIME_BLOCK))).setCraftTime(20).build();
-		event.getRegistry().register(
-				new RecipeAddLens().setRegistryName(new ResourceLocation(SteamAgeRevolution.MODID, "add_lens")));
 	}
 }

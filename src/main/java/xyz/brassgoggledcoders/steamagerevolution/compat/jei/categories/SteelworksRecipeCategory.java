@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
-import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
 
 public class SteelworksRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 

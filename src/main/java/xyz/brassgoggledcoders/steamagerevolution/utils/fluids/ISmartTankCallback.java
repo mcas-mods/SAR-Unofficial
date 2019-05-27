@@ -5,10 +5,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.TankType;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IOTYPE;
 
 public interface ISmartTankCallback<I extends IMachineHasInventory> {
-	void onTankContentsChanged(FluidTankSmart tank, TankType type, I parent);
+	void onTankContentsChanged(FluidTankSmart tank, IOTYPE type, I parent);
 
 	@SideOnly(Side.CLIENT)
 	void updateFluid(PacketFluidUpdate message);

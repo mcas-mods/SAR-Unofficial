@@ -84,8 +84,6 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 		FluidRegistry.enableUniversalBucket();
 	}
 
-	public static int VALUE_BOTTLE = 250;
-
 	// TODO Difficulty scaling. The default method results in no damage on peaceful.
 	public static DamageSource damageSourceGas = new DamageSource("gas").setDamageIsAbsolute();
 	public static DamageSource damageSourceAcid = new DamageSource("acid").setDamageIsAbsolute();
@@ -254,7 +252,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 		Fluid sulphur_dioxide = new Fluid("sulphur_dioxide",
 				new ResourceLocation(SteamAgeRevolution.MODID, "fluids/sulphur_dioxide"),
 				new ResourceLocation(SteamAgeRevolution.MODID, "fluids/sulphur_dioxide_flow")).setViscosity(250)
-						.setGaseous(true);
+						.setGaseous(true).setDensity(-100);
 		FluidRegistry.registerFluid(sulphur_dioxide);
 		FluidRegistry.addBucketForFluid(sulphur_dioxide);
 

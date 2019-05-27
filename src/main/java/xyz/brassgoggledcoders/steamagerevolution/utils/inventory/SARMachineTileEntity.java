@@ -17,9 +17,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.recipes.RecipeMachineHelper;
+import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeMachineHelper;
-import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 public abstract class SARMachineTileEntity extends TileEntityBase
 		implements ITickable, ISmartStackCallback, IHasGui, IMachineHasInventory {
@@ -30,7 +30,7 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 
 	@Override
 	public InventoryRecipeMachine getInventory() {
-		if (inventory == null) {
+		if(inventory == null) {
 			throw new RuntimeException("Whoops. Machine Inventory NOT SET. Fix this.");
 		}
 		return inventory;
@@ -81,10 +81,10 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 	@Override
 	public void update() {
 		onTick();
-		if (canRun()) {
+		if(canRun()) {
 			onActiveTick();
 			currentTicks++;
-			if (canFinish()) {
+			if(canFinish()) {
 				onFinish();
 			}
 		}
@@ -121,7 +121,7 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 	}
 
 	@Override
-	public void onContentsChanged(int slot) {
+	public void onContentsChanged(IOTYPE type, int slot, IMachineHasInventory parent) {
 		// TODO
 	}
 

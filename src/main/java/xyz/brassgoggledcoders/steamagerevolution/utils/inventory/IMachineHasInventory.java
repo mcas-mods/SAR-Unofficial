@@ -1,7 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 
+import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.IMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.SARMachineRecipe;
 
 public interface IMachineHasInventory<I extends InventoryRecipeMachine> extends IMachine {
 	// TODO Duplicated in multiblock interface
@@ -11,7 +11,6 @@ public interface IMachineHasInventory<I extends InventoryRecipeMachine> extends 
 
 	public void setInventory(I inventory);
 
-	@Deprecated
 	public SARMachineRecipe getCurrentRecipe();
 
 	// TODO These should probably be a seperate interface

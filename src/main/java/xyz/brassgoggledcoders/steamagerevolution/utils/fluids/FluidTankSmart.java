@@ -6,12 +6,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.TankType;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IOTYPE;
 
 public class FluidTankSmart extends FluidTank {
 
 	final IMachineHasInventory parent;
-	TankType type = TankType.UNDEFINED;
+	IOTYPE type = IOTYPE.UNDEFINED;
 
 	public FluidTankSmart(int capacity, IMachineHasInventory parent2) {
 		super(capacity);
@@ -29,7 +29,7 @@ public class FluidTankSmart extends FluidTank {
 		}
 	}
 
-	public FluidTankSmart setTankType(TankType type) {
+	public FluidTankSmart setTankType(IOTYPE type) {
 		this.type = type;
 		return this;
 	}

@@ -19,7 +19,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipe
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerVat extends SARMultiblockInventory {
+public class ControllerVat extends SARMultiblockInventory<InventoryRecipeMachine> {
 
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
 	public static int inputCapacity = outputCapacity * 3;
@@ -39,10 +39,10 @@ public class ControllerVat extends SARMultiblockInventory {
 
 	@Override
 	protected void onTick() {
-		for (Entity entity : WORLD.getEntitiesWithinAABB(Entity.class, bounds)) {
-			if (entity instanceof EntityItem) {
+		for(Entity entity : WORLD.getEntitiesWithinAABB(Entity.class, bounds)) {
+			if(entity instanceof EntityItem) {
 				EntityItem item = (EntityItem) entity;
-				if (ItemHandlerHelper.insertItem(inventory.getInputHandler(), item.getItem(), true).isEmpty()) {
+				if(ItemHandlerHelper.insertItem(inventory.getInputHandler(), item.getItem(), true).isEmpty()) {
 					ItemHandlerHelper.insertItem(inventory.getInputHandler(), item.getItem(), false);
 					item.setDead();
 				}
@@ -50,13 +50,14 @@ public class ControllerVat extends SARMultiblockInventory {
 			// Simulate contact with fluid in vat when an entity falls in. TODO change
 			// bounds based on fluid fill level
 			FluidStack fluid = null;
-			if (inventory.getOutputTank().getFluid() != null) {
+			if(inventory.getOutputTank().getFluid() != null) {
 				fluid = inventory.getOutputTank().getFluid();
-			} else if (inventory.getInputTank().getFluid() != null) {
+			}
+			else if(inventory.getInputTank().getFluid() != null) {
 				fluid = inventory.getInputTank().getFluid();
 			}
-			if (fluid != null && fluid.getFluid() != null && fluid.getFluid().getBlock() != null) {
-				if (fluid.getFluid().getTemperature() >= FluidRegistry.LAVA.getTemperature()) {
+			if(fluid != null && fluid.getFluid() != null && fluid.getFluid().getBlock() != null) {
+				if(fluid.getFluid().getTemperature() >= FluidRegistry.LAVA.getTemperature()) {
 					entity.setFire(5);
 				}
 				Block fluidBlock = fluid.getFluid().getBlock();
@@ -103,19 +104,16 @@ public class ControllerVat extends SARMultiblockInventory {
 
 	@Override
 	public int getMaximumZSize() {
-		// TODO Auto-generated method stub
 		return 10;
 	}
 
 	@Override
 	public int getMaximumYSize() {
-		// TODO Auto-generated method stub
 		return 10;
 	}
 
 	@Override
 	protected boolean isBlockGoodForTop(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
-		// TODO Auto-generated method stub
 		return WORLD.isAirBlock(new BlockPos(x, y, z));
 	}
 

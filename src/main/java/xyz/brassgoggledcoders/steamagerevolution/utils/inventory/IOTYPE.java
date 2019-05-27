@@ -1,19 +1,19 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 
-public enum TankType {
+public enum IOTYPE {
 	INPUT(0), OUTPUT(1), STEAM(-1), UNDEFINED(Integer.MIN_VALUE);
 
 	final int networkID;
 
-	TankType(int networkID) {
+	IOTYPE(int networkID) {
 		this.networkID = networkID;
 	}
 
-	public static int getNetworkID(TankType type) {
+	public static int getNetworkID(IOTYPE type) {
 		return type.networkID;
 	}
 
-	public static TankType getTypeFromID(int id) {
+	public static IOTYPE getTypeFromID(int id) {
 		switch (id) {
 		case 0:
 			return INPUT;

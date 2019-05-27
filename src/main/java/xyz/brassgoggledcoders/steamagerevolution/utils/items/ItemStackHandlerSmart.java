@@ -1,19 +1,19 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.items;
 
-import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
 
 public class ItemStackHandlerSmart extends ItemStackHandlerExtractSpecific {
-	private MultiblockControllerBase controller;
+	private IMachineHasInventory controller;
 
-	public ItemStackHandlerSmart(int size, MultiblockControllerBase controller) {
+	public ItemStackHandlerSmart(int size, IMachineHasInventory controller) {
 		super(size);
 		this.controller = controller;
 	}
 
 	@Override
 	protected void onContentsChanged(int slot) {
-		if (controller != null) {
-			((ISmartStackCallback) controller).onContentsChanged(slot);
+		if(controller != null) {
+			controller.getInventory().onContentsChanged(type, slot, controller);
 		}
 	}
 }
