@@ -16,7 +16,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketItemUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.RecipeMachineHelper;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
@@ -113,11 +112,6 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 	protected boolean canRun() {
 		return RecipeMachineHelper.canRun(world, pos, this, getName().toLowerCase()/* .replace(' ', '_')TODO */,
 				currentRecipe, inventory);
-	}
-
-	@Override
-	public void updateStack(PacketItemUpdate message) {
-		// TODO
 	}
 
 	@Override

@@ -4,7 +4,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.network.*;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
@@ -212,11 +213,5 @@ public class InventoryRecipeMachine
 				parent.setCurrentTicks(0);
 			}
 		}
-	}
-
-	@Override
-	public void updateStack(PacketItemUpdate message) {
-		// TODO Auto-generated method stub
-
 	}
 }
