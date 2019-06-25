@@ -17,7 +17,7 @@ import xyz.brassgoggledcoders.steamagerevolution.blocks.BlockFluidHopper;
 
 public class TileEntityFluidHopper extends TileEntitySlowTick {
 
-	private FluidTank buffer = new FluidTank(Fluid.BUCKET_VOLUME);
+	public FluidTank buffer = new FluidTank(Fluid.BUCKET_VOLUME);
 	private boolean hasFrom = false;
 	private BlockPos toPos = null;
 	private boolean hasCache = false;
