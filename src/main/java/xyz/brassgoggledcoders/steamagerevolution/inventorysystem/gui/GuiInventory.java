@@ -147,7 +147,7 @@ public class GuiInventory extends GuiContainer {
 	}
 
 	private void addTank(InventoryPieceFluid piece) {
-		FluidTank tank = piece.getIO();
+		FluidTank tank = piece.getHandler();
 		if (tank instanceof MultiFluidHandler) {
 			MultiFluidHandler multitank = (MultiFluidHandler) tank;
 			for (int i = 0; i < multitank.fluids.size(); i++) {

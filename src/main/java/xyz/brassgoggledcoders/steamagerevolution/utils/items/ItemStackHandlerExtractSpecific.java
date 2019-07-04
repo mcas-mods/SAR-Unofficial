@@ -3,7 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreDictionary;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.io.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 
 public class ItemStackHandlerExtractSpecific extends ItemStackHandler {
 

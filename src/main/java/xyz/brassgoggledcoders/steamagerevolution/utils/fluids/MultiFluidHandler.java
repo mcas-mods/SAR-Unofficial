@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.fluids;
 
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
@@ -7,7 +9,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInve
 /*
  * A fluid handler that holds multiple tanks in one, like an item handler has multiple slots
  */
-public class MultiFluidHandler implements IFluidHandler {
+public class MultiFluidHandler implements IFluidHandler, INBTSerializable<NBTTagCompound> {
 
 	int numberOfTanks;
 	FluidTankSmart[] tanks;
@@ -59,4 +61,26 @@ public class MultiFluidHandler implements IFluidHandler {
 		return null;
 	}
 
+	public int getNumberOfTanks() {
+		return numberOfTanks;
+	}
+
+	@Override
+	public NBTTagCompound serializeNBT() {
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setInteger("tanks", numberOfTanks);
+		for(int i = 0; i < numberOfTanks; i++) {
+			tag.setTag("tank" + i, tanks[i].serializeNBT());
+		}
+		return tag;
+	}
+
+	@Override
+	public void deserializeNBT(NBTTagCompound nbt) {
+		int count = nbt.getInteger("tanks");
+		tanks = new FluidTankSmart[count];
+		for(int i = 0; i < count; i++) {
+			tanks[i].deserializeNBT(nbt.getCompoundTag("tank" + i));
+		}
+	}
 }
