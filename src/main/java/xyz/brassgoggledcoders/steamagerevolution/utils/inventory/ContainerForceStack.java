@@ -8,16 +8,16 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInve
 
 public class ContainerForceStack extends ContainerBase {
 	public ContainerForceStack(EntityPlayer player, IMachineHasInventory holder) {
-		if (holder.getInventory().itemInput != null) {
-			for (int i = 0; i < holder.getInventory().itemInput.getHandler().getSlots(); i++) {
-				addSlotToContainer(new SlotForceStack(holder.getInventory().itemInput.getHandler(), i,
-						holder.getInventory().itemInput.getX(i), holder.getInventory().itemInput.getY(i)));
+		if (holder.getInventory().itemInputPiece != null) {
+			for (int i = 0; i < holder.getInventory().itemInputPiece.getHandler().getSlots(); i++) {
+				addSlotToContainer(new SlotForceStack(holder.getInventory().itemInputPiece.getHandler(), i,
+						holder.getInventory().itemInputPiece.getX(i), holder.getInventory().itemInputPiece.getY(i)));
 			}
 		}
-		if (holder.getInventory().itemOutput != null) {
-			for (int i = 0; i < holder.getInventory().itemOutput.getHandler().getSlots(); i++) {
-				addSlotToContainer(new SlotForceStack(holder.getInventory().itemOutput.getHandler(), i,
-						holder.getInventory().itemOutput.getX(i), holder.getInventory().itemOutput.getY(i)));
+		if (holder.getInventory().itemOutputPiece != null) {
+			for (int i = 0; i < holder.getInventory().itemOutputPiece.getHandler().getSlots(); i++) {
+				addSlotToContainer(new SlotForceStack(holder.getInventory().itemOutputPiece.getHandler(), i,
+						holder.getInventory().itemOutputPiece.getX(i), holder.getInventory().itemOutputPiece.getY(i)));
 			}
 		}
 		createPlayerSlots(player.inventory);

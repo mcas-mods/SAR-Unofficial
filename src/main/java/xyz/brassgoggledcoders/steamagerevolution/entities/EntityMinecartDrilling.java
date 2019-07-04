@@ -21,21 +21,23 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.MiningUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerForceStack;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.HandlerForceStack;
 
 public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryRecipeMachine> {
 
-	public static final DataParameter<Optional<BlockPos>> MINING_POS = EntityDataManager.<Optional<BlockPos>>createKey(EntityMinecartDrilling.class, DataSerializers.OPTIONAL_BLOCK_POS);
-	public static final DataParameter<Float> MINING_PROGRESS = EntityDataManager.<Float>createKey(EntityMinecartDrilling.class, DataSerializers.FLOAT);
-	
+	public static final DataParameter<Optional<BlockPos>> MINING_POS = EntityDataManager
+			.<Optional<BlockPos>>createKey(EntityMinecartDrilling.class, DataSerializers.OPTIONAL_BLOCK_POS);
+	public static final DataParameter<Float> MINING_PROGRESS = EntityDataManager
+			.<Float>createKey(EntityMinecartDrilling.class, DataSerializers.FLOAT);
+
 	public EntityMinecartDrilling(World world) {
 		super(world);
-		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new HandlerForceStack(this, 3), MiningUtils.getGUIPositionGrid(62, 31, 3, 1)), null, null, null, null));
+		this.setInventory(new InventoryRecipeMachine().setItemInput(MiningUtils.getGUIPositionGrid(62, 31, 3, 1),
+				new HandlerForceStack(this, 3)));
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -53,41 +55,42 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryRec
 	public ItemMinecart getItem() {
 		return SARObjectHolder.minecart_drilling;
 	}
-	
+
 	@Override
-	protected void entityInit()
-    {
+	protected void entityInit() {
 		this.dataManager.register(MINING_POS, Optional.absent());
 		this.dataManager.register(MINING_PROGRESS, 0F);
 		super.entityInit();
-    }
+	}
 
 	@Override
 	public void onActivatorRailPass(int blockX, int blockY, int blockZ, boolean receivingPower) {
-		if (receivingPower) {
+		if(receivingPower) {
 			BlockPos pos = new BlockPos(blockX, blockY, blockZ);
-			if (BlockRailBase.isRailBlock(this.world, pos)) {
+			if(BlockRailBase.isRailBlock(this.world, pos)) {
 				BlockRailBase rail = (BlockRailBase) this.getEntityWorld().getBlockState(pos).getBlock();
 				EnumRailDirection direction = rail.getRailDirection(getEntityWorld(), pos,
 						this.getEntityWorld().getBlockState(pos), this);
 				EnumFacing cartFacing = this.getAdjustedHorizontalFacing();
-				switch (direction) {
-				case NORTH_SOUTH:
-					if (EnumFacing.NORTH.equals(cartFacing)) {
-						this.doMining(EnumFacing.WEST);
-					} else {
-						this.doMining(EnumFacing.EAST);
-					}
-					break;
-				case EAST_WEST:
-					if (EnumFacing.WEST.equals(cartFacing)) {
-						this.doMining(EnumFacing.NORTH);
-					} else {
-						this.doMining(EnumFacing.SOUTH);
-					}
-					break;
-				default:
-					break;
+				switch(direction) {
+					case NORTH_SOUTH:
+						if(EnumFacing.NORTH.equals(cartFacing)) {
+							this.doMining(EnumFacing.WEST);
+						}
+						else {
+							this.doMining(EnumFacing.EAST);
+						}
+						break;
+					case EAST_WEST:
+						if(EnumFacing.WEST.equals(cartFacing)) {
+							this.doMining(EnumFacing.NORTH);
+						}
+						else {
+							this.doMining(EnumFacing.SOUTH);
+						}
+						break;
+					default:
+						break;
 				}
 			}
 		}
@@ -97,7 +100,7 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryRec
 		WeakReference<FakePlayer> fakePlayer = new WeakReference<FakePlayer>(
 				FakePlayerFactory.get((WorldServer) world, SteamAgeRevolution.profile));
 		BlockPos target = this.getPosition().offset(facingToMine);
-		if (!world.isAirBlock(target)) {
+		if(!world.isAirBlock(target)) {
 			if(this.getDataManager().get(MINING_PROGRESS).floatValue() >= 1.0F) {
 				MiningUtils.doMining(this.getEntityWorld(), target, this.getInventory().getInputHandler());
 				this.getDataManager().set(MINING_POS, Optional.absent());
@@ -106,11 +109,12 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryRec
 			}
 			else {
 				this.getDataManager().set(MINING_POS, Optional.of(target));
-				this.getDataManager().set(MINING_PROGRESS, this.getDataManager().get(MINING_PROGRESS) + world.getBlockState(target).getPlayerRelativeBlockHardness(fakePlayer.get(), world, target));
+				this.getDataManager().set(MINING_PROGRESS, this.getDataManager().get(MINING_PROGRESS)
+						+ world.getBlockState(target).getPlayerRelativeBlockHardness(fakePlayer.get(), world, target));
 				return;
 			}
 		}
-		//If we can't mine, reset. TODO Reset on cart move?
+		// If we can't mine, reset. TODO Reset on cart move?
 		this.getDataManager().set(MINING_PROGRESS, 0F);
 	}
 

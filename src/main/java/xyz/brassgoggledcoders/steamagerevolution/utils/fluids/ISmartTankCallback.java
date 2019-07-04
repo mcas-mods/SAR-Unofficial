@@ -14,6 +14,7 @@ public interface ISmartTankCallback<I extends IMachineHasInventory> {
 	void updateFluid(PacketFluidUpdate message);
 
 	@SideOnly(Side.CLIENT)
+	@Deprecated
 	default void updateFluid(PacketMultiFluidUpdate message) {
 
 	}

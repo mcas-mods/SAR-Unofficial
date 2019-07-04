@@ -31,7 +31,8 @@ public class FluidTankSmart extends FluidTank implements INBTSerializable<NBTTag
 
 	@Override
 	public void onContentsChanged() {
-		parent.getInventory().onTankContentsChanged(this, null, parent);
+		// TODO
+		parent.getInventory().onTankContentsChanged(this, type, parent);
 		if(tile != null) {
 			tile.markDirty();
 		}

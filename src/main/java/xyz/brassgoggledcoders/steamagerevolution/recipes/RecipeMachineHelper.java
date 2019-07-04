@@ -46,9 +46,9 @@ public class RecipeMachineHelper {
 				}
 			}
 		}
-		if(inventory.steamTank != null) {
-			if(inventory.steamTank.getHandler().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
-				inventory.steamTank.getHandler().drain(currentRecipe.getSteamUsePerCraft(), true);
+		if(inventory.steamTankPiece != null) {
+			if(inventory.steamTankPiece.getHandler().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
+				inventory.steamTankPiece.getHandler().drain(currentRecipe.getSteamUsePerCraft(), true);
 			}
 			else {
 				extractedSteam = false;

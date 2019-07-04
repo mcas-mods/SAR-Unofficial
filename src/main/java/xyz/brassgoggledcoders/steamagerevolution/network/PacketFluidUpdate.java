@@ -11,15 +11,15 @@ public class PacketFluidUpdate implements IMessage {
 
 	public BlockPos pos;
 	public FluidStack fluid;
-	public int id;
+	public int typeID;
 
 	public PacketFluidUpdate() {
 	}
 
-	public PacketFluidUpdate(BlockPos pos, FluidStack fluid, int id) {
+	public PacketFluidUpdate(BlockPos pos, FluidStack fluid, int typeID) {
 		this.pos = pos;
 		this.fluid = fluid;
-		this.id = id;
+		this.typeID = typeID;
 	}
 
 	@Override
@@ -27,18 +27,18 @@ public class PacketFluidUpdate implements IMessage {
 		pos = BlockPos.fromLong(buf.readLong());
 		NBTTagCompound tag = ByteBufUtils.readTag(buf);
 		fluid = FluidStack.loadFluidStackFromNBT(tag);
-		id = buf.readInt();
+		typeID = buf.readInt();
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
 		buf.writeLong(pos.toLong());
 		NBTTagCompound tag = new NBTTagCompound();
-		if (fluid != null) {
+		if(fluid != null) {
 			fluid.writeToNBT(tag);
 		}
 		ByteBufUtils.writeTag(buf, tag);
-		buf.writeInt(id);
+		buf.writeInt(typeID);
 	}
 
 }

@@ -15,14 +15,14 @@ public class PacketMultiFluidUpdate implements IMessage {
 
 	public BlockPos pos;
 	public ArrayList<FluidStack> fluids;
-	public int id;
+	public int typeID;
 
 	public PacketMultiFluidUpdate() {
 	}
 
 	public PacketMultiFluidUpdate(BlockPos pos, ArrayList<FluidStack> fluids, int id) {
 		this.pos = pos;
-		this.id = id;
+		this.typeID = id;
 		this.fluids = fluids;
 	}
 
@@ -40,7 +40,7 @@ public class PacketMultiFluidUpdate implements IMessage {
 				}
 			}
 		}
-		id = buf.readInt();
+		typeID = buf.readInt();
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class PacketMultiFluidUpdate implements IMessage {
 		for (FluidStack stack : fluids) {
 			ByteBufUtils.writeTag(buf, stack.writeToNBT(new NBTTagCompound()));
 		}
-		buf.writeInt(id);
+		buf.writeInt(typeID);
 	}
 
 }

@@ -12,11 +12,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemHandlerHelper;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidHandler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
@@ -30,12 +28,12 @@ public class ControllerVat extends SARMultiblockInventory<InventoryRecipeMachine
 
 	public ControllerVat(World world) {
 		super(world);
-		setInventory(new InventoryRecipeMachine(
-				new InventoryPieceItem(new ItemStackHandlerExtractSpecific(3), new int[] { 88, 88, 88 },
-						new int[] { 11, 32, 53 }),
-				new InventoryPieceFluid(new MultiFluidHandler(inputCapacity, this, 3), new int[] { 12, 37, 62 },
-						new int[] { 9, 9, 9 }),
-				null, new InventoryPieceFluid(new FluidTankSmart(outputCapacity, this), 143, 9), null));
+		setInventory(new InventoryRecipeMachine()
+				.setItemInput(new int[] { 88, 88, 88 }, new int[] { 11, 32, 53 },
+						new ItemStackHandlerExtractSpecific(3))
+				.setFluidInputs(new int[] { 12, 37, 62 }, new int[] { 9, 9, 9 },
+						new MultiFluidTank(inputCapacity, this, 3))
+				.setFluidOutput(143, 9, new FluidTankSmart(outputCapacity, this)));
 	}
 
 	@Override
@@ -48,10 +46,10 @@ public class ControllerVat extends SARMultiblockInventory<InventoryRecipeMachine
 					item.setDead();
 				}
 			}
-			// Simulate contact with fluid in vat when an entity falls in. TODO change
-			// bounds based on fluid fill level
+			// Simulate contact with fluid in vat when an entity falls in.
+			// TODO change bounds based on fluid fill level
 			FluidStack fluid = null;
-			if(inventory.getOutputTank(). != null) {
+			if(inventory.getOutputTank().getFluid() != null) {
 				fluid = inventory.getOutputTank().getFluid();
 			}
 			else if(inventory.getInputTank().getFluid() != null) {

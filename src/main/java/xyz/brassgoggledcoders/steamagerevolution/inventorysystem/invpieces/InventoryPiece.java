@@ -1,8 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces;
 
 public abstract class InventoryPiece {
-	final int xPos[];
-	final int yPos[];
+	public final int xPos[];
+	public final int yPos[];
 
 	public InventoryPiece(int[] xPos, int[] yPos) {
 		this.xPos = xPos;

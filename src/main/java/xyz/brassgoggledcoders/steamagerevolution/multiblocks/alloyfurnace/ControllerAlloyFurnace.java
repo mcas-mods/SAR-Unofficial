@@ -9,8 +9,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidHandler;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
@@ -21,15 +21,14 @@ public class ControllerAlloyFurnace extends SARMultiblockInventory<InventoryReci
 
 	public ControllerAlloyFurnace(World world) {
 		super(world);
-		setInventory(new InventoryRecipeMachine(
-				new InventoryPieceFluid(new MultiFluidHandler(inputCapacity, this, 2), new int[] { 22, 78 },
-						new int[] { 11, 11 }),
-				new InventoryPieceFluid(new MultiFluidHandler(outputCapacity, this, 1), 134, 17), null));
+		setInventory(new InventoryRecipeMachine()
+				.setFluidInputs(new int[] { 22, 78 }, new int[] { 11, 11 }, new MultiFluidTank(inputCapacity, this, 2))
+				.setFluidOutput(134, 17, new FluidTankSmart(outputCapacity, this)));
 	}
 
 	@Override
 	protected boolean canRun() {
-		return inventory.getInputTank().fluids.size() == 2 && super.canRun();
+		return ((MultiFluidTank) inventory.getInputTank()).fluids.size() == 2 && super.canRun();
 	}
 
 	@Override
@@ -41,9 +40,10 @@ public class ControllerAlloyFurnace extends SARMultiblockInventory<InventoryReci
 	@Override
 	protected boolean isBlockGoodForInterior(World world, int x, int y, int z, IMultiblockValidator validatorCallback) {
 		Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
-		if (block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) {
+		if(block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) {
 			return true;
-		} else {
+		}
+		else {
 			validatorCallback
 					.setLastError(new ValidationError("steamagerevolution.multiblock.validation.alloyforgeinterior"));
 			return false;

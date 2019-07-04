@@ -3,7 +3,8 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 import javax.annotation.Nullable;
 
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidHandler;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 public interface IMachineInventory {
@@ -11,14 +12,14 @@ public interface IMachineInventory {
 	public ItemStackHandlerExtractSpecific getInputHandler();
 
 	@Nullable
-	public MultiFluidHandler getInputTank();
+	public FluidTankSmart getInputTank();
 
 	@Nullable
 	public ItemStackHandler getOutputHandler();
 
 	@Nullable
-	public MultiFluidHandler getOutputTank();
+	public FluidTankSmart getOutputTank();
 
 	@Nullable
-	public MultiFluidHandler getSteamTank();
+	public FluidTankSingleSmart getSteamTank();
 }

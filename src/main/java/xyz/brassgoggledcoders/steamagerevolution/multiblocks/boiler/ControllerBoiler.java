@@ -16,9 +16,9 @@ import net.minecraftforge.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
@@ -41,10 +41,8 @@ public class ControllerBoiler extends SARMultiblockInventory<InventoryRecipeMach
 		super(world);
 		attachedMonitors = new HashSet<BlockPos>();
 		attachedValves = new HashSet<BlockPos>();
-		setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new ItemStackHandlerFuel(1, this), 81, 32),
-				new InventoryPieceFluid(new MultiFluidHandler(Fluid.BUCKET_VOLUME * 16, this, 1), 0, 0), null,
-				/* TODO: having water tank as output is...hacky */new InventoryPieceFluid(
-						new MultiFluidHandler(Fluid.BUCKET_VOLUME * 16, this, 1), 50, 9),
+		/* TODO: having water tank as output is...hacky */ 
+		setInventory(new InventoryRecipeMachine().setItemInput(81, 32, new ItemStackHandlerFuel(1, this)).setFluidInput(0,0,new FluidTankSmart(Fluid.BUCKET_VOLUME * 16, this)) new MultiFluidHandler(Fluid.BUCKET_VOLUME * 16, this, 1), 50, 9),
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this), 142, 9)));
 	}
 
