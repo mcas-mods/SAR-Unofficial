@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 public class HandlerForceStack extends ItemStackHandlerExtractSpecific {

@@ -5,10 +5,11 @@ import org.apache.commons.lang3.tuple.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPiece.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
@@ -20,7 +21,7 @@ public class ControllerCrucible extends SARMultiblockInventory<InventoryRecipeMa
 	public ControllerCrucible(World world) {
 		super(world);
 		setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 53, 34), null,
-				null, new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME, this, 1), 105, 11),
+				null, new InventoryPieceFluid(new MultiFluidHandler(Fluid.BUCKET_VOLUME, this, 1), 105, 11),
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this), 17, 11))
 						.setProgressBar(new InventoryPieceProgressBar(76, 33)));
 	}
@@ -39,7 +40,7 @@ public class ControllerCrucible extends SARMultiblockInventory<InventoryRecipeMa
 			blocksInside++;
 		}
 		// Size internal tank accordingly
-		MultiFluidTank newTank = new MultiFluidTank(blocksInside * Fluid.BUCKET_VOLUME, this, 1);
+		MultiFluidHandler newTank = new MultiFluidHandler(blocksInside * Fluid.BUCKET_VOLUME, this, 1);
 		if (inventory.getOutputTank().fluids != null) {
 			newTank.fluids.addAll(inventory.getOutputTank().fluids);
 		}

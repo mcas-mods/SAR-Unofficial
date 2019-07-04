@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui;
 
 import com.teamacronymcoders.base.containers.ContainerBase;
 import com.teamacronymcoders.base.util.inventory.SlotHandlerOutput;
@@ -6,6 +6,7 @@ import com.teamacronymcoders.base.util.inventory.SlotHandlerOutput;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
 
 public class ContainerInventory extends ContainerBase {
 	public ContainerInventory(EntityPlayer player, IMachineHasInventory holder) {

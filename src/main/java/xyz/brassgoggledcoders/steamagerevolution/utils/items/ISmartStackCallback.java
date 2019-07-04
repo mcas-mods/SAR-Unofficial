@@ -1,8 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.items;
 
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IOTYPE;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.io.IOType;
 
 public interface ISmartStackCallback {
-	void onContentsChanged(IOTYPE type, int slot, IMachineHasInventory parent);
+	void onContentsChanged(IOType type, int slot, IMachineHasInventory parent);
 }

@@ -1,6 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.items;
 
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
 
 public class ItemStackHandlerSmart extends ItemStackHandlerExtractSpecific {
 	private IMachineHasInventory controller;

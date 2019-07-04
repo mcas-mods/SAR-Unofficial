@@ -5,11 +5,11 @@ import net.minecraft.util.EnumFacing.Axis;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.SARMachineTileEntity;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMachineTileEntity;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceFluid;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceItem;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
@@ -19,7 +19,7 @@ public class TileEntityCastingBench extends SARMachineTileEntity {
 
 	public TileEntityCastingBench() {
 		setInventory(new InventoryRecipeMachine(null,
-				new InventoryPieceFluid(new MultiFluidTank(TileEntityCastingBench.inputCapacity, this, 1), 51, 11),
+				new InventoryPieceFluid(new MultiFluidHandler(TileEntityCastingBench.inputCapacity, this, 1), 51, 11),
 				new InventoryPieceItem(new ItemStackHandlerExtractSpecific(1), 109, 34), null, null));
 	}
 

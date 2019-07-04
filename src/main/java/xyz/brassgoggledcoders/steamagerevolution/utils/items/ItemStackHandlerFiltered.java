@@ -4,7 +4,7 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
 
 public abstract class ItemStackHandlerFiltered extends ItemStackHandlerSmart {
 

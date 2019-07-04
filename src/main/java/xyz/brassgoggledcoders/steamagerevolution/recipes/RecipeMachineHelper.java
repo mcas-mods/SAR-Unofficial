@@ -14,8 +14,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
 
 public class RecipeMachineHelper {
 	public static void onFinish(SARMachineRecipe currentRecipe, InventoryRecipeMachine inventory) {
@@ -47,8 +47,8 @@ public class RecipeMachineHelper {
 			}
 		}
 		if(inventory.steamTank != null) {
-			if(inventory.steamTank.getHandler().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
-				inventory.steamTank.getHandler().drain(currentRecipe.getSteamUsePerCraft(), true);
+			if(inventory.steamTank.getIO().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
+				inventory.steamTank.getIO().drain(currentRecipe.getSteamUsePerCraft(), true);
 			}
 			else {
 				extractedSteam = false;

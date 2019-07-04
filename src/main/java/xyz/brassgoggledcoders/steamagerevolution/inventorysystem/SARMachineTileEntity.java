@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
 import javax.annotation.Nonnull;
 
@@ -16,6 +16,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.ContainerInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.io.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.RecipeMachineHelper;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
@@ -115,7 +118,7 @@ public abstract class SARMachineTileEntity extends TileEntityBase
 	}
 
 	@Override
-	public void onContentsChanged(IOTYPE type, int slot, IMachineHasInventory parent) {
+	public void onContentsChanged(IOType type, int slot, IMachineHasInventory parent) {
 		// TODO
 	}
 

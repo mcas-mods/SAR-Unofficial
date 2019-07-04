@@ -4,6 +4,7 @@ import com.teamacronymcoders.base.containers.ContainerBase;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
 
 public class ContainerForceStack extends ContainerBase {
 	public ContainerForceStack(EntityPlayer player, IMachineHasInventory holder) {

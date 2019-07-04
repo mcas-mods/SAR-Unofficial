@@ -21,9 +21,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceItem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.MiningUtils;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerForceStack;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.HandlerForceStack;
 
 public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryRecipeMachine> {
 

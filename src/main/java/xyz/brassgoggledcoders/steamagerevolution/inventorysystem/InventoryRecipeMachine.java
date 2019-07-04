@@ -1,13 +1,16 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPiece.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.io.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
@@ -30,20 +33,20 @@ public class InventoryRecipeMachine
 			InventoryPieceItem itemOutput, InventoryPieceFluid fluidOutput, InventoryPieceFluid steamTank) {
 		this.itemInput = itemInput;
 		if(itemInput != null) {
-			this.itemInput.setType(IOTYPE.INPUT);
+			this.itemInput.setType(IOType.INPUT);
 		}
 		this.fluidInput = fluidInput;
 		if(fluidInput != null) {
-			this.fluidInput.setTankType(IOTYPE.INPUT);
+			this.fluidInput.setTankType(IOType.INPUT);
 		}
 		this.itemOutput = itemOutput;
 		this.fluidOutput = fluidOutput;
 		if(fluidOutput != null) {
-			this.fluidOutput.setTankType(IOTYPE.OUTPUT);
+			this.fluidOutput.setTankType(IOType.OUTPUT);
 		}
 		this.steamTank = steamTank;
 		if(steamTank != null) {
-			this.steamTank.setTankType(IOTYPE.STEAM);
+			this.steamTank.setTankType(IOType.STEAM);
 		}
 	}
 
@@ -64,12 +67,12 @@ public class InventoryRecipeMachine
 	}
 
 	@Override
-	public MultiFluidTank getInputTank() {
+	public IFluidHandler getInputTank() {
 		if(fluidInput == null) {
 			return null;
 		}
 		// TODO Unsafe cast
-		return (MultiFluidTank) fluidInput.getHandler();
+		return (IFluidHandler) fluidInput.getIO();
 	}
 
 	@Override
@@ -81,20 +84,20 @@ public class InventoryRecipeMachine
 	}
 
 	@Override
-	public MultiFluidTank getOutputTank() {
+	public MultiFluidHandler getOutputTank() {
 		// TODO Unsafe cast
 		if(fluidOutput == null) {
 			return null;
 		}
-		return (MultiFluidTank) fluidOutput.getHandler();
+		return fluidOutput.getIO();
 	}
 
 	@Override
-	public FluidTankSingleSmart getSteamTank() {
+	public MultiFluidHandler getSteamTank() {
 		if(steamTank == null) {
 			return null;
 		}
-		return (FluidTankSingleSmart) steamTank.getHandler();
+		return steamTank.getIO();
 	}
 
 	@Override
@@ -138,14 +141,14 @@ public class InventoryRecipeMachine
 	}
 
 	// Methods to enable dynamic tank sizes based on multiblock size
-	public void setFluidInput(MultiFluidTank newTank) {
+	public void setFluidInput(MultiFluidHandler newTank) {
 		fluidInput = new InventoryPieceFluid(newTank, fluidInput.xPos, fluidInput.yPos);
-		fluidInput.setTankType(IOTYPE.INPUT);
+		fluidInput.setTankType(IOType.INPUT);
 	}
 
-	public void setFluidOutput(MultiFluidTank newTank) {
+	public void setFluidOutput(MultiFluidHandler newTank) {
 		fluidOutput = new InventoryPieceFluid(newTank, fluidOutput.xPos, fluidOutput.yPos);
-		fluidOutput.setTankType(IOTYPE.OUTPUT);
+		fluidOutput.setTankType(IOType.OUTPUT);
 	}
 
 	// Helpers for TE wrappers
@@ -154,32 +157,32 @@ public class InventoryRecipeMachine
 	}
 
 	public FluidTankSmart getFluidHandler(boolean output) {
-		return output ? fluidOutput.getHandler() : fluidInput.getHandler();
+		return output ? fluidOutput.getIO() : fluidInput.getIO();
 	}
 
 	public FluidTankSingleSmart getSteamHandler() {
 		if(steamTank == null) {
 			return null;
 		}
-		return (FluidTankSingleSmart) steamTank.getHandler();
+		return (FluidTankSingleSmart) steamTank.getIO();
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTankSmart tank, IOTYPE type, IMachineHasInventory parent) {
-		if(tank instanceof MultiFluidTank) {
+	public void onTankContentsChanged(FluidTankSmart tank, IOType type, IMachineHasInventory parent) {
+		if(tank instanceof MultiFluidHandler) {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketMultiFluidUpdate(parent.getMachinePos(), ((MultiFluidTank) tank).fluids,
-							IOTYPE.getNetworkID(type)),
+					new PacketMultiFluidUpdate(parent.getMachinePos(), ((MultiFluidHandler) tank).fluids,
+							IOType.getNetworkID(type)),
 					parent.getMachinePos(), parent.getMachineWorld().provider.getDimension());
 		}
 		else {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketFluidUpdate(parent.getMachinePos(), tank.getFluid(), IOTYPE.getNetworkID(type)),
+					new PacketFluidUpdate(parent.getMachinePos(), tank.getFluid(), IOType.getNetworkID(type)),
 					parent.getMachinePos(), parent.getMachineWorld().provider.getDimension());
 		}
 		// If we have a recipe, when a tank is changed, check input tank(s), if they
 		// were emptied. You can't hotswap fluids like you can items.
-		if(type == IOTYPE.INPUT && getInputTank() != null && getInputTank().getFluidAmount() == 0) {
+		if(type == IOType.INPUT && getInputTank() != null && getInputTank().getFluidAmount() == 0) {
 			parent.setCurrentRecipe(null);
 			parent.setCurrentTicks(0);
 		}
@@ -187,24 +190,24 @@ public class InventoryRecipeMachine
 
 	@Override
 	public void updateFluid(PacketFluidUpdate message) {
-		steamTank.getHandler().setFluid(message.fluid);
+		steamTank.getIO().setFluid(message.fluid);
 	}
 
 	@Override
 	public void updateFluid(PacketMultiFluidUpdate message) {
-		if(getInputTank() != null && IOTYPE.INPUT.equals(IOTYPE.getTypeFromID(message.id))) {
+		if(getInputTank() != null && IOType.INPUT.equals(IOType.getTypeFromID(message.id))) {
 			getInputTank().fluids.clear();
 			getInputTank().fluids.addAll(message.fluids);
 		}
-		else if(getOutputTank() != null && IOTYPE.OUTPUT.equals(IOTYPE.getTypeFromID(message.id))) {
+		else if(getOutputTank() != null && IOType.OUTPUT.equals(IOType.getTypeFromID(message.id))) {
 			getOutputTank().fluids.clear();
 			getOutputTank().fluids.addAll(message.fluids);
 		}
 	}
 
 	@Override
-	public void onContentsChanged(IOTYPE type, int slot, IMachineHasInventory parent) {
-		if(type.equals(IOTYPE.INPUT)) {
+	public void onContentsChanged(IOType type, int slot, IMachineHasInventory parent) {
+		if(type.equals(IOType.INPUT)) {
 			// If we have a recipe, when a slot is changed, check if it was changed to air,
 			// or an item that doesn't match the recipe, and if so reset the recipe
 			if(parent.getCurrentRecipe() != null && this.getInputHandler().getStackInSlot(slot).isEmpty()) {

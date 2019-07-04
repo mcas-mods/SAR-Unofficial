@@ -3,11 +3,11 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreDictionary;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IOTYPE;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.io.IOType;
 
 public class ItemStackHandlerExtractSpecific extends ItemStackHandler {
 
-	IOTYPE type = IOTYPE.UNDEFINED;
+	IOType type = IOType.UNDEFINED;
 
 	public ItemStackHandlerExtractSpecific(int i) {
 		super(i);
@@ -29,7 +29,7 @@ public class ItemStackHandlerExtractSpecific extends ItemStackHandler {
 		return false;
 	}
 
-	public void setType(IOTYPE input) {
+	public void setType(IOType input) {
 		this.type = input;
 	}
 

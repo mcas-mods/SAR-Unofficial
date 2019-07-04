@@ -5,11 +5,11 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceItem;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.SARMachineTileEntity;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMachineTileEntity;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceFluid;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceItem;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 public class TileEntityFluidIO extends SARMachineTileEntity {
@@ -21,7 +21,7 @@ public class TileEntityFluidIO extends SARMachineTileEntity {
 		setInventory(new InventoryRecipeMachine(
 				new InventoryPieceItem(new ItemStackHandlerExtractSpecific(2), new int[] { 25, 134 },
 						new int[] { 33, 33 }),
-				new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME * 6, this, 1), 78, 11), null, null,
+				new InventoryPieceFluid(new MultiFluidHandler(Fluid.BUCKET_VOLUME * 6, this, 1), 78, 11), null, null,
 				null));
 	}
 

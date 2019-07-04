@@ -11,11 +11,11 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.api.IFumeProducer;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMachineTileEntity;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.FumeCollectorRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.SARMachineTileEntity;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidHandler;
 
 //TODO add ability output to item placed in gui, and to item right clicked on block
 public class TileEntityFumeCollector extends SARMachineTileEntity {
@@ -24,7 +24,7 @@ public class TileEntityFumeCollector extends SARMachineTileEntity {
 	public TileEntityFumeCollector() {
 		super();
 		this.setInventory(new InventoryRecipeMachine(null,
-				new InventoryPieceFluid(new MultiFluidTank(outputCapacity, this, 1), 105, 11), null));
+				new InventoryPieceFluid(new MultiFluidHandler(outputCapacity, this, 1), 105, 11), null));
 	}
 
 	@Override

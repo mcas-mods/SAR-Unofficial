@@ -2,13 +2,13 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.fluids;
 
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.io.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IOTYPE;
 
 public interface ISmartTankCallback<I extends IMachineHasInventory> {
-	void onTankContentsChanged(FluidTankSmart tank, IOTYPE type, I parent);
+	void onTankContentsChanged(FluidTankSmart tank, IOType type, I parent);
 
 	@SideOnly(Side.CLIENT)
 	void updateFluid(PacketFluidUpdate message);

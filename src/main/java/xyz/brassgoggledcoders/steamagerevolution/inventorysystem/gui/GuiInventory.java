@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui;
 
 import java.util.List;
 
@@ -16,10 +16,10 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidHandler;
 
 @SideOnly(Side.CLIENT)
 public class GuiInventory extends GuiContainer {
@@ -49,7 +49,7 @@ public class GuiInventory extends GuiContainer {
 		drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
-		MultiFluidTank fluidInputs = holder.getInventory().getInputTank();
+		MultiFluidHandler fluidInputs = holder.getInventory().getInputTank();
 		if (fluidInputs != null) {
 			// TODO Work this into TextUtils#representTankContents
 			for (int i = 0; i < fluidInputs.getMaxFluids(); i++) {
@@ -70,7 +70,7 @@ public class GuiInventory extends GuiContainer {
 				}
 			}
 		}
-		MultiFluidTank fluidOutputs = holder.getInventory().getOutputTank();
+		MultiFluidHandler fluidOutputs = holder.getInventory().getOutputTank();
 		if (fluidOutputs != null) {
 			for (int i = 0; i < fluidOutputs.getMaxFluids(); i++) {
 				if (isPointInRegion(holder.getInventory().fluidOutput.getX(i),
@@ -147,9 +147,9 @@ public class GuiInventory extends GuiContainer {
 	}
 
 	private void addTank(InventoryPieceFluid piece) {
-		FluidTank tank = piece.getHandler();
-		if (tank instanceof MultiFluidTank) {
-			MultiFluidTank multitank = (MultiFluidTank) tank;
+		FluidTank tank = piece.getIO();
+		if (tank instanceof MultiFluidHandler) {
+			MultiFluidHandler multitank = (MultiFluidHandler) tank;
 			for (int i = 0; i < multitank.fluids.size(); i++) {
 				draw(multitank.fluids.get(i), multitank.getCapacity() / multitank.fluids.size(), piece.getX(i),
 						piece.getY(i));

@@ -1,8 +1,9 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
 import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.IMachine;
 
+//Interface implemented by machines that hold an inventory, an instance of IMachineInventory
 public interface IMachineHasInventory<I extends InventoryRecipeMachine> extends IMachine {
 	// TODO Duplicated in multiblock interface
 	public String getName();

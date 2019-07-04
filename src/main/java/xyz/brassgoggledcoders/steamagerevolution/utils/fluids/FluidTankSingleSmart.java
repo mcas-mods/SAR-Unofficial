@@ -2,7 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.fluids;
 
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
 
 public class FluidTankSingleSmart extends FluidTankSmart {
 

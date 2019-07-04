@@ -10,9 +10,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.ContainerInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.RecipeMachineHelper;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.*;
 
 public abstract class SARMultiblockInventory<I extends InventoryRecipeMachine> extends SARMultiblockBase
 		implements IMachineHasInventory<I> {

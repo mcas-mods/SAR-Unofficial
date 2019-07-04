@@ -1,0 +1,62 @@
+package xyz.brassgoggledcoders.steamagerevolution.utils.fluids;
+
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
+
+/*
+ * A fluid handler that holds multiple tanks in one, like an item handler has multiple slots
+ */
+public class MultiFluidHandler implements IFluidHandler {
+
+	int numberOfTanks;
+	FluidTankSmart[] tanks;
+
+	public MultiFluidHandler(int numberOfTanks, IMachineHasInventory parent, int... tankCapacities) {
+		this.numberOfTanks = numberOfTanks;
+		tanks = new FluidTankSmart[numberOfTanks];
+		for(int i = 0; i < numberOfTanks; i++) {
+			tanks[i] = new FluidTankSmart(tankCapacities[i], parent);
+		}
+	}
+
+	@Override
+	public IFluidTankProperties[] getTankProperties() {
+		FluidTankPropertiesWrapper[] infos = new FluidTankPropertiesWrapper[numberOfTanks];
+		for(int i = 0; i < numberOfTanks; i++) {
+			infos[i] = new FluidTankPropertiesWrapper(tanks[i]);
+		}
+		return infos;
+	}
+
+	@Override
+	public int fill(FluidStack resource, boolean doFill) {
+		for(FluidTankSmart tank : tanks) {
+			if(tank.getFluid() == null || tank.getFluid().isFluidEqual(resource)) {
+				return tank.fill(resource, doFill);
+			}
+		}
+		return 0;
+	}
+
+	@Override
+	public FluidStack drain(FluidStack resource, boolean doDrain) {
+		for(FluidTankSmart tank : tanks) {
+			if(tank.getFluid().isFluidEqual(resource)) {
+				return tank.drain(resource, doDrain);
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public FluidStack drain(int maxDrain, boolean doDrain) {
+		for(FluidTankSmart tank : tanks) {
+			if(tank.getFluidAmount() >= maxDrain) {
+				return tank.drain(maxDrain, doDrain);
+			}
+		}
+		return null;
+	}
+
+}
