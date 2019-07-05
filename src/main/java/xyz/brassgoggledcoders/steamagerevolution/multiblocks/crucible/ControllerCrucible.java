@@ -5,21 +5,21 @@ import org.apache.commons.lang3.tuple.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceProgressBar;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerCrucible extends SARMultiblockInventory<InventoryRecipeMachine> {
+public class ControllerCrucible extends SARMultiblockInventory<InventoryBasic> {
 
 	BlockPos minimumInteriorPos;
 	BlockPos maximumInteriorPos;
 
 	public ControllerCrucible(World world) {
 		super(world);
-		setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 53, 34), null,
+		setInventory(new InventoryBasic(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 53, 34), null,
 				null, new InventoryPieceFluid(new MultiFluidHandler(Fluid.BUCKET_VOLUME, this, 1), 105, 11),
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this), 17, 11))
 						.setProgressBar(new InventoryPieceProgressBar(76, 33)));

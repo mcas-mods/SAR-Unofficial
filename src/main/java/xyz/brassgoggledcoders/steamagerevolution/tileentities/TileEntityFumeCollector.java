@@ -21,7 +21,7 @@ public class TileEntityFumeCollector extends SARMachineTileEntity {
 
 	public TileEntityFumeCollector() {
 		super();
-		this.setInventory(new InventoryRecipeMachine().setFluidOutput(105, 11,
+		this.setInventory(new InventoryBasic().setFluidOutput(105, 11,
 				new FluidHandlerMulti(this, IOType.OUTPUT, outputCapacity)));
 	}
 

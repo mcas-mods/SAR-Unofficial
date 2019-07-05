@@ -8,20 +8,20 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
-public class ControllerAlloyFurnace extends SARMultiblockInventory<InventoryRecipeMachine> {
+public class ControllerAlloyFurnace extends SARMultiblockInventory<InventoryBasic> {
 
 	public static int inputCapacity = RecipeUtil.VALUE_BLOCK * 8;
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
 
 	public ControllerAlloyFurnace(World world) {
 		super(world);
-		setInventory(new InventoryRecipeMachine()
+		setInventory(new InventoryBasic()
 				.setFluidInputs(new int[] { 22, 78 }, new int[] { 11, 11 }, new MultiFluidTank(inputCapacity, this, 2))
 				.setFluidOutput(134, 17, new FluidTankSmart(outputCapacity, this)));
 	}

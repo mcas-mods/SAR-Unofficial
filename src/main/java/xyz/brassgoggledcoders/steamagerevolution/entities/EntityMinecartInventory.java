@@ -19,10 +19,10 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
 
-public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> extends EntityMinecartBase
+public abstract class EntityMinecartInventory<I extends InventoryBasic> extends EntityMinecartBase
 		implements IHasGui, IMachineHasInventory<I>, IInventory {
 
 	I inventory;

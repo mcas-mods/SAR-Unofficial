@@ -13,13 +13,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.MiningUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerForceStack;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.HandlerForceStack;
 
-public class EntityMinecartCarrier extends EntityMinecartInventory<InventoryRecipeMachine> {
+public class EntityMinecartCarrier extends EntityMinecartInventory<InventoryBasic> {
 
 	public static final DataParameter<ItemStack> CONTENTS = EntityDataManager.createKey(EntityMinecartCarrier.class,
 			DataSerializers.ITEM_STACK);
@@ -27,8 +28,8 @@ public class EntityMinecartCarrier extends EntityMinecartInventory<InventoryReci
 	public EntityMinecartCarrier(World world) {
 		super(world);
 		Pair<int[], int[]> posi = MiningUtils.getGUIPositionGrid(53, 31, 4, 2);
-		this.setInventory(new InventoryRecipeMachine().setItemInput(posi.getLeft(), posi.getRight(),
-				new HandlerForceStack(this, 8)));
+		this.setInventory(
+				new InventoryBasic().addItemPiece(posi, new HandlerForceStack(this, 8), IOType.INPUT));
 	}
 
 	@Override

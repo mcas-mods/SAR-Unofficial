@@ -7,20 +7,20 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceProgressBar;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerDistiller extends SARMultiblockInventory<InventoryRecipeMachine> {
+public class ControllerDistiller extends SARMultiblockInventory<InventoryBasic> {
 
 	public static int tankCapacity = Fluid.BUCKET_VOLUME * 8;
 
 	public ControllerDistiller(World world) {
 		super(world);
-		setInventory(new InventoryRecipeMachine(null,
+		setInventory(new InventoryBasic(null,
 				new InventoryPieceFluid(new MultiFluidHandler(tankCapacity, this, 1), 41, 9),
 				new InventoryPieceItem(new ItemStackHandlerExtractSpecific(1), 149, 32),
 				new InventoryPieceFluid(new MultiFluidHandler(tankCapacity, this, 1), 97, 9),

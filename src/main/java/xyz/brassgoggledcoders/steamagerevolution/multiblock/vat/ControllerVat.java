@@ -12,13 +12,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemHandlerHelper;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerVat extends SARMultiblockInventory<InventoryRecipeMachine> {
+public class ControllerVat extends SARMultiblockInventory<InventoryBasic> {
 
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
 	public static int inputCapacity = outputCapacity * 3;
@@ -28,7 +28,7 @@ public class ControllerVat extends SARMultiblockInventory<InventoryRecipeMachine
 
 	public ControllerVat(World world) {
 		super(world);
-		setInventory(new InventoryRecipeMachine()
+		setInventory(new InventoryBasic()
 				.setItemInput(new int[] { 88, 88, 88 }, new int[] { 11, 32, 53 },
 						new ItemStackHandlerExtractSpecific(3))
 				.setFluidInputs(new int[] { 12, 37, 62 }, new int[] { 9, 9, 9 },

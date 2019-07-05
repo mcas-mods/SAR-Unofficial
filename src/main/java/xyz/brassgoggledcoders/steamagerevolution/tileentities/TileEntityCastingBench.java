@@ -15,7 +15,7 @@ public class TileEntityCastingBench extends SARMachineTileEntity {
 	public static int inputCapacity = RecipeUtil.VALUE_BLOCK;
 
 	public TileEntityCastingBench() {
-		setInventory(new InventoryRecipeMachine()
+		setInventory(new InventoryBasic()
 				.setFluidInput(51, 11, new FluidHandlerMulti(this, IOType.INPUT, inputCapacity))
 				.setItemOutput(new int[] { 109 }, new int[] { 34 }, new ItemStackHandlerExtractSpecific(1)));
 	}

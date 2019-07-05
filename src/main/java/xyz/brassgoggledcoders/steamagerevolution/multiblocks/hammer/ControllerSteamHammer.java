@@ -15,13 +15,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceProgressBar;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerSteamHammer extends SARMultiblockInventory<InventoryRecipeMachine> {
+public class ControllerSteamHammer extends SARMultiblockInventory<InventoryBasic> {
 
 	public String dieType = "";
 	BlockPos center = null;
@@ -30,7 +30,7 @@ public class ControllerSteamHammer extends SARMultiblockInventory<InventoryRecip
 	public ControllerSteamHammer(World world) {
 		super(world);
 		// TODO Investigate if possible to have same handler for input and output
-		setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 35, 32), null,
+		setInventory(new InventoryBasic(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 35, 32), null,
 				new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 138, 32), null,
 				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this), 9, 11)).setProgressBar(new InventoryPieceProgressBar(103, 31)));
 	}

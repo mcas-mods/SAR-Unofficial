@@ -1,13 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.tuple.Pair;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceProgressBar;
@@ -15,50 +14,35 @@ import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 @SuppressWarnings("rawtypes")
-public class InventoryRecipeMachine
+public class InventoryBasic
 		implements IMachineInventory, INBTSerializable<NBTTagCompound>, ISmartTankCallback, ISmartStackCallback {
 
-	public ArrayList<InventoryPieceHandler<ItemStackHandlerExtractSpecific>> itemPieces = new ArrayList<>();
+	public ArrayList<InventoryPieceHandler<? extends ItemStackHandler>> itemPieces = new ArrayList<>();
 	// TODO Readd support for FluidHandlerMulti?
-	public ArrayList<InventoryPieceHandler<FluidTankSmart>> fluidPieces = new ArrayList<>();
+	public ArrayList<InventoryPieceHandler<? extends FluidTankSmart>> fluidPieces = new ArrayList<>();
 	public InventoryPieceProgressBar progressBar;
 
-	public InventoryRecipeMachine addItemPiece(Pair<int[], int[]> xNy, ItemStackHandlerExtractSpecific handler,
-			IOType type) {
-		this.addItemPiece(xNy.getLeft(), xNy.getRight(), handler, type);
+	public InventoryBasic addItemPiece(Pair<int[], int[]> xNy, ItemStackHandler handler) {
+		this.addItemPiece(xNy.getLeft(), xNy.getRight(), handler);
 		return this;
 	}
 
-	public InventoryRecipeMachine addItemPiece(int[] xPos, int[] yPos, ItemStackHandlerExtractSpecific handler,
-			IOType type) {
+	public InventoryBasic addItemPiece(int[] xPos, int[] yPos, ItemStackHandler handler) {
 		if(xPos.length < handler.getSlots() || yPos.length < handler.getSlots()) {
 			throw new RuntimeException("Your inventory position array sizes do not match the number of slots");
 		}
-		itemPieces.add(new InventoryPieceHandler<ItemStackHandlerExtractSpecific>(type, handler, xPos, yPos));
+		itemPieces.add(new InventoryPieceHandler<ItemStackHandler>(handler, xPos, yPos));
 		return this;
 	}
 
-	public InventoryRecipeMachine addFluidPiece(int xPos, int yPos, FluidTankSmart handler, IOType type) {
-		fluidPieces.add(new InventoryPieceHandler<FluidTankSmart>(type, handler, xPos, yPos));
+	public InventoryBasic addFluidPiece(int xPos, int yPos, FluidTankSmart handler) {
+		fluidPieces.add(new InventoryPieceHandler<FluidTankSmart>(handler, xPos, yPos));
 		return this;
 	}
 
-	// public InventoryRecipeMachine addFluidPiece(int[] xPos, int[] yPos,
-	// FluidTankSmart handler) {
-	// if(xPos.length < handler.getNumberOfTanks() || yPos.length <
-	// handler.getNumberOfTanks()) {
-	// throw new RuntimeException("Your inventory position array sizes do not match
-	// the number of tanks");
-	// }
-	// fluidPieces = new InventoryPieceHandler<FluidHandlerMulti>(IOType.INPUT,
-	// handler, xPos, yPos);
-	// return this;
-	// }
-
-	public InventoryRecipeMachine setProgressBar(InventoryPieceProgressBar bar) {
+	public InventoryBasic setProgressBar(InventoryPieceProgressBar bar) {
 		progressBar = bar;
 		return this;
 	}
@@ -147,19 +131,5 @@ public class InventoryRecipeMachine
 		// parent.setCurrentTicks(0);
 		// }
 		// }
-	}
-
-	// TODO Caching. Probably switch to using a Builder for inventories and building
-	// the sub-lists in #build()
-	@Override
-	public List<ItemStackHandlerExtractSpecific> getItemHandlersOfType(IOType type) {
-		return itemPieces.stream().filter(piece -> type.equals(piece.getType())).map(piece -> piece.getHandler())
-				.collect(Collectors.toList());
-	}
-
-	@Override
-	public List<FluidTankSmart> getFluidHandlersOfType(IOType type) {
-		return fluidPieces.stream().filter(piece -> type.equals(piece.getType())).map(piece -> piece.getHandler())
-				.collect(Collectors.toList());
 	}
 }

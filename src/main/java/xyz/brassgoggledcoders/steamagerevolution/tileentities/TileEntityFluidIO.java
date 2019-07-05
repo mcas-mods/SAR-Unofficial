@@ -15,7 +15,7 @@ public class TileEntityFluidIO extends SARMachineTileEntity {
 
 	public TileEntityFluidIO() {
 		super();
-		setInventory(new InventoryRecipeMachine()
+		setInventory(new InventoryBasic()
 				.setItemInput(new int[] { 25, 134 }, new int[] { 33, 33 }, new ItemStackHandlerExtractSpecific(2))
 				.setFluidInput(78, 11, new FluidHandlerMulti(this, IOType.INPUT, Fluid.BUCKET_VOLUME * 6)));
 	}

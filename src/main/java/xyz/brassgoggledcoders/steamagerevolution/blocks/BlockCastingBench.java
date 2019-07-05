@@ -19,6 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.tileentities.TileEntityCastingBench;
 
 public class BlockCastingBench extends BlockGUIBase<TileEntityCastingBench> {
@@ -84,9 +85,10 @@ public class BlockCastingBench extends BlockGUIBase<TileEntityCastingBench> {
 	@Override
 	public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
 		TileEntityCastingBench te = getTileEntity(worldIn, pos).get();
-		if (te != null) {
-			if (te.inventory.getInputFluidHandler().getFluid() != null && te.inventory.getInputFluidHandler().getFluid().getFluid()
-					.getTemperature() > FluidRegistry.WATER.getTemperature()) {
+		if(te != null) {
+			if(te.inventory.getFluidHandlersOfType(IOType.INPUT).get(0).getFluid() != null
+					&& te.inventory.getFluidHandlersOfType(IOType.INPUT).get(0).getFluid().getFluid()
+							.getTemperature() > FluidRegistry.WATER.getTemperature()) {
 				entityIn.setFire(10);
 			}
 		}

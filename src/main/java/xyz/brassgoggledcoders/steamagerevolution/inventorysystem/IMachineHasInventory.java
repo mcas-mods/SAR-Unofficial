@@ -4,7 +4,7 @@ import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.IMachine;
 
 //Interface implemented by machines that hold an inventory, an instance of IMachineInventory
-public interface IMachineHasInventory<I extends InventoryRecipeMachine> extends IMachine {
+public interface IMachineHasInventory<I extends InventoryBasic> extends IMachine {
 	// TODO Duplicated in multiblock interface
 	public String getName();
 

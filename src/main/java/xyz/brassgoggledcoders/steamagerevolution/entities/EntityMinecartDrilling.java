@@ -21,13 +21,13 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.MiningUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerForceStack;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.HandlerForceStack;
 
-public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryRecipeMachine> {
+public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryBasic> {
 
 	public static final DataParameter<Optional<BlockPos>> MINING_POS = EntityDataManager
 			.<Optional<BlockPos>>createKey(EntityMinecartDrilling.class, DataSerializers.OPTIONAL_BLOCK_POS);
@@ -36,7 +36,7 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryRec
 
 	public EntityMinecartDrilling(World world) {
 		super(world);
-		this.setInventory(new InventoryRecipeMachine().setItemInput(MiningUtils.getGUIPositionGrid(62, 31, 3, 1),
+		this.setInventory(new InventoryBasic().setItemInput(MiningUtils.getGUIPositionGrid(62, 31, 3, 1),
 				new HandlerForceStack(this, 3)));
 	}
 
