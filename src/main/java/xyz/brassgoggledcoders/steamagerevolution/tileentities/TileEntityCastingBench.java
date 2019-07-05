@@ -5,11 +5,8 @@ import net.minecraft.util.EnumFacing.Axis;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMachineTileEntity;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceItem;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidHandlerMulti;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
@@ -18,9 +15,9 @@ public class TileEntityCastingBench extends SARMachineTileEntity {
 	public static int inputCapacity = RecipeUtil.VALUE_BLOCK;
 
 	public TileEntityCastingBench() {
-		setInventory(new InventoryRecipeMachine(null,
-				new InventoryPieceFluid(new MultiFluidHandler(TileEntityCastingBench.inputCapacity, this, 1), 51, 11),
-				new InventoryPieceItem(new ItemStackHandlerExtractSpecific(1), 109, 34), null, null));
+		setInventory(new InventoryRecipeMachine()
+				.setFluidInput(51, 11, new FluidHandlerMulti(this, IOType.INPUT, inputCapacity))
+				.setItemOutput(new int[] { 109 }, new int[] { 34 }, new ItemStackHandlerExtractSpecific(1)));
 	}
 
 	@Override

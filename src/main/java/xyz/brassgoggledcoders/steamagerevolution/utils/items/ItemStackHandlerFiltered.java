@@ -5,11 +5,12 @@ import javax.annotation.Nonnull;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 
 public abstract class ItemStackHandlerFiltered extends ItemStackHandlerSmart {
 
-	public ItemStackHandlerFiltered(int size, IMachineHasInventory controller) {
-		super(size, controller);
+	public ItemStackHandlerFiltered(int size, IMachineHasInventory controller, IOType type) {
+		super(size, controller, type);
 	}
 
 	@Override
@@ -23,8 +24,8 @@ public abstract class ItemStackHandlerFiltered extends ItemStackHandlerSmart {
 	protected abstract boolean canInsertItem(int slot, ItemStack stack);
 
 	public static class ItemStackHandlerFuel extends ItemStackHandlerFiltered {
-		public ItemStackHandlerFuel(int size, IMachineHasInventory controller) {
-			super(size, controller);
+		public ItemStackHandlerFuel(int size, IMachineHasInventory controller, IOType type) {
+			super(size, controller, type);
 		}
 
 		@Override
@@ -32,25 +33,4 @@ public abstract class ItemStackHandlerFiltered extends ItemStackHandlerSmart {
 			return TileEntityFurnace.isItemFuel(stack);
 		}
 	}
-
-	// public static class ItemStackHandlerRecipeMachine extends
-	// ItemStackHandlerFiltered {
-	//
-	// IMachineHasInventory controller;
-	//
-	// public ItemStackHandlerRecipeMachine(int size, IMachineHasInventory
-	// controller) {
-	// super(size, controller);
-	// this.controller = controller;
-	// }
-	//
-	// @Override
-	// protected boolean canInsertItem(int slot, ItemStack stack) {
-	// return
-	// RecipeRegistry.getRecipesForMachine(controller.getName().toLowerCase()).parallelStream()
-	// .filter(r -> Arrays.stream(r.getItemInputs()).anyMatch(ing ->
-	// ing.apply(stack))).findAny()
-	// .isPresent();
-	// }
-	// }
 }

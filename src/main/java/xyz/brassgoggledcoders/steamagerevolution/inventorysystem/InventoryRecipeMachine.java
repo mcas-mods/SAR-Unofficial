@@ -9,7 +9,6 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceProgressBar;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketMultiFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
@@ -19,9 +18,9 @@ public class InventoryRecipeMachine
 		implements IMachineInventory, INBTSerializable<NBTTagCompound>, ISmartTankCallback, ISmartStackCallback {
 
 	public InventoryPieceHandler<ItemStackHandlerExtractSpecific> itemInputPiece;
-	public InventoryPieceHandler<? extends FluidTankSmart> fluidInputPiece;
+	public InventoryPieceHandler<FluidHandlerMulti> fluidInputPiece;
 	public InventoryPieceHandler<ItemStackHandler> itemOutputPiece;
-	public InventoryPieceHandler<? extends FluidTankSmart> fluidOutputPiece;
+	public InventoryPieceHandler<FluidHandlerMulti> fluidOutputPiece;
 	public InventoryPieceHandler<FluidTankSingleSmart> steamTankPiece;
 	public InventoryPieceProgressBar progressBar;
 
@@ -38,16 +37,19 @@ public class InventoryRecipeMachine
 		return this;
 	}
 
-	public InventoryRecipeMachine setFluidInput(int xPos, int yPos, FluidTankSmart handler) {
-		fluidInputPiece = new InventoryPieceHandler<FluidTankSmart>(IOType.INPUT, handler, xPos, yPos);
+	public InventoryRecipeMachine setFluidInput(int xPos, int yPos, FluidHandlerMulti handler) {
+		if(handler.getNumberOfTanks() > 1) {
+			throw new RuntimeException("Your inventory position array sizes do not match the number of tanks");
+		}
+		fluidInputPiece = new InventoryPieceHandler<FluidHandlerMulti>(IOType.INPUT, handler, xPos, yPos);
 		return this;
 	}
 
-	public InventoryRecipeMachine setFluidInputs(int[] xPos, int[] yPos, MultiFluidTank handler) {
-		if(xPos.length < handler.getMaxFluids() || yPos.length < handler.getMaxFluids()) {
+	public InventoryRecipeMachine setFluidInputs(int[] xPos, int[] yPos, FluidHandlerMulti handler) {
+		if(xPos.length < handler.getNumberOfTanks() || yPos.length < handler.getNumberOfTanks()) {
 			throw new RuntimeException("Your inventory position array sizes do not match the number of tanks");
 		}
-		fluidInputPiece = new InventoryPieceHandler<MultiFluidTank>(IOType.INPUT, handler, xPos, yPos);
+		fluidInputPiece = new InventoryPieceHandler<FluidHandlerMulti>(IOType.INPUT, handler, xPos, yPos);
 		return this;
 	}
 
@@ -59,22 +61,25 @@ public class InventoryRecipeMachine
 		return this;
 	}
 
-	public InventoryRecipeMachine setFluidOutput(int xPos, int yPos, FluidTankSmart handler) {
-		fluidOutputPiece = new InventoryPieceHandler<FluidTankSmart>(IOType.INPUT, handler, xPos, yPos);
+	public InventoryRecipeMachine setFluidOutput(int xPos, int yPos, FluidHandlerMulti handler) {
+		if(handler.getNumberOfTanks() > 1) {
+			throw new RuntimeException("Your inventory position array sizes do not match the number of tanks");
+		}
+		fluidOutputPiece = new InventoryPieceHandler<FluidHandlerMulti>(IOType.OUTPUT, handler, xPos, yPos);
 		return this;
 	}
 
-	public InventoryRecipeMachine setFluidOutputs(int[] xPos, int[] yPos, MultiFluidTank handler) {
-		if(xPos.length < handler.getMaxFluids() || yPos.length < handler.getMaxFluids()) {
+	public InventoryRecipeMachine setFluidOutputs(int[] xPos, int[] yPos, FluidHandlerMulti handler) {
+		if(xPos.length < handler.getNumberOfTanks() || yPos.length < handler.getNumberOfTanks()) {
 			throw new RuntimeException("Your inventory position array sizes do not match the number of tanks");
 		}
-		fluidOutputPiece = new InventoryPieceHandler<MultiFluidTank>(IOType.INPUT, handler, xPos, yPos);
+		fluidOutputPiece = new InventoryPieceHandler<FluidHandlerMulti>(IOType.OUTPUT, handler, xPos, yPos);
 		return this;
 	}
 
 	public InventoryRecipeMachine setSteamTank(int xPos, int yPos, int capacity, IMachineHasInventory<?> parent) {
 		steamTankPiece = new InventoryPieceHandler<FluidTankSingleSmart>(IOType.POWER,
-				new FluidTankSingleSmart(capacity, "steam", parent), xPos, yPos);
+				new FluidTankSingleSmart(capacity, "steam", parent, IOType.POWER), xPos, yPos);
 		return this;
 	}
 
@@ -126,28 +131,23 @@ public class InventoryRecipeMachine
 	// Methods to enable dynamic tank sizes based on multiblock size
 	@Deprecated
 	public void setFluidInput(FluidTankSmart newTank) {
-		fluidInputPiece = new InventoryPieceHandler<FluidTankSmart>(IOType.INPUT, newTank, fluidInputPiece.xPos,
-				fluidInputPiece.yPos);
+		// fluidInputPiece = new InventoryPieceHandler<FluidTankSmart>(IOType.INPUT,
+		// newTank, fluidInputPiece.xPos,
+		// fluidInputPiece.yPos);
 	}
 
 	@Deprecated
 	public void setFluidOutput(FluidTankSmart newTank) {
-		fluidOutputPiece = new InventoryPieceHandler<FluidTankSmart>(IOType.OUTPUT, newTank, fluidOutputPiece.xPos,
-				fluidOutputPiece.yPos);
+		// fluidOutputPiece = new InventoryPieceHandler<FluidTankSmart>(IOType.OUTPUT,
+		// newTank, fluidOutputPiece.xPos,
+		// fluidOutputPiece.yPos);
 	}
 
 	@Override
 	public void onTankContentsChanged(FluidTankSmart tank, IOType type, IMachineHasInventory parent) {
-		if(tank instanceof MultiFluidTank) {
-			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketMultiFluidUpdate(parent.getMachinePos(), ((MultiFluidTank) tank).fluids, type.networkID),
-					parent.getMachinePos(), parent.getMachineWorld().provider.getDimension());
-		}
-		else {
-			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketFluidUpdate(parent.getMachinePos(), tank.getFluid(), type.networkID),
-					parent.getMachinePos(), parent.getMachineWorld().provider.getDimension());
-		}
+		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+				new PacketFluidUpdate(parent.getMachinePos(), tank.getFluid(), type.networkID), parent.getMachinePos(),
+				parent.getMachineWorld().provider.getDimension());
 		// If we have a recipe, when a tank is changed, check input tank(s), if they
 		// were emptied. You can't hotswap fluids like you can items.
 		// if(type == IOType.INPUT && getInputTank() != null &&
@@ -157,28 +157,17 @@ public class InventoryRecipeMachine
 		// }
 	}
 
+	// TODO
 	@Override
 	public void updateFluid(PacketFluidUpdate message) {
 		if(getInputTank() != null && IOType.INPUT.networkID == message.typeID) {
-			this.getInputTank().setFluid(message.fluid);
+			// this.getInputTank().setFluid(message.fluid);
 		}
 		else if(getInputTank() != null && IOType.OUTPUT.networkID == message.typeID) {
-			this.getOutputTank().setFluid(message.fluid);
+			// this.getOutputTank().setFluid(message.fluid);
 		}
 		else if(getSteamTank() != null && IOType.POWER.networkID == message.typeID) {
 			this.getSteamTank().setFluid(message.fluid);
-		}
-	}
-
-	@Override
-	public void updateFluid(PacketMultiFluidUpdate message) {
-		if(getInputTank() != null && IOType.INPUT.networkID == message.typeID) {
-			((MultiFluidTank) this.getInputTank()).fluids.clear();
-			((MultiFluidTank) this.getInputTank()).fluids.addAll(message.fluids);
-		}
-		else if(getInputTank() != null && IOType.OUTPUT.networkID == message.typeID) {
-			((MultiFluidTank) this.getOutputTank()).fluids.clear();
-			((MultiFluidTank) this.getOutputTank()).fluids.addAll(message.fluids);
 		}
 	}
 
@@ -204,7 +193,7 @@ public class InventoryRecipeMachine
 	}
 
 	@Override
-	public FluidTankSmart getInputTank() {
+	public FluidHandlerMulti getInputTank() {
 		return fluidInputPiece.getHandler();
 	}
 
@@ -214,7 +203,7 @@ public class InventoryRecipeMachine
 	}
 
 	@Override
-	public FluidTankSmart getOutputTank() {
+	public FluidHandlerMulti getOutputTank() {
 		return fluidOutputPiece.getHandler();
 	}
 
@@ -225,7 +214,8 @@ public class InventoryRecipeMachine
 
 	// Helpers for TE wrappers
 	public FluidTankSmart getFluidHandler(boolean output) {
-		return output ? fluidOutputPiece.getHandler() : fluidInputPiece.getHandler();
+		// TODO This will break the alloy forge
+		return output ? fluidOutputPiece.getHandler().getTank(0) : fluidInputPiece.getHandler().getTank(0);
 	}
 
 	public ItemStackHandler getItemHandler(boolean output) {
