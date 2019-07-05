@@ -9,7 +9,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 public class InventoryRecipe extends InventoryBasic {
-	public ArrayList<InventoryPieceTypedHandler<ItemStackHandlerExtractSpecific>> itemInputs = new ArrayList<>();
+	public ArrayList<InventoryPieceTypedHandler<ItemStackHandler>> itemInputs = new ArrayList<>();
 	public ArrayList<InventoryPieceTypedHandler<FluidTankSmart>> fluidInputs = new ArrayList<>();
 	public ArrayList<InventoryPieceTypedHandler<ItemStackHandler>> itemOutputs = new ArrayList<>();
 	public ArrayList<InventoryPieceTypedHandler<FluidTankSmart>> fluidOutputs = new ArrayList<>();
@@ -19,7 +19,7 @@ public class InventoryRecipe extends InventoryBasic {
 		if(xPos.length < handler.getSlots() || yPos.length < handler.getSlots()) {
 			throw new RuntimeException("Your inventory position array sizes do not match the number of slots");
 		}
-		InventoryPieceTypedHandler<ItemStackHandlerExtractSpecific> iPiece = new InventoryPieceTypedHandler<ItemStackHandlerExtractSpecific>(
+		InventoryPieceTypedHandler<ItemStackHandler> iPiece = new InventoryPieceTypedHandler<ItemStackHandler>(
 				IOType.INPUT, handler, xPos, yPos);
 		itemInputs.add(iPiece);
 		itemPieces.add(iPiece);

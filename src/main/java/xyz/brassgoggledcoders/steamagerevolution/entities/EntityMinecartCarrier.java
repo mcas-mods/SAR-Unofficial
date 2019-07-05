@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.MiningUtils;
@@ -28,8 +27,7 @@ public class EntityMinecartCarrier extends EntityMinecartInventory<InventoryBasi
 	public EntityMinecartCarrier(World world) {
 		super(world);
 		Pair<int[], int[]> posi = MiningUtils.getGUIPositionGrid(53, 31, 4, 2);
-		this.setInventory(
-				new InventoryBasic().addItemPiece(posi, new HandlerForceStack(this, 8), IOType.INPUT));
+		this.setInventory(new InventoryBasic().addItemPiece(posi, new HandlerForceStack(this, 8)));
 	}
 
 	@Override
@@ -56,8 +54,8 @@ public class EntityMinecartCarrier extends EntityMinecartInventory<InventoryBasi
 
 	@Override
 	public void markDirty() {
-		for(int i = 0; i < this.getInventory().getInputItemHandler().getSlots(); i++) {
-			ItemStack stack = this.getInventory().getInputItemHandler().getStackInSlot(i);
+		for(int i = 0; i < this.getInventory().getItemHandlers().get(0).getSlots(); i++) {
+			ItemStack stack = this.getInventory().getItemHandlers().get(0).getStackInSlot(i);
 			if(!stack.isEmpty()) {
 				this.getDataManager().set(CONTENTS, stack);
 				break;

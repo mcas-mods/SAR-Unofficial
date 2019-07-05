@@ -1,6 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -19,9 +21,9 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback
 public class InventoryBasic
 		implements IMachineInventory, INBTSerializable<NBTTagCompound>, ISmartTankCallback, ISmartStackCallback {
 
-	public ArrayList<InventoryPieceHandler<? extends ItemStackHandler>> itemPieces = new ArrayList<>();
+	public List<InventoryPieceHandler<ItemStackHandler>> itemPieces = new ArrayList<>();
 	// TODO Readd support for FluidHandlerMulti?
-	public ArrayList<InventoryPieceHandler<? extends FluidTankSmart>> fluidPieces = new ArrayList<>();
+	public List<InventoryPieceHandler<? extends FluidTankSmart>> fluidPieces = new ArrayList<>();
 	public InventoryPieceProgressBar progressBar;
 
 	public InventoryBasic addItemPiece(Pair<int[], int[]> xNy, ItemStackHandler handler) {
@@ -132,4 +134,15 @@ public class InventoryBasic
 		// }
 		// }
 	}
+
+	@Override
+	public List<ItemStackHandler> getItemHandlers() {
+		return itemPieces.stream().map(p -> p.getHandler()).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<FluidTankSmart> getFluidHandlers() {
+		return fluidPieces.stream().map(p -> p.getHandler()).collect(Collectors.toList());
+	}
+
 }
