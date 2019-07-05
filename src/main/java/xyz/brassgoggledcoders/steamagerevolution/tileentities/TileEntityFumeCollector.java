@@ -11,11 +11,9 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.api.IFumeProducer;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMachineTileEntity;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceFluid;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.FumeCollectorRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidHandler;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidHandlerMulti;
 
 //TODO add ability output to item placed in gui, and to item right clicked on block
 public class TileEntityFumeCollector extends SARMachineTileEntity {
@@ -23,8 +21,8 @@ public class TileEntityFumeCollector extends SARMachineTileEntity {
 
 	public TileEntityFumeCollector() {
 		super();
-		this.setInventory(new InventoryRecipeMachine(null,
-				new InventoryPieceFluid(new MultiFluidHandler(outputCapacity, this, 1), 105, 11), null));
+		this.setInventory(new InventoryRecipeMachine().setFluidOutput(105, 11,
+				new FluidHandlerMulti(this, IOType.OUTPUT, outputCapacity)));
 	}
 
 	@Override
@@ -44,7 +42,7 @@ public class TileEntityFumeCollector extends SARMachineTileEntity {
 					FumeCollectorRecipe r = FumeCollectorRecipe.getRecipe(fuel);
 					if(r != null && getWorld().rand.nextFloat() < r.chance) {
 						FluidStack fume = r.output;
-						IFluidHandler tank = this.getInventory().getOutputTank();
+						IFluidHandler tank = this.getInventory().getOutputFluidHandler();
 						if(tank.fill(fume, false) == fume.amount) {
 							tank.fill(fume, true);
 							this.markDirty();
@@ -64,7 +62,7 @@ public class TileEntityFumeCollector extends SARMachineTileEntity {
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.getInventory().getOutputTank());
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.getInventory().getOutputFluidHandler());
 		}
 		return super.getCapability(capability, facing);
 	}

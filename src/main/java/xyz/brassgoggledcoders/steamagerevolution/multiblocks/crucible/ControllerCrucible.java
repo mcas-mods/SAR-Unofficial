@@ -40,8 +40,8 @@ public class ControllerCrucible extends SARMultiblockInventory<InventoryRecipeMa
 		}
 		// Size internal tank accordingly
 		MultiFluidHandler newTank = new MultiFluidHandler(blocksInside * Fluid.BUCKET_VOLUME, this, 1);
-		if (inventory.getOutputTank().fluids != null) {
-			newTank.fluids.addAll(inventory.getOutputTank().fluids);
+		if (inventory.getOutputFluidHandler().fluids != null) {
+			newTank.fluids.addAll(inventory.getOutputFluidHandler().fluids);
 		}
 		inventory.setFluidOutput(newTank);
 		super.onMachineAssembled();

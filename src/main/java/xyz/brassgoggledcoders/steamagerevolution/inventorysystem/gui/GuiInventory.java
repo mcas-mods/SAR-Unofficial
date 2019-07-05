@@ -52,26 +52,26 @@ public class GuiInventory extends GuiContainer {
 		drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
-		FluidTankSmart fluidInput = holder.getInventory().getInputTank();
+		FluidTankSmart fluidInput = holder.getInventory().getInputFluidHandler();
 		if(fluidInput != null) {
 			if(fluidInput instanceof MultiFluidTank) {
 				// TODO Jank cast
 				representMultiTankContents(
-						(InventoryPieceHandler<MultiFluidTank>) holder.getInventory().fluidInputPiece, mouseX, mouseY);
+						(InventoryPieceHandler<MultiFluidTank>) holder.getInventory().fluidPieces, mouseX, mouseY);
 			}
 			else {
-				if(isPointInRegion(holder.getInventory().fluidInputPiece.getX(0),
-						holder.getInventory().fluidInputPiece.getY(0), 20, 55, mouseX, mouseY)) {
+				if(isPointInRegion(holder.getInventory().fluidPieces.getX(0),
+						holder.getInventory().fluidPieces.getY(0), 20, 55, mouseX, mouseY)) {
 					this.drawHoveringText(com.teamacronymcoders.base.util.TextUtils.representTankContents(fluidInput)
 							.getFormattedText(), mouseX, mouseY);
 				}
 			}
 		}
-		FluidTankSmart fluidOutput = holder.getInventory().getOutputTank();
+		FluidTankSmart fluidOutput = holder.getInventory().getOutputFluidHandler();
 		if(fluidOutput != null) {
 			if(fluidOutput instanceof MultiFluidTank) {
 				representMultiTankContents(
-						(InventoryPieceHandler<MultiFluidTank>) holder.getInventory().fluidInputPiece, mouseX, mouseY);
+						(InventoryPieceHandler<MultiFluidTank>) holder.getInventory().fluidPieces, mouseX, mouseY);
 			}
 			else {
 				if(isPointInRegion(holder.getInventory().fluidOutputPiece.getX(0),
@@ -143,8 +143,8 @@ public class GuiInventory extends GuiContainer {
 			addTank(holder.getInventory().steamTankPiece);
 		}
 
-		if(holder.getInventory().fluidInputPiece != null) {
-			addTank(holder.getInventory().fluidInputPiece);
+		if(holder.getInventory().fluidPieces != null) {
+			addTank(holder.getInventory().fluidPieces);
 		}
 
 		if(holder.getInventory().fluidOutputPiece != null) {

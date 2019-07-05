@@ -55,8 +55,8 @@ public class EntityMinecartCarrier extends EntityMinecartInventory<InventoryReci
 
 	@Override
 	public void markDirty() {
-		for(int i = 0; i < this.getInventory().getInputHandler().getSlots(); i++) {
-			ItemStack stack = this.getInventory().getInputHandler().getStackInSlot(i);
+		for(int i = 0; i < this.getInventory().getInputItemHandler().getSlots(); i++) {
+			ItemStack stack = this.getInventory().getInputItemHandler().getStackInSlot(i);
 			if(!stack.isEmpty()) {
 				this.getDataManager().set(CONTENTS, stack);
 				break;

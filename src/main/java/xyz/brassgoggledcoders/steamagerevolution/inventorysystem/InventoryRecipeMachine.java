@@ -1,15 +1,19 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.apache.commons.lang3.tuple.Pair;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceProgressBar;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
@@ -17,71 +21,42 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExt
 public class InventoryRecipeMachine
 		implements IMachineInventory, INBTSerializable<NBTTagCompound>, ISmartTankCallback, ISmartStackCallback {
 
-	public InventoryPieceHandler<ItemStackHandlerExtractSpecific> itemInputPiece;
-	public InventoryPieceHandler<FluidHandlerMulti> fluidInputPiece;
-	public InventoryPieceHandler<ItemStackHandler> itemOutputPiece;
-	public InventoryPieceHandler<FluidHandlerMulti> fluidOutputPiece;
-	public InventoryPieceHandler<FluidTankSingleSmart> steamTankPiece;
+	public ArrayList<InventoryPieceHandler<ItemStackHandlerExtractSpecific>> itemPieces = new ArrayList<>();
+	// TODO Readd support for FluidHandlerMulti?
+	public ArrayList<InventoryPieceHandler<FluidTankSmart>> fluidPieces = new ArrayList<>();
 	public InventoryPieceProgressBar progressBar;
 
-	public InventoryRecipeMachine setItemInput(Pair<int[], int[]> xNy, ItemStackHandlerExtractSpecific handler) {
-		this.setItemInput(xNy.getLeft(), xNy.getRight(), handler);
+	public InventoryRecipeMachine addItemPiece(Pair<int[], int[]> xNy, ItemStackHandlerExtractSpecific handler,
+			IOType type) {
+		this.addItemPiece(xNy.getLeft(), xNy.getRight(), handler, type);
 		return this;
 	}
 
-	public InventoryRecipeMachine setItemInput(int[] xPos, int[] yPos, ItemStackHandlerExtractSpecific handler) {
+	public InventoryRecipeMachine addItemPiece(int[] xPos, int[] yPos, ItemStackHandlerExtractSpecific handler,
+			IOType type) {
 		if(xPos.length < handler.getSlots() || yPos.length < handler.getSlots()) {
 			throw new RuntimeException("Your inventory position array sizes do not match the number of slots");
 		}
-		itemInputPiece = new InventoryPieceHandler<ItemStackHandlerExtractSpecific>(IOType.INPUT, handler, xPos, yPos);
+		itemPieces.add(new InventoryPieceHandler<ItemStackHandlerExtractSpecific>(type, handler, xPos, yPos));
 		return this;
 	}
 
-	public InventoryRecipeMachine setFluidInput(int xPos, int yPos, FluidHandlerMulti handler) {
-		if(handler.getNumberOfTanks() > 1) {
-			throw new RuntimeException("Your inventory position array sizes do not match the number of tanks");
-		}
-		fluidInputPiece = new InventoryPieceHandler<FluidHandlerMulti>(IOType.INPUT, handler, xPos, yPos);
+	public InventoryRecipeMachine addFluidPiece(int xPos, int yPos, FluidTankSmart handler, IOType type) {
+		fluidPieces.add(new InventoryPieceHandler<FluidTankSmart>(type, handler, xPos, yPos));
 		return this;
 	}
 
-	public InventoryRecipeMachine setFluidInputs(int[] xPos, int[] yPos, FluidHandlerMulti handler) {
-		if(xPos.length < handler.getNumberOfTanks() || yPos.length < handler.getNumberOfTanks()) {
-			throw new RuntimeException("Your inventory position array sizes do not match the number of tanks");
-		}
-		fluidInputPiece = new InventoryPieceHandler<FluidHandlerMulti>(IOType.INPUT, handler, xPos, yPos);
-		return this;
-	}
-
-	public InventoryRecipeMachine setItemOutput(int[] xPos, int[] yPos, ItemStackHandler handler) {
-		if(xPos.length < handler.getSlots() || yPos.length < handler.getSlots()) {
-			throw new RuntimeException("Your inventory position array sizes do not match the number of slots");
-		}
-		itemOutputPiece = new InventoryPieceHandler<ItemStackHandler>(IOType.INPUT, handler, xPos, yPos);
-		return this;
-	}
-
-	public InventoryRecipeMachine setFluidOutput(int xPos, int yPos, FluidHandlerMulti handler) {
-		if(handler.getNumberOfTanks() > 1) {
-			throw new RuntimeException("Your inventory position array sizes do not match the number of tanks");
-		}
-		fluidOutputPiece = new InventoryPieceHandler<FluidHandlerMulti>(IOType.OUTPUT, handler, xPos, yPos);
-		return this;
-	}
-
-	public InventoryRecipeMachine setFluidOutputs(int[] xPos, int[] yPos, FluidHandlerMulti handler) {
-		if(xPos.length < handler.getNumberOfTanks() || yPos.length < handler.getNumberOfTanks()) {
-			throw new RuntimeException("Your inventory position array sizes do not match the number of tanks");
-		}
-		fluidOutputPiece = new InventoryPieceHandler<FluidHandlerMulti>(IOType.OUTPUT, handler, xPos, yPos);
-		return this;
-	}
-
-	public InventoryRecipeMachine setSteamTank(int xPos, int yPos, int capacity, IMachineHasInventory<?> parent) {
-		steamTankPiece = new InventoryPieceHandler<FluidTankSingleSmart>(IOType.POWER,
-				new FluidTankSingleSmart(capacity, "steam", parent, IOType.POWER), xPos, yPos);
-		return this;
-	}
+	// public InventoryRecipeMachine addFluidPiece(int[] xPos, int[] yPos,
+	// FluidTankSmart handler) {
+	// if(xPos.length < handler.getNumberOfTanks() || yPos.length <
+	// handler.getNumberOfTanks()) {
+	// throw new RuntimeException("Your inventory position array sizes do not match
+	// the number of tanks");
+	// }
+	// fluidPieces = new InventoryPieceHandler<FluidHandlerMulti>(IOType.INPUT,
+	// handler, xPos, yPos);
+	// return this;
+	// }
 
 	public InventoryRecipeMachine setProgressBar(InventoryPieceProgressBar bar) {
 		progressBar = bar;
@@ -91,40 +66,28 @@ public class InventoryRecipeMachine
 	@Override
 	public NBTTagCompound serializeNBT() {
 		NBTTagCompound tag = new NBTTagCompound();
-		if(itemInputPiece != null) {
-			tag.setTag("itemInput", itemInputPiece.getHandler().serializeNBT());
+		if(!itemPieces.isEmpty()) {
+			tag.setInteger("itemPieces", itemPieces.size());
+			for(int i = 0; i < itemPieces.size(); i++) {
+				tag.setTag("itemHandler" + i, itemPieces.get(i).getHandler().serializeNBT());
+			}
 		}
-		if(fluidInputPiece != null) {
-			tag.setTag("fluidInput", fluidInputPiece.getHandler().serializeNBT());
-		}
-		if(itemOutputPiece != null) {
-			tag.setTag("itemOutput", itemOutputPiece.getHandler().serializeNBT());
-		}
-		if(fluidOutputPiece != null) {
-			tag.setTag("fluidOutput", fluidOutputPiece.getHandler().serializeNBT());
-		}
-		if(steamTankPiece != null) {
-			tag.setTag("steamTank", steamTankPiece.getHandler().serializeNBT());
+		if(!fluidPieces.isEmpty()) {
+			tag.setInteger("fluidPieces", fluidPieces.size());
+			for(int i = 0; i < fluidPieces.size(); i++) {
+				tag.setTag("fluidHandler" + i, fluidPieces.get(i).getHandler().serializeNBT());
+			}
 		}
 		return tag;
 	}
 
 	@Override
 	public void deserializeNBT(NBTTagCompound tag) {
-		if(tag.hasKey("itemInput") && itemInputPiece != null) {
-			itemInputPiece.getHandler().deserializeNBT(tag.getCompoundTag("itemInput"));
+		for(int i = 0; i < tag.getInteger("itemPieces"); i++) {
+			itemPieces.get(i).getHandler().deserializeNBT(tag.getCompoundTag("itemHandler" + i));
 		}
-		if(tag.hasKey("fluidInput") && fluidInputPiece != null) {
-			fluidInputPiece.getHandler().deserializeNBT(tag.getCompoundTag("fluidInput"));
-		}
-		if(tag.hasKey("itemOuput") && itemOutputPiece != null) {
-			itemOutputPiece.getHandler().deserializeNBT(tag.getCompoundTag("itemOutput"));
-		}
-		if(tag.hasKey("fluidOutput") && fluidOutputPiece != null) {
-			fluidOutputPiece.getHandler().deserializeNBT(tag.getCompoundTag("fluidOutput"));
-		}
-		if(tag.hasKey("steamTank") && steamTankPiece != null) {
-			steamTankPiece.getHandler().deserializeNBT(tag.getCompoundTag("steamTank"));
+		for(int i = 0; i < tag.getInteger("fluidPieces"); i++) {
+			fluidPieces.get(i).getHandler().deserializeNBT(tag.getCompoundTag("fluidHandler" + i));
 		}
 	}
 
@@ -160,15 +123,14 @@ public class InventoryRecipeMachine
 	// TODO
 	@Override
 	public void updateFluid(PacketFluidUpdate message) {
-		if(getInputTank() != null && IOType.INPUT.networkID == message.typeID) {
-			// this.getInputTank().setFluid(message.fluid);
-		}
-		else if(getInputTank() != null && IOType.OUTPUT.networkID == message.typeID) {
-			// this.getOutputTank().setFluid(message.fluid);
-		}
-		else if(getSteamTank() != null && IOType.POWER.networkID == message.typeID) {
-			this.getSteamTank().setFluid(message.fluid);
-		}
+		// if(getInputFluidHandler() != null && IOType.INPUT.networkID ==
+		// message.typeID) {
+		// this.getInputTank().setFluid(message.fluid);
+		// }
+		// else if(getOutputFluidHandler() != null && IOType.OUTPUT.networkID ==
+		// message.typeID) {
+		// this.getOutputTank().setFluid(message.fluid);
+		// }
 	}
 
 	@Override
@@ -187,38 +149,17 @@ public class InventoryRecipeMachine
 		// }
 	}
 
+	// TODO Caching. Probably switch to using a Builder for inventories and building
+	// the sub-lists in #build()
 	@Override
-	public ItemStackHandlerExtractSpecific getInputHandler() {
-		return this.itemInputPiece.getHandler();
-	}
-
-	@Override
-	public FluidHandlerMulti getInputTank() {
-		return fluidInputPiece.getHandler();
+	public List<ItemStackHandlerExtractSpecific> getItemHandlersOfType(IOType type) {
+		return itemPieces.stream().filter(piece -> type.equals(piece.getType())).map(piece -> piece.getHandler())
+				.collect(Collectors.toList());
 	}
 
 	@Override
-	public ItemStackHandler getOutputHandler() {
-		return this.itemOutputPiece.getHandler();
-	}
-
-	@Override
-	public FluidHandlerMulti getOutputTank() {
-		return fluidOutputPiece.getHandler();
-	}
-
-	@Override
-	public FluidTankSingleSmart getSteamTank() {
-		return steamTankPiece.getHandler();
-	}
-
-	// Helpers for TE wrappers
-	public FluidTankSmart getFluidHandler(boolean output) {
-		// TODO This will break the alloy forge
-		return output ? fluidOutputPiece.getHandler().getTank(0) : fluidInputPiece.getHandler().getTank(0);
-	}
-
-	public ItemStackHandler getItemHandler(boolean output) {
-		return output ? itemOutputPiece.getHandler() : itemInputPiece.getHandler();
+	public List<FluidTankSmart> getFluidHandlersOfType(IOType type) {
+		return fluidPieces.stream().filter(piece -> type.equals(piece.getType())).map(piece -> piece.getHandler())
+				.collect(Collectors.toList());
 	}
 }

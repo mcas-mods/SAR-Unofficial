@@ -26,9 +26,9 @@ public class RecipeMachineHelper {
 			// TODO Shouldn't be looping twice here
 			int matched = 0;
 			for(Ingredient input : currentRecipe.getItemInputs()) {
-				for(int i = 0; i < inventory.getInputHandler().getSlots(); i++) {
-					if(input.apply(inventory.getInputHandler().getStackInSlot(i))) {
-						inventory.getInputHandler().extractItem(i, 1, false);
+				for(int i = 0; i < inventory.getInputItemHandler().getSlots(); i++) {
+					if(input.apply(inventory.getInputItemHandler().getStackInSlot(i))) {
+						inventory.getInputItemHandler().extractItem(i, 1, false);
 						matched++;
 					}
 				}
@@ -37,9 +37,9 @@ public class RecipeMachineHelper {
 		}
 		if(ArrayUtils.isNotEmpty(currentRecipe.getFluidInputs())) {
 			for(IngredientFluidStack input : currentRecipe.getFluidInputs()) {
-				if(inventory.getInputTank().drain(input.getFluid(), false) != null
-						&& inventory.getInputTank().drain(input.getFluid(), false).amount == input.getFluid().amount) {
-					inventory.getInputTank().drain(input.getFluid(), true);
+				if(inventory.getInputFluidHandler().drain(input.getFluid(), false) != null
+						&& inventory.getInputFluidHandler().drain(input.getFluid(), false).amount == input.getFluid().amount) {
+					inventory.getInputFluidHandler().drain(input.getFluid(), true);
 				}
 				else {
 					extractedFluids = false;
@@ -57,12 +57,12 @@ public class RecipeMachineHelper {
 		if(extractedItems && extractedFluids && extractedSteam) {
 			if(ArrayUtils.isNotEmpty(currentRecipe.getItemOutputs())) {
 				for(ItemStack output : currentRecipe.getItemOutputs().clone()) {
-					ItemHandlerHelper.insertItem(inventory.getOutputHandler(), output.copy(), false);
+					ItemHandlerHelper.insertItem(inventory.getOutputItemHandler(), output.copy(), false);
 				}
 			}
 			if(ArrayUtils.isNotEmpty(currentRecipe.getFluidOutputs())) {
 				for(FluidStack output : currentRecipe.getFluidOutputs().clone()) {
-					inventory.getOutputTank().fill(output.copy(), true);
+					inventory.getOutputFluidHandler().fill(output.copy(), true);
 				}
 			}
 		}
@@ -80,11 +80,11 @@ public class RecipeMachineHelper {
 			boolean roomForFluids = true;
 			if(ArrayUtils.isNotEmpty(currentRecipe.getItemOutputs())) {
 				roomForItems = Arrays.asList(currentRecipe.getItemOutputs()).parallelStream().allMatch(
-						output -> ItemHandlerHelper.insertItem(inventory.getOutputHandler(), output, true).isEmpty());
+						output -> ItemHandlerHelper.insertItem(inventory.getOutputItemHandler(), output, true).isEmpty());
 			}
 			if(ArrayUtils.isNotEmpty(currentRecipe.getFluidOutputs())) {
 				roomForFluids = Arrays.asList(currentRecipe.getFluidOutputs()).parallelStream()
-						.allMatch(output -> inventory.getOutputTank().fill(output, false) == output.amount);
+						.allMatch(output -> inventory.getOutputFluidHandler().fill(output, false) == output.amount);
 			}
 			return roomForItems && roomForFluids;
 		}
@@ -126,7 +126,7 @@ public class RecipeMachineHelper {
 
 	private static boolean tanksHaveFluid(InventoryRecipeMachine inventory, IngredientFluidStack stack) {
 		return Arrays
-				.asList(inventory.getInputTank()).stream().filter(Objects::nonNull).filter(tank -> tank.fluids.stream()
+				.asList(inventory.getInputFluidHandler()).stream().filter(Objects::nonNull).filter(tank -> tank.fluids.stream()
 						.filter(Objects::nonNull).anyMatch(fluid -> fluid.containsFluid(stack.getFluid())))
 				.findAny().isPresent();
 	}
@@ -140,8 +140,8 @@ public class RecipeMachineHelper {
 	}
 
 	private static boolean handlerHasItems(InventoryRecipeMachine inventory, Ingredient ingredient) {
-		return IntStream.range(0, inventory.getInputHandler().getSlots())
-				.mapToObj(slotNum -> inventory.getInputHandler().getStackInSlot(slotNum))
+		return IntStream.range(0, inventory.getInputItemHandler().getSlots())
+				.mapToObj(slotNum -> inventory.getInputItemHandler().getStackInSlot(slotNum))
 				.filter(inputStack -> ingredient.apply(inputStack)).findAny().isPresent();
 	}
 }

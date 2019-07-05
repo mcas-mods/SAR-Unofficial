@@ -43,8 +43,8 @@ public class BlockGrinderInput extends BlockMultiblockBase<TileEntityGrinderInpu
 			if(entityIn instanceof EntityItem) {
 				EntityItem item = (EntityItem) entityIn;
 				ItemStack stack = item.getItem();
-				if(ItemHandlerHelper.insertItem(controller.getInventory().getInputHandler(), stack, true).isEmpty()) {
-					ItemHandlerHelper.insertItem(controller.getInventory().getInputHandler(), stack, false);
+				if(ItemHandlerHelper.insertItem(controller.getInventory().getInputItemHandler(), stack, true).isEmpty()) {
+					ItemHandlerHelper.insertItem(controller.getInventory().getInputItemHandler(), stack, false);
 					item.setDead();
 				}
 			}

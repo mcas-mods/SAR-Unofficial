@@ -41,19 +41,19 @@ public class ControllerVat extends SARMultiblockInventory<InventoryRecipeMachine
 		for(Entity entity : WORLD.getEntitiesWithinAABB(Entity.class, bounds)) {
 			if(entity instanceof EntityItem) {
 				EntityItem item = (EntityItem) entity;
-				if(ItemHandlerHelper.insertItem(inventory.getInputHandler(), item.getItem(), true).isEmpty()) {
-					ItemHandlerHelper.insertItem(inventory.getInputHandler(), item.getItem(), false);
+				if(ItemHandlerHelper.insertItem(inventory.getInputItemHandler(), item.getItem(), true).isEmpty()) {
+					ItemHandlerHelper.insertItem(inventory.getInputItemHandler(), item.getItem(), false);
 					item.setDead();
 				}
 			}
 			// Simulate contact with fluid in vat when an entity falls in.
 			// TODO change bounds based on fluid fill level
 			FluidStack fluid = null;
-			if(inventory.getOutputTank().getFluid() != null) {
-				fluid = inventory.getOutputTank().getFluid();
+			if(inventory.getOutputFluidHandler().getFluid() != null) {
+				fluid = inventory.getOutputFluidHandler().getFluid();
 			}
-			else if(inventory.getInputTank().getFluid() != null) {
-				fluid = inventory.getInputTank().getFluid();
+			else if(inventory.getInputFluidHandler().getFluid() != null) {
+				fluid = inventory.getInputFluidHandler().getFluid();
 			}
 			if(fluid != null && fluid.getFluid() != null && fluid.getFluid().getBlock() != null) {
 				if(fluid.getFluid().getTemperature() >= FluidRegistry.LAVA.getTemperature()) {

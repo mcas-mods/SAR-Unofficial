@@ -5,11 +5,8 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMachineTileEntity;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceFluid;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceItem;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidHandlerMulti;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 public class TileEntityFluidIO extends SARMachineTileEntity {
@@ -18,31 +15,31 @@ public class TileEntityFluidIO extends SARMachineTileEntity {
 
 	public TileEntityFluidIO() {
 		super();
-		setInventory(new InventoryRecipeMachine(
-				new InventoryPieceItem(new ItemStackHandlerExtractSpecific(2), new int[] { 25, 134 },
-						new int[] { 33, 33 }),
-				new InventoryPieceFluid(new MultiFluidHandler(Fluid.BUCKET_VOLUME * 6, this, 1), 78, 11), null, null,
-				null));
+		setInventory(new InventoryRecipeMachine()
+				.setItemInput(new int[] { 25, 134 }, new int[] { 33, 33 }, new ItemStackHandlerExtractSpecific(2))
+				.setFluidInput(78, 11, new FluidHandlerMulti(this, IOType.INPUT, Fluid.BUCKET_VOLUME * 6)));
 	}
 
 	@Override
 	public void onTick() {
-		if (!inventory.getInputHandler().getStackInSlot(0).isEmpty()) {
-			IFluidHandler itemFluid = inventory.getInputHandler().getStackInSlot(0)
+		if(!inventory.getInputItemHandler().getStackInSlot(0).isEmpty()) {
+			IFluidHandler itemFluid = inventory.getInputItemHandler().getStackInSlot(0)
 					.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-			if (itemFluid != null && itemFluid.drain(fluidTransferRate, false) != null && inventory.getInputTank()
-					.fill(itemFluid.drain(fluidTransferRate, false), false) == fluidTransferRate) {
-				inventory.getInputTank().fill(itemFluid.drain(fluidTransferRate, true), true);
+			if(itemFluid != null && itemFluid.drain(fluidTransferRate, false) != null
+					&& inventory.getInputFluidHandler().fill(itemFluid.drain(fluidTransferRate, false),
+							false) == fluidTransferRate) {
+				inventory.getInputFluidHandler().fill(itemFluid.drain(fluidTransferRate, true), true);
 				markDirty();
 				sendBlockUpdate();
 			}
 		}
-		if (!inventory.getInputHandler().getStackInSlot(1).isEmpty()) {
-			IFluidHandler itemFluid = inventory.getInputHandler().getStackInSlot(1)
+		if(!inventory.getInputItemHandler().getStackInSlot(1).isEmpty()) {
+			IFluidHandler itemFluid = inventory.getInputItemHandler().getStackInSlot(1)
 					.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-			if (itemFluid != null && inventory.getInputTank().getFluidAmount() > 0 && itemFluid
-					.fill(inventory.getInputTank().drain(fluidTransferRate, false), false) == fluidTransferRate) {
-				itemFluid.fill(inventory.getInputTank().drain(fluidTransferRate, true), true);
+			if(itemFluid != null && inventory.getInputFluidHandler().getTank().getFluidAmount() > 0
+					&& itemFluid.fill(inventory.getInputFluidHandler().drain(fluidTransferRate, false),
+							false) == fluidTransferRate) {
+				itemFluid.fill(inventory.getInputFluidHandler().drain(fluidTransferRate, true), true);
 				markDirty();
 				sendBlockUpdate();
 			}
@@ -57,8 +54,8 @@ public class TileEntityFluidIO extends SARMachineTileEntity {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return (T) inventory.getInputTank();
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+			return (T) inventory.getInputFluidHandler();
 		}
 		return super.getCapability(capability, facing);
 	}

@@ -1,25 +1,16 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
-import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidHandlerMulti;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 public interface IMachineInventory {
 	@Nullable
-	public ItemStackHandlerExtractSpecific getInputHandler();
+	List<ItemStackHandlerExtractSpecific> getItemHandlersOfType(IOType type);
 
 	@Nullable
-	public FluidHandlerMulti getInputTank();
-
-	@Nullable
-	public ItemStackHandler getOutputHandler();
-
-	@Nullable
-	public FluidHandlerMulti getOutputTank();
-
-	@Nullable
-	public FluidTankSingleSmart getSteamTank();
+	List<FluidTankSmart> getFluidHandlersOfType(IOType type);
 }

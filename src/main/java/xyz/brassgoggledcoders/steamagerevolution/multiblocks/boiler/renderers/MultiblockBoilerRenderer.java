@@ -74,7 +74,7 @@ public class MultiblockBoilerRenderer extends TileEntitySpecialRenderer<TileEnti
 			double z2 = boiler.maximumInteriorPos.getZ() - tile.getPos().getZ();
 
 			ArrayList<FluidStack> fluids = Lists.newArrayList();
-			FluidTank waterTank = boiler.inventory.getOutputTank();
+			FluidTank waterTank = boiler.inventory.getOutputFluidHandler();
 			FluidStack water = waterTank.getFluid();
 
 			if (water != null) {

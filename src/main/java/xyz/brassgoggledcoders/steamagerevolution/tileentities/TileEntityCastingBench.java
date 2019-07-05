@@ -36,10 +36,10 @@ public class TileEntityCastingBench extends SARMachineTileEntity {
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(inventory.getInputTank());
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(inventory.getInputFluidHandler());
 		}
 		else if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory.getOutputHandler());
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory.getOutputItemHandler());
 		}
 		return super.getCapability(capability, facing);
 	}

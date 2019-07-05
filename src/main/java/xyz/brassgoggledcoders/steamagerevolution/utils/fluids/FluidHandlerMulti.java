@@ -64,6 +64,11 @@ public class FluidHandlerMulti implements IFluidHandler, INBTSerializable<NBTTag
 		return tanks.length;
 	}
 
+	@Deprecated
+	public FluidTankSmart getTank() {
+		return getTank(0);
+	}
+
 	public FluidTankSmart getTank(int number) {
 		return tanks[number];
 	}

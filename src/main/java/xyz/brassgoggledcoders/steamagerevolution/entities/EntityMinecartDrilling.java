@@ -102,7 +102,7 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryRec
 		BlockPos target = this.getPosition().offset(facingToMine);
 		if(!world.isAirBlock(target)) {
 			if(this.getDataManager().get(MINING_PROGRESS).floatValue() >= 1.0F) {
-				MiningUtils.doMining(this.getEntityWorld(), target, this.getInventory().getInputHandler());
+				MiningUtils.doMining(this.getEntityWorld(), target, this.getInventory().getInputItemHandler());
 				this.getDataManager().set(MINING_POS, Optional.absent());
 				this.getDataManager().set(MINING_PROGRESS, 0F);
 				return;

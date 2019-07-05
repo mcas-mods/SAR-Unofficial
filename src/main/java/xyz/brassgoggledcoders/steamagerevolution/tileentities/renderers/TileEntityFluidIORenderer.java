@@ -15,10 +15,10 @@ public class TileEntityFluidIORenderer extends TileEntitySpecialRenderer<TileEnt
 	@Override
 	public void render(TileEntityFluidIO tile, double x, double y, double z, float partialTicks, int destroyStage,
 			float alpha) {
-		FluidTank tank = tile.inventory.getInputTank();
+		FluidTank tank = tile.inventory.getInputFluidHandler().getTank();
 		FluidStack liquid = tank.getFluid();
 
-		if (liquid != null) {
+		if(liquid != null) {
 
 			float height = ((float) liquid.amount) / (float) tank.getCapacity();
 

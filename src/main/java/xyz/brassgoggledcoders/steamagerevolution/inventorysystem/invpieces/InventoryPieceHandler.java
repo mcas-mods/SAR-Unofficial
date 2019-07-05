@@ -26,4 +26,8 @@ public class InventoryPieceHandler<H extends INBTSerializable> extends Inventory
 	public H getHandler() {
 		return handler;
 	}
+
+	public IOType getType() {
+		return type;
+	}
 }

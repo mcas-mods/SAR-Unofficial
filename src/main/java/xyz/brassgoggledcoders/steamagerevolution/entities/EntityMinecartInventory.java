@@ -52,7 +52,7 @@ public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> 
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(this.getInventory().getInputHandler());
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(this.getInventory().getInputItemHandler());
 		}
 		return super.getCapability(capability, facing);
 	}
@@ -115,7 +115,7 @@ public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> 
 	
 	@Override
 	public int getSizeInventory() {
-		return this.getInventory().getInputHandler().getSlots();
+		return this.getInventory().getInputItemHandler().getSlots();
 	}
 
 	@Override
@@ -126,20 +126,20 @@ public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> 
 
 	@Override
 	public ItemStack getStackInSlot(int index) {
-		ItemStack stack = this.getInventory().getInputHandler().getStackInSlot(index);
+		ItemStack stack = this.getInventory().getInputItemHandler().getStackInSlot(index);
 		return stack;
 	}
 
 	@Override
 	public ItemStack decrStackSize(int index, int count) {
 		this.markDirty();
-		return this.getInventory().getInputHandler().extractItem(index, count, false);
+		return this.getInventory().getInputItemHandler().extractItem(index, count, false);
 	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
-		ItemStack stack = this.getInventory().getInputHandler().getStackInSlot(index);
-		this.getInventory().getInputHandler().setStackInSlot(index, ItemStack.EMPTY);
+		ItemStack stack = this.getInventory().getInputItemHandler().getStackInSlot(index);
+		this.getInventory().getInputItemHandler().setStackInSlot(index, ItemStack.EMPTY);
 		this.markDirty();
 		return stack;
 	}
@@ -147,7 +147,7 @@ public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
 		this.markDirty();
-		this.getInventory().getInputHandler().setStackInSlot(index, stack);
+		this.getInventory().getInputItemHandler().setStackInSlot(index, stack);
 	}
 
 	@Override
@@ -172,7 +172,7 @@ public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> 
 
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		return this.getInventory().getInputHandler().isItemValid(index, stack);
+		return this.getInventory().getInputItemHandler().isItemValid(index, stack);
 	}
 
 	@Override
