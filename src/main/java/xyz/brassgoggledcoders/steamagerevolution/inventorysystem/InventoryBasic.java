@@ -77,21 +77,6 @@ public class InventoryBasic
 		}
 	}
 
-	// Methods to enable dynamic tank sizes based on multiblock size
-	@Deprecated
-	public void setFluidInput(FluidTankSmart newTank) {
-		// fluidInputPiece = new InventoryPieceHandler<FluidTankSmart>(IOType.INPUT,
-		// newTank, fluidInputPiece.xPos,
-		// fluidInputPiece.yPos);
-	}
-
-	@Deprecated
-	public void setFluidOutput(FluidTankSmart newTank) {
-		// fluidOutputPiece = new InventoryPieceHandler<FluidTankSmart>(IOType.OUTPUT,
-		// newTank, fluidOutputPiece.xPos,
-		// fluidOutputPiece.yPos);
-	}
-
 	@Override
 	public void onTankContentsChanged(FluidTankSmart tank, IOType type, IMachineHasInventory parent) {
 		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(

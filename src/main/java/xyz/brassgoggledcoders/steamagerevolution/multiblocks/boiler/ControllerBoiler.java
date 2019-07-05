@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities.*;
@@ -23,7 +24,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerBoiler extends SARMultiblockInventory<InventoryRecipeMachine> {
+public class ControllerBoiler extends SARMultiblockInventory<InventoryRecipe> {
 
 	public static final int fuelDivisor = 3;
 	public static final int fluidConversionPerTick = 5;

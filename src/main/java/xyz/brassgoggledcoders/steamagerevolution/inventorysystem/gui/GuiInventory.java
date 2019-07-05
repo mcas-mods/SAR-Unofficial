@@ -1,8 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui;
 
-import java.util.List;
-
-import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.containers.ContainerBase;
 import com.teamacronymcoders.base.util.GuiHelper;
 
@@ -10,7 +7,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -20,7 +16,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceProgressBar;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.*;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 
 @SideOnly(Side.CLIENT)
 public class GuiInventory extends GuiContainer {
@@ -52,42 +48,10 @@ public class GuiInventory extends GuiContainer {
 		drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
-		FluidTankSmart fluidInput = holder.getInventory().getInputFluidHandler();
-		if(fluidInput != null) {
-			if(fluidInput instanceof MultiFluidTank) {
-				// TODO Jank cast
-				representMultiTankContents(
-						(InventoryPieceHandler<MultiFluidTank>) holder.getInventory().fluidPieces, mouseX, mouseY);
-			}
-			else {
-				if(isPointInRegion(holder.getInventory().fluidPieces.getX(0),
-						holder.getInventory().fluidPieces.getY(0), 20, 55, mouseX, mouseY)) {
-					this.drawHoveringText(com.teamacronymcoders.base.util.TextUtils.representTankContents(fluidInput)
-							.getFormattedText(), mouseX, mouseY);
-				}
-			}
-		}
-		FluidTankSmart fluidOutput = holder.getInventory().getOutputFluidHandler();
-		if(fluidOutput != null) {
-			if(fluidOutput instanceof MultiFluidTank) {
-				representMultiTankContents(
-						(InventoryPieceHandler<MultiFluidTank>) holder.getInventory().fluidPieces, mouseX, mouseY);
-			}
-			else {
-				if(isPointInRegion(holder.getInventory().fluidOutputPiece.getX(0),
-						holder.getInventory().fluidOutputPiece.getY(0), 20, 55, mouseX, mouseY)) {
-					this.drawHoveringText(com.teamacronymcoders.base.util.TextUtils.representTankContents(fluidOutput)
-							.getFormattedText(), mouseX, mouseY);
-				}
-			}
-		}
-		FluidTankSingleSmart steamTank = holder.getInventory().getSteamTank();
-		if(steamTank != null) {
-			if(isPointInRegion(holder.getInventory().steamTankPiece.getX(0),
-					holder.getInventory().steamTankPiece.getY(0), 20, 55, mouseX, mouseY)) {
-				this.drawHoveringText(
-						com.teamacronymcoders.base.util.TextUtils.representTankContents(steamTank).getFormattedText(),
-						mouseX, mouseY);
+		for(InventoryPieceHandler<? extends FluidTankSmart> fPiece : holder.getInventory().fluidPieces) {
+			if(isPointInRegion(fPiece.getX(0), fPiece.getY(0), 20, 55, mouseX, mouseY)) {
+				this.drawHoveringText(com.teamacronymcoders.base.util.TextUtils
+						.representTankContents(fPiece.getHandler()).getFormattedText(), mouseX, mouseY);
 			}
 		}
 		InventoryPieceProgressBar progressBar = holder.getInventory().progressBar;
@@ -110,28 +74,6 @@ public class GuiInventory extends GuiContainer {
 		}
 	}
 
-	@Deprecated
-	public void representMultiTankContents(InventoryPieceHandler<MultiFluidTank> piece, int mouseX, int mouseY) {
-		MultiFluidTank tank = piece.getHandler();
-		for(int i = 0; i < tank.getMaxFluids(); i++) {
-			if(isPointInRegion(piece.getX(i), piece.getY(i), 20, 55, mouseX, mouseY)) {
-				List<String> tooltip = Lists.newArrayList();
-				int capacity = tank.getCapacity();
-				// TODO Something jank here
-				capacity /= tank.getMaxFluids();
-				if(tank.fluids.size() > i) {
-					tooltip.add(com.teamacronymcoders.base.util.TextUtils
-							.representTankContents(new FluidTank(tank.fluids.get(i), capacity)).getFormattedText());
-				}
-				else {
-					tooltip.add(new TextComponentTranslation("base.info.empty").getFormattedText());
-				}
-				this.drawHoveringText(tooltip, mouseX, mouseY, fontRenderer);
-			}
-		}
-
-	}
-
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		mc.renderEngine.bindTexture(guiTexture);
@@ -139,40 +81,25 @@ public class GuiInventory extends GuiContainer {
 		int y = (height - ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
-		if(holder.getInventory().steamTankPiece != null) {
-			addTank(holder.getInventory().steamTankPiece);
-		}
-
-		if(holder.getInventory().fluidPieces != null) {
-			addTank(holder.getInventory().fluidPieces);
-		}
-
-		if(holder.getInventory().fluidOutputPiece != null) {
-			addTank(holder.getInventory().fluidOutputPiece);
+		for(InventoryPieceHandler<? extends FluidTankSmart> fPiece : holder.getInventory().fluidPieces) {
+			addTank(fPiece);
 		}
 
 		if(holder.getInventory().progressBar != null && holder.getCurrentMaxTicks() > 0) {
-			mc.renderEngine.bindTexture(guiTexture);
-			int progress = holder.getCurrentProgress();// TODO this needs packet synced
-			int total = holder.getCurrentMaxTicks();
-			int progressScaled = progress != 0 && total != 0 ? progress * 24 / total : 0;
-			this.drawTexturedModalRect(guiLeft + holder.getInventory().progressBar.getX(0),
-					guiTop + holder.getInventory().progressBar.getY(0), 176, 83, progressScaled + 1, 16);
+			{
+				mc.renderEngine.bindTexture(guiTexture);
+				int progress = holder.getCurrentProgress();// TODO this needs packet synced
+				int total = holder.getCurrentMaxTicks();
+				int progressScaled = progress != 0 && total != 0 ? progress * 24 / total : 0;
+				this.drawTexturedModalRect(guiLeft + holder.getInventory().progressBar.getX(0),
+						guiTop + holder.getInventory().progressBar.getY(0), 176, 83, progressScaled + 1, 16);
+			}
 		}
 	}
 
 	private void addTank(InventoryPieceHandler<? extends FluidTankSmart> piece) {
 		FluidTank tank = piece.getHandler();
-		if(tank instanceof MultiFluidTank) {
-			MultiFluidTank multitank = (MultiFluidTank) tank;
-			for(int i = 0; i < multitank.fluids.size(); i++) {
-				draw(multitank.fluids.get(i), multitank.getCapacity() / multitank.fluids.size(), piece.getX(i),
-						piece.getY(i));
-			}
-		}
-		else {
-			draw(tank.getFluid(), tank.getCapacity(), piece.getX(0), piece.getY(0));
-		}
+		draw(tank.getFluid(), tank.getCapacity(), piece.getX(0), piece.getY(0));
 	}
 
 	private void draw(FluidStack stack, int capacity, int xPos, int yPos) {

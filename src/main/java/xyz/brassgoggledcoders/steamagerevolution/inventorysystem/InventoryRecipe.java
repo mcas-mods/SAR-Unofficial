@@ -8,6 +8,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSma
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
+//TODO Cleaner way to define what handlers are available. Machines have fixed IOs, lists are somewhat the wrong thing...
 public class InventoryRecipe extends InventoryBasic {
 	public ArrayList<InventoryPieceTypedHandler<ItemStackHandler>> itemInputs = new ArrayList<>();
 	public ArrayList<InventoryPieceTypedHandler<FluidTankSmart>> fluidInputs = new ArrayList<>();
@@ -37,7 +38,7 @@ public class InventoryRecipe extends InventoryBasic {
 		return this;
 	}
 
-	public InventoryRecipe addFluidInput(int[] xPos, int[] yPos, FluidTankSmart handler) {
+	public InventoryRecipe addFluidInput(int xPos, int yPos, FluidTankSmart handler) {
 		InventoryPieceTypedHandler<FluidTankSmart> fPiece = new InventoryPieceTypedHandler<FluidTankSmart>(IOType.INPUT,
 				handler, xPos, yPos);
 		fluidInputs.add(fPiece);
@@ -45,7 +46,7 @@ public class InventoryRecipe extends InventoryBasic {
 		return this;
 	}
 
-	public InventoryRecipe addFluidOutput(int[] xPos, int[] yPos, FluidTankSmart handler) {
+	public InventoryRecipe addFluidOutput(int xPos, int yPos, FluidTankSmart handler) {
 		InventoryPieceTypedHandler<FluidTankSmart> fPiece = new InventoryPieceTypedHandler<FluidTankSmart>(
 				IOType.OUTPUT, handler, xPos, yPos);
 		fluidInputs.add(fPiece);
