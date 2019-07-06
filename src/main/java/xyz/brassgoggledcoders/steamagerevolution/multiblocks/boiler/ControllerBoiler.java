@@ -14,13 +14,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipeMachine;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceFluid;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
@@ -42,9 +40,11 @@ public class ControllerBoiler extends SARMultiblockInventory<InventoryRecipe> {
 		super(world);
 		attachedMonitors = new HashSet<BlockPos>();
 		attachedValves = new HashSet<BlockPos>();
-		/* TODO: having water tank as output is...hacky */ 
-		setInventory(new InventoryRecipeMachine().setItemInput(81, 32, new ItemStackHandlerFuel(1, this)).setFluidInput(0,0,new FluidTankSmart(Fluid.BUCKET_VOLUME * 16, this)) new MultiFluidHandler(Fluid.BUCKET_VOLUME * 16, this, 1), 50, 9),
-				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 4, "steam", this), 142, 9)));
+		/* TODO: having water tank as output is...hacky */
+		this.setInventory(new InventoryRecipe().setFuelHandler(81, 32, new ItemStackHandlerFuel(1, this, IOType.POWER))
+				.addFluidInput(0, 0, new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "water", this, null))
+				.addFluidInput(50, 9, new FluidTankSmart(Fluid.BUCKET_VOLUME * 16, this))
+				.setSteamTank(142, 9, Fluid.BUCKET_VOLUME * 4, this));
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class ControllerBoiler extends SARMultiblockInventory<InventoryRecipe> {
 		// Logic must of course run before checking if it should explode...!
 		for(BlockPos pos : attachedValves) {
 			if(WORLD.isBlockPowered(pos)) {
-				inventory.getSteamTank().drain(Fluid.BUCKET_VOLUME, true);
+				this.getInventory().steamPiece.getHandler().drain(Fluid.BUCKET_VOLUME, true);
 				pressure = 1.0F;
 				updateRedstoneOutputLevels();
 				return true;
@@ -69,31 +69,32 @@ public class ControllerBoiler extends SARMultiblockInventory<InventoryRecipe> {
 		// }
 
 		if(currentBurnTime == 0) {
-			for(int i = 0; i < inventory.getInputHandler().getSlots(); i++) {
-				ItemStack fuel = inventory.getInputHandler().getStackInSlot(i);
+			for(int i = 0; i < getInventory().getItemHandlers().get(0).getSlots(); i++) {
+				ItemStack fuel = getInventory().getItemHandlers().get(0).getStackInSlot(i);
 				if(!fuel.isEmpty() && TileEntityFurnace.getItemBurnTime(fuel) != 0) {
 					currentBurnTime = (TileEntityFurnace.getItemBurnTime(fuel) / fuelDivisor);
 					// TODO
 					fuel.shrink(1);
-					inventory.getInputHandler().setStackInSlot(i, fuel);
+					getInventory().getItemHandlers().get(0).setStackInSlot(i, fuel);
 					return true;
 				}
 			}
-			if(inventory.getInputTank().getFluidAmount() != 0) {
+			if(getInventory().getFluidHandlers().get(1).getFluidAmount() != 0) {
 				// TODO
-				if(inventory.getInputTank().getFluid().getFluid() == FluidRegistry.LAVA) {
+				if(getInventory().getFluidHandlers().get(1).getFluid().getFluid() == FluidRegistry.LAVA) {
 					currentBurnTime = 1000;
 					return true;
 				}
 			}
 		}
 		else {
-			if(inventory.getOutputTank().getFluidAmount() >= fluidConversionPerTick) {
-				if(inventory.getSteamTank()
-						.getFluidAmount() <= (inventory.getSteamTank().getCapacity() - fluidConversionPerTick)) {
-					inventory.getSteamTank()
+			if(getInventory().getFluidHandlers().get(0).getFluidAmount() >= fluidConversionPerTick) {
+				if(getInventory().steamPiece.getHandler()
+						.getFluidAmount() <= (getInventory().steamPiece.getHandler().getCapacity()
+								- fluidConversionPerTick)) {
+					getInventory().steamPiece.getHandler()
 							.fill(new FluidStack(FluidRegistry.getFluid("steam"), fluidConversionPerTick), true);
-					inventory.getOutputTank().drain(fluidConversionPerTick, true);
+					getInventory().getFluidHandlers().get(0).drain(fluidConversionPerTick, true);
 				}
 				else {
 					pressure += 0.01F;

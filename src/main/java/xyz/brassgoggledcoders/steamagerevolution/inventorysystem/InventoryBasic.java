@@ -21,7 +21,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback
 public class InventoryBasic
 		implements IMachineInventory, INBTSerializable<NBTTagCompound>, ISmartTankCallback, ISmartStackCallback {
 
-	public List<InventoryPieceHandler<ItemStackHandler>> itemPieces = new ArrayList<>();
+	public List<InventoryPieceHandler<? extends ItemStackHandler>> itemPieces = new ArrayList<>();
 	// TODO Readd support for FluidHandlerMulti?
 	public List<InventoryPieceHandler<? extends FluidTankSmart>> fluidPieces = new ArrayList<>();
 	public InventoryPieceProgressBar progressBar;

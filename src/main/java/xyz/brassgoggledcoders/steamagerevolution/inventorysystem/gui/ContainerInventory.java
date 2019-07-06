@@ -14,7 +14,7 @@ public class ContainerInventory extends ContainerBase {
 	public ContainerInventory(EntityPlayer player, IMachineHasInventory<InventoryRecipe> holder) {
 		if(!holder.getInventory().getItemHandlers().isEmpty()) {
 			for(int ix = 0; ix < holder.getInventory().itemPieces.size(); ix++) {
-				InventoryPieceHandler<ItemStackHandler> iPiece = holder.getInventory().itemPieces.get(0);
+				InventoryPieceHandler<? extends ItemStackHandler> iPiece = holder.getInventory().itemPieces.get(0);
 				for(int i = 0; i < iPiece.getHandler().getSlots(); i++) {
 					addSlotToContainer(new SlotItemHandler(iPiece.getHandler(), i, iPiece.getX(i), iPiece.getY(i)));
 				}

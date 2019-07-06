@@ -20,7 +20,7 @@ import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
 public abstract class SARMultiblockInventory<I extends InventoryBasic> extends SARMultiblockBase
 		implements IMachineHasInventory<I> {
 
-	public I inventory;
+	private I inventory;
 	@SideOnly(Side.CLIENT)
 	public int currentMaxTicks;
 	protected int currentTicks = 0;

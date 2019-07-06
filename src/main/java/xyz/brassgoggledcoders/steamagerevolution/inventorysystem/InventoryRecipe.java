@@ -7,14 +7,17 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.Inven
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 
 //TODO Cleaner way to define what handlers are available. Machines have fixed IOs, lists are somewhat the wrong thing...
 public class InventoryRecipe extends InventoryBasic {
-	public ArrayList<InventoryPieceTypedHandler<ItemStackHandler>> itemInputs = new ArrayList<>();
-	public ArrayList<InventoryPieceTypedHandler<FluidTankSmart>> fluidInputs = new ArrayList<>();
-	public ArrayList<InventoryPieceTypedHandler<ItemStackHandler>> itemOutputs = new ArrayList<>();
-	public ArrayList<InventoryPieceTypedHandler<FluidTankSmart>> fluidOutputs = new ArrayList<>();
-	public InventoryPieceTypedHandler<FluidTankSingleSmart> steamTank;
+	public ArrayList<InventoryPieceTypedHandler<ItemStackHandler>> itemInputPieces = new ArrayList<>();
+	public ArrayList<InventoryPieceTypedHandler<FluidTankSmart>> fluidInputPieces = new ArrayList<>();
+	public ArrayList<InventoryPieceTypedHandler<ItemStackHandler>> itemOutputPieces = new ArrayList<>();
+	public ArrayList<InventoryPieceTypedHandler<FluidTankSmart>> fluidOutputPieces = new ArrayList<>();
+	// TODO
+	public InventoryPieceTypedHandler<FluidTankSingleSmart> steamPiece;
+	public InventoryPieceTypedHandler<ItemStackHandlerFuel> fuelHandlerPiece;
 
 	public InventoryRecipe addItemInput(int[] xPos, int[] yPos, ItemStackHandlerExtractSpecific handler) {
 		if(xPos.length < handler.getSlots() || yPos.length < handler.getSlots()) {
@@ -22,7 +25,7 @@ public class InventoryRecipe extends InventoryBasic {
 		}
 		InventoryPieceTypedHandler<ItemStackHandler> iPiece = new InventoryPieceTypedHandler<ItemStackHandler>(
 				IOType.INPUT, handler, xPos, yPos);
-		itemInputs.add(iPiece);
+		itemInputPieces.add(iPiece);
 		itemPieces.add(iPiece);
 		return this;
 	}
@@ -33,7 +36,7 @@ public class InventoryRecipe extends InventoryBasic {
 		}
 		InventoryPieceTypedHandler<ItemStackHandler> iPiece = new InventoryPieceTypedHandler<ItemStackHandler>(
 				IOType.OUTPUT, handler, xPos, yPos);
-		itemOutputs.add(iPiece);
+		itemOutputPieces.add(iPiece);
 		itemPieces.add(iPiece);
 		return this;
 	}
@@ -41,7 +44,7 @@ public class InventoryRecipe extends InventoryBasic {
 	public InventoryRecipe addFluidInput(int xPos, int yPos, FluidTankSmart handler) {
 		InventoryPieceTypedHandler<FluidTankSmart> fPiece = new InventoryPieceTypedHandler<FluidTankSmart>(IOType.INPUT,
 				handler, xPos, yPos);
-		fluidInputs.add(fPiece);
+		fluidInputPieces.add(fPiece);
 		fluidPieces.add(fPiece);
 		return this;
 	}
@@ -49,14 +52,22 @@ public class InventoryRecipe extends InventoryBasic {
 	public InventoryRecipe addFluidOutput(int xPos, int yPos, FluidTankSmart handler) {
 		InventoryPieceTypedHandler<FluidTankSmart> fPiece = new InventoryPieceTypedHandler<FluidTankSmart>(
 				IOType.OUTPUT, handler, xPos, yPos);
-		fluidInputs.add(fPiece);
+		fluidInputPieces.add(fPiece);
 		fluidPieces.add(fPiece);
 		return this;
 	}
 
-	public InventoryRecipe setSteamTank(int xPos, int yPos, FluidTankSingleSmart handler) {
-		steamTank = new InventoryPieceTypedHandler<FluidTankSingleSmart>(IOType.POWER, handler, xPos, yPos);
-		fluidPieces.add(steamTank);
+	public InventoryRecipe setSteamTank(int xPos, int yPos, int capacity, IMachineHasInventory parent) {
+		steamPiece = new InventoryPieceTypedHandler<FluidTankSingleSmart>(IOType.POWER,
+				new FluidTankSingleSmart(capacity, "steam", parent, IOType.POWER), xPos, yPos);
+		fluidPieces.add(steamPiece);
+		return this;
+	}
+
+	// TODO
+	public InventoryRecipe setFuelHandler(int xPos, int yPos, ItemStackHandlerFuel handler) {
+		fuelHandlerPiece = new InventoryPieceTypedHandler<ItemStackHandlerFuel>(IOType.POWER, handler, xPos, yPos);
+		itemPieces.add(fuelHandlerPiece);
 		return this;
 	}
 

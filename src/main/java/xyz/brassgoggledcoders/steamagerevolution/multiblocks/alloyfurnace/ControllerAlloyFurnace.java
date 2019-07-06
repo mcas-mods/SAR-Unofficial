@@ -27,8 +27,8 @@ public class ControllerAlloyFurnace extends SARMultiblockInventory<InventoryReci
 
 	@Override
 	protected boolean canRun() {
-		return this.getInventory().fluidInputs.get(0).getHandler().getFluidAmount() > 0
-				&& this.getInventory().fluidInputs.get(1).getHandler().getFluidAmount() > 0 && super.canRun();
+		return this.getInventory().fluidInputPieces.get(0).getHandler().getFluidAmount() > 0
+				&& this.getInventory().fluidInputPieces.get(1).getHandler().getFluidAmount() > 0 && super.canRun();
 	}
 
 	@Override
