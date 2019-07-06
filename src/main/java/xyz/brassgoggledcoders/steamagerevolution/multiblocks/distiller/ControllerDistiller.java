@@ -7,24 +7,19 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMultiblockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceProgressBar;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerDistiller extends SARMultiblockInventory<InventoryRecipe> {
+public class ControllerDistiller extends SARMultiblockRecipe<InventoryRecipe> {
 
 	public static int tankCapacity = Fluid.BUCKET_VOLUME * 8;
 
 	public ControllerDistiller(World world) {
 		super(world);
-		setInventory(new InventoryRecipe().addFluidInput("fluidInput", 41, 9, new FluidTankSmart(tankCapacity, this))
-				.addItemOutput("itemOutput", new int[] { 149 }, new int[] { 32 },
-						new ItemStackHandlerSmart(1, this, IOType.INPUT))
-				.addFluidOutput("itemOutput", 97, 9, new FluidTankSmart(tankCapacity, this))
-				.setSteamTank(10, 9, Fluid.BUCKET_VOLUME * 16, this)
+		setInventory(new InventoryRecipe(this).addFluidInput("fluidInput", 41, 9, tankCapacity)
+				.addItemOutput("itemOutput", new int[] { 149 }, new int[] { 32 })
+				.addFluidOutput("fluidOutput", 97, 9, tankCapacity).setSteamTank(10, 9, Fluid.BUCKET_VOLUME * 16)
 				.setProgressBar(new InventoryPieceProgressBar(67, 32)));
 	}
 

@@ -24,11 +24,16 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback
 public class InventoryBasic
 		implements IMachineInventory, INBTSerializable<NBTTagCompound>, ISmartTankCallback, ISmartStackCallback {
 
+	final IHasInventory parent;
 	// TODO Is there a better way to do IDs than strings?
 	public HashMap<String, InventoryPieceHandler<? extends ItemStackHandler>> itemPieces = Maps.newHashMap();
 	// TODO Readd support for FluidHandlerMulti?
 	public HashMap<String, InventoryPieceHandler<? extends FluidTankSmart>> fluidPieces = Maps.newHashMap();
 	public InventoryPieceProgressBar progressBar;
+
+	public InventoryBasic(IHasInventory parent) {
+		this.parent = parent;
+	}
 
 	public InventoryBasic addItemPiece(String name, Pair<int[], int[]> xNy, ItemStackHandler handler) {
 		this.addItemPiece(name, xNy.getLeft(), xNy.getRight(), handler);
@@ -83,7 +88,7 @@ public class InventoryBasic
 	}
 
 	@Override
-	public void onTankContentsChanged(FluidTankSmart tank, IOType type, IMachineHasInventory parent) {
+	public void onTankContentsChanged(FluidTankSmart tank, IOType type, IHasInventory parent) {
 		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
 				new PacketFluidUpdate(parent.getMachinePos(), tank.getFluid(), type.networkID), parent.getMachinePos(),
 				parent.getMachineWorld().provider.getDimension());
@@ -110,7 +115,7 @@ public class InventoryBasic
 	}
 
 	@Override
-	public void onContentsChanged(IOType type, int slot, IMachineHasInventory parent) {
+	public void onContentsChanged(IOType type, int slot, IHasInventory parent) {
 		// if(type.equals(IOType.INPUT)) {
 		// // If we have a recipe, when a slot is changed, check if it was changed to
 		// air,

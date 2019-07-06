@@ -3,13 +3,14 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMultiblockRecipe;
 
 public class MultiblockSteamWrapper implements IFluidTank, IFluidHandler {
 
-	final SARMultiblockTileInventory<SARMultiblockInventory> tile;
+	final SARMultiblockTileInventory<SARMultiblockRecipe> tile;
 
 	public MultiblockSteamWrapper(SARMultiblockTileInventory<?> tile) {
-		this.tile = (SARMultiblockTileInventory<SARMultiblockInventory>) tile;
+		this.tile = (SARMultiblockTileInventory<SARMultiblockRecipe>) tile;
 	}
 
 	@Override

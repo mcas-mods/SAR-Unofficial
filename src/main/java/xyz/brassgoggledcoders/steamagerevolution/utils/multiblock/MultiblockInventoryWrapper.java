@@ -3,16 +3,17 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMultiblockRecipe;
 
 public class MultiblockInventoryWrapper implements IItemHandler, IItemHandlerModifiable {
 
-	final SARMultiblockTileInventory<SARMultiblockInventory> tile;
+	final SARMultiblockTileInventory<SARMultiblockRecipe> tile;
 	// TODO Also use this boolean to prevent insertion into outputs (still allow
 	// extraction from outputs
 	final boolean output;
 
 	public MultiblockInventoryWrapper(SARMultiblockTileInventory<?> tile, boolean output) {
-		this.tile = (SARMultiblockTileInventory<SARMultiblockInventory>) tile;
+		this.tile = (SARMultiblockTileInventory<SARMultiblockRecipe>) tile;
 		this.output = output;
 	}
 

@@ -12,16 +12,13 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMultiblockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceProgressBar;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerSteamHammer extends SARMultiblockInventory<InventoryBasic> {
+public class ControllerSteamHammer extends SARMultiblockRecipe<InventoryRecipe> {
 
 	public String dieType = "";
 	BlockPos center = null;
@@ -30,9 +27,9 @@ public class ControllerSteamHammer extends SARMultiblockInventory<InventoryBasic
 	public ControllerSteamHammer(World world) {
 		super(world);
 		// TODO Investigate if possible to have same handler for input and output
-		setInventory(new InventoryBasic(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 35, 32), null,
-				new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 138, 32), null,
-				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this), 9, 11)).setProgressBar(new InventoryPieceProgressBar(103, 31)));
+		setInventory(new InventoryRecipe(this).addItemInput("itemInput", new int[] { 35 }, new int[] { 32 })
+				.addItemOutput("itemOutput", new int[] { 138 }, new int[] { 32 }).setSteamTank(9, 11)
+				.setProgressBar(new InventoryPieceProgressBar(103, 31)));
 	}
 
 	@Override
@@ -89,9 +86,12 @@ public class ControllerSteamHammer extends SARMultiblockInventory<InventoryBasic
 
 	@Override
 	protected void onTick() {
-		for (EntityItem item : WORLD.getEntitiesWithinAABB(EntityItem.class, interior)) {
-			if (ItemHandlerHelper.insertItem(inventory.getInputItemHandler(), item.getItem(), true).isEmpty()) {
-				ItemHandlerHelper.insertItem(inventory.getInputItemHandler(), item.getItem(), false);
+		for(EntityItem item : WORLD.getEntitiesWithinAABB(EntityItem.class, interior)) {
+			if(ItemHandlerHelper
+					.insertItem(this.getInventory().getItemPiece("itemInput").getHandler(), item.getItem(), true)
+					.isEmpty()) {
+				ItemHandlerHelper.insertItem(this.getInventory().getItemPiece("itemInput").getHandler(), item.getItem(),
+						false);
 				item.setDead();
 			}
 		}

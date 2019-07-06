@@ -16,7 +16,7 @@ import xyz.brassgoggledcoders.steamagerevolution.recipes.FumeCollectorRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidHandlerMulti;
 
 //TODO add ability output to item placed in gui, and to item right clicked on block
-public class TileEntityFumeCollector extends SARMachineTileEntity {
+public class TileEntityFumeCollector extends RecipeTileEntity {
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 16;
 
 	public TileEntityFumeCollector() {

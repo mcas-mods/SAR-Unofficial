@@ -4,14 +4,14 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 public class HandlerForceStack extends ItemStackHandlerExtractSpecific {
 	
-	final IMachineHasInventory holder;
+	final IHasInventory holder;
 	
-	public HandlerForceStack(IMachineHasInventory holder, int slots) {
+	public HandlerForceStack(IHasInventory holder, int slots) {
 		super(slots);
 		this.holder = holder;
 	}

@@ -4,12 +4,12 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 
 public abstract class ItemStackHandlerFiltered extends ItemStackHandlerSmart {
 
-	public ItemStackHandlerFiltered(int size, IMachineHasInventory controller, IOType type) {
+	public ItemStackHandlerFiltered(int size, IHasInventory controller, IOType type) {
 		super(size, controller, type);
 	}
 
@@ -24,7 +24,7 @@ public abstract class ItemStackHandlerFiltered extends ItemStackHandlerSmart {
 	protected abstract boolean canInsertItem(int slot, ItemStack stack);
 
 	public static class ItemStackHandlerFuel extends ItemStackHandlerFiltered {
-		public ItemStackHandlerFuel(int size, IMachineHasInventory controller, IOType type) {
+		public ItemStackHandlerFuel(int size, IHasInventory controller, IOType type) {
 			super(size, controller, type);
 		}
 

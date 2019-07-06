@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
 import com.teamacronymcoders.base.multiblock.IMultiblockPart;
 
@@ -10,23 +10,20 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.ContainerInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.RecipeMachineHelper;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
 
-public abstract class SARMultiblockInventory<I extends InventoryBasic> extends SARMultiblockBase
-		implements IMachineHasInventory<I> {
+public abstract class SARMultiblockRecipe<I extends InventoryRecipe> extends SARMultiblockInventory<I>
+		implements IRecipeMachine<I> {
 
-	private I inventory;
 	@SideOnly(Side.CLIENT)
 	public int currentMaxTicks;
 	protected int currentTicks = 0;
 	protected SARMachineRecipe currentRecipe;
 
-	protected SARMultiblockInventory(World world) {
+	protected SARMultiblockRecipe(World world) {
 		super(world);
 	}
 
@@ -77,13 +74,13 @@ public abstract class SARMultiblockInventory<I extends InventoryBasic> extends S
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
 		currentTicks = data.getInteger("progress");
-		inventory.deserializeNBT(data.getCompoundTag("inventory"));
+		super.onAttachedPartWithMultiblockData(part, data);
 	}
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
 		data.setInteger("progress", currentTicks);
-		data.setTag("inventory", inventory.serializeNBT());
+		super.writeToDisk(data);
 	}
 
 	@SideOnly(Side.CLIENT)

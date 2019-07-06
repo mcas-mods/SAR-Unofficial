@@ -17,7 +17,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultibloc
 public class BlockGrinderInput extends BlockMultiblockBase<TileEntityGrinderInput> {
 
 	protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.875D, 1.0D);
-	
+
 	public BlockGrinderInput() {
 		super(Material.IRON, "grinder_input");
 	}
@@ -43,19 +43,21 @@ public class BlockGrinderInput extends BlockMultiblockBase<TileEntityGrinderInpu
 			if(entityIn instanceof EntityItem) {
 				EntityItem item = (EntityItem) entityIn;
 				ItemStack stack = item.getItem();
-				if(ItemHandlerHelper.insertItem(controller.getInventory().getInputItemHandler(), stack, true).isEmpty()) {
-					ItemHandlerHelper.insertItem(controller.getInventory().getInputItemHandler(), stack, false);
+				if(ItemHandlerHelper
+						.insertItem(controller.getInventory().getItemPiece("itemInput").getHandler(), stack, true)
+						.isEmpty()) {
+					ItemHandlerHelper.insertItem(controller.getInventory().getItemPiece("itemInput").getHandler(),
+							stack, false);
 					item.setDead();
 				}
 			}
 		}
 		entityIn.attackEntityFrom(SteamAgeRevolution.damageSourceGrinder, damage);
 	}
-	
+
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
-    {
-        return AABB;
-    }
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+		return AABB;
+	}
 
 }

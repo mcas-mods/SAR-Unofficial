@@ -10,7 +10,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidHandlerMulti;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
-public class TileEntityCastingBench extends SARMachineTileEntity {
+public class TileEntityCastingBench extends RecipeTileEntity {
 
 	public static int inputCapacity = RecipeUtil.VALUE_BLOCK;
 

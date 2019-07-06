@@ -9,7 +9,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidHandlerMulti;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
-public class TileEntityFluidIO extends SARMachineTileEntity {
+public class TileEntityFluidIO extends RecipeTileEntity {
 
 	private int fluidTransferRate = 20;
 

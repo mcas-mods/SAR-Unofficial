@@ -7,13 +7,14 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMultiblockRecipe;
 
-public abstract class SARMultiblockTileInventory<T extends SARMultiblockInventory> extends SARMultiblockTileBase<T> {
+public abstract class SARMultiblockTileInventory<T extends SARMultiblockRecipe> extends SARMultiblockTileBase<T> {
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		NBTTagCompound nbt = new NBTTagCompound();
 		if (isConnected()) {
-			SARMultiblockInventory controller = getMultiblockController();
+			SARMultiblockRecipe controller = getMultiblockController();
 			nbt.setTag("inventory", controller.inventory.serializeNBT());
 			nbt.setInteger("currentTicks", controller.currentTicks);
 			int maxTicks = 0;
@@ -30,7 +31,7 @@ public abstract class SARMultiblockTileInventory<T extends SARMultiblockInventor
 	public NBTTagCompound getUpdateTag() {
 		NBTTagCompound nbt = super.writeToNBT(new NBTTagCompound());
 		if (isConnected()) {
-			SARMultiblockInventory controller = getMultiblockController();
+			SARMultiblockRecipe controller = getMultiblockController();
 			nbt.setTag("inventory", controller.inventory.serializeNBT());
 			nbt.setInteger("currentTicks", controller.currentTicks);
 			int maxTicks = 0;
@@ -47,7 +48,7 @@ public abstract class SARMultiblockTileInventory<T extends SARMultiblockInventor
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
 		// SteamAgeRevolution.instance.getLogger().devInfo("On Data Packet");
 		if (isConnected()) {
-			SARMultiblockInventory controller = getMultiblockController();
+			SARMultiblockRecipe controller = getMultiblockController();
 			NBTTagCompound nbt = pkt.getNbtCompound();
 			controller.inventory.deserializeNBT(nbt.getCompoundTag("inventory"));
 			controller.currentTicks = nbt.getInteger("currentTicks");

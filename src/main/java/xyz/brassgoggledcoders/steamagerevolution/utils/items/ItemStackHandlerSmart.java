@@ -1,17 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.utils.items;
 
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 
 public class ItemStackHandlerSmart extends ItemStackHandlerExtractSpecific {
 
-	final IMachineHasInventory controller;
-	final IOType type;
+	final IHasInventory controller;
 
-	public ItemStackHandlerSmart(int size, IMachineHasInventory controller, IOType type) {
+	public ItemStackHandlerSmart(int size, IHasInventory controller) {
 		super(size);
 		this.controller = controller;
-		this.type = type;
 	}
 
 	@Override

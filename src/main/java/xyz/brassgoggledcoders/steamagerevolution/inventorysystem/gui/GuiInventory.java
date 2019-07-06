@@ -13,25 +13,25 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceProgressBar;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 
 @SideOnly(Side.CLIENT)
 public class GuiInventory extends GuiContainer {
-	protected final IMachineHasInventory holder;
+	protected final IHasInventory holder;
 	protected ResourceLocation guiTexture;
 
-	public GuiInventory(EntityPlayer player, IMachineHasInventory holder) {
+	public GuiInventory(EntityPlayer player, IHasInventory holder) {
 		this(player, holder, new ContainerInventory(player, holder), "");
 	}
 
-	public GuiInventory(EntityPlayer player, IMachineHasInventory holder, ContainerBase containerInstance) {
+	public GuiInventory(EntityPlayer player, IHasInventory holder, ContainerBase containerInstance) {
 		this(player, holder, containerInstance, "");
 	}
 
-	public GuiInventory(EntityPlayer player, IMachineHasInventory holder, ContainerBase containerInstance,
+	public GuiInventory(EntityPlayer player, IHasInventory holder, ContainerBase containerInstance,
 			String textureOverride) {
 		super(containerInstance);
 		String name = textureOverride;

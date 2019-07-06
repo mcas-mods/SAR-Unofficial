@@ -4,7 +4,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.*;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 
 /*
@@ -14,7 +14,7 @@ public class FluidHandlerMulti implements IFluidHandler, INBTSerializable<NBTTag
 
 	FluidTankSmart[] tanks;
 
-	public FluidHandlerMulti(IMachineHasInventory parent, IOType type, int... tankCapacities) {
+	public FluidHandlerMulti(IHasInventory parent, IOType type, int... tankCapacities) {
 		tanks = new FluidTankSmart[tankCapacities.length];
 		for(int i = 0; i < tankCapacities.length; i++) {
 			tanks[i] = new FluidTankSmart(tankCapacities[i], parent, type);

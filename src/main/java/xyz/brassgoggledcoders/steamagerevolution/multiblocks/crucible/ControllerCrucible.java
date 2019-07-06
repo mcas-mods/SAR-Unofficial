@@ -5,25 +5,20 @@ import org.apache.commons.lang3.tuple.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMultiblockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceProgressBar;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerCrucible extends SARMultiblockInventory<InventoryRecipe> {
+public class ControllerCrucible extends SARMultiblockRecipe<InventoryRecipe> {
 
 	BlockPos minimumInteriorPos;
 	BlockPos maximumInteriorPos;
 
 	public ControllerCrucible(World world) {
 		super(world);
-		setInventory(new InventoryRecipe()
-				.addItemInput("itemInput", new int[] { 53 }, new int[] { 34 },
-						new ItemStackHandlerSmart(1, this, IOType.INPUT))
-				.addFluidOutput("output", 105, 11, new FluidTankSmart(Fluid.BUCKET_VOLUME, this))
-				.setSteamTank(17, 11, Fluid.BUCKET_VOLUME, this).setProgressBar(new InventoryPieceProgressBar(76, 33)));
+		setInventory(new InventoryRecipe(this).addItemInput("itemInput", new int[] { 53 }, new int[] { 34 })
+				.addFluidOutput("output", 105, 11, Fluid.BUCKET_VOLUME).setSteamTank(17, 11, Fluid.BUCKET_VOLUME)
+				.setProgressBar(new InventoryPieceProgressBar(76, 33)));
 	}
 
 	// FIXME Caching

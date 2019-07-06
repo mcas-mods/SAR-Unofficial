@@ -14,15 +14,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerFiltered.ItemStackHandlerFuel;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerBoiler extends SARMultiblockInventory<InventoryRecipe> {
+public class ControllerBoiler extends SARMultiblockRecipe<InventoryRecipe> {
 
 	public static final int fuelDivisor = 3;
 	public static final int fluidConversionPerTick = 5;
@@ -40,12 +37,12 @@ public class ControllerBoiler extends SARMultiblockInventory<InventoryRecipe> {
 		super(world);
 		attachedMonitors = new HashSet<BlockPos>();
 		attachedValves = new HashSet<BlockPos>();
-		/* TODO: having water tank as output is...hacky */
-		this.setInventory(new InventoryRecipe().setFuelHandler(81, 32, new ItemStackHandlerFuel(1, this, IOType.POWER))
-				.addFluidInput("waterTank", 0, 0,
-						new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "water", this, null))
-				.addFluidInput("liquidFuel", 50, 9, new FluidTankSmart(Fluid.BUCKET_VOLUME * 16, this))
-				.setSteamTank(142, 9, Fluid.BUCKET_VOLUME * 4, this));
+		this.setInventory(
+				new InventoryRecipe(this).setFuelHandler(81, 32, new ItemStackHandlerFuel(1, this, IOType.POWER))
+						.addFluidInput("waterTank", 0, 0,
+								new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "water", this, IOType.INPUT))
+						.addFluidInput("liquidFuel", 50, 9, Fluid.BUCKET_VOLUME * 16)
+						.setSteamTank(142, 9, Fluid.BUCKET_VOLUME * 4));
 	}
 
 	@Override

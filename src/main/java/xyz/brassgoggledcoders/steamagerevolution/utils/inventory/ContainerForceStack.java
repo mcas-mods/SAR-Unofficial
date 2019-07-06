@@ -4,10 +4,10 @@ import com.teamacronymcoders.base.containers.ContainerBase;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 
 public class ContainerForceStack extends ContainerBase {
-	public ContainerForceStack(EntityPlayer player, IMachineHasInventory holder) {
+	public ContainerForceStack(EntityPlayer player, IHasInventory holder) {
 		if (holder.getInventory().itemInputPiece != null) {
 			for (int i = 0; i < holder.getInventory().itemInputPiece.getHandler().getSlots(); i++) {
 				addSlotToContainer(new SlotForceStack(holder.getInventory().itemInputPiece.getHandler(), i,

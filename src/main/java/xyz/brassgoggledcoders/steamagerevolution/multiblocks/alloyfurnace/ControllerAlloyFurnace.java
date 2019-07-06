@@ -9,20 +9,19 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMultiblockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
-public class ControllerAlloyFurnace extends SARMultiblockInventory<InventoryRecipe> {
+public class ControllerAlloyFurnace extends SARMultiblockRecipe<InventoryRecipe> {
 
 	public static int inputCapacity = RecipeUtil.VALUE_BLOCK * 8;
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
 
 	public ControllerAlloyFurnace(World world) {
 		super(world);
-		setInventory(new InventoryRecipe().addFluidInput("one", 22, 11, new FluidTankSmart(inputCapacity, this))
-				.addFluidInput("two", 78, 11, new FluidTankSmart(inputCapacity, this))
-				.addFluidOutput("output", 134, 17, new FluidTankSmart(outputCapacity, this)));
+		// FIXME
+		setInventory(new InventoryRecipe(this).addFluidInput("one", 22, 11, inputCapacity)
+				.addFluidInput("two", 78, 11, inputCapacity).addFluidOutput("output", 134, 17, outputCapacity));
 	}
 
 	@Override
