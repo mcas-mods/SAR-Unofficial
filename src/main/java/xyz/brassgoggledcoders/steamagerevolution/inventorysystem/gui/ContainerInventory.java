@@ -8,13 +8,12 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceHandler;
 
 public class ContainerInventory extends ContainerBase {
 	public ContainerInventory(EntityPlayer player, IMachineHasInventory<InventoryRecipe> holder) {
 		if(!holder.getInventory().getItemHandlers().isEmpty()) {
-			for(int ix = 0; ix < holder.getInventory().itemPieces.size(); ix++) {
-				InventoryPieceHandler<? extends ItemStackHandler> iPiece = holder.getInventory().itemPieces.get(0);
+			for(InventoryPieceHandler<? extends ItemStackHandler> iPiece : holder.getInventory().itemPieces.values()) {
 				for(int i = 0; i < iPiece.getHandler().getSlots(); i++) {
 					addSlotToContainer(new SlotItemHandler(iPiece.getHandler(), i, iPiece.getX(i), iPiece.getY(i)));
 				}

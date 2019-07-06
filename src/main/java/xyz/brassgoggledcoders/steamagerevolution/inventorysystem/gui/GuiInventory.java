@@ -14,8 +14,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IMachineHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceProgressBar;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 
 @SideOnly(Side.CLIENT)
@@ -48,7 +48,7 @@ public class GuiInventory extends GuiContainer {
 		drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
-		for(InventoryPieceHandler<? extends FluidTankSmart> fPiece : holder.getInventory().fluidPieces) {
+		for(InventoryPieceHandler<? extends FluidTankSmart> fPiece : holder.getInventory().fluidPieces.values()) {
 			if(isPointInRegion(fPiece.getX(0), fPiece.getY(0), 20, 55, mouseX, mouseY)) {
 				this.drawHoveringText(com.teamacronymcoders.base.util.TextUtils
 						.representTankContents(fPiece.getHandler()).getFormattedText(), mouseX, mouseY);
@@ -81,7 +81,7 @@ public class GuiInventory extends GuiContainer {
 		int y = (height - ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
-		for(InventoryPieceHandler<? extends FluidTankSmart> fPiece : holder.getInventory().fluidPieces) {
+		for(InventoryPieceHandler<? extends FluidTankSmart> fPiece : holder.getInventory().fluidPieces.values()) {
 			addTank(fPiece);
 		}
 

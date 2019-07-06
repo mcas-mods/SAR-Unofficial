@@ -7,7 +7,9 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceTypedHandler;
 import xyz.brassgoggledcoders.steamagerevolution.multiblock.vat.tileentities.TileEntityVatFrame;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 
 public class MultiblockVatTankRenderer extends TileEntitySpecialRenderer<TileEntityVatFrame> {
 
@@ -20,30 +22,34 @@ public class MultiblockVatTankRenderer extends TileEntitySpecialRenderer<TileEnt
 		// reference coord - lowest x,y,z etc -
 		// so should always be casing.
 		if(tile.isConnected() && tile.getMultiblockController().isAssembled() && tile.isMultiblockSaveDelegate()) {
-			ControllerVat t = tile.getMultiblockController();
-			FluidTank tank = t.inventory.fluidOutputPieces.get(0).getHandler();
+			ControllerVat ctrlr = tile.getMultiblockController();
+			FluidTank tank = ctrlr.getInventory().getFluidPiece("outputTank").getHandler();
 			FluidStack fluid = null;
 			if(tank.getFluid() != null) {
 				fluid = tank.getFluid();
 			}
-			else if(t.inventory.fluidInputPieces.get(0).getHandler().getFluid() != null) {
-				tank = t.inventory.fluidInputPieces.get(0).getHandler();
-				fluid = tank.getFluid();
+			else {
+				for(InventoryPieceTypedHandler<FluidTankSmart> piece : ctrlr.getInventory().fluidInputPieces) {
+					if(piece.getHandler().getFluid() != null) {
+						tank = piece.getHandler();
+						fluid = tank.getFluid();
+					}
+				}
 			}
 
 			if(fluid != null) {
-				double x1 = t.minimumInteriorPos.getX() - tile.getPos().getX();
-				double y1 = t.minimumInteriorPos.getY() - tile.getPos().getY();
-				double z1 = t.minimumInteriorPos.getZ() - tile.getPos().getZ();
+				double x1 = ctrlr.minimumInteriorPos.getX() - tile.getPos().getX();
+				double y1 = ctrlr.minimumInteriorPos.getY() - tile.getPos().getY();
+				double z1 = ctrlr.minimumInteriorPos.getZ() - tile.getPos().getZ();
 
-				double x2 = t.maximumInteriorPos.getX() - tile.getPos().getX();
-				double z2 = t.maximumInteriorPos.getZ() - tile.getPos().getZ();
+				double x2 = ctrlr.maximumInteriorPos.getX() - tile.getPos().getX();
+				double z2 = ctrlr.maximumInteriorPos.getZ() - tile.getPos().getZ();
 				BlockPos minPos = new BlockPos(x1, y1, z1);
 				BlockPos maxPos = new BlockPos(x2, y1, z2);
 				float d = RenderingUtils.FLUID_OFFSET;
-				int yd = 1 + Math.max(0, t.maximumInteriorPos.getY() - t.minimumInteriorPos.getY());
+				int yd = 1 + Math.max(0, ctrlr.maximumInteriorPos.getY() - ctrlr.minimumInteriorPos.getY());
 				double height = (((float) fluid.amount / (float) tank.getCapacity())) / yd;
-				RenderingUtils.renderStackedFluidCuboid(fluid, x, y, z, t.minimumInteriorPos, minPos, maxPos, d,
+				RenderingUtils.renderStackedFluidCuboid(fluid, x, y, z, ctrlr.minimumInteriorPos, minPos, maxPos, d,
 						height - d);
 			}
 		}

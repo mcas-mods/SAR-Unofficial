@@ -1,46 +1,50 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.google.common.collect.Maps;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceProgressBar;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.ISmartTankCallback;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
 
+//TODO add validation to throw errors if duplicate or empty names are used
 @SuppressWarnings("rawtypes")
 public class InventoryBasic
 		implements IMachineInventory, INBTSerializable<NBTTagCompound>, ISmartTankCallback, ISmartStackCallback {
 
-	public List<InventoryPieceHandler<? extends ItemStackHandler>> itemPieces = new ArrayList<>();
+	// TODO Is there a better way to do IDs than strings?
+	public HashMap<String, InventoryPieceHandler<? extends ItemStackHandler>> itemPieces = Maps.newHashMap();
 	// TODO Readd support for FluidHandlerMulti?
-	public List<InventoryPieceHandler<? extends FluidTankSmart>> fluidPieces = new ArrayList<>();
+	public HashMap<String, InventoryPieceHandler<? extends FluidTankSmart>> fluidPieces = Maps.newHashMap();
 	public InventoryPieceProgressBar progressBar;
 
-	public InventoryBasic addItemPiece(Pair<int[], int[]> xNy, ItemStackHandler handler) {
-		this.addItemPiece(xNy.getLeft(), xNy.getRight(), handler);
+	public InventoryBasic addItemPiece(String name, Pair<int[], int[]> xNy, ItemStackHandler handler) {
+		this.addItemPiece(name, xNy.getLeft(), xNy.getRight(), handler);
 		return this;
 	}
 
-	public InventoryBasic addItemPiece(int[] xPos, int[] yPos, ItemStackHandler handler) {
+	public InventoryBasic addItemPiece(String name, int[] xPos, int[] yPos, ItemStackHandler handler) {
 		if(xPos.length < handler.getSlots() || yPos.length < handler.getSlots()) {
 			throw new RuntimeException("Your inventory position array sizes do not match the number of slots");
 		}
-		itemPieces.add(new InventoryPieceHandler<ItemStackHandler>(handler, xPos, yPos));
+		itemPieces.put(name, new InventoryPieceHandler<ItemStackHandler>(name, handler, xPos, yPos));
 		return this;
 	}
 
-	public InventoryBasic addFluidPiece(int xPos, int yPos, FluidTankSmart handler) {
-		fluidPieces.add(new InventoryPieceHandler<FluidTankSmart>(handler, xPos, yPos));
+	public InventoryBasic addFluidPiece(String name, int xPos, int yPos, FluidTankSmart handler) {
+		fluidPieces.put(name, new InventoryPieceHandler<FluidTankSmart>(name, handler, xPos, yPos));
 		return this;
 	}
 
@@ -49,6 +53,7 @@ public class InventoryBasic
 		return this;
 	}
 
+	// TODO Save to NBT by name
 	@Override
 	public NBTTagCompound serializeNBT() {
 		NBTTagCompound tag = new NBTTagCompound();
@@ -122,12 +127,22 @@ public class InventoryBasic
 
 	@Override
 	public List<ItemStackHandler> getItemHandlers() {
-		return itemPieces.stream().map(p -> p.getHandler()).collect(Collectors.toList());
+		return itemPieces.values().stream().map(p -> p.getHandler()).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<FluidTankSmart> getFluidHandlers() {
-		return fluidPieces.stream().map(p -> p.getHandler()).collect(Collectors.toList());
+		return fluidPieces.values().stream().map(p -> p.getHandler()).collect(Collectors.toList());
+	}
+
+	// Allows direct interaction with a specific, known, handler of that machine,
+	// without having to rely on guessing their positions in an array
+	public InventoryPieceHandler<? extends ItemStackHandler> getItemPiece(String name) {
+		return this.itemPieces.get(name);
+	}
+
+	public InventoryPieceHandler<? extends FluidTankSmart> getFluidPiece(String name) {
+		return this.fluidPieces.get(name);
 	}
 
 }

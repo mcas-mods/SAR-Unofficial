@@ -21,9 +21,9 @@ public class MultiblockBoilerRenderer extends TileEntitySpecialRenderer<TileEnti
 	public static int[] calcLiquidHeights(List<FluidStack> liquids, int capacity, int height, int min) {
 		int fluidHeights[] = new int[liquids.size()];
 
-		if (liquids.size() > 0) {
+		if(liquids.size() > 0) {
 
-			for (int i = 0; i < liquids.size(); i++) {
+			for(int i = 0; i < liquids.size(); i++) {
 				FluidStack liquid = liquids.get(i);
 
 				float h = (float) liquid.amount / (float) capacity;
@@ -37,24 +37,25 @@ public class MultiblockBoilerRenderer extends TileEntitySpecialRenderer<TileEnti
 				sum = 0;
 				int biggest = -1;
 				int m = 0;
-				for (int i = 0; i < fluidHeights.length; i++) {
+				for(int i = 0; i < fluidHeights.length; i++) {
 					sum += fluidHeights[i];
-					if (fluidHeights[i] > biggest) {
+					if(fluidHeights[i] > biggest) {
 						biggest = fluidHeights[i];
 						m = i;
 					}
 				}
 
 				// we can't get a result without going negative
-				if (fluidHeights[m] == 0) {
+				if(fluidHeights[m] == 0) {
 					break;
 				}
 
 				// remove a pixel from the biggest one
-				if (sum > height) {
+				if(sum > height) {
 					fluidHeights[m]--;
 				}
-			} while (sum > height);
+			}
+			while(sum > height);
 		}
 
 		return fluidHeights;
@@ -63,7 +64,7 @@ public class MultiblockBoilerRenderer extends TileEntitySpecialRenderer<TileEnti
 	@Override
 	public void render(TileEntityBoilerCasing tile, double x, double y, double z, float partialTicks, int destroyStage,
 			float alpha) {
-		if (tile.isConnected() && tile.getMultiblockController().isAssembled()
+		if(tile.isConnected() && tile.getMultiblockController().isAssembled()
 				&& tile.getMultiblockController().hasWindow && tile.isMultiblockSaveDelegate()) {
 			ControllerBoiler boiler = tile.getMultiblockController();
 			double x1 = boiler.minimumInteriorPos.getX() - tile.getPos().getX();
@@ -74,17 +75,17 @@ public class MultiblockBoilerRenderer extends TileEntitySpecialRenderer<TileEnti
 			double z2 = boiler.maximumInteriorPos.getZ() - tile.getPos().getZ();
 
 			ArrayList<FluidStack> fluids = Lists.newArrayList();
-			FluidTank waterTank = boiler.inventory.getOutputFluidHandler();
+			FluidTank waterTank = boiler.getInventory().getFluidPiece("waterTank").getHandler();
 			FluidStack water = waterTank.getFluid();
 
-			if (water != null) {
+			if(water != null) {
 				fluids.add(water);
 			}
 
-			FluidTank steamTank = boiler.inventory.getSteamTank();
+			FluidTank steamTank = boiler.getInventory().steamPiece.getHandler();
 			FluidStack steam = steamTank.getFluid();
 
-			if (steam != null) {
+			if(steam != null) {
 				fluids.add(steam);
 			}
 
@@ -98,13 +99,13 @@ public class MultiblockBoilerRenderer extends TileEntitySpecialRenderer<TileEnti
 
 			double curY = RenderingUtils.FLUID_OFFSET;
 			// rendering time
-			if (water != null) {
+			if(water != null) {
 				double h = heights[0] / 1000d;
 				RenderingUtils.renderStackedFluidCuboid(fluids.get(0), x, y, z, boiler.minimumInteriorPos, minPos,
 						maxPos, curY, curY + h, RenderingUtils.FLUID_OFFSET);
 				curY += h;
 			}
-			if (steam != null) {
+			if(steam != null) {
 				RenderingUtils.renderStackedFluidCuboid(steam, x, y, z, boiler.minimumInteriorPos, minPos, maxPos, curY,
 						yd - RenderingUtils.FLUID_OFFSET, RenderingUtils.FLUID_OFFSET);
 			}

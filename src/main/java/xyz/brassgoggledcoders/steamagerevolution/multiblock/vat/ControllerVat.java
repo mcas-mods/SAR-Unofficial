@@ -12,9 +12,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemHandlerHelper;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
+import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
 public class ControllerVat extends SARMultiblockInventory<InventoryRecipe> {
@@ -28,12 +29,12 @@ public class ControllerVat extends SARMultiblockInventory<InventoryRecipe> {
 	public ControllerVat(World world) {
 		super(world);
 		setInventory(new InventoryRecipe()
-				.addItemInput(new int[] { 88, 88, 88 }, new int[] { 11, 32, 53 },
-						new ItemStackHandlerExtractSpecific(3))
-				.addFluidInput(12, 9, new FluidTankSmart(inputCapacity, this))
-				.addFluidInput(37, 9, new FluidTankSmart(inputCapacity, this))
-				.addFluidInput(62, 9, new FluidTankSmart(inputCapacity, this))
-				.addFluidOutput(143, 9, new FluidTankSmart(outputCapacity, this)));
+				.addItemInput("input", new int[] { 88, 88, 88 }, new int[] { 11, 32, 53 },
+						new ItemStackHandlerSmart(3, this, IOType.INPUT))
+				.addFluidInput("tank1", 12, 9, new FluidTankSmart(inputCapacity, this))
+				.addFluidInput("tank2", 37, 9, new FluidTankSmart(inputCapacity, this))
+				.addFluidInput("tank3", 62, 9, new FluidTankSmart(inputCapacity, this))
+				.addFluidOutput("outputTank", 143, 9, new FluidTankSmart(outputCapacity, this)));
 	}
 
 	@Override
@@ -41,15 +42,18 @@ public class ControllerVat extends SARMultiblockInventory<InventoryRecipe> {
 		for(Entity entity : WORLD.getEntitiesWithinAABB(Entity.class, bounds)) {
 			if(entity instanceof EntityItem) {
 				EntityItem item = (EntityItem) entity;
-				if(ItemHandlerHelper.insertItem(inventory.getItemHandlers().get(0), item.getItem(), true).isEmpty()) {
-					ItemHandlerHelper.insertItem(inventory.getItemHandlers().get(0), item.getItem(), false);
+				if(ItemHandlerHelper
+						.insertItem(this.getInventory().getItemPiece("input").getHandler(), item.getItem(), true)
+						.isEmpty()) {
+					ItemHandlerHelper.insertItem(this.getInventory().getItemPiece("input").getHandler(), item.getItem(),
+							false);
 					item.setDead();
 				}
 			}
 			// Simulate contact with fluid in vat when an entity falls in.
 			// TODO change bounds based on fluid fill level
 			FluidStack fluid = null;
-			for(FluidTankSmart tank : inventory.getFluidHandlers()) {
+			for(FluidTankSmart tank : this.getInventory().getFluidHandlers()) {
 				if(tank.getFluidAmount() > 0) {
 					fluid = tank.getFluid();
 					break;

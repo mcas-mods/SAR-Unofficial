@@ -27,7 +27,7 @@ public class EntityMinecartCarrier extends EntityMinecartInventory<InventoryBasi
 	public EntityMinecartCarrier(World world) {
 		super(world);
 		Pair<int[], int[]> posi = MiningUtils.getGUIPositionGrid(53, 31, 4, 2);
-		this.setInventory(new InventoryBasic().addItemPiece(posi, new HandlerForceStack(this, 8)));
+		this.setInventory(new InventoryBasic().addItemPiece("inventory", posi, new HandlerForceStack(this, 8)));
 	}
 
 	@Override

@@ -5,24 +5,25 @@ import org.apache.commons.lang3.tuple.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.invpieces.InventoryPieceProgressBar;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
 
-public class ControllerCrucible extends SARMultiblockInventory<InventoryBasic> {
+public class ControllerCrucible extends SARMultiblockInventory<InventoryRecipe> {
 
 	BlockPos minimumInteriorPos;
 	BlockPos maximumInteriorPos;
 
 	public ControllerCrucible(World world) {
 		super(world);
-		setInventory(new InventoryBasic(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 53, 34), null,
-				null, new InventoryPieceFluid(new MultiFluidHandler(Fluid.BUCKET_VOLUME, this, 1), 105, 11),
-				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this), 17, 11))
-						.setProgressBar(new InventoryPieceProgressBar(76, 33)));
+		setInventory(new InventoryRecipe()
+				.addItemInput("itemInput", new int[] { 53 }, new int[] { 34 },
+						new ItemStackHandlerSmart(1, this, IOType.INPUT))
+				.addFluidOutput("output", 105, 11, new FluidTankSmart(Fluid.BUCKET_VOLUME, this))
+				.setSteamTank(17, 11, Fluid.BUCKET_VOLUME, this).setProgressBar(new InventoryPieceProgressBar(76, 33)));
 	}
 
 	// FIXME Caching
@@ -35,15 +36,17 @@ public class ControllerCrucible extends SARMultiblockInventory<InventoryBasic> {
 
 		int blocksInside = 0;
 		// TODO Expensive for loop just to increment an integer
-		for (BlockPos pos : BlockPos.getAllInBoxMutable(minimumInteriorPos, maximumInteriorPos)) {
+		for(BlockPos pos : BlockPos.getAllInBoxMutable(minimumInteriorPos, maximumInteriorPos)) {
 			blocksInside++;
 		}
 		// Size internal tank accordingly
-		MultiFluidHandler newTank = new MultiFluidHandler(blocksInside * Fluid.BUCKET_VOLUME, this, 1);
-		if (inventory.getOutputFluidHandler().fluids != null) {
-			newTank.fluids.addAll(inventory.getOutputFluidHandler().fluids);
-		}
-		inventory.setFluidOutput(newTank);
+		// TODO
+		// MultiFluidHandler newTank = new MultiFluidHandler(blocksInside *
+		// Fluid.BUCKET_VOLUME, this, 1);
+		// if(inventory.getOutputFluidHandler().fluids != null) {
+		// newTank.fluids.addAll(inventory.getOutputFluidHandler().fluids);
+		// }
+		// inventory.setFluidOutput(newTank);
 		super.onMachineAssembled();
 	}
 

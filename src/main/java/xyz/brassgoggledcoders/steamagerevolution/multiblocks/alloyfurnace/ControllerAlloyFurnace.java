@@ -20,9 +20,9 @@ public class ControllerAlloyFurnace extends SARMultiblockInventory<InventoryReci
 
 	public ControllerAlloyFurnace(World world) {
 		super(world);
-		setInventory(new InventoryRecipe().addFluidInput(22, 11, new FluidTankSmart(inputCapacity, this))
-				.addFluidInput(78, 11, new FluidTankSmart(inputCapacity, this))
-				.addFluidOutput(134, 17, new FluidTankSmart(outputCapacity, this)));
+		setInventory(new InventoryRecipe().addFluidInput("one", 22, 11, new FluidTankSmart(inputCapacity, this))
+				.addFluidInput("two", 78, 11, new FluidTankSmart(inputCapacity, this))
+				.addFluidOutput("output", 134, 17, new FluidTankSmart(outputCapacity, this)));
 	}
 
 	@Override

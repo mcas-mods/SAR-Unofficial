@@ -42,8 +42,9 @@ public class ControllerBoiler extends SARMultiblockInventory<InventoryRecipe> {
 		attachedValves = new HashSet<BlockPos>();
 		/* TODO: having water tank as output is...hacky */
 		this.setInventory(new InventoryRecipe().setFuelHandler(81, 32, new ItemStackHandlerFuel(1, this, IOType.POWER))
-				.addFluidInput(0, 0, new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "water", this, null))
-				.addFluidInput(50, 9, new FluidTankSmart(Fluid.BUCKET_VOLUME * 16, this))
+				.addFluidInput("waterTank", 0, 0,
+						new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "water", this, null))
+				.addFluidInput("liquidFuel", 50, 9, new FluidTankSmart(Fluid.BUCKET_VOLUME * 16, this))
 				.setSteamTank(142, 9, Fluid.BUCKET_VOLUME * 4, this));
 	}
 
