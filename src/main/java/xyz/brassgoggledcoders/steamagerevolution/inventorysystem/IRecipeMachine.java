@@ -4,6 +4,7 @@ import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
 
 //Interface implemented by machines that hold an inventory, an instance of IMachineInventory
 public interface IRecipeMachine<I extends InventoryRecipe> extends IHasInventory<I> {
+	// TODO Move these to the inventory itself?
 	public SARMachineRecipe getCurrentRecipe();
 
 	public void setCurrentRecipe(SARMachineRecipe recipe);

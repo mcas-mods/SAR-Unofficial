@@ -1,38 +1,33 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui;
 
 import com.teamacronymcoders.base.containers.ContainerBase;
-import com.teamacronymcoders.base.util.GuiHelper;
 
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPiece;
 
 @SideOnly(Side.CLIENT)
 public class GuiInventory extends GuiContainer {
-	protected final IHasInventory holder;
-	protected ResourceLocation guiTexture;
+	protected final IHasInventory<? extends InventoryBasic> holder;
+	public ResourceLocation guiTexture;
 
-	public GuiInventory(EntityPlayer player, IHasInventory holder) {
+	public GuiInventory(EntityPlayer player, IHasInventory<? extends InventoryBasic> holder) {
 		this(player, holder, new ContainerInventory(player, holder), "");
 	}
 
-	public GuiInventory(EntityPlayer player, IHasInventory holder, ContainerBase containerInstance) {
+	public GuiInventory(EntityPlayer player, IHasInventory<? extends InventoryBasic> holder,
+			ContainerBase containerInstance) {
 		this(player, holder, containerInstance, "");
 	}
 
-	public GuiInventory(EntityPlayer player, IHasInventory holder, ContainerBase containerInstance,
-			String textureOverride) {
+	public GuiInventory(EntityPlayer player, IHasInventory<? extends InventoryBasic> holder,
+			ContainerBase containerInstance, String textureOverride) {
 		super(containerInstance);
 		String name = textureOverride;
 		if(textureOverride.isEmpty()) {
@@ -42,35 +37,13 @@ public class GuiInventory extends GuiContainer {
 		this.holder = holder;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
-		for(InventoryPieceHandler<? extends FluidTankSmart> fPiece : holder.getInventory().fluidPieces.values()) {
-			if(isPointInRegion(fPiece.getX(0), fPiece.getY(0), 20, 55, mouseX, mouseY)) {
-				this.drawHoveringText(com.teamacronymcoders.base.util.TextUtils
-						.representTankContents(fPiece.getHandler()).getFormattedText(), mouseX, mouseY);
-			}
-		}
-		InventoryPieceProgressBar progressBar = holder.getInventory().progressBar;
-		if(progressBar != null) {
-			if(isPointInRegion(progressBar.getX(0), progressBar.getY(0), 24, 16, mouseX, mouseY)) {
-				if(holder.getCurrentMaxTicks() == 0) {
-					this.drawHoveringText(TextFormatting.RED.toString() + "No recipe", mouseX, mouseY); // TODO
-					// Localization
-				}
-				else if(GuiScreen.isShiftKeyDown()) {
-					this.drawHoveringText(holder.getCurrentProgress() + "/" + holder.getCurrentMaxTicks() + " ticks",
-							mouseX, mouseY);
-				}
-				else {
-					this.drawHoveringText(
-							holder.getCurrentProgress() / 20 + "/" + holder.getCurrentMaxTicks() / 20 + " seconds",
-							mouseX, mouseY);
-				}
-			}
+		for(InventoryPiece piece : holder.getInventory().getInventoryPieces()) {
+			piece.drawScreenCallback(this, mouseX, mouseY, partialTicks);
 		}
 	}
 
@@ -81,33 +54,15 @@ public class GuiInventory extends GuiContainer {
 		int y = (height - ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
-		for(InventoryPieceHandler<? extends FluidTankSmart> fPiece : holder.getInventory().fluidPieces.values()) {
-			addTank(fPiece);
-		}
-
-		if(holder.getInventory().progressBar != null && holder.getCurrentMaxTicks() > 0) {
-			{
-				mc.renderEngine.bindTexture(guiTexture);
-				int progress = holder.getCurrentProgress();// TODO this needs packet synced
-				int total = holder.getCurrentMaxTicks();
-				int progressScaled = progress != 0 && total != 0 ? progress * 24 / total : 0;
-				this.drawTexturedModalRect(guiLeft + holder.getInventory().progressBar.getX(0),
-						guiTop + holder.getInventory().progressBar.getY(0), 176, 83, progressScaled + 1, 16);
-			}
+		for(InventoryPiece piece : holder.getInventory().getInventoryPieces()) {
+			piece.backgroundLayerCallback(this, partialTicks, mouseX, mouseY);
 		}
 	}
 
-	private void addTank(InventoryPieceHandler<? extends FluidTankSmart> piece) {
-		FluidTank tank = piece.getHandler();
-		draw(tank.getFluid(), tank.getCapacity(), piece.getX(0), piece.getY(0));
-	}
-
-	private void draw(FluidStack stack, int capacity, int xPos, int yPos) {
-		if(stack != null && stack.getFluid() != null && stack.amount > 0) {
-			GuiHelper.renderGuiTank(stack, capacity, stack.amount, guiLeft + xPos, guiTop + yPos, 20, 60);
-			mc.renderEngine.bindTexture(guiTexture);
-			this.drawTexturedModalRect(guiLeft + xPos, guiTop + yPos + 6, 176, 14, 20, 49);
-		}
+	// Elevate to public for use in callbacks
+	@Override
+	public boolean isPointInRegion(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY) {
+		return super.isPointInRegion(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
 	}
 
 }

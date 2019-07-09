@@ -8,7 +8,8 @@ import net.minecraftforge.fluids.capability.*;
 /*
  * A fluid handler that holds multiple tanks in one, like an item handler has multiple slots
  */
-@Deprecated // Currently cannot be used in inv system
+@Deprecated // Currently cannot be used in inv system. Make it purely wrapper based - a way
+			// to present multiple tanks in one IO
 public class FluidHandlerMulti implements IFluidHandler, INBTSerializable<NBTTagCompound> {
 
 	FluidTankSmart[] tanks;

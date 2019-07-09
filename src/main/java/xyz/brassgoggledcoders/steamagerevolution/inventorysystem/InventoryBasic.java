@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -11,14 +12,13 @@ import com.google.common.collect.Maps;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.*;
 
 //TODO add validation to throw errors if duplicate or empty names are used
 @SuppressWarnings("rawtypes")
 public class InventoryBasic implements IMachineInventory, INBTSerializable<NBTTagCompound> {
 
-	final IHasInventory parent;
+	public final IHasInventory parent;
 	// TODO Is there a better way to do IDs than strings?
 	public HashMap<String, InventoryPieceHandler<? extends ItemStackHandler>> itemPieces = Maps.newHashMap();
 	// TODO Readd support for FluidHandlerMulti?
@@ -104,6 +104,11 @@ public class InventoryBasic implements IMachineInventory, INBTSerializable<NBTTa
 
 	public void onContentsChanged(Object handler) {
 		this.parent.markDirty();
+	}
+
+	public List<InventoryPiece> getInventoryPieces() {
+		return Stream.of(itemPieces.values(), fluidPieces.values()).flatMap(x -> x.stream())
+				.collect(Collectors.toList());
 	}
 
 }
