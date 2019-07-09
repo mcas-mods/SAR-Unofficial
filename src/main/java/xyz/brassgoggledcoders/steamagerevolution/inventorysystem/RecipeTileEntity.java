@@ -22,7 +22,7 @@ import xyz.brassgoggledcoders.steamagerevolution.recipes.RecipeMachineHelper;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
 
 public abstract class RecipeTileEntity extends TileEntityBase
-		implements ITickable, ISmartStackCallback, IHasGui, IRecipeMachine<InventoryRecipe> {
+		implements ITickable, IHasGui, IRecipeMachine<InventoryRecipe> {
 
 	public int currentTicks = 0;
 	public InventoryRecipe inventory;
@@ -113,11 +113,6 @@ public abstract class RecipeTileEntity extends TileEntityBase
 	protected boolean canRun() {
 		return RecipeMachineHelper.canRun(world, pos, this, getName().toLowerCase()/* .replace(' ', '_')TODO */,
 				currentRecipe, inventory);
-	}
-
-	@Override
-	public void onContentsChanged(IOType type, int slot, IHasInventory parent) {
-		// TODO
 	}
 
 	@Override

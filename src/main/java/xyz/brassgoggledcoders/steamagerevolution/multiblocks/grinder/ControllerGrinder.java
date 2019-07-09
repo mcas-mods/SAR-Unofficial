@@ -2,7 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder;
 
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.SARMultiblockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceProgressBar;
 
 public class ControllerGrinder extends SARMultiblockRecipe<InventoryRecipe> {

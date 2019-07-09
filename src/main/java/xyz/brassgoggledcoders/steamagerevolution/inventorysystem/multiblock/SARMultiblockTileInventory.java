@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock;
 
 import javax.annotation.Nonnull;
 

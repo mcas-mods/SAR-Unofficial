@@ -10,7 +10,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.MultiblockInventoryWrapper;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockInventoryWrapper;
 
 public class TileEntityBoilerSolidFirebox extends TileEntityBoilerPart implements IOnSlotChanged {
 

@@ -8,7 +8,7 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.MultiblockTankWrapper;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockTankWrapper;
 
 public class TileEntityBoilerLiquidFirebox extends TileEntityBoilerPart {
 

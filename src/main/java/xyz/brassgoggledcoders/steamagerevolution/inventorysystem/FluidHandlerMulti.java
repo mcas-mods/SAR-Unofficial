@@ -4,16 +4,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.*;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceHandler;
 
 /*
  * A fluid handler that holds multiple tanks in one, like an item handler has multiple slots
  */
+@Deprecated // Currently cannot be used in inv system
 public class FluidHandlerMulti implements IFluidHandler, INBTSerializable<NBTTagCompound> {
 
 	FluidTankSmart[] tanks;
 
-	public FluidHandlerMulti(InventoryPieceHandler<FluidTankSmart> parent, IOType type, int... tankCapacities) {
+	public FluidHandlerMulti(InventoryBasic parent, IOType type, int... tankCapacities) {
 		tanks = new FluidTankSmart[tankCapacities.length];
 		for(int i = 0; i < tankCapacities.length; i++) {
 			tanks[i] = new FluidTankSmart(tankCapacities[i], parent);

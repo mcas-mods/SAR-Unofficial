@@ -2,7 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller.tileenti
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMultiblockTileInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.SARMultiblockTileInventory;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller.ControllerDistiller;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
 

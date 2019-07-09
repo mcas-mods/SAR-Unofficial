@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock;
 
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandler;

@@ -14,7 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.MultiblockInventoryWrapper;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockInventoryWrapper;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerSimpleSlots;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiSimpleSlots;
 

@@ -8,7 +8,7 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.MultiblockInventoryWrapper;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockInventoryWrapper;
 
 public class TileEntityFurnaceItemInput extends TileEntityFurnacePart {
 

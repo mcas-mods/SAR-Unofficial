@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
