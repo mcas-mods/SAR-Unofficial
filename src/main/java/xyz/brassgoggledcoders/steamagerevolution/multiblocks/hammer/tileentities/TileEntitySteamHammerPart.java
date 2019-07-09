@@ -2,9 +2,9 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.tileentitie
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMultiblockTileInventory;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.ControllerSteamHammer;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileInventory;
 
 public class TileEntitySteamHammerPart extends SARMultiblockTileInventory<ControllerSteamHammer> {
 

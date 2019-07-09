@@ -11,7 +11,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockInventoryWrapper;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.MultiblockInventoryWrapper;
 //TODO Do from the controlller?
 public class TileEntityGrinderOutput extends TileEntityGrinderPart implements ITickable {
 

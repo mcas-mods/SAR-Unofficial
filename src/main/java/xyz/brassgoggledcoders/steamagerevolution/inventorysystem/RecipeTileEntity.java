@@ -20,7 +20,6 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.ContainerIn
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.RecipeMachineHelper;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ISmartStackCallback;
 
 public abstract class RecipeTileEntity extends TileEntityBase
 		implements ITickable, ISmartStackCallback, IHasGui, IRecipeMachine<InventoryRecipe> {

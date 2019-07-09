@@ -2,9 +2,9 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.furnace.tileentiti
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMultiblockTileInventory;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.furnace.ControllerSteamFurnace;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileInventory;
 
 public abstract class TileEntityFurnacePart extends SARMultiblockTileInventory<ControllerSteamFurnace> {
 

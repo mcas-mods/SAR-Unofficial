@@ -7,9 +7,9 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceTypedHandler;
 import xyz.brassgoggledcoders.steamagerevolution.multiblock.vat.tileentities.TileEntityVatFrame;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSmart;
 
 public class MultiblockVatTankRenderer extends TileEntitySpecialRenderer<TileEntityVatFrame> {
 

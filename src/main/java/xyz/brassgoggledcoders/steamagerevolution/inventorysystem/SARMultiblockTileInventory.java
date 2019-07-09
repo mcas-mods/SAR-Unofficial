@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
 import javax.annotation.Nonnull;
 
@@ -7,7 +7,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileBase;
 
 public abstract class SARMultiblockTileInventory<T extends SARMultiblockRecipe> extends SARMultiblockTileBase<T> {
 	@Override

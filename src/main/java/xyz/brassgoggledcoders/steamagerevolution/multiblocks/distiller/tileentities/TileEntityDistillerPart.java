@@ -2,9 +2,9 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller.tileenti
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMultiblockTileInventory;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller.ControllerDistiller;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileInventory;
 
 public abstract class TileEntityDistillerPart extends SARMultiblockTileInventory<ControllerDistiller> {
 

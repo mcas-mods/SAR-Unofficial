@@ -1,11 +1,10 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.fluids;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.*;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceHandler;
 
 /*
  * A fluid handler that holds multiple tanks in one, like an item handler has multiple slots
@@ -14,10 +13,10 @@ public class FluidHandlerMulti implements IFluidHandler, INBTSerializable<NBTTag
 
 	FluidTankSmart[] tanks;
 
-	public FluidHandlerMulti(IHasInventory parent, IOType type, int... tankCapacities) {
+	public FluidHandlerMulti(InventoryPieceHandler<FluidTankSmart> parent, IOType type, int... tankCapacities) {
 		tanks = new FluidTankSmart[tankCapacities.length];
 		for(int i = 0; i < tankCapacities.length; i++) {
-			tanks[i] = new FluidTankSmart(tankCapacities[i], parent, type);
+			tanks[i] = new FluidTankSmart(tankCapacities[i], parent);
 		}
 	}
 

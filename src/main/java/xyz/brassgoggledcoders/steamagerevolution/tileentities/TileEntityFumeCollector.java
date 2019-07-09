@@ -13,7 +13,6 @@ import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.api.IFumeProducer;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.FumeCollectorRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidHandlerMulti;
 
 //TODO add ability output to item placed in gui, and to item right clicked on block
 public class TileEntityFumeCollector extends RecipeTileEntity {

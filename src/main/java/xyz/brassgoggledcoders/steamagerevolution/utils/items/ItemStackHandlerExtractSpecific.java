@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreDictionary;
 
-@Deprecated // Got to be a better way!
+@Deprecated // FIXME Got to be a better way!
 public class ItemStackHandlerExtractSpecific extends ItemStackHandler {
 
 	public ItemStackHandlerExtractSpecific(int i) {

@@ -1,9 +1,8 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMultiblockInventory;
 
 public class MultiblockTankWrapper implements IFluidTank, IFluidHandler {
 

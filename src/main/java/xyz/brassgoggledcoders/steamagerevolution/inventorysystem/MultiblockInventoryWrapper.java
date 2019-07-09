@@ -1,9 +1,8 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.SARMultiblockRecipe;
 
 public class MultiblockInventoryWrapper implements IItemHandler, IItemHandlerModifiable {
 

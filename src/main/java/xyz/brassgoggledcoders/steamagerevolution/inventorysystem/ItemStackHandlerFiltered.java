@@ -1,16 +1,15 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.items;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
 import javax.annotation.Nonnull;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceHandler;
 
 public abstract class ItemStackHandlerFiltered extends ItemStackHandlerSmart {
 
-	public ItemStackHandlerFiltered(int size, IHasInventory controller, IOType type) {
-		super(size, controller, type);
+	public ItemStackHandlerFiltered(int size, InventoryPieceHandler<ItemStackHandlerSmart> parent) {
+		super(size, parent);
 	}
 
 	@Override
@@ -24,8 +23,8 @@ public abstract class ItemStackHandlerFiltered extends ItemStackHandlerSmart {
 	protected abstract boolean canInsertItem(int slot, ItemStack stack);
 
 	public static class ItemStackHandlerFuel extends ItemStackHandlerFiltered {
-		public ItemStackHandlerFuel(int size, IHasInventory controller, IOType type) {
-			super(size, controller, type);
+		public ItemStackHandlerFuel(int size, InventoryPieceHandler<ItemStackHandlerSmart> parent) {
+			super(size, parent);
 		}
 
 		@Override
