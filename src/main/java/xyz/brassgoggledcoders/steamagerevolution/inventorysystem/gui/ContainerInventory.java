@@ -4,19 +4,18 @@ import com.teamacronymcoders.base.containers.ContainerBase;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 
 public class ContainerInventory extends ContainerBase {
 	public ContainerInventory(EntityPlayer player, IHasInventory<? extends InventoryBasic> inventoryHolder) {
 		if(!inventoryHolder.getInventory().getItemHandlers().isEmpty()) {
-			for(InventoryPieceHandler<? extends ItemStackHandler> iPiece : inventoryHolder.getInventory().itemPieces
-					.values()) {
-				for(int i = 0; i < iPiece.getHandler().getSlots(); i++) {
-					addSlotToContainer(new SlotItemHandler(iPiece.getHandler(), i, iPiece.getX(i), iPiece.getY(i)));
+			for(InventoryPieceItemHandler iPiece : inventoryHolder.getInventory().itemPieces.values()) {
+				for(int slotIndex = 0; slotIndex < iPiece.getHandler().getSlots(); slotIndex++) {
+					addSlotToContainer(new SlotItemHandler(iPiece.getHandler(), slotIndex,
+							iPiece.getSlotPositionX(slotIndex), iPiece.getSlotPositionY(slotIndex)));
 				}
 			}
 		}

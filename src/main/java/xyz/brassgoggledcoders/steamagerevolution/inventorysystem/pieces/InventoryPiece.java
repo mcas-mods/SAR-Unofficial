@@ -6,15 +6,13 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventor
 //TODO Move the power to define GUI behaviour into InventoryPiece (callbacks from GUI methods)
 public abstract class InventoryPiece {
 	final String name;
-	// TODO Make these a single integer by default, and have
-	// InventoryPieceItemHandler override that
-	final int xPos[];
-	final int yPos[];
+	final int xPos;
+	final int yPos;
 	// TODO Currently unused
 	public final InventoryBasic parent;
 
 	// Name MUST be unique within the inventory
-	public InventoryPiece(String name, InventoryBasic parent, int[] xPos, int[] yPos) {
+	public InventoryPiece(String name, InventoryBasic parent, int xPos, int yPos) {
 		this.name = name;
 		this.parent = parent;
 		// These define the piece's positions in GuiInventory. Optional if you have no
@@ -30,12 +28,12 @@ public abstract class InventoryPiece {
 
 	// GUI Related methods below this line
 
-	public int getX(int i) {
-		return xPos[i];
+	public int getX() {
+		return xPos;
 	}
 
-	public int getY(int i) {
-		return yPos[i];
+	public int getY() {
+		return yPos;
 	}
 
 	public void drawScreenCallback(GuiInventory gui, int mouseX, int mouseY, float partialTicks) {

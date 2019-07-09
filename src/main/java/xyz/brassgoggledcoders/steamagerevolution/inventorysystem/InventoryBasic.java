@@ -20,30 +20,30 @@ public class InventoryBasic implements IMachineInventory, INBTSerializable<NBTTa
 
 	public final IHasInventory parent;
 	// TODO Is there a better way to do IDs than strings?
-	public HashMap<String, InventoryPieceHandler<? extends ItemStackHandler>> itemPieces = Maps.newHashMap();
+	public HashMap<String, InventoryPieceItemHandler> itemPieces = Maps.newHashMap();
 	// TODO Readd support for FluidHandlerMulti?
-	public HashMap<String, InventoryPieceHandler<? extends FluidTankSmart>> fluidPieces = Maps.newHashMap();
+	public HashMap<String, InventoryPieceFluidTank> fluidPieces = Maps.newHashMap();
 	public InventoryPieceProgressBar progressBar;
 
 	public InventoryBasic(IHasInventory parent) {
 		this.parent = parent;
 	}
 
-	public InventoryBasic addItemPiece(String name, Pair<int[], int[]> xNy, ItemStackHandler handler) {
+	public InventoryBasic addItemPiece(String name, Pair<int[], int[]> xNy, ItemStackHandlerSmart handler) {
 		this.addItemPiece(name, xNy.getLeft(), xNy.getRight(), handler);
 		return this;
 	}
 
-	public InventoryBasic addItemPiece(String name, int[] xPos, int[] yPos, ItemStackHandler handler) {
+	public InventoryBasic addItemPiece(String name, int[] xPos, int[] yPos, ItemStackHandlerSmart handler) {
 		if(xPos.length < handler.getSlots() || yPos.length < handler.getSlots()) {
 			throw new RuntimeException("Your inventory position array sizes do not match the number of slots");
 		}
-		itemPieces.put(name, new InventoryPieceHandler<ItemStackHandler>(name, this, handler, xPos, yPos));
+		itemPieces.put(name, new InventoryPieceItemHandler(name, this, null, handler, xPos, yPos));
 		return this;
 	}
 
 	public InventoryBasic addFluidPiece(String name, int xPos, int yPos, FluidTankSmart handler) {
-		fluidPieces.put(name, new InventoryPieceHandler<FluidTankSmart>(name, this, handler, xPos, yPos));
+		fluidPieces.put(name, new InventoryPieceFluidTank(name, this, handler, xPos, yPos));
 		return this;
 	}
 
@@ -93,12 +93,12 @@ public class InventoryBasic implements IMachineInventory, INBTSerializable<NBTTa
 
 	// Allows direct interaction with a specific, known, handler of that machine,
 	// without having to rely on guessing their positions in an array
-	public InventoryPieceHandler<? extends ItemStackHandler> getItemPiece(String name) {
+	public InventoryPieceItemHandler getItemPiece(String name) {
 		return this.itemPieces.get(name);
 	}
 
 	// As above
-	public InventoryPieceHandler<? extends FluidTankSmart> getFluidPiece(String name) {
+	public InventoryPieceFluidTank getFluidPiece(String name) {
 		return this.fluidPieces.get(name);
 	}
 
@@ -106,6 +106,7 @@ public class InventoryBasic implements IMachineInventory, INBTSerializable<NBTTa
 		this.parent.markDirty();
 	}
 
+	//Mainly for enabling callbacks. Probably should be cached. 
 	public List<InventoryPiece> getInventoryPieces() {
 		return Stream.of(itemPieces.values(), fluidPieces.values()).flatMap(x -> x.stream())
 				.collect(Collectors.toList());

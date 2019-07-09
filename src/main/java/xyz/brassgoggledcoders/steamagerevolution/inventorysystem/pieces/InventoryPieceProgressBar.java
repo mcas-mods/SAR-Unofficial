@@ -8,12 +8,12 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventor
 
 public class InventoryPieceProgressBar extends InventoryPiece {
 	public InventoryPieceProgressBar(InventoryRecipe parent, int xPos, int yPos) {
-		super("progress", parent, new int[] { xPos }, new int[] { yPos });
+		super("progress", parent, xPos, yPos);
 	}
 
 	@Override
 	public void drawScreenCallback(GuiInventory gui, int mouseX, int mouseY, float partialTicks) {
-		if(gui.isPointInRegion(this.getX(0), this.getY(0), 24, 16, mouseX, mouseY)) {
+		if(gui.isPointInRegion(this.getX(), this.getY(), 24, 16, mouseX, mouseY)) {
 
 			if(this.get().getCurrentMaxTicks() == 0) {
 				gui.drawHoveringText(TextFormatting.RED.toString() + "No recipe", mouseX, mouseY); // TODO
@@ -37,11 +37,10 @@ public class InventoryPieceProgressBar extends InventoryPiece {
 		int progress = this.get().getCurrentProgress();// TODO this needs packet synced
 		int total = this.get().getCurrentMaxTicks();
 		int progressScaled = progress != 0 && total != 0 ? progress * 24 / total : 0;
-		gui.drawTexturedModalRect(gui.guiLeft + this.getX(0), gui.guiTop + this.getY(0), 176, 83, progressScaled + 1,
-				16);
+		gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY(), 176, 83, progressScaled + 1, 16);
 	}
 
-	// TODO Dodgy casts
+	// FIXME Dodgy casts
 	@Deprecated
 	private IRecipeMachine<InventoryRecipe> get() {
 		return((IRecipeMachine<InventoryRecipe>) parent.parent);

@@ -8,7 +8,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSmart;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceTypedHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceHandler;
 import xyz.brassgoggledcoders.steamagerevolution.multiblock.vat.tileentities.TileEntityVatFrame;
 
 public class MultiblockVatTankRenderer extends TileEntitySpecialRenderer<TileEntityVatFrame> {
@@ -29,7 +29,7 @@ public class MultiblockVatTankRenderer extends TileEntitySpecialRenderer<TileEnt
 				fluid = tank.getFluid();
 			}
 			else {
-				for(InventoryPieceTypedHandler<FluidTankSmart> piece : ctrlr.getInventory().fluidInputPieces) {
+				for(InventoryPieceHandler<FluidTankSmart> piece : ctrlr.getInventory().fluidInputPieces) {
 					if(piece.getHandler().getFluid() != null) {
 						tank = piece.getHandler();
 						fluid = tank.getFluid();
