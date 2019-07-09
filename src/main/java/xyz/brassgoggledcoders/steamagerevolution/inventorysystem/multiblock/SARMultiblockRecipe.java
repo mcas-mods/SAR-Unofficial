@@ -134,4 +134,9 @@ public abstract class SARMultiblockRecipe<I extends InventoryRecipe> extends SAR
 	public void setCurrentTicks(int ticks) {
 		currentTicks = ticks;
 	}
+
+	@Override
+	public void markMachineDirty() {
+		this.markReferenceCoordDirty();
+	}
 }

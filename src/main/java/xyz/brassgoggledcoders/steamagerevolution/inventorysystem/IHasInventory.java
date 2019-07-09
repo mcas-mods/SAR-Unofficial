@@ -11,5 +11,5 @@ public interface IHasInventory<I extends InventoryBasic> extends IMachine {
 
 	public void setInventory(I inventory);
 
-	public void markDirty();
+	public void markMachineDirty();
 }

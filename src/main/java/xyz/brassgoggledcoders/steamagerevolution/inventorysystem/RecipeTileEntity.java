@@ -161,4 +161,9 @@ public abstract class RecipeTileEntity extends TileEntityBase
 	public BlockPos getMachinePos() {
 		return super.getPos();
 	}
+
+	@Override
+	public void markMachineDirty() {
+		this.markDirty();
+	}
 }

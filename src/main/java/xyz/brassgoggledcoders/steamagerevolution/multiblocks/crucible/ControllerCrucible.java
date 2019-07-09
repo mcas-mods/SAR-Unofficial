@@ -7,7 +7,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.SARMultiblockRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceProgressBar;
 
 public class ControllerCrucible extends SARMultiblockRecipe<InventoryRecipe> {
 
@@ -18,7 +17,7 @@ public class ControllerCrucible extends SARMultiblockRecipe<InventoryRecipe> {
 		super(world);
 		setInventory(new InventoryRecipe(this).addItemInput("itemInput", new int[] { 53 }, new int[] { 34 })
 				.addFluidOutput("output", 105, 11, Fluid.BUCKET_VOLUME).setSteamTank(17, 11, Fluid.BUCKET_VOLUME)
-				.setProgressBar(new InventoryPieceProgressBar(76, 33)));
+				.setProgressBar(76, 33));
 	}
 
 	// FIXME Caching

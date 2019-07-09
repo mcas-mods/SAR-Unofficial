@@ -46,7 +46,7 @@ public class HandlerForceStack extends ItemStackHandlerExtractSpecific {
 	@Override
 	public void onContentsChanged(int slot) {
 		if(this.holder instanceof IInventory) {
-			((IInventory) this.holder).markDirty();
+			((IInventory) this.holder).markMachineDirty();
 		}
 	}
 }

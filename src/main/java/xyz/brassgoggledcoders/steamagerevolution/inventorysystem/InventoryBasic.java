@@ -23,18 +23,17 @@ public class InventoryBasic implements IMachineInventory, INBTSerializable<NBTTa
 	public HashMap<String, InventoryPieceItemHandler> itemPieces = Maps.newHashMap();
 	// TODO Readd support for FluidHandlerMulti?
 	public HashMap<String, InventoryPieceFluidTank> fluidPieces = Maps.newHashMap();
-	public InventoryPieceProgressBar progressBar;
 
 	public InventoryBasic(IHasInventory parent) {
 		this.parent = parent;
 	}
 
-	public InventoryBasic addItemPiece(String name, Pair<int[], int[]> xNy, ItemStackHandlerSmart handler) {
+	public InventoryBasic addItemPiece(String name, Pair<int[], int[]> xNy, ItemStackHandler handler) {
 		this.addItemPiece(name, xNy.getLeft(), xNy.getRight(), handler);
 		return this;
 	}
 
-	public InventoryBasic addItemPiece(String name, int[] xPos, int[] yPos, ItemStackHandlerSmart handler) {
+	public InventoryBasic addItemPiece(String name, int[] xPos, int[] yPos, ItemStackHandler handler) {
 		if(xPos.length < handler.getSlots() || yPos.length < handler.getSlots()) {
 			throw new RuntimeException("Your inventory position array sizes do not match the number of slots");
 		}
@@ -44,11 +43,6 @@ public class InventoryBasic implements IMachineInventory, INBTSerializable<NBTTa
 
 	public InventoryBasic addFluidPiece(String name, int xPos, int yPos, FluidTankSmart handler) {
 		fluidPieces.put(name, new InventoryPieceFluidTank(name, this, handler, xPos, yPos));
-		return this;
-	}
-
-	public InventoryBasic setProgressBar(InventoryPieceProgressBar bar) {
-		progressBar = bar;
 		return this;
 	}
 
@@ -103,13 +97,12 @@ public class InventoryBasic implements IMachineInventory, INBTSerializable<NBTTa
 	}
 
 	public void onContentsChanged(Object handler) {
-		this.parent.markDirty();
+		this.parent.markMachineDirty();
 	}
 
-	//Mainly for enabling callbacks. Probably should be cached. 
+	// Mainly for enabling callbacks. Probably should be cached.
 	public List<InventoryPiece> getInventoryPieces() {
 		return Stream.of(itemPieces.values(), fluidPieces.values()).flatMap(x -> x.stream())
 				.collect(Collectors.toList());
 	}
-
 }

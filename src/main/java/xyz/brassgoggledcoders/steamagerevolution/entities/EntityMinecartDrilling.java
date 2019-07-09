@@ -118,4 +118,9 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryBas
 		this.getDataManager().set(MINING_PROGRESS, 0F);
 	}
 
+	@Override
+	public void markMachineDirty() {
+		this.markDirty();
+	}
+
 }

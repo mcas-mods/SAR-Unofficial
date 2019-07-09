@@ -16,6 +16,7 @@ public class InventoryRecipe extends InventoryBasic {
 	// TODO
 	public InventoryPieceFluidTank steamPiece;
 	public InventoryPieceItemHandler fuelHandlerPiece;
+	public InventoryPieceProgressBar progressBar;
 
 	public InventoryRecipe(IHasInventory<InventoryRecipe> parent) {
 		super(parent);
@@ -79,11 +80,8 @@ public class InventoryRecipe extends InventoryBasic {
 		return this;
 	}
 
-	// TODO
-	@Override
-	@Deprecated
-	public InventoryRecipe setProgressBar(InventoryPieceProgressBar bar) {
-		super.setProgressBar(bar);
+	public InventoryRecipe setProgressBar(int x, int y) {
+		this.progressBar = new InventoryPieceProgressBar(this, x, y);
 		return this;
 	}
 

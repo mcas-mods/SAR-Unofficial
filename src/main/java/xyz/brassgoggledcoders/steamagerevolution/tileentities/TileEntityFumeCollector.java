@@ -44,7 +44,7 @@ public class TileEntityFumeCollector extends RecipeTileEntity {
 						IFluidHandler tank = this.getInventory().getOutputFluidHandler();
 						if(tank.fill(fume, false) == fume.amount) {
 							tank.fill(fume, true);
-							this.markDirty();
+							this.markMachineDirty();
 							this.sendBlockUpdate();
 						}
 					}

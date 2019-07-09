@@ -28,7 +28,7 @@ public class TileEntityFluidIO extends RecipeTileEntity {
 					&& inventory.getInputFluidHandler().fill(itemFluid.drain(fluidTransferRate, false),
 							false) == fluidTransferRate) {
 				inventory.getInputFluidHandler().fill(itemFluid.drain(fluidTransferRate, true), true);
-				markDirty();
+				markMachineDirty();
 				sendBlockUpdate();
 			}
 		}
@@ -39,7 +39,7 @@ public class TileEntityFluidIO extends RecipeTileEntity {
 					&& itemFluid.fill(inventory.getInputFluidHandler().drain(fluidTransferRate, false),
 							false) == fluidTransferRate) {
 				itemFluid.fill(inventory.getInputFluidHandler().drain(fluidTransferRate, true), true);
-				markDirty();
+				markMachineDirty();
 				sendBlockUpdate();
 			}
 		}

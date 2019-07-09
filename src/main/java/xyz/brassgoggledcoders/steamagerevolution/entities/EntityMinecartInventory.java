@@ -20,7 +20,6 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
-import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
 
 public abstract class EntityMinecartInventory<I extends InventoryBasic> extends EntityMinecartBase
 		implements IHasGui, IHasInventory<I>, IInventory {
@@ -74,36 +73,6 @@ public abstract class EntityMinecartInventory<I extends InventoryBasic> extends 
 	}
 
 	@Override
-	public SARMachineRecipe getCurrentRecipe() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setCurrentRecipe(SARMachineRecipe recipe) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int getCurrentProgress() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getCurrentMaxTicks() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setCurrentTicks(int ticks) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public I getInventory() {
 		return inventory;
 	}
@@ -132,7 +101,7 @@ public abstract class EntityMinecartInventory<I extends InventoryBasic> extends 
 
 	@Override
 	public ItemStack decrStackSize(int index, int count) {
-		this.markDirty();
+		this.markMachineDirty();
 		return this.getInventory().getItemHandlers().get(0).extractItem(index, count, false);
 	}
 
@@ -140,13 +109,13 @@ public abstract class EntityMinecartInventory<I extends InventoryBasic> extends 
 	public ItemStack removeStackFromSlot(int index) {
 		ItemStack stack = this.getInventory().getItemHandlers().get(0).getStackInSlot(index);
 		this.getInventory().getItemHandlers().get(0).setStackInSlot(index, ItemStack.EMPTY);
-		this.markDirty();
+		this.markMachineDirty();
 		return stack;
 	}
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
-		this.markDirty();
+		this.markMachineDirty();
 		this.getInventory().getItemHandlers().get(0).setStackInSlot(index, stack);
 	}
 
@@ -194,5 +163,10 @@ public abstract class EntityMinecartInventory<I extends InventoryBasic> extends 
 
 	@Override
 	public void clear() {
+	}
+
+	@Override
+	public void markMachineDirty() {
+		this.markDirty();
 	}
 }
