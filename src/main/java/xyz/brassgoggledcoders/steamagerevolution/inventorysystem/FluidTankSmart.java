@@ -3,7 +3,6 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 import com.teamacronymcoders.base.multiblock.rectangular.RectangularMultiblockControllerBase;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.FluidTank;
 
@@ -16,9 +15,10 @@ public class FluidTankSmart extends FluidTank implements INBTSerializable<NBTTag
 	public FluidTankSmart(int capacity, InventoryBasic containingInventory) {
 		super(capacity);
 		this.containingInventory = containingInventory;
-		if(containingInventory.parent instanceof TileEntity) {
-			setTileEntity((TileEntity) containingInventory.parent);
-		}
+		// TODO
+		// if(containingInventory.parent instanceof TileEntity) {
+		// setTileEntity((TileEntity) containingInventory.parent);
+		// }
 	}
 
 	@Override

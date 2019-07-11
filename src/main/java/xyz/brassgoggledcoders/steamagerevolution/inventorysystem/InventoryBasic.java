@@ -9,7 +9,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.common.collect.Maps;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.*;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.*;
@@ -41,37 +41,34 @@ public class InventoryBasic implements IMachineInventory, INBTSerializable<NBTTa
 		return this;
 	}
 
-	public InventoryBasic addFluidPiece(String name, int xPos, int yPos, FluidTankSmart handler) {
-		fluidPieces.put(name, new InventoryPieceFluidTank(name, this, handler, xPos, yPos));
+	public InventoryBasic addFluidPiece(String name, int xPos, int yPos, int capacity) {
+		fluidPieces.put(name, new InventoryPieceFluidTank(name, this, new FluidTankSmart(capacity, this), xPos, yPos));
 		return this;
 	}
 
-	// TODO Save to NBT by name
 	@Override
 	public NBTTagCompound serializeNBT() {
 		NBTTagCompound tag = new NBTTagCompound();
 		if(!itemPieces.isEmpty()) {
-			tag.setInteger("itemPieces", itemPieces.size());
-			for(int i = 0; i < itemPieces.size(); i++) {
-				tag.setTag("itemHandler" + i, itemPieces.get(i).getHandler().serializeNBT());
-			}
+			NBTTagList list = new NBTTagList();
+			itemPieces.forEach((name, piece) -> list.appendTag(piece.serializeNBT()));
+			tag.setTag("itemPieces", list);
 		}
 		if(!fluidPieces.isEmpty()) {
-			tag.setInteger("fluidPieces", fluidPieces.size());
-			for(int i = 0; i < fluidPieces.size(); i++) {
-				tag.setTag("fluidHandler" + i, fluidPieces.get(i).getHandler().serializeNBT());
-			}
+			NBTTagList list = new NBTTagList();
+			fluidPieces.forEach((name, piece) -> list.appendTag(piece.serializeNBT()));
+			tag.setTag("fluidPieces", list);
 		}
 		return tag;
 	}
 
 	@Override
 	public void deserializeNBT(NBTTagCompound tag) {
-		for(int i = 0; i < tag.getInteger("itemPieces"); i++) {
-			itemPieces.get(i).getHandler().deserializeNBT(tag.getCompoundTag("itemHandler" + i));
+		for(NBTBase iTag : tag.getTagList("itemPieces", 10/* List of TagCompounds */)) {
+			itemPieces.get(((NBTTagCompound) iTag).getString("name")).deserializeNBT((NBTTagCompound) iTag);
 		}
-		for(int i = 0; i < tag.getInteger("fluidPieces"); i++) {
-			fluidPieces.get(i).getHandler().deserializeNBT(tag.getCompoundTag("fluidHandler" + i));
+		for(NBTBase fTag : tag.getTagList("fluidPieces", 10/* List of TagCompounds */)) {
+			fluidPieces.get(((NBTTagCompound) fTag).getString("name")).deserializeNBT((NBTTagCompound) fTag);
 		}
 	}
 

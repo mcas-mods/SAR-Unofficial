@@ -269,6 +269,7 @@ public class InventoryRecipe extends InventoryBasic {
 
 	private boolean tanksHaveFluid(IngredientFluidStack stack) {
 		return getTypedFluidHandlers(IOType.INPUT).stream().filter(Objects::nonNull)
+				.filter(tank -> tank.getFluidAmount() > 0)
 				.filter(tank -> tank.getFluid().containsFluid(stack.getFluid())).findAny().isPresent();
 	}
 

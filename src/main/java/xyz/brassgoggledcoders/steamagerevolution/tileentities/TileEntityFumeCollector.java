@@ -11,7 +11,6 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.api.IFumeProducer;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryTileEntity;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.FumeCollectorRecipe;
@@ -22,8 +21,7 @@ public class TileEntityFumeCollector extends InventoryTileEntity<InventoryBasic>
 
 	public TileEntityFumeCollector() {
 		super();
-		this.setInventory(new InventoryBasic(this).addFluidPiece("tank", 105, 11,
-				new FluidTankSmart(outputCapacity, this.getInventory())));
+		this.setInventory(new InventoryBasic(this).addFluidPiece("tank", 105, 11, outputCapacity));
 	}
 
 	@Override

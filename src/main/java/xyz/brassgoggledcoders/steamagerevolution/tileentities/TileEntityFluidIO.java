@@ -5,7 +5,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryTileEntity;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
@@ -16,9 +15,11 @@ public class TileEntityFluidIO extends InventoryTileEntity<InventoryBasic> {
 
 	public TileEntityFluidIO() {
 		super();
-		setInventory(new InventoryBasic(this).addItemPiece("items", new int[] { 25, 134 }, new int[] { 33, 33 },
-				new ItemStackHandlerExtractSpecific(2))
-				.addFluidPiece("tank", 78, 11, new FluidTankSmart(Fluid.BUCKET_VOLUME * 6, this.getInventory())));
+		setInventory(
+				new InventoryBasic(this)
+						.addItemPiece("items", new int[] { 25, 134 }, new int[] { 33, 33 },
+								new ItemStackHandlerExtractSpecific(2))
+						.addFluidPiece("tank", 78, 11, Fluid.BUCKET_VOLUME * 6));
 	}
 
 	@Override
