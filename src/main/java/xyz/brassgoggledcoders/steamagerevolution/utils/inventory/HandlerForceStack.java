@@ -8,29 +8,27 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 public class HandlerForceStack extends ItemStackHandlerExtractSpecific {
-	
-	final IHasInventory holder;
-	
-	public HandlerForceStack(IHasInventory holder, int slots) {
+
+	final IHasInventory<?> holder;
+
+	public HandlerForceStack(IHasInventory<?> holder, int slots) {
 		super(slots);
 		this.holder = holder;
 	}
 
 	@Override
-	protected int getStackLimit(int slot, @Nonnull ItemStack stack)
-    {
-		//TODO
+	protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
+		// TODO
 		if(stack.hasTagCompound() || stack.getItem().getMaxDamage(stack) > 0) {
 			return 1;
 		}
-        return getSlotLimit(slot);
-    }
-	
-	//TODO Bluuuuurgh
+		return getSlotLimit(slot);
+	}
+
+	// TODO Bluuuuurgh
 	@Override
-	public void setStackInSlot(int from, @Nonnull ItemStack stack)
-    {
-		//If this happens on both sides wierd shit happens 
+	public void setStackInSlot(int from, @Nonnull ItemStack stack) {
+		// If this happens on both sides wierd shit happens
 		if(!holder.getMachineWorld().isRemote) {
 			for(int to = 0; to < this.getSlots(); to++) {
 				if(this.getStackInSlot(to).isItemEqual(stack)) {
@@ -41,12 +39,12 @@ public class HandlerForceStack extends ItemStackHandlerExtractSpecific {
 			}
 		}
 		super.setStackInSlot(from, stack);
-    }
-	
+	}
+
 	@Override
 	public void onContentsChanged(int slot) {
 		if(this.holder instanceof IInventory) {
-			((IInventory) this.holder).markMachineDirty();
+			((IInventory) this.holder).markDirty();
 		}
 	}
 }

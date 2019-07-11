@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.multiblock.vat;
+package xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -12,8 +12,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemHandlerHelper;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.SARMultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSmart;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMultiblockRecipe;
 
 public class ControllerVat extends SARMultiblockRecipe<InventoryRecipe> {
 
@@ -25,10 +27,13 @@ public class ControllerVat extends SARMultiblockRecipe<InventoryRecipe> {
 
 	public ControllerVat(World world) {
 		super(world);
-		setInventory(new InventoryRecipe(this).addItemInput("input", new int[] { 88, 88, 88 }, new int[] { 11, 32, 53 })
+		setInventory(new InventoryRecipe(this)
+				.addItemHandler("input", IOType.INPUT, new int[] { 88, 88, 88 }, new int[] { 11, 32, 53 })
 				// FIXME
-				.addFluidInput("tank1", 12, 9, inputCapacity).addFluidInput("tank2", 37, 9, inputCapacity)
-				.addFluidInput("tank3", 62, 9, inputCapacity).addFluidOutput("outputTank", 143, 9, outputCapacity));
+				.addFluidHandler("tank1", IOType.INPUT, 12, 9, inputCapacity)
+				.addFluidHandler("tank2", IOType.INPUT, 37, 9, inputCapacity)
+				.addFluidHandler("tank3", IOType.INPUT, 62, 9, inputCapacity)
+				.addFluidHandler("outputTank", IOType.OUTPUT, 143, 9, outputCapacity));
 	}
 
 	@Override

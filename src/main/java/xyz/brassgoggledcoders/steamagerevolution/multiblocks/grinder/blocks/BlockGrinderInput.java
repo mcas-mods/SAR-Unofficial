@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder;
+package xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.blocks;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -12,6 +12,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.ControllerGrinder;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.tileentities.TileEntityGrinderInput;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
 public class BlockGrinderInput extends BlockMultiblockBase<TileEntityGrinderInput> {
@@ -37,7 +39,7 @@ public class BlockGrinderInput extends BlockMultiblockBase<TileEntityGrinderInpu
 		float damage = 3F;
 		if(this.getTileEntity(worldIn, pos).isPresent() && this.getTileEntity(worldIn, pos).get().isConnected()) {
 			ControllerGrinder controller = this.getTileEntity(worldIn, pos).get().getMultiblockController();
-			if(controller.getCurrentProgress() > 0) {
+			if(controller.getInventory().getCurrentTicks() > 0) {
 				damage = 20F;
 			}
 			if(entityIn instanceof EntityItem) {

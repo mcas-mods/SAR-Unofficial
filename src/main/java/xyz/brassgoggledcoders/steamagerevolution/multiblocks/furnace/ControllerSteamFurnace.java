@@ -2,17 +2,17 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.furnace;
 
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.SARMultiblockRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMultiblockRecipe;
 
 public class ControllerSteamFurnace extends SARMultiblockRecipe<InventoryRecipe> {
 
 	public ControllerSteamFurnace(World world) {
 		super(world);
-		setInventory(new InventoryRecipe(this).addItemInput("input", new int[] { 48 }, new int[] { 33 })
-				.addItemOutput("output", new int[] { 108 }, new int[] { 33 })
-				.setSteamTank(13, 9, Fluid.BUCKET_VOLUME * 16).setProgressBar(new InventoryPieceProgressBar(72, 33)));
+		setInventory(new InventoryRecipe(this).addItemHandler("input", IOType.INPUT, new int[] { 48 }, new int[] { 33 })
+				.addItemHandler("output", IOType.OUTPUT, new int[] { 108 }, new int[] { 33 })
+				.setSteamTank(13, 9, Fluid.BUCKET_VOLUME * 16).setProgressBar(72, 33));
 	}
 
 	@Override

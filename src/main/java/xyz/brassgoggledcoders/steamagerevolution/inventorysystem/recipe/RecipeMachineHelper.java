@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.recipes;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -12,24 +12,28 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 
 public class RecipeMachineHelper {
-	public static void onFinish(SARMachineRecipe currentRecipe, InventoryBasic inventory) {
+	public static void onFinish(SARMachineRecipe currentRecipe, InventoryRecipe inventory) {
 		boolean extractedItems = true;
 		boolean extractedFluids = true;
 		boolean extractedSteam = true;
 		if(ArrayUtils.isNotEmpty(currentRecipe.getItemInputs())) {
-			// TODO Shouldn't be looping twice here
+			// TODO Good lord loops
 			int matched = 0;
 			for(Ingredient input : currentRecipe.getItemInputs()) {
-				for(int i = 0; i < inventory.getInputItemHandler().getSlots(); i++) {
-					if(input.apply(inventory.getInputItemHandler().getStackInSlot(i))) {
-						inventory.getInputItemHandler().extractItem(i, 1, false);
-						matched++;
+				for(ItemStackHandler handler : inventory.getTypedItemHandlers(IOType.INPUT)) {
+					for(int i = 0; i < handler.getSlots(); i++) {
+						if(input.apply(handler.getStackInSlot(i))) {
+							handler.extractItem(i, 1, false);
+							matched++;
+						}
 					}
 				}
 			}
@@ -37,18 +41,20 @@ public class RecipeMachineHelper {
 		}
 		if(ArrayUtils.isNotEmpty(currentRecipe.getFluidInputs())) {
 			for(IngredientFluidStack input : currentRecipe.getFluidInputs()) {
-				if(inventory.getInputFluidHandler().drain(input.getFluid(), false) != null
-						&& inventory.getInputFluidHandler().drain(input.getFluid(), false).amount == input.getFluid().amount) {
-					inventory.getInputFluidHandler().drain(input.getFluid(), true);
-				}
-				else {
-					extractedFluids = false;
+				for(FluidTank tank : inventory.getTypedFluidHandlers(IOType.INPUT)) {
+					if(tank.drain(input.getFluid(), false) != null
+							&& tank.drain(input.getFluid(), false).amount == input.getFluid().amount) {
+						tank.drain(input.getFluid(), true);
+					}
+					else {
+						extractedFluids = false;
+					}
 				}
 			}
 		}
-		if(inventory.steamTankPiece != null) {
-			if(inventory.steamTankPiece.getHandler().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
-				inventory.steamTankPiece.getHandler().drain(currentRecipe.getSteamUsePerCraft(), true);
+		if(inventory.steamPiece != null) {
+			if(inventory.steamPiece.getHandler().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
+				inventory.steamPiece.getHandler().drain(currentRecipe.getSteamUsePerCraft(), true);
 			}
 			else {
 				extractedSteam = false;
@@ -57,12 +63,16 @@ public class RecipeMachineHelper {
 		if(extractedItems && extractedFluids && extractedSteam) {
 			if(ArrayUtils.isNotEmpty(currentRecipe.getItemOutputs())) {
 				for(ItemStack output : currentRecipe.getItemOutputs().clone()) {
-					ItemHandlerHelper.insertItem(inventory.getOutputItemHandler(), output.copy(), false);
+					for(ItemStackHandler handler : inventory.getTypedItemHandlers(IOType.OUTPUT)) {
+						ItemHandlerHelper.insertItem(handler, output.copy(), false);
+					}
 				}
 			}
 			if(ArrayUtils.isNotEmpty(currentRecipe.getFluidOutputs())) {
 				for(FluidStack output : currentRecipe.getFluidOutputs().clone()) {
-					inventory.getOutputFluidHandler().fill(output.copy(), true);
+					for(FluidTank tank : inventory.getTypedFluidHandlers(IOType.INPUT)) {
+						tank.fill(output.copy(), true);
+					}
 				}
 			}
 		}
@@ -73,29 +83,30 @@ public class RecipeMachineHelper {
 		}
 	}
 
-	public static boolean canFinish(int currentTicks, SARMachineRecipe currentRecipe,
-			InventoryBasic inventory) {
+	public static boolean canFinish(int currentTicks, SARMachineRecipe currentRecipe, InventoryRecipe inventory) {
 		if(currentRecipe != null && currentTicks >= currentRecipe.getTicksPerOperation()) {
 			boolean roomForItems = true;
 			boolean roomForFluids = true;
 			if(ArrayUtils.isNotEmpty(currentRecipe.getItemOutputs())) {
-				roomForItems = Arrays.asList(currentRecipe.getItemOutputs()).parallelStream().allMatch(
-						output -> ItemHandlerHelper.insertItem(inventory.getOutputItemHandler(), output, true).isEmpty());
+				roomForItems = Arrays.asList(currentRecipe.getItemOutputs()).parallelStream()
+						.allMatch(output -> inventory.getTypedItemHandlers(IOType.OUTPUT).stream()
+								.anyMatch(h -> ItemHandlerHelper.insertItem(h, output, true).isEmpty()));
 			}
 			if(ArrayUtils.isNotEmpty(currentRecipe.getFluidOutputs())) {
 				roomForFluids = Arrays.asList(currentRecipe.getFluidOutputs()).parallelStream()
-						.allMatch(output -> inventory.getOutputFluidHandler().fill(output, false) == output.amount);
+						.allMatch(output -> inventory.getTypedFluidHandlers(IOType.OUTPUT).stream()
+								.anyMatch(t -> t.fill(output, false) == output.amount));
 			}
 			return roomForItems && roomForFluids;
 		}
 		return false;
 	}
 
-	public static boolean canRun(World world, BlockPos pos, IHasInventory handler, String name,
-			SARMachineRecipe currentRecipe, InventoryBasic inventory) {
+	public static boolean canRun(World world, BlockPos pos, IHasInventory<? extends InventoryRecipe> handler,
+			String name, SARMachineRecipe currentRecipe, InventoryRecipe inventory) {
 		if(currentRecipe != null) {
-			if(inventory.getSteamTank() == null
-					|| inventory.getSteamTank().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
+			if(inventory.steamPiece.getHandler() == null
+					|| inventory.steamPiece.getHandler().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
 				return true;
 			}
 		}
@@ -105,13 +116,13 @@ public class RecipeMachineHelper {
 					.findFirst();
 			if(recipe.isPresent()) {
 				currentRecipe = recipe.get();
-				handler.setCurrentRecipe(currentRecipe);
+				handler.getInventory().setCurrentRecipe(currentRecipe);
 			}
 		}
 		return false;
 	}
 
-	public static boolean hasRequiredFluids(InventoryBasic inventory, SARMachineRecipe recipe) {
+	public static boolean hasRequiredFluids(InventoryRecipe inventory, SARMachineRecipe recipe) {
 		if(ArrayUtils.isNotEmpty(recipe.getFluidInputs())) {
 			// Stream the fluid stacks
 			return Arrays.stream(recipe.getFluidInputs())
@@ -124,14 +135,12 @@ public class RecipeMachineHelper {
 		return true;
 	}
 
-	private static boolean tanksHaveFluid(InventoryBasic inventory, IngredientFluidStack stack) {
-		return Arrays
-				.asList(inventory.getInputFluidHandler()).stream().filter(Objects::nonNull).filter(tank -> tank.fluids.stream()
-						.filter(Objects::nonNull).anyMatch(fluid -> fluid.containsFluid(stack.getFluid())))
-				.findAny().isPresent();
+	private static boolean tanksHaveFluid(InventoryRecipe inventory, IngredientFluidStack stack) {
+		return inventory.getTypedFluidHandlers(IOType.INPUT).stream().filter(Objects::nonNull)
+				.filter(tank -> tank.getFluid().containsFluid(stack.getFluid())).findAny().isPresent();
 	}
 
-	public static boolean hasRequiredItems(InventoryBasic inventory, SARMachineRecipe recipe) {
+	public static boolean hasRequiredItems(InventoryRecipe inventory, SARMachineRecipe recipe) {
 		if(ArrayUtils.isNotEmpty(recipe.getItemInputs())) {
 			return Arrays.stream(recipe.getItemInputs()).map(ing -> handlerHasItems(inventory, ing))
 					.reduce((a, b) -> a && b).orElse(false);
@@ -139,9 +148,11 @@ public class RecipeMachineHelper {
 		return true;
 	}
 
-	private static boolean handlerHasItems(InventoryBasic inventory, Ingredient ingredient) {
-		return IntStream.range(0, inventory.getInputItemHandler().getSlots())
-				.mapToObj(slotNum -> inventory.getInputItemHandler().getStackInSlot(slotNum))
-				.filter(inputStack -> ingredient.apply(inputStack)).findAny().isPresent();
+	private static boolean handlerHasItems(InventoryRecipe inventory, Ingredient ingredient) {
+		return inventory.getTypedItemHandlers(IOType.INPUT).stream()
+				.filter(handler -> IntStream.range(0, handler.getSlots())
+						.mapToObj(slotNum -> handler.getStackInSlot(slotNum))
+						.filter(inputStack -> ingredient.apply(inputStack)).findAny().isPresent())
+				.findAny().isPresent();
 	}
 }

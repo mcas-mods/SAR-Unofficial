@@ -7,8 +7,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.ControllerAlloyFurnace;
-import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
 
 public class AlloyFurnaceRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 

@@ -14,9 +14,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.SARMultiblockRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMultiblockRecipe;
 
 public class ControllerSteamHammer extends SARMultiblockRecipe<InventoryRecipe> {
 
@@ -26,10 +26,11 @@ public class ControllerSteamHammer extends SARMultiblockRecipe<InventoryRecipe> 
 
 	public ControllerSteamHammer(World world) {
 		super(world);
-		// TODO Investigate if possible to have same handler for input and output
-		setInventory(new InventoryRecipe(this).addItemInput("itemInput", new int[] { 35 }, new int[] { 32 })
-				.addItemOutput("itemOutput", new int[] { 138 }, new int[] { 32 }).setSteamTank(9, 11)
-				.setProgressBar(new InventoryPieceProgressBar(103, 31)));
+		// TODO Switch to single handler for items?
+		setInventory(new InventorySteamHammer(this)
+				.addItemHandler("itemInput", IOType.INPUT, new int[] { 35 }, new int[] { 32 })
+				.addItemHandler("itemOutput", IOType.OUTPUT, new int[] { 138 }, new int[] { 32 }).setSteamTank(9, 11)
+				.setProgressBar(103, 31));
 	}
 
 	@Override
@@ -98,9 +99,7 @@ public class ControllerSteamHammer extends SARMultiblockRecipe<InventoryRecipe> 
 		super.onTick();
 	}
 
-	@Override
 	public void onFinish() {
-		super.onFinish();
 		WORLD.playSound(null, center.getX() + .5F, center.getY(), center.getZ() + .5F, SoundEvents.BLOCK_ANVIL_LAND,
 				SoundCategory.BLOCKS, 1F, 1F);
 		SteamAgeRevolution.proxy.spawnFX(EnumParticleTypes.FLAME, center);

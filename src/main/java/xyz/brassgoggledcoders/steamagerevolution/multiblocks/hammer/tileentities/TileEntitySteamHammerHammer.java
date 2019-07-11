@@ -32,8 +32,9 @@ public class TileEntitySteamHammerHammer extends TileEntitySteamHammerPart imple
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new MultiblockInventoryWrapper(this, true));
+		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+					.cast(new MultiblockInventoryWrapper(this, "itemOutput"));
 		}
 		return super.getCapability(capability, facing);
 	}

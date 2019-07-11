@@ -8,8 +8,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.SARMultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMultiblockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
 public class ControllerAlloyFurnace extends SARMultiblockRecipe<InventoryRecipe> {
@@ -20,15 +21,19 @@ public class ControllerAlloyFurnace extends SARMultiblockRecipe<InventoryRecipe>
 	public ControllerAlloyFurnace(World world) {
 		super(world);
 		// FIXME
-		setInventory(new InventoryRecipe(this).addFluidInput("one", 22, 11, inputCapacity)
-				.addFluidInput("two", 78, 11, inputCapacity).addFluidOutput("output", 134, 17, outputCapacity));
+		setInventory(new InventoryRecipe(this).addFluidHandler("one", IOType.INPUT, 22, 11, inputCapacity)
+				.addFluidHandler("two", IOType.INPUT, 78, 11, inputCapacity)
+				.addFluidHandler("output", IOType.OUTPUT, 134, 17, outputCapacity));
 	}
 
-	@Override
-	protected boolean canRun() {
-		return this.getInventory().fluidInputPieces.get(0).getHandler().getFluidAmount() > 0
-				&& this.getInventory().fluidInputPieces.get(1).getHandler().getFluidAmount() > 0 && super.canRun();
-	}
+	// TODO
+	// @Override
+	// protected boolean canRun() {
+	// return
+	// this.getInventory().fluidInputPieces.get(0).getHandler().getFluidAmount() > 0
+	// && this.getInventory().fluidInputPieces.get(1).getHandler().getFluidAmount()
+	// > 0 && super.canRun();
+	// }
 
 	@Override
 	protected int getMinimumNumberOfBlocksForAssembledMachine() {

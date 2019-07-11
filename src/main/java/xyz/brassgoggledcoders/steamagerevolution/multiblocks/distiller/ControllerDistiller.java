@@ -7,9 +7,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.SARMultiblockRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMultiblockRecipe;
 
 public class ControllerDistiller extends SARMultiblockRecipe<InventoryRecipe> {
 
@@ -17,10 +17,10 @@ public class ControllerDistiller extends SARMultiblockRecipe<InventoryRecipe> {
 
 	public ControllerDistiller(World world) {
 		super(world);
-		setInventory(new InventoryRecipe(this).addFluidInput("fluidInput", 41, 9, tankCapacity)
-				.addItemOutput("itemOutput", new int[] { 149 }, new int[] { 32 })
-				.addFluidOutput("fluidOutput", 97, 9, tankCapacity).setSteamTank(10, 9, Fluid.BUCKET_VOLUME * 16)
-				.setProgressBar(new InventoryPieceProgressBar(67, 32)));
+		setInventory(new InventoryRecipe(this).addFluidHandler("fluidInput", IOType.INPUT, 41, 9, tankCapacity)
+				.addItemHandler("itemOutput", IOType.OUTPUT, new int[] { 149 }, new int[] { 32 })
+				.addFluidHandler("fluidOutput", IOType.OUTPUT, 97, 9, tankCapacity)
+				.setSteamTank(10, 9, Fluid.BUCKET_VOLUME * 16).setProgressBar(67, 32));
 	}
 
 	@Override

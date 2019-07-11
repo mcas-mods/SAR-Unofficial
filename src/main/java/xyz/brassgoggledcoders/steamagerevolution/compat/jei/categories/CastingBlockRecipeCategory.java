@@ -7,7 +7,7 @@ import mezz.jei.api.ingredients.VanillaTypes;
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
-import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.tileentities.TileEntityCastingBench;
 
 public class CastingBlockRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {

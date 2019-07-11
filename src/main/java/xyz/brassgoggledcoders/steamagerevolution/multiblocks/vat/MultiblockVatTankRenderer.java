@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.multiblock.vat;
+package xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat;
 
 import com.teamacronymcoders.base.util.RenderingUtils;
 
@@ -9,7 +9,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSmart;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceHandler;
-import xyz.brassgoggledcoders.steamagerevolution.multiblock.vat.tileentities.TileEntityVatFrame;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat.tileentities.TileEntityVatFrame;
 
 public class MultiblockVatTankRenderer extends TileEntitySpecialRenderer<TileEntityVatFrame> {
 

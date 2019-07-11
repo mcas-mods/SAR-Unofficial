@@ -6,76 +6,86 @@ import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
 public class MultiblockTankWrapper implements IFluidTank, IFluidHandler {
 
-	final SARMultiblockTileInventory<SARMultiblockInventory> tile;
-	// TODO Also use this boolean to prevent insertion into outputs (still allow
-	// extraction from outputs
-	final boolean output;
+	final SARMultiblockTileInventory<?> tile;
+	final String name;
 
-	public MultiblockTankWrapper(SARMultiblockTileInventory<?> tile, boolean output) {
-		this.tile = (SARMultiblockTileInventory<SARMultiblockInventory>) tile;
-		this.output = output;
+	// TODO Bounds
+	public MultiblockTankWrapper(SARMultiblockTileInventory<?> tile, String name) {
+		this.tile = tile;
+		this.name = name;
 	}
 
 	@Override
 	public int fill(FluidStack resource, boolean doFill) {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory().getFluidHandler(output) != null) {
-			return tile.getMultiblockController().getInventory().getFluidHandler(output).fill(resource, doFill);
+		if(tile.isConnected()
+				&& tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler() != null) {
+			return tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler().fill(resource,
+					doFill);
 		}
 		return 0;
 	}
 
 	@Override
 	public FluidStack drain(int maxDrain, boolean doDrain) {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory().getFluidHandler(output) != null) {
-			return tile.getMultiblockController().getInventory().getFluidHandler(output).drain(maxDrain, doDrain);
+		if(tile.isConnected()
+				&& tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler() != null) {
+			return tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler().drain(maxDrain,
+					doDrain);
 		}
 		return null;
 	}
 
 	@Override
 	public FluidStack getFluid() {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory().getFluidHandler(output) != null) {
-			return tile.getMultiblockController().getInventory().getFluidHandler(output).getFluid();
+		if(tile.isConnected()
+				&& tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler() != null) {
+			return tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler().getFluid();
 		}
 		return null;
 	}
 
 	@Override
 	public int getFluidAmount() {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory().getFluidHandler(output) != null) {
-			return tile.getMultiblockController().getInventory().getFluidHandler(output).getFluidAmount();
+		if(tile.isConnected()
+				&& tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler() != null) {
+			return tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler().getFluidAmount();
 		}
 		return 0;
 	}
 
 	@Override
 	public int getCapacity() {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory().getFluidHandler(output) != null) {
-			return tile.getMultiblockController().getInventory().getFluidHandler(output).getCapacity();
+		if(tile.isConnected()
+				&& tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler() != null) {
+			return tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler().getCapacity();
 		}
 		return 0;
 	}
 
 	@Override
 	public FluidTankInfo getInfo() {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory().getFluidHandler(output) != null) {
-			return tile.getMultiblockController().getInventory().getFluidHandler(output).getInfo();
+		if(tile.isConnected()
+				&& tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler() != null) {
+			return tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler().getInfo();
 		}
 		return null;
 	}
 
 	@Override
 	public IFluidTankProperties[] getTankProperties() {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory().getFluidHandler(output) != null) {
-			return tile.getMultiblockController().getInventory().getFluidHandler(output).getTankProperties();
+		if(tile.isConnected()
+				&& tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler() != null) {
+			return tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler().getTankProperties();
 		}
 		return new IFluidTankProperties[0];
 	}
 
 	@Override
 	public FluidStack drain(FluidStack resource, boolean doDrain) {
-		if(tile.isConnected() && tile.getMultiblockController().getInventory().getFluidHandler(output) != null) {
-			return tile.getMultiblockController().getInventory().getFluidHandler(output).drain(resource, doDrain);
+		if(tile.isConnected()
+				&& tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler() != null) {
+			return tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler().drain(resource,
+					doDrain);
 		}
 		return null;
 	}

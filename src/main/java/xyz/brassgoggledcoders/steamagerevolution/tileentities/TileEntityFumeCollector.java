@@ -11,21 +11,23 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.api.IFumeProducer;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSmart;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryTileEntity;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.FumeCollectorRecipe;
 
 //TODO add ability output to item placed in gui, and to item right clicked on block
-public class TileEntityFumeCollector extends RecipeTileEntity {
+public class TileEntityFumeCollector extends InventoryTileEntity<InventoryBasic> {
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 16;
 
 	public TileEntityFumeCollector() {
 		super();
-		this.setInventory(new InventoryBasic().setFluidOutput(105, 11,
-				new FluidHandlerMulti(this, IOType.OUTPUT, outputCapacity)));
+		this.setInventory(new InventoryBasic(this).addFluidPiece("tank", 105, 11,
+				new FluidTankSmart(outputCapacity, this.getInventory())));
 	}
 
 	@Override
-	public void onTick() {
+	public void update() {
 		if(getWorld().isRemote) {
 			return;
 		}
@@ -41,7 +43,7 @@ public class TileEntityFumeCollector extends RecipeTileEntity {
 					FumeCollectorRecipe r = FumeCollectorRecipe.getRecipe(fuel);
 					if(r != null && getWorld().rand.nextFloat() < r.chance) {
 						FluidStack fume = r.output;
-						IFluidHandler tank = this.getInventory().getOutputFluidHandler();
+						IFluidHandler tank = this.getInventory().getFluidPiece("tank").getHandler();
 						if(tank.fill(fume, false) == fume.amount) {
 							tank.fill(fume, true);
 							this.markMachineDirty();
@@ -61,7 +63,8 @@ public class TileEntityFumeCollector extends RecipeTileEntity {
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.getInventory().getOutputFluidHandler());
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
+					.cast(this.getInventory().getFluidPiece("tank").getHandler());
 		}
 		return super.getCapability(capability, facing);
 	}

@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.multiblock.vat.tileentities;
+package xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat.tileentities;
 
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 

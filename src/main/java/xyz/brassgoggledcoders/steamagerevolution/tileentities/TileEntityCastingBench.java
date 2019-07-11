@@ -5,18 +5,18 @@ import net.minecraft.util.EnumFacing.Axis;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryTileEntity;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
-public class TileEntityCastingBench extends RecipeTileEntity {
+public class TileEntityCastingBench extends InventoryTileEntity {
 
 	public static int inputCapacity = RecipeUtil.VALUE_BLOCK;
 
 	public TileEntityCastingBench() {
-		setInventory(new InventoryBasic()
-				.setFluidInput(51, 11, new FluidHandlerMulti(this, IOType.INPUT, inputCapacity))
-				.setItemOutput(new int[] { 109 }, new int[] { 34 }, new ItemStackHandlerExtractSpecific(1)));
+		setInventory(new InventoryRecipe(this).addFluidHandler("input", IOType.INPUT, 51, 11, inputCapacity)
+				.addItemHandler("output", IOType.OUTPUT, 109, 34));
 	}
 
 	@Override
@@ -35,10 +35,10 @@ public class TileEntityCastingBench extends RecipeTileEntity {
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(inventory.getInputFluidHandler());
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(inventory.getFluidPiece("input").getHandler());
 		}
 		else if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory.getOutputItemHandler());
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory.getItemPiece("output").getHandler());
 		}
 		return super.getCapability(capability, facing);
 	}

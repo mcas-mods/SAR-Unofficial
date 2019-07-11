@@ -9,7 +9,7 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock
 public abstract class TileEntityBoilerPart extends SARMultiblockTileInventory<ControllerBoiler> {
 
 	@Override
-	public Class<? extends MultiblockControllerBase> getMultiblockControllerType() {
+	public Class<ControllerBoiler> getMultiblockControllerType() {
 		return ControllerBoiler.class;
 	}
 

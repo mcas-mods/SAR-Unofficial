@@ -5,8 +5,9 @@ import org.apache.commons.lang3.tuple.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.SARMultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMultiblockRecipe;
 
 public class ControllerCrucible extends SARMultiblockRecipe<InventoryRecipe> {
 
@@ -15,9 +16,10 @@ public class ControllerCrucible extends SARMultiblockRecipe<InventoryRecipe> {
 
 	public ControllerCrucible(World world) {
 		super(world);
-		setInventory(new InventoryRecipe(this).addItemInput("itemInput", new int[] { 53 }, new int[] { 34 })
-				.addFluidOutput("output", 105, 11, Fluid.BUCKET_VOLUME).setSteamTank(17, 11, Fluid.BUCKET_VOLUME)
-				.setProgressBar(76, 33));
+		setInventory(
+				new InventoryRecipe(this).addItemHandler("itemInput", IOType.INPUT, new int[] { 53 }, new int[] { 34 })
+						.addFluidHandler("output", IOType.OUTPUT, 105, 11, Fluid.BUCKET_VOLUME)
+						.setSteamTank(17, 11, Fluid.BUCKET_VOLUME).setProgressBar(76, 33));
 	}
 
 	// FIXME Caching
@@ -28,11 +30,12 @@ public class ControllerCrucible extends SARMultiblockRecipe<InventoryRecipe> {
 		minimumInteriorPos = interiorPositions.getLeft();
 		maximumInteriorPos = interiorPositions.getRight();
 
-		int blocksInside = 0;
-		// TODO Expensive for loop just to increment an integer
-		for(BlockPos pos : BlockPos.getAllInBoxMutable(minimumInteriorPos, maximumInteriorPos)) {
-			blocksInside++;
-		}
+		// int blocksInside = 0;
+		// // TODO Expensive for loop just to increment an integer
+		// for(BlockPos pos : BlockPos.getAllInBoxMutable(minimumInteriorPos,
+		// maximumInteriorPos)) {
+		// blocksInside++;
+		// }
 		// Size internal tank accordingly
 		// TODO
 		// MultiFluidHandler newTank = new MultiFluidHandler(blocksInside *

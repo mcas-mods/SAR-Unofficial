@@ -15,7 +15,7 @@ public class TileEntityCastingBenchRenderer extends TileEntitySpecialRenderer<Ti
 	@Override
 	public void render(TileEntityCastingBench tile, double x, double y, double z, float partialTicks, int destroyStage,
 			float alpha) {
-		FluidTank tank = tile.inventory.getInputFluidHandler().getTank();
+		FluidTank tank = tile.inventory.getFluidPiece("tank").getHandler();
 		FluidStack liquid = tank.getFluid();
 
 		if(liquid != null) {

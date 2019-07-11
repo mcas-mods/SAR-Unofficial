@@ -5,40 +5,41 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSmart;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryTileEntity;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
-public class TileEntityFluidIO extends RecipeTileEntity {
+public class TileEntityFluidIO extends InventoryTileEntity<InventoryBasic> {
 
 	private int fluidTransferRate = 20;
 
 	public TileEntityFluidIO() {
 		super();
-		setInventory(new InventoryBasic()
-				.setItemInput(new int[] { 25, 134 }, new int[] { 33, 33 }, new ItemStackHandlerExtractSpecific(2))
-				.setFluidInput(78, 11, new FluidHandlerMulti(this, IOType.INPUT, Fluid.BUCKET_VOLUME * 6)));
+		setInventory(new InventoryBasic(this).addItemPiece("items", new int[] { 25, 134 }, new int[] { 33, 33 },
+				new ItemStackHandlerExtractSpecific(2))
+				.addFluidPiece("tank", 78, 11, new FluidTankSmart(Fluid.BUCKET_VOLUME * 6, this.getInventory())));
 	}
 
 	@Override
-	public void onTick() {
-		if(!inventory.getInputItemHandler().getStackInSlot(0).isEmpty()) {
-			IFluidHandler itemFluid = inventory.getInputItemHandler().getStackInSlot(0)
+	public void update() {
+		if(!inventory.getItemPiece("items").getHandler().getStackInSlot(0).isEmpty()) {
+			IFluidHandler itemFluid = inventory.getItemPiece("items").getHandler().getStackInSlot(0)
 					.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-			if(itemFluid != null && itemFluid.drain(fluidTransferRate, false) != null
-					&& inventory.getInputFluidHandler().fill(itemFluid.drain(fluidTransferRate, false),
-							false) == fluidTransferRate) {
-				inventory.getInputFluidHandler().fill(itemFluid.drain(fluidTransferRate, true), true);
+			if(itemFluid != null && itemFluid.drain(fluidTransferRate, false) != null && inventory.getFluidPiece("tank")
+					.getHandler().fill(itemFluid.drain(fluidTransferRate, false), false) == fluidTransferRate) {
+				inventory.getFluidPiece("tank").getHandler().fill(itemFluid.drain(fluidTransferRate, true), true);
 				markMachineDirty();
 				sendBlockUpdate();
 			}
 		}
-		if(!inventory.getInputItemHandler().getStackInSlot(1).isEmpty()) {
-			IFluidHandler itemFluid = inventory.getInputItemHandler().getStackInSlot(1)
+		if(!inventory.getItemPiece("items").getHandler().getStackInSlot(1).isEmpty()) {
+			IFluidHandler itemFluid = inventory.getItemPiece("items").getHandler().getStackInSlot(1)
 					.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-			if(itemFluid != null && inventory.getInputFluidHandler().getTank().getFluidAmount() > 0
-					&& itemFluid.fill(inventory.getInputFluidHandler().drain(fluidTransferRate, false),
+			if(itemFluid != null && inventory.getFluidPiece("tank").getHandler().getFluidAmount() > 0
+					&& itemFluid.fill(inventory.getFluidPiece("tank").getHandler().drain(fluidTransferRate, false),
 							false) == fluidTransferRate) {
-				itemFluid.fill(inventory.getInputFluidHandler().drain(fluidTransferRate, true), true);
+				itemFluid.fill(inventory.getFluidPiece("tank").getHandler().drain(fluidTransferRate, true), true);
 				markMachineDirty();
 				sendBlockUpdate();
 			}
@@ -54,7 +55,7 @@ public class TileEntityFluidIO extends RecipeTileEntity {
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return (T) inventory.getInputFluidHandler();
+			return (T) inventory.getFluidPiece("tank").getHandler();
 		}
 		return super.getCapability(capability, facing);
 	}

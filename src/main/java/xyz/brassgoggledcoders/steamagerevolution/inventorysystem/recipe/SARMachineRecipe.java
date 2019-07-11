@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.recipes;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe;
 
 import java.util.*;
 

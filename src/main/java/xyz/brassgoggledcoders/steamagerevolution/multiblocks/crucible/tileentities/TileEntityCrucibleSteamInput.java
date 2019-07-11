@@ -20,7 +20,7 @@ public class TileEntityCrucibleSteamInput extends TileEntityCruciblePart {
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockSteamWrapper(this));
 		}
 		return super.getCapability(capability, facing);
@@ -39,7 +39,6 @@ public class TileEntityCrucibleSteamInput extends TileEntityCruciblePart {
 
 	@Override
 	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
-
 		return true;
 	}
 

@@ -40,8 +40,9 @@ public class TileEntityFurnaceItemInput extends TileEntityFurnacePart {
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new MultiblockInventoryWrapper(this, false));
+		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+					.cast(new MultiblockInventoryWrapper(this, "itemInput"));
 		}
 		return super.getCapability(capability, facing);
 	}

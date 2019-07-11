@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder;
+package xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.tileentities;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -20,12 +20,13 @@ public class TileEntityGrinderInput extends TileEntityGrinderPart {
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new MultiblockInventoryWrapper(this, false));
+		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+					.cast(new MultiblockInventoryWrapper(this, "itemInput"));
 		}
 		return super.getCapability(capability, facing);
 	}
-	
+
 	@Override
 	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
 		return true;

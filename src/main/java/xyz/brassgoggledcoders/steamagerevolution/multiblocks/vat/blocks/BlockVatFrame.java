@@ -1,26 +1,26 @@
-package xyz.brassgoggledcoders.steamagerevolution.multiblock.vat.blocks;
+package xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat.blocks;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.multiblock.vat.tileentities.TileEntityVatOutput;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat.tileentities.TileEntityVatFrame;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
-public class BlockVatOutput extends BlockMultiblockBase<TileEntityVatOutput> {
+public class BlockVatFrame extends BlockMultiblockBase<TileEntityVatFrame> {
 
-	public BlockVatOutput(Material material, String name) {
+	public BlockVatFrame(Material material, String name) {
 		super(material, name);
 	}
 
 	@Override
 	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityVatOutput.class;
+		return TileEntityVatFrame.class;
 	}
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityVatOutput();
+		return new TileEntityVatFrame();
 	}
 
 }

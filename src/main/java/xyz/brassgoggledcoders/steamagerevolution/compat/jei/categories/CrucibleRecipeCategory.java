@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
-import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMachineRecipe;
 
 public class CrucibleRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 
