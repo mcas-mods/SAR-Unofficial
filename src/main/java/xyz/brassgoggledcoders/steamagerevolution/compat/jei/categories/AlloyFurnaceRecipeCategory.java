@@ -7,10 +7,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.ControllerAlloyFurnace;
 
-public class AlloyFurnaceRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
+public class AlloyFurnaceRecipeCategory extends SARRecipeCategory<MachineRecipe> {
 
 	public static final String uid = "alloyfurnace";
 
@@ -19,7 +19,7 @@ public class AlloyFurnaceRecipeCategory extends SARRecipeCategory<SARMachineReci
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, SARMachineRecipe recipeWrapper, IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, MachineRecipe recipeWrapper, IIngredients ingredients) {
 		IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
 		guiFluidStacks.init(0, true, 1, 1, 20, 60, ControllerAlloyFurnace.inputCapacity / 2, true, SARJEIPlugin.tankBackground);
 		guiFluidStacks.init(1, true, 57, 1, 20, 60, ControllerAlloyFurnace.inputCapacity / 2, true, SARJEIPlugin.tankBackground);

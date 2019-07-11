@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
 import javax.annotation.Nonnull;
 
@@ -16,12 +16,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.ContainerInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
 
-public abstract class InventoryTileEntity<I extends InventoryBasic> extends TileEntityBase
+public abstract class TileEntityInventory<I extends InventoryBasic> extends TileEntityBase
 		implements ITickable, IHasGui, IHasInventory<I> {
 
 	public I inventory;

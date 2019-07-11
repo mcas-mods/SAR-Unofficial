@@ -8,7 +8,7 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockInventoryWrapper;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockStackHandlerWrapper;
 
 public class TileEntityGrinderInput extends TileEntityGrinderPart {
 
@@ -22,7 +22,7 @@ public class TileEntityGrinderInput extends TileEntityGrinderPart {
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-					.cast(new MultiblockInventoryWrapper(this, "itemInput"));
+					.cast(new MultiblockStackHandlerWrapper(this, "itemInput"));
 		}
 		return super.getCapability(capability, facing);
 	}

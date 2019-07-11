@@ -6,9 +6,9 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
 
-public class SteamFurnaceRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
+public class SteamFurnaceRecipeCategory extends SARRecipeCategory<MachineRecipe> {
 
 	public static final String uid = "steamfurnace";
 
@@ -17,7 +17,7 @@ public class SteamFurnaceRecipeCategory extends SARRecipeCategory<SARMachineReci
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, SARMachineRecipe recipeWrapper, IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, MachineRecipe recipeWrapper, IIngredients ingredients) {
 		recipeLayout.getItemStacks().init(0, true, 38, 27);
 		recipeLayout.getItemStacks().init(1, false, 98, 27);
 

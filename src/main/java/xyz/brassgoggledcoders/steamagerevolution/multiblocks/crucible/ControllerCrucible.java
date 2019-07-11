@@ -7,9 +7,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockRecipe;
 
-public class ControllerCrucible extends SARMultiblockRecipe<InventoryRecipe> {
+public class ControllerCrucible extends MultiblockRecipe<InventoryRecipe> {
 
 	BlockPos minimumInteriorPos;
 	BlockPos maximumInteriorPos;

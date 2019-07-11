@@ -2,11 +2,11 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.tileentiti
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.SARMultiblockTileInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockInventoryTileEntity;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.ControllerGrinder;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
 
-public abstract class TileEntityGrinderPart extends SARMultiblockTileInventory<ControllerGrinder> {
+public abstract class TileEntityGrinderPart extends MultiblockInventoryTileEntity<ControllerGrinder> {
 
 	@Override
 	public Class<ControllerGrinder> getMultiblockControllerType() {

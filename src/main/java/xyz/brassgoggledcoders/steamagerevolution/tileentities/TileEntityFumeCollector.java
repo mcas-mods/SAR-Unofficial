@@ -12,11 +12,11 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.api.IFumeProducer;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryTileEntity;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.TileEntityInventory;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.FumeCollectorRecipe;
 
 //TODO add ability output to item placed in gui, and to item right clicked on block
-public class TileEntityFumeCollector extends InventoryTileEntity<InventoryBasic> {
+public class TileEntityFumeCollector extends TileEntityInventory<InventoryBasic> {
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 16;
 
 	public TileEntityFumeCollector() {

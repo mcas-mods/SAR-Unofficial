@@ -16,9 +16,9 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockRecipe;
 
-public class ControllerSteamHammer extends SARMultiblockRecipe<InventoryRecipe> {
+public class ControllerSteamHammer extends MultiblockRecipe<InventoryRecipe> {
 
 	public String dieType = "";
 	BlockPos center = null;

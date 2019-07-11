@@ -7,10 +7,10 @@ import mezz.jei.api.ingredients.VanillaTypes;
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller.ControllerDistiller;
 
-public class DistillerRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
+public class DistillerRecipeCategory extends SARRecipeCategory<MachineRecipe> {
 
 	public static final String uid = "distiller";
 
@@ -19,7 +19,7 @@ public class DistillerRecipeCategory extends SARRecipeCategory<SARMachineRecipe>
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, SARMachineRecipe recipeWrapper, IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, MachineRecipe recipeWrapper, IIngredients ingredients) {
 		recipeLayout.getFluidStacks().init(0, true, 35, 4, 20, 60, ControllerDistiller.tankCapacity, true, SARJEIPlugin.tankBackground);
 		recipeLayout.getFluidStacks().init(1, false, 91, 4, 20, 60, ControllerDistiller.tankCapacity, true, SARJEIPlugin.tankBackground);
 		recipeLayout.getItemStacks().init(2, false, 141, 26);

@@ -16,7 +16,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.*;
 
 //TODO add validation to throw errors if duplicate or empty names are used
 @SuppressWarnings("rawtypes")
-public class InventoryBasic implements IMachineInventory, INBTSerializable<NBTTagCompound> {
+public class InventoryBasic implements INBTSerializable<NBTTagCompound> {
 
 	public final IHasInventory parent;
 	// TODO Is there a better way to do IDs than strings?
@@ -42,7 +42,7 @@ public class InventoryBasic implements IMachineInventory, INBTSerializable<NBTTa
 	}
 
 	public InventoryBasic addFluidPiece(String name, int xPos, int yPos, int capacity) {
-		fluidPieces.put(name, new InventoryPieceFluidTank(name, this, new FluidTankSmart(capacity, this), xPos, yPos));
+		fluidPieces.put(name, new InventoryPieceFluidTank(name, this, new FluidTankSynced(capacity, this), xPos, yPos));
 		return this;
 	}
 
@@ -72,13 +72,11 @@ public class InventoryBasic implements IMachineInventory, INBTSerializable<NBTTa
 		}
 	}
 
-	@Override
 	public List<ItemStackHandler> getItemHandlers() {
 		return itemPieces.values().stream().map(p -> p.getHandler()).collect(Collectors.toList());
 	}
 
-	@Override
-	public List<FluidTankSmart> getFluidHandlers() {
+	public List<FluidTankSynced> getFluidHandlers() {
 		return fluidPieces.values().stream().map(p -> p.getHandler()).collect(Collectors.toList());
 	}
 

@@ -6,11 +6,11 @@ import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
 public class MultiblockTankWrapper implements IFluidTank, IFluidHandler {
 
-	final SARMultiblockTileInventory<?> tile;
+	final MultiblockInventoryTileEntity<?> tile;
 	final String name;
 
 	// TODO Bounds
-	public MultiblockTankWrapper(SARMultiblockTileInventory<?> tile, String name) {
+	public MultiblockTankWrapper(MultiblockInventoryTileEntity<?> tile, String name) {
 		this.tile = tile;
 		this.name = name;
 	}

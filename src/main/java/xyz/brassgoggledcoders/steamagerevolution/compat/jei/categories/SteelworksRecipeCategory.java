@@ -7,9 +7,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
 
-public class SteelworksRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
+public class SteelworksRecipeCategory extends SARRecipeCategory<MachineRecipe> {
 
 	public static final String uid = "steelworks";
 
@@ -18,7 +18,7 @@ public class SteelworksRecipeCategory extends SARRecipeCategory<SARMachineRecipe
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, SARMachineRecipe recipeWrapper, IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, MachineRecipe recipeWrapper, IIngredients ingredients) {
 		IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
 		guiFluidStacks.init(0, true, 35, 4, 20, 60, Fluid.BUCKET_VOLUME, false, SARJEIPlugin.tankBackground);
 		recipeLayout.getItemStacks().init(1, true, 76, 25);

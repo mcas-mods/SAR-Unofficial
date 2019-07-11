@@ -1,6 +1,5 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces;
 
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
@@ -20,10 +19,6 @@ public class InventoryPieceItemHandler extends InventoryPieceHandler<ItemStackHa
 		super(name, parent, type, handler, slotXs[0], slotYs[0]);
 		this.slotXs = slotXs;
 		this.slotYs = slotYs;
-	}
-
-	public InventoryPieceItemHandler(NBTTagCompound tag) {
-
 	}
 
 	public int getSlotPositionX(int slot) {

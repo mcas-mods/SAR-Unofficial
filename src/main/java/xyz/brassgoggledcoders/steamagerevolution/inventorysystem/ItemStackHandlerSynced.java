@@ -3,11 +3,11 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 //TODO Bring back custom stack sync packets because AFAIK vanilla only syncs when GUI is opened (?) which doesn't work for steam hammer etc.
-public class ItemStackHandlerSmart extends ItemStackHandlerExtractSpecific {
+public class ItemStackHandlerSynced extends ItemStackHandlerExtractSpecific {
 
 	final InventoryBasic containingInventory;
 
-	public ItemStackHandlerSmart(int size, InventoryBasic parent) {
+	public ItemStackHandlerSynced(int size, InventoryBasic parent) {
 		super(size);
 		this.containingInventory = parent;
 	}

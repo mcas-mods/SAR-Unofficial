@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.oredict.OreIngredient;
 
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei", striprefs = true)
-public class SARMachineRecipe implements IRecipeWrapper {
+public class MachineRecipe implements IRecipeWrapper {
 	@Nullable
 	protected final Ingredient[] itemIngredients;
 	@Nullable
@@ -36,7 +36,7 @@ public class SARMachineRecipe implements IRecipeWrapper {
 	@Nonnull
 	public int networkID;
 
-	public SARMachineRecipe(String crafter, Ingredient[] itemInputs, IngredientFluidStack[] fluidInputs,
+	public MachineRecipe(String crafter, Ingredient[] itemInputs, IngredientFluidStack[] fluidInputs,
 			int ticksToProcess, int steamUsePerCraft, ItemStack[] itemOutputs, FluidStack[] fluidOutputs) {
 		this.crafter = crafter;
 		itemIngredients = itemInputs;
@@ -176,9 +176,9 @@ public class SARMachineRecipe implements IRecipeWrapper {
 			return this;
 		}
 
-		public SARMachineRecipe build() {
+		public MachineRecipe build() {
 			validate();
-			SARMachineRecipe recipe = new SARMachineRecipe(crafter, itemInputs, fluidInputs, ticksToProcess,
+			MachineRecipe recipe = new MachineRecipe(crafter, itemInputs, fluidInputs, ticksToProcess,
 					steamUsePerCraft, itemOutputs, fluidOutputs);
 			RecipeRegistry.addRecipe(crafter, recipe);
 			return recipe;

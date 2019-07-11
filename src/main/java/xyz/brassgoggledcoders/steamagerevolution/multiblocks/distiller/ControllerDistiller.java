@@ -9,9 +9,9 @@ import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockRecipe;
 
-public class ControllerDistiller extends SARMultiblockRecipe<InventoryRecipe> {
+public class ControllerDistiller extends MultiblockRecipe<InventoryRecipe> {
 
 	public static int tankCapacity = Fluid.BUCKET_VOLUME * 8;
 

@@ -4,9 +4,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockRecipe;
 
-public class ControllerSteamFurnace extends SARMultiblockRecipe<InventoryRecipe> {
+public class ControllerSteamFurnace extends MultiblockRecipe<InventoryRecipe> {
 
 	public ControllerSteamFurnace(World world) {
 		super(world);

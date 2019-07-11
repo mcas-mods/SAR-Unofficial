@@ -6,13 +6,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.FluidTank;
 
-public class FluidTankSmart extends FluidTank implements INBTSerializable<NBTTagCompound> {
+public class FluidTankSynced extends FluidTank implements INBTSerializable<NBTTagCompound> {
 
 	// Cannot be parented by an InventoryPiece because the handlers are initialised
 	// in the InventoryPiece constructor call
 	final InventoryBasic containingInventory;
 
-	public FluidTankSmart(int capacity, InventoryBasic containingInventory) {
+	public FluidTankSynced(int capacity, InventoryBasic containingInventory) {
 		super(capacity);
 		this.containingInventory = containingInventory;
 		// TODO

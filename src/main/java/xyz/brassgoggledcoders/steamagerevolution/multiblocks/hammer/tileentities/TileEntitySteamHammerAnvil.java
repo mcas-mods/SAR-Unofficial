@@ -17,7 +17,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockInventoryWrapper;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockStackHandlerWrapper;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerSimpleSlots;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiSimpleSlots;
 
@@ -37,7 +37,7 @@ public class TileEntitySteamHammerAnvil extends TileEntitySteamHammerPart implem
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-					.cast(new MultiblockInventoryWrapper(this, "itemInput"));
+					.cast(new MultiblockStackHandlerWrapper(this, "itemInput"));
 		}
 		return super.getCapability(capability, facing);
 	}

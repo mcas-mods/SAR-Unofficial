@@ -7,10 +7,10 @@ import mezz.jei.api.ingredients.VanillaTypes;
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.tileentities.TileEntityCastingBench;
 
-public class CastingBlockRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
+public class CastingBlockRecipeCategory extends SARRecipeCategory<MachineRecipe> {
 
 	public static final String uid = "castingblock";
 
@@ -19,7 +19,7 @@ public class CastingBlockRecipeCategory extends SARRecipeCategory<SARMachineReci
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, SARMachineRecipe recipeWrapper, IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, MachineRecipe recipeWrapper, IIngredients ingredients) {
 		recipeLayout.getFluidStacks().init(0, true, 1, 1, 20, 60, TileEntityCastingBench.inputCapacity, true, SARJEIPlugin.tankBackground);
 		recipeLayout.getItemStacks().init(1, false, 58, 23);
 

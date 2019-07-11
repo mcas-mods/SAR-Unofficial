@@ -11,7 +11,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.*;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockInventoryWrapper;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockStackHandlerWrapper;
 
 //TODO Do from the controlller?
 public class TileEntityGrinderOutput extends TileEntityGrinderPart implements ITickable {
@@ -26,7 +26,7 @@ public class TileEntityGrinderOutput extends TileEntityGrinderPart implements IT
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-					.cast(new MultiblockInventoryWrapper(this, "itemOutput"));
+					.cast(new MultiblockStackHandlerWrapper(this, "itemOutput"));
 		}
 		return super.getCapability(capability, facing);
 	}

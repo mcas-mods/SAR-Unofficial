@@ -3,11 +3,11 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-public class FluidTankSingleSmart extends FluidTankSmart {
+public class FluidTankSingleSynced extends FluidTankSynced {
 
 	private String fluidName;
 
-	public FluidTankSingleSmart(int capacity, String fluidName, InventoryBasic parent) {
+	public FluidTankSingleSynced(int capacity, String fluidName, InventoryBasic parent) {
 		super(capacity, parent);
 		this.fluidName = fluidName;
 	}

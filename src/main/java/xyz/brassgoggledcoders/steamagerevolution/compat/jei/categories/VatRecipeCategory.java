@@ -9,10 +9,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat.ControllerVat;
 
-public class VatRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
+public class VatRecipeCategory extends SARRecipeCategory<MachineRecipe> {
 
 	public static final String uid = "vat";
 
@@ -41,7 +41,7 @@ public class VatRecipeCategory extends SARRecipeCategory<SARMachineRecipe> {
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, SARMachineRecipe recipeWrapper, IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, MachineRecipe recipeWrapper, IIngredients ingredients) {
 		for (int i = 0; i < recipeWrapper.getFluidInputs().length; i++) {
 			FluidStack stack = recipeWrapper.getFluidInputs()[i].getFluid();
 			if (stack != null) {

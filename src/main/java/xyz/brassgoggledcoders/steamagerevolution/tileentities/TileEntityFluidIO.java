@@ -6,10 +6,10 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryTileEntity;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.TileEntityInventory;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
-public class TileEntityFluidIO extends InventoryTileEntity<InventoryBasic> {
+public class TileEntityFluidIO extends TileEntityInventory<InventoryBasic> {
 
 	private int fluidTransferRate = 20;
 

@@ -2,11 +2,11 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentitie
 
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.SARMultiblockTileInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockInventoryTileEntity;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.ControllerBoiler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
 
-public abstract class TileEntityBoilerPart extends SARMultiblockTileInventory<ControllerBoiler> {
+public abstract class TileEntityBoilerPart extends MultiblockInventoryTileEntity<ControllerBoiler> {
 
 	@Override
 	public Class<ControllerBoiler> getMultiblockControllerType() {

@@ -36,7 +36,7 @@ public class InventoryRecipe extends InventoryBasic {
 	public int currentMaxTicks;
 	// FIXME remember this needs to be saved
 	private int currentTicks = 0;
-	protected SARMachineRecipe currentRecipe;
+	protected MachineRecipe currentRecipe;
 
 	public InventoryRecipe(IHasInventory<? extends InventoryRecipe> parent) {
 		super(parent);
@@ -52,7 +52,7 @@ public class InventoryRecipe extends InventoryBasic {
 			throw new RuntimeException("Your inventory position array sizes do not match");
 		}
 		InventoryPieceItemHandler iPiece = new InventoryPieceItemHandler(name, this, type,
-				new ItemStackHandlerSmart(slotXs.length, this), slotXs, slotYs);
+				new ItemStackHandlerSynced(slotXs.length, this), slotXs, slotYs);
 		if(type.equals(IOType.INPUT)) {
 			itemInputPieces.add(iPiece);
 		}
@@ -65,7 +65,7 @@ public class InventoryRecipe extends InventoryBasic {
 
 	public InventoryRecipe addFluidHandler(String name, IOType type, int xPos, int yPos, int capacity) {
 		InventoryPieceFluidTank fPiece = new InventoryPieceFluidTank(name, this, type,
-				new FluidTankSmart(capacity, this), xPos, yPos);
+				new FluidTankSynced(capacity, this), xPos, yPos);
 		if(type.equals(IOType.INPUT)) {
 			fluidInputPieces.add(fPiece);
 		}
@@ -82,7 +82,7 @@ public class InventoryRecipe extends InventoryBasic {
 
 	public InventoryRecipe setSteamTank(int xPos, int yPos, int capacity) {
 		steamPiece = new InventoryPieceFluidTank("steamTank", this, IOType.POWER,
-				new FluidTankSingleSmart(capacity, "steam", this), xPos, yPos);
+				new FluidTankSingleSynced(capacity, "steam", this), xPos, yPos);
 		fluidPieces.put("steamTank", steamPiece);
 		return this;
 	}
@@ -103,7 +103,7 @@ public class InventoryRecipe extends InventoryBasic {
 
 	// TODO
 	@Deprecated
-	public InventoryRecipe addFluidInput(String name, int xPos, int yPos, FluidTankSingleSmart fluidTankSingleSmart) {
+	public InventoryRecipe addFluidInput(String name, int xPos, int yPos, FluidTankSingleSynced fluidTankSingleSmart) {
 		InventoryPieceFluidTank fPiece = new InventoryPieceFluidTank(name, this, IOType.INPUT, fluidTankSingleSmart,
 				xPos, yPos);
 		fluidInputPieces.add(fPiece);
@@ -111,11 +111,11 @@ public class InventoryRecipe extends InventoryBasic {
 		return this;
 	}
 
-	public SARMachineRecipe getCurrentRecipe() {
+	public MachineRecipe getCurrentRecipe() {
 		return currentRecipe;
 	}
 
-	public void setCurrentRecipe(SARMachineRecipe recipe) {
+	public void setCurrentRecipe(MachineRecipe recipe) {
 		if(recipe == null) {
 			this.setCurrentTicks(0);
 		}
@@ -134,7 +134,7 @@ public class InventoryRecipe extends InventoryBasic {
 		this.currentTicks = ticks;
 	}
 
-	protected boolean onTick() {
+	public boolean onTick() {
 		if(canRun()) {
 			if(getCurrentTicks() <= currentRecipe.getTicksPerOperation()) { // TODO
 				setCurrentTicks(getCurrentTicks() + 1);
@@ -244,7 +244,7 @@ public class InventoryRecipe extends InventoryBasic {
 			}
 		}
 		else {
-			Optional<SARMachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(this.parent.getName().toLowerCase())
+			Optional<MachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(this.parent.getName().toLowerCase())
 					.parallelStream().filter(r -> hasRequiredFluids(r)).filter(r -> hasRequiredItems(r)).findFirst();
 			if(recipe.isPresent()) {
 				currentRecipe = recipe.get();
@@ -254,7 +254,7 @@ public class InventoryRecipe extends InventoryBasic {
 		return false;
 	}
 
-	public boolean hasRequiredFluids(SARMachineRecipe recipe) {
+	public boolean hasRequiredFluids(MachineRecipe recipe) {
 		if(ArrayUtils.isNotEmpty(recipe.getFluidInputs())) {
 			// Stream the fluid stacks
 			return Arrays.stream(recipe.getFluidInputs())
@@ -273,7 +273,7 @@ public class InventoryRecipe extends InventoryBasic {
 				.filter(tank -> tank.getFluid().containsFluid(stack.getFluid())).findAny().isPresent();
 	}
 
-	public boolean hasRequiredItems(SARMachineRecipe recipe) {
+	public boolean hasRequiredItems(MachineRecipe recipe) {
 		if(ArrayUtils.isNotEmpty(recipe.getItemInputs())) {
 			return Arrays.stream(recipe.getItemInputs()).map(ing -> handlerHasItems(ing)).reduce((a, b) -> a && b)
 					.orElse(false);

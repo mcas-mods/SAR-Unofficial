@@ -5,7 +5,7 @@ import javax.annotation.Nonnull;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 
-public abstract class ItemStackHandlerFiltered extends ItemStackHandlerSmart {
+public abstract class ItemStackHandlerFiltered extends ItemStackHandlerSynced {
 
 	public ItemStackHandlerFiltered(int size, InventoryBasic parent) {
 		super(size, parent);

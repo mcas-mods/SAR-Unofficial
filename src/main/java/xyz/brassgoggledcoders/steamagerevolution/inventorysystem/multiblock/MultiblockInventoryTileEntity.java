@@ -8,10 +8,10 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileBase;
 
-public abstract class SARMultiblockTileInventory<T extends SARMultiblockRecipe<? extends InventoryRecipe>>
+public abstract class MultiblockInventoryTileEntity<T extends MultiblockRecipe<? extends InventoryRecipe>>
 		extends SARMultiblockTileBase<T> {
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {

@@ -4,15 +4,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockRecipe;
 
-public class MultiblockInventoryWrapper implements IItemHandler, IItemHandlerModifiable {
+public class MultiblockStackHandlerWrapper implements IItemHandler, IItemHandlerModifiable {
 
-	final SARMultiblockTileInventory<? extends SARMultiblockRecipe<? extends InventoryRecipe>> tile;
+	final MultiblockInventoryTileEntity<? extends MultiblockRecipe<? extends InventoryRecipe>> tile;
 	final String handlerName;
 
-	public MultiblockInventoryWrapper(
-			SARMultiblockTileInventory<? extends SARMultiblockRecipe<? extends InventoryRecipe>> tile,
+	public MultiblockStackHandlerWrapper(
+			MultiblockInventoryTileEntity<? extends MultiblockRecipe<? extends InventoryRecipe>> tile,
 			String handlerName) {
 		this.tile = tile;
 		this.handlerName = handlerName;

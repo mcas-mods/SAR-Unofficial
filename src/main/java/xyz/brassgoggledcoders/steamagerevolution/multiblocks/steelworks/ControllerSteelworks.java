@@ -4,9 +4,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.SARMultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockRecipe;
 
-public class ControllerSteelworks extends SARMultiblockRecipe<InventoryRecipe> {
+public class ControllerSteelworks extends MultiblockRecipe<InventoryRecipe> {
 
 	public ControllerSteelworks(World world) {
 		super(world);
