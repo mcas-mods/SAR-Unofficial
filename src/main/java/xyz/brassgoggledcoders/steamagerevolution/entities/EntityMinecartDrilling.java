@@ -2,6 +2,8 @@ package xyz.brassgoggledcoders.steamagerevolution.entities;
 
 import java.lang.ref.WeakReference;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.google.common.base.Optional;
 
 import net.minecraft.block.BlockRailBase;
@@ -36,8 +38,9 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryBas
 
 	public EntityMinecartDrilling(World world) {
 		super(world);
-		this.setInventory(new InventoryBasic(this).addItemPiece("inventory",
-				MiningUtils.getGUIPositionGrid(62, 31, 3, 1), new HandlerForceStack(this, 3)));
+		Pair<int[], int[]> posi = MiningUtils.getGUIPositionGrid(62, 31, 3, 1);
+		this.setInventory(new InventoryBasic(this).addItemPiece("inventory", posi.getLeft(), posi.getRight(),
+				new HandlerForceStack(this, 3, this.getInventory())));
 	}
 
 	@SideOnly(Side.CLIENT)

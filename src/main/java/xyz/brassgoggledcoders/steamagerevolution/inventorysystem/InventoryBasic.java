@@ -5,19 +5,22 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.tuple.Pair;
+import javax.annotation.Nonnull;
 
 import com.google.common.collect.Maps;
 
 import net.minecraft.nbt.*;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.ItemStackHandler;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.*;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 
 //TODO add validation to throw errors if duplicate or empty names are used
 @SuppressWarnings("rawtypes")
 public class InventoryBasic implements INBTSerializable<NBTTagCompound> {
 
+	@Nonnull
 	public final IHasInventory parent;
 	// TODO Is there a better way to do IDs than strings?
 	public HashMap<String, InventoryPieceItemHandler> itemPieces = Maps.newHashMap();
@@ -28,21 +31,17 @@ public class InventoryBasic implements INBTSerializable<NBTTagCompound> {
 		this.parent = parent;
 	}
 
-	public InventoryBasic addItemPiece(String name, Pair<int[], int[]> xNy, ItemStackHandler handler) {
-		this.addItemPiece(name, xNy.getLeft(), xNy.getRight(), handler);
-		return this;
-	}
-
-	public InventoryBasic addItemPiece(String name, int[] xPos, int[] yPos, ItemStackHandler handler) {
+	public InventoryBasic addItemPiece(String name, int[] xPos, int[] yPos, ItemStackHandlerSync handler) {
 		if(xPos.length < handler.getSlots() || yPos.length < handler.getSlots()) {
 			throw new RuntimeException("Your inventory position array sizes do not match the number of slots");
 		}
-		itemPieces.put(name, new InventoryPieceItemHandler(name, this, null, handler, xPos, yPos));
+		itemPieces.put(name, new InventoryPieceItemHandler(name, this, null, handler.setName(name), xPos, yPos));
 		return this;
 	}
 
 	public InventoryBasic addFluidPiece(String name, int xPos, int yPos, int capacity) {
-		fluidPieces.put(name, new InventoryPieceFluidTank(name, this, new FluidTankSynced(capacity, this), xPos, yPos));
+		fluidPieces.put(name,
+				new InventoryPieceFluidTank(name, this, new FluidTankSync(name, capacity, this), xPos, yPos));
 		return this;
 	}
 
@@ -76,7 +75,7 @@ public class InventoryBasic implements INBTSerializable<NBTTagCompound> {
 		return itemPieces.values().stream().map(p -> p.getHandler()).collect(Collectors.toList());
 	}
 
-	public List<FluidTankSynced> getFluidHandlers() {
+	public List<FluidTankSync> getFluidHandlers() {
 		return fluidPieces.values().stream().map(p -> p.getHandler()).collect(Collectors.toList());
 	}
 
@@ -91,8 +90,23 @@ public class InventoryBasic implements INBTSerializable<NBTTagCompound> {
 		return this.fluidPieces.get(name);
 	}
 
-	public void onContentsChanged(Object handler) {
-		this.parent.markMachineDirty();
+	public void onContentsChanged(String name, Object handler) {
+		if(!this.parent.getMachineWorld().isRemote) {
+			if(handler instanceof FluidTankSync) {
+				SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+						new PacketFluidUpdate(this.parent.getMachinePos(), ((FluidTankSync) handler).getFluid(),
+								((FluidTankSync) handler).name),
+						this.parent.getMachinePos(), this.parent.getMachineWorld().provider.getDimension());
+			}
+			else if(handler instanceof ItemStackHandlerSync) {
+				// TODO
+			}
+			this.parent.markMachineDirty();
+		}
+	}
+
+	public void updateFluid(PacketFluidUpdate message) {
+		this.getFluidPiece(message.name).getHandler().setFluid(message.fluid);
 	}
 
 	// Mainly for enabling callbacks. Probably should be cached.

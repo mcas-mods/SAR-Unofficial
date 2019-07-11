@@ -11,15 +11,15 @@ public class PacketFluidUpdate implements IMessage {
 
 	public BlockPos pos;
 	public FluidStack fluid;
-	public int typeID;
+	public String name;
 
 	public PacketFluidUpdate() {
 	}
 
-	public PacketFluidUpdate(BlockPos pos, FluidStack fluid, int typeID) {
+	public PacketFluidUpdate(BlockPos pos, FluidStack fluid, String name) {
 		this.pos = pos;
 		this.fluid = fluid;
-		this.typeID = typeID;
+		this.name = name;
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class PacketFluidUpdate implements IMessage {
 		pos = BlockPos.fromLong(buf.readLong());
 		NBTTagCompound tag = ByteBufUtils.readTag(buf);
 		fluid = FluidStack.loadFluidStackFromNBT(tag);
-		typeID = buf.readInt();
+		name = ByteBufUtils.readUTF8String(buf);
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class PacketFluidUpdate implements IMessage {
 			fluid.writeToNBT(tag);
 		}
 		ByteBufUtils.writeTag(buf, tag);
-		buf.writeInt(typeID);
+		ByteBufUtils.writeUTF8String(buf, name);
 	}
 
 }

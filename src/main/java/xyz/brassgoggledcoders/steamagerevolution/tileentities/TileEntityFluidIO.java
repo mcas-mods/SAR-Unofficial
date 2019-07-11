@@ -5,9 +5,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.TileEntityInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 
 public class TileEntityFluidIO extends TileEntityInventory<InventoryBasic> {
 
@@ -15,11 +13,10 @@ public class TileEntityFluidIO extends TileEntityInventory<InventoryBasic> {
 
 	public TileEntityFluidIO() {
 		super();
-		setInventory(
-				new InventoryBasic(this)
-						.addItemPiece("items", new int[] { 25, 134 }, new int[] { 33, 33 },
-								new ItemStackHandlerExtractSpecific(2))
-						.addFluidPiece("tank", 78, 11, Fluid.BUCKET_VOLUME * 6));
+		setInventory(new InventoryBasic(this)
+				.addItemPiece("items", new int[] { 25, 134 }, new int[] { 33, 33 },
+						new ItemStackHandlerSync(2, this.getInventory()))
+				.addFluidPiece("tank", 78, 11, Fluid.BUCKET_VOLUME * 6));
 	}
 
 	@Override

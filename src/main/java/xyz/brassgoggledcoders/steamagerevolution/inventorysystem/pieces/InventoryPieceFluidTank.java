@@ -6,14 +6,14 @@ import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
 
-public class InventoryPieceFluidTank extends InventoryPieceHandler<FluidTankSynced> {
+public class InventoryPieceFluidTank extends InventoryPieceHandler<FluidTankSync> {
 
-	public InventoryPieceFluidTank(String name, InventoryBasic parent, IOType type, FluidTankSynced handler,
+	public InventoryPieceFluidTank(String name, InventoryBasic parent, IOType type, FluidTankSync handler,
 			int xPosition, int yPosition) {
 		super(name, parent, type, handler, xPosition, yPosition);
 	}
 
-	public InventoryPieceFluidTank(String name, InventoryBasic inventoryBasic, FluidTankSynced handler, int xPos,
+	public InventoryPieceFluidTank(String name, InventoryBasic inventoryBasic, FluidTankSync handler, int xPos,
 			int yPos) {
 		this(name, inventoryBasic, null, handler, xPos, yPos);
 	}

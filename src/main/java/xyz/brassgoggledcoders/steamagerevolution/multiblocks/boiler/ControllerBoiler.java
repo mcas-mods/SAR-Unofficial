@@ -14,7 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSingleSynced;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSingleSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
@@ -39,12 +39,12 @@ public class ControllerBoiler extends MultiblockRecipe<InventoryRecipe> {
 		super(world);
 		attachedMonitors = new HashSet<BlockPos>();
 		attachedValves = new HashSet<BlockPos>();
-		this.setInventory(
-				new InventoryRecipe(this).setFuelHandler(81, 32, new ItemStackHandlerFuel(1, this.getInventory()))
-						.addFluidInput("waterTank", 0, 0, // FIXME
-								new FluidTankSingleSynced(Fluid.BUCKET_VOLUME * 16, "water", this.getInventory()))
-						.addFluidHandler("liquidFuel", IOType.INPUT, 50, 9, Fluid.BUCKET_VOLUME * 16)
-						.setSteamTank(142, 9, Fluid.BUCKET_VOLUME * 4));
+		this.setInventory(new InventoryRecipe(this)
+				.setFuelHandler(81, 32, new ItemStackHandlerFuel(1, this.getInventory()))
+				.addFluidInput("waterTank", 0, 0, // FIXME
+						new FluidTankSingleSync("waterTank", Fluid.BUCKET_VOLUME * 16, "water", this.getInventory()))
+				.addFluidHandler("liquidFuel", IOType.INPUT, 50, 9, Fluid.BUCKET_VOLUME * 16)
+				.setSteamTank(142, 9, Fluid.BUCKET_VOLUME * 4));
 	}
 
 	@Override

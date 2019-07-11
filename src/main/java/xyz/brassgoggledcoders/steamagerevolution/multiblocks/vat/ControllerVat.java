@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemHandlerHelper;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSynced;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockRecipe;
@@ -52,7 +52,7 @@ public class ControllerVat extends MultiblockRecipe<InventoryRecipe> {
 			// Simulate contact with fluid in vat when an entity falls in.
 			// TODO change bounds based on fluid fill level
 			FluidStack fluid = null;
-			for(FluidTankSynced tank : this.getInventory().getFluidHandlers()) {
+			for(FluidTankSync tank : this.getInventory().getFluidHandlers()) {
 				if(tank.getFluidAmount() > 0) {
 					fluid = tank.getFluid();
 					break;
