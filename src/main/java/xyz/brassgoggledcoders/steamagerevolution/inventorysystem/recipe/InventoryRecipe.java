@@ -134,6 +134,7 @@ public class InventoryRecipe extends InventoryBasic {
 		this.currentTicks = ticks;
 	}
 
+	// TODO builtin slowtick
 	public boolean onTick() {
 		if(canRun()) {
 			if(getCurrentTicks() <= currentRecipe.getTicksPerOperation()) { // TODO

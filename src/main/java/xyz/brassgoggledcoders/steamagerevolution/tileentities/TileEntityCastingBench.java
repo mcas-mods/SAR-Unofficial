@@ -10,7 +10,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.TileEntityInven
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
-public class TileEntityCastingBench extends TileEntityInventory {
+public class TileEntityCastingBench extends TileEntityInventory<InventoryRecipe> {
 
 	public static int inputCapacity = RecipeUtil.VALUE_BLOCK;
 

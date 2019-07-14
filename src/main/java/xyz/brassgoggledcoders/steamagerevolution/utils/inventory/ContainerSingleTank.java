@@ -7,6 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class ContainerSingleTank extends ContainerBase {
 	public ContainerSingleTank(EntityPlayer player, TileEntity tile) {
+		// TODO Add fluid interaction slots
 		createPlayerSlots(player.inventory);
 	}
 

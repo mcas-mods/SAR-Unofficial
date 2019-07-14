@@ -14,8 +14,7 @@ public class TileEntityFluidIO extends TileEntityInventory<InventoryBasic> {
 	public TileEntityFluidIO() {
 		super();
 		setInventory(new InventoryBasic(this)
-				.addItemPiece("items", new int[] { 25, 134 }, new int[] { 33, 33 },
-						new ItemStackHandlerSync(2, this.getInventory()))
+				.addItemPiece("items", new int[] { 25, 134 }, new int[] { 33, 33 }, new ItemStackHandlerSync(2, null))
 				.addFluidPiece("tank", 78, 11, Fluid.BUCKET_VOLUME * 6));
 	}
 
