@@ -39,10 +39,9 @@ public class ControllerBoiler extends MultiblockRecipe<InventoryRecipe> {
 		super(world);
 		attachedMonitors = new HashSet<BlockPos>();
 		attachedValves = new HashSet<BlockPos>();
-		this.setInventory(new InventoryRecipe(this)
-				.setFuelHandler(81, 32, new ItemStackHandlerFuel(1, this.getInventory()))
+		this.setInventory(new InventoryRecipe(this).setFuelHandler(81, 32, new ItemStackHandlerFuel(1, this))
 				.addFluidInput("waterTank", 0, 0, // FIXME
-						new FluidTankSingleSync("waterTank", Fluid.BUCKET_VOLUME * 16, "water", this.getInventory()))
+						new FluidTankSingleSync("waterTank", Fluid.BUCKET_VOLUME * 16, "water", this))
 				.addFluidHandler("liquidFuel", IOType.INPUT, 50, 9, Fluid.BUCKET_VOLUME * 16)
 				.setSteamTank(142, 9, Fluid.BUCKET_VOLUME * 4));
 	}

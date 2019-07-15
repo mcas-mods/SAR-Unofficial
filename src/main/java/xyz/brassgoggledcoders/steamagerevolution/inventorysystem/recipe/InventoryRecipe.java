@@ -52,7 +52,7 @@ public class InventoryRecipe extends InventoryBasic {
 			throw new RuntimeException("Your inventory position array sizes do not match");
 		}
 		InventoryPieceItemHandler iPiece = new InventoryPieceItemHandler(name, this, type,
-				new ItemStackHandlerSync(slotXs.length, this), slotXs, slotYs);
+				new ItemStackHandlerSync(name, slotXs.length, parent), slotXs, slotYs);
 		if(type.equals(IOType.INPUT)) {
 			itemInputPieces.add(iPiece);
 		}
@@ -65,7 +65,7 @@ public class InventoryRecipe extends InventoryBasic {
 
 	public InventoryRecipe addFluidHandler(String name, IOType type, int xPos, int yPos, int capacity) {
 		InventoryPieceFluidTank fPiece = new InventoryPieceFluidTank(name, this, type,
-				new FluidTankSync(name, capacity, this), xPos, yPos);
+				new FluidTankSync(name, capacity, parent), xPos, yPos);
 		if(type.equals(IOType.INPUT)) {
 			fluidInputPieces.add(fPiece);
 		}
@@ -82,7 +82,7 @@ public class InventoryRecipe extends InventoryBasic {
 
 	public InventoryRecipe setSteamTank(int xPos, int yPos, int capacity) {
 		steamPiece = new InventoryPieceFluidTank("steamTank", this, IOType.POWER,
-				new FluidTankSingleSync("steamTank", capacity, "steam", this), xPos, yPos);
+				new FluidTankSingleSync("steamTank", capacity, "steam", parent), xPos, yPos);
 		fluidPieces.put("steamTank", steamPiece);
 		return this;
 	}

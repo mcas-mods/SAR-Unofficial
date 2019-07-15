@@ -12,7 +12,6 @@ import com.google.common.collect.Maps;
 import net.minecraft.nbt.*;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.*;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 
@@ -35,13 +34,13 @@ public class InventoryBasic implements INBTSerializable<NBTTagCompound> {
 		if(xPos.length < handler.getSlots() || yPos.length < handler.getSlots()) {
 			throw new RuntimeException("Your inventory position array sizes do not match the number of slots");
 		}
-		itemPieces.put(name, new InventoryPieceItemHandler(name, this, null, handler.setName(name), xPos, yPos));
+		itemPieces.put(name, new InventoryPieceItemHandler(name, this, null, handler, xPos, yPos));
 		return this;
 	}
 
 	public InventoryBasic addFluidPiece(String name, int xPos, int yPos, int capacity) {
 		fluidPieces.put(name,
-				new InventoryPieceFluidTank(name, this, new FluidTankSync(name, capacity, this), xPos, yPos));
+				new InventoryPieceFluidTank(name, this, new FluidTankSync(name, capacity, parent), xPos, yPos));
 		return this;
 	}
 
@@ -88,21 +87,6 @@ public class InventoryBasic implements INBTSerializable<NBTTagCompound> {
 	// As above
 	public InventoryPieceFluidTank getFluidPiece(String name) {
 		return this.fluidPieces.get(name);
-	}
-
-	public void onContentsChanged(String name, Object handler) {
-		if(!this.parent.getMachineWorld().isRemote) {
-			if(handler instanceof FluidTankSync) {
-				SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-						new PacketFluidUpdate(this.parent.getMachinePos(), ((FluidTankSync) handler).getFluid(),
-								((FluidTankSync) handler).name),
-						this.parent.getMachinePos(), this.parent.getMachineWorld().provider.getDimension());
-			}
-			else if(handler instanceof ItemStackHandlerSync) {
-				// TODO
-			}
-			this.parent.markMachineDirty();
-		}
 	}
 
 	public void updateFluid(PacketFluidUpdate message) {

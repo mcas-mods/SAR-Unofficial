@@ -5,25 +5,17 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExt
 //TODO Bring back custom stack sync packets because AFAIK vanilla only syncs when GUI is opened (?) which doesn't work for steam hammer etc.
 public class ItemStackHandlerSync extends ItemStackHandlerExtractSpecific {
 
-	final InventoryBasic containingInventory;
+	final IHasInventory<?> container;
 	String name;
 
-	public ItemStackHandlerSync(int size, InventoryBasic parent) {
+	public ItemStackHandlerSync(String name, int size, IHasInventory<?> container) {
 		super(size);
-		this.containingInventory = parent;
-	}
-
-	// Better to find a way to parent the handler with the inventory piece
-	@Deprecated
-	public ItemStackHandlerSync setName(String name) {
 		this.name = name;
-		return this;
+		this.container = container;
 	}
 
 	@Override
 	protected void onContentsChanged(int slot) {
-		if(containingInventory != null) {
-			containingInventory.onContentsChanged(name, this);
-		}
+		// TODO
 	}
 }
