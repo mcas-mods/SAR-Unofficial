@@ -159,7 +159,7 @@ public class InventoryRecipe extends InventoryBasic {
 	// second to anyone who has the GUI open, to help mitigate desyncs
 	public void updateClient() {
 		if(this.clientMaxTicks > 0) {
-			if(this.currentTicks > this.clientMaxTicks) {
+			if(this.currentTicks < this.clientMaxTicks) {
 				this.currentTicks++;
 			}
 			else {

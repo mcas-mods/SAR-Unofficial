@@ -46,8 +46,7 @@ public abstract class MultiblockInventoryTileEntity<T extends MultiblockRecipe<?
 
 	@Override
 	public void setInventory(InventoryRecipe inventory) {
-		// TODO
-		// return this.getMultiblockController().setInventory(inventory);
+		throw new RuntimeException("Nope, can't do that");
 	}
 
 	@Override
