@@ -40,7 +40,7 @@ public class EntityMinecartCarrier extends EntityMinecartInventory<InventoryBasi
 	@SideOnly(Side.CLIENT)
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiInventory(entityPlayer, this, new ContainerForceStack(entityPlayer, this), "carrier_cart");
+		return new GuiInventory(entityPlayer, this, new ContainerForceStack(entityPlayer, this));
 	}
 
 	@Override

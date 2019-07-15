@@ -10,7 +10,7 @@ public class InventoryPieceProgressBar extends InventoryPiece {
 	public final InventoryRecipe parent;
 
 	public InventoryPieceProgressBar(InventoryRecipe parent, int xPos, int yPos) {
-		super("progress", xPos, yPos);
+		super("progress", xPos, yPos, 50, 166, 22, 15, 0);
 		this.parent = parent;
 	}
 
@@ -20,6 +20,7 @@ public class InventoryPieceProgressBar extends InventoryPiece {
 			if(parent.getMaxTicks() == 0) {
 				gui.drawHoveringText(TextFormatting.RED.toString() + "No recipe", mouseX, mouseY); // TODO
 				// Localization
+				// TODO Display reasons for the recipe not working
 			}
 			else if(GuiScreen.isShiftKeyDown()) {
 				gui.drawHoveringText(parent.getCurrentTicks() + "/" + parent.getMaxTicks() + " ticks", mouseX, mouseY);
@@ -33,7 +34,7 @@ public class InventoryPieceProgressBar extends InventoryPiece {
 
 	@Override
 	public void backgroundLayerCallback(GuiInventory gui, float partialTicks, int mouseX, int mouseY) {
-		gui.mc.renderEngine.bindTexture(gui.guiTexture);
+		gui.mc.renderEngine.bindTexture(GuiInventory.guiTexture);
 		int progress = parent.getCurrentTicks();// TODO this needs packet synced
 		int total = parent.getMaxTicks();
 		int progressScaled = progress != 0 && total != 0 ? progress * 24 / total : 0;

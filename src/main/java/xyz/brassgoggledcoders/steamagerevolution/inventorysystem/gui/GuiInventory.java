@@ -12,30 +12,22 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPiece;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 
 @SideOnly(Side.CLIENT)
 public class GuiInventory extends GuiContainer {
 	protected final IHasInventory<? extends InventoryBasic> holder;
 	protected final InventoryPlayer playerInventory;
-	public final ResourceLocation guiTexture;
+	public static final ResourceLocation guiTexture = new ResourceLocation(SteamAgeRevolution.MODID,
+			"textures/gui/inventory.png");
 
 	public GuiInventory(EntityPlayer player, IHasInventory<? extends InventoryBasic> holder) {
-		this(player, holder, new ContainerInventory(player, holder), "");
+		this(player, holder, new ContainerInventory(player, holder));
 	}
 
 	public GuiInventory(EntityPlayer player, IHasInventory<? extends InventoryBasic> holder,
 			ContainerBase containerInstance) {
-		this(player, holder, containerInstance, "");
-	}
-
-	public GuiInventory(EntityPlayer player, IHasInventory<? extends InventoryBasic> holder,
-			ContainerBase containerInstance, String textureOverride) {
 		super(containerInstance);
-		String name = textureOverride;
-		if(textureOverride.isEmpty()) {
-			name = holder.getName().toLowerCase().replace(' ', '_');
-		}
-		guiTexture = new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/" + name + ".png");
 		this.holder = holder;
 		this.playerInventory = player.inventory;
 	}
@@ -66,6 +58,20 @@ public class GuiInventory extends GuiContainer {
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
 		for(InventoryPiece piece : holder.getInventory().getInventoryPieces()) {
+			if(piece instanceof InventoryPieceItemHandler) {
+				InventoryPieceItemHandler pieceH = (InventoryPieceItemHandler) piece;
+				for(int slot = 0; slot < pieceH.getHandler().getSlots(); slot++) {
+					this.drawTexturedModalRect(
+							this.getGuiLeft() + pieceH.getSlotPositionX(slot) + pieceH.backgroundOffset,
+							this.getGuiTop() + pieceH.getSlotPositionY(slot) + pieceH.backgroundOffset, piece.textureX,
+							piece.textureY, piece.width, piece.height);
+				}
+			}
+			else {
+				this.drawTexturedModalRect(this.getGuiLeft() + piece.getX() + piece.backgroundOffset,
+						this.getGuiTop() + piece.getY() + piece.backgroundOffset, piece.textureX, piece.textureY,
+						piece.width, piece.height);
+			}
 			piece.backgroundLayerCallback(this, partialTicks, mouseX, mouseY);
 		}
 	}

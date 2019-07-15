@@ -5,17 +5,24 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventor
 //TODO Move the power to define GUI behaviour into InventoryPiece (callbacks from GUI methods)
 public abstract class InventoryPiece {
 	String name;
-	final int xPos;
-	final int yPos;
+	final int elementX;
+	final int elementY;
+	public final int textureX, width;
+	public final int textureY, height;
+	public final int backgroundOffset;
 
 	// Name MUST be unique within the inventory
-	public InventoryPiece(String name, int xPos, int yPos) {
+	// TODO Create a 'GUIPiece' subclass that holds texture and position info?
+	public InventoryPiece(String name, int xPos, int yPos, int textureX, int textureY, int xSize, int ySize,
+			int offset) {
 		this.name = name;
-		// These define the piece's positions in GuiInventory. Optional if you have no
-		// GUI I suppose (but will probably crash if you try to do that, I've not tested
-		// since it's outside my usecase)
-		this.xPos = xPos;
-		this.yPos = yPos;
+		this.elementX = xPos;
+		this.elementY = yPos;
+		this.textureX = textureX;
+		this.textureY = textureY;
+		this.width = xSize;
+		this.height = ySize;
+		this.backgroundOffset = offset;
 	}
 
 	public String getName() {
@@ -25,11 +32,11 @@ public abstract class InventoryPiece {
 	// GUI Related methods below this line
 
 	public int getX() {
-		return xPos;
+		return elementX;
 	}
 
 	public int getY() {
-		return yPos;
+		return elementY;
 	}
 
 	public void drawScreenCallback(GuiInventory gui, int mouseX, int mouseY, float partialTicks) {

@@ -22,7 +22,7 @@ public class TileEntityFluidHopperRenderer extends TileEntitySpecialRenderer<Til
 			float height = ((float) liquid.amount) / (float) tank.getCapacity();
 
 			float d = RenderingUtils.FLUID_OFFSET;
-			float d1 = 0.12f;
+			float d1 = 0.135f;
 			RenderingUtils.renderFluidCuboid(liquid, tile.getPos(), x, y, z, d + d1, d + 1F, d + d1, 1d - d - d1,
 					height - d, 1d - d - d1);
 		}

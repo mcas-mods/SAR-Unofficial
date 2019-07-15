@@ -10,7 +10,7 @@ public class InventoryPieceFluidTank extends InventoryPieceHandler<FluidTankSync
 
 	public InventoryPieceFluidTank(String name, InventoryBasic parent, IOType type, FluidTankSync handler,
 			int xPosition, int yPosition) {
-		super(name, parent, type, handler, xPosition, yPosition);
+		super(name, parent, type, handler, xPosition, yPosition, 28, 166, 22, 62);
 	}
 
 	public InventoryPieceFluidTank(String name, InventoryBasic inventoryBasic, FluidTankSync handler, int xPos,
@@ -32,7 +32,7 @@ public class InventoryPieceFluidTank extends InventoryPieceHandler<FluidTankSync
 		if(stack != null && stack.getFluid() != null && stack.amount > 0) {
 			GuiHelper.renderGuiTank(stack, handler.getCapacity(), stack.amount, gui.guiLeft + this.getX(),
 					gui.guiTop + this.getY(), 20, 60);
-			gui.mc.renderEngine.bindTexture(gui.guiTexture);
+			gui.mc.renderEngine.bindTexture(GuiInventory.guiTexture);
 			gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY() + 6, 176, 14, 20, 49);
 		}
 	}
