@@ -55,7 +55,6 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.crucible.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.furnace.blocks.*;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.*;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.steelworks.blocks.*;
@@ -349,6 +348,8 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 				PacketMultiFluidUpdate.class, Side.CLIENT);
 		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerIncreaseHunger.class,
 				PacketIncreaseHunger.class, Side.SERVER);
+		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerSetRecipeTime.class, PacketSetRecipeTime.class,
+				Side.CLIENT);
 		SARCapabilities.register();
 		proxy.preInit(event);
 		SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class, "CONFIG").addEntry("plateCount",

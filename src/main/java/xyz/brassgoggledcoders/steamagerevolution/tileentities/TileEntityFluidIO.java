@@ -1,13 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.tileentities;
 
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 
-public class TileEntityFluidIO extends TileEntityInventory<InventoryBasic> {
+public class TileEntityFluidIO extends TileEntityInventory<InventoryBasic> implements ITickable {
 
 	private int fluidTransferRate = 20;
 

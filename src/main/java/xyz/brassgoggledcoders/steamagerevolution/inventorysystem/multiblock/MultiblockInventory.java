@@ -55,4 +55,9 @@ public abstract class MultiblockInventory<I extends InventoryBasic> extends SARM
 	public void setInventory(I inventory) {
 		this.inventory = inventory;
 	}
+
+	@Override
+	public void markMachineDirty() {
+		this.markReferenceCoordDirty();
+	}
 }

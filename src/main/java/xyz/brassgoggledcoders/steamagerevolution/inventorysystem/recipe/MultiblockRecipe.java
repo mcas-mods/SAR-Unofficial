@@ -12,15 +12,16 @@ public abstract class MultiblockRecipe<I extends InventoryRecipe> extends Multib
 	@Override
 	protected boolean updateServer() {
 		onTick();
-		return this.getInventory().onTick();
+		return this.getInventory().updateServer();
+	}
+
+	@Override
+	protected void updateClient() {
+		this.getInventory().updateClient();
 	}
 
 	protected void onTick() {
 		// NO-OP
 	}
 
-	@Override
-	public void markMachineDirty() {
-		this.markReferenceCoordDirty();
-	}
 }

@@ -19,6 +19,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.*;
+import xyz.brassgoggledcoders.steamagerevolution.network.PacketSetRecipeTime;
 
 //TODO Cleaner way to define what handlers are available. Machines have fixed IOs, lists are somewhat the wrong thing...
 public class InventoryRecipe extends InventoryBasic {
@@ -32,8 +33,8 @@ public class InventoryRecipe extends InventoryBasic {
 	public InventoryPieceItemHandler fuelHandlerPiece;
 	public InventoryPieceProgressBar progressBar;
 
-	@SideOnly(Side.CLIENT) // TODO I forgot why this is a thing
-	public int currentMaxTicks;
+	@SideOnly(Side.CLIENT)
+	public int clientMaxTicks;
 	// FIXME remember this needs to be saved
 	private int currentTicks = 0;
 	protected MachineRecipe currentRecipe;
@@ -120,22 +121,26 @@ public class InventoryRecipe extends InventoryBasic {
 			this.setCurrentTicks(0);
 		}
 		this.currentRecipe = recipe;
+		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+				new PacketSetRecipeTime(this.parent.getMachinePos(),
+						Integer.valueOf(this.currentRecipe.ticksToProcess).shortValue()),
+				this.parent.getMachinePos(), this.parent.getMachineWorld().provider.getDimension());
 	}
 
 	public int getCurrentTicks() {
 		return currentTicks;
 	}
 
-	public int getCurrentMaxTicks() {
-		return currentMaxTicks;
+	@SideOnly(Side.CLIENT)
+	public int getMaxTicks() {
+		return clientMaxTicks;
 	}
 
 	public void setCurrentTicks(int ticks) {
 		this.currentTicks = ticks;
 	}
 
-	// TODO builtin slowtick
-	public boolean onTick() {
+	public boolean updateServer() {
 		if(canRun()) {
 			if(getCurrentTicks() <= currentRecipe.getTicksPerOperation()) { // TODO
 				setCurrentTicks(getCurrentTicks() + 1);
@@ -144,10 +149,23 @@ public class InventoryRecipe extends InventoryBasic {
 				onFinish();
 				setCurrentTicks(0);
 				currentRecipe = null;
+				return true;
 			}
-			return true;
 		}
 		return false;
+	}
+
+	// Interpolate ticks on client TODO Potentially send an update packet every
+	// second to anyone who has the GUI open, to help mitigate desyncs
+	public void updateClient() {
+		if(this.clientMaxTicks > 0) {
+			if(this.currentTicks > this.clientMaxTicks) {
+				this.currentTicks++;
+			}
+			else {
+				this.currentTicks = 0;
+			}
+		}
 	}
 
 	protected void onFinish() {
@@ -300,5 +318,21 @@ public class InventoryRecipe extends InventoryBasic {
 	public List<FluidTank> getTypedFluidHandlers(IOType type) {
 		return fluidPieces.values().stream().filter(iP -> iP.getType().equals(type)).map(p -> p.getHandler())
 				.collect(Collectors.toList());
+	}
+
+	// TODO
+	@Override
+	public List<InventoryPiece> getInventoryPieces() {
+		List<InventoryPiece> pieces = super.getInventoryPieces();
+		if(steamPiece != null) {
+			pieces.add(steamPiece);
+		}
+		if(progressBar != null) {
+			pieces.add(progressBar);
+		}
+		if(fuelHandlerPiece != null) {
+			pieces.add(fuelHandlerPiece);
+		}
+		return pieces;
 	}
 }

@@ -9,7 +9,6 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -17,10 +16,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.ContainerInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
 
 public abstract class TileEntityInventory<I extends InventoryBasic> extends TileEntityBase
-		implements ITickable, IHasGui, IHasInventory<I> {
+		implements IHasGui, IHasInventory<I> {
 
 	public I inventory;
 
@@ -64,14 +62,6 @@ public abstract class TileEntityInventory<I extends InventoryBasic> extends Tile
 	protected NBTTagCompound writeToDisk(NBTTagCompound data) {
 		data.setTag("inventory", inventory.serializeNBT());
 		return data;
-	}
-
-	@Override
-	public void update() {
-		// TODO
-		if(inventory instanceof InventoryRecipe) {
-			((InventoryRecipe) inventory).onTick();
-		}
 	}
 
 	@Override

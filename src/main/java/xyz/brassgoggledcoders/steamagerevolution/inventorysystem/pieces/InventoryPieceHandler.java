@@ -16,7 +16,7 @@ public abstract class InventoryPieceHandler<H extends INBTSerializable<NBTTagCom
 
 	public InventoryPieceHandler(String name, InventoryBasic parent, IOType type, H handler, int xPositions,
 			int yPositions) {
-		super(name, parent, xPositions, yPositions);
+		super(name, xPositions, yPositions);
 		this.handler = handler;
 		this.type = type;
 	}

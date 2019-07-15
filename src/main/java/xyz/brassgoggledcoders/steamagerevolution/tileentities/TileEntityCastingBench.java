@@ -15,7 +15,7 @@ public class TileEntityCastingBench extends TileEntityInventory<InventoryRecipe>
 	public static int inputCapacity = RecipeUtil.VALUE_BLOCK;
 
 	public TileEntityCastingBench() {
-		setInventory(new InventoryRecipe(this).addFluidHandler("input", IOType.INPUT, 51, 11, inputCapacity)
+		setInventory(new InventoryRecipe(this).addFluidHandler("tank", IOType.INPUT, 51, 11, inputCapacity)
 				.addItemHandler("output", IOType.OUTPUT, 109, 34));
 	}
 
