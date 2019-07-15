@@ -1,33 +1,33 @@
 package xyz.brassgoggledcoders.steamagerevolution.tileentities;
 
-import com.teamacronymcoders.base.guisystem.IHasGui;
-import com.teamacronymcoders.base.tileentities.TileEntitySlowTick;
 import com.teamacronymcoders.base.util.PositionUtils;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.blocks.BlockFluidHopper;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerSingleTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiSingleTank;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.TileEntityInventory;
 
 //TODO Switch to inventory system
-public class TileEntityFluidHopper extends TileEntitySlowTick implements IHasGui {
+public class TileEntityFluidHopper extends TileEntityInventory<InventoryBasic> implements ITickable {
 
-	public FluidTank buffer = new FluidTank(Fluid.BUCKET_VOLUME);
 	private boolean hasFrom = false;
 	private BlockPos toPos = null;
 	private boolean hasCache = false;
+
+	public TileEntityFluidHopper() {
+		this.setInventory(new InventoryBasic(this).addFluidPiece("tank", 0, 0, Fluid.BUCKET_VOLUME));
+	}
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
@@ -37,14 +37,14 @@ public class TileEntityFluidHopper extends TileEntitySlowTick implements IHasGui
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(buffer);
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
+					.cast(this.getInventory().getFluidPiece("tank").getHandler());
 		}
 		return super.getCapability(capability, facing);
 	}
 
 	@Override
-	public void updateTile() {
-		super.updateTile();
+	public void update() {
 		if(world.isRemote) {
 			return;
 		}
@@ -59,14 +59,16 @@ public class TileEntityFluidHopper extends TileEntitySlowTick implements IHasGui
 						CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
 						PositionUtils.getFacingFromPositions(getPos(), toPos));
 				if(to != null) { // TODO This should not happen
-					FluidUtil.tryFluidTransfer(to, buffer, Fluid.BUCKET_VOLUME, true);
+					FluidUtil.tryFluidTransfer(to, this.getInventory().getFluidPiece("tank").getHandler(),
+							Fluid.BUCKET_VOLUME, true);
 				}
 			}
 			if(hasFrom) {
 				IFluidHandler from = getWorld().getTileEntity(getPos().up())
 						.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.DOWN);
 				if(from != null) { // TODO Neither should this
-					FluidUtil.tryFluidTransfer(buffer, from, Fluid.BUCKET_VOLUME, true);
+					FluidUtil.tryFluidTransfer(this.getInventory().getFluidPiece("tank").getHandler(), from,
+							Fluid.BUCKET_VOLUME, true);
 				}
 			}
 		}
@@ -74,19 +76,18 @@ public class TileEntityFluidHopper extends TileEntitySlowTick implements IHasGui
 
 	@Override
 	public void readFromDisk(NBTTagCompound tag) {
-		buffer.readFromNBT(tag);
 		hasFrom = tag.getBoolean("from");
 		toPos = BlockPos.fromLong(tag.getLong("to"));
+		super.readFromDisk(tag);
 	}
 
 	@Override
 	public NBTTagCompound writeToDisk(NBTTagCompound tag) {
-		buffer.writeToNBT(tag);
 		tag.setBoolean("from", hasFrom);
 		if(toPos != null) {
 			tag.setLong("to", toPos.toLong());
 		}
-		return tag;
+		return super.writeToDisk(tag);
 	}
 
 	public void recalculateCache(World worldIn, BlockPos pos, IBlockState state, BlockPos fromPos) {
@@ -122,12 +123,7 @@ public class TileEntityFluidHopper extends TileEntitySlowTick implements IHasGui
 	}
 
 	@Override
-	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiSingleTank(entityPlayer, buffer);
-	}
-
-	@Override
-	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new ContainerSingleTank(entityPlayer, this);
+	public String getName() {
+		return "Fluid Hopper";
 	}
 }

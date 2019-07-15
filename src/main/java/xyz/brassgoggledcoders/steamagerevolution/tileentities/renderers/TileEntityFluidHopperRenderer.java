@@ -15,16 +15,16 @@ public class TileEntityFluidHopperRenderer extends TileEntitySpecialRenderer<Til
 	@Override
 	public void render(TileEntityFluidHopper tile, double x, double y, double z, float partialTicks, int destroyStage,
 			float alpha) {
-		FluidTank tank = tile.buffer;
+		FluidTank tank = tile.getInventory().getFluidPiece("tank").getHandler();
 		FluidStack liquid = tank.getFluid();
 
-		if (liquid != null) {
+		if(liquid != null) {
 			float height = ((float) liquid.amount) / (float) tank.getCapacity();
 
 			float d = RenderingUtils.FLUID_OFFSET;
 			float d1 = 0.12f;
-			RenderingUtils.renderFluidCuboid(liquid, tile.getPos(), x, y, z, d + d1, d + 1F, d + d1, 1d - d - d1, height - d, 1d - d - d1);
+			RenderingUtils.renderFluidCuboid(liquid, tile.getPos(), x, y, z, d + d1, d + 1F, d + d1, 1d - d - d1,
+					height - d, 1d - d - d1);
 		}
 	}
 }
-
