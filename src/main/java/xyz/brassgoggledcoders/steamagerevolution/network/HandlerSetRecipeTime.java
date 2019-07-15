@@ -32,7 +32,7 @@ public class HandlerSetRecipeTime implements IMessageHandler<PacketSetRecipeTime
 			InventoryBasic inventory = ((IHasInventory<?>) te).getInventory();
 			if(inventory instanceof InventoryRecipe) {
 				InventoryRecipe rInventory = (InventoryRecipe) inventory;
-				rInventory.clientMaxTicks = message.maxTicks;
+				rInventory.clientTicksToComplete = message.maxTicks;
 			}
 		}
 	}

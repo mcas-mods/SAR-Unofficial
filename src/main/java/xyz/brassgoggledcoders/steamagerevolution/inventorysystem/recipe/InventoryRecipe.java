@@ -21,7 +21,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandle
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.*;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketSetRecipeTime;
 
-//TODO Cleaner way to define what handlers are available. Machines have fixed IOs, lists are somewhat the wrong thing...
+//TODO Drain totalSteam/ticksToComplete steam every tick
 public class InventoryRecipe extends InventoryBasic {
 
 	public ArrayList<InventoryPieceItemHandler> itemInputPieces = new ArrayList<>();
@@ -34,9 +34,9 @@ public class InventoryRecipe extends InventoryBasic {
 	public InventoryPieceProgressBar progressBar;
 
 	@SideOnly(Side.CLIENT)
-	public int clientMaxTicks;
-	// FIXME remember this needs to be saved
-	private int currentTicks = 0;
+	public int clientTicksToComplete;
+	// FIXME remember this needs to be saved to NBT
+	private int currentProgress = 0;
 	protected MachineRecipe currentRecipe;
 
 	public InventoryRecipe(IHasInventory<? extends InventoryRecipe> parent) {
@@ -128,16 +128,16 @@ public class InventoryRecipe extends InventoryBasic {
 	}
 
 	public int getCurrentTicks() {
-		return currentTicks;
+		return currentProgress;
 	}
 
 	@SideOnly(Side.CLIENT)
 	public int getMaxTicks() {
-		return clientMaxTicks;
+		return clientTicksToComplete;
 	}
 
 	public void setCurrentTicks(int ticks) {
-		this.currentTicks = ticks;
+		this.currentProgress = ticks;
 	}
 
 	public boolean updateServer() {
@@ -158,12 +158,12 @@ public class InventoryRecipe extends InventoryBasic {
 	// Interpolate ticks on client TODO Potentially send an update packet every
 	// second to anyone who has the GUI open, to help mitigate desyncs
 	public void updateClient() {
-		if(this.clientMaxTicks > 0) {
-			if(this.currentTicks < this.clientMaxTicks) {
-				this.currentTicks++;
+		if(this.clientTicksToComplete > 0) {
+			if(this.currentProgress < this.clientTicksToComplete) {
+				this.currentProgress++;
 			}
 			else {
-				this.currentTicks = 0;
+				this.currentProgress = 0;
 			}
 		}
 	}
@@ -218,7 +218,7 @@ public class InventoryRecipe extends InventoryBasic {
 			}
 			if(ArrayUtils.isNotEmpty(currentRecipe.getFluidOutputs())) {
 				for(FluidStack output : currentRecipe.getFluidOutputs().clone()) {
-					for(FluidTank tank : getTypedFluidHandlers(IOType.INPUT)) {
+					for(FluidTank tank : getTypedFluidHandlers(IOType.OUTPUT)) {
 						tank.fill(output.copy(), true);
 					}
 				}
@@ -233,7 +233,7 @@ public class InventoryRecipe extends InventoryBasic {
 	}
 
 	protected boolean canFinish() {
-		if(currentRecipe != null && currentTicks >= currentRecipe.getTicksPerOperation()) {
+		if(currentRecipe != null && currentProgress >= currentRecipe.getTicksPerOperation()) {
 			boolean roomForItems = true;
 			boolean roomForFluids = true;
 			if(ArrayUtils.isNotEmpty(currentRecipe.getItemOutputs())) {
