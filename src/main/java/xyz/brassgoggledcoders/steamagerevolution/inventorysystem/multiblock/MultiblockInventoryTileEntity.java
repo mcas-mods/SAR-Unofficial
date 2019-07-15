@@ -3,8 +3,6 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock;
 import javax.annotation.Nonnull;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
@@ -13,49 +11,23 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockT
 
 public abstract class MultiblockInventoryTileEntity<T extends MultiblockRecipe<? extends InventoryRecipe>>
 		extends SARMultiblockTileBase<T> {
-	@Override
-	public SPacketUpdateTileEntity getUpdatePacket() {
-		NBTTagCompound nbt = new NBTTagCompound();
-		// if(isConnected()) {
-		// SARMultiblockRecipe controller = getMultiblockController();
-		// nbt.setTag("inventory", controller.inventory.serializeNBT());
-		// nbt.setInteger("currentTicks", controller.getCurrentTicks());
-		// int maxTicks = 0;
-		// if(controller.getCurrentRecipe() != null) {
-		// maxTicks = controller.getCurrentRecipe().getTicksPerOperation();
-		// }
-		// nbt.setInteger("currentMaxTicks", maxTicks);
-		// }
-		return new SPacketUpdateTileEntity(pos, 3, nbt);
-	}
-
+	// Handles sync on world load
 	@Nonnull
 	@Override
 	public NBTTagCompound getUpdateTag() {
-		NBTTagCompound nbt = super.writeToNBT(new NBTTagCompound());
-		// if(isConnected()) {
-		// SARMultiblockRecipe controller = getMultiblockController();
-		// nbt.setTag("inventory", controller.inventory.serializeNBT());
-		// nbt.setInteger("currentTicks", controller.getCurrentTicks());
-		// int maxTicks = 0;
-		// if(controller.getCurrentRecipe() != null) {
-		// maxTicks = controller.getCurrentRecipe().getTicksPerOperation();
-		// }
-		// nbt.setInteger("currentMaxTicks", maxTicks);
-		// }
+		NBTTagCompound nbt = this.writeToNBT(super.getUpdateTag());
+		if(this.isConnected() && this.isMultiblockSaveDelegate()) {
+			this.getMultiblockController().writeToDisk(nbt);
+		}
 		return nbt;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-		// SteamAgeRevolution.instance.getLogger().devInfo("On Data Packet");
-		// if(isConnected()) {
-		// SARMultiblockRecipe controller = getMultiblockController();
-		// NBTTagCompound nbt = pkt.getNbtCompound();
-		// controller.inventory.deserializeNBT(nbt.getCompoundTag("inventory"));
-		// controller.setCurrentTicks(nbt.getInteger("currentTicks"));
-		// controller.currentMaxTicks = nbt.getInteger("currentMaxTicks");
-		// }
+	public void handleUpdateTag(NBTTagCompound tag) {
+		if(this.isConnected() && this.isMultiblockSaveDelegate()) {
+			this.getMultiblockController().onAttachedPartWithMultiblockData(this, tag);
+		}
+		this.readFromNBT(tag);
 	}
 }

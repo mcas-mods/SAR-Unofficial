@@ -9,13 +9,12 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.ContainerInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
@@ -41,25 +40,19 @@ public abstract class TileEntityInventory<I extends InventoryBasic> extends Tile
 	@Override
 	public abstract String getName();
 
-	@Override
-	public SPacketUpdateTileEntity getUpdatePacket() {
-		NBTTagCompound nbt = new NBTTagCompound();
-		nbt.setTag("inventory", inventory.serializeNBT());
-		return new SPacketUpdateTileEntity(pos, 3, nbt);
-	}
-
+	// Handles sync on world load
 	@Nonnull
 	@Override
 	public NBTTagCompound getUpdateTag() {
-		NBTTagCompound nbt = super.writeToNBT(new NBTTagCompound());
-		nbt.setTag("inventory", inventory.serializeNBT());
-		return nbt;
+		SteamAgeRevolution.instance.getLogger().devInfo("getUpdateTag");
+		return this.writeToDisk(super.getUpdateTag());
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-		inventory.deserializeNBT(pkt.getNbtCompound().getCompoundTag("inventory"));
+	public void handleUpdateTag(NBTTagCompound tag) {
+		SteamAgeRevolution.instance.getLogger().devInfo("handleUpdateTag");
+		this.readFromDisk(tag);
 	}
 
 	@Override
