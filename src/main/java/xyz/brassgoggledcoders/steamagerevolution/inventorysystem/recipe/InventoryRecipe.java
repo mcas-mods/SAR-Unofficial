@@ -4,6 +4,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.annotation.Nullable;
+
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.teamacronymcoders.base.util.inventory.IngredientFluidStack;
@@ -116,15 +118,18 @@ public class InventoryRecipe extends InventoryBasic {
 		return currentRecipe;
 	}
 
-	public void setCurrentRecipe(MachineRecipe recipe) {
-		if(recipe == null) {
-			this.setCurrentTicks(0);
+	public void setCurrentRecipe(@Nullable MachineRecipe recipe) {
+		if(recipe != null) {
+			this.currentRecipe = recipe;
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+					new PacketSetRecipeTime(this.parent.getMachinePos(),
+							Integer.valueOf(this.currentRecipe.ticksToProcess).shortValue()),
+					this.parent.getMachinePos(), this.parent.getMachineWorld().provider.getDimension());
 		}
-		this.currentRecipe = recipe;
-		SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-				new PacketSetRecipeTime(this.parent.getMachinePos(),
-						Integer.valueOf(this.currentRecipe.ticksToProcess).shortValue()),
-				this.parent.getMachinePos(), this.parent.getMachineWorld().provider.getDimension());
+		else {
+			this.currentRecipe = null;
+			this.currentProgress = 0;
+		}
 	}
 
 	public int getCurrentTicks() {
@@ -147,10 +152,12 @@ public class InventoryRecipe extends InventoryBasic {
 			}
 			if(canFinish()) {
 				onFinish();
-				setCurrentTicks(0);
-				currentRecipe = null;
+				this.setCurrentRecipe(null);// TODO Only do if items have changed an that
 				return true;
 			}
+		}
+		else {
+			this.setCurrentRecipe(null);
 		}
 		return false;
 	}

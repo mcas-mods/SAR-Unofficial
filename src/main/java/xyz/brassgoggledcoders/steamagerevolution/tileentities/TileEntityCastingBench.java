@@ -16,7 +16,7 @@ public class TileEntityCastingBench extends TileEntityInventory<InventoryRecipe>
 
 	public TileEntityCastingBench() {
 		setInventory(new InventoryRecipe(this).addFluidHandler("tank", IOType.INPUT, 51, 11, inputCapacity)
-				.addItemHandler("output", IOType.OUTPUT, 109, 34));
+				.addItemHandler("output", IOType.OUTPUT, 109, 34).setProgressBar(80, 34));
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class TileEntityCastingBench extends TileEntityInventory<InventoryRecipe>
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(inventory.getFluidPiece("input").getHandler());
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(inventory.getFluidPiece("tank").getHandler());
 		}
 		else if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory.getItemPiece("output").getHandler());

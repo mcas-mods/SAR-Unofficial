@@ -8,6 +8,7 @@ import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
 public class ControllerCrucible extends MultiblockRecipe<InventoryRecipe> {
 
@@ -18,7 +19,7 @@ public class ControllerCrucible extends MultiblockRecipe<InventoryRecipe> {
 		super(world);
 		setInventory(
 				new InventoryRecipe(this).addItemHandler("itemInput", IOType.INPUT, new int[] { 53 }, new int[] { 34 })
-						.addFluidHandler("output", IOType.OUTPUT, 105, 11, Fluid.BUCKET_VOLUME)
+						.addFluidHandler("output", IOType.OUTPUT, 105, 11, RecipeUtil.VALUE_BLOCK * 4)
 						.setSteamTank(17, 11, Fluid.BUCKET_VOLUME).setProgressBar(76, 33));
 	}
 
