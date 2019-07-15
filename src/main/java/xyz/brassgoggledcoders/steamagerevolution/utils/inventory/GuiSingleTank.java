@@ -16,6 +16,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
+@Deprecated
 @SideOnly(Side.CLIENT)
 public class GuiSingleTank extends GuiContainer {
 	private static ResourceLocation guiTexture = new ResourceLocation(SteamAgeRevolution.MODID,
@@ -38,7 +39,7 @@ public class GuiSingleTank extends GuiContainer {
 		drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
-		if (isPointInRegion(78, 17, 20, 49, mouseX, mouseY)) {
+		if(isPointInRegion(78, 17, 20, 49, mouseX, mouseY)) {
 			List<String> tooltip = Lists.newArrayList();
 			tooltip.add(com.teamacronymcoders.base.util.TextUtils.representTankContents(tank).getFormattedText());
 			this.drawHoveringText(tooltip, mouseX, mouseY, fontRenderer);
@@ -55,7 +56,7 @@ public class GuiSingleTank extends GuiContainer {
 		FluidStack containedFluid = tank.getFluid();
 		int capacity = tank.getCapacity();
 
-		if (containedFluid != null && containedFluid.getFluid() != null && containedFluid.amount > 0) {
+		if(containedFluid != null && containedFluid.getFluid() != null && containedFluid.amount > 0) {
 			GuiHelper.renderGuiTank(containedFluid, capacity, containedFluid.amount, guiLeft + 78, guiTop + 11, 20, 60);
 		}
 

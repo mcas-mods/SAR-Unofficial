@@ -8,6 +8,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
+@Deprecated
 @SideOnly(Side.CLIENT)
 public class GuiSimpleSlots extends GuiContainer {
 	private ResourceLocation guiTexture;
