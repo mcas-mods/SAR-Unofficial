@@ -4,6 +4,7 @@ import com.teamacronymcoders.base.containers.ContainerBase;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -15,7 +16,8 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.Inventor
 @SideOnly(Side.CLIENT)
 public class GuiInventory extends GuiContainer {
 	protected final IHasInventory<? extends InventoryBasic> holder;
-	public ResourceLocation guiTexture;
+	protected final InventoryPlayer playerInventory;
+	public final ResourceLocation guiTexture;
 
 	public GuiInventory(EntityPlayer player, IHasInventory<? extends InventoryBasic> holder) {
 		this(player, holder, new ContainerInventory(player, holder), "");
@@ -35,6 +37,7 @@ public class GuiInventory extends GuiContainer {
 		}
 		guiTexture = new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/" + name + ".png");
 		this.holder = holder;
+		this.playerInventory = player.inventory;
 	}
 
 	@Override
@@ -45,6 +48,14 @@ public class GuiInventory extends GuiContainer {
 		for(InventoryPiece piece : holder.getInventory().getInventoryPieces()) {
 			piece.drawScreenCallback(this, mouseX, mouseY, partialTicks);
 		}
+	}
+
+	@Override
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+		String s = this.holder.getName();
+		this.fontRenderer.drawString(s, 8, 6, 4210752);
+		this.fontRenderer.drawString(playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2,
+				4210752);
 	}
 
 	@Override
