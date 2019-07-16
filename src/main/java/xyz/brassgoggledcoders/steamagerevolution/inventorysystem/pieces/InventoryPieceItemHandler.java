@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces;
 
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
 
 public class InventoryPieceItemHandler extends InventoryPieceHandler<ItemStackHandler> {
 
@@ -18,6 +19,16 @@ public class InventoryPieceItemHandler extends InventoryPieceHandler<ItemStackHa
 		super(name, parent, type, handler, slotXs[0], slotYs[0], 72, 166, 18, 18);
 		this.slotXs = slotXs;
 		this.slotYs = slotYs;
+		parent.itemPieces.put(name, this);
+		// TODO
+		if(parent instanceof InventoryRecipe) {
+			if(type.equals(IOType.INPUT)) {
+				((InventoryRecipe) parent).itemInputPieces.add(this);
+			}
+			else if(type.equals(IOType.OUTPUT)) {
+				((InventoryRecipe) parent).itemOutputPieces.add(this);
+			}
+		}
 	}
 
 	public int getSlotPositionX(int slot) {

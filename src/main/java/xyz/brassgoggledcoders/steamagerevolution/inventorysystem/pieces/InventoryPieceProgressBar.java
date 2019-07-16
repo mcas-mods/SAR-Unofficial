@@ -5,21 +5,12 @@ import net.minecraft.util.text.TextFormatting;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
 
-public class InventoryPieceProgressBar extends InventoryPiece {
-
-	public final InventoryRecipe parent;
+public class InventoryPieceProgressBar extends InventoryPiece<InventoryRecipe> {
 
 	public InventoryPieceProgressBar(InventoryRecipe parent, int xPos, int yPos) {
-		super("progress", xPos, yPos, 50, 166, 22, 15, 0);
-		this.parent = parent;
-		this.parent.errorPiece = new InventoryPieceRecipeError(parent, xPos + 10, yPos);
-	}
-
-	@Override
-	public void drawScreenCallback(GuiInventory gui, int mouseX, int mouseY, float partialTicks) {
-		if(gui.isPointInRegion(this.getX(), this.getY(), 24, 16, mouseX, mouseY)) {
-
-		}
+		super("progress", parent, xPos, yPos, 50, 166, 22, 15, 0);
+		// TODO Formal subpiece system
+		new InventoryPieceRecipeError(parent, xPos + 10, yPos + 2);
 	}
 
 	@Override

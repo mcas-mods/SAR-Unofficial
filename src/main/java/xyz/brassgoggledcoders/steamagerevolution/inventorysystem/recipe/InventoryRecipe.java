@@ -33,8 +33,6 @@ public class InventoryRecipe extends InventoryBasic {
 	// TODO
 	public InventoryPieceFluidTank steamPiece;
 	public InventoryPieceItemHandler fuelHandlerPiece;
-	public InventoryPieceProgressBar progressBar;
-	public InventoryPieceRecipeError errorPiece;
 
 	@SideOnly(Side.CLIENT)
 	public int clientTicksToComplete;
@@ -59,28 +57,14 @@ public class InventoryRecipe extends InventoryBasic {
 		if(slotXs.length != slotYs.length) {
 			throw new RuntimeException("Your inventory position array sizes do not match");
 		}
-		InventoryPieceItemHandler iPiece = new InventoryPieceItemHandler(name, this, type,
-				new ItemStackHandlerSync(name, slotXs.length, parent), slotXs, slotYs);
-		if(type.equals(IOType.INPUT)) {
-			itemInputPieces.add(iPiece);
-		}
-		else if(type.equals(IOType.OUTPUT)) {
-			itemOutputPieces.add(iPiece);
-		}
-		itemPieces.put(name, iPiece);
+		new InventoryPieceItemHandler(name, this, type, new ItemStackHandlerSync(name, slotXs.length, parent), slotXs,
+				slotYs);
+		// itemPieces.put(name, iPiece);
 		return this;
 	}
 
 	public InventoryRecipe addFluidHandler(String name, IOType type, int xPos, int yPos, int capacity) {
-		InventoryPieceFluidTank fPiece = new InventoryPieceFluidTank(name, this, type,
-				new FluidTankSync(name, capacity, parent), xPos, yPos);
-		if(type.equals(IOType.INPUT)) {
-			fluidInputPieces.add(fPiece);
-		}
-		else if(type.equals(IOType.OUTPUT)) {
-			fluidInputPieces.add(fPiece);
-		}
-		fluidPieces.put(name, fPiece);
+		new InventoryPieceFluidTank(name, this, type, new FluidTankSync(name, capacity, parent), xPos, yPos);
 		return this;
 	}
 
@@ -91,7 +75,7 @@ public class InventoryRecipe extends InventoryBasic {
 	public InventoryRecipe setSteamTank(int xPos, int yPos, int capacity) {
 		steamPiece = new InventoryPieceFluidTank("steamTank", this, IOType.POWER,
 				new FluidTankSingleSync("steamTank", capacity, "steam", parent), xPos, yPos);
-		fluidPieces.put("steamTank", steamPiece);
+		// fluidPieces.put("steamTank", steamPiece);
 		return this;
 	}
 
@@ -100,22 +84,21 @@ public class InventoryRecipe extends InventoryBasic {
 	public InventoryRecipe setFuelHandler(int xPos, int yPos, ItemStackHandlerFuel handler) {
 		fuelHandlerPiece = new InventoryPieceItemHandler("fuel", this, IOType.POWER, handler, new int[] { xPos },
 				new int[] { yPos });
-		itemPieces.put("fuel", fuelHandlerPiece);
+		// itemPieces.put("fuel", fuelHandlerPiece);
 		return this;
 	}
 
 	public InventoryRecipe setProgressBar(int x, int y) {
-		this.progressBar = new InventoryPieceProgressBar(this, x, y);
+		new InventoryPieceProgressBar(this, x, y);
 		return this;
 	}
 
 	// TODO
 	@Deprecated
 	public InventoryRecipe addFluidInput(String name, int xPos, int yPos, FluidTankSingleSync fluidTankSingleSmart) {
-		InventoryPieceFluidTank fPiece = new InventoryPieceFluidTank(name, this, IOType.INPUT, fluidTankSingleSmart,
-				xPos, yPos);
-		fluidInputPieces.add(fPiece);
-		fluidPieces.put(name, fPiece);
+		new InventoryPieceFluidTank(name, this, IOType.INPUT, fluidTankSingleSmart, xPos, yPos);
+		// fluidInputPieces.add(fPiece);
+		// fluidPieces.put(name, fPiece);
 		return this;
 	}
 
@@ -332,34 +315,17 @@ public class InventoryRecipe extends InventoryBasic {
 	}
 
 	// TODO
+	@Deprecated
 	public List<ItemStackHandler> getTypedItemHandlers(IOType type) {
 		return itemPieces.values().stream().filter(iP -> iP.getType().equals(type)).map(p -> p.getHandler())
 				.collect(Collectors.toList());
 	}
 
 	// TODO
+	@Deprecated
 	public List<FluidTank> getTypedFluidHandlers(IOType type) {
 		return fluidPieces.values().stream().filter(iP -> iP.getType().equals(type)).map(p -> p.getHandler())
 				.collect(Collectors.toList());
-	}
-
-	// TODO
-	@Override
-	public List<InventoryPiece> getInventoryPieces() {
-		List<InventoryPiece> pieces = super.getInventoryPieces();
-		if(steamPiece != null) {
-			pieces.add(steamPiece);
-		}
-		if(progressBar != null) {
-			pieces.add(progressBar);
-		}
-		if(fuelHandlerPiece != null) {
-			pieces.add(fuelHandlerPiece);
-		}
-		if(errorPiece != null) {
-			pieces.add(errorPiece);
-		}
-		return pieces;
 	}
 
 	@Nullable

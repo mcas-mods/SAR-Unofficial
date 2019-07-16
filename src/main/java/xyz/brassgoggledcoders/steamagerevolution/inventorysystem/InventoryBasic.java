@@ -1,9 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -21,9 +19,13 @@ public class InventoryBasic implements INBTSerializable<NBTTagCompound> {
 
 	@Nonnull
 	public final IHasInventory parent;
-	// TODO Is there a better way to do IDs than strings?
+
+	// Masterlist. Pieces are added to this list, and relevant sublists, in their
+	// constructor
+	public HashMap<String, InventoryPiece> inventoryPieces = Maps.newHashMap();
+
+	// Typed sublists
 	public HashMap<String, InventoryPieceItemHandler> itemPieces = Maps.newHashMap();
-	// TODO Readd support for FluidHandlerMulti?
 	public HashMap<String, InventoryPieceFluidTank> fluidPieces = Maps.newHashMap();
 
 	public InventoryBasic(IHasInventory parent) {
@@ -34,7 +36,7 @@ public class InventoryBasic implements INBTSerializable<NBTTagCompound> {
 		if(xPos.length < handler.getSlots() || yPos.length < handler.getSlots()) {
 			throw new RuntimeException("Your inventory position array sizes do not match the number of slots");
 		}
-		itemPieces.put(name, new InventoryPieceItemHandler(name, this, null, handler, xPos, yPos));
+		new InventoryPieceItemHandler(name, this, null, handler, xPos, yPos);
 		return this;
 	}
 
@@ -93,9 +95,7 @@ public class InventoryBasic implements INBTSerializable<NBTTagCompound> {
 		this.getFluidPiece(message.name).getHandler().setFluid(message.fluid);
 	}
 
-	// Mainly for enabling callbacks. Probably should be cached.
-	public List<InventoryPiece> getInventoryPieces() {
-		return Stream.of(itemPieces.values(), fluidPieces.values()).flatMap(x -> x.stream())
-				.collect(Collectors.toList());
+	public Collection<InventoryPiece> getInventoryPieces() {
+		return inventoryPieces.values();
 	}
 }

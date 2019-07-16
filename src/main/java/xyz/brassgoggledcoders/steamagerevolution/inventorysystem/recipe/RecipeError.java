@@ -3,7 +3,8 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe;
 import net.minecraft.util.text.TextComponentTranslation;
 
 public enum RecipeError {
-	OUTPUT_BLOCKED(0, "sar.recipeerror.outputspace"), INSUFFICIENT_STEAM(1, "sar.recipeerror.insufficientsteam");
+	OUTPUT_BLOCKED(0, "sar.recipeerror.outputspace")/* TODO Information on which output */, INSUFFICIENT_STEAM(1,
+			"sar.recipeerror.insufficientsteam");
 
 	String translationKey;
 	Short networkID;
