@@ -2,7 +2,6 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces;
 
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
 
-//TODO Move the power to define GUI behaviour into InventoryPiece (callbacks from GUI methods)
 public abstract class InventoryPiece {
 	String name;
 	final int elementX;

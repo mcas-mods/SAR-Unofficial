@@ -34,12 +34,17 @@ public class InventoryRecipe extends InventoryBasic {
 	public InventoryPieceFluidTank steamPiece;
 	public InventoryPieceItemHandler fuelHandlerPiece;
 	public InventoryPieceProgressBar progressBar;
+	public InventoryPieceRecipeError errorPiece;
 
 	@SideOnly(Side.CLIENT)
 	public int clientTicksToComplete;
 	// FIXME remember this needs to be saved to NBT
 	private int currentProgress = 0;
 	protected MachineRecipe currentRecipe;
+
+	// TODO syncing
+	@Nullable
+	RecipeError currrentError;
 
 	public InventoryRecipe(IHasInventory<? extends InventoryRecipe> parent) {
 		super(parent);
@@ -155,11 +160,18 @@ public class InventoryRecipe extends InventoryBasic {
 				this.setCurrentRecipe(null);// TODO Only do if items have changed an that
 				return true;
 			}
+			else {
+				this.setRecipeError(RecipeError.OUTPUT_BLOCKED);
+			}
 		}
 		else {
 			this.setCurrentRecipe(null);
 		}
 		return false;
+	}
+
+	private void setRecipeError(RecipeError error) {
+		this.currrentError = error;
 	}
 
 	// Interpolate ticks on client TODO Potentially send an update packet every
@@ -268,6 +280,10 @@ public class InventoryRecipe extends InventoryBasic {
 					|| steamPiece.getHandler().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
 				return true;
 			}
+			else {
+				this.setRecipeError(RecipeError.INSUFFICIENT_STEAM);
+				return false;
+			}
 		}
 		else {
 			Optional<MachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(this.parent.getName().toLowerCase())
@@ -340,11 +356,14 @@ public class InventoryRecipe extends InventoryBasic {
 		if(fuelHandlerPiece != null) {
 			pieces.add(fuelHandlerPiece);
 		}
+		if(errorPiece != null) {
+			pieces.add(errorPiece);
+		}
 		return pieces;
 	}
 
 	@Nullable
 	public RecipeError getRecipeError() {
-		return null;
+		return RecipeError.INSUFFICIENT_STEAM;
 	}
 }

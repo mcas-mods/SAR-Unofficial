@@ -12,6 +12,7 @@ public class InventoryPieceProgressBar extends InventoryPiece {
 	public InventoryPieceProgressBar(InventoryRecipe parent, int xPos, int yPos) {
 		super("progress", xPos, yPos, 50, 166, 22, 15, 0);
 		this.parent = parent;
+		this.parent.errorPiece = new InventoryPieceRecipeError(parent, xPos + 10, yPos);
 	}
 
 	@Override
@@ -24,7 +25,7 @@ public class InventoryPieceProgressBar extends InventoryPiece {
 	@Override
 	public void backgroundLayerCallback(GuiInventory gui, float partialTicks, int mouseX, int mouseY) {
 		gui.mc.renderEngine.bindTexture(GuiInventory.guiTexture);
-		int progress = parent.getCurrentTicks();// TODO this needs packet synced
+		int progress = parent.getCurrentTicks();
 		int total = parent.getMaxTicks();
 		int progressScaled = progress != 0 && total != 0 ? progress * 24 / total : 0;
 		gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY(), 176, 83, progressScaled + 1, 16);
