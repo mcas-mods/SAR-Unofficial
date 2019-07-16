@@ -6,11 +6,11 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.TileEntityInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.TileEntityCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
-public class TileEntityCastingBench extends TileEntityInventory<InventoryCraftingMachine> {
+public class TileEntityCastingBench extends TileEntityCraftingMachine<InventoryCraftingMachine> {
 
 	public static int inputCapacity = RecipeUtil.VALUE_BLOCK;
 

@@ -97,7 +97,8 @@ public class InventoryCraftingMachine extends InventoryBasic {
 
 	// TODO
 	@Deprecated
-	public InventoryCraftingMachine addFluidInput(String name, int xPos, int yPos, FluidTankSingleSync fluidTankSingleSmart) {
+	public InventoryCraftingMachine addFluidInput(String name, int xPos, int yPos,
+			FluidTankSingleSync fluidTankSingleSmart) {
 		new InventoryPieceFluidTank(name, this, IOType.INPUT, fluidTankSingleSmart, xPos, yPos);
 		// fluidInputPieces.add(fPiece);
 		// fluidPieces.put(name, fPiece);
@@ -146,9 +147,6 @@ public class InventoryCraftingMachine extends InventoryBasic {
 				this.setCurrentRecipe(null);// TODO Only do if items have changed an that
 				return true;
 			}
-			else {
-				this.setRecipeError(RecipeError.OUTPUT_BLOCKED);
-			}
 		}
 		else {
 			this.setCurrentRecipe(null);
@@ -165,8 +163,8 @@ public class InventoryCraftingMachine extends InventoryBasic {
 		this.currrentError = error;
 	}
 
-	// Interpolate ticks on client TODO Potentially send an update packet every
-	// second to anyone who has the GUI open, to help mitigate desyncs
+	// Interpolate ticks on client TODO Running whenever a recipe is present doesn't
+	// work, needs to be only when the machine can run
 	public void updateClient() {
 		if(this.clientTicksToComplete > 0) {
 			if(this.currentProgress < this.clientTicksToComplete) {
@@ -256,6 +254,9 @@ public class InventoryCraftingMachine extends InventoryBasic {
 						.allMatch(output -> getTypedFluidHandlers(IOType.OUTPUT).stream()
 								.anyMatch(t -> t.fill(output, false) == output.amount));
 			}
+			if(!roomForItems || !roomForFluids) {
+				this.setRecipeError(RecipeError.OUTPUT_BLOCKED);
+			}
 			return roomForItems && roomForFluids;
 		}
 		return false;
@@ -264,8 +265,7 @@ public class InventoryCraftingMachine extends InventoryBasic {
 	protected boolean canRun() {
 		// If we already have a recipe, check we have enough steam to continue
 		if(currentRecipe != null) {
-			if(steamPiece.getHandler() == null
-					|| steamPiece.getHandler().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
+			if(steamPiece == null || steamPiece.getHandler().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
 				return true;
 			}
 			else {
@@ -275,10 +275,12 @@ public class InventoryCraftingMachine extends InventoryBasic {
 		}
 		// Otherwise, try to find a recipe from the current inputs
 		else {
+			// TODO Sort recipes by size of input
 			Optional<MachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(this.parent.getName().toLowerCase())
 					.parallelStream().filter(r -> hasRequiredFluids(r)).filter(r -> hasRequiredItems(r)).findFirst();
 			if(recipe.isPresent()) {
 				setCurrentRecipe(recipe.get());
+				return true;
 			}
 		}
 		return false;
@@ -295,6 +297,7 @@ public class InventoryCraftingMachine extends InventoryBasic {
 					// boolean is true
 					.reduce((a, b) -> a && b).orElse(false);
 		}
+		// Else just return true
 		return true;
 	}
 
