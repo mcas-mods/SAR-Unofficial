@@ -19,14 +19,6 @@ public class InventoryPieceFluidTank extends InventoryPieceHandler<FluidTankSync
 	}
 
 	@Override
-	public void drawScreenCallback(GuiInventory gui, int mouseX, int mouseY, float partialTicks) {
-		if(gui.isPointInRegion(this.getX(), this.getY(), 20, 55, mouseX, mouseY)) {
-			gui.drawHoveringText(com.teamacronymcoders.base.util.TextUtils.representTankContents(this.getHandler())
-					.getFormattedText(), mouseX, mouseY);
-		}
-	}
-
-	@Override
 	public void backgroundLayerCallback(GuiInventory gui, float partialTicks, int mouseX, int mouseY) {
 		FluidStack stack = handler.getFluid();
 		if(stack != null && stack.getFluid() != null && stack.amount > 0) {
@@ -35,5 +27,10 @@ public class InventoryPieceFluidTank extends InventoryPieceHandler<FluidTankSync
 			gui.mc.renderEngine.bindTexture(GuiInventory.guiTexture);
 			gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY() + 6, 176, 14, 20, 49);
 		}
+	}
+
+	@Override
+	public String getTooltip() {
+		return com.teamacronymcoders.base.util.TextUtils.representTankContents(this.getHandler()).getFormattedText();
 	}
 }

@@ -342,4 +342,9 @@ public class InventoryRecipe extends InventoryBasic {
 		}
 		return pieces;
 	}
+
+	@Nullable
+	public RecipeError getRecipeError() {
+		return null;
+	}
 }

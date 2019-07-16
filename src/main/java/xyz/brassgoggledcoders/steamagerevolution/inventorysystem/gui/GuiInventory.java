@@ -38,6 +38,11 @@ public class GuiInventory extends GuiContainer {
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
 		for(InventoryPiece piece : holder.getInventory().getInventoryPieces()) {
+			if(!piece.getTooltip().isEmpty()
+					&& this.isPointInRegion(piece.getX(), piece.getY(), piece.width, piece.height, mouseX, mouseY)) {
+				// TODO wrapping
+				this.drawHoveringText(piece.getTooltip(), mouseX, mouseY);
+			}
 			piece.drawScreenCallback(this, mouseX, mouseY, partialTicks);
 		}
 	}
@@ -58,19 +63,20 @@ public class GuiInventory extends GuiContainer {
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
 		for(InventoryPiece piece : holder.getInventory().getInventoryPieces()) {
-			if(piece instanceof InventoryPieceItemHandler) {
-				InventoryPieceItemHandler pieceH = (InventoryPieceItemHandler) piece;
-				for(int slot = 0; slot < pieceH.getHandler().getSlots(); slot++) {
-					this.drawTexturedModalRect(
-							this.getGuiLeft() + pieceH.getSlotPositionX(slot) + pieceH.backgroundOffset,
-							this.getGuiTop() + pieceH.getSlotPositionY(slot) + pieceH.backgroundOffset, piece.textureX,
-							piece.textureY, piece.width, piece.height);
+			if(piece.shouldRender()) {
+				if(piece instanceof InventoryPieceItemHandler) {
+					InventoryPieceItemHandler pieceH = (InventoryPieceItemHandler) piece;
+					for(int slot = 0; slot < pieceH.getHandler().getSlots(); slot++) {
+						this.drawTexturedModalRect(this.getGuiLeft() + pieceH.getSlotPositionX(slot) + pieceH.offset,
+								this.getGuiTop() + pieceH.getSlotPositionY(slot) + pieceH.offset, piece.textureX,
+								piece.textureY, piece.width, piece.height);
+					}
 				}
-			}
-			else {
-				this.drawTexturedModalRect(this.getGuiLeft() + piece.getX() + piece.backgroundOffset,
-						this.getGuiTop() + piece.getY() + piece.backgroundOffset, piece.textureX, piece.textureY,
-						piece.width, piece.height);
+				else {
+					this.drawTexturedModalRect(this.getGuiLeft() + piece.getX() + piece.offset,
+							this.getGuiTop() + piece.getY() + piece.offset, piece.textureX, piece.textureY, piece.width,
+							piece.height);
+				}
 			}
 			piece.backgroundLayerCallback(this, partialTicks, mouseX, mouseY);
 		}

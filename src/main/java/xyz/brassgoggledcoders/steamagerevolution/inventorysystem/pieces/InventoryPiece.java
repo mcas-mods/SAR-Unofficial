@@ -9,7 +9,11 @@ public abstract class InventoryPiece {
 	final int elementY;
 	public final int textureX, width;
 	public final int textureY, height;
-	public final int backgroundOffset;
+	// Offsets texture relative to start position of inventory piece, needed for
+	// tanks and slots.
+	public final int offset;
+
+	private boolean shouldRender = true;
 
 	// Name MUST be unique within the inventory
 	// TODO Create a 'GUIPiece' subclass that holds texture and position info?
@@ -22,7 +26,7 @@ public abstract class InventoryPiece {
 		this.textureY = textureY;
 		this.width = xSize;
 		this.height = ySize;
-		this.backgroundOffset = offset;
+		this.offset = offset;
 	}
 
 	public String getName() {
@@ -39,12 +43,25 @@ public abstract class InventoryPiece {
 		return elementY;
 	}
 
+	@Deprecated
 	public void drawScreenCallback(GuiInventory gui, int mouseX, int mouseY, float partialTicks) {
 		// NO-OP
 	}
 
+	@Deprecated
 	public void backgroundLayerCallback(GuiInventory gui, float partialTicks, int mouseX, int mouseY) {
 		// NO-OP
 	}
 
+	public boolean shouldRender() {
+		return shouldRender;
+	}
+
+	public void setShouldRender(boolean shouldRender) {
+		this.shouldRender = shouldRender;
+	}
+
+	public String getTooltip() {
+		return "";
+	}
 }

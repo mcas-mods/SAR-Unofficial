@@ -17,18 +17,7 @@ public class InventoryPieceProgressBar extends InventoryPiece {
 	@Override
 	public void drawScreenCallback(GuiInventory gui, int mouseX, int mouseY, float partialTicks) {
 		if(gui.isPointInRegion(this.getX(), this.getY(), 24, 16, mouseX, mouseY)) {
-			if(parent.getMaxTicks() == 0) {
-				gui.drawHoveringText(TextFormatting.RED.toString() + "No recipe", mouseX, mouseY); // TODO
-				// Localization
-				// TODO Display reasons for the recipe not working
-			}
-			else if(GuiScreen.isShiftKeyDown()) {
-				gui.drawHoveringText(parent.getCurrentTicks() + "/" + parent.getMaxTicks() + " ticks", mouseX, mouseY);
-			}
-			else {
-				gui.drawHoveringText(parent.getCurrentTicks() / 20 + "/" + parent.getMaxTicks() / 20 + " seconds",
-						mouseX, mouseY);
-			}
+
 		}
 	}
 
@@ -41,4 +30,17 @@ public class InventoryPieceProgressBar extends InventoryPiece {
 		gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY(), 176, 83, progressScaled + 1, 16);
 	}
 
+	@Override
+	public String getTooltip() {
+		if(parent.getMaxTicks() == 0) {
+			return TextFormatting.RED.toString() + "No recipe"; // TODO
+			// Localization
+		}
+		else if(GuiScreen.isShiftKeyDown()) {
+			return parent.getCurrentTicks() + "/" + parent.getMaxTicks() + " ticks";
+		}
+		else {
+			return parent.getCurrentTicks() / 20 + "/" + parent.getMaxTicks() / 20 + " seconds";
+		}
+	}
 }
