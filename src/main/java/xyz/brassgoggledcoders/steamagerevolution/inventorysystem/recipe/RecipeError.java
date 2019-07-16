@@ -3,8 +3,9 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe;
 import net.minecraft.util.text.TextComponentTranslation;
 
 public enum RecipeError {
-	OUTPUT_BLOCKED(0, "sar.recipeerror.outputspace")/* TODO Information on which output */, INSUFFICIENT_STEAM(1,
-			"sar.recipeerror.insufficientsteam");
+	NONE(-1, ""), OUTPUT_BLOCKED(0,
+			"sar.recipeerror.outputspace")/* TODO Information on which output */, INSUFFICIENT_STEAM(1,
+					"sar.recipeerror.insufficientsteam");
 
 	String translationKey;
 	Short networkID;
@@ -28,13 +29,12 @@ public enum RecipeError {
 
 	// TODO
 	public static RecipeError fromNetworkID(short errorID) {
-		switch(errorID) {
-			case 0:
-				return OUTPUT_BLOCKED;
-			case 1:
-				return INSUFFICIENT_STEAM;
+		for(RecipeError error : RecipeError.values()) {
+			if(error.networkID.equals(errorID)) {
+				return error;
+			}
 		}
-		return null;
+		return RecipeError.NONE;
 	}
 
 }

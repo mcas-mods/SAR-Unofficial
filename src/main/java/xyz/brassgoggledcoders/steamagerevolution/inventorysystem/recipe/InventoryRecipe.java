@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -21,6 +22,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketSetRecipeTime;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketStatusUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.*;
 
 //TODO Drain totalSteam/ticksToComplete steam every tick
@@ -40,9 +42,8 @@ public class InventoryRecipe extends InventoryBasic {
 	private int currentProgress = 0;
 	protected MachineRecipe currentRecipe;
 
-	// TODO syncing
-	@Nullable
-	RecipeError currrentError;
+	@Nonnull
+	RecipeError currrentError = RecipeError.NONE;
 
 	public InventoryRecipe(IHasInventory<? extends InventoryRecipe> parent) {
 		super(parent);
@@ -135,6 +136,7 @@ public class InventoryRecipe extends InventoryBasic {
 
 	public boolean updateServer() {
 		if(canRun()) {
+			this.setRecipeError(RecipeError.NONE);
 			if(getCurrentTicks() <= currentRecipe.getTicksPerOperation()) { // TODO
 				setCurrentTicks(getCurrentTicks() + 1);
 			}
@@ -154,6 +156,11 @@ public class InventoryRecipe extends InventoryBasic {
 	}
 
 	public void setRecipeError(RecipeError error) {
+		if(!this.parent.getMachineWorld().isRemote) {
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+					new PacketStatusUpdate(this.parent.getMachinePos(), currentProgress, error.networkID),
+					this.parent.getMachinePos(), this.parent.getMachineWorld().provider.getDimension());
+		}
 		this.currrentError = error;
 	}
 
@@ -328,8 +335,8 @@ public class InventoryRecipe extends InventoryBasic {
 				.collect(Collectors.toList());
 	}
 
-	@Nullable
+	@Nonnull
 	public RecipeError getRecipeError() {
-		return RecipeError.INSUFFICIENT_STEAM;
+		return this.currrentError;
 	}
 }
