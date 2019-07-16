@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 
 public class HandlerSetRecipeTime implements IMessageHandler<PacketSetRecipeTime, IMessage> {
 	public HandlerSetRecipeTime() {
@@ -30,8 +30,8 @@ public class HandlerSetRecipeTime implements IMessageHandler<PacketSetRecipeTime
 		TileEntity te = worldClient.getTileEntity(message.pos);
 		if(te instanceof IHasInventory) {
 			InventoryBasic inventory = ((IHasInventory<?>) te).getInventory();
-			if(inventory instanceof InventoryRecipe) {
-				InventoryRecipe rInventory = (InventoryRecipe) inventory;
+			if(inventory instanceof InventoryCraftingMachine) {
+				InventoryCraftingMachine rInventory = (InventoryCraftingMachine) inventory;
 				rInventory.clientTicksToComplete = message.maxTicks;
 			}
 		}

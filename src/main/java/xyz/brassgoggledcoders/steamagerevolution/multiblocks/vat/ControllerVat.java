@@ -14,10 +14,10 @@ import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 
-public class ControllerVat extends MultiblockRecipe<InventoryRecipe> {
+public class ControllerVat extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
 	public static int inputCapacity = outputCapacity * 3;
@@ -27,7 +27,7 @@ public class ControllerVat extends MultiblockRecipe<InventoryRecipe> {
 
 	public ControllerVat(World world) {
 		super(world);
-		setInventory(new InventoryRecipe(this)
+		setInventory(new InventoryCraftingMachine(this)
 				.addItemHandler("input", IOType.INPUT, new int[] { 88, 88, 88 }, new int[] { 11, 32, 53 })
 				// FIXME
 				.addFluidHandler("tank1", IOType.INPUT, 12, 9, inputCapacity)

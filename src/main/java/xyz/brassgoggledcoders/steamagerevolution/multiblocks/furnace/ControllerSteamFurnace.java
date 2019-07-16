@@ -3,14 +3,14 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.furnace;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 
-public class ControllerSteamFurnace extends MultiblockRecipe<InventoryRecipe> {
+public class ControllerSteamFurnace extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
 	public ControllerSteamFurnace(World world) {
 		super(world);
-		setInventory(new InventoryRecipe(this).addItemHandler("input", IOType.INPUT, new int[] { 48 }, new int[] { 33 })
+		setInventory(new InventoryCraftingMachine(this).addItemHandler("input", IOType.INPUT, new int[] { 48 }, new int[] { 33 })
 				.addItemHandler("output", IOType.OUTPUT, new int[] { 108 }, new int[] { 33 })
 				.setSteamTank(13, 9, Fluid.BUCKET_VOLUME * 16).setProgressBar(72, 33));
 	}

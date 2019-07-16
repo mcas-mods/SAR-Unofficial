@@ -3,16 +3,16 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 
 public class MultiblockStackHandlerWrapper implements IItemHandler, IItemHandlerModifiable {
 
-	final MultiblockInventoryTileEntity<? extends MultiblockRecipe<? extends InventoryRecipe>> tile;
+	final MultiblockInventoryTileEntity<? extends MultiblockCraftingMachine<? extends InventoryCraftingMachine>> tile;
 	final String handlerName;
 
 	public MultiblockStackHandlerWrapper(
-			MultiblockInventoryTileEntity<? extends MultiblockRecipe<? extends InventoryRecipe>> tile,
+			MultiblockInventoryTileEntity<? extends MultiblockCraftingMachine<? extends InventoryCraftingMachine>> tile,
 			String handlerName) {
 		this.tile = tile;
 		this.handlerName = handlerName;

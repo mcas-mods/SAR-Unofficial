@@ -5,9 +5,9 @@ import net.minecraft.util.text.TextFormatting;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPiece;
 
-public class InventoryPieceProgressBar extends InventoryPiece<InventoryRecipe> {
+public class InventoryPieceProgressBar extends InventoryPiece<InventoryCraftingMachine> {
 
-	public InventoryPieceProgressBar(InventoryRecipe parent, int xPos, int yPos) {
+	public InventoryPieceProgressBar(InventoryCraftingMachine parent, int xPos, int yPos) {
 		super("progress", parent, xPos, yPos, 50, 166, 22, 15, 0);
 		// TODO Formal subpiece system
 		new InventoryPieceRecipeError(parent, xPos + 10, yPos - 10);

@@ -2,7 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces;
 
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 
 public class InventoryPieceItemHandler extends InventoryPieceHandler<ItemStackHandler> {
 
@@ -21,12 +21,12 @@ public class InventoryPieceItemHandler extends InventoryPieceHandler<ItemStackHa
 		this.slotYs = slotYs;
 		parent.itemPieces.put(name, this);
 		// TODO
-		if(parent instanceof InventoryRecipe) {
+		if(parent instanceof InventoryCraftingMachine) {
 			if(type.equals(IOType.INPUT)) {
-				((InventoryRecipe) parent).itemInputPieces.add(this);
+				((InventoryCraftingMachine) parent).itemInputPieces.add(this);
 			}
 			else if(type.equals(IOType.OUTPUT)) {
-				((InventoryRecipe) parent).itemOutputPieces.add(this);
+				((InventoryCraftingMachine) parent).itemOutputPieces.add(this);
 			}
 		}
 	}

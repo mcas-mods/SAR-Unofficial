@@ -1,9 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer;
 
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 
 //TODO Do I want to eliminate custom inventories and use callbacks? (Probably)
-public class InventorySteamHammer extends InventoryRecipe {
+public class InventorySteamHammer extends InventoryCraftingMachine {
 
 	public InventorySteamHammer(ControllerSteamHammer parent) {
 		super(parent);

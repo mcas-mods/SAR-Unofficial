@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.RecipeError;
 
 public class HandlerStatusUpdate implements IMessageHandler<PacketStatusUpdate, IMessage> {
@@ -28,8 +28,8 @@ public class HandlerStatusUpdate implements IMessageHandler<PacketStatusUpdate, 
 		TileEntity te = worldClient.getTileEntity(message.machineLocation);
 		if(te instanceof IHasInventory) {
 			InventoryBasic inventory = ((IHasInventory<?>) te).getInventory();
-			if(inventory instanceof InventoryRecipe) {
-				InventoryRecipe rInventory = (InventoryRecipe) inventory;
+			if(inventory instanceof InventoryCraftingMachine) {
+				InventoryCraftingMachine rInventory = (InventoryCraftingMachine) inventory;
 				rInventory.setCurrentTicks(message.currentProgress);
 				rInventory.setRecipeError(RecipeError.fromNetworkID(message.errorID));
 			}

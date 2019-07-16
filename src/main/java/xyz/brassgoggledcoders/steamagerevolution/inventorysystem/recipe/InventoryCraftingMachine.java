@@ -27,7 +27,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.Inventor
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 
 //TODO Drain totalSteam/ticksToComplete steam every tick
-public class InventoryRecipe extends InventoryBasic {
+public class InventoryCraftingMachine extends InventoryBasic {
 
 	public ArrayList<InventoryPieceItemHandler> itemInputPieces = new ArrayList<>();
 	public ArrayList<InventoryPieceFluidTank> fluidInputPieces = new ArrayList<>();
@@ -46,16 +46,16 @@ public class InventoryRecipe extends InventoryBasic {
 	@Nonnull
 	RecipeError currrentError = RecipeError.NONE;
 
-	public InventoryRecipe(IHasInventory<? extends InventoryRecipe> parent) {
+	public InventoryCraftingMachine(IHasInventory<? extends InventoryCraftingMachine> parent) {
 		super(parent);
 	}
 
-	public InventoryRecipe addItemHandler(String name, IOType type, int xPos, int yPos) {
+	public InventoryCraftingMachine addItemHandler(String name, IOType type, int xPos, int yPos) {
 		this.addItemHandler(name, type, new int[] { xPos }, new int[] { yPos });
 		return this;
 	}
 
-	public InventoryRecipe addItemHandler(String name, IOType type, int[] slotXs, int[] slotYs) {
+	public InventoryCraftingMachine addItemHandler(String name, IOType type, int[] slotXs, int[] slotYs) {
 		if(slotXs.length != slotYs.length) {
 			throw new RuntimeException("Your inventory position array sizes do not match");
 		}
@@ -65,16 +65,16 @@ public class InventoryRecipe extends InventoryBasic {
 		return this;
 	}
 
-	public InventoryRecipe addFluidHandler(String name, IOType type, int xPos, int yPos, int capacity) {
+	public InventoryCraftingMachine addFluidHandler(String name, IOType type, int xPos, int yPos, int capacity) {
 		new InventoryPieceFluidTank(name, this, type, new FluidTankSync(name, capacity, parent), xPos, yPos);
 		return this;
 	}
 
-	public InventoryRecipe setSteamTank(int xPos, int yPos) {
+	public InventoryCraftingMachine setSteamTank(int xPos, int yPos) {
 		return this.setSteamTank(xPos, yPos, Fluid.BUCKET_VOLUME * 16);
 	}
 
-	public InventoryRecipe setSteamTank(int xPos, int yPos, int capacity) {
+	public InventoryCraftingMachine setSteamTank(int xPos, int yPos, int capacity) {
 		steamPiece = new InventoryPieceFluidTank("steamTank", this, IOType.POWER,
 				new FluidTankSingleSync("steamTank", capacity, "steam", parent), xPos, yPos);
 		// fluidPieces.put("steamTank", steamPiece);
@@ -83,21 +83,21 @@ public class InventoryRecipe extends InventoryBasic {
 
 	// TODO
 	@Deprecated
-	public InventoryRecipe setFuelHandler(int xPos, int yPos, ItemStackHandlerFuel handler) {
+	public InventoryCraftingMachine setFuelHandler(int xPos, int yPos, ItemStackHandlerFuel handler) {
 		fuelHandlerPiece = new InventoryPieceItemHandler("fuel", this, IOType.POWER, handler, new int[] { xPos },
 				new int[] { yPos });
 		// itemPieces.put("fuel", fuelHandlerPiece);
 		return this;
 	}
 
-	public InventoryRecipe setProgressBar(int x, int y) {
+	public InventoryCraftingMachine setProgressBar(int x, int y) {
 		new InventoryPieceProgressBar(this, x, y);
 		return this;
 	}
 
 	// TODO
 	@Deprecated
-	public InventoryRecipe addFluidInput(String name, int xPos, int yPos, FluidTankSingleSync fluidTankSingleSmart) {
+	public InventoryCraftingMachine addFluidInput(String name, int xPos, int yPos, FluidTankSingleSync fluidTankSingleSmart) {
 		new InventoryPieceFluidTank(name, this, IOType.INPUT, fluidTankSingleSmart, xPos, yPos);
 		// fluidInputPieces.add(fPiece);
 		// fluidPieces.put(name, fPiece);

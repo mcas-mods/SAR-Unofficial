@@ -8,16 +8,16 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 
-public class ControllerDistiller extends MultiblockRecipe<InventoryRecipe> {
+public class ControllerDistiller extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
 	public static int tankCapacity = Fluid.BUCKET_VOLUME * 8;
 
 	public ControllerDistiller(World world) {
 		super(world);
-		setInventory(new InventoryRecipe(this).addFluidHandler("fluidInput", IOType.INPUT, 41, 9, tankCapacity)
+		setInventory(new InventoryCraftingMachine(this).addFluidHandler("fluidInput", IOType.INPUT, 41, 9, tankCapacity)
 				.addItemHandler("itemOutput", IOType.OUTPUT, new int[] { 149 }, new int[] { 32 })
 				.addFluidHandler("fluidOutput", IOType.OUTPUT, 97, 9, tankCapacity)
 				.setSteamTank(10, 9, Fluid.BUCKET_VOLUME * 16).setProgressBar(67, 32));

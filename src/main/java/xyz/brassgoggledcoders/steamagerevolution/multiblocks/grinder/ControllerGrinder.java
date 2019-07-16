@@ -2,15 +2,15 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder;
 
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 
-public class ControllerGrinder extends MultiblockRecipe<InventoryRecipe> {
+public class ControllerGrinder extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
 	public ControllerGrinder(World world) {
 		super(world);
 		this.setInventory(
-				new InventoryRecipe(this).addItemHandler("itemInput", IOType.INPUT, new int[] { 58 }, new int[] { 32 })
+				new InventoryCraftingMachine(this).addItemHandler("itemInput", IOType.INPUT, new int[] { 58 }, new int[] { 32 })
 						.addItemHandler("itemOutput", IOType.OUTPUT, new int[] { 121 }, new int[] { 32 })
 						.setSteamTank(10, 9).setProgressBar(87, 33));
 	}

@@ -3,14 +3,14 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 
 public class MultiblockSteamWrapper implements IFluidTank, IFluidHandler {
 
-	final MultiblockInventoryTileEntity<? extends MultiblockRecipe<?>> tile;
+	final MultiblockInventoryTileEntity<? extends MultiblockCraftingMachine<?>> tile;
 
 	// TODO Why can't the second type be bounded like on inventory wrapper?
-	public MultiblockSteamWrapper(MultiblockInventoryTileEntity<? extends MultiblockRecipe<?>> tile) {
+	public MultiblockSteamWrapper(MultiblockInventoryTileEntity<? extends MultiblockCraftingMachine<?>> tile) {
 		this.tile = tile;
 	}
 

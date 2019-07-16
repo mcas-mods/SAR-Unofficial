@@ -3,9 +3,9 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe;
 import net.minecraft.util.text.TextFormatting;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPiece;
 
-public class InventoryPieceRecipeError extends InventoryPiece<InventoryRecipe> {
+public class InventoryPieceRecipeError extends InventoryPiece<InventoryCraftingMachine> {
 
-	public InventoryPieceRecipeError(InventoryRecipe parent, int xPos, int yPos) {
+	public InventoryPieceRecipeError(InventoryCraftingMachine parent, int xPos, int yPos) {
 		super("recipeError", parent, xPos, yPos, 90, 166, 13, 13, 0);
 	}
 

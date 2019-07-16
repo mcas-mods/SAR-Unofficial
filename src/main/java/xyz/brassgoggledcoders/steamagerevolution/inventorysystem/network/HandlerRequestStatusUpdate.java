@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 
 public class HandlerRequestStatusUpdate implements IMessageHandler<PacketRequestStatusUpdate, PacketStatusUpdate> {
 
@@ -22,8 +22,8 @@ public class HandlerRequestStatusUpdate implements IMessageHandler<PacketRequest
 		});
 		if(te != null && te instanceof IHasInventory<?>) {
 			InventoryBasic inv = ((IHasInventory<?>) te).getInventory();
-			if(inv instanceof InventoryRecipe) {
-				InventoryRecipe invR = (InventoryRecipe) inv;
+			if(inv instanceof InventoryCraftingMachine) {
+				InventoryCraftingMachine invR = (InventoryCraftingMachine) inv;
 				return new PacketStatusUpdate(te.getPos(), invR.getCurrentTicks(),
 						invR.getRecipeError().getNetworkID());
 			}

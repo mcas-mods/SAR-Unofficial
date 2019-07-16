@@ -17,11 +17,11 @@ import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSingleSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerFiltered.ItemStackHandlerFuel;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities.*;
 
-public class ControllerBoiler extends MultiblockRecipe<InventoryRecipe> {
+public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
 	public static final int fuelDivisor = 3;
 	public static final int fluidConversionPerTick = 5;
@@ -39,7 +39,7 @@ public class ControllerBoiler extends MultiblockRecipe<InventoryRecipe> {
 		super(world);
 		attachedMonitors = new HashSet<BlockPos>();
 		attachedValves = new HashSet<BlockPos>();
-		this.setInventory(new InventoryRecipe(this).setFuelHandler(81, 32, new ItemStackHandlerFuel(1, this))
+		this.setInventory(new InventoryCraftingMachine(this).setFuelHandler(81, 32, new ItemStackHandlerFuel(1, this))
 				.addFluidInput("waterTank", 50, 9, // FIXME
 						new FluidTankSingleSync("waterTank", Fluid.BUCKET_VOLUME * 16, "waterTank", this))
 				.addFluidHandler("liquidFuel", IOType.INPUT, 50, 9, Fluid.BUCKET_VOLUME * 16)

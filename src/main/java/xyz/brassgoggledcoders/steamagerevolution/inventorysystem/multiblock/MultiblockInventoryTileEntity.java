@@ -8,12 +8,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileBase;
 
-public abstract class MultiblockInventoryTileEntity<T extends MultiblockRecipe<? extends InventoryRecipe>>
-		extends SARMultiblockTileBase<T> implements IHasInventory<InventoryRecipe> {
+public abstract class MultiblockInventoryTileEntity<T extends MultiblockCraftingMachine<? extends InventoryCraftingMachine>>
+		extends SARMultiblockTileBase<T> implements IHasInventory<InventoryCraftingMachine> {
 	// Handles sync on world load
 	@Nonnull
 	@Override
@@ -40,12 +40,12 @@ public abstract class MultiblockInventoryTileEntity<T extends MultiblockRecipe<?
 	}
 
 	@Override
-	public InventoryRecipe getInventory() {
+	public InventoryCraftingMachine getInventory() {
 		return this.getMultiblockController().getInventory();
 	}
 
 	@Override
-	public void setInventory(InventoryRecipe inventory) {
+	public void setInventory(InventoryCraftingMachine inventory) {
 		throw new UnsupportedOperationException("Cannot use setInventory on a read-only delegate");
 	}
 
