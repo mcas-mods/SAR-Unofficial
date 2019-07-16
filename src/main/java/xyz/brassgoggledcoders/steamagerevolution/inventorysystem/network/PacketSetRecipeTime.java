@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.network;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.util.math.BlockPos;

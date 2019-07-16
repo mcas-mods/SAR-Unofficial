@@ -48,6 +48,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.api.ILens;
 import xyz.brassgoggledcoders.steamagerevolution.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.entities.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.*;
 import xyz.brassgoggledcoders.steamagerevolution.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.items.tools.*;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.blocks.*;
@@ -342,14 +343,17 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 		super.preInit(event);
 		this.getLibProxy().addSidedBlockDomain();
 		proxy.registerModels();
+		// Reminder - Side is the side you're sending to (recieving side)
 		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerFluidUpdate.class, PacketFluidUpdate.class,
 				Side.CLIENT);
-		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerMultiFluidUpdate.class,
-				PacketMultiFluidUpdate.class, Side.CLIENT);
 		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerIncreaseHunger.class,
 				PacketIncreaseHunger.class, Side.SERVER);
-		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerSetRecipeTime.class, PacketSetRecipeTime.class,
-				Side.CLIENT);
+		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerSetRecipeTime.class,
+				PacketSetRecipeTime.class, Side.CLIENT);
+		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerRequestStatusUpdate.class,
+				PacketRequestStatusUpdate.class, Side.SERVER);
+		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerStatusUpdate.class,
+				PacketStatusUpdate.class, Side.CLIENT);
 		SARCapabilities.register();
 		proxy.preInit(event);
 		SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class, "CONFIG").addEntry("plateCount",

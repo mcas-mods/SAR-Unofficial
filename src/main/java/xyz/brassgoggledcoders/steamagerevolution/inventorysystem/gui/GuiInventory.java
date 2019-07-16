@@ -11,6 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketRequestStatusUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPiece;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 
@@ -30,6 +31,13 @@ public class GuiInventory extends GuiContainer {
 		super(containerInstance);
 		this.holder = holder;
 		this.playerInventory = player.inventory;
+	}
+
+	@Override
+	public void initGui() {
+		super.initGui();
+		SteamAgeRevolution.instance.getPacketHandler()
+				.sendToServer(new PacketRequestStatusUpdate(holder.getMachinePos()));
 	}
 
 	@Override

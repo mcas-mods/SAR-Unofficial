@@ -20,8 +20,8 @@ import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerFiltered.ItemStackHandlerFuel;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketSetRecipeTime;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.*;
-import xyz.brassgoggledcoders.steamagerevolution.network.PacketSetRecipeTime;
 
 //TODO Drain totalSteam/ticksToComplete steam every tick
 public class InventoryRecipe extends InventoryBasic {
@@ -170,7 +170,7 @@ public class InventoryRecipe extends InventoryBasic {
 		return false;
 	}
 
-	private void setRecipeError(RecipeError error) {
+	public void setRecipeError(RecipeError error) {
 		this.currrentError = error;
 	}
 
