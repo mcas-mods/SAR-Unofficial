@@ -1,16 +1,16 @@
-package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.text.TextFormatting;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPiece;
 
 public class InventoryPieceProgressBar extends InventoryPiece<InventoryRecipe> {
 
 	public InventoryPieceProgressBar(InventoryRecipe parent, int xPos, int yPos) {
 		super("progress", parent, xPos, yPos, 50, 166, 22, 15, 0);
 		// TODO Formal subpiece system
-		new InventoryPieceRecipeError(parent, xPos + 10, yPos + 2);
+		new InventoryPieceRecipeError(parent, xPos + 10, yPos - 10);
 	}
 
 	@Override

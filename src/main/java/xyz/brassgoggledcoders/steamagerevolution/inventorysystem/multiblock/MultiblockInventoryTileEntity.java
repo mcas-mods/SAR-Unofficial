@@ -46,7 +46,7 @@ public abstract class MultiblockInventoryTileEntity<T extends MultiblockRecipe<?
 
 	@Override
 	public void setInventory(InventoryRecipe inventory) {
-		throw new RuntimeException("Nope, can't do that");
+		throw new UnsupportedOperationException("Cannot use setInventory on a read-only delegate");
 	}
 
 	@Override

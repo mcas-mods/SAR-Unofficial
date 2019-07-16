@@ -46,7 +46,7 @@ public class SARJEIPlugin implements IModPlugin {
 				new ItemStack(SARObjectHolder.crucible_casing));
 		add(registry, RecipeRegistry.getRecipesForMachine("steam furnace"), SteamFurnaceRecipeCategory.uid,
 				new ItemStack(SARObjectHolder.furnace_casing));
-		add(registry, RecipeRegistry.getRecipesForMachine("casting block"), CastingBlockRecipeCategory.uid,
+		add(registry, RecipeRegistry.getRecipesForMachine("casting bench"), CastingBlockRecipeCategory.uid,
 				new ItemStack(SARObjectHolder.casting_bench));
 		add(registry, RecipeRegistry.getRecipesForMachine("vat"), VatRecipeCategory.uid,
 				new ItemStack(SARObjectHolder.vat_output));

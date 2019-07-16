@@ -45,8 +45,8 @@ public class GuiInventory extends GuiContainer {
 		drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		renderHoveredToolTip(mouseX, mouseY);
-		for(InventoryPiece piece : holder.getInventory().getInventoryPieces()) {
-			if(!piece.getTooltip().isEmpty()
+		for(InventoryPiece<?> piece : holder.getInventory().getInventoryPieces()) {
+			if(piece.getTooltip() != null
 					&& this.isPointInRegion(piece.getX(), piece.getY(), piece.width, piece.height, mouseX, mouseY)) {
 				// TODO wrapping
 				this.drawHoveringText(piece.getTooltip(), mouseX, mouseY);
@@ -70,7 +70,7 @@ public class GuiInventory extends GuiContainer {
 		int y = (height - ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
-		for(InventoryPiece piece : holder.getInventory().getInventoryPieces()) {
+		for(InventoryPiece<?> piece : holder.getInventory().getInventoryPieces()) {
 			if(piece.shouldRender()) {
 				if(piece instanceof InventoryPieceItemHandler) {
 					InventoryPieceItemHandler pieceH = (InventoryPieceItemHandler) piece;

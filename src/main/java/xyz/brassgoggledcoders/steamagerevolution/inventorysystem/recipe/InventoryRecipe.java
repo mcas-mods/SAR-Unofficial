@@ -23,7 +23,8 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketSetRecipeTime;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketStatusUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 
 //TODO Drain totalSteam/ticksToComplete steam every tick
 public class InventoryRecipe extends InventoryBasic {
@@ -261,10 +262,7 @@ public class InventoryRecipe extends InventoryBasic {
 	}
 
 	protected boolean canRun() {
-		if(currentRecipe != null) {
-			// TODO Send this (much!) less often!
-			parent.markMachineDirty();
-		}
+		// If we already have a recipe, check we have enough steam to continue
 		if(currentRecipe != null) {
 			if(steamPiece.getHandler() == null
 					|| steamPiece.getHandler().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
@@ -275,20 +273,21 @@ public class InventoryRecipe extends InventoryBasic {
 				return false;
 			}
 		}
+		// Otherwise, try to find a recipe from the current inputs
 		else {
 			Optional<MachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(this.parent.getName().toLowerCase())
 					.parallelStream().filter(r -> hasRequiredFluids(r)).filter(r -> hasRequiredItems(r)).findFirst();
 			if(recipe.isPresent()) {
-				currentRecipe = recipe.get();
-				setCurrentRecipe(currentRecipe);
+				setCurrentRecipe(recipe.get());
 			}
 		}
 		return false;
 	}
 
 	public boolean hasRequiredFluids(MachineRecipe recipe) {
+		// Check if the recipe has any fluid inputs required
 		if(ArrayUtils.isNotEmpty(recipe.getFluidInputs())) {
-			// Stream the fluid stacks
+			// Stream the fluid stacks required
 			return Arrays.stream(recipe.getFluidInputs())
 					// Apply tanksHaveFluid to each element and output result to stream
 					.map(stack -> tanksHaveFluid(stack))

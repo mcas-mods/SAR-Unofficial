@@ -1,7 +1,7 @@
-package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe;
 
 import net.minecraft.util.text.TextFormatting;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPiece;
 
 public class InventoryPieceRecipeError extends InventoryPiece<InventoryRecipe> {
 
@@ -11,7 +11,7 @@ public class InventoryPieceRecipeError extends InventoryPiece<InventoryRecipe> {
 
 	@Override
 	public boolean shouldRender() {
-		return this.parent.getRecipeError() != null;
+		return !this.parent.getRecipeError().equals(RecipeError.NONE);
 	}
 
 	@Override
@@ -19,8 +19,9 @@ public class InventoryPieceRecipeError extends InventoryPiece<InventoryRecipe> {
 		if(this.parent.getRecipeError() != null) {
 			return TextFormatting.RED.toString() + this.parent.getRecipeError().getLocalized();
 		}
-		else
+		else {
 			return super.getTooltip();
+		}
 	}
 
 }
