@@ -6,6 +6,7 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
@@ -13,16 +14,23 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
+import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
 public class ControllerSteamHammer extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
+	public static final String uid = "steam_hammer";
 	public String dieType = "";
 	BlockPos center = null;
 	AxisAlignedBB interior = null;
+
+	static {
+		IMachine.referenceMachinesList.put(uid, new ControllerSteamHammer(null));
+	}
 
 	public ControllerSteamHammer(World world) {
 		super(world);
@@ -119,7 +127,12 @@ public class ControllerSteamHammer extends MultiblockCraftingMachine<InventoryCr
 	}
 
 	@Override
-	public String getName() {
-		return "Steam Hammer";
+	public String getUID() {
+		return uid;
+	}
+
+	@Override
+	public ItemStack getCatalyst() {
+		return new ItemStack(SARObjectHolder.steamhammer_anvil);
 	}
 }

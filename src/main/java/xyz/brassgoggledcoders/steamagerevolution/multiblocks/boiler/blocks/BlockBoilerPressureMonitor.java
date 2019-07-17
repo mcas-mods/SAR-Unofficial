@@ -5,8 +5,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import xyz.brassgoggledcoders.steamagerevolution.machines.BlockMultiblockBase;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities.TileEntityBoilerPressureMonitor;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
 public class BlockBoilerPressureMonitor extends BlockMultiblockBase<TileEntityBoilerPressureMonitor> {
 

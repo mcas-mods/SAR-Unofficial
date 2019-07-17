@@ -3,8 +3,8 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat.tileentities;
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockInventoryTileEntity;
+import xyz.brassgoggledcoders.steamagerevolution.machines.IMultiblockMachine;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat.ControllerVat;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
 
 public abstract class TileEntityVatPart extends MultiblockInventoryTileEntity<ControllerVat> {
 
@@ -14,7 +14,7 @@ public abstract class TileEntityVatPart extends MultiblockInventoryTileEntity<Co
 	}
 
 	@Override
-	public ISARMultiblock getControllerInfo() {
+	public IMultiblockMachine getControllerInfo() {
 		return new ControllerVat(null);
 	}
 

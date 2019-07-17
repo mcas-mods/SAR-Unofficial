@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller;
 import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import com.teamacronymcoders.base.multiblock.validation.ValidationError;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
@@ -10,10 +11,16 @@ import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
 public class ControllerDistiller extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
+	public static final String uid = "distiller";
 	public static int tankCapacity = Fluid.BUCKET_VOLUME * 8;
+
+	static {
+		IMachine.referenceMachinesList.put(uid, new ControllerDistiller(null));
+	}
 
 	public ControllerDistiller(World world) {
 		super(world);
@@ -21,11 +28,6 @@ public class ControllerDistiller extends MultiblockCraftingMachine<InventoryCraf
 				.addItemHandler("itemOutput", IOType.OUTPUT, new int[] { 149 }, new int[] { 32 })
 				.addFluidHandler("fluidOutput", IOType.OUTPUT, 97, 9, tankCapacity)
 				.setSteamTank(10, 9, Fluid.BUCKET_VOLUME * 16).setProgressBar(67, 32));
-	}
-
-	@Override
-	public String getName() {
-		return "Distiller";
 	}
 
 	@Override
@@ -88,6 +90,16 @@ public class ControllerDistiller extends MultiblockCraftingMachine<InventoryCraf
 	public int getMaximumYSize() {
 		// TODO Auto-generated method stub
 		return 6;
+	}
+
+	@Override
+	public String getUID() {
+		return uid;
+	}
+
+	@Override
+	public ItemStack getCatalyst() {
+		return new ItemStack(SARObjectHolder.distiller_hotplate);
 	}
 
 }

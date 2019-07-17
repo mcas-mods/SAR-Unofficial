@@ -12,18 +12,25 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
+import xyz.brassgoggledcoders.steamagerevolution.machines.SARMultiblockBase;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiSingleTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
 
 public class ControllerTank extends SARMultiblockBase {
 
+	static final String uid = "tank";
 	public BlockPos minimumInteriorPos;
 	public BlockPos maximumInteriorPos;
 	public FluidTank tank;
 
+	static {
+		IMachine.referenceMachinesList.put(uid, new ControllerTank(null));
+	}
+
 	public ControllerTank(World world) {
 		super(world);
+		// TODO
 		tank = new FluidTank(0);
 	}
 
@@ -42,7 +49,7 @@ public class ControllerTank extends SARMultiblockBase {
 
 		int blocksInside = 0;
 		// TODO Expensive for loop just to increment an integer
-		for (BlockPos pos : BlockPos.getAllInBox(minimumInteriorPos, maximumInteriorPos)) {
+		for(BlockPos pos : BlockPos.getAllInBox(minimumInteriorPos, maximumInteriorPos)) {
 			blocksInside++;
 		}
 		// Size internal tank accordingly
@@ -84,8 +91,8 @@ public class ControllerTank extends SARMultiblockBase {
 	}
 
 	@Override
-	public String getName() {
-		return "Tank";
+	public String getUID() {
+		return uid;
 	}
 
 	@Override

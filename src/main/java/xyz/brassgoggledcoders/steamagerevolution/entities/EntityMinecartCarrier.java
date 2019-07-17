@@ -63,4 +63,9 @@ public class EntityMinecartCarrier extends EntityMinecartInventory<InventoryBasi
 			}
 		}
 	}
+
+	@Override
+	public String getUID() {
+		return "carrier_cart";
+	}
 }

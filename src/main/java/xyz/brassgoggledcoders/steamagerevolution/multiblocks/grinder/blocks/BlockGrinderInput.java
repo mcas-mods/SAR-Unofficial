@@ -12,9 +12,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.machines.BlockMultiblockBase;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.ControllerGrinder;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.tileentities.TileEntityGrinderInput;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
 public class BlockGrinderInput extends BlockMultiblockBase<TileEntityGrinderInput> {
 

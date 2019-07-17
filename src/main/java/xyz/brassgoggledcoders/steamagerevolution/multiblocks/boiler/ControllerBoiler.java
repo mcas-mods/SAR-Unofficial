@@ -19,10 +19,12 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities.*;
 
 public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
+	static final String uid = "boiler";
 	public static final int fuelDivisor = 3;
 	public static final int fluidConversionPerTick = 5;
 	public static final float maxPressure = 3.0F;
@@ -34,6 +36,10 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
 	public boolean hasWindow = false;
 	Set<BlockPos> attachedMonitors;
 	Set<BlockPos> attachedValves;
+
+	static {
+		IMachine.referenceMachinesList.put(uid, new ControllerBoiler(null));
+	}
 
 	public ControllerBoiler(World world) {
 		super(world);
@@ -177,17 +183,22 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
 	}
 
 	@Override
-	public String getName() {
-		return "Boiler";
-	}
-
-	@Override
 	protected void onMachineAssembled() {
 		Pair<BlockPos, BlockPos> interiorPositions = com.teamacronymcoders.base.util.PositionUtils
 				.shrinkPositionCubeBy(getMinimumCoord(), getMaximumCoord(), 1);
 		minimumInteriorPos = interiorPositions.getLeft();
 		maximumInteriorPos = interiorPositions.getRight();
 		super.onMachineAssembled();
+	}
+
+	@Override
+	public String getUID() {
+		return uid;
+	}
+
+	@Override
+	public ItemStack getCatalyst() {
+		return new ItemStack(SARObjectHolder.boiler_pressure_monitor);
 	}
 
 }

@@ -1,7 +1,10 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe;
 
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.common.Loader;
+import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPiece;
 
@@ -25,14 +28,27 @@ public class InventoryPieceProgressBar extends InventoryPiece<InventoryCraftingM
 	@Override
 	public String getTooltip() {
 		if(parent.getMaxTicks() == 0) {
-			return TextFormatting.RED.toString() + "No recipe"; // TODO
-			// Localization
+			return TextFormatting.RED.toString()
+					+ new TextComponentTranslation("sar.recipeerror.norecipe").getFormattedText();
 		}
 		else if(GuiScreen.isShiftKeyDown()) {
-			return parent.getCurrentTicks() + "/" + parent.getMaxTicks() + " ticks";
+			return parent.getCurrentTicks() + "/" + parent.getMaxTicks() + " "
+					+ new TextComponentTranslation("info.ticks").getFormattedText();
 		}
 		else {
-			return parent.getCurrentTicks() / 20 + "/" + parent.getMaxTicks() / 20 + " seconds";
+			return parent.getCurrentTicks() / 20 + "/" + parent.getMaxTicks() / 20 + " "
+					+ new TextComponentTranslation("info.seconds").getFormattedText();
+		}
+	}
+
+	@Override
+	public void mouseClickedCallback(int mouseButton) {
+		if(Loader.isModLoaded("jei") && SARJEIPlugin.recipesGui != null) {
+			// SARJEIPlugin.recipesGui
+			// .showCategories(NonNullList.from(parent.parent.getUID().toLowerCase().replace("
+			// ", ""),
+			// parent.parent.getUID().toLowerCase().replace(" ", ""),
+			// CrucibleRecipeCategory.uid));
 		}
 	}
 }

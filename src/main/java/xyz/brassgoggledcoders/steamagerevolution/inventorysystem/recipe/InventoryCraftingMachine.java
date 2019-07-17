@@ -276,8 +276,8 @@ public class InventoryCraftingMachine extends InventoryBasic {
 		// Otherwise, try to find a recipe from the current inputs
 		else {
 			// TODO Sort recipes by size of input
-			Optional<MachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(this.parent.getName().toLowerCase())
-					.parallelStream().filter(r -> hasRequiredFluids(r)).filter(r -> hasRequiredItems(r)).findFirst();
+			Optional<MachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(this.parent.getUID()).parallelStream()
+					.filter(r -> hasRequiredFluids(r)).filter(r -> hasRequiredItems(r)).findFirst();
 			if(recipe.isPresent()) {
 				setCurrentRecipe(recipe.get());
 				return true;

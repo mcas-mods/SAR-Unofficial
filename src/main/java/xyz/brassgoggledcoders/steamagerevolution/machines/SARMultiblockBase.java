@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.utils.multiblock;
+package xyz.brassgoggledcoders.steamagerevolution.machines;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
-public abstract class SARMultiblockBase extends RectangularMultiblockControllerBase implements ISARMultiblock, IHasGui {
+public abstract class SARMultiblockBase extends RectangularMultiblockControllerBase implements IMultiblockMachine, IHasGui {
 
 	List<Block> requiredBlocks = new ArrayList<Block>();
 

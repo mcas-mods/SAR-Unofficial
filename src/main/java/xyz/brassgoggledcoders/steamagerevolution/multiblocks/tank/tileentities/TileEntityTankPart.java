@@ -9,9 +9,9 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.machines.IMultiblockMachine;
+import xyz.brassgoggledcoders.steamagerevolution.machines.SARMultiblockTileBase;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.tank.ControllerTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileBase;
 
 public abstract class TileEntityTankPart extends SARMultiblockTileBase<ControllerTank> {
 
@@ -26,7 +26,7 @@ public abstract class TileEntityTankPart extends SARMultiblockTileBase<Controlle
 	}
 
 	@Override
-	public ISARMultiblock getControllerInfo() {
+	public IMultiblockMachine getControllerInfo() {
 		return new ControllerTank(null);
 	}
 

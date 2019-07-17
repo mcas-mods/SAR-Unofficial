@@ -10,8 +10,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.machines.BlockMultiblockBase;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.tileentities.TileEntitySteamHammerAnvil;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
 public class BlockSteamHammerAnvil extends BlockMultiblockBase<TileEntitySteamHammerAnvil> {
 

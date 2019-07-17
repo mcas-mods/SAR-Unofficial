@@ -7,23 +7,32 @@ import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemHandlerHelper;
+import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.steelworks.ControllerSteelworks;
 
 public class ControllerVat extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
+	public static final String uid = "vat";
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
 	public static int inputCapacity = outputCapacity * 3;
 	BlockPos minimumInteriorPos;
 	BlockPos maximumInteriorPos;
 	AxisAlignedBB bounds;
+
+	static {
+		IMachine.referenceMachinesList.put(uid, new ControllerSteelworks(null));
+	}
 
 	public ControllerVat(World world) {
 		super(world);
@@ -120,7 +129,12 @@ public class ControllerVat extends MultiblockCraftingMachine<InventoryCraftingMa
 	}
 
 	@Override
-	public String getName() {
-		return "Vat";
+	public String getUID() {
+		return uid;
+	}
+
+	@Override
+	public ItemStack getCatalyst() {
+		return new ItemStack(SARObjectHolder.vat_output);
 	}
 }

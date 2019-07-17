@@ -1,19 +1,14 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories;
 
-import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
-import net.minecraft.util.ResourceLocation;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
 
 public class SteamFurnaceRecipeCategory extends SARRecipeCategory<MachineRecipe> {
 
-	public static final String uid = "steamfurnace";
-
 	public SteamFurnaceRecipeCategory() {
-		super(uid, "Steam Furnace");
+		super("steam_furnace");
 	}
 
 	@Override
@@ -23,11 +18,6 @@ public class SteamFurnaceRecipeCategory extends SARRecipeCategory<MachineRecipe>
 
 		recipeLayout.getItemStacks().set(0, ingredients.getInputs(VanillaTypes.ITEM).get(0));
 		recipeLayout.getItemStacks().set(1, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
-	}
-	
-	@Override
-	public IDrawable getBackground() {
-		return helper.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/steam_furnace.png"), 9, 5, 120, 68);
 	}
 
 }

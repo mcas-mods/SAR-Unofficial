@@ -1,20 +1,17 @@
 package xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories;
 
-import mezz.jei.api.gui.*;
+import mezz.jei.api.gui.IGuiFluidStackGroup;
+import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
 
 public class SteelworksRecipeCategory extends SARRecipeCategory<MachineRecipe> {
 
-	public static final String uid = "steelworks";
-
 	public SteelworksRecipeCategory() {
-		super(uid, "Steelworks");
+		super("steelworks");
 	}
 
 	@Override
@@ -27,11 +24,6 @@ public class SteelworksRecipeCategory extends SARRecipeCategory<MachineRecipe> {
 		guiFluidStacks.set(0, ingredients.getInputs(VanillaTypes.FLUID).get(0));
 		recipeLayout.getItemStacks().set(1, ingredients.getInputs(VanillaTypes.ITEM).get(0));
 		guiFluidStacks.set(2, ingredients.getOutputs(VanillaTypes.FLUID).get(0));
-	}
-	
-	@Override
-	public IDrawable getBackground() {
-		return helper.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/steelworks.png"), 6, 5, 162, 73);
 	}
 
 }

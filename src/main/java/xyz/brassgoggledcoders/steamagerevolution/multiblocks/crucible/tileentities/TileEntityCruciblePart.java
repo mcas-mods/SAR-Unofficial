@@ -3,8 +3,8 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.crucible.tileentit
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockInventoryTileEntity;
+import xyz.brassgoggledcoders.steamagerevolution.machines.IMultiblockMachine;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.crucible.ControllerCrucible;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
 
 public abstract class TileEntityCruciblePart extends MultiblockInventoryTileEntity<ControllerCrucible> {
 
@@ -14,7 +14,7 @@ public abstract class TileEntityCruciblePart extends MultiblockInventoryTileEnti
 	}
 
 	@Override
-	public ISARMultiblock getControllerInfo() {
+	public IMultiblockMachine getControllerInfo() {
 		return new ControllerCrucible(null);
 	}
 

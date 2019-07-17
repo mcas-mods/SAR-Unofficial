@@ -3,8 +3,8 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller.tileenti
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockInventoryTileEntity;
+import xyz.brassgoggledcoders.steamagerevolution.machines.IMultiblockMachine;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller.ControllerDistiller;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
 
 public abstract class TileEntityDistillerPart extends MultiblockInventoryTileEntity<ControllerDistiller> {
 
@@ -14,7 +14,7 @@ public abstract class TileEntityDistillerPart extends MultiblockInventoryTileEnt
 	}
 
 	@Override
-	public ISARMultiblock getControllerInfo() {
+	public IMultiblockMachine getControllerInfo() {
 		return new ControllerDistiller(null);
 	}
 

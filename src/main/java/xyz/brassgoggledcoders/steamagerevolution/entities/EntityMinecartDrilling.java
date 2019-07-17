@@ -126,4 +126,9 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryBas
 		this.markDirty();
 	}
 
+	@Override
+	public String getUID() {
+		return "drilling_cart";
+	}
+
 }

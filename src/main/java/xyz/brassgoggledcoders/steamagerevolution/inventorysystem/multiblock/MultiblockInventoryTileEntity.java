@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -10,7 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileBase;
+import xyz.brassgoggledcoders.steamagerevolution.machines.SARMultiblockTileBase;
 
 public abstract class MultiblockInventoryTileEntity<T extends MultiblockCraftingMachine<? extends InventoryCraftingMachine>>
 		extends SARMultiblockTileBase<T> implements IHasInventory<InventoryCraftingMachine> {
@@ -34,10 +35,7 @@ public abstract class MultiblockInventoryTileEntity<T extends MultiblockCrafting
 		this.readFromNBT(tag);
 	}
 
-	@Override
-	public String getName() {
-		return this.getMultiblockController().getName();
-	}
+	// Delegate IHasInventory/IMachine methods to those of our controller
 
 	@Override
 	public InventoryCraftingMachine getInventory() {
@@ -62,5 +60,15 @@ public abstract class MultiblockInventoryTileEntity<T extends MultiblockCrafting
 	@Override
 	public BlockPos getMachinePos() {
 		return super.getPos();
+	}
+
+	@Override
+	public String getUID() {
+		return this.getMultiblockController().getUID();
+	}
+
+	@Override
+	public ItemStack getCatalyst() {
+		return this.getMultiblockController().getCatalyst();
 	}
 }

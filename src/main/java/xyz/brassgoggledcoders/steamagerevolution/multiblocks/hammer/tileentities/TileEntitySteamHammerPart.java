@@ -3,8 +3,8 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.tileentitie
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockInventoryTileEntity;
+import xyz.brassgoggledcoders.steamagerevolution.machines.IMultiblockMachine;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.ControllerSteamHammer;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
 
 public class TileEntitySteamHammerPart extends MultiblockInventoryTileEntity<ControllerSteamHammer> {
 
@@ -20,7 +20,7 @@ public class TileEntitySteamHammerPart extends MultiblockInventoryTileEntity<Con
 	}
 
 	@Override
-	public ISARMultiblock getControllerInfo() {
+	public IMultiblockMachine getControllerInfo() {
 		return new ControllerSteamHammer(null);
 	}
 }

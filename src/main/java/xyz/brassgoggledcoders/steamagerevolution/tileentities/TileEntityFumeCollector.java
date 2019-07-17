@@ -14,15 +14,22 @@ import xyz.brassgoggledcoders.steamagerevolution.api.IFumeProducer;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.TileEntityCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.FumeCollectorRecipe;
 
 //TODO add ability output to item placed in gui, and to item right clicked on block
 public class TileEntityFumeCollector extends TileEntityCraftingMachine<InventoryCraftingMachine> {
+	static final String uid = "fume_collector";
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 16;
+
+	static {
+		IMachine.referenceMachinesList.put(uid, new TileEntityFumeCollector());
+	}
 
 	public TileEntityFumeCollector() {
 		super();
-		this.setInventory(new InventoryCraftingMachine(this).addFluidHandler("tank", IOType.OUTPUT, 105, 11, outputCapacity));
+		this.setInventory(
+				new InventoryCraftingMachine(this).addFluidHandler("tank", IOType.OUTPUT, 105, 11, outputCapacity));
 	}
 
 	@Override
@@ -69,7 +76,7 @@ public class TileEntityFumeCollector extends TileEntityCraftingMachine<Inventory
 	}
 
 	@Override
-	public String getName() {
-		return "Fume Collector";
+	public String getUID() {
+		return uid;
 	}
 }

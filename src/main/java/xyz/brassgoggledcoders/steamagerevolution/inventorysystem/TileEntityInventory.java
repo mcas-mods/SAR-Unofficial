@@ -17,6 +17,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.ContainerInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
 
+//TODO Automatic saving of inventory contents when block broken
 public abstract class TileEntityInventory<I extends InventoryBasic> extends TileEntityBase
 		implements IHasGui, IHasInventory<I> {
 
@@ -34,9 +35,6 @@ public abstract class TileEntityInventory<I extends InventoryBasic> extends Tile
 	public void setInventory(I inventory) {
 		this.inventory = inventory;
 	}
-
-	@Override
-	public abstract String getName();
 
 	// Handles sync on world load
 	@Nonnull

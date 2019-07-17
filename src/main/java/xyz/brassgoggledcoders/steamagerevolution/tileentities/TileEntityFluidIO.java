@@ -7,10 +7,16 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
 public class TileEntityFluidIO extends TileEntityInventory<InventoryBasic> implements ITickable {
 
+	static final String uid = "fluid_io";
 	private int fluidTransferRate = 20;
+
+	static {
+		IMachine.referenceMachinesList.put(uid, new TileEntityFluidIO());
+	}
 
 	public TileEntityFluidIO() {
 		super();
@@ -60,8 +66,8 @@ public class TileEntityFluidIO extends TileEntityInventory<InventoryBasic> imple
 	}
 
 	@Override
-	public String getName() {
-		return "Fluid IO";
+	public String getUID() {
+		return uid;
 	}
 
 }

@@ -1,18 +1,26 @@
 package xyz.brassgoggledcoders.steamagerevolution.tileentities;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.Axis;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.TileEntityCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
 public class TileEntityCastingBench extends TileEntityCraftingMachine<InventoryCraftingMachine> {
 
+	public static final String uid = "casting_bench";
 	public static int inputCapacity = RecipeUtil.VALUE_BLOCK;
+
+	static {
+		IMachine.referenceMachinesList.put(uid, new TileEntityCastingBench());
+	}
 
 	public TileEntityCastingBench() {
 		setInventory(new InventoryCraftingMachine(this).addFluidHandler("tank", IOType.INPUT, 51, 31, inputCapacity)
@@ -44,7 +52,12 @@ public class TileEntityCastingBench extends TileEntityCraftingMachine<InventoryC
 	}
 
 	@Override
-	public String getName() {
-		return "Casting Bench";
+	public String getUID() {
+		return uid;
+	}
+
+	@Override
+	public ItemStack getCatalyst() {
+		return new ItemStack(SARObjectHolder.casting_bench);
 	}
 }

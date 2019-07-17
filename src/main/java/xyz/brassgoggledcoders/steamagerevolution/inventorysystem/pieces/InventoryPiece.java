@@ -68,4 +68,8 @@ public abstract class InventoryPiece<PARENT extends InventoryBasic> {
 	public String getTooltip() {
 		return null;
 	}
+
+	public void mouseClickedCallback(int mouseButton) {
+		// NO-OP
+	}
 }

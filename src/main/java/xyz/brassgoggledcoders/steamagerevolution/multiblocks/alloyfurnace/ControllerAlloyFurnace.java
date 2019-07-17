@@ -5,18 +5,26 @@ import com.teamacronymcoders.base.multiblock.validation.ValidationError;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
+import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
 public class ControllerAlloyFurnace extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
+	public static final String uid = "alloy_furnace";
 	public static int inputCapacity = RecipeUtil.VALUE_BLOCK * 8;
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
+
+	static {
+		IMachine.referenceMachinesList.put(uid, new ControllerAlloyFurnace(null));
+	}
 
 	public ControllerAlloyFurnace(World world) {
 		super(world);
@@ -85,7 +93,12 @@ public class ControllerAlloyFurnace extends MultiblockCraftingMachine<InventoryC
 	}
 
 	@Override
-	public String getName() {
-		return "Alloy Furnace";
+	public String getUID() {
+		return uid;
+	}
+
+	@Override
+	public ItemStack getCatalyst() {
+		return new ItemStack(SARObjectHolder.alloy_furnace_frame);
 	}
 }

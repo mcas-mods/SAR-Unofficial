@@ -14,11 +14,10 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.ContainerInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockBase;
+import xyz.brassgoggledcoders.steamagerevolution.machines.SARMultiblockBase;
 
 public abstract class MultiblockInventory<I extends InventoryBasic> extends SARMultiblockBase
 		implements IHasInventory<I> {
-
 	protected I inventory;
 
 	protected MultiblockInventory(World world) {

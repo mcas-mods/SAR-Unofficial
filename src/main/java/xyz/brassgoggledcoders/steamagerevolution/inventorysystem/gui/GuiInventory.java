@@ -1,5 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui;
 
+import java.io.IOException;
+
 import com.teamacronymcoders.base.containers.ContainerBase;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -57,8 +59,7 @@ public class GuiInventory extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		String s = this.holder.getName();
-		this.fontRenderer.drawString(s, 8, 6, 4210752);
+		this.fontRenderer.drawString(this.holder.getLocalizedName(), 8, 6, 4210752);
 		this.fontRenderer.drawString(playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2,
 				4210752);
 	}
@@ -87,6 +88,15 @@ public class GuiInventory extends GuiContainer {
 				}
 			}
 			piece.backgroundLayerCallback(this, partialTicks, mouseX, mouseY);
+		}
+	}
+
+	@Override
+	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+		for(InventoryPiece<?> piece : holder.getInventory().getInventoryPieces()) {
+			if(this.isPointInRegion(piece.getX(), piece.getY(), piece.width, piece.height, mouseX, mouseY)) {
+				piece.mouseClickedCallback(mouseButton);
+			}
 		}
 	}
 
