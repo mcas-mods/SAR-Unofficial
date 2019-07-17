@@ -11,7 +11,7 @@ public class InventoryPieceFluidTank extends InventoryPieceHandler<FluidTankSync
 
 	public InventoryPieceFluidTank(String name, InventoryBasic parent, IOType type, FluidTankSync handler,
 			int xPosition, int yPosition) {
-		super(name, parent, type, handler, xPosition, yPosition, 28, 166, 22, 62);
+		super(name, parent, type, handler, xPosition, yPosition, 28, 166, 22, 41);
 		parent.fluidPieces.put(name, this);
 		// TODO
 		if(parent instanceof InventoryCraftingMachine) {
@@ -34,9 +34,9 @@ public class InventoryPieceFluidTank extends InventoryPieceHandler<FluidTankSync
 		FluidStack stack = handler.getFluid();
 		if(stack != null && stack.getFluid() != null && stack.amount > 0) {
 			GuiHelper.renderGuiTank(stack, handler.getCapacity(), stack.amount, gui.guiLeft + this.getX(),
-					gui.guiTop + this.getY(), 20, 60);
+					gui.guiTop + this.getY(), 20, 39);
 			gui.mc.renderEngine.bindTexture(GuiInventory.guiTexture);
-			gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY() + 6, 176, 14, 20, 49);
+			gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY() + 6, 21, 207, 22, 41);
 		}
 	}
 

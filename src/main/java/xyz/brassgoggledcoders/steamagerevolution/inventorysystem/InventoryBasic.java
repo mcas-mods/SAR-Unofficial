@@ -46,6 +46,7 @@ public class InventoryBasic implements INBTSerializable<NBTTagCompound> {
 		return this;
 	}
 
+	// TODO Genericise
 	@Override
 	public NBTTagCompound serializeNBT() {
 		NBTTagCompound tag = new NBTTagCompound();

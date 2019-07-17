@@ -19,7 +19,7 @@ public class InventoryPieceProgressBar extends InventoryPiece<InventoryCraftingM
 		int progress = parent.getCurrentTicks();
 		int total = parent.getMaxTicks();
 		int progressScaled = progress != 0 && total != 0 ? progress * 24 / total : 0;
-		gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY(), 176, 83, progressScaled + 1, 16);
+		gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY(), 50, 181, progressScaled, 16);
 	}
 
 	@Override
