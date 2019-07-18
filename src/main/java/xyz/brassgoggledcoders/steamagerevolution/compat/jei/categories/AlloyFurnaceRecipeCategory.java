@@ -4,7 +4,6 @@ import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
-import net.minecraft.client.Minecraft;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.ControllerAlloyFurnace;
@@ -28,11 +27,6 @@ public class AlloyFurnaceRecipeCategory extends SARRecipeCategory<MachineRecipe>
 		guiFluidStacks.set(0, ingredients.getInputs(VanillaTypes.FLUID).get(0));
 		guiFluidStacks.set(1, ingredients.getInputs(VanillaTypes.FLUID).get(1));
 		guiFluidStacks.set(2, ingredients.getOutputs(VanillaTypes.FLUID).get(0));
-	}
-
-	@Override
-	public void drawExtras(Minecraft minecraft) {
-		// arrow.draw(minecraft, 103, 34);
 	}
 
 }

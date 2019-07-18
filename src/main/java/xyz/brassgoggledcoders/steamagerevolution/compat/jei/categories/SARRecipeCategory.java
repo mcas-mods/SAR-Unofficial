@@ -4,8 +4,10 @@ import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
 public abstract class SARRecipeCategory<T extends IRecipeWrapper> implements IRecipeCategory<T> {
@@ -43,7 +45,18 @@ public abstract class SARRecipeCategory<T extends IRecipeWrapper> implements IRe
 
 	@Override
 	public IDrawable getBackground() {
-		return helper.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/inventory.png"), 57,
-				31, 81, 18);
+		return helper.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/inventory.png"), 7, 4,
+				162, 79);
+	}
+
+	@Override
+	public void drawExtras(Minecraft minecraft) {
+		if(IMachine.referenceMachinesList.get(uid) instanceof IHasInventory) {
+			IHasInventory<?> inventory = (IHasInventory<?>) IMachine.referenceMachinesList.get(uid);
+			inventory.getInventory().inventoryPieces.forEach((name, piece) -> helper
+					.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/inventory.png"),
+							piece.textureX, piece.textureY, piece.width, piece.height)
+					.draw(minecraft, piece.getX(), piece.getY()));
+		}
 	}
 }
