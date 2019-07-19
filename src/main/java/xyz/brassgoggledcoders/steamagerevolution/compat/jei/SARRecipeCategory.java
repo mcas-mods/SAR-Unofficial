@@ -1,24 +1,25 @@
-package xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories;
+package xyz.brassgoggledcoders.steamagerevolution.compat.jei;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
-public abstract class SARRecipeCategory<T extends IRecipeWrapper> implements IRecipeCategory<T> {
+public class SARRecipeCategory<UNUSED> implements IRecipeCategory<MachineRecipe> {
 
 	protected static IGuiHelper helper;
-	Class<? extends IMachine> machine;
 
+	IMachine machine;
 	IDrawableAnimated arrow;
 
 	public SARRecipeCategory(Class<? extends IMachine> machine) {
-		this.machine = machine;
+		this.machine = IMachine.referenceMachinesList.get(machine);
 		IDrawableStatic arrowDrawable = helper.createDrawable(
 				new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/inventory.png"), 176, 83, 24, 17);
 		this.arrow = helper.createAnimatedDrawable(arrowDrawable, 20, IDrawableAnimated.StartDirection.LEFT, false);
@@ -30,12 +31,12 @@ public abstract class SARRecipeCategory<T extends IRecipeWrapper> implements IRe
 
 	@Override
 	public String getUid() {
-		return SteamAgeRevolution.MODID + ":" + IMachine.referenceMachinesList.get(machine).getUID();
+		return SteamAgeRevolution.MODID + ":" + machine.getUID();
 	}
 
 	@Override
 	public String getTitle() {
-		return IMachine.referenceMachinesList.get(machine).getLocalizedName();
+		return machine.getLocalizedName();
 	}
 
 	@Override
@@ -51,12 +52,17 @@ public abstract class SARRecipeCategory<T extends IRecipeWrapper> implements IRe
 
 	@Override
 	public void drawExtras(Minecraft minecraft) {
-		if(IMachine.referenceMachinesList.get(machine) instanceof IHasInventory) {
-			IHasInventory<?> inventory = (IHasInventory<?>) IMachine.referenceMachinesList.get(machine);
+		if(machine instanceof IHasInventory) {
+			IHasInventory<?> inventory = (IHasInventory<?>) machine;
 			inventory.getInventory().inventoryPieces.forEach((name, piece) -> helper
 					.createDrawable(new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/inventory.png"),
 							piece.textureX, piece.textureY, piece.width, piece.height)
 					.draw(minecraft, piece.getX(), piece.getY()));
 		}
+	}
+
+	@Override
+	public void setRecipe(IRecipeLayout recipeLayout, MachineRecipe recipeWrapper, IIngredients ingredients) {
+		// TODO
 	}
 }

@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.compat.jei.categories.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
@@ -27,10 +27,8 @@ public class SARJEIPlugin implements IModPlugin {
 		SARRecipeCategory.setGuiHelper(registry.getJeiHelpers().getGuiHelper());
 		tankBackground = registry.getJeiHelpers().getGuiHelper().createDrawable(
 				new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/inventory.png"), 176, 8, 20, 60);
-		registry.addRecipeCategories(new SteamHammerRecipeCategory(), new AlloyFurnaceRecipeCategory(),
-				new CrucibleRecipeCategory(), new SteamFurnaceRecipeCategory(), new CastingBenchRecipeCategory(),
-				new VatRecipeCategory(), new FumeCollectorRecipeCategory(), new DistillerRecipeCategory(),
-				new GrinderRecipeCategory(), new SteelworksRecipeCategory());
+		IMachine.referenceMachinesList
+				.forEach((clazz, machine) -> registry.addRecipeCategories(new SARRecipeCategory<MachineRecipe>(clazz)));
 	}
 
 	// TODO Steam consumption support

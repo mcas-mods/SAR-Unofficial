@@ -105,7 +105,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 		IMachine.referenceMachinesList.put(ControllerSteamHammer.class, new ControllerSteamHammer(null));
 		IMachine.referenceMachinesList.put(ControllerSteelworks.class, new ControllerSteelworks(null));
 		IMachine.referenceMachinesList.put(ControllerTank.class, new ControllerTank(null));
-		IMachine.referenceMachinesList.put(ControllerVat.class, new ControllerSteelworks(null));
+		IMachine.referenceMachinesList.put(ControllerVat.class, new ControllerVat(null));
 		IMachine.referenceMachinesList.put(TileEntityCastingBench.class, new TileEntityCastingBench());
 		IMachine.referenceMachinesList.put(TileEntityFluidHopper.class, new TileEntityFluidHopper());
 		IMachine.referenceMachinesList.put(TileEntityFluidIO.class, new TileEntityFluidIO());
