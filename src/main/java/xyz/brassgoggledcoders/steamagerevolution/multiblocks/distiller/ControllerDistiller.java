@@ -12,16 +12,11 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.*;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
 public class ControllerDistiller extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
 	public static final String uid = "distiller";
 	public static int tankCapacity = Fluid.BUCKET_VOLUME * 8;
-
-	static {
-		IMachine.referenceMachinesList.put(uid, new ControllerDistiller(null));
-	}
 
 	public ControllerDistiller(World world) {
 		super(world);

@@ -4,11 +4,12 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.ControllerGrinder;
 
 public class GrinderRecipeCategory extends SARRecipeCategory<MachineRecipe> {
 
 	public GrinderRecipeCategory() {
-		super("grinder");
+		super(ControllerGrinder.class);
 	}
 
 	@Override

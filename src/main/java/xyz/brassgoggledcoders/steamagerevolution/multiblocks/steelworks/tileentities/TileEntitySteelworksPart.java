@@ -3,7 +3,6 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.steelworks.tileent
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockInventoryTileEntity;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMultiblockMachine;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.steelworks.ControllerSteelworks;
 
 public abstract class TileEntitySteelworksPart extends MultiblockInventoryTileEntity<ControllerSteelworks> {
@@ -11,11 +10,6 @@ public abstract class TileEntitySteelworksPart extends MultiblockInventoryTileEn
 	@Override
 	public Class<ControllerSteelworks> getMultiblockControllerType() {
 		return ControllerSteelworks.class;
-	}
-
-	@Override
-	public IMultiblockMachine getControllerInfo() {
-		return new ControllerSteelworks(null);
 	}
 
 	@Override

@@ -22,6 +22,8 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketSetRecipeTime;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketStatusUpdate;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 
 //TODO Drain totalSteam/ticksToComplete steam every tick
 public class InventoryCraftingMachine extends InventoryBasic {
@@ -52,7 +54,8 @@ public class InventoryCraftingMachine extends InventoryBasic {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
 					new PacketSetRecipeTime(this.enclosingMachine.getMachinePos(),
 							Integer.valueOf(this.currentRecipe.ticksToProcess).shortValue()),
-					this.enclosingMachine.getMachinePos(), this.enclosingMachine.getMachineWorld().provider.getDimension());
+					this.enclosingMachine.getMachinePos(),
+					this.enclosingMachine.getMachineWorld().provider.getDimension());
 		}
 		else {
 			this.currentRecipe = null;
@@ -95,7 +98,8 @@ public class InventoryCraftingMachine extends InventoryBasic {
 		if(!this.enclosingMachine.getMachineWorld().isRemote) {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
 					new PacketStatusUpdate(this.enclosingMachine.getMachinePos(), currentProgress, error.networkID),
-					this.enclosingMachine.getMachinePos(), this.enclosingMachine.getMachineWorld().provider.getDimension());
+					this.enclosingMachine.getMachinePos(),
+					this.enclosingMachine.getMachineWorld().provider.getDimension());
 		}
 		this.currrentError = error;
 	}
@@ -215,8 +219,8 @@ public class InventoryCraftingMachine extends InventoryBasic {
 		// Otherwise, try to find a recipe from the current inputs
 		else {
 			// TODO Sort recipes by size of input
-			Optional<MachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(this.enclosingMachine.getUID()).parallelStream()
-					.filter(r -> hasRequiredFluids(r)).filter(r -> hasRequiredItems(r)).findFirst();
+			Optional<MachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(this.enclosingMachine.getUID())
+					.parallelStream().filter(r -> hasRequiredFluids(r)).filter(r -> hasRequiredItems(r)).findFirst();
 			if(recipe.isPresent()) {
 				setCurrentRecipe(recipe.get());
 				return true;
@@ -272,8 +276,17 @@ public class InventoryCraftingMachine extends InventoryBasic {
 
 	@Override
 	public void createSublists() {
-
 		super.createSublists();
+		for(IOType type : IOType.values()) {
+			itemIOs.put(type, new ArrayList<>());
+			fluidIOs.put(type, new ArrayList<>());
+		}
+		this.getInventoryPiecesOfType(InventoryPieceItemHandler.class).stream()
+				.filter(piece -> piece.getType() != null)
+				.forEach(piece -> this.itemIOs.get(piece.getType()).add(piece.getHandler()));
+		this.getInventoryPiecesOfType(InventoryPieceFluidTank.class).stream()
+				.filter(piece -> piece.getType() != null)
+				.forEach(piece -> this.fluidIOs.get(piece.getType()).add(piece.getHandler()));
 	}
 
 	@Nonnull

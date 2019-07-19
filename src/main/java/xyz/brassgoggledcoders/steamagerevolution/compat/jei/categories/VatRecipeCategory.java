@@ -5,7 +5,6 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat.ControllerVat;
@@ -13,12 +12,7 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat.ControllerVat;
 public class VatRecipeCategory extends SARRecipeCategory<MachineRecipe> {
 
 	public VatRecipeCategory() {
-		super("vat");
-	}
-
-	@Override
-	public String getModName() {
-		return SteamAgeRevolution.MODNAME;
+		super(ControllerVat.class);
 	}
 
 	@Override

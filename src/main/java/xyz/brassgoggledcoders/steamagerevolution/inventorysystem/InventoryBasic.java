@@ -87,8 +87,10 @@ public class InventoryBasic implements INBTSerializable<NBTTagCompound> {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public <P extends InventoryPiece> ArrayList<P> getInventoryPiecesOfType(Class<P> type) {
-		return (ArrayList<P>) pieceLists.get(type).values();
+		if(!pieceLists.containsKey(type)) {
+			return new ArrayList<>();
+		}
+		return new ArrayList<>(pieceLists.get(type).values());
 	}
 }

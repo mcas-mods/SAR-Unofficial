@@ -10,15 +10,10 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.Inventor
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
 public class ControllerSteelworks extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
 	public static final String uid = "steelworks";
-
-	static {
-		IMachine.referenceMachinesList.put(uid, new ControllerSteelworks(null));
-	}
 
 	public ControllerSteelworks(World world) {
 		super(world);

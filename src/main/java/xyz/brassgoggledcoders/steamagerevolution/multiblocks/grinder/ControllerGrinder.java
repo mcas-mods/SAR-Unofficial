@@ -7,15 +7,10 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBuilder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.*;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
 public class ControllerGrinder extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
 	public static final String uid = "grinder";
-
-	static {
-		IMachine.referenceMachinesList.put(uid, new ControllerGrinder(null));
-	}
 
 	public ControllerGrinder(World world) {
 		super(world);

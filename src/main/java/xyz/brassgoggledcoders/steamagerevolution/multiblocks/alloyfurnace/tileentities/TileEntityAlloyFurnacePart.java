@@ -3,7 +3,6 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.tilee
 import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
 
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockInventoryTileEntity;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMultiblockMachine;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.ControllerAlloyFurnace;
 
 public abstract class TileEntityAlloyFurnacePart extends MultiblockInventoryTileEntity<ControllerAlloyFurnace> {
@@ -11,11 +10,6 @@ public abstract class TileEntityAlloyFurnacePart extends MultiblockInventoryTile
 	@Override
 	public Class<ControllerAlloyFurnace> getMultiblockControllerType() {
 		return ControllerAlloyFurnace.class;
-	}
-
-	@Override
-	public IMultiblockMachine getControllerInfo() {
-		return new ControllerAlloyFurnace(null);
 	}
 
 	@Override

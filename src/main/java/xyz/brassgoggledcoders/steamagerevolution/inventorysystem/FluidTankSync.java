@@ -42,7 +42,8 @@ public class FluidTankSync extends FluidTank implements INBTSerializable<NBTTagC
 	// Set from the InventoryPiece constructor
 	public void setEnclosing(InventoryPieceFluidTank inventoryPieceFluidTank) {
 		this.enclosingIPiece = inventoryPieceFluidTank;
-		if(enclosingIPiece.enclosingInv.enclosingMachine instanceof TileEntity) {
+		if(enclosingIPiece.enclosingInv != null
+				&& enclosingIPiece.enclosingInv.enclosingMachine instanceof TileEntity) {
 			this.setTileEntity((TileEntity) enclosingIPiece.enclosingInv.enclosingMachine);
 		}
 	}

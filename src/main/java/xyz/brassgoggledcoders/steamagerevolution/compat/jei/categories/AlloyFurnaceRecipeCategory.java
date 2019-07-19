@@ -11,7 +11,7 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.Contro
 public class AlloyFurnaceRecipeCategory extends SARRecipeCategory<MachineRecipe> {
 
 	public AlloyFurnaceRecipeCategory() {
-		super(ControllerAlloyFurnace.uid);
+		super(ControllerAlloyFurnace.class);
 	}
 
 	@Override

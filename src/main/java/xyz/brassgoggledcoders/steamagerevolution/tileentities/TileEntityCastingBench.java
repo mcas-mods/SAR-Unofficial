@@ -12,17 +12,12 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.Inventor
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.TileEntityCraftingMachine;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
 public class TileEntityCastingBench extends TileEntityCraftingMachine<InventoryCraftingMachine> {
 
 	public static final String uid = "casting_bench";
 	public static int inputCapacity = RecipeUtil.VALUE_BLOCK;
-
-	static {
-		IMachine.referenceMachinesList.put(uid, new TileEntityCastingBench());
-	}
 
 	public TileEntityCastingBench() {
 		setInventory(new InventoryBuilder<>(new InventoryCraftingMachine(this))

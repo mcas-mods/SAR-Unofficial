@@ -10,7 +10,6 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.*;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
 public class ControllerCrucible extends MultiblockCraftingMachine<InventoryCraftingMachine> {
@@ -18,10 +17,6 @@ public class ControllerCrucible extends MultiblockCraftingMachine<InventoryCraft
 	public static final String uid = "crucible";
 	BlockPos minimumInteriorPos;
 	BlockPos maximumInteriorPos;
-
-	static {
-		IMachine.referenceMachinesList.put(uid, new ControllerCrucible(null));
-	}
 
 	public ControllerCrucible(World world) {
 		super(world);

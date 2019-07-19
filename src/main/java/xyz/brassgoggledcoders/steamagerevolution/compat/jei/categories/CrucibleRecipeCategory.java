@@ -6,11 +6,12 @@ import mezz.jei.api.ingredients.VanillaTypes;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.crucible.ControllerCrucible;
 
 public class CrucibleRecipeCategory extends SARRecipeCategory<MachineRecipe> {
 
 	public CrucibleRecipeCategory() {
-		super("crucible");
+		super(ControllerCrucible.class);
 	}
 
 	@Override

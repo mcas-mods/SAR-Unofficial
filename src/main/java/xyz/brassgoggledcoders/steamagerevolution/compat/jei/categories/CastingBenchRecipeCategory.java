@@ -10,7 +10,7 @@ import xyz.brassgoggledcoders.steamagerevolution.tileentities.TileEntityCastingB
 public class CastingBenchRecipeCategory extends SARRecipeCategory<MachineRecipe> {
 
 	public CastingBenchRecipeCategory() {
-		super(TileEntityCastingBench.uid);
+		super(TileEntityCastingBench.class);
 	}
 
 	@Override

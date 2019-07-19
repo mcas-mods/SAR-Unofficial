@@ -12,7 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 import xyz.brassgoggledcoders.steamagerevolution.machines.SARMultiblockBase;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiSingleTank;
@@ -23,10 +22,6 @@ public class ControllerTank extends SARMultiblockBase {
 	public BlockPos minimumInteriorPos;
 	public BlockPos maximumInteriorPos;
 	public FluidTank tank;
-
-	static {
-		IMachine.referenceMachinesList.put(uid, new ControllerTank(null));
-	}
 
 	public ControllerTank(World world) {
 		super(world);

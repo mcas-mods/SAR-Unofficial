@@ -4,11 +4,12 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.furnace.ControllerSteamFurnace;
 
 public class SteamFurnaceRecipeCategory extends SARRecipeCategory<MachineRecipe> {
 
 	public SteamFurnaceRecipeCategory() {
-		super("steam_furnace");
+		super(ControllerSteamFurnace.class);
 	}
 
 	@Override

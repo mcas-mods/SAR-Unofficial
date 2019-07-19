@@ -6,15 +6,10 @@ import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.*;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
 public class ControllerSteamFurnace extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
 	public static final String uid = "steam_furnace";
-
-	static {
-		IMachine.referenceMachinesList.put(uid, new ControllerSteamFurnace(null));
-	}
 
 	public ControllerSteamFurnace(World world) {
 		super(world);

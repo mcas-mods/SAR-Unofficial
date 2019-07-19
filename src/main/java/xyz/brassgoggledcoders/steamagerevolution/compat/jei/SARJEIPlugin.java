@@ -37,7 +37,8 @@ public class SARJEIPlugin implements IModPlugin {
 	// TODO GUI Widget for processing time
 	@Override
 	public void register(IModRegistry registry) {
-		IMachine.referenceMachinesList.forEach((uid, machine) -> add(registry, uid, machine.getCatalyst()));
+		IMachine.referenceMachinesList
+				.forEach((machineClass, instance) -> add(registry, instance.getUID(), instance.getCatalyst()));
 	}
 
 	@Override

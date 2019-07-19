@@ -7,8 +7,8 @@ public abstract class SARMultiblockTileBase<T extends SARMultiblockBase> extends
 		implements IMultiblockMachineTile {
 
 	@Override
-	public IMultiblockMachine getControllerInfo() {
-		return (IMultiblockMachine) IMachine.referenceMachinesList.get(this.getMultiblockController().getUID());
+	public final IMultiblockMachine getControllerInfo() {
+		return (IMultiblockMachine) IMachine.referenceMachinesList.get(this.getMultiblockControllerType());
 	}
 
 	@Override

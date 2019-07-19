@@ -7,11 +7,12 @@ import mezz.jei.api.ingredients.VanillaTypes;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.steelworks.ControllerSteelworks;
 
 public class SteelworksRecipeCategory extends SARRecipeCategory<MachineRecipe> {
 
 	public SteelworksRecipeCategory() {
-		super("steelworks");
+		super(ControllerSteelworks.class);
 	}
 
 	@Override

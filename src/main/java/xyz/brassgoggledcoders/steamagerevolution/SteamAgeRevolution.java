@@ -51,17 +51,29 @@ import xyz.brassgoggledcoders.steamagerevolution.entities.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.*;
 import xyz.brassgoggledcoders.steamagerevolution.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.items.tools.*;
+import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.ControllerAlloyFurnace;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.ControllerBoiler;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.crucible.ControllerCrucible;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.crucible.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller.ControllerDistiller;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.furnace.ControllerSteamFurnace;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.furnace.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.ControllerGrinder;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.ControllerSteamHammer;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.steelworks.ControllerSteelworks;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.steelworks.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.tank.ControllerTank;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.tank.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat.ControllerVat;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.network.*;
+import xyz.brassgoggledcoders.steamagerevolution.tileentities.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.LootFunctionOredict;
 import xyz.brassgoggledcoders.steamagerevolution.utils.StackComparator;
 import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.BlockDamagingFluid;
@@ -83,9 +95,24 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 
 	static {
 		FluidRegistry.enableUniversalBucket();
+		// TODO Blehhh
+		IMachine.referenceMachinesList.put(ControllerAlloyFurnace.class, new ControllerAlloyFurnace(null));
+		IMachine.referenceMachinesList.put(ControllerBoiler.class, new ControllerBoiler(null));
+		IMachine.referenceMachinesList.put(ControllerCrucible.class, new ControllerCrucible(null));
+		IMachine.referenceMachinesList.put(ControllerDistiller.class, new ControllerDistiller(null));
+		IMachine.referenceMachinesList.put(ControllerSteamFurnace.class, new ControllerSteamFurnace(null));
+		IMachine.referenceMachinesList.put(ControllerGrinder.class, new ControllerGrinder(null));
+		IMachine.referenceMachinesList.put(ControllerSteamHammer.class, new ControllerSteamHammer(null));
+		IMachine.referenceMachinesList.put(ControllerSteelworks.class, new ControllerSteelworks(null));
+		IMachine.referenceMachinesList.put(ControllerTank.class, new ControllerTank(null));
+		IMachine.referenceMachinesList.put(ControllerVat.class, new ControllerSteelworks(null));
+		IMachine.referenceMachinesList.put(TileEntityCastingBench.class, new TileEntityCastingBench());
+		IMachine.referenceMachinesList.put(TileEntityFluidHopper.class, new TileEntityFluidHopper());
+		IMachine.referenceMachinesList.put(TileEntityFluidIO.class, new TileEntityFluidIO());
+		IMachine.referenceMachinesList.put(TileEntityFumeCollector.class, new TileEntityFumeCollector());
 	}
 
-	// TODO Difficulty scaling. The default method results in no damage on peaceful.
+	// TODO Difficulty scaling. The vanilla method results in no damage on peaceful.
 	public static DamageSource damageSourceGas = new DamageSource("gas").setDamageIsAbsolute();
 	public static DamageSource damageSourceAcid = new DamageSource("acid").setDamageIsAbsolute();
 	public static DamageSource damageSourceBullet = new DamageSource("bullet").setProjectile();

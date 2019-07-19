@@ -19,18 +19,14 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.*;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
 public class ControllerSteamHammer extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
 	public static final String uid = "steam_hammer";
+
 	public String dieType = "";
 	BlockPos center = null;
 	AxisAlignedBB interior = null;
-
-	static {
-		IMachine.referenceMachinesList.put(uid, new ControllerSteamHammer(null));
-	}
 
 	public ControllerSteamHammer(World world) {
 		super(world);

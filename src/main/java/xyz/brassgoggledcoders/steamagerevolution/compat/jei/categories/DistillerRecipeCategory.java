@@ -10,7 +10,7 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller.Controlle
 public class DistillerRecipeCategory extends SARRecipeCategory<MachineRecipe> {
 
 	public DistillerRecipeCategory() {
-		super("distiller");
+		super(ControllerDistiller.class);
 	}
 
 	@Override

@@ -4,11 +4,12 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.ControllerSteamHammer;
 
 public class SteamHammerRecipeCategory extends SARRecipeCategory<MachineRecipe> {
 
 	public SteamHammerRecipeCategory() {
-		super("steam_hammer");
+		super(ControllerSteamHammer.class);
 	}
 
 	@Override

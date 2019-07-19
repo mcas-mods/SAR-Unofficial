@@ -9,16 +9,11 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
 public class TileEntityFluidIO extends TileEntityInventory<InventoryBasic> implements ITickable {
 
 	static final String uid = "fluid_io";
 	private int fluidTransferRate = 20;
-
-	static {
-		IMachine.referenceMachinesList.put(uid, new TileEntityFluidIO());
-	}
 
 	public TileEntityFluidIO() {
 		super();

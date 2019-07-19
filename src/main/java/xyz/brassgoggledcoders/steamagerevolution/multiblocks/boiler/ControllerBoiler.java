@@ -20,7 +20,6 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.Inventor
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities.*;
 
 public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftingMachine> {
@@ -37,10 +36,6 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
 	public boolean hasWindow = false;
 	Set<BlockPos> attachedMonitors;
 	Set<BlockPos> attachedValves;
-
-	static {
-		IMachine.referenceMachinesList.put(uid, new ControllerBoiler(null));
-	}
 
 	public ControllerBoiler(World world) {
 		super(world);

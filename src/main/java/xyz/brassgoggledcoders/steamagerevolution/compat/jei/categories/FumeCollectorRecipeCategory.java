@@ -9,7 +9,7 @@ import xyz.brassgoggledcoders.steamagerevolution.tileentities.TileEntityFumeColl
 public class FumeCollectorRecipeCategory extends SARRecipeCategory<FumeCollectorRecipe> {
 
 	public FumeCollectorRecipeCategory() {
-		super("fume_collector");
+		super(TileEntityFumeCollector.class);
 	}
 
 	@Override

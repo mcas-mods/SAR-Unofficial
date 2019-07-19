@@ -14,7 +14,6 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
 public class ControllerAlloyFurnace extends MultiblockCraftingMachine<InventoryCraftingMachine> {
@@ -22,10 +21,6 @@ public class ControllerAlloyFurnace extends MultiblockCraftingMachine<InventoryC
 	public static final String uid = "alloy_furnace";
 	public static int inputCapacity = RecipeUtil.VALUE_BLOCK * 8;
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
-
-	static {
-		IMachine.referenceMachinesList.put(uid, new ControllerAlloyFurnace(null));
-	}
 
 	public ControllerAlloyFurnace(World world) {
 		super(world);

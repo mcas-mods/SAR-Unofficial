@@ -17,7 +17,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.blocks.BlockFluidHopper;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
 //TODO Switch to inventory system
 public class TileEntityFluidHopper extends TileEntityInventory<InventoryBasic> implements ITickable {
@@ -26,10 +25,6 @@ public class TileEntityFluidHopper extends TileEntityInventory<InventoryBasic> i
 	private boolean hasFrom = false;
 	private BlockPos toPos = null;
 	private boolean hasCache = false;
-
-	static {
-		IMachine.referenceMachinesList.put(uid, new TileEntityFluidHopper());
-	}
 
 	public TileEntityFluidHopper() {
 		this.setInventory(new InventoryBuilder<>(new InventoryBasic(this))

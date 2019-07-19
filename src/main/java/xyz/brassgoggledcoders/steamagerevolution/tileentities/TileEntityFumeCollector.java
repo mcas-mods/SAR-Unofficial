@@ -15,17 +15,12 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.TileEntityCraftingMachine;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 import xyz.brassgoggledcoders.steamagerevolution.recipes.FumeCollectorRecipe;
 
 //TODO add ability output to item placed in gui, and to item right clicked on block
 public class TileEntityFumeCollector extends TileEntityCraftingMachine<InventoryCraftingMachine> {
 	static final String uid = "fume_collector";
 	public static int outputCapacity = Fluid.BUCKET_VOLUME * 16;
-
-	static {
-		IMachine.referenceMachinesList.put(uid, new TileEntityFumeCollector());
-	}
 
 	public TileEntityFumeCollector() {
 		super();

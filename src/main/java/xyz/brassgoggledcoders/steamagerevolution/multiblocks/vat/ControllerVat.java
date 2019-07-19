@@ -20,8 +20,6 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.Inventor
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.steelworks.ControllerSteelworks;
 
 public class ControllerVat extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
@@ -31,10 +29,6 @@ public class ControllerVat extends MultiblockCraftingMachine<InventoryCraftingMa
 	BlockPos minimumInteriorPos;
 	BlockPos maximumInteriorPos;
 	AxisAlignedBB bounds;
-
-	static {
-		IMachine.referenceMachinesList.put(uid, new ControllerSteelworks(null));
-	}
 
 	public ControllerVat(World world) {
 		super(world);
