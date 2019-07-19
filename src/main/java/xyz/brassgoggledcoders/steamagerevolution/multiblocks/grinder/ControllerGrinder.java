@@ -16,7 +16,7 @@ public class ControllerGrinder extends MultiblockCraftingMachine<InventoryCrafti
 		super(world);
 		this.setInventory(new InventoryBuilder<>(new InventoryCraftingMachine(this))
 				.addPiece("itemInput", new InventoryPieceItemHandler(IOType.INPUT, 58, 32))
-				.addPiece("itemOutput", new InventoryPieceItemHandler(IOType.OUTPUT, 121, 32)).addSteamTank(10, 9)
+				.addPiece("itemOutput", new InventoryPieceItemHandler(IOType.OUTPUT, 121, 32)).addSteamTank(10, 20)
 				.addPiece("progress", new InventoryPieceProgressBar(87, 33)).build());
 	}
 

@@ -149,10 +149,10 @@ public class InventoryCraftingMachine extends InventoryBasic {
 				}
 			}
 		}
-		if(this.getTypedFluidHandlers(IOType.POWER).get(0) != null) {
-			if(this.getTypedFluidHandlers(IOType.POWER).get(0).getFluidAmount() >= currentRecipe
+		if(this.getHandler("steamTank", FluidTankSync.class) != null) {
+			if(this.getHandler("steamTank", FluidTankSync.class).getFluidAmount() >= currentRecipe
 					.getSteamUsePerCraft()) {
-				this.getTypedFluidHandlers(IOType.POWER).get(0).drain(currentRecipe.getSteamUsePerCraft(), true);
+				this.getHandler("steamTank", FluidTankSync.class).drain(currentRecipe.getSteamUsePerCraft(), true);
 			}
 			else {
 				extractedSteam = false;
@@ -207,8 +207,9 @@ public class InventoryCraftingMachine extends InventoryBasic {
 	protected boolean canRun() {
 		// If we already have a recipe, check we have enough steam to continue
 		if(currentRecipe != null) {
-			if(this.getTypedFluidHandlers(IOType.POWER).isEmpty() || this.getTypedFluidHandlers(IOType.POWER).get(0)
-					/* TODO */.getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
+			if(this.getHandler("steamTank", FluidTankSync.class) == null
+					|| this.getHandler("steamTank", FluidTankSync.class)/* TODO */.getFluidAmount() >= currentRecipe
+							.getSteamUsePerCraft()) {
 				return true;
 			}
 			else {
@@ -281,11 +282,9 @@ public class InventoryCraftingMachine extends InventoryBasic {
 			itemIOs.put(type, new ArrayList<>());
 			fluidIOs.put(type, new ArrayList<>());
 		}
-		this.getInventoryPiecesOfType(InventoryPieceItemHandler.class).stream()
-				.filter(piece -> piece.getType() != null)
+		this.getInventoryPiecesOfType(InventoryPieceItemHandler.class).stream().filter(piece -> piece.getType() != null)
 				.forEach(piece -> this.itemIOs.get(piece.getType()).add(piece.getHandler()));
-		this.getInventoryPiecesOfType(InventoryPieceFluidTank.class).stream()
-				.filter(piece -> piece.getType() != null)
+		this.getInventoryPiecesOfType(InventoryPieceFluidTank.class).stream().filter(piece -> piece.getType() != null)
 				.forEach(piece -> this.fluidIOs.get(piece.getType()).add(piece.getHandler()));
 	}
 

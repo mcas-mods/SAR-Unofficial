@@ -3,7 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 
 public class MultiblockSteamWrapper implements IFluidTank, IFluidHandler {
@@ -18,8 +18,8 @@ public class MultiblockSteamWrapper implements IFluidTank, IFluidHandler {
 	@Override
 	public int fill(FluidStack resource, boolean doFill) {
 		if(tile.isConnected()
-				&& tile.getMultiblockController().getInventory().getTypedFluidHandlers(IOType.POWER).get(0) != null) {
-			return tile.getMultiblockController().getInventory().getTypedFluidHandlers(IOType.POWER).get(0)
+				&& tile.getMultiblockController().getInventory().getHandler("steamTank", FluidTankSync.class) != null) {
+			return tile.getMultiblockController().getInventory().getHandler("steamTank", FluidTankSync.class)
 					.fill(resource, doFill);
 		}
 		return 0;
@@ -28,8 +28,8 @@ public class MultiblockSteamWrapper implements IFluidTank, IFluidHandler {
 	@Override
 	public FluidStack drain(int maxDrain, boolean doDrain) {
 		if(tile.isConnected()
-				&& tile.getMultiblockController().getInventory().getTypedFluidHandlers(IOType.POWER).get(0) != null) {
-			return tile.getMultiblockController().getInventory().getTypedFluidHandlers(IOType.POWER).get(0)
+				&& tile.getMultiblockController().getInventory().getHandler("steamTank", FluidTankSync.class) != null) {
+			return tile.getMultiblockController().getInventory().getHandler("steamTank", FluidTankSync.class)
 					.drain(maxDrain, doDrain);
 		}
 		return null;
@@ -38,8 +38,9 @@ public class MultiblockSteamWrapper implements IFluidTank, IFluidHandler {
 	@Override
 	public FluidStack getFluid() {
 		if(tile.isConnected()
-				&& tile.getMultiblockController().getInventory().getTypedFluidHandlers(IOType.POWER).get(0) != null) {
-			return tile.getMultiblockController().getInventory().getTypedFluidHandlers(IOType.POWER).get(0).getFluid();
+				&& tile.getMultiblockController().getInventory().getHandler("steamTank", FluidTankSync.class) != null) {
+			return tile.getMultiblockController().getInventory().getHandler("steamTank", FluidTankSync.class)
+					.getFluid();
 		}
 		return null;
 	}
@@ -47,8 +48,8 @@ public class MultiblockSteamWrapper implements IFluidTank, IFluidHandler {
 	@Override
 	public int getFluidAmount() {
 		if(tile.isConnected()
-				&& tile.getMultiblockController().getInventory().getTypedFluidHandlers(IOType.POWER).get(0) != null) {
-			return tile.getMultiblockController().getInventory().getTypedFluidHandlers(IOType.POWER).get(0)
+				&& tile.getMultiblockController().getInventory().getHandler("steamTank", FluidTankSync.class) != null) {
+			return tile.getMultiblockController().getInventory().getHandler("steamTank", FluidTankSync.class)
 					.getFluidAmount();
 		}
 		return 0;
@@ -57,8 +58,8 @@ public class MultiblockSteamWrapper implements IFluidTank, IFluidHandler {
 	@Override
 	public int getCapacity() {
 		if(tile.isConnected()
-				&& tile.getMultiblockController().getInventory().getTypedFluidHandlers(IOType.POWER).get(0) != null) {
-			return tile.getMultiblockController().getInventory().getTypedFluidHandlers(IOType.POWER).get(0)
+				&& tile.getMultiblockController().getInventory().getHandler("steamTank", FluidTankSync.class) != null) {
+			return tile.getMultiblockController().getInventory().getHandler("steamTank", FluidTankSync.class)
 					.getCapacity();
 		}
 		return 0;
@@ -67,8 +68,8 @@ public class MultiblockSteamWrapper implements IFluidTank, IFluidHandler {
 	@Override
 	public FluidTankInfo getInfo() {
 		if(tile.isConnected()
-				&& tile.getMultiblockController().getInventory().getTypedFluidHandlers(IOType.POWER).get(0) != null) {
-			return tile.getMultiblockController().getInventory().getTypedFluidHandlers(IOType.POWER).get(0).getInfo();
+				&& tile.getMultiblockController().getInventory().getHandler("steamTank", FluidTankSync.class) != null) {
+			return tile.getMultiblockController().getInventory().getHandler("steamTank", FluidTankSync.class).getInfo();
 		}
 		return null;
 	}
@@ -76,8 +77,8 @@ public class MultiblockSteamWrapper implements IFluidTank, IFluidHandler {
 	@Override
 	public IFluidTankProperties[] getTankProperties() {
 		if(tile.isConnected()
-				&& tile.getMultiblockController().getInventory().getTypedFluidHandlers(IOType.POWER).get(0) != null) {
-			return tile.getMultiblockController().getInventory().getTypedFluidHandlers(IOType.POWER).get(0)
+				&& tile.getMultiblockController().getInventory().getHandler("steamTank", FluidTankSync.class) != null) {
+			return tile.getMultiblockController().getInventory().getHandler("steamTank", FluidTankSync.class)
 					.getTankProperties();
 		}
 		return new IFluidTankProperties[0];
@@ -86,8 +87,8 @@ public class MultiblockSteamWrapper implements IFluidTank, IFluidHandler {
 	@Override
 	public FluidStack drain(FluidStack resource, boolean doDrain) {
 		if(tile.isConnected()
-				&& tile.getMultiblockController().getInventory().getTypedFluidHandlers(IOType.POWER).get(0) != null) {
-			return tile.getMultiblockController().getInventory().getTypedFluidHandlers(IOType.POWER).get(0)
+				&& tile.getMultiblockController().getInventory().getHandler("steamTank", FluidTankSync.class) != null) {
+			return tile.getMultiblockController().getInventory().getHandler("steamTank", FluidTankSync.class)
 					.drain(resource, doDrain);
 		}
 		return null;

@@ -10,8 +10,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventor
 public class InventoryPieceFluidTank extends InventoryPieceHandler<FluidTankSync> {
 
 	public InventoryPieceFluidTank(IOType type, FluidTankSync handler, int xPosition, int yPosition) {
-		super(type, handler, xPosition, yPosition, 28, 166, 22, 41);
-		this.getHandler().setEnclosing(this);
+		this(type, handler, xPosition, yPosition, 2, 168, 18, 44, -1);
 	}
 
 	public InventoryPieceFluidTank(FluidTankSync handler, int xPos, int yPos) {
@@ -22,14 +21,20 @@ public class InventoryPieceFluidTank extends InventoryPieceHandler<FluidTankSync
 		this(null, new FluidTankSync(capacity), xPosition, yPosition);
 	}
 
+	protected InventoryPieceFluidTank(IOType type, FluidTankSync handler, int xPosition, int yPosition, int tX, int tY,
+			int w, int height, int offset) {
+		super(type, handler, xPosition, yPosition, tX, tY, w, height, offset);
+		this.getHandler().setEnclosing(this);
+	}
+
 	@Override
 	public void backgroundLayerCallback(GuiInventory gui, float partialTicks, int mouseX, int mouseY) {
 		FluidStack stack = handler.getFluid();
 		if(stack != null && stack.getFluid() != null && stack.amount > 0) {
 			GuiHelper.renderGuiTank(stack, handler.getCapacity(), stack.amount, gui.guiLeft + this.getX(),
-					gui.guiTop + this.getY(), 20, 39);
+					gui.guiTop + this.getY(), 16, 42);
 			gui.mc.renderEngine.bindTexture(GuiInventory.guiTexture);
-			gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY() + 6, 21, 207, 22, 41);
+			gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY() - 1, 3, 214, 18, 42);
 		}
 	}
 

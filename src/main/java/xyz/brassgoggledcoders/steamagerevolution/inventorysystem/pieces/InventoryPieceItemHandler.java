@@ -13,7 +13,7 @@ public class InventoryPieceItemHandler extends InventoryPieceHandler<ItemStackHa
 	}
 
 	public InventoryPieceItemHandler(IOType type, ItemStackHandlerSync handler, int slotXs[], int[] slotYs) {
-		super(type, handler, slotXs[0], slotYs[0], 72, 166, 18, 18);
+		super(type, handler, slotXs[0], slotYs[0], 72, 166, 18, 18, -1);
 		this.getHandler().setEnclosing(this);
 		this.slotXs = slotXs;
 		this.slotYs = slotYs;
