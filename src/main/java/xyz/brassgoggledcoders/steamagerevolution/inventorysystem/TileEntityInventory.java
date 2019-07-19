@@ -21,7 +21,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventor
 public abstract class TileEntityInventory<I extends InventoryBasic> extends TileEntityBase
 		implements IHasGui, IHasInventory<I> {
 
-	public I inventory;
+	protected I inventory;
 
 	@Override
 	public I getInventory() {

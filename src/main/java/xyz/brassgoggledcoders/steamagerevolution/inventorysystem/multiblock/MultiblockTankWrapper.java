@@ -3,6 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSync;
 
 public class MultiblockTankWrapper implements IFluidTank, IFluidHandler {
 
@@ -18,8 +19,8 @@ public class MultiblockTankWrapper implements IFluidTank, IFluidHandler {
 	@Override
 	public int fill(FluidStack resource, boolean doFill) {
 		if(tile.isConnected()
-				&& tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler() != null) {
-			return tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler().fill(resource,
+				&& tile.getMultiblockController().getInventory().getHandler(name, FluidTankSync.class) != null) {
+			return tile.getMultiblockController().getInventory().getHandler(name, FluidTankSync.class).fill(resource,
 					doFill);
 		}
 		return 0;
@@ -28,8 +29,8 @@ public class MultiblockTankWrapper implements IFluidTank, IFluidHandler {
 	@Override
 	public FluidStack drain(int maxDrain, boolean doDrain) {
 		if(tile.isConnected()
-				&& tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler() != null) {
-			return tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler().drain(maxDrain,
+				&& tile.getMultiblockController().getInventory().getHandler(name, FluidTankSync.class) != null) {
+			return tile.getMultiblockController().getInventory().getHandler(name, FluidTankSync.class).drain(maxDrain,
 					doDrain);
 		}
 		return null;
@@ -38,8 +39,8 @@ public class MultiblockTankWrapper implements IFluidTank, IFluidHandler {
 	@Override
 	public FluidStack getFluid() {
 		if(tile.isConnected()
-				&& tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler() != null) {
-			return tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler().getFluid();
+				&& tile.getMultiblockController().getInventory().getHandler(name, FluidTankSync.class) != null) {
+			return tile.getMultiblockController().getInventory().getHandler(name, FluidTankSync.class).getFluid();
 		}
 		return null;
 	}
@@ -47,8 +48,8 @@ public class MultiblockTankWrapper implements IFluidTank, IFluidHandler {
 	@Override
 	public int getFluidAmount() {
 		if(tile.isConnected()
-				&& tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler() != null) {
-			return tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler().getFluidAmount();
+				&& tile.getMultiblockController().getInventory().getHandler(name, FluidTankSync.class) != null) {
+			return tile.getMultiblockController().getInventory().getHandler(name, FluidTankSync.class).getFluidAmount();
 		}
 		return 0;
 	}
@@ -56,8 +57,8 @@ public class MultiblockTankWrapper implements IFluidTank, IFluidHandler {
 	@Override
 	public int getCapacity() {
 		if(tile.isConnected()
-				&& tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler() != null) {
-			return tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler().getCapacity();
+				&& tile.getMultiblockController().getInventory().getHandler(name, FluidTankSync.class) != null) {
+			return tile.getMultiblockController().getInventory().getHandler(name, FluidTankSync.class).getCapacity();
 		}
 		return 0;
 	}
@@ -65,8 +66,8 @@ public class MultiblockTankWrapper implements IFluidTank, IFluidHandler {
 	@Override
 	public FluidTankInfo getInfo() {
 		if(tile.isConnected()
-				&& tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler() != null) {
-			return tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler().getInfo();
+				&& tile.getMultiblockController().getInventory().getHandler(name, FluidTankSync.class) != null) {
+			return tile.getMultiblockController().getInventory().getHandler(name, FluidTankSync.class).getInfo();
 		}
 		return null;
 	}
@@ -74,8 +75,9 @@ public class MultiblockTankWrapper implements IFluidTank, IFluidHandler {
 	@Override
 	public IFluidTankProperties[] getTankProperties() {
 		if(tile.isConnected()
-				&& tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler() != null) {
-			return tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler().getTankProperties();
+				&& tile.getMultiblockController().getInventory().getHandler(name, FluidTankSync.class) != null) {
+			return tile.getMultiblockController().getInventory().getHandler(name, FluidTankSync.class)
+					.getTankProperties();
 		}
 		return new IFluidTankProperties[0];
 	}
@@ -83,8 +85,8 @@ public class MultiblockTankWrapper implements IFluidTank, IFluidHandler {
 	@Override
 	public FluidStack drain(FluidStack resource, boolean doDrain) {
 		if(tile.isConnected()
-				&& tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler() != null) {
-			return tile.getMultiblockController().getInventory().getFluidPiece(name).getHandler().drain(resource,
+				&& tile.getMultiblockController().getInventory().getHandler(name, FluidTankSync.class) != null) {
+			return tile.getMultiblockController().getInventory().getHandler(name, FluidTankSync.class).drain(resource,
 					doDrain);
 		}
 		return null;

@@ -1,7 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe;
 
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javax.annotation.Nonnull;
@@ -13,29 +12,22 @@ import com.teamacronymcoders.base.util.inventory.IngredientFluidStack;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketSetRecipeTime;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketStatusUpdate;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 
 //TODO Drain totalSteam/ticksToComplete steam every tick
 public class InventoryCraftingMachine extends InventoryBasic {
 
-	public ArrayList<InventoryPieceItemHandler> itemInputPieces = new ArrayList<>();
-	public ArrayList<InventoryPieceFluidTank> fluidInputPieces = new ArrayList<>();
-	public ArrayList<InventoryPieceItemHandler> itemOutputPieces = new ArrayList<>();
-	public ArrayList<InventoryPieceFluidTank> fluidOutputPieces = new ArrayList<>();
-	// TODO
-	public InventoryPieceFluidTank steamPiece;
-	public InventoryPieceItemHandler fuelHandlerPiece;
+	public HashMap<IOType, ArrayList<ItemStackHandlerSync>> itemIOs = new HashMap<>();
+	public HashMap<IOType, ArrayList<FluidTankSync>> fluidIOs = new HashMap<>();
 
 	@SideOnly(Side.CLIENT)
 	public int clientTicksToComplete;
@@ -50,61 +42,6 @@ public class InventoryCraftingMachine extends InventoryBasic {
 		super(parent);
 	}
 
-	public InventoryCraftingMachine addItemHandler(String name, IOType type, int xPos, int yPos) {
-		this.addItemHandler(name, type, new int[] { xPos }, new int[] { yPos });
-		return this;
-	}
-
-	public InventoryCraftingMachine addItemHandler(String name, IOType type, int[] slotXs, int[] slotYs) {
-		if(slotXs.length != slotYs.length) {
-			throw new RuntimeException("Your inventory position array sizes do not match");
-		}
-		new InventoryPieceItemHandler(name, this, type, new ItemStackHandlerSync(name, slotXs.length, parent), slotXs,
-				slotYs);
-		// itemPieces.put(name, iPiece);
-		return this;
-	}
-
-	public InventoryCraftingMachine addFluidHandler(String name, IOType type, int xPos, int yPos, int capacity) {
-		new InventoryPieceFluidTank(name, this, type, new FluidTankSync(name, capacity, parent), xPos, yPos);
-		return this;
-	}
-
-	public InventoryCraftingMachine setSteamTank(int xPos, int yPos) {
-		return this.setSteamTank(xPos, yPos, Fluid.BUCKET_VOLUME * 16);
-	}
-
-	public InventoryCraftingMachine setSteamTank(int xPos, int yPos, int capacity) {
-		steamPiece = new InventoryPieceFluidTank("steamTank", this, IOType.POWER,
-				new FluidTankSingleSync("steamTank", capacity, "steam", parent), xPos, yPos);
-		// fluidPieces.put("steamTank", steamPiece);
-		return this;
-	}
-
-	// TODO
-	@Deprecated
-	public InventoryCraftingMachine setFuelHandler(int xPos, int yPos, ItemStackHandlerFuel handler) {
-		fuelHandlerPiece = new InventoryPieceItemHandler("fuel", this, IOType.POWER, handler, new int[] { xPos },
-				new int[] { yPos });
-		// itemPieces.put("fuel", fuelHandlerPiece);
-		return this;
-	}
-
-	public InventoryCraftingMachine setProgressBar(int x, int y) {
-		new InventoryPieceProgressBar(this, x, y);
-		return this;
-	}
-
-	// TODO
-	@Deprecated
-	public InventoryCraftingMachine addFluidInput(String name, int xPos, int yPos,
-			FluidTankSingleSync fluidTankSingleSmart) {
-		new InventoryPieceFluidTank(name, this, IOType.INPUT, fluidTankSingleSmart, xPos, yPos);
-		// fluidInputPieces.add(fPiece);
-		// fluidPieces.put(name, fPiece);
-		return this;
-	}
-
 	public MachineRecipe getCurrentRecipe() {
 		return currentRecipe;
 	}
@@ -113,9 +50,9 @@ public class InventoryCraftingMachine extends InventoryBasic {
 		if(recipe != null) {
 			this.currentRecipe = recipe;
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketSetRecipeTime(this.parent.getMachinePos(),
+					new PacketSetRecipeTime(this.enclosingMachine.getMachinePos(),
 							Integer.valueOf(this.currentRecipe.ticksToProcess).shortValue()),
-					this.parent.getMachinePos(), this.parent.getMachineWorld().provider.getDimension());
+					this.enclosingMachine.getMachinePos(), this.enclosingMachine.getMachineWorld().provider.getDimension());
 		}
 		else {
 			this.currentRecipe = null;
@@ -155,10 +92,10 @@ public class InventoryCraftingMachine extends InventoryBasic {
 	}
 
 	public void setRecipeError(RecipeError error) {
-		if(!this.parent.getMachineWorld().isRemote) {
+		if(!this.enclosingMachine.getMachineWorld().isRemote) {
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketStatusUpdate(this.parent.getMachinePos(), currentProgress, error.networkID),
-					this.parent.getMachinePos(), this.parent.getMachineWorld().provider.getDimension());
+					new PacketStatusUpdate(this.enclosingMachine.getMachinePos(), currentProgress, error.networkID),
+					this.enclosingMachine.getMachinePos(), this.enclosingMachine.getMachineWorld().provider.getDimension());
 		}
 		this.currrentError = error;
 	}
@@ -208,9 +145,10 @@ public class InventoryCraftingMachine extends InventoryBasic {
 				}
 			}
 		}
-		if(steamPiece != null) {
-			if(steamPiece.getHandler().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
-				steamPiece.getHandler().drain(currentRecipe.getSteamUsePerCraft(), true);
+		if(this.getTypedFluidHandlers(IOType.POWER).get(0) != null) {
+			if(this.getTypedFluidHandlers(IOType.POWER).get(0).getFluidAmount() >= currentRecipe
+					.getSteamUsePerCraft()) {
+				this.getTypedFluidHandlers(IOType.POWER).get(0).drain(currentRecipe.getSteamUsePerCraft(), true);
 			}
 			else {
 				extractedSteam = false;
@@ -237,7 +175,7 @@ public class InventoryCraftingMachine extends InventoryBasic {
 					.info("Machine encountered recipe error at final stage. This should not happen..." + extractedItems
 							+ "/" + extractedFluids + "/" + extractedSteam);
 		}
-		parent.markMachineDirty();
+		enclosingMachine.markMachineDirty();
 	}
 
 	protected boolean canFinish() {
@@ -265,7 +203,8 @@ public class InventoryCraftingMachine extends InventoryBasic {
 	protected boolean canRun() {
 		// If we already have a recipe, check we have enough steam to continue
 		if(currentRecipe != null) {
-			if(steamPiece == null || steamPiece.getHandler().getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
+			if(this.getTypedFluidHandlers(IOType.POWER).isEmpty() || this.getTypedFluidHandlers(IOType.POWER).get(0)
+					/* TODO */.getFluidAmount() >= currentRecipe.getSteamUsePerCraft()) {
 				return true;
 			}
 			else {
@@ -276,7 +215,7 @@ public class InventoryCraftingMachine extends InventoryBasic {
 		// Otherwise, try to find a recipe from the current inputs
 		else {
 			// TODO Sort recipes by size of input
-			Optional<MachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(this.parent.getUID()).parallelStream()
+			Optional<MachineRecipe> recipe = RecipeRegistry.getRecipesForMachine(this.enclosingMachine.getUID()).parallelStream()
 					.filter(r -> hasRequiredFluids(r)).filter(r -> hasRequiredItems(r)).findFirst();
 			if(recipe.isPresent()) {
 				setCurrentRecipe(recipe.get());
@@ -323,18 +262,18 @@ public class InventoryCraftingMachine extends InventoryBasic {
 				.findAny().isPresent();
 	}
 
-	// TODO
-	@Deprecated
-	public List<ItemStackHandler> getTypedItemHandlers(IOType type) {
-		return itemPieces.values().stream().filter(iP -> iP.getType().equals(type)).map(p -> p.getHandler())
-				.collect(Collectors.toList());
+	public ArrayList<ItemStackHandlerSync> getTypedItemHandlers(IOType type) {
+		return this.itemIOs.get(type);
 	}
 
-	// TODO
-	@Deprecated
-	public List<FluidTank> getTypedFluidHandlers(IOType type) {
-		return fluidPieces.values().stream().filter(iP -> iP.getType().equals(type)).map(p -> p.getHandler())
-				.collect(Collectors.toList());
+	public ArrayList<FluidTankSync> getTypedFluidHandlers(IOType type) {
+		return this.fluidIOs.get(type);
+	}
+
+	@Override
+	public void createSublists() {
+
+		super.createSublists();
 	}
 
 	@Nonnull

@@ -7,8 +7,8 @@ import net.minecraft.tileentity.TileEntityFurnace;
 
 public abstract class ItemStackHandlerFiltered extends ItemStackHandlerSync {
 
-	public ItemStackHandlerFiltered(String name, int size, IHasInventory<?> container) {
-		super(name, size, container);
+	public ItemStackHandlerFiltered(int size) {
+		super(size);
 	}
 
 	@Override
@@ -22,8 +22,8 @@ public abstract class ItemStackHandlerFiltered extends ItemStackHandlerSync {
 	protected abstract boolean canInsertItem(int slot, ItemStack stack);
 
 	public static class ItemStackHandlerFuel extends ItemStackHandlerFiltered {
-		public ItemStackHandlerFuel(int size, IHasInventory<?> container) {
-			super("fuel" /* TODO */, size, container);
+		public ItemStackHandlerFuel(int size) {
+			super(size);
 		}
 
 		@Override

@@ -24,7 +24,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBuilder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.MiningUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerForceStack;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.HandlerForceStack;
@@ -39,8 +41,10 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryBas
 	public EntityMinecartDrilling(World world) {
 		super(world);
 		Pair<int[], int[]> posi = MiningUtils.getGUIPositionGrid(62, 31, 3, 1);
-		this.setInventory(new InventoryBasic(this).addItemPiece("inventory", posi.getLeft(), posi.getRight(),
-				new HandlerForceStack(this, 3)));
+		this.setInventory(new InventoryBuilder<>(new InventoryBasic(this))
+				.addPiece("inventory",
+						new InventoryPieceItemHandler(new HandlerForceStack(3), posi.getLeft(), posi.getRight()))
+				.build());
 	}
 
 	@SideOnly(Side.CLIENT)

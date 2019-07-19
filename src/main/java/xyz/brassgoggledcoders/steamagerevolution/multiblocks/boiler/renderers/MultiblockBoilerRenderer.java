@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSync;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.ControllerBoiler;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities.TileEntityBoilerCasing;
 
@@ -75,14 +76,14 @@ public class MultiblockBoilerRenderer extends TileEntitySpecialRenderer<TileEnti
 			double z2 = boiler.maximumInteriorPos.getZ() - tile.getPos().getZ();
 
 			ArrayList<FluidStack> fluids = Lists.newArrayList();
-			FluidTank waterTank = boiler.getInventory().getFluidPiece("waterTank").getHandler();
+			FluidTank waterTank = boiler.getInventory().getHandler("waterTank", FluidTankSync.class);
 			FluidStack water = waterTank.getFluid();
 
 			if(water != null) {
 				fluids.add(water);
 			}
 
-			FluidTank steamTank = boiler.getInventory().steamPiece.getHandler();
+			FluidTank steamTank = boiler.getInventory().getHandler("steamTank", FluidTankSync.class);
 			FluidStack steam = steamTank.getFluid();
 
 			if(steam != null) {

@@ -3,30 +3,23 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces;
 import com.teamacronymcoders.base.util.GuiHelper;
 
 import net.minecraftforge.fluids.FluidStack;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSync;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 
 public class InventoryPieceFluidTank extends InventoryPieceHandler<FluidTankSync> {
 
-	public InventoryPieceFluidTank(String name, InventoryBasic parent, IOType type, FluidTankSync handler,
-			int xPosition, int yPosition) {
-		super(name, parent, type, handler, xPosition, yPosition, 28, 166, 22, 41);
-		parent.fluidPieces.put(name, this);
-		// TODO
-		if(parent instanceof InventoryCraftingMachine) {
-			if(type.equals(IOType.INPUT)) {
-				((InventoryCraftingMachine) parent).fluidInputPieces.add(this);
-			}
-			else if(type.equals(IOType.OUTPUT)) {
-				((InventoryCraftingMachine) parent).fluidInputPieces.add(this);
-			}
-		}
+	public InventoryPieceFluidTank(IOType type, FluidTankSync handler, int xPosition, int yPosition) {
+		super(type, handler, xPosition, yPosition, 28, 166, 22, 41);
+		this.getHandler().setEnclosing(this);
 	}
 
-	public InventoryPieceFluidTank(String name, InventoryBasic inventoryBasic, FluidTankSync handler, int xPos,
-			int yPos) {
-		this(name, inventoryBasic, null, handler, xPos, yPos);
+	public InventoryPieceFluidTank(FluidTankSync handler, int xPos, int yPos) {
+		this(null, handler, xPos, yPos);
+	}
+
+	public InventoryPieceFluidTank(IOType input, int capacity, int xPosition, int yPosition) {
+		this(null, new FluidTankSync(capacity), xPosition, yPosition);
 	}
 
 	@Override

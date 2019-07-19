@@ -10,7 +10,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
@@ -28,10 +29,16 @@ public class ControllerAlloyFurnace extends MultiblockCraftingMachine<InventoryC
 
 	public ControllerAlloyFurnace(World world) {
 		super(world);
-		// FIXME
-		setInventory(new InventoryCraftingMachine(this).addFluidHandler("one", IOType.INPUT, 22, 11, inputCapacity)
-				.addFluidHandler("two", IOType.INPUT, 78, 11, inputCapacity)
-				.addFluidHandler("output", IOType.OUTPUT, 134, 17, outputCapacity));
+		// FIXME Need to reimplement MultiFluidHandler in order to expose both tanks
+		// with a single wrapper
+		setInventory(new InventoryBuilder<>(new InventoryCraftingMachine(this))
+				.addPiece("tankOne",
+						new InventoryPieceFluidTank(IOType.INPUT, new FluidTankSync(inputCapacity), 22, 11))
+				.addPiece("tankTwo",
+						new InventoryPieceFluidTank(IOType.INPUT, new FluidTankSync(inputCapacity), 78, 11))
+				.addPiece("output",
+						new InventoryPieceFluidTank(IOType.OUTPUT, new FluidTankSync(outputCapacity), 134, 17))
+				.build());
 	}
 
 	// TODO

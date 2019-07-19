@@ -11,7 +11,8 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 import xyz.brassgoggledcoders.steamagerevolution.api.IFumeProducer;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.TileEntityCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
@@ -28,8 +29,8 @@ public class TileEntityFumeCollector extends TileEntityCraftingMachine<Inventory
 
 	public TileEntityFumeCollector() {
 		super();
-		this.setInventory(
-				new InventoryCraftingMachine(this).addFluidHandler("tank", IOType.OUTPUT, 105, 11, outputCapacity));
+		this.setInventory(new InventoryBuilder<>(new InventoryCraftingMachine(this))
+				.addPiece("tank", new InventoryPieceFluidTank(IOType.OUTPUT, outputCapacity, 105, 11)).build());
 	}
 
 	@Override
@@ -49,7 +50,7 @@ public class TileEntityFumeCollector extends TileEntityCraftingMachine<Inventory
 					FumeCollectorRecipe r = FumeCollectorRecipe.getRecipe(fuel);
 					if(r != null && getWorld().rand.nextFloat() < r.chance) {
 						FluidStack fume = r.output;
-						IFluidHandler tank = this.getInventory().getFluidPiece("tank").getHandler();
+						IFluidHandler tank = this.getInventory().getHandler("tank", FluidTankSync.class);
 						if(tank.fill(fume, false) == fume.amount) {
 							tank.fill(fume, true);
 							this.markMachineDirty();
@@ -70,7 +71,7 @@ public class TileEntityFumeCollector extends TileEntityCraftingMachine<Inventory
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
-					.cast(this.getInventory().getFluidPiece("tank").getHandler());
+					.cast(this.getInventory().getHandler("tank", FluidTankSync.class));
 		}
 		return super.getCapability(capability, facing);
 	}

@@ -16,9 +16,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.*;
 import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
 public class ControllerSteamHammer extends MultiblockCraftingMachine<InventoryCraftingMachine> {
@@ -35,10 +35,10 @@ public class ControllerSteamHammer extends MultiblockCraftingMachine<InventoryCr
 	public ControllerSteamHammer(World world) {
 		super(world);
 		// TODO Switch to single handler for items?
-		setInventory(new InventorySteamHammer(this)
-				.addItemHandler("itemInput", IOType.INPUT, new int[] { 35 }, new int[] { 32 })
-				.addItemHandler("itemOutput", IOType.OUTPUT, new int[] { 138 }, new int[] { 32 }).setSteamTank(9, 11)
-				.setProgressBar(103, 31));
+		setInventory(new InventoryBuilder<>(new InventorySteamHammer(this))
+				.addPiece("itemInput", new InventoryPieceItemHandler(IOType.INPUT, 35, 32))
+				.addPiece("itemOutput", new InventoryPieceItemHandler(IOType.OUTPUT, 138, 32)).addSteamTank(9, 11)
+				.addPiece("progress", new InventoryPieceProgressBar(103, 31)).build());
 	}
 
 	@Override
@@ -96,11 +96,10 @@ public class ControllerSteamHammer extends MultiblockCraftingMachine<InventoryCr
 	@Override
 	protected void onTick() {
 		for(EntityItem item : WORLD.getEntitiesWithinAABB(EntityItem.class, interior)) {
-			if(ItemHandlerHelper
-					.insertItem(this.getInventory().getItemPiece("itemInput").getHandler(), item.getItem(), true)
-					.isEmpty()) {
-				ItemHandlerHelper.insertItem(this.getInventory().getItemPiece("itemInput").getHandler(), item.getItem(),
-						false);
+			if(ItemHandlerHelper.insertItem(this.getInventory().getHandler("itemInput", ItemStackHandlerSync.class),
+					item.getItem(), true).isEmpty()) {
+				ItemHandlerHelper.insertItem(this.getInventory().getHandler("itemInput", ItemStackHandlerSync.class),
+						item.getItem(), false);
 				item.setDead();
 			}
 		}

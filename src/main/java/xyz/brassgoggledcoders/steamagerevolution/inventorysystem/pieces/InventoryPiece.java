@@ -3,7 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
 
-public abstract class InventoryPiece<PARENT extends InventoryBasic> {
+public abstract class InventoryPiece<INV extends InventoryBasic> {
 	String name;
 	final int elementX;
 	final int elementY;
@@ -15,15 +15,11 @@ public abstract class InventoryPiece<PARENT extends InventoryBasic> {
 
 	private boolean shouldRender = true;
 
-	protected PARENT parent;
+	public INV enclosingInv;
 
-	// Name MUST be unique within the inventory
+	// Name MUST be unique within the inventory TODO Enforcement
 	// TODO Create a 'GUIPiece' subclass that holds texture and position info?
-	public InventoryPiece(String name, PARENT parent, int xPos, int yPos, int textureX, int textureY, int xSize,
-			int ySize, int offset) {
-		this.parent = parent;
-		parent.inventoryPieces.put(name, this);
-		this.name = name;
+	public InventoryPiece(int xPos, int yPos, int textureX, int textureY, int xSize, int ySize, int offset) {
 		this.elementX = xPos;
 		this.elementY = yPos;
 		this.textureX = textureX;
@@ -31,6 +27,18 @@ public abstract class InventoryPiece<PARENT extends InventoryBasic> {
 		this.width = xSize;
 		this.height = ySize;
 		this.offset = offset;
+	}
+
+	// Set by the InventoryBuilder
+	public InventoryPiece<INV> setParent(INV amBuilding) {
+		this.enclosingInv = amBuilding;
+		return this;
+	}
+
+	// Set by the InventoryBuilder
+	public InventoryPiece<INV> setName(String name) {
+		this.name = name;
+		return this;
 	}
 
 	public String getName() {

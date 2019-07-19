@@ -16,9 +16,9 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.ContainerIn
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.machines.SARMultiblockBase;
 
-public abstract class MultiblockInventory<I extends InventoryBasic> extends SARMultiblockBase
-		implements IHasInventory<I> {
-	protected I inventory;
+public abstract class MultiblockInventory<INV extends InventoryBasic> extends SARMultiblockBase
+		implements IHasInventory<INV> {
+	protected INV inventory;
 
 	protected MultiblockInventory(World world) {
 		super(world);
@@ -46,12 +46,12 @@ public abstract class MultiblockInventory<I extends InventoryBasic> extends SARM
 	}
 
 	@Override
-	public I getInventory() {
+	public INV getInventory() {
 		return inventory;
 	}
 
 	@Override
-	public void setInventory(I inventory) {
+	public void setInventory(INV inventory) {
 		this.inventory = inventory;
 	}
 

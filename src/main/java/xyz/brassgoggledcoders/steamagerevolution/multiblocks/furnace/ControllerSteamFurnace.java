@@ -2,11 +2,10 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.furnace;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.*;
 import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
 public class ControllerSteamFurnace extends MultiblockCraftingMachine<InventoryCraftingMachine> {
@@ -19,10 +18,14 @@ public class ControllerSteamFurnace extends MultiblockCraftingMachine<InventoryC
 
 	public ControllerSteamFurnace(World world) {
 		super(world);
-		setInventory(new InventoryCraftingMachine(this)
-				.addItemHandler("input", IOType.INPUT, new int[] { 48 }, new int[] { 33 })
-				.addItemHandler("output", IOType.OUTPUT, new int[] { 108 }, new int[] { 33 })
-				.setSteamTank(13, 9, Fluid.BUCKET_VOLUME * 16).setProgressBar(72, 33));
+		setInventory(new InventoryBuilder<>(new InventoryCraftingMachine(this))
+				.addPiece("input",
+						new InventoryPieceItemHandler(IOType.INPUT, new ItemStackHandlerSync(1), new int[] { 48 },
+								new int[] { 33 }))
+				.addPiece("output",
+						new InventoryPieceItemHandler(IOType.OUTPUT, new ItemStackHandlerSync(1), new int[] { 108 },
+								new int[] { 33 }))
+				.addSteamTank(13, 9).addPiece("progress", new InventoryPieceProgressBar(72, 33)).build());
 	}
 
 	@Override

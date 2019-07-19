@@ -11,7 +11,9 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 public interface IMachine {
 
 	// A single instance of each class extending this interface should be added to
-	// this list (ex. in static init on the extending class) for Reasons.
+	// this list (ex. in static init on the extending class) for Reasons. (of
+	// automatic JEI support and that)
+	// TODO Is there a better thing we can store than an instance of the machine?
 	static HashMap<String, IMachine> referenceMachinesList = new HashMap<String, IMachine>() {
 		private static final long serialVersionUID = -4864024057406246752L;
 

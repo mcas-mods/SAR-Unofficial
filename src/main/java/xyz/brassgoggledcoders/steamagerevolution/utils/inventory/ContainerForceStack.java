@@ -10,7 +10,8 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.Inventor
 public class ContainerForceStack extends ContainerBase {
 	public ContainerForceStack(EntityPlayer player, IHasInventory<?> holder) {
 		if(!holder.getInventory().getItemHandlers().isEmpty()) {
-			for(InventoryPieceItemHandler iPiece : holder.getInventory().itemPieces.values()) {
+			for(InventoryPieceItemHandler iPiece : holder.getInventory()
+					.getInventoryPiecesOfType(InventoryPieceItemHandler.class)) {
 				for(int slotIndex = 0; slotIndex < iPiece.getHandler().getSlots(); slotIndex++) {
 					addSlotToContainer(new SlotForceStack(iPiece.getHandler(), slotIndex,
 							iPiece.getSlotPositionX(slotIndex), iPiece.getSlotPositionY(slotIndex)));

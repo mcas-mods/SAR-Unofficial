@@ -7,6 +7,8 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
 public class TileEntityFluidIO extends TileEntityInventory<InventoryBasic> implements ITickable {
@@ -20,31 +22,34 @@ public class TileEntityFluidIO extends TileEntityInventory<InventoryBasic> imple
 
 	public TileEntityFluidIO() {
 		super();
-		setInventory(new InventoryBasic(this)
-				.addItemPiece("items", new int[] { 25, 134 }, new int[] { 33, 33 },
-						new ItemStackHandlerSync("items", 2, this))
-				.addFluidPiece("tank", 78, 11, Fluid.BUCKET_VOLUME * 6));
+		setInventory(new InventoryBuilder<>(new InventoryBasic(this))
+				.addPiece("items",
+						new InventoryPieceItemHandler(new ItemStackHandlerSync(2), new int[] { 25, 134 },
+								new int[] { 33, 33 }))
+				.addPiece("tank", new InventoryPieceFluidTank(new FluidTankSync(Fluid.BUCKET_VOLUME * 6), 78, 11))
+				.build());
 	}
 
 	@Override
 	public void update() {
-		if(!inventory.getItemPiece("items").getHandler().getStackInSlot(0).isEmpty()) {
-			IFluidHandler itemFluid = inventory.getItemPiece("items").getHandler().getStackInSlot(0)
+		ItemStackHandlerSync stackHandler = inventory.getHandler("items", ItemStackHandlerSync.class);
+		FluidTankSync fluidHandler = inventory.getHandler("tank", FluidTankSync.class);
+		if(!stackHandler.getStackInSlot(0).isEmpty()) {
+			IFluidHandler itemFluid = stackHandler.getStackInSlot(0)
 					.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-			if(itemFluid != null && itemFluid.drain(fluidTransferRate, false) != null && inventory.getFluidPiece("tank")
-					.getHandler().fill(itemFluid.drain(fluidTransferRate, false), false) == fluidTransferRate) {
-				inventory.getFluidPiece("tank").getHandler().fill(itemFluid.drain(fluidTransferRate, true), true);
+			if(itemFluid != null && itemFluid.drain(fluidTransferRate, false) != null
+					&& fluidHandler.fill(itemFluid.drain(fluidTransferRate, false), false) == fluidTransferRate) {
+				fluidHandler.fill(itemFluid.drain(fluidTransferRate, true), true);
 				markMachineDirty();
 				sendBlockUpdate();
 			}
 		}
-		if(!inventory.getItemPiece("items").getHandler().getStackInSlot(1).isEmpty()) {
-			IFluidHandler itemFluid = inventory.getItemPiece("items").getHandler().getStackInSlot(1)
+		if(!stackHandler.getStackInSlot(1).isEmpty()) {
+			IFluidHandler itemFluid = stackHandler.getStackInSlot(1)
 					.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-			if(itemFluid != null && inventory.getFluidPiece("tank").getHandler().getFluidAmount() > 0
-					&& itemFluid.fill(inventory.getFluidPiece("tank").getHandler().drain(fluidTransferRate, false),
-							false) == fluidTransferRate) {
-				itemFluid.fill(inventory.getFluidPiece("tank").getHandler().drain(fluidTransferRate, true), true);
+			if(itemFluid != null && fluidHandler.getFluidAmount() > 0
+					&& itemFluid.fill(fluidHandler.drain(fluidTransferRate, false), false) == fluidTransferRate) {
+				itemFluid.fill(fluidHandler.drain(fluidTransferRate, true), true);
 				markMachineDirty();
 				sendBlockUpdate();
 			}
@@ -60,7 +65,7 @@ public class TileEntityFluidIO extends TileEntityInventory<InventoryBasic> imple
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return (T) inventory.getFluidPiece("tank").getHandler();
+			return (T) inventory.getHandler("tank", FluidTankSync.class);
 		}
 		return super.getCapability(capability, facing);
 	}

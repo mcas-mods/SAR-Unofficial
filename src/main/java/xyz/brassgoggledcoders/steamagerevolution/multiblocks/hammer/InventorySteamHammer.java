@@ -12,7 +12,7 @@ public class InventorySteamHammer extends InventoryCraftingMachine {
 	@Override
 	public void onFinish() {
 		super.onFinish();
-		((ControllerSteamHammer) parent).onFinish();
+		((ControllerSteamHammer) enclosingMachine).onFinish();
 	}
 
 }

@@ -4,8 +4,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBuilder;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.*;
 import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
 public class ControllerGrinder extends MultiblockCraftingMachine<InventoryCraftingMachine> {
@@ -18,10 +19,10 @@ public class ControllerGrinder extends MultiblockCraftingMachine<InventoryCrafti
 
 	public ControllerGrinder(World world) {
 		super(world);
-		this.setInventory(new InventoryCraftingMachine(this)
-				.addItemHandler("itemInput", IOType.INPUT, new int[] { 58 }, new int[] { 32 })
-				.addItemHandler("itemOutput", IOType.OUTPUT, new int[] { 121 }, new int[] { 32 }).setSteamTank(10, 9)
-				.setProgressBar(87, 33));
+		this.setInventory(new InventoryBuilder<>(new InventoryCraftingMachine(this))
+				.addPiece("itemInput", new InventoryPieceItemHandler(IOType.INPUT, 58, 32))
+				.addPiece("itemOutput", new InventoryPieceItemHandler(IOType.OUTPUT, 121, 32)).addSteamTank(10, 9)
+				.addPiece("progress", new InventoryPieceProgressBar(87, 33)).build());
 	}
 
 	@Override

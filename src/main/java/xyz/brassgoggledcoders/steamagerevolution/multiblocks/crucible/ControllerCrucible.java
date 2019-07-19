@@ -5,11 +5,11 @@ import org.apache.commons.lang3.tuple.Pair;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.*;
 import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
@@ -25,10 +25,14 @@ public class ControllerCrucible extends MultiblockCraftingMachine<InventoryCraft
 
 	public ControllerCrucible(World world) {
 		super(world);
-		setInventory(new InventoryCraftingMachine(this)
-				.addItemHandler("itemInput", IOType.INPUT, new int[] { 53 }, new int[] { 34 })
-				.addFluidHandler("output", IOType.OUTPUT, 105, 11, RecipeUtil.VALUE_BLOCK * 4)
-				.setSteamTank(17, 11, Fluid.BUCKET_VOLUME).setProgressBar(76, 33));
+		setInventory(new InventoryBuilder<>(new InventoryCraftingMachine(this))
+				.addPiece("itemInput",
+						new InventoryPieceItemHandler(IOType.INPUT, new ItemStackHandlerSync(1), new int[] { 53 },
+								new int[] { 34 }))
+				.addPiece("fluidOutput",
+						new InventoryPieceFluidTank(IOType.OUTPUT, new FluidTankSync(RecipeUtil.VALUE_BLOCK * 4), 11,
+								105))
+				.addSteamTank(11, 17).addPiece("progress", new InventoryPieceProgressBar(76, 33)).build());
 	}
 
 	// FIXME Caching

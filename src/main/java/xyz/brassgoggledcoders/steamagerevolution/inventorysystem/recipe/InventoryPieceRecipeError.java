@@ -5,19 +5,19 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.Inventor
 
 public class InventoryPieceRecipeError extends InventoryPiece<InventoryCraftingMachine> {
 
-	public InventoryPieceRecipeError(InventoryCraftingMachine parent, int xPos, int yPos) {
-		super("recipeError", parent, xPos, yPos, 90, 166, 13, 13, 0);
+	public InventoryPieceRecipeError(int xPos, int yPos) {
+		super(xPos, yPos, 90, 166, 13, 13, 0);
 	}
 
 	@Override
 	public boolean shouldRender() {
-		return !this.parent.getRecipeError().equals(RecipeError.NONE);
+		return !this.enclosingInv.getRecipeError().equals(RecipeError.NONE);
 	}
 
 	@Override
 	public String getTooltip() {
-		if(this.parent.getRecipeError() != null) {
-			return TextFormatting.RED.toString() + this.parent.getRecipeError().getLocalized();
+		if(this.enclosingInv.getRecipeError() != null) {
+			return TextFormatting.RED.toString() + this.enclosingInv.getRecipeError().getLocalized();
 		}
 		else {
 			return super.getTooltip();

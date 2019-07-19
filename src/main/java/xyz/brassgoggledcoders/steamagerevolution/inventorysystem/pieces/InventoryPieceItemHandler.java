@@ -1,34 +1,26 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces;
 
-import net.minecraftforge.items.ItemStackHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerSync;
 
-public class InventoryPieceItemHandler extends InventoryPieceHandler<ItemStackHandler> {
+public class InventoryPieceItemHandler extends InventoryPieceHandler<ItemStackHandlerSync> {
 
 	int[] slotXs;
 	int[] slotYs;
 
-	public InventoryPieceItemHandler(String name, InventoryBasic parent, ItemStackHandlerSync handler, int[] slotXs,
-			int[] slotYs) {
-		this(name, parent, null, handler, slotXs, slotYs);
+	public InventoryPieceItemHandler(ItemStackHandlerSync handler, int[] slotXs, int[] slotYs) {
+		this(null, handler, slotXs, slotYs);
 	}
 
-	public InventoryPieceItemHandler(String name, InventoryBasic parent, IOType type, ItemStackHandlerSync handler,
-			int slotXs[], int[] slotYs) {
-		super(name, parent, type, handler, slotXs[0], slotYs[0], 72, 166, 18, 18);
+	public InventoryPieceItemHandler(IOType type, ItemStackHandlerSync handler, int slotXs[], int[] slotYs) {
+		super(type, handler, slotXs[0], slotYs[0], 72, 166, 18, 18);
+		this.getHandler().setEnclosing(this);
 		this.slotXs = slotXs;
 		this.slotYs = slotYs;
-		parent.itemPieces.put(name, this);
-		// TODO
-		if(parent instanceof InventoryCraftingMachine) {
-			if(type.equals(IOType.INPUT)) {
-				((InventoryCraftingMachine) parent).itemInputPieces.add(this);
-			}
-			else if(type.equals(IOType.OUTPUT)) {
-				((InventoryCraftingMachine) parent).itemOutputPieces.add(this);
-			}
-		}
+	}
+
+	public InventoryPieceItemHandler(IOType type, int slotXs, int slotYs) {
+		this(type, new ItemStackHandlerSync(1), new int[] { slotXs }, new int[] { slotYs });
 	}
 
 	public int getSlotPositionX(int slot) {

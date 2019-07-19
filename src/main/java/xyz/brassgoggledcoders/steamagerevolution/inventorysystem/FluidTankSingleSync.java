@@ -7,8 +7,8 @@ public class FluidTankSingleSync extends FluidTankSync {
 
 	private String fluidName;
 
-	public FluidTankSingleSync(String name, int capacity, String fluidName, IHasInventory<?> container) {
-		super(name, capacity, container);
+	public FluidTankSingleSync(int capacity, String fluidName) {
+		super(capacity);
 		this.fluidName = fluidName;
 	}
 

@@ -1,21 +1,24 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExtractSpecific;
 
 //TODO Bring back custom stack sync packets because AFAIK vanilla only syncs when GUI is opened (?) which doesn't work for steam hammer etc.
 public class ItemStackHandlerSync extends ItemStackHandlerExtractSpecific {
 
-	final IHasInventory<?> container;
-	String name;
+	protected InventoryPieceItemHandler enclosingIPiece;
 
-	public ItemStackHandlerSync(String name, int size, IHasInventory<?> container) {
+	public ItemStackHandlerSync(int size) {
 		super(size);
-		this.name = name;
-		this.container = container;
 	}
 
 	@Override
 	protected void onContentsChanged(int slot) {
+		this.enclosingIPiece.enclosingInv.enclosingMachine.markMachineDirty();
 		// TODO
+	}
+
+	public void setEnclosing(InventoryPieceItemHandler inventoryPieceItemHandler) {
+		this.enclosingIPiece = inventoryPieceItemHandler;
 	}
 }

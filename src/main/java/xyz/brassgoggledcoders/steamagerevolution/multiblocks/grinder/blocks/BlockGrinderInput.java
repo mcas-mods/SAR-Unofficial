@@ -12,6 +12,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerSync;
 import xyz.brassgoggledcoders.steamagerevolution.machines.BlockMultiblockBase;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.ControllerGrinder;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.tileentities.TileEntityGrinderInput;
@@ -46,10 +47,12 @@ public class BlockGrinderInput extends BlockMultiblockBase<TileEntityGrinderInpu
 				EntityItem item = (EntityItem) entityIn;
 				ItemStack stack = item.getItem();
 				if(ItemHandlerHelper
-						.insertItem(controller.getInventory().getItemPiece("itemInput").getHandler(), stack, true)
+						.insertItem(controller.getInventory().getHandler("itemInput", ItemStackHandlerSync.class),
+								stack, true)
 						.isEmpty()) {
-					ItemHandlerHelper.insertItem(controller.getInventory().getItemPiece("itemInput").getHandler(),
-							stack, false);
+					ItemHandlerHelper.insertItem(
+							controller.getInventory().getHandler("itemInput", ItemStackHandlerSync.class), stack,
+							false);
 					item.setDead();
 				}
 			}

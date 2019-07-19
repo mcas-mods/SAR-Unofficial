@@ -13,9 +13,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSync;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
@@ -36,13 +38,15 @@ public class ControllerVat extends MultiblockCraftingMachine<InventoryCraftingMa
 
 	public ControllerVat(World world) {
 		super(world);
-		setInventory(new InventoryCraftingMachine(this)
-				.addItemHandler("input", IOType.INPUT, new int[] { 88, 88, 88 }, new int[] { 11, 32, 53 })
+		setInventory(new InventoryBuilder<>(new InventoryCraftingMachine(this))
+				.addPiece("input",
+						new InventoryPieceItemHandler(IOType.INPUT, new ItemStackHandlerSync(3),
+								new int[] { 88, 88, 88 }, new int[] { 11, 32, 53 }))
 				// FIXME
-				.addFluidHandler("tank1", IOType.INPUT, 12, 9, inputCapacity)
-				.addFluidHandler("tank2", IOType.INPUT, 37, 9, inputCapacity)
-				.addFluidHandler("tank3", IOType.INPUT, 62, 9, inputCapacity)
-				.addFluidHandler("outputTank", IOType.OUTPUT, 143, 9, outputCapacity));
+				.addPiece("tank1", new InventoryPieceFluidTank(IOType.INPUT, inputCapacity, 12, 9))
+				.addPiece("tank2", new InventoryPieceFluidTank(IOType.INPUT, inputCapacity, 37, 9))
+				.addPiece("tank3", new InventoryPieceFluidTank(IOType.INPUT, inputCapacity, 62, 9))
+				.addPiece("outputTank", new InventoryPieceFluidTank(IOType.OUTPUT, outputCapacity, 143, 9)).build());
 	}
 
 	@Override
@@ -50,11 +54,9 @@ public class ControllerVat extends MultiblockCraftingMachine<InventoryCraftingMa
 		for(Entity entity : WORLD.getEntitiesWithinAABB(Entity.class, bounds)) {
 			if(entity instanceof EntityItem) {
 				EntityItem item = (EntityItem) entity;
-				if(ItemHandlerHelper
-						.insertItem(this.getInventory().getItemPiece("input").getHandler(), item.getItem(), true)
-						.isEmpty()) {
-					ItemHandlerHelper.insertItem(this.getInventory().getItemPiece("input").getHandler(), item.getItem(),
-							false);
+				ItemStackHandler handler = this.getInventory().getHandler("input", ItemStackHandler.class);
+				if(ItemHandlerHelper.insertItem(handler, item.getItem(), true).isEmpty()) {
+					ItemHandlerHelper.insertItem(handler, item.getItem(), false);
 					item.setDead();
 				}
 			}

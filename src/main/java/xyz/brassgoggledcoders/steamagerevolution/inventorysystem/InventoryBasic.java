@@ -18,85 +18,77 @@ import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 public class InventoryBasic implements INBTSerializable<NBTTagCompound> {
 
 	@Nonnull
-	public final IHasInventory parent;
+	public final IHasInventory enclosingMachine;
 
-	// Masterlist. Pieces are added to this list, and relevant sublists, in their
-	// constructor
+	// Masterlist.
 	public HashMap<String, InventoryPiece> inventoryPieces = Maps.newHashMap();
 
-	// Typed sublists
-	public HashMap<String, InventoryPieceItemHandler> itemPieces = Maps.newHashMap();
-	public HashMap<String, InventoryPieceFluidTank> fluidPieces = Maps.newHashMap();
+	public HashMap<Class<? extends InventoryPiece>, HashMap<String, InventoryPiece>> pieceLists = Maps.newHashMap();
 
+	// You MUST use the builder...
 	public InventoryBasic(IHasInventory parent) {
-		this.parent = parent;
+		this.enclosingMachine = parent;
 	}
 
-	public InventoryBasic addItemPiece(String name, int[] xPos, int[] yPos, ItemStackHandlerSync handler) {
-		if(xPos.length < handler.getSlots() || yPos.length < handler.getSlots()) {
-			throw new RuntimeException("Your inventory position array sizes do not match the number of slots");
-		}
-		new InventoryPieceItemHandler(name, this, null, handler, xPos, yPos);
-		return this;
-	}
-
-	public InventoryBasic addFluidPiece(String name, int xPos, int yPos, int capacity) {
-		fluidPieces.put(name,
-				new InventoryPieceFluidTank(name, this, new FluidTankSync(name, capacity, parent), xPos, yPos));
-		return this;
-	}
-
-	// TODO Genericise
 	@Override
 	public NBTTagCompound serializeNBT() {
 		NBTTagCompound tag = new NBTTagCompound();
-		if(!itemPieces.isEmpty()) {
+		if(!inventoryPieces.isEmpty()) {
 			NBTTagList list = new NBTTagList();
-			itemPieces.forEach((name, piece) -> list.appendTag(piece.serializeNBT()));
-			tag.setTag("itemPieces", list);
-		}
-		if(!fluidPieces.isEmpty()) {
-			NBTTagList list = new NBTTagList();
-			fluidPieces.forEach((name, piece) -> list.appendTag(piece.serializeNBT()));
-			tag.setTag("fluidPieces", list);
+			inventoryPieces.values().stream().filter(piece -> piece instanceof INBTSerializable)
+					.forEach(piece -> list.appendTag(((INBTSerializable) piece).serializeNBT()));
+			tag.setTag("pieces", list);
 		}
 		return tag;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void deserializeNBT(NBTTagCompound tag) {
-		for(NBTBase iTag : tag.getTagList("itemPieces", 10/* List of TagCompounds */)) {
-			itemPieces.get(((NBTTagCompound) iTag).getString("name")).deserializeNBT((NBTTagCompound) iTag);
-		}
-		for(NBTBase fTag : tag.getTagList("fluidPieces", 10/* List of TagCompounds */)) {
-			fluidPieces.get(((NBTTagCompound) fTag).getString("name")).deserializeNBT((NBTTagCompound) fTag);
+		for(NBTBase entry : tag.getTagList("pieces", 10/* List of TagCompounds */)) {
+			((INBTSerializable<NBTTagCompound>) inventoryPieces.get(((NBTTagCompound) entry).getString("name")))
+					.deserializeNBT((NBTTagCompound) entry);
 		}
 	}
 
+	// TODO
 	public List<ItemStackHandler> getItemHandlers() {
-		return itemPieces.values().stream().map(p -> p.getHandler()).collect(Collectors.toList());
+		return this.getInventoryPiecesOfType(InventoryPieceItemHandler.class).stream().map(p -> p.getHandler())
+				.collect(Collectors.toList());
 	}
 
+	// TODO
 	public List<FluidTankSync> getFluidHandlers() {
-		return fluidPieces.values().stream().map(p -> p.getHandler()).collect(Collectors.toList());
+		return this.getInventoryPiecesOfType(InventoryPieceFluidTank.class).stream().map(p -> p.getHandler())
+				.collect(Collectors.toList());
 	}
 
 	// Allows direct interaction with a specific, known, handler of that machine,
 	// without having to rely on guessing their positions in an array
-	public InventoryPieceItemHandler getItemPiece(String name) {
-		return this.itemPieces.get(name);
-	}
-
-	// As above
-	public InventoryPieceFluidTank getFluidPiece(String name) {
-		return this.fluidPieces.get(name);
+	@SuppressWarnings("unchecked")
+	public <H extends INBTSerializable<NBTTagCompound>> H getHandler(String name, Class<H> handlerType) {
+		return ((InventoryPieceHandler<H>) this.inventoryPieces.get(name)).getHandler();
 	}
 
 	public void updateFluid(PacketFluidUpdate message) {
-		this.getFluidPiece(message.name).getHandler().setFluid(message.fluid);
+		this.getHandler(message.name, FluidTankSync.class).setFluid(message.fluid);
 	}
 
 	public Collection<InventoryPiece> getInventoryPieces() {
 		return inventoryPieces.values();
+	}
+
+	public void createSublists() {
+		for(InventoryPiece piece : inventoryPieces.values()) {
+			if(!pieceLists.containsKey(piece.getClass())) {
+				pieceLists.put(piece.getClass(), new HashMap<>());
+			}
+			pieceLists.get(piece.getClass()).put(piece.getName(), piece);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public <P extends InventoryPiece> ArrayList<P> getInventoryPiecesOfType(Class<P> type) {
+		return (ArrayList<P>) pieceLists.get(type).values();
 	}
 }

@@ -15,8 +15,8 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.blocks.BlockFluidHopper;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.TileEntityInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
 //TODO Switch to inventory system
@@ -32,7 +32,8 @@ public class TileEntityFluidHopper extends TileEntityInventory<InventoryBasic> i
 	}
 
 	public TileEntityFluidHopper() {
-		this.setInventory(new InventoryBasic(this).addFluidPiece("tank", 78, 11, Fluid.BUCKET_VOLUME));
+		this.setInventory(new InventoryBuilder<>(new InventoryBasic(this))
+				.addPiece("tank", new InventoryPieceFluidTank(new FluidTankSync(Fluid.BUCKET_VOLUME), 11, 78)).build());
 	}
 
 	@Override
@@ -44,7 +45,7 @@ public class TileEntityFluidHopper extends TileEntityInventory<InventoryBasic> i
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
-					.cast(this.getInventory().getFluidPiece("tank").getHandler());
+					.cast(this.getInventory().getHandler("tank", FluidTankSync.class));
 		}
 		return super.getCapability(capability, facing);
 	}
@@ -60,21 +61,20 @@ public class TileEntityFluidHopper extends TileEntityInventory<InventoryBasic> i
 		}
 
 		if(BlockFluidHopper.isEnabled(getBlockMetadata())) {
+			FluidTankSync handler = this.getInventory().getHandler("tank", FluidTankSync.class);
 			if(toPos != null) {
 				IFluidHandler to = getWorld().getTileEntity(toPos).getCapability(
 						CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
 						PositionUtils.getFacingFromPositions(getPos(), toPos));
 				if(to != null) { // TODO This should not happen
-					FluidUtil.tryFluidTransfer(to, this.getInventory().getFluidPiece("tank").getHandler(),
-							Fluid.BUCKET_VOLUME, true);
+					FluidUtil.tryFluidTransfer(to, handler, Fluid.BUCKET_VOLUME, true);
 				}
 			}
 			if(hasFrom) {
 				IFluidHandler from = getWorld().getTileEntity(getPos().up())
 						.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.DOWN);
 				if(from != null) { // TODO Neither should this
-					FluidUtil.tryFluidTransfer(this.getInventory().getFluidPiece("tank").getHandler(), from,
-							Fluid.BUCKET_VOLUME, true);
+					FluidUtil.tryFluidTransfer(handler, from, Fluid.BUCKET_VOLUME, true);
 				}
 			}
 		}

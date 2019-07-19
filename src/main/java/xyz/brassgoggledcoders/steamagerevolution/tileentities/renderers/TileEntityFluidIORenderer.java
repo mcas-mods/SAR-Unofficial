@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSync;
 import xyz.brassgoggledcoders.steamagerevolution.tileentities.TileEntityFluidIO;
 
 public class TileEntityFluidIORenderer extends TileEntitySpecialRenderer<TileEntityFluidIO> {
@@ -15,7 +16,7 @@ public class TileEntityFluidIORenderer extends TileEntitySpecialRenderer<TileEnt
 	@Override
 	public void render(TileEntityFluidIO tile, double x, double y, double z, float partialTicks, int destroyStage,
 			float alpha) {
-		FluidTank tank = tile.inventory.getFluidPiece("tank").getHandler();
+		FluidTank tank = tile.getInventory().getHandler("tank", FluidTankSync.class);
 		FluidStack liquid = tank.getFluid();
 
 		if(liquid != null) {

@@ -2,18 +2,12 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 
 import javax.annotation.Nonnull;
 
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerSync;
 
 public class HandlerForceStack extends ItemStackHandlerSync {
-
-	final IHasInventory<?> holder;
-
-	public HandlerForceStack(IHasInventory<?> holder, int slots) {
-		super("inventory"/* TODO */, slots, holder);
-		this.holder = holder;
+	public HandlerForceStack(int slots) {
+		super(slots);
 	}
 
 	@Override
@@ -29,7 +23,7 @@ public class HandlerForceStack extends ItemStackHandlerSync {
 	@Override
 	public void setStackInSlot(int from, @Nonnull ItemStack stack) {
 		// If this happens on both sides wierd shit happens
-		if(!holder.getMachineWorld().isRemote) {
+		if(!enclosingIPiece.enclosingInv.enclosingMachine.getMachineWorld().isRemote) {
 			for(int to = 0; to < this.getSlots(); to++) {
 				if(this.getStackInSlot(to).isItemEqual(stack)) {
 					int count = this.getStackInSlot(to).getCount();
@@ -39,13 +33,5 @@ public class HandlerForceStack extends ItemStackHandlerSync {
 			}
 		}
 		super.setStackInSlot(from, stack);
-	}
-
-	@Override
-	public void onContentsChanged(int slot) {
-		if(this.holder instanceof IInventory) {
-			((IInventory) this.holder).markDirty();
-		}
-		super.onContentsChanged(slot);
 	}
 }

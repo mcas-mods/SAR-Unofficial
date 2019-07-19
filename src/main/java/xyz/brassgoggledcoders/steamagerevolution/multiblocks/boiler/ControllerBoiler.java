@@ -14,9 +14,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSingleSync;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerFiltered.ItemStackHandlerFuel;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
@@ -45,11 +46,18 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
 		super(world);
 		attachedMonitors = new HashSet<BlockPos>();
 		attachedValves = new HashSet<BlockPos>();
-		this.setInventory(new InventoryCraftingMachine(this).setFuelHandler(81, 32, new ItemStackHandlerFuel(1, this))
-				.addFluidInput("waterTank", 50, 9, // FIXME
-						new FluidTankSingleSync("waterTank", Fluid.BUCKET_VOLUME * 16, "waterTank", this))
-				.addFluidHandler("liquidFuel", IOType.INPUT, 50, 9, Fluid.BUCKET_VOLUME * 16)
-				.setSteamTank(142, 9, Fluid.BUCKET_VOLUME * 4));
+		this.setInventory(new InventoryBuilder<>(new InventoryCraftingMachine(this))
+				.addPiece("solidFuel",
+						new InventoryPieceItemHandler(IOType.POWER, new ItemStackHandlerFuel(1), new int[] { 81 },
+								new int[] { 32 }))
+				.addPiece("waterTank",
+						new InventoryPieceFluidTank(IOType.INPUT,
+								new FluidTankSingleSync(Fluid.BUCKET_VOLUME * 16, "water"), 50, 9))
+				.addPiece("liquidFuel",
+						new InventoryPieceFluidTank(IOType.INPUT, new FluidTankSync(Fluid.BUCKET_VOLUME * 16), 50, 9))
+				.addPiece("steamTank",
+						new InventoryPieceFluidTank(IOType.INPUT, new FluidTankSync(Fluid.BUCKET_VOLUME * 4), 142, 9))
+				.build());
 	}
 
 	@Override
@@ -58,7 +66,7 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
 		// Logic must of course run before checking if it should explode...!
 		for(BlockPos pos : attachedValves) {
 			if(WORLD.isBlockPowered(pos)) {
-				this.getInventory().steamPiece.getHandler().drain(Fluid.BUCKET_VOLUME, true);
+				this.getInventory().getHandler("waterTank", FluidTankSync.class).drain(Fluid.BUCKET_VOLUME, true);
 				pressure = 1.0F;
 				updateRedstoneOutputLevels();
 				return true;
@@ -94,10 +102,10 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
 		}
 		else {
 			if(getInventory().getFluidHandlers().get(0).getFluidAmount() >= fluidConversionPerTick) {
-				if(getInventory().steamPiece.getHandler()
-						.getFluidAmount() <= (getInventory().steamPiece.getHandler().getCapacity()
+				if(getInventory().getHandler("waterTank", FluidTankSync.class)
+						.getFluidAmount() <= (getInventory().getHandler("waterTank", FluidTankSync.class).getCapacity()
 								- fluidConversionPerTick)) {
-					getInventory().steamPiece.getHandler()
+					getInventory().getHandler("waterTank", FluidTankSync.class)
 							.fill(new FluidStack(FluidRegistry.getFluid("steam"), fluidConversionPerTick), true);
 					getInventory().getFluidHandlers().get(0).drain(fluidConversionPerTick, true);
 				}
