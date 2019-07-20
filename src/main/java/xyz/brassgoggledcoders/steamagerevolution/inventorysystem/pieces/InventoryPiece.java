@@ -7,11 +7,13 @@ public abstract class InventoryPiece<INV extends InventoryBasic> {
 	String name;
 	final int elementX;
 	final int elementY;
-	public final int textureX, width;
-	public final int textureY, height;
+	public int textureX;
+	public int width;
+	public int textureY;
+	public int height;
 	// Offsets texture relative to start position of inventory piece, needed for
 	// tanks and slots.
-	public final int offset;
+	public int offset;
 
 	private boolean shouldRender = true;
 

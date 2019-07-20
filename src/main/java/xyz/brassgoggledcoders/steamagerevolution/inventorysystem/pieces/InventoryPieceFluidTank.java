@@ -11,6 +11,13 @@ public class InventoryPieceFluidTank extends InventoryPieceHandler<FluidTankSync
 
 	public InventoryPieceFluidTank(IOType type, FluidTankSync handler, int xPosition, int yPosition) {
 		this(type, handler, xPosition, yPosition, 2, 168, 18, 44, -1);
+		if(IOType.POWER.equals(type)) {
+			this.textureX = 0;
+			this.textureY = 166;
+			this.width = 22;
+			this.height = 48;
+			this.offset = -3;
+		}
 	}
 
 	public InventoryPieceFluidTank(FluidTankSync handler, int xPos, int yPos) {

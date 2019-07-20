@@ -2,7 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPiece;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceSteamTank;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryPieceProgressBar;
 
 public class InventoryBuilder<INV extends InventoryBasic> {
@@ -22,7 +22,7 @@ public class InventoryBuilder<INV extends InventoryBasic> {
 	}
 
 	public InventoryBuilder<INV> addSteamTank(int x, int y) {
-		this.addPiece("steamTank", new InventoryPieceSteamTank(IOType.POWER,
+		this.addPiece("steamTank", new InventoryPieceFluidTank(IOType.POWER,
 				new FluidTankSingleSync(Fluid.BUCKET_VOLUME * 16, "steam"), x, y));
 		return this;
 	}

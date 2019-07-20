@@ -17,6 +17,13 @@ public class InventoryPieceItemHandler extends InventoryPieceHandler<ItemStackHa
 		this.getHandler().setEnclosing(this);
 		this.slotXs = slotXs;
 		this.slotYs = slotYs;
+		// TODO Replace me with better and more dynamic texture handling
+		if(IOType.OUTPUT.equals(type)) {
+			this.textureX = 62;
+			this.textureY = 166;
+			this.width = this.height = 26;
+			this.offset = -5;
+		}
 	}
 
 	public InventoryPieceItemHandler(IOType type, int slotXs, int slotYs) {
