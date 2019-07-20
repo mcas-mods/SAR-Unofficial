@@ -11,10 +11,10 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.Inventor
 public class InventoryPieceProgressBar extends InventoryPiece<InventoryCraftingMachine> {
 
 	public InventoryPieceProgressBar(int xPos, int yPos) {
-		super(xPos, yPos, 50, 166, 22, 15, 0);
+		super(xPos, yPos, 22, 166, 22, 15, 0);
 		// TODO Formal subpiece system
 		// FIXME Broken by the change to builders
-		new InventoryPieceRecipeError(xPos + 10, yPos - 10);
+		// new InventoryPieceRecipeError(xPos + 10, yPos - 10);
 	}
 
 	@Override
@@ -22,8 +22,8 @@ public class InventoryPieceProgressBar extends InventoryPiece<InventoryCraftingM
 		gui.mc.renderEngine.bindTexture(GuiInventory.guiTexture);
 		int progress = enclosingInv.getCurrentTicks();
 		int total = enclosingInv.getMaxTicks();
-		int progressScaled = progress != 0 && total != 0 ? progress * 24 / total : 0;
-		gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY(), 50, 181, progressScaled, 16);
+		int progressScaled = progress != 0 && total != 0 ? progress * 22 / total : 0;
+		gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY(), 22, 181, progressScaled, 16);
 	}
 
 	@Override

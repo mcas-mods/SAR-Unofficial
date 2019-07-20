@@ -11,7 +11,6 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 
 public class HandlerFluidUpdate implements IMessageHandler<PacketFluidUpdate, IMessage> {
 	public HandlerFluidUpdate() {
-
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.RecipeError;
 
+//TODO Instead, assign recipes an integer network ID and tell the client the current recipe
 public class HandlerStatusUpdate implements IMessageHandler<PacketStatusUpdate, IMessage> {
 
 	@Override
