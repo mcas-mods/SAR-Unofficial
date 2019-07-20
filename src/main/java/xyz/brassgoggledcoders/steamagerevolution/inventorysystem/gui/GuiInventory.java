@@ -62,6 +62,7 @@ public class GuiInventory extends GuiContainer {
 		this.fontRenderer.drawString(this.holder.getLocalizedName(), 8, 6, 4210752);
 		this.fontRenderer.drawString(playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2,
 				4210752);
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 	}
 
 	@Override
@@ -98,6 +99,7 @@ public class GuiInventory extends GuiContainer {
 				piece.mouseClickedCallback(mouseButton);
 			}
 		}
+		super.mouseClicked(mouseX, mouseY, mouseButton);
 	}
 
 	// Elevate to public for use in callbacks
