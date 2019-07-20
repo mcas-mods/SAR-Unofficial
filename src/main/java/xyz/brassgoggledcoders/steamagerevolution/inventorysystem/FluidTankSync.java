@@ -10,7 +10,7 @@ import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 
 public class FluidTankSync extends FluidTank implements INBTSerializable<NBTTagCompound> {
 
-	InventoryPieceFluidTank enclosingIPiece;
+	private InventoryPieceFluidTank enclosingIPiece;
 
 	public FluidTankSync(int capacity) {
 		super(capacity);
@@ -18,14 +18,14 @@ public class FluidTankSync extends FluidTank implements INBTSerializable<NBTTagC
 
 	@Override
 	public void onContentsChanged() {
-		if(!enclosingIPiece.enclosingInv.enclosingMachine.getMachineWorld().isRemote) {
+		if(!getEnclosingIPiece().enclosingInv.enclosingMachine.getMachineWorld().isRemote) {
 			SteamAgeRevolution.instance.getLogger().devInfo("Fluid update sent");
 			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketFluidUpdate(enclosingIPiece.enclosingInv.enclosingMachine.getMachinePos(), getFluid(),
-							enclosingIPiece.getName()),
-					enclosingIPiece.enclosingInv.enclosingMachine.getMachinePos(),
-					enclosingIPiece.enclosingInv.enclosingMachine.getMachineWorld().provider.getDimension());
-			enclosingIPiece.enclosingInv.enclosingMachine.markMachineDirty();
+					new PacketFluidUpdate(getEnclosingIPiece().enclosingInv.enclosingMachine.getMachinePos(),
+							getFluid(), getEnclosingIPiece().getName()),
+					getEnclosingIPiece().enclosingInv.enclosingMachine.getMachinePos(),
+					getEnclosingIPiece().enclosingInv.enclosingMachine.getMachineWorld().provider.getDimension());
+			getEnclosingIPiece().enclosingInv.enclosingMachine.markMachineDirty();
 		}
 	}
 
@@ -42,9 +42,13 @@ public class FluidTankSync extends FluidTank implements INBTSerializable<NBTTagC
 	// Set from the InventoryPiece constructor
 	public void setEnclosing(InventoryPieceFluidTank inventoryPieceFluidTank) {
 		this.enclosingIPiece = inventoryPieceFluidTank;
-		if(enclosingIPiece.enclosingInv != null
-				&& enclosingIPiece.enclosingInv.enclosingMachine instanceof TileEntity) {
-			this.setTileEntity((TileEntity) enclosingIPiece.enclosingInv.enclosingMachine);
+		if(getEnclosingIPiece().enclosingInv != null
+				&& getEnclosingIPiece().enclosingInv.enclosingMachine instanceof TileEntity) {
+			this.setTileEntity((TileEntity) getEnclosingIPiece().enclosingInv.enclosingMachine);
 		}
+	}
+
+	public InventoryPieceFluidTank getEnclosingIPiece() {
+		return enclosingIPiece;
 	}
 }
