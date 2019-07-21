@@ -43,7 +43,7 @@ public class InventoryPieceProgressBar extends InventoryPiece<InventoryCraftingM
 	}
 
 	@Override
-	public void mouseClickedCallback(int mouseButton) {
+	public void mouseClickedCallback(GuiInventory inventory, int mouseButton) {
 		if(Loader.isModLoaded("jei") && SARJEIPlugin.recipesGui != null) {
 			// SARJEIPlugin.recipesGui
 			// .showCategories(NonNullList.from(parent.parent.getUID().toLowerCase().replace("

@@ -381,6 +381,8 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 				PacketRequestStatusUpdate.class, Side.SERVER);
 		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerStatusUpdate.class,
 				PacketStatusUpdate.class, Side.CLIENT);
+		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerGUITankInteract.class,
+				PacketGUITankInteract.class, Side.SERVER);
 		SARCapabilities.register();
 		proxy.preInit(event);
 		SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class, "CONFIG").addEntry("plateCount",

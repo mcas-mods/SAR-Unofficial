@@ -96,7 +96,7 @@ public class GuiInventory extends GuiContainer {
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 		for(InventoryPiece<?> piece : holder.getInventory().getInventoryPieces()) {
 			if(this.isPointInRegion(piece.getX(), piece.getY(), piece.width, piece.height, mouseX, mouseY)) {
-				piece.mouseClickedCallback(mouseButton);
+				piece.mouseClickedCallback(this, mouseButton);
 			}
 		}
 		super.mouseClicked(mouseX, mouseY, mouseButton);

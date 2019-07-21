@@ -65,6 +65,7 @@ public class InventoryBasic implements INBTSerializable<NBTTagCompound> {
 
 	// Allows direct interaction with a specific, known, handler of that machine,
 	// without having to rely on guessing their positions in an array
+	// TODO these lists should include things that extend the passed in class
 	@SuppressWarnings("unchecked")
 	public <H extends INBTSerializable<NBTTagCompound>> H getHandler(String name, Class<H> handlerType) {
 		return ((InventoryPieceHandler<H>) this.inventoryPieces.get(name)).getHandler();

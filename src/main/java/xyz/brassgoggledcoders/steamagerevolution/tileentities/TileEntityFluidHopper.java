@@ -28,7 +28,7 @@ public class TileEntityFluidHopper extends TileEntityInventory<InventoryBasic> i
 
 	public TileEntityFluidHopper() {
 		this.setInventory(new InventoryBuilder<>(new InventoryBasic(this))
-				.addPiece("tank", new InventoryPieceFluidTank(new FluidTankSync(Fluid.BUCKET_VOLUME), 11, 78)).build());
+				.addPiece("tank", new InventoryPieceFluidTank(new FluidTankSync(Fluid.BUCKET_VOLUME), 10, 22)).build());
 	}
 
 	@Override

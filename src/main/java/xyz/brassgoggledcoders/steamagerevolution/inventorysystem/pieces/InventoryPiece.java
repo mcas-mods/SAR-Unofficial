@@ -79,7 +79,7 @@ public abstract class InventoryPiece<INV extends InventoryBasic> {
 		return null;
 	}
 
-	public void mouseClickedCallback(int mouseButton) {
+	public void mouseClickedCallback(GuiInventory guiInventory, int mouseButton) {
 		// NO-OP
 	}
 }

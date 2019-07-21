@@ -3,9 +3,11 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces;
 import com.teamacronymcoders.base.util.GuiHelper;
 
 import net.minecraftforge.fluids.FluidStack;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketGUITankInteract;
 
 public class InventoryPieceFluidTank extends InventoryPieceHandler<FluidTankSync> {
 
@@ -48,5 +50,12 @@ public class InventoryPieceFluidTank extends InventoryPieceHandler<FluidTankSync
 	@Override
 	public String getTooltip() {
 		return com.teamacronymcoders.base.util.TextUtils.representTankContents(this.getHandler()).getFormattedText();
+	}
+
+	// TODO This needs to be done with packets
+	@Override
+	public void mouseClickedCallback(GuiInventory inventory, int mouseButton) {
+		SteamAgeRevolution.instance.getPacketHandler().sendToServer(
+				new PacketGUITankInteract(this.enclosingInv.enclosingMachine.getMachinePos(), this.getName()));
 	}
 }
