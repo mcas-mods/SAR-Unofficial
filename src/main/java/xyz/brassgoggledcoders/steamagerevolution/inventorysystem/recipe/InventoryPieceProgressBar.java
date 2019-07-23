@@ -1,9 +1,12 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.common.Loader;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPiece;
@@ -31,8 +34,12 @@ public class InventoryPieceProgressBar extends InventoryPiece<InventoryCraftingM
 	@Override
 	public String getTooltip() {
 		if(enclosingInv.getCurrentRecipe() == null) {
+			// TODO Newline support
+			String show = Loader.isModLoaded("jei")
+					? TextFormatting.RESET + new TextComponentTranslation("jei.tooltip.show.recipes").getFormattedText()
+					: "";
 			return TextFormatting.RED.toString()
-					+ new TextComponentTranslation("sar.recipeerror.norecipe").getFormattedText();
+					+ new TextComponentTranslation("sar.recipeerror.norecipe").getFormattedText() + show;
 		}
 		else if(GuiScreen.isShiftKeyDown()) {
 			return enclosingInv.getCurrentTicks() + "/" + enclosingInv.getCurrentRecipe().getTicksPerOperation() + " "
@@ -48,11 +55,8 @@ public class InventoryPieceProgressBar extends InventoryPiece<InventoryCraftingM
 	@Override
 	public void mouseClickedCallback(GuiInventory inventory, int mouseButton) {
 		if(Loader.isModLoaded("jei") && SARJEIPlugin.recipesGui != null) {
-			// SARJEIPlugin.recipesGui
-			// .showCategories(NonNullList.from(parent.parent.getUID().toLowerCase().replace("
-			// ", ""),
-			// parent.parent.getUID().toLowerCase().replace(" ", ""),
-			// CrucibleRecipeCategory.uid));
+			SARJEIPlugin.recipesGui.showCategories(
+					Lists.newArrayList(SteamAgeRevolution.MODID + ":" + this.enclosingInv.enclosingMachine.getUID()));
 		}
 	}
 }

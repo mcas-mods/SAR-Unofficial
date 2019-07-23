@@ -19,7 +19,6 @@ import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketSetRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketStatusUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 
@@ -46,17 +45,17 @@ public class InventoryCraftingMachine extends InventoryBasic {
 	public void setCurrentRecipe(@Nullable MachineRecipe recipe) {
 		if(recipe != null) {
 			this.currentRecipe = recipe;
-			int networkID = currentRecipe != null ? this.currentRecipe.networkID : -1;
-			if(!this.enclosingMachine.getMachineWorld().isRemote) {
-				SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-						new PacketSetRecipe(this.enclosingMachine.getMachinePos(), networkID),
-						this.enclosingMachine.getMachinePos(),
-						this.enclosingMachine.getMachineWorld().provider.getDimension());
-			}
 		}
 		else {
 			this.currentRecipe = null;
 			this.currentProgress = 0;
+		}
+		int networkID = currentRecipe != null ? this.currentRecipe.networkID : -1;
+		if(!this.enclosingMachine.getMachineWorld().isRemote) {
+			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+					new PacketSetRecipe(this.enclosingMachine.getMachinePos(), networkID),
+					this.enclosingMachine.getMachinePos(),
+					this.enclosingMachine.getMachineWorld().provider.getDimension());
 		}
 	}
 
@@ -86,12 +85,6 @@ public class InventoryCraftingMachine extends InventoryBasic {
 	}
 
 	public void setRecipeError(RecipeError error) {
-		if(!this.enclosingMachine.getMachineWorld().isRemote) {
-			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketStatusUpdate(this.enclosingMachine.getMachinePos(), currentProgress, error.networkID),
-					this.enclosingMachine.getMachinePos(),
-					this.enclosingMachine.getMachineWorld().provider.getDimension());
-		}
 		this.currrentError = error;
 	}
 
@@ -219,6 +212,7 @@ public class InventoryCraftingMachine extends InventoryBasic {
 			}
 			else {
 				this.setRecipeError(RecipeError.INSUFFICIENT_STEAM);
+				this.setCurrentRecipe(null);
 				return false;
 			}
 		}
