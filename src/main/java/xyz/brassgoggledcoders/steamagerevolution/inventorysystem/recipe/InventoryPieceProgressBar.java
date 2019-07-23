@@ -19,25 +19,28 @@ public class InventoryPieceProgressBar extends InventoryPiece<InventoryCraftingM
 
 	@Override
 	public void backgroundLayerCallback(GuiInventory gui, float partialTicks, int mouseX, int mouseY) {
-		gui.mc.renderEngine.bindTexture(GuiInventory.guiTexture);
-		int progress = enclosingInv.getCurrentTicks();
-		int total = enclosingInv.getMaxTicks();
-		int progressScaled = progress != 0 && total != 0 ? progress * 22 / total : 0;
-		gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY(), 22, 181, progressScaled, 16);
+		if(enclosingInv.getCurrentRecipe() != null) {
+			gui.mc.renderEngine.bindTexture(GuiInventory.guiTexture);
+			int progress = enclosingInv.getCurrentTicks();
+			int total = enclosingInv.getCurrentRecipe().getTicksPerOperation();
+			int progressScaled = progress != 0 && total != 0 ? progress * 22 / total : 0;
+			gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY(), 22, 181, progressScaled, 16);
+		}
 	}
 
 	@Override
 	public String getTooltip() {
-		if(enclosingInv.getMaxTicks() == 0) {
+		if(enclosingInv.getCurrentRecipe() == null) {
 			return TextFormatting.RED.toString()
 					+ new TextComponentTranslation("sar.recipeerror.norecipe").getFormattedText();
 		}
 		else if(GuiScreen.isShiftKeyDown()) {
-			return enclosingInv.getCurrentTicks() + "/" + enclosingInv.getMaxTicks() + " "
+			return enclosingInv.getCurrentTicks() + "/" + enclosingInv.getCurrentRecipe().getTicksPerOperation() + " "
 					+ new TextComponentTranslation("info.ticks").getFormattedText();
 		}
 		else {
-			return enclosingInv.getCurrentTicks() / 20 + "/" + enclosingInv.getMaxTicks() / 20 + " "
+			return ((double) enclosingInv.getCurrentTicks() / 20) + "/"
+					+ ((double) enclosingInv.getCurrentRecipe().getTicksPerOperation() / 20) + " "
 					+ new TextComponentTranslation("info.seconds").getFormattedText();
 		}
 	}

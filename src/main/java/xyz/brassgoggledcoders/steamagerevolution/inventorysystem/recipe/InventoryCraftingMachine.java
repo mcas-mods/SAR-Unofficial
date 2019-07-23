@@ -14,29 +14,24 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketSetRecipeTime;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketSetRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketStatusUpdate;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 
-//TODO Drain totalSteam/ticksToComplete steam every tick
+//TODO Drain (totalSteam/ticksToComplete) steam every tick
 public class InventoryCraftingMachine extends InventoryBasic {
 
 	public HashMap<IOType, ArrayList<ItemStackHandlerSync>> itemIOs = new HashMap<>();
 	public HashMap<IOType, ArrayList<FluidTankSync>> fluidIOs = new HashMap<>();
 
-	@SideOnly(Side.CLIENT)
-	public int clientTicksToComplete;
 	// FIXME remember this needs to be saved to NBT
 	private int currentProgress = 0;
 	protected MachineRecipe currentRecipe;
-
 	@Nonnull
 	RecipeError currrentError = RecipeError.NONE;
 
@@ -51,11 +46,13 @@ public class InventoryCraftingMachine extends InventoryBasic {
 	public void setCurrentRecipe(@Nullable MachineRecipe recipe) {
 		if(recipe != null) {
 			this.currentRecipe = recipe;
-			SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-					new PacketSetRecipeTime(this.enclosingMachine.getMachinePos(),
-							Integer.valueOf(this.currentRecipe.ticksToProcess).shortValue()),
-					this.enclosingMachine.getMachinePos(),
-					this.enclosingMachine.getMachineWorld().provider.getDimension());
+			int networkID = currentRecipe != null ? this.currentRecipe.networkID : -1;
+			if(!this.enclosingMachine.getMachineWorld().isRemote) {
+				SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+						new PacketSetRecipe(this.enclosingMachine.getMachinePos(), networkID),
+						this.enclosingMachine.getMachinePos(),
+						this.enclosingMachine.getMachineWorld().provider.getDimension());
+			}
 		}
 		else {
 			this.currentRecipe = null;
@@ -65,11 +62,6 @@ public class InventoryCraftingMachine extends InventoryBasic {
 
 	public int getCurrentTicks() {
 		return currentProgress;
-	}
-
-	@SideOnly(Side.CLIENT)
-	public int getMaxTicks() {
-		return clientTicksToComplete;
 	}
 
 	public void setCurrentTicks(int ticks) {
@@ -84,7 +76,6 @@ public class InventoryCraftingMachine extends InventoryBasic {
 			}
 			if(canFinish()) {
 				onFinish();
-				this.setCurrentRecipe(null);// TODO Only do if items have changed an that
 				return true;
 			}
 		}
@@ -104,16 +95,18 @@ public class InventoryCraftingMachine extends InventoryBasic {
 		this.currrentError = error;
 	}
 
-	// Interpolate ticks on client TODO Running whenever a recipe is present doesn't
-	// work, needs to be only when the machine can run
+	// Interpolate ticks on client
 	public void updateClient() {
-		if(this.clientTicksToComplete > 0) {
-			if(this.currentProgress < this.clientTicksToComplete) {
+		if(this.currentRecipe != null) {
+			if(this.currentProgress < this.currentRecipe.ticksToProcess) {
 				this.currentProgress++;
 			}
 			else {
 				this.currentProgress = 0;
 			}
+		}
+		else {
+			this.currentProgress = 0;
 		}
 	}
 
@@ -121,6 +114,7 @@ public class InventoryCraftingMachine extends InventoryBasic {
 		boolean extractedItems = true;
 		boolean extractedFluids = true;
 		boolean extractedSteam = true;
+		// Try to extract required items
 		if(ArrayUtils.isNotEmpty(currentRecipe.getItemInputs())) {
 			// TODO Good lord loops
 			int matched = 0;
@@ -136,6 +130,7 @@ public class InventoryCraftingMachine extends InventoryBasic {
 			}
 			extractedItems = (currentRecipe.getItemInputs().length == matched);
 		}
+		// Try to extract required fluids
 		if(ArrayUtils.isNotEmpty(currentRecipe.getFluidInputs())) {
 			for(IngredientFluidStack input : currentRecipe.getFluidInputs()) {
 				for(FluidTank tank : getTypedFluidHandlers(IOType.INPUT)) {
@@ -149,6 +144,7 @@ public class InventoryCraftingMachine extends InventoryBasic {
 				}
 			}
 		}
+		// Try to extract required steam TODO See above
 		if(this.getHandler("steamTank", FluidTankSync.class) != null) {
 			if(this.getHandler("steamTank", FluidTankSync.class).getFluidAmount() >= currentRecipe
 					.getSteamUsePerCraft()) {
@@ -158,28 +154,37 @@ public class InventoryCraftingMachine extends InventoryBasic {
 				extractedSteam = false;
 			}
 		}
+
+		// If we extracted all requirements, create the outputs.
 		if(extractedItems && extractedFluids && extractedSteam) {
 			if(ArrayUtils.isNotEmpty(currentRecipe.getItemOutputs())) {
 				for(ItemStack output : currentRecipe.getItemOutputs().clone()) {
 					for(ItemStackHandler handler : getTypedItemHandlers(IOType.OUTPUT)) {
-						ItemHandlerHelper.insertItem(handler, output.copy(), false);
+						ItemStack stack = ItemHandlerHelper.insertItem(handler, output.copy(), false);
+						if(stack.isEmpty()) {
+							break;
+						}
 					}
 				}
 			}
 			if(ArrayUtils.isNotEmpty(currentRecipe.getFluidOutputs())) {
 				for(FluidStack output : currentRecipe.getFluidOutputs().clone()) {
 					for(FluidTank tank : getTypedFluidHandlers(IOType.OUTPUT)) {
-						tank.fill(output.copy(), true);
+						int accepted = tank.fill(output.copy(), true);
+						if(accepted == output.amount) {
+							break;
+						}
 					}
 				}
 			}
+			this.setCurrentRecipe(null);
+			enclosingMachine.markMachineDirty();
 		}
 		else {
 			SteamAgeRevolution.instance.getLogger()
 					.info("Machine encountered recipe error at final stage. This should not happen..." + extractedItems
 							+ "/" + extractedFluids + "/" + extractedSteam);
 		}
-		enclosingMachine.markMachineDirty();
 	}
 
 	protected boolean canFinish() {

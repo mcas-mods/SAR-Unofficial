@@ -6,6 +6,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.items.CapabilityItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
@@ -53,14 +54,37 @@ public class TileEntityFluidIO extends TileEntityInventory<InventoryBasic> imple
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
+				|| capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+				|| super.hasCapability(capability, facing);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+	public <CAP> CAP getCapability(Capability<CAP> capability, EnumFacing facing) {
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return (T) inventory.getHandler("tank", FluidTankSync.class);
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
+					.cast(inventory.getHandler("tank", FluidTankSync.class));
+		}
+		else if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			// // From top expose input slot
+			// if(EnumFacing.DOWN.equals(facing)) {
+			// return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new
+			// ItemStackHandler(NonNullList.withSize(1,
+			// inventory.getHandler("items",
+			// ItemStackHandlerSync.class).getStackInSlot(0))));
+			// }
+			// // From bottom expose output slot
+			// else if(EnumFacing.UP.equals(facing)) {
+			// return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new
+			// ItemStackHandler(NonNullList.withSize(1,
+			// inventory.getHandler("items",
+			// ItemStackHandlerSync.class).getStackInSlot(1))));
+			// }
+			// // From sides expose both slots
+			// else {
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+					.cast(inventory.getHandler("items", ItemStackHandlerSync.class));
+			// }
 		}
 		return super.getCapability(capability, facing);
 	}

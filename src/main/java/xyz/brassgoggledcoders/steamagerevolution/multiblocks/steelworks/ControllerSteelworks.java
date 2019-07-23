@@ -2,7 +2,6 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.steelworks;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBuilder;
@@ -10,6 +9,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.Inventor
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
 public class ControllerSteelworks extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
@@ -19,8 +19,8 @@ public class ControllerSteelworks extends MultiblockCraftingMachine<InventoryCra
 		super(world);
 		setInventory(new InventoryBuilder<>(new InventoryCraftingMachine(this))
 				.addPiece("itemInput", new InventoryPieceItemHandler(IOType.INPUT, 83, 31))
-				.addPiece("ironTank", new InventoryPieceFluidTank(IOType.INPUT, 41, 9, Fluid.BUCKET_VOLUME * 16))
-				.addPiece("steelTank", new InventoryPieceFluidTank(IOType.OUTPUT, 141, 9, Fluid.BUCKET_VOLUME * 16))
+				.addPiece("ironTank", new InventoryPieceFluidTank(IOType.INPUT, 41, 9, RecipeUtil.VALUE_BLOCK * 9))
+				.addPiece("steelTank", new InventoryPieceFluidTank(IOType.OUTPUT, 141, 9, RecipeUtil.VALUE_BLOCK * 9))
 				.addSteamTank(10, 9).setProgressBar(110, 31).build());
 	}
 

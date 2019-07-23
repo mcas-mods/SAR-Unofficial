@@ -7,14 +7,11 @@ import net.minecraftforge.fml.common.network.simpleimpl.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.RecipeRegistry;
 
-public class HandlerSetRecipeTime implements IMessageHandler<PacketSetRecipeTime, IMessage> {
-	public HandlerSetRecipeTime() {
-
-	}
-
+public class HandlerSetRecipe implements IMessageHandler<PacketSetRecipe, IMessage> {
 	@Override
-	public IMessage onMessage(PacketSetRecipeTime message, MessageContext ctx) {
+	public IMessage onMessage(PacketSetRecipe message, MessageContext ctx) {
 		Minecraft minecraft = Minecraft.getMinecraft();
 		final WorldClient worldClient = minecraft.world;
 		minecraft.addScheduledTask(new Runnable() {
@@ -26,13 +23,18 @@ public class HandlerSetRecipeTime implements IMessageHandler<PacketSetRecipeTime
 		return null;
 	}
 
-	private void processMessage(WorldClient worldClient, PacketSetRecipeTime message) {
+	private void processMessage(WorldClient worldClient, PacketSetRecipe message) {
 		TileEntity te = worldClient.getTileEntity(message.pos);
 		if(te instanceof IHasInventory) {
 			InventoryBasic inventory = ((IHasInventory<?>) te).getInventory();
 			if(inventory instanceof InventoryCraftingMachine) {
 				InventoryCraftingMachine rInventory = (InventoryCraftingMachine) inventory;
-				rInventory.clientTicksToComplete = message.maxTicks;
+				if(message.recipeID == -1) {
+					rInventory.setCurrentRecipe(null);
+				}
+				else {
+					rInventory.setCurrentRecipe(RecipeRegistry.getRecipeFromNetworkID(message.recipeID));
+				}
 			}
 		}
 	}

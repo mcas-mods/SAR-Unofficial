@@ -15,7 +15,6 @@ import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 @JEIPlugin
 public class SARJEIPlugin implements IModPlugin {
 
-	// TODO JEI Should display amounts automatically?
 	public static ITooltipCallback<FluidStack> fluidTooltipCallback = new SARFluidTooltipCallback();
 
 	public static IDrawable tankBackground;

@@ -375,8 +375,8 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 				Side.CLIENT);
 		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerIncreaseHunger.class,
 				PacketIncreaseHunger.class, Side.SERVER);
-		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerSetRecipeTime.class,
-				PacketSetRecipeTime.class, Side.CLIENT);
+		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerSetRecipe.class,
+				PacketSetRecipe.class, Side.CLIENT);
 		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerRequestStatusUpdate.class,
 				PacketRequestStatusUpdate.class, Side.SERVER);
 		SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerStatusUpdate.class,

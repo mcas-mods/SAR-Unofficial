@@ -47,6 +47,11 @@ public class MachineRecipe implements IRecipeWrapper {
 		this.fluidOutputs = fluidOutputs;
 	}
 
+	protected MachineRecipe setNetworkID(int networkID) {
+		this.networkID = networkID;
+		return this;
+	}
+
 	public Ingredient[] getItemInputs() {
 		return itemIngredients;
 	}
@@ -78,39 +83,39 @@ public class MachineRecipe implements IRecipeWrapper {
 	@Optional.Method(modid = "jei")
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		if (ArrayUtils.isNotEmpty(fluidIngredients)) {
+		if(ArrayUtils.isNotEmpty(fluidIngredients)) {
 			ArrayList<FluidStack> fluids = Lists.newArrayList();
-			for (IngredientFluidStack fs : fluidIngredients) {
+			for(IngredientFluidStack fs : fluidIngredients) {
 				fluids.add(fs.getFluid());
 			}
 			ingredients.setInputs(VanillaTypes.FLUID, fluids);
 		}
-		if (ArrayUtils.isNotEmpty(itemIngredients)) {
+		if(ArrayUtils.isNotEmpty(itemIngredients)) {
 			ArrayList<List<ItemStack>> items = Lists.newArrayList();
-			for (Ingredient ing : itemIngredients) {
+			for(Ingredient ing : itemIngredients) {
 				items.add(Arrays.asList(ing.getMatchingStacks())); // TODO
 			}
 			ingredients.setInputLists(VanillaTypes.ITEM, items);
 		}
-		if (ArrayUtils.isNotEmpty(fluidOutputs)) {
+		if(ArrayUtils.isNotEmpty(fluidOutputs)) {
 			ingredients.setOutputs(VanillaTypes.FLUID, Arrays.asList(fluidOutputs));
 		}
-		if (ArrayUtils.isNotEmpty(itemOutputs)) {
+		if(ArrayUtils.isNotEmpty(itemOutputs)) {
 			ingredients.setOutputs(VanillaTypes.ITEM, Arrays.asList(itemOutputs));
 		}
 	}
-	
-	//TODO
-//	@Optional.Method(modid = "jei")
-//	@Override
-//	public List<String> getTooltipStrings(int mouseX, int mouseY) {
-//		if((mouseX > 100 && mouseX < 130) && (mouseY > 10 && mouseY < 50)) {
-//			ArrayList<String> tooltip = new ArrayList<>();
-//			tooltip.add("Recipe time: " + this.getTicksPerOperation() + " ticks");
-//			return tooltip;
-//		}
-//		return Collections.emptyList();
-//	}
+
+	// TODO
+	// @Optional.Method(modid = "jei")
+	// @Override
+	// public List<String> getTooltipStrings(int mouseX, int mouseY) {
+	// if((mouseX > 100 && mouseX < 130) && (mouseY > 10 && mouseY < 50)) {
+	// ArrayList<String> tooltip = new ArrayList<>();
+	// tooltip.add("Recipe time: " + this.getTicksPerOperation() + " ticks");
+	// return tooltip;
+	// }
+	// return Collections.emptyList();
+	// }
 
 	public static class MachineRecipeBuilder {
 		public String crafter;
@@ -125,11 +130,11 @@ public class MachineRecipe implements IRecipeWrapper {
 		}
 
 		public MachineRecipeBuilder setFluidInputs(FluidStack... fluids) {
-			if (fluids == null) {
+			if(fluids == null) {
 				return this;
 			}
 			ArrayList<IngredientFluidStack> ingredients = Lists.newArrayList();
-			for (FluidStack fs : fluids) {
+			for(FluidStack fs : fluids) {
 				ingredients.add(new IngredientFluidStack(fs));
 			}
 			fluidInputs = ingredients.toArray(new IngredientFluidStack[ingredients.size()]);
@@ -137,14 +142,15 @@ public class MachineRecipe implements IRecipeWrapper {
 		}
 
 		public MachineRecipeBuilder setItemInputs(Object... items) {
-			if (items == null) {
+			if(items == null) {
 				return this;
 			}
 			ArrayList<Ingredient> ingredients = Lists.newArrayList();
-			for (Object input : items) {
-				if (input instanceof String) {
+			for(Object input : items) {
+				if(input instanceof String) {
 					ingredients.add(new OreIngredient((String) input));
-				} else {
+				}
+				else {
 					ingredients.add(Ingredient.fromStacks((ItemStack) input));
 				}
 			}
@@ -153,14 +159,14 @@ public class MachineRecipe implements IRecipeWrapper {
 		}
 
 		public MachineRecipeBuilder setFluidOutputs(FluidStack... fluid) {
-			if (fluid != null) {
+			if(fluid != null) {
 				fluidOutputs = fluid;
 			}
 			return this;
 		}
 
 		public MachineRecipeBuilder setItemOutputs(ItemStack... items) {
-			if (items != null) {
+			if(items != null) {
 				itemOutputs = items;
 			}
 			return this;
@@ -178,17 +184,17 @@ public class MachineRecipe implements IRecipeWrapper {
 
 		public MachineRecipe build() {
 			validate();
-			MachineRecipe recipe = new MachineRecipe(crafter, itemInputs, fluidInputs, ticksToProcess,
-					steamUsePerCraft, itemOutputs, fluidOutputs);
+			MachineRecipe recipe = new MachineRecipe(crafter, itemInputs, fluidInputs, ticksToProcess, steamUsePerCraft,
+					itemOutputs, fluidOutputs);
 			RecipeRegistry.addRecipe(crafter, recipe);
 			return recipe;
 		}
 
 		private void validate() {
-			if (ArrayUtils.isEmpty(itemInputs) && ArrayUtils.isEmpty(fluidInputs)) {
+			if(ArrayUtils.isEmpty(itemInputs) && ArrayUtils.isEmpty(fluidInputs)) {
 				throw new IllegalArgumentException("Recipe must have at least one input");
 			}
-			if (ArrayUtils.isEmpty(itemInputs) && ArrayUtils.isEmpty(fluidInputs)) {
+			if(ArrayUtils.isEmpty(itemInputs) && ArrayUtils.isEmpty(fluidInputs)) {
 				throw new IllegalArgumentException("Recipe must have at least one output");
 			}
 		}

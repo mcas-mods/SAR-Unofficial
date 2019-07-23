@@ -29,7 +29,7 @@ public class InventoryInfoProvider implements IProbeInfoProvider {
 			if(inventory instanceof InventoryCraftingMachine) {
 				InventoryCraftingMachine recipeInventory = (InventoryCraftingMachine) inventory;
 				probeInfo.horizontal().text("Progress: ").progress(recipeInventory.getCurrentTicks(),
-						recipeInventory.clientTicksToComplete);
+						recipeInventory.getCurrentRecipe().getTicksPerOperation());
 			}
 		}
 	}
