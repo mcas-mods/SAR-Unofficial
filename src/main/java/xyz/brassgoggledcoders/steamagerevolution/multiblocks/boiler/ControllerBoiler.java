@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.IItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
@@ -45,8 +46,8 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
         super(world);
         this.setInventory(new InventoryBuilder<>(new InventoryCraftingMachine(this))
                 .addPiece("solidFuel",
-                        new InventoryPieceItemHandler(IOType.POWER, new ItemStackHandlerFuel(1), new int[] { 81 },
-                                new int[] { 32 }))
+                        new InventoryPieceItemHandler(IOType.POWER, new ItemStackHandlerFuel(1), new int[] { 10 },
+                                new int[] { 50 }))
                 .addPiece("waterTank",
                         new InventoryPieceFluidTank(IOType.INPUT,
                                 new FluidTankSingleSync(Fluid.BUCKET_VOLUME * 16, "water"), 50, 9))
@@ -55,13 +56,20 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
                 .addPiece("steamTank",
                         new InventoryPieceFluidTank(IOType.INPUT,
                                 new FluidTankSingleSync(Fluid.BUCKET_VOLUME * 4, "steam"), 142, 9))
-                .addPiece("gauge", new InventoryPieceTemperatureGauge(60, 9))
-                .addPiece("burnTime", new InventoryPieceBurnTime(10, 10)).build());
+                .addPiece("gauge", new InventoryPieceTemperatureGauge(35, 15))
+                .addPiece("burnTime", new InventoryPieceBurnTime(12, 33)).build());
     }
 
     // TODO Client interpolation of burn time and temp
     @Override
     protected boolean updateServer() {
+        // Temp
+        SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+                new PacketSetBoilerValue(this.getMachinePos(), this.currentBurnTime, false), this.getMachinePos(),
+                this.getMachineWorld().provider.getDimension());
+        SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+                new PacketSetBoilerValue(this.getMachinePos(), this.currentTemperature, true), this.getMachinePos(),
+                this.getMachineWorld().provider.getDimension());
         // Stage 1 - Burn fuel
         if(currentBurnTime == 0) {
             IItemHandler solidFuelHandler = this.getInventory().getHandler("solidFuel", ItemStackHandlerSync.class);

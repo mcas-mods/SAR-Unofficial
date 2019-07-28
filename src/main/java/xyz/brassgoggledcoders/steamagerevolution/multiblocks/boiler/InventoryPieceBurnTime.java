@@ -15,7 +15,7 @@ public class InventoryPieceBurnTime extends InventoryPiece<InventoryCraftingMach
         if(this.enclosingInv.enclosingMachine instanceof ControllerBoiler) {
             ControllerBoiler boiler = (ControllerBoiler) this.enclosingInv.enclosingMachine;
             if(boiler.currentBurnTime > 0) {
-                int height = boiler.currentBurnTime / 13;
+                int height = boiler.currentBurnTime / this.height;
                 gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY(), 92, 179, 14, height);
             }
         }

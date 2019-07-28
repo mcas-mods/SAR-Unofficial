@@ -9,7 +9,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.Inventor
 public class InventoryPieceTemperatureGauge extends InventoryPiece<InventoryCraftingMachine> {
 
     public InventoryPieceTemperatureGauge(int xPos, int yPos) {
-        super(xPos, yPos, 88, 166, 4, 44, -1);
+        super(xPos, yPos, 88, 166, 4, 44, -2);
     }
 
     @Override
@@ -17,11 +17,10 @@ public class InventoryPieceTemperatureGauge extends InventoryPiece<InventoryCraf
         if(this.enclosingInv.enclosingMachine instanceof ControllerBoiler) {
             ControllerBoiler boiler = (ControllerBoiler) this.enclosingInv.enclosingMachine;
             if(boiler.currentTemperature > 0) {
-                int maxHeight = gui.guiTop + this.getY() - offset + this.height;
-                int height = maxHeight / boiler.currentTemperature;
-                gui.drawGradientRect(gui.guiLeft + this.getX() - offset, gui.guiTop + this.getY() - offset,
-                        gui.guiLeft + this.getX() - offset + this.width, height, Color.RED.getRGB(),
-                        Color.BLUE.getRGB());
+                int height = (boiler.currentTemperature / ControllerBoiler.operatingTemp) * this.height;
+                gui.drawGradientRect(gui.guiLeft + this.getX() + offset, height,
+                        gui.guiLeft + this.getX() + this.width + offset, gui.guiTop + this.getY() + this.height,
+                        Color.RED.getRGB(), Color.BLUE.getRGB());
             }
         }
         super.backgroundLayerCallback(gui, partialTicks, mouseX, mouseY);
