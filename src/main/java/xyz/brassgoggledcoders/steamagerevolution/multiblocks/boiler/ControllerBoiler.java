@@ -76,12 +76,19 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
             for(int i = 0; i < solidFuelHandler.getSlots(); i++) {
                 ItemStack fuel = solidFuelHandler.getStackInSlot(i);
                 if(!fuel.isEmpty() && TileEntityFurnace.getItemBurnTime(fuel) != 0) {
-                    currentBurnTime = (TileEntityFurnace.getItemBurnTime(fuel) / fuelDivisor);
+                    currentBurnTime = (int) Math.floor(TileEntityFurnace.getItemBurnTime(fuel) / fuelDivisor);
                     fuel.shrink(1);
                     return true;
                 }
             }
             // TODO Reimplement liquid fuel support
+            // If we have run out of fuel to maintain temperature, rapidly cool down
+            if(currentBurnTime <= 0) {
+                currentTemperature -= 5;
+                if(currentTemperature <= 0) {
+                    currentTemperature = 0;
+                }
+            }
         }
         // If we're burning, we can attempt to heat
         else {
@@ -100,14 +107,6 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
                         steamTank.fill(new FluidStack(FluidRegistry.getFluid("steam"), fluidConversionPerTick), true);
                         waterTank.drain(fluidConversionPerTick, true);
                     }
-                }
-            }
-            // If we have run out of fuel to maintain temperature, rapidly cool down
-            if(currentBurnTime <= 0) {
-                currentTemperature -= 5;
-                if(currentTemperature <= 0) {
-                    currentTemperature = 0;
-                    return true;
                 }
             }
             return true;

@@ -10,7 +10,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.Inventor
 public class InventoryPieceTemperatureGauge extends InventoryPiece<InventoryCraftingMachine> {
 
     public InventoryPieceTemperatureGauge(int xPos, int yPos) {
-        super(xPos, yPos, 88, 166, 4, 44, -2);
+        super(xPos, yPos, 88, 166, 4, 44, -1);
     }
 
     @Override
@@ -18,10 +18,11 @@ public class InventoryPieceTemperatureGauge extends InventoryPiece<InventoryCraf
         if(this.enclosingInv.enclosingMachine instanceof ControllerBoiler) {
             ControllerBoiler boiler = (ControllerBoiler) this.enclosingInv.enclosingMachine;
             if(boiler.currentTemperature > 0) {
-                int height = (boiler.currentTemperature / ControllerBoiler.operatingTemp) * this.height;
-                gui.drawGradientRect(gui.guiLeft + this.getX() + offset, height,
-                        gui.guiLeft + this.getX() + this.width + offset, gui.guiTop + this.getY() + this.height,
-                        Color.RED.getRGB(), Color.BLUE.getRGB());
+                int scaled = Math.min(this.height,
+                        (boiler.currentTemperature / ControllerBoiler.operatingTemp) * height);
+                gui.drawGradientRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY() + scaled + offset,
+                        gui.guiLeft + this.getX() + this.width + offset * 2,
+                        gui.guiTop + this.getY() + this.height + offset * 2, Color.RED.getRGB(), Color.BLUE.getRGB());
             }
         }
         super.backgroundLayerCallback(gui, partialTicks, mouseX, mouseY);
@@ -41,6 +42,9 @@ public class InventoryPieceTemperatureGauge extends InventoryPiece<InventoryCraf
                     return "Temperature: " + boiler.currentTemperature + unit + "/" + ControllerBoiler.operatingTemp
                             + unit;
                 }
+            }
+            else {
+                return "Cold";
             }
         }
         return null;
