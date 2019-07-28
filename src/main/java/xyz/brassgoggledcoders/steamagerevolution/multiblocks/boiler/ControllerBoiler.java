@@ -94,10 +94,9 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
             // At full heat, we can begin to convert water to steam
             else {
                 FluidTankSingleSync steamTank = getInventory().getHandler("steamTank", FluidTankSingleSync.class);
-                if(steamTank.getFluidAmount() >= fluidConversionPerTick) {
-                    FluidTankSingleSync waterTank = getInventory().getHandler("waterTank", FluidTankSingleSync.class);
-                    if(waterTank.getFluidAmount() <= (getInventory().getHandler("waterTank", FluidTankSync.class)
-                            .getCapacity() - fluidConversionPerTick)) {
+                FluidTankSingleSync waterTank = getInventory().getHandler("waterTank", FluidTankSingleSync.class);
+                if(waterTank.getFluidAmount() >= fluidConversionPerTick) {
+                    if(steamTank.getFluidAmount() <= steamTank.getCapacity() - fluidConversionPerTick) {
                         steamTank.fill(new FluidStack(FluidRegistry.getFluid("steam"), fluidConversionPerTick), true);
                         waterTank.drain(fluidConversionPerTick, true);
                     }
@@ -106,6 +105,10 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
             // If we have run out of fuel to maintain temperature, rapidly cool down
             if(currentBurnTime <= 0) {
                 currentTemperature -= 5;
+                if(currentTemperature <= 0) {
+                    currentTemperature = 0;
+                    return true;
+                }
             }
             return true;
         }
