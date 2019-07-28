@@ -1,6 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.multiblocks.furnace.tileentities;
 
-import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+import com.teamacronymcoders.base.multiblocksystem.validation.IMultiblockValidator;
 
 public class TileEntityFurnaceCasing extends TileEntityFurnacePart {
 	@Override

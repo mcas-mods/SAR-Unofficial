@@ -1,6 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.network;
 
-import com.teamacronymcoders.base.multiblock.MultiblockTileEntityBase;
+import com.teamacronymcoders.base.multiblocksystem.MultiblockTileEntityBase;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;

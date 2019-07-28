@@ -1,6 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock;
 
-import com.teamacronymcoders.base.multiblock.IMultiblockPart;
+import com.teamacronymcoders.base.multiblocksystem.IMultiblockPart;
 
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;

@@ -2,7 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+import com.teamacronymcoders.base.multiblocksystem.validation.IMultiblockValidator;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;

@@ -1,6 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.blocks;
 
-import com.teamacronymcoders.base.multiblock.rectangular.PartPosition;
+import com.teamacronymcoders.base.multiblocksystem.rectangular.PartPosition;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;

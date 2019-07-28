@@ -3,7 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.tileentiti
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+import com.teamacronymcoders.base.multiblocksystem.validation.IMultiblockValidator;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;

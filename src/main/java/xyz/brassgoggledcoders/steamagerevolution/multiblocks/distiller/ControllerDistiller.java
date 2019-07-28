@@ -1,7 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller;
 
-import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
-import com.teamacronymcoders.base.multiblock.validation.ValidationError;
+import com.teamacronymcoders.base.multiblocksystem.validation.IMultiblockValidator;
+import com.teamacronymcoders.base.multiblocksystem.validation.ValidationError;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
