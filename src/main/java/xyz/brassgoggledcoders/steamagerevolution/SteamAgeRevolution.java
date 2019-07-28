@@ -55,7 +55,7 @@ import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 import xyz.brassgoggledcoders.steamagerevolution.machines.pneumatic.*;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.ControllerAlloyFurnace;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.blocks.*;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.ControllerBoiler;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.*;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.crucible.ControllerCrucible;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.crucible.blocks.*;
@@ -221,8 +221,6 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
         blockRegistry.register(new BlockBoilerSolidFirebox(Material.IRON, "boiler_solid_firebox"));
         blockRegistry.register(new BlockBoilerLiquidFirebox(Material.IRON, "boiler_liquid_firebox"));
         blockRegistry.register(new BlockBoilerGauge(Material.IRON, "boiler_gauge"));
-        blockRegistry.register(new BlockBoilerPressureMonitor(Material.IRON, "boiler_pressuremonitor"));
-        blockRegistry.register(new BlockBoilerPressureValve(Material.IRON, "boiler_pressurevalve"));
 
         blockRegistry.register(new BlockSteamVent(Material.IRON, "steam_vent"));
 
@@ -381,6 +379,8 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
                 Side.CLIENT);
         SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerGUITankInteract.class,
                 PacketGUITankInteract.class, Side.SERVER);
+        SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerSetBoilerValue.class,
+                PacketSetBoilerValue.class, Side.CLIENT);
         SARCapabilities.register();
         proxy.preInit(event);
         SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class, "CONFIG").addEntry("plateCount",

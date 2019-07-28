@@ -14,61 +14,62 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.Multiblo
 import xyz.brassgoggledcoders.steamagerevolution.machines.SARMultiblockTileBase;
 
 public abstract class MultiblockInventoryTileEntity<T extends MultiblockCraftingMachine<? extends InventoryCraftingMachine>>
-		extends SARMultiblockTileBase<T> implements IHasInventory<InventoryCraftingMachine> {
-	// Handles sync on world load
-	@Nonnull
-	@Override
-	public NBTTagCompound getUpdateTag() {
-		NBTTagCompound nbt = this.writeToNBT(super.getUpdateTag());
-		if(this.isConnected() && this.isMultiblockSaveDelegate()) {
-			this.getMultiblockController().writeToDisk(nbt);
-		}
-		return nbt;
-	}
+        extends SARMultiblockTileBase<T> implements IHasInventory<InventoryCraftingMachine> {
+    // Handles sync on world load
+    @Nonnull
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        NBTTagCompound nbt = this.writeToNBT(super.getUpdateTag());
+        if(this.isConnected() && this.isMultiblockSaveDelegate()) {
+            this.getMultiblockController().writeToDisk(nbt);
+        }
+        return nbt;
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void handleUpdateTag(NBTTagCompound tag) {
-		if(this.isConnected() && this.isMultiblockSaveDelegate()) {
-			this.getMultiblockController().onAttachedPartWithMultiblockData(this, tag);
-		}
-		this.readFromNBT(tag);
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void handleUpdateTag(NBTTagCompound tag) {
+        if(this.isConnected() && this.isMultiblockSaveDelegate()) {
+            this.getMultiblockController().onAttachedPartWithMultiblockData(this, tag);
+        }
+        this.readFromNBT(tag);
+    }
 
-	// Delegate IHasInventory/IMachine methods to those of our controller
+    // Delegate IHasInventory/IMachine methods to those of our controller
 
-	@Override
-	public InventoryCraftingMachine getInventory() {
-		return this.getMultiblockController().getInventory();
-	}
+    @Override
+    public InventoryCraftingMachine getInventory() {
+        // FIX This causes (harmless-ish) NPEs on world load
+        return this.getMultiblockController().getInventory();
+    }
 
-	@Override
-	public void setInventory(InventoryCraftingMachine inventory) {
-		throw new UnsupportedOperationException("Cannot use setInventory on a read-only delegate");
-	}
+    @Override
+    public void setInventory(InventoryCraftingMachine inventory) {
+        throw new UnsupportedOperationException("Cannot use setInventory on a read-only delegate");
+    }
 
-	@Override
-	public void markMachineDirty() {
-		this.getMultiblockController().markMachineDirty();
-	}
+    @Override
+    public void markMachineDirty() {
+        this.getMultiblockController().markMachineDirty();
+    }
 
-	@Override
-	public World getMachineWorld() {
-		return super.getWorld();
-	}
+    @Override
+    public World getMachineWorld() {
+        return super.getWorld();
+    }
 
-	@Override
-	public BlockPos getMachinePos() {
-		return super.getPos();
-	}
+    @Override
+    public BlockPos getMachinePos() {
+        return super.getPos();
+    }
 
-	@Override
-	public String getUID() {
-		return this.getMultiblockController().getUID();
-	}
+    @Override
+    public String getUID() {
+        return this.getMultiblockController().getUID();
+    }
 
-	@Override
-	public ItemStack getCatalyst() {
-		return this.getMultiblockController().getCatalyst();
-	}
+    @Override
+    public ItemStack getCatalyst() {
+        return this.getMultiblockController().getCatalyst();
+    }
 }

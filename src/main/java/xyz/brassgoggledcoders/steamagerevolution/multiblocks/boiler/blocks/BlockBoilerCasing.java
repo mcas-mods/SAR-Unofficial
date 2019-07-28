@@ -9,19 +9,17 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities
 
 public class BlockBoilerCasing extends BlockMultiblockBase<TileEntityBoilerCasing> {
 
-	public BlockBoilerCasing(Material material, String name) {
-		super(material, name);
-		// TODO Auto-generated constructor stub
-	}
+    public BlockBoilerCasing(Material material, String name) {
+        super(material, name);
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityBoilerCasing.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityBoilerCasing.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityBoilerCasing();
-	}
-
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityBoilerCasing();
+    }
 }
