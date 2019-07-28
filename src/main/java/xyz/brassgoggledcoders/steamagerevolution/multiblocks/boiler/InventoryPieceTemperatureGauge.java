@@ -2,6 +2,7 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler;
 
 import java.awt.Color;
 
+import net.minecraft.util.text.TextComponentTranslation;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPiece;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
@@ -31,11 +32,22 @@ public class InventoryPieceTemperatureGauge extends InventoryPiece<InventoryCraf
         if(this.enclosingInv.enclosingMachine instanceof ControllerBoiler) {
             ControllerBoiler boiler = (ControllerBoiler) this.enclosingInv.enclosingMachine;
             if(boiler.currentBurnTime > 0) {
-                return "Temperature: " + boiler.currentTemperature + "°C"; // TODO US Localization changes (displayed!)
-                                                                           // units to Freedom Units :P
+                String unit = new TextComponentTranslation("info.tempunit").getFormattedText();
+                if(unit.contains("F")) {
+                    return "Temperature: " + celsiusToFarenheit(boiler.currentTemperature) + unit + "/"
+                            + celsiusToFarenheit(ControllerBoiler.operatingTemp) + unit;
+                }
+                else {
+                    return "Temperature: " + boiler.currentTemperature + unit + "/" + ControllerBoiler.operatingTemp
+                            + unit;
+                }
             }
         }
         return null;
+    }
+
+    public double celsiusToFarenheit(int celsius) {
+        return (1.8 * celsius) + 32;
     }
 
 }

@@ -168,7 +168,7 @@ death.attack.grinder=%1$s got left in the dust.
 
 info.ticks=ticks
 info.seconds=seconds
-info.tempunit=°F
+info.tempunit=°C
 
 sar.recipeerror.norecipe=No recipe
 
