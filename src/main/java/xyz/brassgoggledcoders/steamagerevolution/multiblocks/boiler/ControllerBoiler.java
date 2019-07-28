@@ -16,8 +16,7 @@ import net.minecraftforge.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerFiltered.ItemStackHandlerFuel;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities.*;
@@ -27,15 +26,19 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
 	static final String uid = "boiler";
 	public static final int fuelDivisor = 3;
 	public static final int fluidConversionPerTick = 5;
-	public static final float maxPressure = 3.0F;
+	// public static final float maxPressure = 3.0F;
+	public static final int maxTemp = 100;
+	public static final int maxTicks = 20;
 
-	public float pressure = 1.0F;
+	// public float pressure = 1.0F;
 	public int currentBurnTime = 0;
 	public BlockPos minimumInteriorPos;
 	public BlockPos maximumInteriorPos;
 	public boolean hasWindow = false;
 	Set<BlockPos> attachedMonitors;
 	Set<BlockPos> attachedValves;
+	public int temperature = 0;
+	public int ticks = 0;
 
 	public ControllerBoiler(World world) {
 		super(world);
@@ -51,22 +54,24 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
 				.addPiece("liquidFuel",
 						new InventoryPieceFluidTank(IOType.INPUT, new FluidTankSync(Fluid.BUCKET_VOLUME * 16), 50, 9))
 				.addPiece("steamTank",
-						new InventoryPieceFluidTank(IOType.INPUT, new FluidTankSync(Fluid.BUCKET_VOLUME * 4), 142, 9))
-				.build());
+						new InventoryPieceFluidTank(IOType.INPUT,
+								new FluidTankSingleSync(Fluid.BUCKET_VOLUME * 4, "steam"), 142, 9))
+				.addPiece("gauge", new InventoryPieceTemperatureGauge(60, 9)).build());
 	}
 
 	@Override
 	protected boolean updateServer() {
 
 		// Logic must of course run before checking if it should explode...!
-		for(BlockPos pos : attachedValves) {
-			if(WORLD.isBlockPowered(pos)) {
-				this.getInventory().getHandler("waterTank", FluidTankSync.class).drain(Fluid.BUCKET_VOLUME, true);
-				pressure = 1.0F;
-				updateRedstoneOutputLevels();
-				return true;
-			}
-		}
+		// for(BlockPos pos : attachedValves) {
+		// if(WORLD.isBlockPowered(pos)) {
+		// this.getInventory().getHandler("waterTank",
+		// FluidTankSync.class).drain(Fluid.BUCKET_VOLUME, true);
+		// pressure = 1.0F;
+		// updateRedstoneOutputLevels();
+		// return true;
+		// }
+		// }
 		// FIXME
 		// if (ModuleSteam.enableDestruction && pressure > maxPressure) {
 		// // Whoopsyboom
@@ -76,6 +81,7 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
 		// return true;
 		// }
 
+		// Heating
 		if(currentBurnTime == 0) {
 			for(int i = 0; i < getInventory().getItemHandlers().get(0).getSlots(); i++) {
 				ItemStack fuel = getInventory().getItemHandlers().get(0).getStackInSlot(i);
@@ -96,19 +102,35 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
 			}
 		}
 		else {
-			if(getInventory().getFluidHandlers().get(0).getFluidAmount() >= fluidConversionPerTick) {
-				if(getInventory().getHandler("waterTank", FluidTankSync.class)
+			if(ticks == maxTicks) {
+				temperature++;
+			}
+			else {
+				ticks++;
+			}
+			currentBurnTime--;
+		}
+		// Processing
+		if(temperature == maxTemp) {
+			FluidTankSingleSync steamTank = getInventory().getHandler("steamTank", FluidTankSingleSync.class);
+			if(steamTank.getFluidAmount() >= fluidConversionPerTick) {
+				FluidTankSingleSync waterTank = getInventory().getHandler("waterTank", FluidTankSingleSync.class);
+				if(waterTank
 						.getFluidAmount() <= (getInventory().getHandler("waterTank", FluidTankSync.class).getCapacity()
 								- fluidConversionPerTick)) {
-					getInventory().getHandler("waterTank", FluidTankSync.class)
-							.fill(new FluidStack(FluidRegistry.getFluid("steam"), fluidConversionPerTick), true);
-					getInventory().getFluidHandlers().get(0).drain(fluidConversionPerTick, true);
+					steamTank.fill(new FluidStack(FluidRegistry.getFluid("steam"), fluidConversionPerTick), true);
+					waterTank.drain(fluidConversionPerTick, true);
 				}
 				else {
-					pressure += 0.01F;
+					// pressure += 0.01F;
 					updateRedstoneOutputLevels();
 				}
-				currentBurnTime--;
+				if(ticks == maxTicks * 2) {
+					temperature--;
+				}
+				else {
+					ticks++;
+				}
 				return true;
 			}
 		}
@@ -138,14 +160,14 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
 
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		pressure = data.getFloat("pressure");
+		// pressure = data.getFloat("pressure");
 		currentBurnTime = data.getInteger("burntime");
 		super.onAttachedPartWithMultiblockData(part, data);
 	}
 
 	@Override
 	public void writeToDisk(NBTTagCompound data) {
-		data.setFloat("pressure", pressure);
+		// data.setFloat("pressure", pressure);
 		data.setInteger("burntime", currentBurnTime);
 		super.writeToDisk(data);
 	}

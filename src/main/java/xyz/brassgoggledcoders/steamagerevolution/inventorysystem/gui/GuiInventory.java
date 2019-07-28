@@ -100,4 +100,9 @@ public class GuiInventory extends GuiContainer {
 		return super.isPointInRegion(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
 	}
 
+	// As above
+	@Override
+	public void drawGradientRect(int left, int top, int right, int bottom, int startColor, int endColor) {
+		super.drawGradientRect(left, top, right, bottom, startColor, endColor);
+	}
 }

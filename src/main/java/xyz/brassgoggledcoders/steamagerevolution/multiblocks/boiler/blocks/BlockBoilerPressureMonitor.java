@@ -28,7 +28,7 @@ public class BlockBoilerPressureMonitor extends BlockMultiblockBase<TileEntityBo
 	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
 		TileEntityBoilerPressureMonitor te = getTileEntity(world, pos).get();
 		if(te.isConnected() && te.getMultiblockController().isAssembled()) {
-			return (int) Math.ceil((te.getMultiblockController().pressure));
+			// return (int) Math.ceil((te.getMultiblockController().pressure));
 		}
 		return 0;
 	}
