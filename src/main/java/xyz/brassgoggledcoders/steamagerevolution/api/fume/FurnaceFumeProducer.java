@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.api;
+package xyz.brassgoggledcoders.steamagerevolution.api.fume;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;

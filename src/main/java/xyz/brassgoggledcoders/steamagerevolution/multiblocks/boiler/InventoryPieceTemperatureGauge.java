@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import xyz.brassgoggledcoders.steamagerevolution.SARCaps;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryHeatable;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryPiece;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GUIInventory;
@@ -18,9 +19,10 @@ public class InventoryPieceTemperatureGauge extends InventoryPiece<InventoryHeat
 
     @Override
     public void backgroundLayerCallback(GUIInventory gui, float partialTicks, int mouseX, int mouseY) {
-        if(this.enclosingInv.getCurrentTemperature() > 0) {
-            int scaled = Math.min(this.getGUIElement().height,
-                    (this.enclosingInv.getCurrentTemperature() / this.enclosingInv.maxTemperature)
+        if(this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getCurrentTemperature() > 0) {
+            int scaled = (int) Math.min(this.getGUIElement().height,
+                    (this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getCurrentTemperature()
+                            / this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getMaximumTemperature())
                             * getGUIElement().height);
             gui.drawGradientRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY() + scaled + getOffset(),
                     gui.guiLeft + this.getX() + this.getGUIElement().width + getOffset() * 2,
@@ -37,12 +39,19 @@ public class InventoryPieceTemperatureGauge extends InventoryPiece<InventoryHeat
             if(boiler.currentBurnTime > 0) {
                 String unit = new TextComponentTranslation("info.tempunit").getFormattedText();
                 if(unit.contains("F") && !GuiScreen.isShiftKeyDown()) {
-                    tips.add("Temperature: " + celsiusToFarenheit(this.enclosingInv.getCurrentTemperature()) + unit
-                            + "/" + celsiusToFarenheit(this.enclosingInv.maxTemperature) + unit);
+                    tips.add("Temperature: "
+                            + celsiusToFarenheit(this.enclosingInv.getCapability(SARCaps.HEATABLE, null)
+                                    .getCurrentTemperature())
+                            + unit + "/" + celsiusToFarenheit(this.enclosingInv
+                                    .getCapability(SARCaps.HEATABLE, null).getMaximumTemperature())
+                            + unit);
                 }
                 else {
-                    tips.add("Temperature: " + this.enclosingInv.getCurrentTemperature() + unit + "/"
-                            + this.enclosingInv.maxTemperature + unit);
+                    tips.add("Temperature: "
+                            + this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getCurrentTemperature()
+                            + unit + "/"
+                            + this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getMaximumTemperature()
+                            + unit);
                 }
             }
             else {
@@ -52,8 +61,8 @@ public class InventoryPieceTemperatureGauge extends InventoryPiece<InventoryHeat
         return tips;
     }
 
-    public static double celsiusToFarenheit(int celsius) {
-        return (1.8 * celsius) + 32;
+    public static double celsiusToFarenheit(double celcius) {
+        return (1.8 * celcius) + 32;
     }
 
 }

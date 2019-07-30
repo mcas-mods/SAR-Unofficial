@@ -9,8 +9,8 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
-import xyz.brassgoggledcoders.steamagerevolution.api.IFumeProducer;
+import xyz.brassgoggledcoders.steamagerevolution.SARCaps;
+import xyz.brassgoggledcoders.steamagerevolution.api.fume.IFumeProducer;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
@@ -35,8 +35,8 @@ public class TileEntityFumeCollector extends TileEntityCraftingMachine<Inventory
 		}
 		BlockPos below = getPos().down();
 		TileEntity te = getWorld().getTileEntity(below);
-		if(te != null && te.hasCapability(SARCapabilities.FUME_PRODUCER, EnumFacing.DOWN)) {
-			IFumeProducer producer = te.getCapability(SARCapabilities.FUME_PRODUCER, EnumFacing.DOWN);
+		if(te != null && te.hasCapability(SARCaps.FUME_PRODUCER, EnumFacing.DOWN)) {
+			IFumeProducer producer = te.getCapability(SARCaps.FUME_PRODUCER, EnumFacing.DOWN);
 			if(producer.isBurning()) {
 				// SteamAgeRevolution.instance.getLogger().devInfo("Fume collector has burning
 				// producer");

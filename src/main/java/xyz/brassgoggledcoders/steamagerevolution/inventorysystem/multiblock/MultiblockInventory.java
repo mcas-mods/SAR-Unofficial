@@ -17,46 +17,46 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GUIInventor
 import xyz.brassgoggledcoders.steamagerevolution.machines.SARMultiblockBase;
 
 public abstract class MultiblockInventory<INV extends InventoryBasic> extends SARMultiblockBase
-		implements IHasInventory<INV> {
-	protected INV inventory;
+        implements IHasInventory<INV> {
+    protected INV inventory;
 
-	protected MultiblockInventory(World world) {
-		super(world);
-	}
+    protected MultiblockInventory(World world) {
+        super(world);
+    }
 
-	@Override
-	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-		inventory.deserializeNBT(data.getCompoundTag("inventory"));
-	}
+    @Override
+    public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
+        inventory.deserializeNBT(data.getCompoundTag("inventory"));
+    }
 
-	@Override
-	public void writeToDisk(NBTTagCompound data) {
-		data.setTag("inventory", inventory.serializeNBT());
-	}
+    @Override
+    public void writeToDisk(NBTTagCompound data) {
+        data.setTag("inventory", inventory.serializeNBT());
+    }
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GUIInventory(entityPlayer, this);
-	}
+    @SideOnly(Side.CLIENT)
+    @Override
+    public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+        return new GUIInventory(entityPlayer, this);
+    }
 
-	@Override
-	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new ContainerInventory(entityPlayer, this);
-	}
+    @Override
+    public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+        return new ContainerInventory(entityPlayer, this);
+    }
 
-	@Override
-	public INV getInventory() {
-		return inventory;
-	}
+    @Override
+    public INV getInventory() {
+        return inventory;
+    }
 
-	@Override
-	public void setInventory(INV inventory) {
-		this.inventory = inventory;
-	}
+    @Override
+    public void setInventory(INV inventory) {
+        this.inventory = inventory;
+    }
 
-	@Override
-	public void markMachineDirty() {
-		this.markReferenceCoordDirty();
-	}
+    @Override
+    public void markMachineDirty() {
+        this.markReferenceCoordDirty();
+    }
 }

@@ -6,7 +6,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.NibbleArray;
-import xyz.brassgoggledcoders.steamagerevolution.SARCapabilities;
 
 public class HeatMapHolder implements IHeatMap {
     private Chunk containingChunk;
@@ -18,7 +17,7 @@ public class HeatMapHolder implements IHeatMap {
     }
 
     public static void calculateHeat(World world, Chunk chunk, BlockPos newSource) {
-        IHeatMap map = chunk.getCapability(SARCapabilities.HEAT_MAP, null);
+        IHeatMap map = chunk.getCapability(null, null);
         if(chunk.isLoaded() && world.isAreaLoaded(newSource, 8)) {
             AxisAlignedBB temp = new AxisAlignedBB(newSource).grow(8);
             for(BlockPos pos : BlockPos.getAllInBoxMutable((int) temp.minX, (int) temp.minY, (int) temp.minZ,

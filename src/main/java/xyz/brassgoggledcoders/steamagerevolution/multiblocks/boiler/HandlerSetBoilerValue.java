@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
+import xyz.brassgoggledcoders.steamagerevolution.SARCaps;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities.TileEntityBoilerPart;
 
 public class HandlerSetBoilerValue implements IMessageHandler<PacketSetBoilerValue, IMessage> {
@@ -25,7 +26,7 @@ public class HandlerSetBoilerValue implements IMessageHandler<PacketSetBoilerVal
         if(te instanceof TileEntityBoilerPart) {
             if(message.isTemp) {
                 ((TileEntityBoilerPart) te).getMultiblockController().getInventory()
-                        .setCurrentTemperature(message.value);
+                        .getCapability(SARCaps.HEATABLE, null).setCurrentTemperature(message.value);
             }
             else {
                 ((TileEntityBoilerPart) te).getMultiblockController().currentBurnTime = message.value;

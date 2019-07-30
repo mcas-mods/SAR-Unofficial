@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.api;
+package xyz.brassgoggledcoders.steamagerevolution.heat;
 
 import java.util.HashMap;
 import java.util.Map;

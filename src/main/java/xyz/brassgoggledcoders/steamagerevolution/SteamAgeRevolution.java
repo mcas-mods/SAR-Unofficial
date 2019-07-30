@@ -53,6 +53,7 @@ import xyz.brassgoggledcoders.steamagerevolution.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.items.tools.*;
 import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 import xyz.brassgoggledcoders.steamagerevolution.machines.pneumatic.*;
+import xyz.brassgoggledcoders.steamagerevolution.materials.ModuleMaterials;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.ControllerAlloyFurnace;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.*;
@@ -254,7 +255,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 
         blockRegistry.register(new BlockCrucibleCasing(Material.IRON, "crucible_casing"));
         blockRegistry.register(new BlockCrucibleItemInput(Material.IRON, "crucible_item_input"));
-        blockRegistry.register(new BlockCrucibleSteamInput(Material.IRON, "crucible_steam_input"));
+        blockRegistry.register(new BlockCrucibleHeatInput(Material.IRON, "crucible_steam_input"));
         blockRegistry.register(new BlockCrucibleFluidOutput(Material.IRON, "crucible_fluid_output"));
 
         blockRegistry.register(new BlockVatFrame(Material.IRON, "vat_frame"));
@@ -340,6 +341,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 
         Fluid potion = new Fluid("potion", new ResourceLocation(SteamAgeRevolution.MODID, "fluids/solution"),
                 new ResourceLocation(SteamAgeRevolution.MODID, "fluids/solution_flowing")) {
+            @SuppressWarnings("deprecation")
             @Override
             public String getLocalizedName(FluidStack stack) {
                 return I18n.translateToLocal(
@@ -362,6 +364,8 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
                         return Color.GREEN.getRGB();
                     }
                 });
+
+        blockRegistry.register(new BlockHeater());
     }
 
     @Override
@@ -381,7 +385,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
                 PacketGUITankInteract.class, Side.SERVER);
         SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerSetBoilerValue.class,
                 PacketSetBoilerValue.class, Side.CLIENT);
-        SARCapabilities.register();
+        SARCaps.register();
         proxy.preInit(event);
         SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class, "CONFIG").addEntry("plateCount",
                 new ConfigEntry("balance", "plateCount", Type.INTEGER, "1"));

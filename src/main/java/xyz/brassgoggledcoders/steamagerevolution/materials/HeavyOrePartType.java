@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution;
+package xyz.brassgoggledcoders.steamagerevolution.materials;
 
 import java.util.ArrayList;
 import java.util.List;

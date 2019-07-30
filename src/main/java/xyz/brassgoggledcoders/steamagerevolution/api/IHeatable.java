@@ -12,4 +12,8 @@ public interface IHeatable extends INBTSerializable<NBTTagCompound> {
     public double getMaximumTemperature();
 
     public double getMinimumTemperature();
+
+    void setCurrentTemperature(int currentTemperature);
+
+    boolean heat(int by);
 }

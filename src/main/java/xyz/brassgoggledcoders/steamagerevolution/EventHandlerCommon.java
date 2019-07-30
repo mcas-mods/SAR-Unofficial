@@ -3,25 +3,14 @@ package xyz.brassgoggledcoders.steamagerevolution;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
-import xyz.brassgoggledcoders.steamagerevolution.heat.HeatMapProvider;
 
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class EventHandlerCommon {
-
-    @SubscribeEvent
-    public static void attachChunkCaps(AttachCapabilitiesEvent<Chunk> event) {
-        event.addCapability(new ResourceLocation(SteamAgeRevolution.MODID, "heatmap"),
-                new HeatMapProvider(event.getObject()));
-    }
-
     @SubscribeEvent
     public static void onOreRegistered(OreDictionary.OreRegisterEvent event) {
         String name = event.getName();

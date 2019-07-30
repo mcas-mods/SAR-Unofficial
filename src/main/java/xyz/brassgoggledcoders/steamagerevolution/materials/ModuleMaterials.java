@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution;
+package xyz.brassgoggledcoders.steamagerevolution.materials;
 
 import java.awt.Color;
 import java.util.Arrays;
@@ -14,6 +14,7 @@ import com.teamacronymcoders.base.modulesystem.ModuleBase;
 
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 @ObjectHolder(SteamAgeRevolution.MODID)
 @Module(value = SteamAgeRevolution.MODID)

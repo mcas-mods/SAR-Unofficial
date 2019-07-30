@@ -4,8 +4,10 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
@@ -13,8 +15,8 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.Inventor
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.machines.SARMultiblockTileBase;
 
-public abstract class MultiblockInventoryTileEntity<T extends MultiblockCraftingMachine<? extends InventoryCraftingMachine>>
-        extends SARMultiblockTileBase<T> implements IHasInventory<InventoryCraftingMachine> {
+public abstract class MultiblockInventoryTileEntity<MB extends MultiblockCraftingMachine<? extends InventoryCraftingMachine>>
+        extends SARMultiblockTileBase<MB> implements IHasInventory<InventoryCraftingMachine> {
     // Handles sync on world load
     @Nonnull
     @Override
@@ -71,5 +73,15 @@ public abstract class MultiblockInventoryTileEntity<T extends MultiblockCrafting
     @Override
     public ItemStack getCatalyst() {
         return this.getMultiblockController().getCatalyst();
+    }
+
+    @Override
+    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+        return this.getMultiblockController().getInventory().hasCapability(capability, facing);
+    }
+
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+        return this.getMultiblockController().getInventory().getCapability(capability, facing);
     }
 }

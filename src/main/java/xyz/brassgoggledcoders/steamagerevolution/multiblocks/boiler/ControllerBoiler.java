@@ -11,8 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.IItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
@@ -38,7 +37,7 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatabl
 
     public ControllerBoiler(World world) {
         super(world);
-        this.setInventory(new InventoryBuilder<>(new InventoryHeatable(this, 100, false))
+        this.setInventory(new InventoryBuilder<>(new InventoryHeatable(this, 100))
                 .addPiece("solidFuel",
                         new InventoryPieceItemHandler(IOType.POWER, new ItemStackHandlerFuel(1), new int[] { 10 },
                                 new int[] { 50 }))
@@ -61,9 +60,13 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatabl
         SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
                 new PacketSetBoilerValue(this.getMachinePos(), this.currentBurnTime, false), this.getMachinePos(),
                 this.getMachineWorld().provider.getDimension());
-        SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-                new PacketSetBoilerValue(this.getMachinePos(), this.getInventory().getCurrentTemperature(), true),
-                this.getMachinePos(), this.getMachineWorld().provider.getDimension());
+        SteamAgeRevolution.instance.getPacketHandler()
+                .sendToAllAround(
+                        new PacketSetBoilerValue(this.getMachinePos(),
+                                (int) this.getInventory().getCapability(SARCaps.HEATABLE, null)
+                                        .getCurrentTemperature(),
+                                true),
+                        this.getMachinePos(), this.getMachineWorld().provider.getDimension());
         // Stage 1 - Burn fuel
         if(currentBurnTime == 0) {
             IItemHandler solidFuelHandler = this.getInventory().getHandler("solidFuel", ItemStackHandlerSync.class);
@@ -78,7 +81,7 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatabl
             // TODO Reimplement liquid fuel support
             // If we have run out of fuel to maintain temperature, rapidly cool down
             if(currentBurnTime <= 0) {
-                this.getInventory().modifyTemperature(-5);
+                this.getInventory().getCapability(SARCaps.HEATABLE, null).heat(-5);
             }
         }
         // If we're burning, we can attempt to heat
@@ -86,7 +89,7 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatabl
             currentBurnTime--;
             // Heat 'er up
             // At full heat, we can begin to convert water to steam
-            if(this.getInventory().heat(1)) {
+            if(this.getInventory().getCapability(SARCaps.HEATABLE, null).heat(1)) {
                 FluidTankSingleSync steamTank = getInventory().getHandler("steamTank", FluidTankSingleSync.class);
                 FluidTankSingleSync waterTank = getInventory().getHandler("waterTank", FluidTankSingleSync.class);
                 if(waterTank.getFluidAmount() >= fluidConversionPerTick) {
