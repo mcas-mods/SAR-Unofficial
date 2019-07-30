@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.ContainerInventory;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GUIInventory;
 import xyz.brassgoggledcoders.steamagerevolution.machines.SARMultiblockBase;
 
 public abstract class MultiblockInventory<INV extends InventoryBasic> extends SARMultiblockBase
@@ -37,7 +37,7 @@ public abstract class MultiblockInventory<INV extends InventoryBasic> extends SA
 	@SideOnly(Side.CLIENT)
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiInventory(entityPlayer, this);
+		return new GUIInventory(entityPlayer, this);
 	}
 
 	@Override

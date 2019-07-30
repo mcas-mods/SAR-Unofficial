@@ -25,7 +25,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBuilder;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GUIInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.utils.MiningUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerForceStack;
@@ -50,7 +50,7 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryBas
 	@SideOnly(Side.CLIENT)
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiInventory(entityPlayer, this, new ContainerForceStack(entityPlayer, this));
+		return new GUIInventory(entityPlayer, this, new ContainerForceStack(entityPlayer, this));
 	}
 
 	@Override

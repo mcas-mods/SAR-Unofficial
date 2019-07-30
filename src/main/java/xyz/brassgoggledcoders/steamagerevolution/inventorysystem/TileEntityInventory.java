@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.ContainerInventory;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GUIInventory;
 
 //TODO Automatic saving of inventory contents when block broken
 public abstract class TileEntityInventory<I extends InventoryBasic> extends TileEntityBase
@@ -65,7 +65,7 @@ public abstract class TileEntityInventory<I extends InventoryBasic> extends Tile
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiInventory(entityPlayer, this);
+		return new GUIInventory(entityPlayer, this);
 	}
 
 	@Override

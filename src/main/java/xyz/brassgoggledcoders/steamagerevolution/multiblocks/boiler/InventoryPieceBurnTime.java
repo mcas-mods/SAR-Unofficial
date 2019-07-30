@@ -1,7 +1,9 @@
 package xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler;
 
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GuiInventory;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPiece;
+import java.util.List;
+
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryPiece;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GUIInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 
 public class InventoryPieceBurnTime extends InventoryPiece<InventoryCraftingMachine> {
@@ -11,27 +13,27 @@ public class InventoryPieceBurnTime extends InventoryPiece<InventoryCraftingMach
     }
 
     @Override
-    public void backgroundLayerCallback(GuiInventory gui, float partialTicks, int mouseX, int mouseY) {
+    public void backgroundLayerCallback(GUIInventory gui, float partialTicks, int mouseX, int mouseY) {
         if(this.enclosingInv.enclosingMachine instanceof ControllerBoiler) {
             ControllerBoiler boiler = (ControllerBoiler) this.enclosingInv.enclosingMachine;
             if(boiler.currentBurnTime > 0) {
-                int scaled = Math.min(13, boiler.currentBurnTime * this.height / 200);
-                gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY() + (height - scaled), 92,
-                        179, 14, scaled);
+                int scaled = Math.min(13, boiler.currentBurnTime * this.getGUIElement().height / 200);
+                gui.drawTexturedModalRect(gui.guiLeft + this.getX(),
+                        gui.guiTop + this.getY() + (getGUIElement().height - scaled), 92, 179, 14, scaled);
             }
         }
         super.backgroundLayerCallback(gui, partialTicks, mouseX, mouseY);
     }
 
     @Override
-    public String getTooltip() {
+    public List<String> getTooltip(List<String> tips) {
         if(this.enclosingInv.enclosingMachine instanceof ControllerBoiler) {
             ControllerBoiler boiler = (ControllerBoiler) this.enclosingInv.enclosingMachine;
             if(boiler.currentBurnTime > 0) {
-                return "Burn Time: " + boiler.currentBurnTime + " ticks";
+                tips.add("Burn Time: " + boiler.currentBurnTime + " ticks");
             }
         }
-        return null;
+        return tips;
     }
 
 }

@@ -1,7 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
 import net.minecraftforge.fluids.Fluid;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPiece;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryPieceProgressBar;
 
