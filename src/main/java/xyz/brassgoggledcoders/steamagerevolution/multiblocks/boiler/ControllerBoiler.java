@@ -17,13 +17,11 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities.TileEntityBoilerGauge;
 
 //TODO Implement a Railcraft-style mechanic where if a hot boiler runs out of water and then water is re-added without cooling down first...boom. 
-public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftingMachine> {
-
+public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatable> {
     private static final String uid = "boiler";
 
     // The burn time in ticks that fuel would normally provide in the furnace is
@@ -31,11 +29,7 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
     public static final int fuelDivisor = 3;
     // In mB
     public static final int fluidConversionPerTick = 5;
-    // TODO Should be a short?
-    public static final int operatingTemp = 100;
-
     public int currentBurnTime = 0;
-    public int currentTemperature = 0;
 
     // Rendering-related
     public BlockPos minimumInteriorPos;
@@ -44,7 +38,7 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
 
     public ControllerBoiler(World world) {
         super(world);
-        this.setInventory(new InventoryBuilder<>(new InventoryCraftingMachine(this))
+        this.setInventory(new InventoryBuilder<>(new InventoryHeatable(this, 100, false))
                 .addPiece("solidFuel",
                         new InventoryPieceItemHandler(IOType.POWER, new ItemStackHandlerFuel(1), new int[] { 10 },
                                 new int[] { 50 }))
@@ -68,8 +62,8 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
                 new PacketSetBoilerValue(this.getMachinePos(), this.currentBurnTime, false), this.getMachinePos(),
                 this.getMachineWorld().provider.getDimension());
         SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-                new PacketSetBoilerValue(this.getMachinePos(), this.currentTemperature, true), this.getMachinePos(),
-                this.getMachineWorld().provider.getDimension());
+                new PacketSetBoilerValue(this.getMachinePos(), this.getInventory().getCurrentTemperature(), true),
+                this.getMachinePos(), this.getMachineWorld().provider.getDimension());
         // Stage 1 - Burn fuel
         if(currentBurnTime == 0) {
             IItemHandler solidFuelHandler = this.getInventory().getHandler("solidFuel", ItemStackHandlerSync.class);
@@ -84,22 +78,15 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
             // TODO Reimplement liquid fuel support
             // If we have run out of fuel to maintain temperature, rapidly cool down
             if(currentBurnTime <= 0) {
-                currentTemperature -= 5;
-                if(currentTemperature <= 0) {
-                    currentTemperature = 0;
-                }
+                this.getInventory().modifyTemperature(-5);
             }
         }
         // If we're burning, we can attempt to heat
         else {
             currentBurnTime--;
             // Heat 'er up
-            if(currentTemperature < operatingTemp) {
-                currentTemperature++;
-                return true;
-            }
             // At full heat, we can begin to convert water to steam
-            else {
+            if(this.getInventory().heat(1)) {
                 FluidTankSingleSync steamTank = getInventory().getHandler("steamTank", FluidTankSingleSync.class);
                 FluidTankSingleSync waterTank = getInventory().getHandler("waterTank", FluidTankSingleSync.class);
                 if(waterTank.getFluidAmount() >= fluidConversionPerTick) {
@@ -137,14 +124,12 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryCraftin
     @Override
     public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
         currentBurnTime = data.getInteger("burntime");
-        currentTemperature = data.getInteger("temp");
         super.onAttachedPartWithMultiblockData(part, data);
     }
 
     @Override
     public void writeToDisk(NBTTagCompound data) {
         data.setInteger("burntime", currentBurnTime);
-        data.setInteger("temp", currentTemperature);
         super.writeToDisk(data);
     }
 

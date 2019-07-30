@@ -24,7 +24,8 @@ public class HandlerSetBoilerValue implements IMessageHandler<PacketSetBoilerVal
         TileEntity te = worldClient.getTileEntity(message.pos);
         if(te instanceof TileEntityBoilerPart) {
             if(message.isTemp) {
-                ((TileEntityBoilerPart) te).getMultiblockController().currentTemperature = message.value;
+                ((TileEntityBoilerPart) te).getMultiblockController().getInventory()
+                        .setCurrentTemperature(message.value);
             }
             else {
                 ((TileEntityBoilerPart) te).getMultiblockController().currentBurnTime = message.value;
