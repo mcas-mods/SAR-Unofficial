@@ -8,6 +8,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.RecipeRegistry;
 import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
@@ -25,12 +27,13 @@ public class SARJEIPlugin implements IModPlugin {
         SARRecipeCategory.setGuiHelper(registry.getJeiHelpers().getGuiHelper());
         tankBackground = registry.getJeiHelpers().getGuiHelper().createDrawable(
                 new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/inventory.png"), 176, 8, 20, 60);
-        IMachine.referenceMachinesList
-                .forEach((uid, machine) -> registry.addRecipeCategories(new SARRecipeCategory(uid)));
+        IMachine.referenceMachinesList.values().stream().filter(machine -> machine instanceof IHasInventory)
+                .filter(machine -> ((IHasInventory<?>) machine).getInventory() instanceof InventoryCraftingMachine)
+                // TODO This isn't unchecked...
+                .forEach(machine -> registry
+                        .addRecipeCategories(new SARRecipeCategory((IHasInventory<InventoryCraftingMachine>) machine)));
     }
 
-    // TODO Steam consumption support
-    // TODO GUI Widget for processing time
     @Override
     public void register(IModRegistry registry) {
         IMachine.referenceMachinesList

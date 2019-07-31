@@ -89,7 +89,7 @@ public class MachineRecipe implements IRecipeWrapper {
     @Override
     public void getIngredients(IIngredients ingredients) {
         if(ArrayUtils.isNotEmpty(fluidIngredients)) {
-            ArrayList<FluidStack> fluids = Lists.newArrayList();
+            List<FluidStack> fluids = new ArrayList<>();
             for(IngredientFluidStack fs : fluidIngredients) {
                 fluids.add(fs.getFluid());
             }

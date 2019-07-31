@@ -14,7 +14,6 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.Inventor
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
 public class SARRecipeCategory implements IRecipeCategory<MachineRecipe> {
 
@@ -23,8 +22,8 @@ public class SARRecipeCategory implements IRecipeCategory<MachineRecipe> {
     IHasInventory<InventoryCraftingMachine> machine;
     IDrawableAnimated arrow;
 
-    public SARRecipeCategory(String uid) {
-        this.machine = (IHasInventory<InventoryCraftingMachine>) IMachine.referenceMachinesList.get(uid);
+    public SARRecipeCategory(IHasInventory<InventoryCraftingMachine> machine) {
+        this.machine = machine;
         IDrawableStatic arrowDrawable = helper.createDrawable(
                 new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/inventory.png"), 176, 83, 24, 17);
         this.arrow = helper.createAnimatedDrawable(arrowDrawable, 20, IDrawableAnimated.StartDirection.LEFT, false);
@@ -74,37 +73,42 @@ public class SARRecipeCategory implements IRecipeCategory<MachineRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayout recipeLayout, MachineRecipe recipeWrapper, IIngredients ingredients) {
-        if(machine instanceof IHasInventory) {
-            IHasInventory<?> inventory = (IHasInventory<?>) machine;
-            int slotIndex = 0;
-            for(InventoryPieceFluidTank tank : inventory.getInventory()
-                    .getInventoryPiecesOfType(InventoryPieceFluidTank.class)) {
-                boolean isInput = IOType.INPUT.equals(tank.getType());
-                recipeLayout.getFluidStacks().init(slotIndex, isInput, tank.getX(), tank.getY());
-                if(isInput) {
+        int slotIndex = 0;
+        for(InventoryPieceFluidTank tank : machine.getInventory()
+                .getInventoryPiecesOfType(InventoryPieceFluidTank.class)) {
+            boolean isInput = IOType.INPUT.equals(tank.getType());
+            recipeLayout.getFluidStacks().init(slotIndex, isInput, tank.getX(), tank.getY());
+            if(isInput) {
+                if(ingredients.getInputs(VanillaTypes.FLUID).size() > slotIndex) {
                     recipeLayout.getFluidStacks().set(slotIndex,
                             ingredients.getInputs(VanillaTypes.FLUID).get(slotIndex));
                 }
-                else {
+            }
+            else {
+                if(ingredients.getOutputs(VanillaTypes.FLUID).size() > slotIndex) { // TODO
                     recipeLayout.getFluidStacks().set(slotIndex,
                             ingredients.getOutputs(VanillaTypes.FLUID).get(slotIndex));
                 }
-                slotIndex++;
             }
-            for(InventoryPieceItemHandler handler : inventory.getInventory()
-                    .getInventoryPiecesOfType(InventoryPieceItemHandler.class)) {
-                boolean isInput = IOType.INPUT.equals(handler.getType());
-                recipeLayout.getItemStacks().init(slotIndex, isInput, handler.getX(), handler.getY());
-                if(isInput) {
+            slotIndex++;
+        }
+        for(InventoryPieceItemHandler handler : machine.getInventory()
+                .getInventoryPiecesOfType(InventoryPieceItemHandler.class)) {
+            boolean isInput = IOType.INPUT.equals(handler.getType());
+            recipeLayout.getItemStacks().init(slotIndex, isInput, handler.getX(), handler.getY());
+            if(isInput) {
+                if(ingredients.getInputs(VanillaTypes.ITEM).size() > slotIndex) {
+                    recipeLayout.getItemStacks().set(slotIndex,
+                            ingredients.getInputs(VanillaTypes.ITEM).get(slotIndex));
+                }
+            }
+            else {
+                if(ingredients.getOutputs(VanillaTypes.ITEM).size() > slotIndex) {
                     recipeLayout.getItemStacks().set(slotIndex,
                             ingredients.getOutputs(VanillaTypes.ITEM).get(slotIndex));
                 }
-                else {
-                    recipeLayout.getItemStacks().set(slotIndex,
-                            ingredients.getOutputs(VanillaTypes.ITEM).get(slotIndex));
-                }
-                slotIndex++;
             }
+            slotIndex++;
         }
     }
 }

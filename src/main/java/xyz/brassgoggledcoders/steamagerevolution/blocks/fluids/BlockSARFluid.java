@@ -9,13 +9,16 @@ import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public class BlockSARFluid extends BlockFluidBase {
+    protected String name;
+
     public BlockSARFluid(String name, Fluid fluid, Material material) {
         super(name, fluid, material);
+        this.name = name;
     }
 
     // TODO This might want to be the default in BlockFluidBase?
     @Override
     public ResourceLocation getResourceLocation(IBlockState blockState) {
-        return new ResourceLocation(SteamAgeRevolution.MODID, this.getTranslationKey());
+        return new ResourceLocation(SteamAgeRevolution.MODID, name);
     }
 }
