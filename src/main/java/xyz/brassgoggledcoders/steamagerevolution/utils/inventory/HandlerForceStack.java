@@ -3,7 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.inventory;
 import javax.annotation.Nonnull;
 
 import net.minecraft.item.ItemStack;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerSync;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.ItemStackHandlerSync;
 
 public class HandlerForceStack extends ItemStackHandlerSync {
 	public HandlerForceStack(int slots) {

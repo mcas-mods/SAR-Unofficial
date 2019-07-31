@@ -11,7 +11,7 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.machines.BlockMultiblockBase;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.BlockMultiblockBase;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.tileentities.TileEntitySteamHammerFrame;
 
 public class BlockSteamHammerFrame extends BlockMultiblockBase<TileEntitySteamHammerFrame> {

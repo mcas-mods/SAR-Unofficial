@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.machines.pneumatic;
+package xyz.brassgoggledcoders.steamagerevolution.pneumatic;
 
 public class TileEntityPneumaticRouter extends TileEntityTubeNetworkPart {
 

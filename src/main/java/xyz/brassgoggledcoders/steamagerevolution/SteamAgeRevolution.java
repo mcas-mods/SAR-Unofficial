@@ -43,8 +43,7 @@ import xyz.brassgoggledcoders.steamagerevolution.entities.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.*;
 import xyz.brassgoggledcoders.steamagerevolution.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.items.tools.*;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
-import xyz.brassgoggledcoders.steamagerevolution.machines.pneumatic.ControllerTubeNetwork;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
 import xyz.brassgoggledcoders.steamagerevolution.materials.ModuleMaterials;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.ControllerAlloyFurnace;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.*;
@@ -57,6 +56,7 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.steelworks.Controll
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.tank.ControllerTank;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat.ControllerVat;
 import xyz.brassgoggledcoders.steamagerevolution.network.*;
+import xyz.brassgoggledcoders.steamagerevolution.pneumatic.ControllerTubeNetwork;
 import xyz.brassgoggledcoders.steamagerevolution.tileentities.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.LootFunctionOredict;
 import xyz.brassgoggledcoders.steamagerevolution.utils.StackComparator;
@@ -78,23 +78,6 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
 
     static {
         FluidRegistry.enableUniversalBucket();
-        // TODO Blehhh
-        IMachine.referenceMachinesList.put(ControllerAlloyFurnace.uid, new ControllerAlloyFurnace(null));
-        IMachine.referenceMachinesList.put(ControllerBoiler.uid, new ControllerBoiler(null));
-        IMachine.referenceMachinesList.put(ControllerCrucible.uid, new ControllerCrucible(null));
-        IMachine.referenceMachinesList.put(ControllerDistiller.uid, new ControllerDistiller(null));
-        IMachine.referenceMachinesList.put(ControllerSteamFurnace.uid, new ControllerSteamFurnace(null));
-        IMachine.referenceMachinesList.put(ControllerGrinder.uid, new ControllerGrinder(null));
-        IMachine.referenceMachinesList.put(ControllerSteamHammer.uid, new ControllerSteamHammer(null));
-        IMachine.referenceMachinesList.put(ControllerSteelworks.uid, new ControllerSteelworks(null));
-        IMachine.referenceMachinesList.put(ControllerTank.uid, new ControllerTank(null));
-        IMachine.referenceMachinesList.put(ControllerVat.uid, new ControllerVat(null));
-        IMachine.referenceMachinesList.put(TileEntityCastingBench.uid, new TileEntityCastingBench());
-        IMachine.referenceMachinesList.put(TileEntityFluidHopper.uid, new TileEntityFluidHopper());
-        IMachine.referenceMachinesList.put(TileEntityFluidIO.uid, new TileEntityFluidIO());
-        IMachine.referenceMachinesList.put(TileEntityFumeCollector.uid, new TileEntityFumeCollector());
-        IMachine.referenceMachinesList.put(ControllerTubeNetwork.uid, new ControllerTubeNetwork(null));
-        IMachine.referenceMachinesList.put(TileEntityHeater.uid, new TileEntityHeater());
     }
 
     public static final ToolMaterial STEAM = EnumHelper.addToolMaterial("TOOL_STEAM", 2, -1, 12.0F, 3.0F, 0);
@@ -168,6 +151,33 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
+
+        MachineType.machinesList.put(ControllerAlloyFurnace.uid,
+                new MachineType(ControllerAlloyFurnace.uid, SARObjectHolder.alloy_furnace_frame));
+        MachineType.machinesList.put(ControllerBoiler.uid, new MachineType(ControllerBoiler.uid));
+        MachineType.machinesList.put(ControllerCrucible.uid,
+                new MachineType(ControllerCrucible.uid, SARObjectHolder.crucible_casing));
+        MachineType.machinesList.put(ControllerDistiller.uid,
+                new MachineType(ControllerDistiller.uid, SARObjectHolder.distiller_frame));
+        MachineType.machinesList.put(ControllerSteamFurnace.uid,
+                new MachineType(ControllerSteamFurnace.uid, SARObjectHolder.furnace_casing));
+        MachineType.machinesList.put(ControllerGrinder.uid,
+                new MachineType(ControllerGrinder.uid, SARObjectHolder.grinder_frame));
+        MachineType.machinesList.put(ControllerSteamHammer.uid,
+                new MachineType(ControllerSteamHammer.uid, SARObjectHolder.steamhammer_anvil));
+        MachineType.machinesList.put(ControllerSteelworks.uid,
+                new MachineType(ControllerSteelworks.uid, SARObjectHolder.steelworks_frame));
+        MachineType.machinesList.put(ControllerTank.uid, new MachineType(ControllerTank.uid));
+        MachineType.machinesList.put(ControllerVat.uid, new MachineType(ControllerVat.uid, SARObjectHolder.vat_output));
+        MachineType.machinesList.put(TileEntityCastingBench.uid,
+                new MachineType(TileEntityCastingBench.uid, SARObjectHolder.casting_bench));
+        MachineType.machinesList.put(TileEntityFluidHopper.uid, new MachineType(TileEntityFluidHopper.uid));
+        MachineType.machinesList.put(TileEntityFluidIO.uid, new MachineType(TileEntityFluidIO.uid));
+        MachineType.machinesList.put(TileEntityFumeCollector.uid,
+                new MachineType(TileEntityFumeCollector.uid, SARObjectHolder.fume_collector));
+        MachineType.machinesList.put(ControllerTubeNetwork.uid, new MachineType(ControllerTubeNetwork.uid));
+        MachineType.machinesList.put(TileEntityHeater.uid, new MachineType(TileEntityHeater.uid));
+
         this.getLibProxy().addSidedBlockDomain();
         proxy.registerModels();
         // Reminder - Side is the side you're sending to (recieving side)

@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.machines;
+package xyz.brassgoggledcoders.steamagerevolution.machinesystem;
 
 public interface IMultiblockMachineTile {
     public IMultiblockMachine getControllerInfo();

@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.machines;
+package xyz.brassgoggledcoders.steamagerevolution.machinesystem;
 
 import com.teamacronymcoders.base.multiblocksystem.rectangular.RectangularMultiblockTileEntityBase;
 import com.teamacronymcoders.base.multiblocksystem.validation.IMultiblockValidator;
@@ -8,7 +8,7 @@ public abstract class SARMultiblockTileBase<T extends SARMultiblockBase> extends
 
 	@Override
 	public final IMultiblockMachine getControllerInfo() {
-		return (IMultiblockMachine) IMachine.referenceMachinesList.get(this.getMultiblockControllerType());
+		return (IMultiblockMachine) MachineType.machinesList.get(this.getMultiblockControllerType());
 	}
 
 	@Override

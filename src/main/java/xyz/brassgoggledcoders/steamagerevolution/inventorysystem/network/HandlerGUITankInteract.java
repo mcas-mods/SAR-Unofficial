@@ -11,8 +11,8 @@ import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import net.minecraftforge.items.wrapper.PlayerInvWrapper;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.FluidTankSync;
 
 public class HandlerGUITankInteract implements IMessageHandler<PacketGUITankInteract, IMessage> {
 

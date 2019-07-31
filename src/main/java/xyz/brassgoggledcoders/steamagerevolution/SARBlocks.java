@@ -13,7 +13,6 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fluids.*;
 import xyz.brassgoggledcoders.steamagerevolution.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.blocks.fluids.*;
-import xyz.brassgoggledcoders.steamagerevolution.machines.pneumatic.*;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.crucible.blocks.*;
@@ -24,6 +23,7 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.steelworks.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.tank.blocks.*;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat.blocks.*;
+import xyz.brassgoggledcoders.steamagerevolution.pneumatic.*;
 
 public class SARBlocks {
     public static void registerBlocks(BlockRegistry blockRegistry) {

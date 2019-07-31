@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.machines;
+package xyz.brassgoggledcoders.steamagerevolution.machinesystem;
 
 import java.util.List;
 

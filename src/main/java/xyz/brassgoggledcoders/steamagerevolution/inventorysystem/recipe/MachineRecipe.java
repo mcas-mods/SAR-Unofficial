@@ -19,7 +19,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryPiece;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
 
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei", striprefs = true)
 public class MachineRecipe implements IRecipeWrapper {
@@ -114,7 +114,7 @@ public class MachineRecipe implements IRecipeWrapper {
     @Override
     public List<String> getTooltipStrings(int mouseX, int mouseY) {
         List<String> tips = new ArrayList<>();
-        for(InventoryPiece<?> piece : ((IHasInventory<InventoryCraftingMachine>) IMachine.referenceMachinesList
+        for(InventoryPiece<?> piece : ((IHasInventory<InventoryCraftingMachine>) MachineType.machinesList
                 .get(crafter)).getInventory().getInventoryPieces()) {
             if(piece instanceof InventoryPieceProgressBar) {
                 if(isPointInRegion(piece.getX(), piece.getY(), piece.getGUIElement().width,

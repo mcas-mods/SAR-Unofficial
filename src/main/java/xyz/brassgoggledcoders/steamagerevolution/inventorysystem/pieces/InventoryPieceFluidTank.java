@@ -6,9 +6,9 @@ import com.teamacronymcoders.base.util.GuiHelper;
 
 import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GUIInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.FluidTankSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GUIElement;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketGUITankInteract;
 

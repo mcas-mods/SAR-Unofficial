@@ -1,8 +1,8 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces;
 
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GUIElement;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.ItemStackHandlerSync;
 
 public class InventoryPieceItemHandler extends InventoryPieceHandler<ItemStackHandlerSync> {
 

@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.machines.pneumatic;
+package xyz.brassgoggledcoders.steamagerevolution.pneumatic;
 
 import com.teamacronymcoders.base.multiblocksystem.IMultiblockPart;
 import com.teamacronymcoders.base.multiblocksystem.MultiblockControllerBase;
@@ -11,8 +11,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.ItemStackHandlerSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMultiblockMachine;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.IMultiblockMachine;
 
 //TODO Implement a stripped down version of the multiblock API specifically meant for tubes
 //TODO Do some magic to make adjacent tube networks merge under one controller
@@ -217,11 +218,6 @@ public class ControllerTubeNetwork extends MultiblockControllerBase
     }
 
     @Override
-    public String getUID() {
-        return uid;
-    }
-
-    @Override
     public World getMachineWorld() {
         return WORLD;
     }
@@ -244,5 +240,10 @@ public class ControllerTubeNetwork extends MultiblockControllerBase
     @Override
     public void markMachineDirty() {
         this.markReferenceCoordDirty();
+    }
+
+    @Override
+    public String getUID() {
+        return uid;
     }
 }

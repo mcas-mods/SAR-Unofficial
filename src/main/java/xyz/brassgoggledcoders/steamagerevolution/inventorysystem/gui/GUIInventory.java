@@ -14,6 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
 
 @SideOnly(Side.CLIENT)
 public class GUIInventory extends GuiContainer {
@@ -51,7 +52,8 @@ public class GUIInventory extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        this.fontRenderer.drawString(this.holder.getLocalizedName(), 8, 6, 4210752);
+        this.fontRenderer.drawString(MachineType.machinesList.get(this.holder.getUID()).getLocalizedName(), 8, 6,
+                4210752);
         this.fontRenderer.drawString(playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2,
                 4210752);
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);

@@ -11,7 +11,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.RecipeRegistry;
-import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
 
 @JEIPlugin
 public class SARJEIPlugin implements IModPlugin {
@@ -27,7 +27,7 @@ public class SARJEIPlugin implements IModPlugin {
         SARRecipeCategory.setGuiHelper(registry.getJeiHelpers().getGuiHelper());
         tankBackground = registry.getJeiHelpers().getGuiHelper().createDrawable(
                 new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/inventory.png"), 176, 8, 20, 60);
-        IMachine.referenceMachinesList.values().stream().filter(machine -> machine instanceof IHasInventory)
+        MachineType.machinesList.values().stream().filter(machine -> machine instanceof IHasInventory)
                 .filter(machine -> ((IHasInventory<?>) machine).getInventory() instanceof InventoryCraftingMachine)
                 // TODO This isn't unchecked...
                 .forEach(machine -> registry
@@ -36,7 +36,7 @@ public class SARJEIPlugin implements IModPlugin {
 
     @Override
     public void register(IModRegistry registry) {
-        IMachine.referenceMachinesList
+        MachineType.machinesList
                 .forEach((uid, instance) -> add(registry, instance.getUID(), instance.getCatalyst()));
     }
 

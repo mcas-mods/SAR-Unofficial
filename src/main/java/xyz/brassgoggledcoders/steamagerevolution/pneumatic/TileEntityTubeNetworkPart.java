@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.machines.pneumatic;
+package xyz.brassgoggledcoders.steamagerevolution.pneumatic;
 
 import com.teamacronymcoders.base.multiblocksystem.MultiblockControllerBase;
 import com.teamacronymcoders.base.multiblocksystem.MultiblockTileEntityBase;

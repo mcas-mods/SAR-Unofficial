@@ -11,9 +11,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.IItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.*;
+import xyz.brassgoggledcoders.steamagerevolution.SARCaps;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerFiltered.ItemStackHandlerFuel;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryPieceTemperatureGauge;
@@ -156,10 +158,5 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatabl
     @Override
     public String getUID() {
         return uid;
-    }
-
-    @Override
-    public ItemStack getCatalyst() {
-        return new ItemStack(SARObjectHolder.boiler_pressure_monitor);
     }
 }

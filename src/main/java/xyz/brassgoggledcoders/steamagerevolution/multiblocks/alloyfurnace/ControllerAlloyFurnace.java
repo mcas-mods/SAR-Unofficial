@@ -4,12 +4,11 @@ import com.teamacronymcoders.base.multiblocksystem.validation.IMultiblockValidat
 import com.teamacronymcoders.base.multiblocksystem.validation.ValidationError;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.FluidTankSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryPieceTemperatureGauge;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
@@ -87,10 +86,5 @@ public class ControllerAlloyFurnace extends MultiblockCraftingMachine<InventoryH
     @Override
     public String getUID() {
         return uid;
-    }
-
-    @Override
-    public ItemStack getCatalyst() {
-        return new ItemStack(SARObjectHolder.alloy_furnace_frame);
     }
 }

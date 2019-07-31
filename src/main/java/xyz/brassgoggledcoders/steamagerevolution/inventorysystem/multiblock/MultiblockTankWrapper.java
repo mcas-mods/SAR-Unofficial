@@ -3,7 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.FluidTankSync;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.FluidTankSync;
 
 public class MultiblockTankWrapper implements IFluidTank, IFluidHandler {
 

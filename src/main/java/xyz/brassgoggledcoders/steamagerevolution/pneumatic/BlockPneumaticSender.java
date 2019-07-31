@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.machines.pneumatic;
+package xyz.brassgoggledcoders.steamagerevolution.pneumatic;
 
 import com.teamacronymcoders.base.Capabilities;
 import com.teamacronymcoders.base.blocks.BlockTEBase;

@@ -2,7 +2,6 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock;
 
 import javax.annotation.Nonnull;
 
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -13,7 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
-import xyz.brassgoggledcoders.steamagerevolution.machines.SARMultiblockTileBase;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.SARMultiblockTileBase;
 
 public abstract class MultiblockInventoryTileEntity<MB extends MultiblockCraftingMachine<? extends InventoryCraftingMachine>>
         extends SARMultiblockTileBase<MB> implements IHasInventory<InventoryCraftingMachine> {
@@ -68,11 +67,6 @@ public abstract class MultiblockInventoryTileEntity<MB extends MultiblockCraftin
     @Override
     public String getUID() {
         return this.getMultiblockController().getUID();
-    }
-
-    @Override
-    public ItemStack getCatalyst() {
-        return this.getMultiblockController().getCatalyst();
     }
 
     @Override
