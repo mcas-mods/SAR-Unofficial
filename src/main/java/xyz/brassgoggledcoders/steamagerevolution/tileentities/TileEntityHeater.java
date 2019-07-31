@@ -10,8 +10,9 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBuilder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryHeatable;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.FluidTankSync;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryPieceTemperatureGauge;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.TileEntityCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.pieces.InventoryPieceTemperatureGauge;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.PacketSetBurnTime;
 
 public class TileEntityHeater extends TileEntityCraftingMachine<InventoryHeatable> implements ITickable {
@@ -64,7 +65,10 @@ public class TileEntityHeater extends TileEntityCraftingMachine<InventoryHeatabl
     }
 
     @Override
-    public String getUID() {
-        return uid;
+    public MachineType getMachineType() {
+        if(!MachineType.machinesList.containsKey(uid)) {
+            MachineType.machinesList.put(uid, new MachineType(uid));
+        }
+        return MachineType.machinesList.get(uid);
     }
 }

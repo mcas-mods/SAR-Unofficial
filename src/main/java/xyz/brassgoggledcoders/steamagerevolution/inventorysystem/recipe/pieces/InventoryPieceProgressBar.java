@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.pieces;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.compat.jei.SARJEIPlugin;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryPiece;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GUIInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 
 public class InventoryPieceProgressBar extends InventoryPiece<InventoryCraftingMachine> {
 
@@ -60,8 +61,8 @@ public class InventoryPieceProgressBar extends InventoryPiece<InventoryCraftingM
     @Override
     public void mouseClickedCallback(GUIInventory inventory, int mouseButton) {
         if(Loader.isModLoaded("jei") && SARJEIPlugin.recipesGui != null) {
-            SARJEIPlugin.recipesGui.showCategories(
-                    Lists.newArrayList(SteamAgeRevolution.MODID + ":" + this.enclosingInv.enclosingMachine.getUID()));
+            SARJEIPlugin.recipesGui.showCategories(Lists.newArrayList(
+                    SteamAgeRevolution.MODID + ":" + this.enclosingInv.enclosingMachine.getMachineType().getUID()));
         }
     }
 }

@@ -10,10 +10,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.*;
+import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.ItemStackHandlerSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.machinesystem.IMultiblockMachine;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.*;
 
 //TODO Implement a stripped down version of the multiblock API specifically meant for tubes
 //TODO Do some magic to make adjacent tube networks merge under one controller
@@ -243,7 +244,10 @@ public class ControllerTubeNetwork extends MultiblockControllerBase
     }
 
     @Override
-    public String getUID() {
-        return uid;
+    public MultiblockMachineType getMachineType() {
+        if(!MachineType.machinesList.containsKey(uid)) {
+            MachineType.machinesList.put(uid, new MultiblockMachineType(uid, SARObjectHolder.pneumatic_sender));
+        }
+        return (MultiblockMachineType) MachineType.machinesList.get(uid);
     }
 }

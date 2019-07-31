@@ -43,21 +43,10 @@ import xyz.brassgoggledcoders.steamagerevolution.entities.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.*;
 import xyz.brassgoggledcoders.steamagerevolution.items.*;
 import xyz.brassgoggledcoders.steamagerevolution.items.tools.*;
-import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
 import xyz.brassgoggledcoders.steamagerevolution.materials.ModuleMaterials;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.ControllerAlloyFurnace;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.*;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.crucible.ControllerCrucible;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller.ControllerDistiller;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.furnace.ControllerSteamFurnace;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.ControllerGrinder;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.ControllerSteamHammer;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.steelworks.ControllerSteelworks;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.tank.ControllerTank;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat.ControllerVat;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.HandlerSetBurnTime;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.PacketSetBurnTime;
 import xyz.brassgoggledcoders.steamagerevolution.network.*;
-import xyz.brassgoggledcoders.steamagerevolution.pneumatic.ControllerTubeNetwork;
-import xyz.brassgoggledcoders.steamagerevolution.tileentities.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.LootFunctionOredict;
 import xyz.brassgoggledcoders.steamagerevolution.utils.StackComparator;
 
@@ -151,32 +140,6 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
-
-        MachineType.machinesList.put(ControllerAlloyFurnace.uid,
-                new MachineType(ControllerAlloyFurnace.uid, SARObjectHolder.alloy_furnace_frame));
-        MachineType.machinesList.put(ControllerBoiler.uid, new MachineType(ControllerBoiler.uid));
-        MachineType.machinesList.put(ControllerCrucible.uid,
-                new MachineType(ControllerCrucible.uid, SARObjectHolder.crucible_casing));
-        MachineType.machinesList.put(ControllerDistiller.uid,
-                new MachineType(ControllerDistiller.uid, SARObjectHolder.distiller_frame));
-        MachineType.machinesList.put(ControllerSteamFurnace.uid,
-                new MachineType(ControllerSteamFurnace.uid, SARObjectHolder.furnace_casing));
-        MachineType.machinesList.put(ControllerGrinder.uid,
-                new MachineType(ControllerGrinder.uid, SARObjectHolder.grinder_frame));
-        MachineType.machinesList.put(ControllerSteamHammer.uid,
-                new MachineType(ControllerSteamHammer.uid, SARObjectHolder.steamhammer_anvil));
-        MachineType.machinesList.put(ControllerSteelworks.uid,
-                new MachineType(ControllerSteelworks.uid, SARObjectHolder.steelworks_frame));
-        MachineType.machinesList.put(ControllerTank.uid, new MachineType(ControllerTank.uid));
-        MachineType.machinesList.put(ControllerVat.uid, new MachineType(ControllerVat.uid, SARObjectHolder.vat_output));
-        MachineType.machinesList.put(TileEntityCastingBench.uid,
-                new MachineType(TileEntityCastingBench.uid, SARObjectHolder.casting_bench));
-        MachineType.machinesList.put(TileEntityFluidHopper.uid, new MachineType(TileEntityFluidHopper.uid));
-        MachineType.machinesList.put(TileEntityFluidIO.uid, new MachineType(TileEntityFluidIO.uid));
-        MachineType.machinesList.put(TileEntityFumeCollector.uid,
-                new MachineType(TileEntityFumeCollector.uid, SARObjectHolder.fume_collector));
-        MachineType.machinesList.put(ControllerTubeNetwork.uid, new MachineType(ControllerTubeNetwork.uid));
-        MachineType.machinesList.put(TileEntityHeater.uid, new MachineType(TileEntityHeater.uid));
 
         this.getLibProxy().addSidedBlockDomain();
         proxy.registerModels();

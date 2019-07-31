@@ -1,7 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.machinesystem;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.multiblocksystem.IMultiblockPart;
@@ -19,27 +19,18 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 public abstract class SARMultiblockBase extends RectangularMultiblockControllerBase
         implements IMultiblockMachine, IHasGui {
 
-    List<Block> requiredBlocks = new ArrayList<Block>();
-
-    protected SARMultiblockBase(World world, Block... requiredBlocks) {
+    protected SARMultiblockBase(World world) {
         super(world);
-        for(Block required : requiredBlocks) {
-            this.requiredBlocks.add(required);
-        }
     }
 
     @Override
     protected boolean isMachineWhole(IMultiblockValidator validatorCallback) {
-        // TODO
-        ArrayList<Block> blocks = new ArrayList<Block>();
-        connectedParts.forEach(part -> blocks.add(WORLD.getBlockState(part.getWorldPosition()).getBlock()));
-
-        for(Block required : requiredBlocks) {
-            if(!blocks.contains(required)) {
-                validatorCallback.setLastError(new ValidationError(
-                        "steamagerevolution.multiblock.validation.missingrequired", required.getLocalizedName()));
-                return false;
-            }
+        List<Block> connectedBlocks = connectedParts.stream()
+                .map(part -> WORLD.getBlockState(part.getWorldPosition()).getBlock()).collect(Collectors.toList());
+        if(!connectedBlocks.containsAll(this.getMachineType().getRequiredParts())) {
+            validatorCallback
+                    .setLastError(new ValidationError("steamagerevolution.multiblock.validation.missingrequired", ""));// TODO
+            return false;
         }
 
         return super.isMachineWhole(validatorCallback);
@@ -118,8 +109,6 @@ public abstract class SARMultiblockBase extends RectangularMultiblockControllerB
 
     @Override
     public void readFromDisk(NBTTagCompound data) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override

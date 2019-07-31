@@ -1,9 +1,11 @@
-package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.pieces;
 
 import java.util.List;
 
 import net.minecraft.util.text.TextFormatting;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryPiece;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.RecipeError;
 
 public class InventoryPieceRecipeError extends InventoryPiece<InventoryCraftingMachine> {
 

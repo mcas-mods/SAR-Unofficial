@@ -7,11 +7,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
+import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.FluidTankSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryPieceTemperatureGauge;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.pieces.InventoryPieceTemperatureGauge;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MultiblockMachineType;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
 public class ControllerAlloyFurnace extends MultiblockCraftingMachine<InventoryHeatable> {
@@ -84,7 +87,11 @@ public class ControllerAlloyFurnace extends MultiblockCraftingMachine<InventoryH
     }
 
     @Override
-    public String getUID() {
-        return uid;
+    public MultiblockMachineType getMachineType() {
+        if(!MachineType.machinesList.containsKey(uid)) {
+            MachineType.machinesList.put(uid, new MultiblockMachineType(uid, SARObjectHolder.alloy_furnace_frame,
+                    SARObjectHolder.alloy_furnace_fluid_input, SARObjectHolder.alloy_furnace_fluid_output));
+        }
+        return (MultiblockMachineType) MachineType.machinesList.get(uid);
     }
 }

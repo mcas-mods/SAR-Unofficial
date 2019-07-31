@@ -12,10 +12,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.machinesystem.SARMultiblockBase;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerSingleTank;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiSingleTank;
 
+//TODO Convert to inventory system
 public class ControllerTank extends SARMultiblockBase {
 
     public static final String uid = "tank";
@@ -86,8 +87,11 @@ public class ControllerTank extends SARMultiblockBase {
     }
 
     @Override
-    public String getUID() {
-        return uid;
+    public MultiblockMachineType getMachineType() {
+        if(!MachineType.machinesList.containsKey(uid)) {
+            MachineType.machinesList.put(uid, new MultiblockMachineType(uid));
+        }
+        return (MultiblockMachineType) MachineType.machinesList.get(uid);
     }
 
     @Override

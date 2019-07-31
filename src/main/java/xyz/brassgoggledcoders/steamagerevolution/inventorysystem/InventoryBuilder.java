@@ -3,7 +3,7 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.FluidTankSingleSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.pieces.InventoryPieceProgressBar;
 
 public class InventoryBuilder<INV extends InventoryBasic> {
 

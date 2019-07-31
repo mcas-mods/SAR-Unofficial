@@ -13,7 +13,11 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.FluidT
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.ItemStackHandlerSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.pieces.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MultiblockMachineType;
 
 public class ControllerDistiller extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
@@ -96,8 +100,11 @@ public class ControllerDistiller extends MultiblockCraftingMachine<InventoryCraf
     }
 
     @Override
-    public String getUID() {
-        return uid;
+    public MultiblockMachineType getMachineType() {
+        if(!MachineType.machinesList.containsKey(uid)) {
+            MachineType.machinesList.put(uid, new MultiblockMachineType(uid, SARObjectHolder.distiller_frame));
+        }
+        return (MultiblockMachineType) MachineType.machinesList.get(uid);
     }
 
 }

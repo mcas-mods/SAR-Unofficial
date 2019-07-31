@@ -12,6 +12,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.FluidT
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.ItemStackHandlerSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
 
 public class TileEntityFluidIO extends TileEntityInventory<InventoryBasic> implements ITickable {
 
@@ -92,8 +93,11 @@ public class TileEntityFluidIO extends TileEntityInventory<InventoryBasic> imple
     }
 
     @Override
-    public String getUID() {
-        return uid;
+    public MachineType getMachineType() {
+        if(!MachineType.machinesList.containsKey(uid)) {
+            MachineType.machinesList.put(uid, new MachineType(uid));
+        }
+        return MachineType.machinesList.get(uid);
     }
 
 }

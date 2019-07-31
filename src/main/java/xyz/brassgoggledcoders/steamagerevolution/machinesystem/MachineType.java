@@ -40,5 +40,4 @@ public class MachineType {
     public ItemStack getCatalyst() {
         return catalyst != null ? catalyst : ItemStack.EMPTY;
     }
-
 }

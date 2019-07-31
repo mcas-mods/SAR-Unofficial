@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.pieces;
 
 import java.awt.Color;
 import java.util.List;

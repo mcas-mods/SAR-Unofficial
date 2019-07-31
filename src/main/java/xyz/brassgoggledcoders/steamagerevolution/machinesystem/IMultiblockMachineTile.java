@@ -1,5 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.machinesystem;
 
+@Deprecated // FIXME
 public interface IMultiblockMachineTile {
     public IMultiblockMachine getControllerInfo();
 

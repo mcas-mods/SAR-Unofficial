@@ -14,7 +14,6 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.Inventor
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
 
 public class SARRecipeCategory implements IRecipeCategory<MachineRecipe> {
 
@@ -36,12 +35,12 @@ public class SARRecipeCategory implements IRecipeCategory<MachineRecipe> {
 
     @Override
     public String getUid() {
-        return SteamAgeRevolution.MODID + ":" + machine.getUID();
+        return SteamAgeRevolution.MODID + ":" + machine.getMachineType().getUID();
     }
 
     @Override
     public String getTitle() {
-        return MachineType.machinesList.get(machine.getUID()).getLocalizedName();
+        return machine.getMachineType().getLocalizedName();
     }
 
     @Override

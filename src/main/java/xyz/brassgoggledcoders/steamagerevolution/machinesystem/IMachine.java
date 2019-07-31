@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 //Convenience interface for allowing access to world and position of TE/Multiblock/Entity machines.
 public interface IMachine {
 
-    String getUID();
+    public MachineType getMachineType();
 
     public World getMachineWorld();
 

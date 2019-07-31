@@ -17,7 +17,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.FluidT
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.*;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 
-//TODO add validation to throw errors if duplicate or empty names are used
+//TODO Convert as much of InventorySystem to flyweight as possible. Two seperate classes, InventoryShape and InventoryContents?
 @SuppressWarnings("rawtypes")
 public class InventoryBasic implements ICapabilitySerializable<NBTTagCompound> {
 

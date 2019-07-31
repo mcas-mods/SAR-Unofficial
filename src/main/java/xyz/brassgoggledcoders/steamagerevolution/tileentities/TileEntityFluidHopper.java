@@ -18,6 +18,7 @@ import xyz.brassgoggledcoders.steamagerevolution.blocks.BlockFluidHopper;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.FluidTankSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
 
 //TODO Switch to inventory system
 public class TileEntityFluidHopper extends TileEntityInventory<InventoryBasic> implements ITickable {
@@ -125,7 +126,10 @@ public class TileEntityFluidHopper extends TileEntityInventory<InventoryBasic> i
     }
 
     @Override
-    public String getUID() {
-        return uid;
+    public MachineType getMachineType() {
+        if(!MachineType.machinesList.containsKey(uid)) {
+            MachineType.machinesList.put(uid, new MachineType(uid));
+        }
+        return MachineType.machinesList.get(uid);
     }
 }

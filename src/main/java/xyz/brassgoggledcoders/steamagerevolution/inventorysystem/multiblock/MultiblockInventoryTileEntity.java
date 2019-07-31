@@ -12,6 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MultiblockMachineType;
 import xyz.brassgoggledcoders.steamagerevolution.machinesystem.SARMultiblockTileBase;
 
 public abstract class MultiblockInventoryTileEntity<MB extends MultiblockCraftingMachine<? extends InventoryCraftingMachine>>
@@ -65,8 +66,8 @@ public abstract class MultiblockInventoryTileEntity<MB extends MultiblockCraftin
     }
 
     @Override
-    public String getUID() {
-        return this.getMultiblockController().getUID();
+    public MultiblockMachineType getMachineType() {
+        return this.getMultiblockController().getMachineType();
     }
 
     @Override
