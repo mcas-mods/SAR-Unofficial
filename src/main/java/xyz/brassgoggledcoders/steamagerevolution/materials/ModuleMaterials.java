@@ -2,7 +2,9 @@ package xyz.brassgoggledcoders.steamagerevolution.materials;
 
 import java.awt.Color;
 import java.util.Arrays;
+import java.util.List;
 
+import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.Base;
 import com.teamacronymcoders.base.materialsystem.*;
 import com.teamacronymcoders.base.materialsystem.materials.MaterialBuilder;
@@ -27,6 +29,7 @@ public class ModuleMaterials extends ModuleBase {
 			"nugget", "plate", "dust", "block", "molten", "lattice" };
 	String[] alloyParts = Arrays.copyOfRange(metalParts, 6, metalParts.length);
 	String[] compatParts = new String[] { "crushed_ore", "solution", "crystal", "lattice", "ore_rock" };
+    public static List<String> knownMetalTypes = Lists.newArrayList();
 	public static String[] heavyOreMaterials = { "iron", "gold", "copper", "zinc" };
 
 	@Override

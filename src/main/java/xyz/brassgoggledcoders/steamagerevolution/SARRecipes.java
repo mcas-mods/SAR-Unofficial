@@ -104,7 +104,7 @@ public class SARRecipes {
 				.setFluidOutputs(FluidRegistry.getFluidStack("steel", RecipeUtil.VALUE_BLOCK))
 				.setSteamCost(Fluid.BUCKET_VOLUME * 10).setCraftTime(6000).build();
 
-		for(String metal : SteamAgeRevolution.knownMetalTypes) {
+		for(String metal : ModuleMaterials.knownMetalTypes) {
 
 			// Known to be non-null because it is how metal types are known
 			String ingot = "ingot" + metal;
@@ -211,7 +211,7 @@ public class SARRecipes {
 		// TODO Tooltip/Color for fluid (when IE not present) & potion deriving name
 		// from vanilla
 		new MachineRecipeBuilder(ControllerVat.uid)
-				.setFluidOutputs(SteamAgeRevolution.getPotionFluidStack(PotionTypes.AWKWARD.getRegistryName().getPath(),
+				.setFluidOutputs(SARBlocks.getPotionFluidStack(PotionTypes.AWKWARD.getRegistryName().getPath(),
 						RecipeUtil.VALUE_BOTTLE))
 				.setFluidInputs(FluidRegistry.getFluidStack("water", RecipeUtil.VALUE_BOTTLE))
 				.setItemInputs(new ItemStack(Items.NETHER_WART)).build();
@@ -234,9 +234,9 @@ public class SARRecipes {
 			for(Object mixPredicate : PotionHelper.POTION_TYPE_CONVERSIONS) {
 				PotionType outputObj = ((IRegistryDelegate<PotionType>) output.get(mixPredicate)).get();
 				new MachineRecipeBuilder("vat")
-						.setFluidOutputs(SteamAgeRevolution.getPotionFluidStack(outputObj.getRegistryName().getPath(),
+						.setFluidOutputs(SARBlocks.getPotionFluidStack(outputObj.getRegistryName().getPath(),
 								RecipeUtil.VALUE_BOTTLE))
-						.setFluidInputs(SteamAgeRevolution
+						.setFluidInputs(SARBlocks
 								.getPotionFluidStack(((IRegistryDelegate<PotionType>) input.get(mixPredicate)).get()
 										.getRegistryName().getPath(), RecipeUtil.VALUE_BOTTLE))
 						.setItemInputs(((Ingredient) reagent.get(mixPredicate)).getMatchingStacks()[0]).build();

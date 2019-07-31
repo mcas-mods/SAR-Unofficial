@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.SARBlocks;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerSync;
 import xyz.brassgoggledcoders.steamagerevolution.machines.BlockMultiblockBase;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.ControllerGrinder;
@@ -57,7 +57,7 @@ public class BlockGrinderInput extends BlockMultiblockBase<TileEntityGrinderInpu
 				}
 			}
 		}
-		entityIn.attackEntityFrom(SteamAgeRevolution.damageSourceGrinder, damage);
+		entityIn.attackEntityFrom(SARBlocks.damageSourceGrinder, damage);
 	}
 
 	@Override

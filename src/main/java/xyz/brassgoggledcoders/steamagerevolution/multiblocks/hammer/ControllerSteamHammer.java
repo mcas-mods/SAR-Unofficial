@@ -14,8 +14,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
-import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.*;
@@ -107,7 +106,7 @@ public class ControllerSteamHammer extends MultiblockCraftingMachine<InventoryCr
 				SoundCategory.BLOCKS, 1F, 1F);
 		SteamAgeRevolution.proxy.spawnFX(EnumParticleTypes.FLAME, center);
 		WORLD.getEntitiesWithinAABB(EntityLivingBase.class, interior).forEach(
-				entity -> entity.attackEntityFrom(SteamAgeRevolution.damageSourceHammer, entity.getMaxHealth()));
+				entity -> entity.attackEntityFrom(SARBlocks.damageSourceHammer, entity.getMaxHealth()));
 	}
 
 	@Override

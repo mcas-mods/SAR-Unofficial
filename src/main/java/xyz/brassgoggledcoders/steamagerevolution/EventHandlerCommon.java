@@ -8,6 +8,7 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
+import xyz.brassgoggledcoders.steamagerevolution.materials.ModuleMaterials;
 
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class EventHandlerCommon {
@@ -18,8 +19,8 @@ public class EventHandlerCommon {
         if(splitName.length == 2) {
             if(splitName[0].equals("ingot")) {
                 String metalType = splitName[1];
-                if(!SteamAgeRevolution.knownMetalTypes.contains(metalType)) {
-                    SteamAgeRevolution.knownMetalTypes.add(metalType);
+                if(!ModuleMaterials.knownMetalTypes.contains(metalType)) {
+                    ModuleMaterials.knownMetalTypes.add(metalType);
                     SteamAgeRevolution.instance.getLogger().devInfo("Metal type detected: " + metalType);
                 }
             }
@@ -45,8 +46,8 @@ public class EventHandlerCommon {
     // Acidic fluids deal extra damage to armour
     @SubscribeEvent
     public static void onLivingHurt(LivingDamageEvent event) {
-        if(event.getSource() == SteamAgeRevolution.damageSourceAcid
-                || event.getSource() == SteamAgeRevolution.damageSourceGas) {
+        if(event.getSource() == SARBlocks.damageSourceAcid
+                || event.getSource() == SARBlocks.damageSourceGas) {
             EntityLivingBase living = event.getEntityLiving();
             living.getArmorInventoryList()
                     .forEach(stack -> stack.damageItem(living.getEntityWorld().rand.nextInt(5), living));

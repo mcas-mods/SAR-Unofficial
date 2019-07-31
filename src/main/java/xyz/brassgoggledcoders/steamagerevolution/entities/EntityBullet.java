@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.SARBlocks;
 
 public class EntityBullet extends EntityThrowable {
 
@@ -19,7 +19,7 @@ public class EntityBullet extends EntityThrowable {
 	@Override
 	protected void onImpact(RayTraceResult result) {
 		if (result.typeOfHit == RayTraceResult.Type.ENTITY) {
-			result.entityHit.attackEntityFrom(SteamAgeRevolution.damageSourceBullet, 5F);
+			result.entityHit.attackEntityFrom(SARBlocks.damageSourceBullet, 5F);
 		}
 	}
 
