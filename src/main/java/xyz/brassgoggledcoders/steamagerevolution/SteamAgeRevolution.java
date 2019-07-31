@@ -179,8 +179,10 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
                 Side.CLIENT);
         SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerGUITankInteract.class,
                 PacketGUITankInteract.class, Side.SERVER);
-        SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerSetBoilerValue.class,
-                PacketSetBoilerValue.class, Side.CLIENT);
+        SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerSetTemperature.class,
+                PacketSetTemperature.class, Side.CLIENT);
+        SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerSetBurnTime.class, PacketSetBurnTime.class,
+                Side.CLIENT);
         SARCaps.register();
         proxy.preInit(event);
         SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class, "CONFIG").addEntry("plateCount",

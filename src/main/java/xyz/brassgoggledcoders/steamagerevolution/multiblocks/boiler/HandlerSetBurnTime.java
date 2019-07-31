@@ -4,12 +4,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
-import xyz.brassgoggledcoders.steamagerevolution.SARCaps;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities.TileEntityBoilerPart;
 
-public class HandlerSetBoilerValue implements IMessageHandler<PacketSetBoilerValue, IMessage> {
+public class HandlerSetBurnTime implements IMessageHandler<PacketSetBurnTime, IMessage> {
     @Override
-    public IMessage onMessage(PacketSetBoilerValue message, MessageContext ctx) {
+    public IMessage onMessage(PacketSetBurnTime message, MessageContext ctx) {
         Minecraft minecraft = Minecraft.getMinecraft();
         final WorldClient worldClient = minecraft.world;
         minecraft.addScheduledTask(new Runnable() {
@@ -21,16 +20,10 @@ public class HandlerSetBoilerValue implements IMessageHandler<PacketSetBoilerVal
         return null;
     }
 
-    private void processMessage(WorldClient worldClient, PacketSetBoilerValue message) {
+    private void processMessage(WorldClient worldClient, PacketSetBurnTime message) {
         TileEntity te = worldClient.getTileEntity(message.pos);
         if(te instanceof TileEntityBoilerPart) {
-            if(message.isTemp) {
-                ((TileEntityBoilerPart) te).getMultiblockController().getInventory()
-                        .getCapability(SARCaps.HEATABLE, null).setCurrentTemperature(message.value);
-            }
-            else {
-                ((TileEntityBoilerPart) te).getMultiblockController().currentBurnTime = message.value;
-            }
+            ((TileEntityBoilerPart) te).getMultiblockController().currentBurnTime = message.value;
         }
     }
 }

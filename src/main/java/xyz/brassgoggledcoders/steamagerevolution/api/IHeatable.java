@@ -5,15 +5,13 @@ import net.minecraftforge.common.util.INBTSerializable;
 
 public interface IHeatable extends INBTSerializable<NBTTagCompound> {
 
-    public static double ZERO_CELCIUS = 273.15;
+    public int getCurrentTemperature();
 
-    public double getCurrentTemperature();
+    public int getMaximumTemperature();
 
-    public double getMaximumTemperature();
+    public int getMinimumTemperature();
 
-    public double getMinimumTemperature();
-
-    void setCurrentTemperature(int currentTemperature);
+    void setCurrentTemperature(int temp);
 
     boolean heat(int by);
 }

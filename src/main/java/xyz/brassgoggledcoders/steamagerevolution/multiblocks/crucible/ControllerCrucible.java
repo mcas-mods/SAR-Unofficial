@@ -7,9 +7,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryPieceProgressBar;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.InventoryPieceTemperatureGauge;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.*;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
 public class ControllerCrucible extends MultiblockCraftingMachine<InventoryHeatable> {

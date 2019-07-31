@@ -9,7 +9,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.Inventor
 public class InventoryPieceBurnTime extends InventoryPiece<InventoryCraftingMachine> {
 
     public InventoryPieceBurnTime(int xPos, int yPos) {
-        super(xPos, yPos, 92, 166, 13, 13, 0);
+        super(xPos, yPos, 94, 166, 13, 13, 0);
     }
 
     @Override

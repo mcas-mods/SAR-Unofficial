@@ -8,7 +8,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.Heatable;
 import xyz.brassgoggledcoders.steamagerevolution.api.IHeatable;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.PacketSetBoilerValue;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.PacketSetBurnTime;
 
 public class InventoryHeatable extends InventoryCraftingMachine {
     public IHeatable internal;
@@ -20,9 +20,10 @@ public class InventoryHeatable extends InventoryCraftingMachine {
 
     @Override
     public boolean updateServer() {
+        // TODO
         SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-                new PacketSetBoilerValue(this.enclosingMachine.getMachinePos(),
-                        (int) getCapability(SARCaps.HEATABLE, null).getCurrentTemperature(), true),
+                new PacketSetBurnTime(this.enclosingMachine.getMachinePos(),
+                        (int) getCapability(SARCaps.HEATABLE, null).getCurrentTemperature()),
                 enclosingMachine.getMachinePos(), enclosingMachine.getMachineWorld().provider.getDimension());
         return super.updateServer();
     }

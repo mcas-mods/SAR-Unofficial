@@ -16,6 +16,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryPieceTemperatureGauge;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities.TileEntityBoilerGauge;
 
@@ -58,12 +59,8 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatabl
     protected boolean updateServer() {
         // Temp
         SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-                new PacketSetBoilerValue(this.getMachinePos(), this.currentBurnTime, false), this.getMachinePos(),
+                new PacketSetBurnTime(this.getMachinePos(), this.currentBurnTime), this.getMachinePos(),
                 this.getMachineWorld().provider.getDimension());
-        SteamAgeRevolution.instance.getPacketHandler()
-                .sendToAllAround(new PacketSetBoilerValue(this.getMachinePos(),
-                        (int) this.getInventory().getCapability(SARCaps.HEATABLE, null).getCurrentTemperature(), true),
-                        this.getMachinePos(), this.getMachineWorld().provider.getDimension());
         // Stage 1 - Burn fuel
         if(currentBurnTime == 0) {
             IItemHandler solidFuelHandler = this.getInventory().getHandler("solidFuel", ItemStackHandlerSync.class);

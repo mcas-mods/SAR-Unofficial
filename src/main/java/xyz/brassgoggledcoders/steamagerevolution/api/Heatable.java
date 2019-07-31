@@ -6,8 +6,8 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class Heatable implements IHeatable {
 
-    double maxTemp;
-    double temperature;
+    int maxTemp;
+    int temperature;
 
     public Heatable() {
         this(100);
@@ -20,28 +20,28 @@ public class Heatable implements IHeatable {
     @Override
     public NBTTagCompound serializeNBT() {
         NBTTagCompound tag = new NBTTagCompound();
-        tag.setDouble("temp", temperature);
+        tag.setInteger("temp", temperature);
         return tag;
     }
 
     @Override
     public void deserializeNBT(NBTTagCompound nbt) {
-        temperature = nbt.getDouble("temperature");
+        temperature = nbt.getInteger("temperature");
     }
 
     @Override
-    public double getCurrentTemperature() {
+    public int getCurrentTemperature() {
         return temperature;
     }
 
     @Override
-    public double getMaximumTemperature() {
+    public int getMaximumTemperature() {
         return 100;
     }
 
     @Override
-    public double getMinimumTemperature() {
-        return IHeatable.ZERO_CELCIUS;
+    public int getMinimumTemperature() {
+        return 0;
     }
 
     @Override
@@ -52,6 +52,7 @@ public class Heatable implements IHeatable {
         }
     }
 
+    // Returns true if at max heat
     @Override
     public boolean heat(int by) {
         if(temperature >= maxTemp) {

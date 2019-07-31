@@ -9,9 +9,9 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SARCaps;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryPieceTemperatureGauge;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.TileEntityCraftingMachine;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.InventoryPieceTemperatureGauge;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.PacketSetBoilerValue;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.PacketSetBurnTime;
 
 public class TileEntityHeater extends TileEntityCraftingMachine<InventoryHeatable> implements ITickable {
 
@@ -27,10 +27,9 @@ public class TileEntityHeater extends TileEntityCraftingMachine<InventoryHeatabl
         if(!this.getWorld().isRemote) {
             SteamAgeRevolution.instance.getPacketHandler()
                     .sendToAllAround(
-                            new PacketSetBoilerValue(this.getMachinePos(),
+                            new PacketSetBurnTime(this.getMachinePos(),
                                     (int) this.getInventory().getCapability(SARCaps.HEATABLE, null)
-                                            .getCurrentTemperature(),
-                                    true),
+                                            .getCurrentTemperature()),
                             this.getMachinePos(), this.getMachineWorld().provider.getDimension());
             if(this.getInventory().getFluidHandlers().get(0).getFluidAmount() > 0) {
                 this.getInventory().internal.setCurrentTemperature(1000);

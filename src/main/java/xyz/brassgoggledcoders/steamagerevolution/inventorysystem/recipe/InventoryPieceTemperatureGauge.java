@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler;
+package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe;
 
 import java.awt.Color;
 import java.util.List;
@@ -10,11 +10,12 @@ import xyz.brassgoggledcoders.steamagerevolution.SARCaps;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryHeatable;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryPiece;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GUIInventory;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.ControllerBoiler;
 
 public class InventoryPieceTemperatureGauge extends InventoryPiece<InventoryHeatable> {
 
     public InventoryPieceTemperatureGauge(int xPos, int yPos) {
-        super(xPos, yPos, 88, 166, 4, 44, -1);
+        super(xPos, yPos, 88, 166, 6, 44, -1);
     }
 
     @Override
@@ -25,8 +26,8 @@ public class InventoryPieceTemperatureGauge extends InventoryPiece<InventoryHeat
                             / this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getMaximumTemperature())
                             * getGUIElement().height);
             gui.drawGradientRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY() + scaled + getOffset(),
-                    gui.guiLeft + this.getX() + this.getGUIElement().width + getOffset() * 2,
-                    gui.guiTop + this.getY() + this.getGUIElement().height + getOffset() * 2, Color.RED.getRGB(),
+                    gui.guiLeft + this.getX() + this.getGUIElement().width + getOffset(),
+                    gui.guiTop + this.getY() + this.getGUIElement().height + getOffset(), Color.RED.getRGB(),
                     Color.BLUE.getRGB());
         }
         super.backgroundLayerCallback(gui, partialTicks, mouseX, mouseY);
@@ -40,17 +41,17 @@ public class InventoryPieceTemperatureGauge extends InventoryPiece<InventoryHeat
                 String unit = new TextComponentTranslation("info.tempunit").getFormattedText();
                 if(unit.contains("F") && !GuiScreen.isShiftKeyDown()) {
                     tips.add("Temperature: "
-                            + celsiusToFarenheit(this.enclosingInv.getCapability(SARCaps.HEATABLE, null)
-                                    .getCurrentTemperature())
-                            + unit + "/" + celsiusToFarenheit(this.enclosingInv
-                                    .getCapability(SARCaps.HEATABLE, null).getMaximumTemperature())
+                            + celsiusToFarenheit(
+                                    this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getCurrentTemperature())
+                            + unit + "/"
+                            + celsiusToFarenheit(
+                                    this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getMaximumTemperature())
                             + unit);
                 }
                 else {
                     tips.add("Temperature: "
-                            + this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getCurrentTemperature()
-                            + unit + "/"
-                            + this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getMaximumTemperature()
+                            + this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getCurrentTemperature() + unit
+                            + "/" + this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getMaximumTemperature()
                             + unit);
                 }
             }
