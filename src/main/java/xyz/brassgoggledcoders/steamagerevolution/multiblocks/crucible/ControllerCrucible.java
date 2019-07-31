@@ -12,7 +12,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.Multiblo
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.pieces.InventoryPieceProgressBar;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.pieces.InventoryPieceTemperatureGauge;
 import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
-import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MultiblockMachineType;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.MultiblockMachineType;
 import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
 public class ControllerCrucible extends MultiblockCraftingMachine<InventoryHeatable> {

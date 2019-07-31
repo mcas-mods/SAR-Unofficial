@@ -1,7 +1,9 @@
-package xyz.brassgoggledcoders.steamagerevolution.machinesystem;
+package xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock;
 
 import com.teamacronymcoders.base.multiblocksystem.rectangular.RectangularMultiblockTileEntityBase;
 import com.teamacronymcoders.base.multiblocksystem.validation.IMultiblockValidator;
+
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
 
 public abstract class SARMultiblockTileBase<T extends SARMultiblockBase> extends RectangularMultiblockTileEntityBase<T>
 		implements IMultiblockMachineTile {

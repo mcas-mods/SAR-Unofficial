@@ -12,8 +12,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
-import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MultiblockMachineType;
-import xyz.brassgoggledcoders.steamagerevolution.machinesystem.SARMultiblockTileBase;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.MultiblockMachineType;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.SARMultiblockTileBase;
 
 public abstract class MultiblockInventoryTileEntity<MB extends MultiblockCraftingMachine<? extends InventoryCraftingMachine>>
         extends SARMultiblockTileBase<MB> implements IHasInventory<InventoryCraftingMachine> {

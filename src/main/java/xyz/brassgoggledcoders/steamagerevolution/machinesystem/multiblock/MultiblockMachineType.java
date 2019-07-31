@@ -1,10 +1,11 @@
-package xyz.brassgoggledcoders.steamagerevolution.machinesystem;
+package xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock;
 
 import java.util.List;
 
 import com.google.common.collect.Lists;
 
 import net.minecraft.block.Block;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
 
 public class MultiblockMachineType extends MachineType {
 

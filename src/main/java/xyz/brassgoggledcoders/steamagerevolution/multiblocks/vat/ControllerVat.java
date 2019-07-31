@@ -23,7 +23,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.Inventor
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
-import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MultiblockMachineType;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.MultiblockMachineType;
 
 public class ControllerVat extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 

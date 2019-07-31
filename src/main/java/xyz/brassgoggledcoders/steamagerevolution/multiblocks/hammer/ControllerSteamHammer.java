@@ -22,7 +22,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.Inventor
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.pieces.InventoryPieceProgressBar;
 import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
-import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MultiblockMachineType;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.MultiblockMachineType;
 
 public class ControllerSteamHammer extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 

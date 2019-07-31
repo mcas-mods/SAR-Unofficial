@@ -15,6 +15,8 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.ItemStackHandlerSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.machinesystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.IMultiblockMachine;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.MultiblockMachineType;
 
 //TODO Implement a stripped down version of the multiblock API specifically meant for tubes
 //TODO Do some magic to make adjacent tube networks merge under one controller

@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.machinesystem;
+package xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock;
 
 @Deprecated // FIXME
 public interface IMultiblockMachineTile {

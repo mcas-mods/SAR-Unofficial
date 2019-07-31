@@ -1,4 +1,4 @@
-package xyz.brassgoggledcoders.steamagerevolution.machinesystem;
+package xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,7 +29,10 @@ public abstract class SARMultiblockBase extends RectangularMultiblockControllerB
                 .map(part -> WORLD.getBlockState(part.getWorldPosition()).getBlock()).collect(Collectors.toList());
         if(!connectedBlocks.containsAll(this.getMachineType().getRequiredParts())) {
             validatorCallback
-                    .setLastError(new ValidationError("steamagerevolution.multiblock.validation.missingrequired", ""));// TODO
+                    .setLastError(new ValidationError("steamagerevolution.multiblock.validation.missingrequired",
+                            this.getMachineType().getRequiredParts().stream()
+                                    .filter(required -> !connectedBlocks.contains(required))
+                                    .map(missing -> missing.getLocalizedName()).findFirst().orElse("ERROR")));// TODO
             return false;
         }
 

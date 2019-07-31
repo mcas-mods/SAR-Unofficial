@@ -9,7 +9,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.machinesystem.SARMultiblockTileBase;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.SARMultiblockTileBase;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.tank.ControllerTank;
 
 public abstract class TileEntityTankPart extends SARMultiblockTileBase<ControllerTank> {

@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.items.ItemDie;
-import xyz.brassgoggledcoders.steamagerevolution.machinesystem.BlockMultiblockBase;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.BlockMultiblockBase;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.tileentities.TileEntitySteamHammerHammer;
 
 public class BlockSteamHammerHammer extends BlockMultiblockBase<TileEntitySteamHammerHammer> {

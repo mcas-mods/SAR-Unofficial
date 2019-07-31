@@ -14,7 +14,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.ContainerInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GUIInventory;
-import xyz.brassgoggledcoders.steamagerevolution.machinesystem.SARMultiblockBase;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.SARMultiblockBase;
 
 public abstract class MultiblockInventory<INV extends InventoryBasic> extends SARMultiblockBase
         implements IHasInventory<INV> {

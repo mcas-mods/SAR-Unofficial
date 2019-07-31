@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.machinesystem.BlockMultiblockBase;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.BlockMultiblockBase;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.tank.ControllerTank;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.tank.tileentities.TileEntityTankWindow;
 
