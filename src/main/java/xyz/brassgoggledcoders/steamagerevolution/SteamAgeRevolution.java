@@ -19,13 +19,15 @@ import net.minecraft.init.*;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.common.config.Property.Type;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -77,22 +79,22 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
     static {
         FluidRegistry.enableUniversalBucket();
         // TODO Blehhh
-        IMachine.referenceMachinesList.put(ControllerAlloyFurnace.class, new ControllerAlloyFurnace(null));
-        IMachine.referenceMachinesList.put(ControllerBoiler.class, new ControllerBoiler(null));
-        IMachine.referenceMachinesList.put(ControllerCrucible.class, new ControllerCrucible(null));
-        IMachine.referenceMachinesList.put(ControllerDistiller.class, new ControllerDistiller(null));
-        IMachine.referenceMachinesList.put(ControllerSteamFurnace.class, new ControllerSteamFurnace(null));
-        IMachine.referenceMachinesList.put(ControllerGrinder.class, new ControllerGrinder(null));
-        IMachine.referenceMachinesList.put(ControllerSteamHammer.class, new ControllerSteamHammer(null));
-        IMachine.referenceMachinesList.put(ControllerSteelworks.class, new ControllerSteelworks(null));
-        IMachine.referenceMachinesList.put(ControllerTank.class, new ControllerTank(null));
-        IMachine.referenceMachinesList.put(ControllerVat.class, new ControllerVat(null));
-        IMachine.referenceMachinesList.put(TileEntityCastingBench.class, new TileEntityCastingBench());
-        IMachine.referenceMachinesList.put(TileEntityFluidHopper.class, new TileEntityFluidHopper());
-        IMachine.referenceMachinesList.put(TileEntityFluidIO.class, new TileEntityFluidIO());
-        IMachine.referenceMachinesList.put(TileEntityFumeCollector.class, new TileEntityFumeCollector());
-        IMachine.referenceMachinesList.put(ControllerTubeNetwork.class, new ControllerTubeNetwork(null));
-        IMachine.referenceMachinesList.put(TileEntityHeater.class, new TileEntityHeater());
+        IMachine.referenceMachinesList.put(ControllerAlloyFurnace.uid, new ControllerAlloyFurnace(null));
+        IMachine.referenceMachinesList.put(ControllerBoiler.uid, new ControllerBoiler(null));
+        IMachine.referenceMachinesList.put(ControllerCrucible.uid, new ControllerCrucible(null));
+        IMachine.referenceMachinesList.put(ControllerDistiller.uid, new ControllerDistiller(null));
+        IMachine.referenceMachinesList.put(ControllerSteamFurnace.uid, new ControllerSteamFurnace(null));
+        IMachine.referenceMachinesList.put(ControllerGrinder.uid, new ControllerGrinder(null));
+        IMachine.referenceMachinesList.put(ControllerSteamHammer.uid, new ControllerSteamHammer(null));
+        IMachine.referenceMachinesList.put(ControllerSteelworks.uid, new ControllerSteelworks(null));
+        IMachine.referenceMachinesList.put(ControllerTank.uid, new ControllerTank(null));
+        IMachine.referenceMachinesList.put(ControllerVat.uid, new ControllerVat(null));
+        IMachine.referenceMachinesList.put(TileEntityCastingBench.uid, new TileEntityCastingBench());
+        IMachine.referenceMachinesList.put(TileEntityFluidHopper.uid, new TileEntityFluidHopper());
+        IMachine.referenceMachinesList.put(TileEntityFluidIO.uid, new TileEntityFluidIO());
+        IMachine.referenceMachinesList.put(TileEntityFumeCollector.uid, new TileEntityFumeCollector());
+        IMachine.referenceMachinesList.put(ControllerTubeNetwork.uid, new ControllerTubeNetwork(null));
+        IMachine.referenceMachinesList.put(TileEntityHeater.uid, new TileEntityHeater());
     }
 
     public static final ToolMaterial STEAM = EnumHelper.addToolMaterial("TOOL_STEAM", 2, -1, 12.0F, 3.0F, 0);

@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.machines;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -10,23 +11,23 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 public interface IMachine {
 
-	// A single instance of each class extending this interface should be added to
-	// this list (ex. in static init on the extending class) for Reasons. (of
-	// automatic JEI support and that)
-	static HashMap<Class<? extends IMachine>, IMachine> referenceMachinesList = new HashMap<Class<? extends IMachine>, IMachine>();
+    // A single instance of each class extending this interface should be added to
+    // this list (ex. in static init on the extending class) for Reasons. (of
+    // automatic JEI support and that)
+    static Map<String, IMachine> referenceMachinesList = new HashMap<String, IMachine>();
 
-	public String getUID();
+    public String getUID();
 
-	default String getLocalizedName() {
-		return new TextComponentTranslation(SteamAgeRevolution.MODID + ".machine." + getUID()).getFormattedText();
-	}
+    default String getLocalizedName() {
+        return new TextComponentTranslation(SteamAgeRevolution.MODID + ".machine." + getUID()).getFormattedText();
+    }
 
-	public World getMachineWorld();
+    public World getMachineWorld();
 
-	public BlockPos getMachinePos();
+    public BlockPos getMachinePos();
 
-	// FOR JEI
-	default ItemStack getCatalyst() {
-		return null;
-	}
+    // FOR JEI
+    default ItemStack getCatalyst() {
+        return null;
+    }
 }

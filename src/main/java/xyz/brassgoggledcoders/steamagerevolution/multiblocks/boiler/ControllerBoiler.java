@@ -21,7 +21,7 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities
 
 //TODO Implement a Railcraft-style mechanic where if a hot boiler runs out of water and then water is re-added without cooling down first...boom. 
 public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatable> {
-    private static final String uid = "boiler";
+    public static final String uid = "boiler";
 
     // The burn time in ticks that fuel would normally provide in the furnace is
     // divided by this amount to get the burn time said fuel provides in the boiler
@@ -61,11 +61,8 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatabl
                 new PacketSetBoilerValue(this.getMachinePos(), this.currentBurnTime, false), this.getMachinePos(),
                 this.getMachineWorld().provider.getDimension());
         SteamAgeRevolution.instance.getPacketHandler()
-                .sendToAllAround(
-                        new PacketSetBoilerValue(this.getMachinePos(),
-                                (int) this.getInventory().getCapability(SARCaps.HEATABLE, null)
-                                        .getCurrentTemperature(),
-                                true),
+                .sendToAllAround(new PacketSetBoilerValue(this.getMachinePos(),
+                        (int) this.getInventory().getCapability(SARCaps.HEATABLE, null).getCurrentTemperature(), true),
                         this.getMachinePos(), this.getMachineWorld().provider.getDimension());
         // Stage 1 - Burn fuel
         if(currentBurnTime == 0) {

@@ -22,7 +22,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.registries.IRegistryDelegate;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe.MachineRecipeBuilder;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipeBuilder;
 import xyz.brassgoggledcoders.steamagerevolution.materials.ModuleMaterials;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.ControllerAlloyFurnace;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.crucible.ControllerCrucible;

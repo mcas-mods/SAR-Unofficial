@@ -15,9 +15,7 @@ import crafttweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.RecipeRegistry;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe.MachineRecipeBuilder;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.*;
 
 public class MachineTweaker {
 

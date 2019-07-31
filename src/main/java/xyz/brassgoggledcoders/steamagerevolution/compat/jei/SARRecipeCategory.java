@@ -12,6 +12,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MachineRecipe;
 import xyz.brassgoggledcoders.steamagerevolution.machines.IMachine;
 
@@ -19,11 +20,11 @@ public class SARRecipeCategory implements IRecipeCategory<MachineRecipe> {
 
     protected static IGuiHelper helper;
 
-    IMachine machine;
+    IHasInventory<InventoryCraftingMachine> machine;
     IDrawableAnimated arrow;
 
-    public SARRecipeCategory(Class<? extends IMachine> machine) {
-        this.machine = IMachine.referenceMachinesList.get(machine);
+    public SARRecipeCategory(String uid) {
+        this.machine = (IHasInventory<InventoryCraftingMachine>) IMachine.referenceMachinesList.get(uid);
         IDrawableStatic arrowDrawable = helper.createDrawable(
                 new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/inventory.png"), 176, 83, 24, 17);
         this.arrow = helper.createAnimatedDrawable(arrowDrawable, 20, IDrawableAnimated.StartDirection.LEFT, false);

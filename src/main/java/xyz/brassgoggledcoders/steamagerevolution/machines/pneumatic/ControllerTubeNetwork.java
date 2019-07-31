@@ -25,6 +25,7 @@ public class ControllerTubeNetwork extends MultiblockControllerBase
     private InventoryBasic inventory;
     // TODO private boolean hasCache = false;
     public static int rate = 5;
+    public static final String uid = "pneumatic_tube_network";
 
     public ControllerTubeNetwork(World world) {
         super(world);
@@ -217,7 +218,7 @@ public class ControllerTubeNetwork extends MultiblockControllerBase
 
     @Override
     public String getUID() {
-        return "pneumatic_tube_network";
+        return uid;
     }
 
     @Override

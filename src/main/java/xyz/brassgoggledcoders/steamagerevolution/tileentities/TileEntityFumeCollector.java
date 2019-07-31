@@ -19,60 +19,60 @@ import xyz.brassgoggledcoders.steamagerevolution.recipes.FumeCollectorRecipe;
 
 //TODO add ability output to item placed in gui, and to item right clicked on block
 public class TileEntityFumeCollector extends TileEntityCraftingMachine<InventoryCraftingMachine> {
-	static final String uid = "fume_collector";
-	public static int outputCapacity = Fluid.BUCKET_VOLUME * 16;
+    public static final String uid = "fume_collector";
+    public static int outputCapacity = Fluid.BUCKET_VOLUME * 16;
 
-	public TileEntityFumeCollector() {
-		super();
-		this.setInventory(new InventoryBuilder<>(new InventoryCraftingMachine(this))
-				.addPiece("tank", new InventoryPieceFluidTank(IOType.OUTPUT, outputCapacity, 105, 11)).build());
-	}
+    public TileEntityFumeCollector() {
+        super();
+        this.setInventory(new InventoryBuilder<>(new InventoryCraftingMachine(this))
+                .addPiece("tank", new InventoryPieceFluidTank(IOType.OUTPUT, outputCapacity, 105, 11)).build());
+    }
 
-	@Override
-	public void update() {
-		if(getWorld().isRemote) {
-			return;
-		}
-		BlockPos below = getPos().down();
-		TileEntity te = getWorld().getTileEntity(below);
-		if(te != null && te.hasCapability(SARCaps.FUME_PRODUCER, EnumFacing.DOWN)) {
-			IFumeProducer producer = te.getCapability(SARCaps.FUME_PRODUCER, EnumFacing.DOWN);
-			if(producer.isBurning()) {
-				// SteamAgeRevolution.instance.getLogger().devInfo("Fume collector has burning
-				// producer");
-				ItemStack fuel = producer.getCurrentFuel();
-				if(!fuel.isEmpty()) {
-					FumeCollectorRecipe r = FumeCollectorRecipe.getRecipe(fuel);
-					if(r != null && getWorld().rand.nextFloat() < r.chance) {
-						FluidStack fume = r.output;
-						IFluidHandler tank = this.getInventory().getHandler("tank", FluidTankSync.class);
-						if(tank.fill(fume, false) == fume.amount) {
-							tank.fill(fume, true);
-							this.markMachineDirty();
-							this.sendBlockUpdate();
-						}
-					}
-				}
-			}
-		}
-	}
+    @Override
+    public void update() {
+        if(getWorld().isRemote) {
+            return;
+        }
+        BlockPos below = getPos().down();
+        TileEntity te = getWorld().getTileEntity(below);
+        if(te != null && te.hasCapability(SARCaps.FUME_PRODUCER, EnumFacing.DOWN)) {
+            IFumeProducer producer = te.getCapability(SARCaps.FUME_PRODUCER, EnumFacing.DOWN);
+            if(producer.isBurning()) {
+                // SteamAgeRevolution.instance.getLogger().devInfo("Fume collector has burning
+                // producer");
+                ItemStack fuel = producer.getCurrentFuel();
+                if(!fuel.isEmpty()) {
+                    FumeCollectorRecipe r = FumeCollectorRecipe.getRecipe(fuel);
+                    if(r != null && getWorld().rand.nextFloat() < r.chance) {
+                        FluidStack fume = r.output;
+                        IFluidHandler tank = this.getInventory().getHandler("tank", FluidTankSync.class);
+                        if(tank.fill(fume, false) == fume.amount) {
+                            tank.fill(fume, true);
+                            this.markMachineDirty();
+                            this.sendBlockUpdate();
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
-	}
+    @Override
+    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+        return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+    }
 
-	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
-					.cast(this.getInventory().getHandler("tank", FluidTankSync.class));
-		}
-		return super.getCapability(capability, facing);
-	}
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+        if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
+                    .cast(this.getInventory().getHandler("tank", FluidTankSync.class));
+        }
+        return super.getCapability(capability, facing);
+    }
 
-	@Override
-	public String getUID() {
-		return uid;
-	}
+    @Override
+    public String getUID() {
+        return uid;
+    }
 }
