@@ -1,24 +1,22 @@
 package xyz.brassgoggledcoders.steamagerevolution;
 
-import java.util.*;
+import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
 import com.mojang.authlib.GameProfile;
 import com.teamacronymcoders.base.BaseModFoundation;
 import com.teamacronymcoders.base.registrysystem.*;
-import com.teamacronymcoders.base.registrysystem.config.ConfigEntry;
-import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.init.*;
+import net.minecraft.init.Biomes;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraft.world.storage.loot.functions.LootFunctionManager;
-import net.minecraftforge.common.config.Property.Type;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -90,7 +88,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
-
+        proxy.preInit(event);
         getLibProxy().addSidedBlockDomain();
         proxy.registerModels();
         // Reminder - Side is the side you're sending to (recieving side)
@@ -107,17 +105,6 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
         SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerSetBurnTime.class, PacketSetBurnTime.class,
                 Side.CLIENT);
         SARCaps.register();
-        proxy.preInit(event);
-        SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class, "CONFIG").addEntry("plateCount",
-                new ConfigEntry("balance", "plateCount", Type.INTEGER, "1"));
-        SARRecipes.plateCount = SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class, "CONFIG")
-                .getInt("plateCount", 1);
-        SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class, "CONFIG").addEntry("dustCount",
-                new ConfigEntry("balance", "dustCount", Type.INTEGER, "1"));
-        SARRecipes.dustCount = SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class, "CONFIG")
-                .getInt("dustCount", 1);
-        SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class, "CONFIG").addCategoryComment("balance",
-                "Adjust number of items produced in recipes", "General");
         ModuleMaterials.knownMetalTypes.add("Iron");
         ModuleMaterials.knownMetalTypes.add("Gold");
 
@@ -171,5 +158,10 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
             super.displayAllRelevantItems(items);
             items.sort(new StackComparator());
         }
+    }
+
+    @Override
+    public boolean hasConfig() {
+        return false;
     }
 }

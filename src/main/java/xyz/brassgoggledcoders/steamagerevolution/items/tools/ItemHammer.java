@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.oredict.OreDictionary;
-import xyz.brassgoggledcoders.steamagerevolution.SARRecipes;
+import xyz.brassgoggledcoders.steamagerevolution.SARConfig;
 import xyz.brassgoggledcoders.steamagerevolution.utils.ItemPickaxeBase;
 
 public class ItemHammer extends ItemPickaxeBase {
@@ -30,12 +30,10 @@ public class ItemHammer extends ItemPickaxeBase {
         ItemStack dust = OreDictUtils.getPreferredItemStack(
                 "dust" + OreDictionary.getOreName(OreDictionary.getOreIDs(oreStack)[0]).substring(3));
         if(!dust.isEmpty()) {
-            // TODO Gotta be a better way to do this
-            for(int i = 0; i < SARRecipes.dustCount; i++) {
-                EntityItem entityitem = new EntityItem(player.world, pos.getX(), pos.getY(), pos.getZ(), dust);
-                entityitem.setDefaultPickupDelay();
-                player.world.spawnEntity(entityitem);
-            }
+            dust.setCount(SARConfig.balance.dustCount);
+            EntityItem entityitem = new EntityItem(player.world, pos.getX(), pos.getY(), pos.getZ(), dust);
+            entityitem.setDefaultPickupDelay();
+            player.world.spawnEntity(entityitem);
             player.world.setBlockToAir(pos);
             itemstack.damageItem(1, player);
             return true;

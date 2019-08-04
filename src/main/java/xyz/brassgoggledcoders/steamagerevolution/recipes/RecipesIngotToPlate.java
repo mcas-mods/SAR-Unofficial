@@ -14,7 +14,7 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
-import xyz.brassgoggledcoders.steamagerevolution.SARRecipes;
+import xyz.brassgoggledcoders.steamagerevolution.SARConfig;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.materials.ModuleMaterials;
 
@@ -58,7 +58,7 @@ public class RecipesIngotToPlate extends net.minecraftforge.registries.IForgeReg
                     String name = OreDictionary.getOreName(id);
                     if(name.contains("ingot")) {
                         ItemStack plate = OreDictUtils.getPreferredItemStack("plate" + name.substring(5));
-                        plate.setCount(SARRecipes.plateCount);
+                        plate.setCount(SARConfig.balance.plateCount);
                         return plate;
                     }
                 }

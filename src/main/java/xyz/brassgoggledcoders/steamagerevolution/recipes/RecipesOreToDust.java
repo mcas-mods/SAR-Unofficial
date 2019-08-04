@@ -14,7 +14,7 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
-import xyz.brassgoggledcoders.steamagerevolution.SARRecipes;
+import xyz.brassgoggledcoders.steamagerevolution.SARConfig;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.materials.ModuleMaterials;
 
@@ -58,7 +58,7 @@ public class RecipesOreToDust extends net.minecraftforge.registries.IForgeRegist
                     String name = OreDictionary.getOreName(id);
                     if(name.contains("ore")) {
                         ItemStack dust = OreDictUtils.getPreferredItemStack("dust" + name.substring(3));
-                        dust.setCount(SARRecipes.dustCount);
+                        dust.setCount(SARConfig.balance.dustCount);
                         return dust;
                     }
                 }

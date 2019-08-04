@@ -40,8 +40,6 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class SARRecipes {
 
-    public static int plateCount, dustCount;
-
     @SuppressWarnings("unchecked")
     @SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
@@ -86,6 +84,7 @@ public class SARRecipes {
         new MachineRecipeBuilder(ControllerGrinder.uid).setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(10)
                 .setItemInputs(new ItemStack(Blocks.GRAVEL)).setItemOutputs(new ItemStack(Blocks.SAND))
                 .setSteamCost(Fluid.BUCKET_VOLUME / 10).setSteamCost(Fluid.BUCKET_VOLUME / 10).setCraftTime(10).build();
+        // TODO Add metal -> dust recipes to grinder!
 
         new MachineRecipeBuilder(ControllerAlloyFurnace.uid)
                 .setFluidInputs(FluidRegistry.getFluidStack("copper", RecipeUtil.VALUE_INGOT),
@@ -147,7 +146,7 @@ public class SARRecipes {
             }
             if(!plateStack.isEmpty()) {
                 ItemStack plateCopy = plateStack.copy();
-                plateCopy.setCount(plateCount);
+                plateCopy.setCount(SARConfig.balance.plateCount);
                 new MachineRecipeBuilder(ControllerSteamHammer.uid).setItemInputs(ingot).setItemOutputs(plateCopy)
                         .setSteamCost(Fluid.BUCKET_VOLUME / 4).setCraftTime(20).build();
             }
