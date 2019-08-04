@@ -8,23 +8,23 @@ import xyz.brassgoggledcoders.steamagerevolution.SARCaps;
 
 public class FurnaceCapabilityProvider implements ICapabilityProvider {
 
-	TileEntityFurnace tile;
+    TileEntityFurnace tile;
 
-	public FurnaceCapabilityProvider(TileEntityFurnace tile) {
-		this.tile = tile;
-	}
+    public FurnaceCapabilityProvider(TileEntityFurnace tile) {
+        this.tile = tile;
+    }
 
-	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		return capability == SARCaps.FUME_PRODUCER;
-	}
+    @Override
+    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+        return capability == SARCaps.FUME_PRODUCER;
+    }
 
-	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if (hasCapability(capability, facing)) {
-			return SARCaps.FUME_PRODUCER.cast(new FurnaceFumeProducer(tile));
-		}
-		return null;
-	}
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+        if(hasCapability(capability, facing)) {
+            return SARCaps.FUME_PRODUCER.cast(new FurnaceFumeProducer(tile));
+        }
+        return null;
+    }
 
 }

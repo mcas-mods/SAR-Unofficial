@@ -11,13 +11,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SuppressWarnings("deprecation")
 @SideOnly(Side.CLIENT)
 public class ResourceListener implements IResourceManagerReloadListener {
-	public final TextureAtlasSprite[] destroyBlockIcons = new TextureAtlasSprite[10];
-	
-	@Override
-	public void onResourceManagerReload(IResourceManager resourceManager) {
-		TextureMap texturemap = Minecraft.getMinecraft().getTextureMapBlocks();
-	    for(int i = 0; i < this.destroyBlockIcons.length; ++i) {
-	      this.destroyBlockIcons[i] = texturemap.getAtlasSprite("minecraft:blocks/destroy_stage_" + i);
-	    }
-	}
+    public final TextureAtlasSprite[] destroyBlockIcons = new TextureAtlasSprite[10];
+
+    @Override
+    public void onResourceManagerReload(IResourceManager resourceManager) {
+        TextureMap texturemap = Minecraft.getMinecraft().getTextureMapBlocks();
+        for(int i = 0; i < destroyBlockIcons.length; ++i) {
+            destroyBlockIcons[i] = texturemap.getAtlasSprite("minecraft:blocks/destroy_stage_" + i);
+        }
+    }
 }

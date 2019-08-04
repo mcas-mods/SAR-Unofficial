@@ -15,15 +15,15 @@ public class InventoryHeatable extends InventoryCraftingMachine {
 
     public InventoryHeatable(IHasInventory<? extends InventoryHeatable> parent, int maxTemperature) {
         super(parent);
-        this.internal = new Heatable(maxTemperature);
+        internal = new Heatable(maxTemperature);
     }
 
     @Override
     public boolean updateServer() {
         // TODO
         SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-                new PacketSetBurnTime(this.enclosingMachine.getMachinePos(),
-                        (int) getCapability(SARCaps.HEATABLE, null).getCurrentTemperature()),
+                new PacketSetBurnTime(enclosingMachine.getMachinePos(),
+                        getCapability(SARCaps.HEATABLE, null).getCurrentTemperature()),
                 enclosingMachine.getMachinePos(), enclosingMachine.getMachineWorld().provider.getDimension());
         return super.updateServer();
     }
@@ -31,13 +31,13 @@ public class InventoryHeatable extends InventoryCraftingMachine {
     @Override
     public NBTTagCompound serializeNBT() {
         NBTTagCompound tag = super.serializeNBT();
-        tag.setTag("heat", this.internal.serializeNBT());
+        tag.setTag("heat", internal.serializeNBT());
         return tag;
     }
 
     @Override
     public void deserializeNBT(NBTTagCompound tag) {
-        this.internal.deserializeNBT(tag.getCompoundTag("heat"));
+        internal.deserializeNBT(tag.getCompoundTag("heat"));
         super.deserializeNBT(tag);
     }
 

@@ -7,9 +7,9 @@ import com.teamacronymcoders.base.util.GuiHelper;
 import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GUIElement;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GUIInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.FluidTankSync;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GUIElement;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketGUITankInteract;
 
 public class InventoryPieceFluidTank extends InventoryPieceHandler<FluidTankSync> {
@@ -17,8 +17,8 @@ public class InventoryPieceFluidTank extends InventoryPieceHandler<FluidTankSync
     public InventoryPieceFluidTank(IOType type, FluidTankSync handler, int xPosition, int yPosition) {
         this(type, handler, xPosition, yPosition, 2, 168, 18, 44, -1);
         if(IOType.POWER.equals(type)) {
-            this.guiPiece = new GUIElement(0, 166, 22, 48);
-            this.offset = -3;
+            guiPiece = new GUIElement(0, 166, 22, 48);
+            offset = -3;
         }
     }
 
@@ -33,30 +33,30 @@ public class InventoryPieceFluidTank extends InventoryPieceHandler<FluidTankSync
     protected InventoryPieceFluidTank(IOType type, FluidTankSync handler, int xPosition, int yPosition, int tX, int tY,
             int w, int height, int offset) {
         super(type, handler, xPosition, yPosition, tX, tY, w, height, offset);
-        this.getHandler().setEnclosing(this);
+        getHandler().setEnclosing(this);
     }
 
     @Override
     public void backgroundLayerCallback(GUIInventory gui, float partialTicks, int mouseX, int mouseY) {
         FluidStack stack = handler.getFluid();
         if(stack != null && stack.getFluid() != null && stack.amount > 0) {
-            GuiHelper.renderGuiTank(stack, handler.getCapacity(), stack.amount, gui.guiLeft + this.getX(),
-                    gui.guiTop + this.getY(), 16, 42);
+            GuiHelper.renderGuiTank(stack, handler.getCapacity(), stack.amount, gui.guiLeft + getX(),
+                    gui.guiTop + getY(), 16, 42);
             gui.mc.renderEngine.bindTexture(GUIInventory.guiTexture);
-            gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY() - 1, 3, 214, 18, 42);
+            gui.drawTexturedModalRect(gui.guiLeft + getX(), gui.guiTop + getY() - 1, 3, 214, 18, 42);
         }
     }
 
     @Override
     public List<String> getTooltip(List<String> tips) {
-        tips.add(com.teamacronymcoders.base.util.TextUtils.representTankContents(this.getHandler()).getFormattedText());
+        tips.add(com.teamacronymcoders.base.util.TextUtils.representTankContents(getHandler()).getFormattedText());
         return tips;
     }
 
     // TODO This needs to be done with packets
     @Override
     public void mouseClickedCallback(GUIInventory inventory, int mouseButton) {
-        SteamAgeRevolution.instance.getPacketHandler().sendToServer(
-                new PacketGUITankInteract(this.enclosingInv.enclosingMachine.getMachinePos(), this.getName()));
+        SteamAgeRevolution.instance.getPacketHandler()
+                .sendToServer(new PacketGUITankInteract(enclosingInv.enclosingMachine.getMachinePos(), getName()));
     }
 }

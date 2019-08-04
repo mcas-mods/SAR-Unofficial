@@ -6,27 +6,27 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
 public class PacketSetRecipe implements IMessage {
 
-	public BlockPos pos;
-	public int recipeID;
+    public BlockPos pos;
+    public int recipeID;
 
-	public PacketSetRecipe() {
-	}
+    public PacketSetRecipe() {
+    }
 
-	public PacketSetRecipe(BlockPos pos, int networkID) {
-		this.pos = pos;
-		this.recipeID = networkID;
-	}
+    public PacketSetRecipe(BlockPos pos, int networkID) {
+        this.pos = pos;
+        recipeID = networkID;
+    }
 
-	@Override
-	public void fromBytes(ByteBuf buf) {
-		pos = BlockPos.fromLong(buf.readLong());
-		recipeID = buf.readInt();
-	}
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        pos = BlockPos.fromLong(buf.readLong());
+        recipeID = buf.readInt();
+    }
 
-	@Override
-	public void toBytes(ByteBuf buf) {
-		buf.writeLong(pos.toLong());
-		buf.writeInt(recipeID);
-	}
+    @Override
+    public void toBytes(ByteBuf buf) {
+        buf.writeLong(pos.toLong());
+        buf.writeInt(recipeID);
+    }
 
 }

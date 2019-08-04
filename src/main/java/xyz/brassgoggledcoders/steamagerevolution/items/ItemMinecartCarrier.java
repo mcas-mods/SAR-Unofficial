@@ -9,13 +9,13 @@ import xyz.brassgoggledcoders.steamagerevolution.entities.EntityMinecartCarrier;
 
 public class ItemMinecartCarrier extends ItemMinecartBase {
 
-	public ItemMinecartCarrier() {
-		super("carrier");
-	}
+    public ItemMinecartCarrier() {
+        super("carrier");
+    }
 
-	@Override
-	public EntityMinecartBase getEntityFromItem(World world, ItemStack itemStack) {
-		return new EntityMinecartCarrier(world);
-	}
+    @Override
+    public EntityMinecartBase getEntityFromItem(World world, ItemStack itemStack) {
+        return new EntityMinecartCarrier(world);
+    }
 
 }

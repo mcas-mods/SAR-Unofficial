@@ -6,19 +6,19 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerExt
 //TODO Bring back custom stack sync packets because AFAIK vanilla only syncs when GUI is opened (?) which doesn't work for steam hammer etc.
 public class ItemStackHandlerSync extends ItemStackHandlerExtractSpecific {
 
-	protected InventoryPieceItemHandler enclosingIPiece;
+    protected InventoryPieceItemHandler enclosingIPiece;
 
-	public ItemStackHandlerSync(int size) {
-		super(size);
-	}
+    public ItemStackHandlerSync(int size) {
+        super(size);
+    }
 
-	@Override
-	protected void onContentsChanged(int slot) {
-		this.enclosingIPiece.enclosingInv.enclosingMachine.markMachineDirty();
-		// TODO
-	}
+    @Override
+    protected void onContentsChanged(int slot) {
+        enclosingIPiece.enclosingInv.enclosingMachine.markMachineDirty();
+        // TODO
+    }
 
-	public void setEnclosing(InventoryPieceItemHandler inventoryPieceItemHandler) {
-		this.enclosingIPiece = inventoryPieceItemHandler;
-	}
+    public void setEnclosing(InventoryPieceItemHandler inventoryPieceItemHandler) {
+        enclosingIPiece = inventoryPieceItemHandler;
+    }
 }

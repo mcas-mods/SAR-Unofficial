@@ -15,13 +15,13 @@ public class InventoryPieceItemHandler extends InventoryPieceHandler<ItemStackHa
 
     public InventoryPieceItemHandler(IOType type, ItemStackHandlerSync handler, int slotXs[], int[] slotYs) {
         super(type, handler, slotXs[0], slotYs[0], 44, 166, 18, 18, -1);
-        this.getHandler().setEnclosing(this);
+        getHandler().setEnclosing(this);
         this.slotXs = slotXs;
         this.slotYs = slotYs;
         // TODO
         if(IOType.OUTPUT.equals(type)) {
-            this.guiPiece = new GUIElement(62, 166, 26, 26);
-            this.offset = -5;
+            guiPiece = new GUIElement(62, 166, 26, 26);
+            offset = -5;
         }
     }
 

@@ -52,7 +52,7 @@ public class ControllerVat extends MultiblockCraftingMachine<InventoryCraftingMa
         for(Entity entity : WORLD.getEntitiesWithinAABB(Entity.class, bounds)) {
             if(entity instanceof EntityItem) {
                 EntityItem item = (EntityItem) entity;
-                ItemStackHandler handler = this.getInventory().getHandler("input", ItemStackHandler.class);
+                ItemStackHandler handler = getInventory().getHandler("input", ItemStackHandler.class);
                 if(ItemHandlerHelper.insertItem(handler, item.getItem(), true).isEmpty()) {
                     ItemHandlerHelper.insertItem(handler, item.getItem(), false);
                     item.setDead();
@@ -61,7 +61,7 @@ public class ControllerVat extends MultiblockCraftingMachine<InventoryCraftingMa
             // Simulate contact with fluid in vat when an entity falls in.
             // TODO change bounds based on fluid fill level
             FluidStack fluid = null;
-            for(FluidTankSync tank : this.getInventory().getFluidHandlers()) {
+            for(FluidTankSync tank : getInventory().getFluidHandlers()) {
                 if(tank.getFluidAmount() > 0) {
                     fluid = tank.getFluid();
                     break;

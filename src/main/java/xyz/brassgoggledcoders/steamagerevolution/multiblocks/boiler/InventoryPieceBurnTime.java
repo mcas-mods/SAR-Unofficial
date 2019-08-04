@@ -14,12 +14,12 @@ public class InventoryPieceBurnTime extends InventoryPiece<InventoryCraftingMach
 
     @Override
     public void backgroundLayerCallback(GUIInventory gui, float partialTicks, int mouseX, int mouseY) {
-        if(this.enclosingInv.enclosingMachine instanceof ControllerBoiler) {
-            ControllerBoiler boiler = (ControllerBoiler) this.enclosingInv.enclosingMachine;
+        if(enclosingInv.enclosingMachine instanceof ControllerBoiler) {
+            ControllerBoiler boiler = (ControllerBoiler) enclosingInv.enclosingMachine;
             if(boiler.currentBurnTime > 0) {
-                int scaled = Math.min(13, boiler.currentBurnTime * this.getGUIElement().height / 200);
-                gui.drawTexturedModalRect(gui.guiLeft + this.getX(),
-                        gui.guiTop + this.getY() + (getGUIElement().height - scaled), 92, 179, 14, scaled);
+                int scaled = Math.min(13, boiler.currentBurnTime * getGUIElement().height / 200);
+                gui.drawTexturedModalRect(gui.guiLeft + getX(), gui.guiTop + getY() + (getGUIElement().height - scaled),
+                        92, 179, 14, scaled);
             }
         }
         super.backgroundLayerCallback(gui, partialTicks, mouseX, mouseY);
@@ -27,8 +27,8 @@ public class InventoryPieceBurnTime extends InventoryPiece<InventoryCraftingMach
 
     @Override
     public List<String> getTooltip(List<String> tips) {
-        if(this.enclosingInv.enclosingMachine instanceof ControllerBoiler) {
-            ControllerBoiler boiler = (ControllerBoiler) this.enclosingInv.enclosingMachine;
+        if(enclosingInv.enclosingMachine instanceof ControllerBoiler) {
+            ControllerBoiler boiler = (ControllerBoiler) enclosingInv.enclosingMachine;
             if(boiler.currentBurnTime > 0) {
                 tips.add("Burn Time: " + boiler.currentBurnTime + " ticks");
             }

@@ -9,17 +9,17 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller.tileentit
 
 public class BlockDistillerRadiator extends BlockMultiblockBase<TileEntityDistillerRadiator> {
 
-	public BlockDistillerRadiator(Material material, String name) {
-		super(material, name);
-	}
+    public BlockDistillerRadiator(Material material, String name) {
+        super(material, name);
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityDistillerRadiator.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityDistillerRadiator.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityDistillerRadiator();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityDistillerRadiator();
+    }
 }

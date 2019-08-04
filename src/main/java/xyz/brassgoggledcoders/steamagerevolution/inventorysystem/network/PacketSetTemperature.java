@@ -14,7 +14,7 @@ public class PacketSetTemperature implements IMessage {
 
     public PacketSetTemperature(BlockPos pos, int value) {
         this.pos = pos;
-        this.temp = value;
+        temp = value;
     }
 
     @Override

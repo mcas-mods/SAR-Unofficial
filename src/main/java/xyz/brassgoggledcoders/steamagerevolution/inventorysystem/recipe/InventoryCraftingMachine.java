@@ -49,7 +49,7 @@ public class InventoryCraftingMachine extends InventoryBasic {
 
     @Override
     public void deserializeNBT(NBTTagCompound tag) {
-        this.currentProgress = tag.getInteger("progress");
+        currentProgress = tag.getInteger("progress");
         super.deserializeNBT(tag);
     }
 
@@ -59,18 +59,17 @@ public class InventoryCraftingMachine extends InventoryBasic {
 
     public void setCurrentRecipe(@Nullable MachineRecipe recipe) {
         if(recipe != null) {
-            this.currentRecipe = recipe;
+            currentRecipe = recipe;
         }
         else {
-            this.currentRecipe = null;
-            this.currentProgress = 0;
+            currentRecipe = null;
+            currentProgress = 0;
         }
-        int networkID = currentRecipe != null ? this.currentRecipe.networkID : -1;
-        if(!this.enclosingMachine.getMachineWorld().isRemote) {
+        int networkID = currentRecipe != null ? currentRecipe.networkID : -1;
+        if(!enclosingMachine.getMachineWorld().isRemote) {
             SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-                    new PacketSetRecipe(this.enclosingMachine.getMachinePos(), networkID),
-                    this.enclosingMachine.getMachinePos(),
-                    this.enclosingMachine.getMachineWorld().provider.getDimension());
+                    new PacketSetRecipe(enclosingMachine.getMachinePos(), networkID), enclosingMachine.getMachinePos(),
+                    enclosingMachine.getMachineWorld().provider.getDimension());
         }
     }
 
@@ -79,12 +78,12 @@ public class InventoryCraftingMachine extends InventoryBasic {
     }
 
     public void setCurrentTicks(int ticks) {
-        this.currentProgress = ticks;
+        currentProgress = ticks;
     }
 
     public boolean updateServer() {
         if(canRun()) {
-            this.setRecipeError(RecipeError.NONE);
+            setRecipeError(RecipeError.NONE);
             if(getCurrentTicks() <= currentRecipe.getTicksPerOperation()) { // TODO
                 setCurrentTicks(getCurrentTicks() + 1);
             }
@@ -94,27 +93,27 @@ public class InventoryCraftingMachine extends InventoryBasic {
             }
         }
         else {
-            this.setCurrentRecipe(null);
+            setCurrentRecipe(null);
         }
         return false;
     }
 
     public void setRecipeError(RecipeError error) {
-        this.currrentError = error;
+        currrentError = error;
     }
 
     // Interpolate ticks on client
     public void updateClient() {
-        if(this.currentRecipe != null) {
-            if(this.currentProgress < this.currentRecipe.ticksToProcess) {
-                this.currentProgress++;
+        if(currentRecipe != null) {
+            if(currentProgress < currentRecipe.ticksToProcess) {
+                currentProgress++;
             }
             else {
-                this.currentProgress = 0;
+                currentProgress = 0;
             }
         }
         else {
-            this.currentProgress = 0;
+            currentProgress = 0;
         }
     }
 
@@ -185,7 +184,7 @@ public class InventoryCraftingMachine extends InventoryBasic {
                     }
                 }
             }
-            this.setCurrentRecipe(null);
+            setCurrentRecipe(null);
             enclosingMachine.markMachineDirty();
         }
         else {
@@ -210,7 +209,7 @@ public class InventoryCraftingMachine extends InventoryBasic {
                                 .anyMatch(t -> t.fill(output, false) == output.amount));
             }
             if(!roomForItems || !roomForFluids) {
-                this.setRecipeError(RecipeError.OUTPUT_BLOCKED);
+                setRecipeError(RecipeError.OUTPUT_BLOCKED);
             }
             return roomForItems && roomForFluids;
         }
@@ -226,8 +225,8 @@ public class InventoryCraftingMachine extends InventoryBasic {
                 return true;
             }
             else {
-                this.setRecipeError(RecipeError.INSUFFICIENT_STEAM);
-                this.setCurrentRecipe(null);
+                setRecipeError(RecipeError.INSUFFICIENT_STEAM);
+                setCurrentRecipe(null);
                 return false;
             }
         }
@@ -235,7 +234,7 @@ public class InventoryCraftingMachine extends InventoryBasic {
         else {
             // TODO Sort recipes by size of input
             Optional<MachineRecipe> recipe = RecipeRegistry
-                    .getRecipesForMachine(this.enclosingMachine.getMachineType().getUID()).parallelStream()
+                    .getRecipesForMachine(enclosingMachine.getMachineType().getUID()).parallelStream()
                     .filter(r -> hasRequiredFluids(r)).filter(r -> hasRequiredItems(r)).findFirst();
             if(recipe.isPresent()) {
                 setCurrentRecipe(recipe.get());
@@ -275,7 +274,7 @@ public class InventoryCraftingMachine extends InventoryBasic {
     }
 
     private boolean handlerHasItems(Ingredient ingredient) {
-        return this.getTypedItemHandlers(IOType.INPUT).stream()
+        return getTypedItemHandlers(IOType.INPUT).stream()
                 .filter(handler -> IntStream.range(0, handler.getSlots())
                         .mapToObj(slotNum -> handler.getStackInSlot(slotNum))
                         .filter(inputStack -> ingredient.apply(inputStack)).findAny().isPresent())
@@ -283,11 +282,11 @@ public class InventoryCraftingMachine extends InventoryBasic {
     }
 
     public ArrayList<ItemStackHandlerSync> getTypedItemHandlers(IOType type) {
-        return this.itemIOs.get(type);
+        return itemIOs.get(type);
     }
 
     public ArrayList<FluidTankSync> getTypedFluidHandlers(IOType type) {
-        return this.fluidIOs.get(type);
+        return fluidIOs.get(type);
     }
 
     @Override
@@ -298,13 +297,13 @@ public class InventoryCraftingMachine extends InventoryBasic {
             fluidIOs.put(type, new ArrayList<>());
         }
         this.getInventoryPiecesOfType(InventoryPieceItemHandler.class).stream().filter(piece -> piece.getType() != null)
-                .forEach(piece -> this.itemIOs.get(piece.getType()).add(piece.getHandler()));
+                .forEach(piece -> itemIOs.get(piece.getType()).add(piece.getHandler()));
         this.getInventoryPiecesOfType(InventoryPieceFluidTank.class).stream().filter(piece -> piece.getType() != null)
-                .forEach(piece -> this.fluidIOs.get(piece.getType()).add(piece.getHandler()));
+                .forEach(piece -> fluidIOs.get(piece.getType()).add(piece.getHandler()));
     }
 
     @Nonnull
     public RecipeError getRecipeError() {
-        return this.currrentError;
+        return currrentError;
     }
 }

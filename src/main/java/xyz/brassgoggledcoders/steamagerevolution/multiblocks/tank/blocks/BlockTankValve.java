@@ -9,19 +9,19 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.tank.tileentities.T
 
 public class BlockTankValve extends BlockMultiblockBase<TileEntityTankValve> {
 
-	public BlockTankValve(Material material, String name) {
-		super(material, name);
-		// TODO Auto-generated constructor stub
-	}
+    public BlockTankValve(Material material, String name) {
+        super(material, name);
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityTankValve.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityTankValve.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityTankValve();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityTankValve();
+    }
 
 }

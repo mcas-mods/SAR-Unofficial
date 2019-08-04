@@ -32,96 +32,97 @@ import xyz.brassgoggledcoders.steamagerevolution.items.itemblocks.ItemBlockHeavy
 
 public class BlockHeavyOre extends BlockBase implements IHasGeneratedModel, IHasBlockStateMapper, IHasBlockColor {
 
-	public static final PropertyInteger CHUNKS = PropertyInteger.create("chunks", 1, 8);
-	public String type;
-	public MaterialPart materialPart;
+    public static final PropertyInteger CHUNKS = PropertyInteger.create("chunks", 1, 8);
+    public String type;
+    public MaterialPart materialPart;
 
-	public BlockHeavyOre(MaterialPart part, String type) {
-		super(Material.ROCK, type.toLowerCase() + "_heavy_ore");
-		this.materialPart = part;
-		this.type = type;
-		this.setDefaultState(this.blockState.getBaseState().withProperty(CHUNKS, 8));
-		this.setHardness(75F);
-		this.setItemBlock(new ItemBlockHeavyOre<>(this, "heavy_ore", materialPart.getMaterial()));
-	}
+    public BlockHeavyOre(MaterialPart part, String type) {
+        super(Material.ROCK, type.toLowerCase() + "_heavy_ore");
+        materialPart = part;
+        this.type = type;
+        setDefaultState(blockState.getBaseState().withProperty(CHUNKS, 8));
+        setHardness(75F);
+        setItemBlock(new ItemBlockHeavyOre<>(this, "heavy_ore", materialPart.getMaterial()));
+    }
 
-	//TODO Visual depletion of ore
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(CHUNKS, meta + 1);
-	}
+    // TODO Visual depletion of ore
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return getDefaultState().withProperty(CHUNKS, meta + 1);
+    }
 
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(CHUNKS).intValue() - 1;
-	}
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(CHUNKS).intValue() - 1;
+    }
 
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] { CHUNKS });
-	}
-	
-	@Override
-	public void onPlayerDestroy(World world, BlockPos pos, IBlockState state) {
-		int chunks = state.getValue(BlockHeavyOre.CHUNKS).intValue();
-		if (!world.isRemote && chunks > 1) {
-			this.dropBlockAsItemWithChance(world, pos, state, 0, 0);
-			world.setBlockState(pos, state.withProperty(BlockHeavyOre.CHUNKS, chunks - 1), 2);
-		}
-		super.onPlayerDestroy(world, pos, state);
-	}
-	
-	@Override
-	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
-    {
-        if (!worldIn.isRemote && !worldIn.restoringBlockSnapshots) // do not drop items while restoring blockstates, prevents item dupe
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[] { CHUNKS });
+    }
+
+    @Override
+    public void onPlayerDestroy(World world, BlockPos pos, IBlockState state) {
+        int chunks = state.getValue(BlockHeavyOre.CHUNKS).intValue();
+        if(!world.isRemote && chunks > 1) {
+            dropBlockAsItemWithChance(world, pos, state, 0, 0);
+            world.setBlockState(pos, state.withProperty(BlockHeavyOre.CHUNKS, chunks - 1), 2);
+        }
+        super.onPlayerDestroy(world, pos, state);
+    }
+
+    @Override
+    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
+        if(!worldIn.isRemote && !worldIn.restoringBlockSnapshots) // do not drop items while restoring blockstates,
+                                                                  // prevents item dupe
         {
-        	WorldServer ws = (WorldServer) worldIn;
-			LootTable table = ws.getLootTableManager().getLootTableFromLocation(new ResourceLocation(SteamAgeRevolution.MODID, "heavy_ore_" + type));
-			LootContext ctx = new LootContext.Builder(ws).build();
-			List<ItemStack> stacks = table.generateLootForPools(ws.rand, ctx);
-			for(ItemStack stack : stacks) {
-				spawnAsEntity(worldIn, pos, stack);
-			}
+            WorldServer ws = (WorldServer) worldIn;
+            LootTable table = ws.getLootTableManager()
+                    .getLootTableFromLocation(new ResourceLocation(SteamAgeRevolution.MODID, "heavy_ore_" + type));
+            LootContext ctx = new LootContext.Builder(ws).build();
+            List<ItemStack> stacks = table.generateLootForPools(ws.rand, ctx);
+            for(ItemStack stack : stacks) {
+                spawnAsEntity(worldIn, pos, stack);
+            }
         }
     }
-	
-	@Override
-	public List<String> getModelNames(List<String> modelNames) {
-		modelNames.add("materials/" + this.getName());
-		return modelNames;
-	}
 
-	@Override
-	public ResourceLocation getResourceLocation(IBlockState blockState) {
-		return new ResourceLocation(SteamAgeRevolution.MODID, "materials/" + this.getName());
-	}
+    @Override
+    public List<String> getModelNames(List<String> modelNames) {
+        modelNames.add("materials/" + getName());
+        return modelNames;
+    }
 
-	@Override
-	public List<IGeneratedModel> getGeneratedModels() {
-		List<IGeneratedModel> models = Lists.newArrayList();
-		this.getResourceLocations(Lists.newArrayList()).forEach(resourceLocation -> {
-			TemplateFile templateFile = TemplateManager
-					.getTemplateFile(new ResourceLocation(SteamAgeRevolution.MODID, "heavy_ore"));
-			Map<String, String> replacements = Maps.newHashMap();
-			replacements.put("ore",
-					new ResourceLocation(SteamAgeRevolution.instance.getID(), "blocks/heavy_ore").toString());
-			templateFile.replaceContents(replacements);
-			models.add(new GeneratedModel("materials/" + this.getName(), ModelType.BLOCKSTATE,
-					templateFile.getFileContents()));
-		});
+    @Override
+    public ResourceLocation getResourceLocation(IBlockState blockState) {
+        return new ResourceLocation(SteamAgeRevolution.MODID, "materials/" + getName());
+    }
 
-		return models;
-	}
-	
-	@Override
+    @Override
+    public List<IGeneratedModel> getGeneratedModels() {
+        List<IGeneratedModel> models = Lists.newArrayList();
+        getResourceLocations(Lists.newArrayList()).forEach(resourceLocation -> {
+            TemplateFile templateFile = TemplateManager
+                    .getTemplateFile(new ResourceLocation(SteamAgeRevolution.MODID, "heavy_ore"));
+            Map<String, String> replacements = Maps.newHashMap();
+            replacements.put("ore",
+                    new ResourceLocation(SteamAgeRevolution.instance.getID(), "blocks/heavy_ore").toString());
+            templateFile.replaceContents(replacements);
+            models.add(
+                    new GeneratedModel("materials/" + getName(), ModelType.BLOCKSTATE, templateFile.getFileContents()));
+        });
+
+        return models;
+    }
+
+    @Override
     @Nonnull
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.TRANSLUCENT;
     }
 
-	@Override
-	public int colorMultiplier(IBlockState state, @Nullable IBlockAccess world, @Nullable BlockPos pos, int tintIndex) {
-		return materialPart.getColor();
-	}
+    @Override
+    public int colorMultiplier(IBlockState state, @Nullable IBlockAccess world, @Nullable BlockPos pos, int tintIndex) {
+        return materialPart.getColor();
+    }
 }

@@ -7,14 +7,14 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.furnace.ControllerS
 
 public abstract class TileEntityFurnacePart extends MultiblockInventoryTileEntity<ControllerSteamFurnace> {
 
-	@Override
-	public Class<ControllerSteamFurnace> getMultiblockControllerType() {
-		return ControllerSteamFurnace.class;
-	}
+    @Override
+    public Class<ControllerSteamFurnace> getMultiblockControllerType() {
+        return ControllerSteamFurnace.class;
+    }
 
-	@Override
-	public MultiblockControllerBase createNewMultiblock() {
-		return new ControllerSteamFurnace(getWorld());
-	}
+    @Override
+    public MultiblockControllerBase createNewMultiblock() {
+        return new ControllerSteamFurnace(getWorld());
+    }
 
 }

@@ -27,10 +27,10 @@ public abstract class SARMultiblockBase extends RectangularMultiblockControllerB
     protected boolean isMachineWhole(IMultiblockValidator validatorCallback) {
         List<Block> connectedBlocks = connectedParts.stream()
                 .map(part -> WORLD.getBlockState(part.getWorldPosition()).getBlock()).collect(Collectors.toList());
-        if(!connectedBlocks.containsAll(this.getMachineType().getRequiredParts())) {
+        if(!connectedBlocks.containsAll(getMachineType().getRequiredParts())) {
             validatorCallback
                     .setLastError(new ValidationError("steamagerevolution.multiblock.validation.missingrequired",
-                            this.getMachineType().getRequiredParts().stream()
+                            getMachineType().getRequiredParts().stream()
                                     .filter(required -> !connectedBlocks.contains(required))
                                     .map(missing -> missing.getLocalizedName()).findFirst().orElse("ERROR")));// TODO
             return false;

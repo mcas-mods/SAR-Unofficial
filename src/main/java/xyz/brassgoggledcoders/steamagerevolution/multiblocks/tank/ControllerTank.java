@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.machinesystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
 import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.MultiblockMachineType;
 import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.SARMultiblockBase;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerSingleTank;

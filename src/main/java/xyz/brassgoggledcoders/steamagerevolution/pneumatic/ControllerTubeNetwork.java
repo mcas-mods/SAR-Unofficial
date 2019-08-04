@@ -14,7 +14,7 @@ import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.ItemStackHandlerSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.machinesystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
 import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.IMultiblockMachine;
 import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.MultiblockMachineType;
 
@@ -33,22 +33,22 @@ public class ControllerTubeNetwork extends MultiblockControllerBase
 
     public ControllerTubeNetwork(World world) {
         super(world);
-        this.setInventory(new InventoryBuilder<>(new InventoryBasic(this))
+        setInventory(new InventoryBuilder<>(new InventoryBasic(this))
                 .addPiece("buffer", new InventoryPieceItemHandler(null, 0, 0)).build());
     }
 
     @Override
     public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
-        this.getInventory().deserializeNBT(data.getCompoundTag("inventory"));
+        getInventory().deserializeNBT(data.getCompoundTag("inventory"));
     }
 
     @Override
     protected void onBlockAdded(IMultiblockPart newPart) {
         if(input == null && newPart instanceof TileEntityPneumaticSender) {
-            this.input = newPart;
+            input = newPart;
         }
         else if(output == null && newPart instanceof TileEntityPneumaticRouter) {
-            this.output = newPart;
+            output = newPart;
         }
     }
 
@@ -135,11 +135,11 @@ public class ControllerTubeNetwork extends MultiblockControllerBase
     @Override
     protected boolean updateServer() {
         boolean hasChanged = false;
-        IItemHandler buffer = this.getInventory().getHandler("buffer", ItemStackHandlerSync.class);
+        IItemHandler buffer = getInventory().getHandler("buffer", ItemStackHandlerSync.class);
         // Search for item handlers adjacent to our input
         IItemHandler[] sends = new IItemHandler[EnumFacing.VALUES.length];
         for(EnumFacing facing : EnumFacing.VALUES) {
-            BlockPos test = this.input.getWorldPosition().offset(facing);
+            BlockPos test = input.getWorldPosition().offset(facing);
             if(WORLD.getTileEntity(test) != null
                     && WORLD.getTileEntity(test).hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing)) {
                 sends[facing.getIndex()] = WORLD.getTileEntity(test)
@@ -163,9 +163,8 @@ public class ControllerTubeNetwork extends MultiblockControllerBase
             }
         }
         // Try output from buffer
-        EnumFacing facing = this.WORLD.getBlockState(this.output.getWorldPosition())
-                .getValue(BlockPneumaticRouter.FACING);
-        TileEntity outputToTE = this.WORLD.getTileEntity(this.output.getWorldPosition().offset(facing));
+        EnumFacing facing = WORLD.getBlockState(output.getWorldPosition()).getValue(BlockPneumaticRouter.FACING);
+        TileEntity outputToTE = WORLD.getTileEntity(output.getWorldPosition().offset(facing));
         if(outputToTE != null && outputToTE.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing)) {
             IItemHandler outputTo = outputToTE.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
             if(ItemHandlerHelper.insertItem(outputTo, buffer.getStackInSlot(0).copy().splitStack(rate), true)
@@ -213,7 +212,7 @@ public class ControllerTubeNetwork extends MultiblockControllerBase
 
     @Override
     public void writeToDisk(NBTTagCompound data) {
-        data.setTag("inventory", this.getInventory().serializeNBT());
+        data.setTag("inventory", getInventory().serializeNBT());
     }
 
     @Override
@@ -227,12 +226,12 @@ public class ControllerTubeNetwork extends MultiblockControllerBase
 
     @Override
     public BlockPos getMachinePos() {
-        return this.getReferenceCoord();
+        return getReferenceCoord();
     }
 
     @Override
     public InventoryBasic getInventory() {
-        return this.inventory;
+        return inventory;
     }
 
     @Override
@@ -242,7 +241,7 @@ public class ControllerTubeNetwork extends MultiblockControllerBase
 
     @Override
     public void markMachineDirty() {
-        this.markReferenceCoordDirty();
+        markReferenceCoordDirty();
     }
 
     @Override

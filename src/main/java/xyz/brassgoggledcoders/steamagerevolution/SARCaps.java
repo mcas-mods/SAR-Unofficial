@@ -9,7 +9,8 @@ import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import xyz.brassgoggledcoders.steamagerevolution.api.*;
+import xyz.brassgoggledcoders.steamagerevolution.api.Heatable;
+import xyz.brassgoggledcoders.steamagerevolution.api.IHeatable;
 import xyz.brassgoggledcoders.steamagerevolution.api.fume.FurnaceCapabilityProvider;
 import xyz.brassgoggledcoders.steamagerevolution.api.fume.IFumeProducer;
 import xyz.brassgoggledcoders.steamagerevolution.utils.NOPStorage;
@@ -25,8 +26,7 @@ public class SARCaps {
     public static void register() {
         CapabilityManager.INSTANCE.register(IFumeProducer.class, new NOPStorage<IFumeProducer>(),
                 new NullFactory<IFumeProducer>());
-        CapabilityManager.INSTANCE.register(IHeatable.class, new NBTCapStorage<IHeatable>(),
-                new Heatable.Factory());
+        CapabilityManager.INSTANCE.register(IHeatable.class, new NBTCapStorage<IHeatable>(), new Heatable.Factory());
     }
 
     @SubscribeEvent

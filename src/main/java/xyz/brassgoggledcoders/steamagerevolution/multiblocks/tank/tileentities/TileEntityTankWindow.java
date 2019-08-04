@@ -4,36 +4,36 @@ import com.teamacronymcoders.base.multiblocksystem.validation.IMultiblockValidat
 
 public class TileEntityTankWindow extends TileEntityTankPart {
 
-	public TileEntityTankWindow() {
+    public TileEntityTankWindow() {
 
-	}
+    }
 
-	@Override
-	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
-		return false;
-	}
+    @Override
+    public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
+        return false;
+    }
 
-	@Override
-	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
+    @Override
+    public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
+    @Override
+    public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
+    @Override
+    public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
+    @Override
+    public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
 
-		return false;
-	}
+        return false;
+    }
 }

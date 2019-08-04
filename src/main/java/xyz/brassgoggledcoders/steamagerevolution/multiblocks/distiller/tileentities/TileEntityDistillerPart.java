@@ -7,14 +7,14 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller.Controlle
 
 public abstract class TileEntityDistillerPart extends MultiblockInventoryTileEntity<ControllerDistiller> {
 
-	@Override
-	public Class<ControllerDistiller> getMultiblockControllerType() {
-		return ControllerDistiller.class;
-	}
+    @Override
+    public Class<ControllerDistiller> getMultiblockControllerType() {
+        return ControllerDistiller.class;
+    }
 
-	@Override
-	public MultiblockControllerBase createNewMultiblock() {
-		return new ControllerDistiller(getWorld());
-	}
+    @Override
+    public MultiblockControllerBase createNewMultiblock() {
+        return new ControllerDistiller(getWorld());
+    }
 
 }

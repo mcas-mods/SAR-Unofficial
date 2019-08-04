@@ -5,20 +5,20 @@ import net.minecraft.tileentity.TileEntityFurnace;
 
 public class FurnaceFumeProducer implements IFumeProducer {
 
-	TileEntityFurnace tile;
+    TileEntityFurnace tile;
 
-	public FurnaceFumeProducer(TileEntityFurnace tile) {
-		this.tile = tile;
-	}
+    public FurnaceFumeProducer(TileEntityFurnace tile) {
+        this.tile = tile;
+    }
 
-	@Override
-	public boolean isBurning() {
-		return tile.isBurning();
-	}
+    @Override
+    public boolean isBurning() {
+        return tile.isBurning();
+    }
 
-	@Override
-	public ItemStack getCurrentFuel() {
-		return tile.getStackInSlot(1);
-	}
+    @Override
+    public ItemStack getCurrentFuel() {
+        return tile.getStackInSlot(1);
+    }
 
 }

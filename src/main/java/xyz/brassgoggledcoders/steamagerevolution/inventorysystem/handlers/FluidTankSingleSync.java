@@ -5,20 +5,20 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class FluidTankSingleSync extends FluidTankSync {
 
-	private String fluidName;
+    private String fluidName;
 
-	public FluidTankSingleSync(int capacity, String fluidName) {
-		super(capacity);
-		this.fluidName = fluidName;
-	}
+    public FluidTankSingleSync(int capacity, String fluidName) {
+        super(capacity);
+        this.fluidName = fluidName;
+    }
 
-	@Override
-	public boolean canFillFluidType(FluidStack fluid) {
-		return getFluidName().equals(FluidRegistry.getFluidName(fluid)) ? canFill() : false;
-	}
+    @Override
+    public boolean canFillFluidType(FluidStack fluid) {
+        return getFluidName().equals(FluidRegistry.getFluidName(fluid)) ? canFill() : false;
+    }
 
-	public String getFluidName() {
-		return fluidName;
-	}
+    public String getFluidName() {
+        return fluidName;
+    }
 
 }

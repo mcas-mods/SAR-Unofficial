@@ -9,13 +9,13 @@ import xyz.brassgoggledcoders.steamagerevolution.entities.EntityMinecartDrilling
 
 public class ItemMinecartDrilling extends ItemMinecartBase {
 
-	public ItemMinecartDrilling() {
-		super("drilling");
-	}
+    public ItemMinecartDrilling() {
+        super("drilling");
+    }
 
-	@Override
-	public EntityMinecartBase getEntityFromItem(World world, ItemStack itemStack) {
-		return new EntityMinecartDrilling(world);
-	}
+    @Override
+    public EntityMinecartBase getEntityFromItem(World world, ItemStack itemStack) {
+        return new EntityMinecartDrilling(world);
+    }
 
 }

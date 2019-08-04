@@ -12,45 +12,45 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.Mult
 
 public class TileEntityCrucibleFluidOutput extends TileEntityCruciblePart {
 
-	@Override
-	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
-	}
+    @Override
+    public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+        return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+    }
 
-	@Override
-	@Nonnull
-	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockTankWrapper(this, "output"));
-		}
-		return super.getCapability(capability, facing);
-	}
+    @Override
+    @Nonnull
+    public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+        if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockTankWrapper(this, "output"));
+        }
+        return super.getCapability(capability, facing);
+    }
 
-	@Override
-	public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
-		return false;
-	}
+    @Override
+    public boolean isGoodForFrame(IMultiblockValidator validatorCallback) {
+        return false;
+    }
 
-	@Override
-	public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
+    @Override
+    public boolean isGoodForSides(IMultiblockValidator validatorCallback) {
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
-		return true;
-	}
+    @Override
+    public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
+        return true;
+    }
 
-	@Override
-	public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
+    @Override
+    public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
+    @Override
+    public boolean isGoodForInterior(IMultiblockValidator validatorCallback) {
 
-		return false;
-	}
+        return false;
+    }
 }

@@ -33,7 +33,7 @@ public class TileEntityTubeNetworkPart extends MultiblockTileEntityBase<Controll
 
     @Override
     public MultiblockControllerBase createNewMultiblock() {
-        return new ControllerTubeNetwork(this.getWorld());
+        return new ControllerTubeNetwork(getWorld());
     }
 
     // Don't refresh the TE when parts are rotated TODO - this allows pipes to be

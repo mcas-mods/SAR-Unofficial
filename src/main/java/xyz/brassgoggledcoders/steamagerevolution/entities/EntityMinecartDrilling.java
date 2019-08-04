@@ -44,7 +44,7 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryBas
     public EntityMinecartDrilling(World world) {
         super(world);
         Pair<int[], int[]> posi = MiningUtils.getGUIPositionGrid(62, 31, 3, 1);
-        this.setInventory(new InventoryBuilder<>(new InventoryBasic(this))
+        setInventory(new InventoryBuilder<>(new InventoryBasic(this))
                 .addPiece("inventory",
                         new InventoryPieceItemHandler(new HandlerForceStack(3), posi.getLeft(), posi.getRight()))
                 .build());
@@ -68,8 +68,8 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryBas
 
     @Override
     protected void entityInit() {
-        this.dataManager.register(MINING_POS, Optional.absent());
-        this.dataManager.register(MINING_PROGRESS, 0F);
+        dataManager.register(MINING_POS, Optional.absent());
+        dataManager.register(MINING_PROGRESS, 0F);
         super.entityInit();
     }
 
@@ -77,26 +77,26 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryBas
     public void onActivatorRailPass(int blockX, int blockY, int blockZ, boolean receivingPower) {
         if(receivingPower) {
             BlockPos pos = new BlockPos(blockX, blockY, blockZ);
-            if(BlockRailBase.isRailBlock(this.world, pos)) {
-                BlockRailBase rail = (BlockRailBase) this.getEntityWorld().getBlockState(pos).getBlock();
+            if(BlockRailBase.isRailBlock(world, pos)) {
+                BlockRailBase rail = (BlockRailBase) getEntityWorld().getBlockState(pos).getBlock();
                 EnumRailDirection direction = rail.getRailDirection(getEntityWorld(), pos,
-                        this.getEntityWorld().getBlockState(pos), this);
-                EnumFacing cartFacing = this.getAdjustedHorizontalFacing();
+                        getEntityWorld().getBlockState(pos), this);
+                EnumFacing cartFacing = getAdjustedHorizontalFacing();
                 switch(direction) {
                     case NORTH_SOUTH:
                         if(EnumFacing.NORTH.equals(cartFacing)) {
-                            this.doMining(EnumFacing.WEST);
+                            doMining(EnumFacing.WEST);
                         }
                         else {
-                            this.doMining(EnumFacing.EAST);
+                            doMining(EnumFacing.EAST);
                         }
                         break;
                     case EAST_WEST:
                         if(EnumFacing.WEST.equals(cartFacing)) {
-                            this.doMining(EnumFacing.NORTH);
+                            doMining(EnumFacing.NORTH);
                         }
                         else {
-                            this.doMining(EnumFacing.SOUTH);
+                            doMining(EnumFacing.SOUTH);
                         }
                         break;
                     default:
@@ -109,28 +109,28 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryBas
     private void doMining(EnumFacing facingToMine) {
         WeakReference<FakePlayer> fakePlayer = new WeakReference<FakePlayer>(
                 FakePlayerFactory.get((WorldServer) world, SteamAgeRevolution.profile));
-        BlockPos target = this.getPosition().offset(facingToMine);
+        BlockPos target = getPosition().offset(facingToMine);
         if(!world.isAirBlock(target)) {
-            if(this.getDataManager().get(MINING_PROGRESS).floatValue() >= 1.0F) {
-                MiningUtils.doMining(this.getEntityWorld(), target, this.getInventory().getItemHandlers().get(0));
-                this.getDataManager().set(MINING_POS, Optional.absent());
-                this.getDataManager().set(MINING_PROGRESS, 0F);
+            if(getDataManager().get(MINING_PROGRESS).floatValue() >= 1.0F) {
+                MiningUtils.doMining(getEntityWorld(), target, getInventory().getItemHandlers().get(0));
+                getDataManager().set(MINING_POS, Optional.absent());
+                getDataManager().set(MINING_PROGRESS, 0F);
                 return;
             }
             else {
-                this.getDataManager().set(MINING_POS, Optional.of(target));
-                this.getDataManager().set(MINING_PROGRESS, this.getDataManager().get(MINING_PROGRESS)
+                getDataManager().set(MINING_POS, Optional.of(target));
+                getDataManager().set(MINING_PROGRESS, getDataManager().get(MINING_PROGRESS)
                         + world.getBlockState(target).getPlayerRelativeBlockHardness(fakePlayer.get(), world, target));
                 return;
             }
         }
         // If we can't mine, reset. TODO Reset on cart move?
-        this.getDataManager().set(MINING_PROGRESS, 0F);
+        getDataManager().set(MINING_PROGRESS, 0F);
     }
 
     @Override
     public void markMachineDirty() {
-        this.markDirty();
+        markDirty();
     }
 
     @Override

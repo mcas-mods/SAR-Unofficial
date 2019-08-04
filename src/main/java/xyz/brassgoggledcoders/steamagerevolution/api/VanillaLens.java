@@ -6,29 +6,29 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class VanillaLens implements ILens {
-	int meta;
+    int meta;
 
-	public VanillaLens(int meta) {
-		this.meta = meta;
-	}
+    public VanillaLens(int meta) {
+        this.meta = meta;
+    }
 
-	@Override
-	public int getColor() {
-		return EnumDyeColor.byMetadata(meta).getColorValue();
-	}
+    @Override
+    public int getColor() {
+        return EnumDyeColor.byMetadata(meta).getColorValue();
+    }
 
-	@Override
-	public String getColorName() {
-		return EnumDyeColor.byMetadata(meta).getTranslationKey();
-	}
+    @Override
+    public String getColorName() {
+        return EnumDyeColor.byMetadata(meta).getTranslationKey();
+    }
 
-	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-		// NO-OP
-	}
+    @Override
+    public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+        // NO-OP
+    }
 
-	@Override
-	public String getEffect() {
-		return "";
-	}
+    @Override
+    public String getEffect() {
+        return "";
+    }
 }

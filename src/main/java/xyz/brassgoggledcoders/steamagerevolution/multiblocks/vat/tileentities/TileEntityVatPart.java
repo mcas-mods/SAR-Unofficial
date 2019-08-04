@@ -7,14 +7,14 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat.ControllerVat;
 
 public abstract class TileEntityVatPart extends MultiblockInventoryTileEntity<ControllerVat> {
 
-	@Override
-	public Class<ControllerVat> getMultiblockControllerType() {
-		return ControllerVat.class;
-	}
+    @Override
+    public Class<ControllerVat> getMultiblockControllerType() {
+        return ControllerVat.class;
+    }
 
-	@Override
-	public MultiblockControllerBase createNewMultiblock() {
-		return new ControllerVat(getWorld());
-	}
+    @Override
+    public MultiblockControllerBase createNewMultiblock() {
+        return new ControllerVat(getWorld());
+    }
 
 }

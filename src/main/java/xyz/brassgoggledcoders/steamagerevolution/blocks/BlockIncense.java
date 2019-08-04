@@ -6,8 +6,8 @@ import net.minecraft.block.material.Material;
 
 public class BlockIncense extends BlockBase {
 
-	public BlockIncense() {
-		super(Material.GOURD, "incense_block");
-	}
+    public BlockIncense() {
+        super(Material.GOURD, "incense_block");
+    }
 
 }

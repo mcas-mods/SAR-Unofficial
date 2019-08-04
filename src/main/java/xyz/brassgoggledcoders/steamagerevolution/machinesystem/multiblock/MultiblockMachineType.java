@@ -13,7 +13,7 @@ public class MultiblockMachineType extends MachineType {
 
     public MultiblockMachineType(String uid, Block catalyst, Block... requiredParts) {
         super(uid, catalyst);
-        this.parts = Lists.newArrayList(requiredParts);
+        parts = Lists.newArrayList(requiredParts);
     }
 
     public MultiblockMachineType(String uid) {

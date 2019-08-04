@@ -9,18 +9,18 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.steelworks.tileenti
 
 public class BlockSteelworksFrame extends BlockMultiblockBase<TileEntitySteelworksFrame> {
 
-	public BlockSteelworksFrame(Material material, String name) {
-		super(material, name);
-	}
+    public BlockSteelworksFrame(Material material, String name) {
+        super(material, name);
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntitySteelworksFrame.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntitySteelworksFrame.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntitySteelworksFrame();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntitySteelworksFrame();
+    }
 
 }

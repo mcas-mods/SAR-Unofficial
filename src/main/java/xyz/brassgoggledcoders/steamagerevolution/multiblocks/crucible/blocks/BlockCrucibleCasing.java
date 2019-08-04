@@ -9,19 +9,19 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.crucible.tileentiti
 
 public class BlockCrucibleCasing extends BlockMultiblockBase<TileEntityCrucibleCasing> {
 
-	public BlockCrucibleCasing(Material material, String name) {
-		super(material, name);
-		// TODO Auto-generated constructor stub
-	}
+    public BlockCrucibleCasing(Material material, String name) {
+        super(material, name);
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityCrucibleCasing.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityCrucibleCasing.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityCrucibleCasing();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityCrucibleCasing();
+    }
 
 }

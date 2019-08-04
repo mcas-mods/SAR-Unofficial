@@ -115,12 +115,12 @@ public class MachineRecipe implements IRecipeWrapper {
     @Override
     public List<String> getTooltipStrings(int mouseX, int mouseY) {
         List<String> tips = new ArrayList<>();
-        for(InventoryPiece<?> piece : ((IHasInventory<InventoryCraftingMachine>) MachineType.machinesList
-                .get(crafter)).getInventory().getInventoryPieces()) {
+        for(InventoryPiece<?> piece : ((IHasInventory<InventoryCraftingMachine>) MachineType.machinesList.get(crafter))
+                .getInventory().getInventoryPieces()) {
             if(piece instanceof InventoryPieceProgressBar) {
                 if(isPointInRegion(piece.getX(), piece.getY(), piece.getGUIElement().width,
                         piece.getGUIElement().height, mouseX, mouseY)) {
-                    tips.add("Ticks to complete: " + this.ticksToProcess);
+                    tips.add("Ticks to complete: " + ticksToProcess);
                 }
             }
         }

@@ -7,14 +7,14 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.steelworks.Controll
 
 public abstract class TileEntitySteelworksPart extends MultiblockInventoryTileEntity<ControllerSteelworks> {
 
-	@Override
-	public Class<ControllerSteelworks> getMultiblockControllerType() {
-		return ControllerSteelworks.class;
-	}
+    @Override
+    public Class<ControllerSteelworks> getMultiblockControllerType() {
+        return ControllerSteelworks.class;
+    }
 
-	@Override
-	public MultiblockControllerBase createNewMultiblock() {
-		return new ControllerSteelworks(getWorld());
-	}
+    @Override
+    public MultiblockControllerBase createNewMultiblock() {
+        return new ControllerSteelworks(getWorld());
+    }
 
 }

@@ -46,9 +46,9 @@ public class Heatable implements IHeatable {
 
     @Override
     public void setCurrentTemperature(int currentTemperature) {
-        this.temperature = currentTemperature;
+        temperature = currentTemperature;
         if(currentTemperature < 0) {
-            this.temperature = 0;
+            temperature = 0;
         }
     }
 
@@ -60,7 +60,7 @@ public class Heatable implements IHeatable {
             return true;
         }
         else {
-            this.temperature += by;
+            temperature += by;
         }
         return false;
     }

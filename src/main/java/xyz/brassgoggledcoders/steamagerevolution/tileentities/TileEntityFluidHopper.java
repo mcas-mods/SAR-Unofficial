@@ -29,7 +29,7 @@ public class TileEntityFluidHopper extends TileEntityInventory<InventoryBasic> i
     private boolean hasCache = false;
 
     public TileEntityFluidHopper() {
-        this.setInventory(new InventoryBuilder<>(new InventoryBasic(this))
+        setInventory(new InventoryBuilder<>(new InventoryBasic(this))
                 .addPiece("tank", new InventoryPieceFluidTank(new FluidTankSync(Fluid.BUCKET_VOLUME), 10, 22)).build());
     }
 
@@ -42,7 +42,7 @@ public class TileEntityFluidHopper extends TileEntityInventory<InventoryBasic> i
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
             return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
-                    .cast(this.getInventory().getHandler("tank", FluidTankSync.class));
+                    .cast(getInventory().getHandler("tank", FluidTankSync.class));
         }
         return super.getCapability(capability, facing);
     }
@@ -58,7 +58,7 @@ public class TileEntityFluidHopper extends TileEntityInventory<InventoryBasic> i
         }
 
         if(BlockFluidHopper.isEnabled(getBlockMetadata())) {
-            FluidTankSync handler = this.getInventory().getHandler("tank", FluidTankSync.class);
+            FluidTankSync handler = getInventory().getHandler("tank", FluidTankSync.class);
             if(toPos != null) {
                 IFluidHandler to = getWorld().getTileEntity(toPos).getCapability(
                         CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,

@@ -20,14 +20,14 @@ public class InventoryPieceTemperatureGauge extends InventoryPiece<InventoryHeat
 
     @Override
     public void backgroundLayerCallback(GUIInventory gui, float partialTicks, int mouseX, int mouseY) {
-        if(this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getCurrentTemperature() > 0) {
-            int scaled = (int) Math.min(this.getGUIElement().height,
-                    (this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getCurrentTemperature()
-                            / this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getMaximumTemperature())
+        if(enclosingInv.getCapability(SARCaps.HEATABLE, null).getCurrentTemperature() > 0) {
+            int scaled = Math.min(getGUIElement().height,
+                    (enclosingInv.getCapability(SARCaps.HEATABLE, null).getCurrentTemperature()
+                            / enclosingInv.getCapability(SARCaps.HEATABLE, null).getMaximumTemperature())
                             * getGUIElement().height);
-            gui.drawGradientRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY() + scaled + getOffset(),
-                    gui.guiLeft + this.getX() + this.getGUIElement().width + getOffset(),
-                    gui.guiTop + this.getY() + this.getGUIElement().height + getOffset(), Color.RED.getRGB(),
+            gui.drawGradientRect(gui.guiLeft + getX(), gui.guiTop + getY() + scaled + getOffset(),
+                    gui.guiLeft + getX() + getGUIElement().width + getOffset(),
+                    gui.guiTop + getY() + getGUIElement().height + getOffset(), Color.RED.getRGB(),
                     Color.BLUE.getRGB());
         }
         super.backgroundLayerCallback(gui, partialTicks, mouseX, mouseY);
@@ -35,24 +35,24 @@ public class InventoryPieceTemperatureGauge extends InventoryPiece<InventoryHeat
 
     @Override
     public List<String> getTooltip(List<String> tips) {
-        if(this.enclosingInv.enclosingMachine instanceof ControllerBoiler) {
-            ControllerBoiler boiler = (ControllerBoiler) this.enclosingInv.enclosingMachine;
+        if(enclosingInv.enclosingMachine instanceof ControllerBoiler) {
+            ControllerBoiler boiler = (ControllerBoiler) enclosingInv.enclosingMachine;
             if(boiler.currentBurnTime > 0) {
                 String unit = new TextComponentTranslation("info.tempunit").getFormattedText();
                 if(unit.contains("F") && !GuiScreen.isShiftKeyDown()) {
-                    tips.add("Temperature: "
-                            + celsiusToFarenheit(
-                                    this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getCurrentTemperature())
-                            + unit + "/"
-                            + celsiusToFarenheit(
-                                    this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getMaximumTemperature())
-                            + unit);
+                    tips.add(
+                            "Temperature: "
+                                    + celsiusToFarenheit(
+                                            enclosingInv.getCapability(SARCaps.HEATABLE, null).getCurrentTemperature())
+                                    + unit + "/"
+                                    + celsiusToFarenheit(
+                                            enclosingInv.getCapability(SARCaps.HEATABLE, null).getMaximumTemperature())
+                                    + unit);
                 }
                 else {
                     tips.add("Temperature: "
-                            + this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getCurrentTemperature() + unit
-                            + "/" + this.enclosingInv.getCapability(SARCaps.HEATABLE, null).getMaximumTemperature()
-                            + unit);
+                            + enclosingInv.getCapability(SARCaps.HEATABLE, null).getCurrentTemperature() + unit + "/"
+                            + enclosingInv.getCapability(SARCaps.HEATABLE, null).getMaximumTemperature() + unit);
                 }
             }
             else {

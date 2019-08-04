@@ -87,7 +87,7 @@ public abstract class TileEntityInventory<I extends InventoryBasic> extends Tile
 
     @Override
     public void markMachineDirty() {
-        this.markDirty();
+        markDirty();
     }
 
     @Override

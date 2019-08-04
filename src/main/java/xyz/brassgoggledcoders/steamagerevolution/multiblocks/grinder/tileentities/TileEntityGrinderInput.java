@@ -12,24 +12,24 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.Mult
 
 public class TileEntityGrinderInput extends TileEntityGrinderPart {
 
-	@Override
-	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
-	}
+    @Override
+    public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+    }
 
-	@Override
-	@Nonnull
-	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-					.cast(new MultiblockStackHandlerWrapper(this, "itemInput"));
-		}
-		return super.getCapability(capability, facing);
-	}
+    @Override
+    @Nonnull
+    public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+        if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+                    .cast(new MultiblockStackHandlerWrapper(this, "itemInput"));
+        }
+        return super.getCapability(capability, facing);
+    }
 
-	@Override
-	public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
-		return true;
-	}
+    @Override
+    public boolean isGoodForTop(IMultiblockValidator validatorCallback) {
+        return true;
+    }
 
 }

@@ -15,31 +15,31 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.ItemPickaxeBase;
 
 public class ItemHammer extends ItemPickaxeBase {
 
-	public ItemHammer() {
-		super(ToolMaterial.IRON, "hammer");
-	}
+    public ItemHammer() {
+        super(ToolMaterial.IRON, "hammer");
+    }
 
-	@Override
-	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
-		if(player.world.isRemote || player.capabilities.isCreativeMode) {
-			return false;
-		}
-		IBlockState state = player.world.getBlockState(pos);
-		Block block = state.getBlock();
-		ItemStack oreStack = new ItemStack(Item.getItemFromBlock(block));
-		ItemStack dust = OreDictUtils.getPreferredItemStack(
-				"dust" + OreDictionary.getOreName(OreDictionary.getOreIDs(oreStack)[0]).substring(3));
-		if(!dust.isEmpty()) {
-			// TODO Gotta be a better way to do this
-			for(int i = 0; i < SARRecipes.dustCount; i++) {
-				EntityItem entityitem = new EntityItem(player.world, pos.getX(), pos.getY(), pos.getZ(), dust);
-				entityitem.setDefaultPickupDelay();
-				player.world.spawnEntity(entityitem);
-			}
-			player.world.setBlockToAir(pos);
-			itemstack.damageItem(1, player);
-			return true;
-		}
-		return super.onBlockStartBreak(itemstack, pos, player);
-	}
+    @Override
+    public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
+        if(player.world.isRemote || player.capabilities.isCreativeMode) {
+            return false;
+        }
+        IBlockState state = player.world.getBlockState(pos);
+        Block block = state.getBlock();
+        ItemStack oreStack = new ItemStack(Item.getItemFromBlock(block));
+        ItemStack dust = OreDictUtils.getPreferredItemStack(
+                "dust" + OreDictionary.getOreName(OreDictionary.getOreIDs(oreStack)[0]).substring(3));
+        if(!dust.isEmpty()) {
+            // TODO Gotta be a better way to do this
+            for(int i = 0; i < SARRecipes.dustCount; i++) {
+                EntityItem entityitem = new EntityItem(player.world, pos.getX(), pos.getY(), pos.getZ(), dust);
+                entityitem.setDefaultPickupDelay();
+                player.world.spawnEntity(entityitem);
+            }
+            player.world.setBlockToAir(pos);
+            itemstack.damageItem(1, player);
+            return true;
+        }
+        return super.onBlockStartBreak(itemstack, pos, player);
+    }
 }

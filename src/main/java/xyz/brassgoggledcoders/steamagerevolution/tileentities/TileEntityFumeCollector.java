@@ -28,7 +28,7 @@ public class TileEntityFumeCollector extends TileEntityCraftingMachine<Inventory
 
     public TileEntityFumeCollector() {
         super();
-        this.setInventory(new InventoryBuilder<>(new InventoryCraftingMachine(this))
+        setInventory(new InventoryBuilder<>(new InventoryCraftingMachine(this))
                 .addPiece("tank", new InventoryPieceFluidTank(IOType.OUTPUT, outputCapacity, 105, 11)).build());
     }
 
@@ -49,11 +49,11 @@ public class TileEntityFumeCollector extends TileEntityCraftingMachine<Inventory
                     FumeCollectorRecipe r = FumeCollectorRecipe.getRecipe(fuel);
                     if(r != null && getWorld().rand.nextFloat() < r.chance) {
                         FluidStack fume = r.output;
-                        IFluidHandler tank = this.getInventory().getHandler("tank", FluidTankSync.class);
+                        IFluidHandler tank = getInventory().getHandler("tank", FluidTankSync.class);
                         if(tank.fill(fume, false) == fume.amount) {
                             tank.fill(fume, true);
-                            this.markMachineDirty();
-                            this.sendBlockUpdate();
+                            markMachineDirty();
+                            sendBlockUpdate();
                         }
                     }
                 }
@@ -70,7 +70,7 @@ public class TileEntityFumeCollector extends TileEntityCraftingMachine<Inventory
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
             return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
-                    .cast(this.getInventory().getHandler("tank", FluidTankSync.class));
+                    .cast(getInventory().getHandler("tank", FluidTankSync.class));
         }
         return super.getCapability(capability, facing);
     }

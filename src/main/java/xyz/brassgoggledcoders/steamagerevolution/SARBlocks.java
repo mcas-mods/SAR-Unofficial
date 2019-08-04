@@ -173,9 +173,10 @@ public class SARBlocks {
     public static DamageSource damageSourceAcid = new DamageSource("acid").setDamageIsAbsolute();
     public static DamageSource damageSourceBullet = new DamageSource("bullet").setProjectile();
     public static DamageSource damageSourceGrinder = new DamageSource("grinder").setDamageBypassesArmor()
-    .setDamageIsAbsolute();
+            .setDamageIsAbsolute();
     public static DamageSource damageSourceHammer = new DamageSource("hammer").setDamageBypassesArmor()
-    .setDamageIsAbsolute();
+            .setDamageIsAbsolute();
+
     public static FluidStack getPotionFluidStack(String potionType, int amount) {
         FluidStack potion = FluidRegistry.getFluidStack("potion", amount);
         potion.tag = new NBTTagCompound();

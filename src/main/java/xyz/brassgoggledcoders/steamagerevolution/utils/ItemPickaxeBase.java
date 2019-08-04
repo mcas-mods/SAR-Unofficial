@@ -20,9 +20,10 @@ public class ItemPickaxeBase extends ItemPickaxe implements IHasModel {
         super(material);
         this.name = name;
         this.texturePath = texturePath;
-        if (!texturePath.isEmpty() && !texturePath.endsWith("/"))
+        if(!texturePath.isEmpty() && !texturePath.endsWith("/")) {
             this.texturePath += "/";
-        this.setTranslationKey(name);
+        }
+        setTranslationKey(name);
     }
 
     @Override
@@ -44,7 +45,7 @@ public class ItemPickaxeBase extends ItemPickaxe implements IHasModel {
 
     @Override
     public IBaseMod getMod() {
-        return this.mod;
+        return mod;
     }
 
     @Override

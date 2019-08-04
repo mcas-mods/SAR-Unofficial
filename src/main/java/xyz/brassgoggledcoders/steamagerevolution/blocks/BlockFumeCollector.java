@@ -9,17 +9,17 @@ import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.tileentities.TileEntityFumeCollector;
 
 public class BlockFumeCollector extends BlockGUIBase<TileEntityFumeCollector> {
-	public BlockFumeCollector(Material material, String name) {
-		super(material, name);
-	}
+    public BlockFumeCollector(Material material, String name) {
+        super(material, name);
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityFumeCollector.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityFumeCollector.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityFumeCollector();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityFumeCollector();
+    }
 }

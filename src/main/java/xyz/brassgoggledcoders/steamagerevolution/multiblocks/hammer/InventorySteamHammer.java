@@ -5,14 +5,14 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.Inventor
 //TODO Do I want to eliminate custom inventories and use callbacks? (Probably)
 public class InventorySteamHammer extends InventoryCraftingMachine {
 
-	public InventorySteamHammer(ControllerSteamHammer parent) {
-		super(parent);
-	}
+    public InventorySteamHammer(ControllerSteamHammer parent) {
+        super(parent);
+    }
 
-	@Override
-	public void onFinish() {
-		super.onFinish();
-		((ControllerSteamHammer) enclosingMachine).onFinish();
-	}
+    @Override
+    public void onFinish() {
+        super.onFinish();
+        ((ControllerSteamHammer) enclosingMachine).onFinish();
+    }
 
 }

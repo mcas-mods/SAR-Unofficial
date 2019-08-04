@@ -21,9 +21,9 @@ public abstract class MultiblockInventoryTileEntity<MB extends MultiblockCraftin
     @Nonnull
     @Override
     public NBTTagCompound getUpdateTag() {
-        NBTTagCompound nbt = this.writeToNBT(super.getUpdateTag());
-        if(this.isConnected() && this.isMultiblockSaveDelegate()) {
-            this.getMultiblockController().writeToDisk(nbt);
+        NBTTagCompound nbt = writeToNBT(super.getUpdateTag());
+        if(isConnected() && isMultiblockSaveDelegate()) {
+            getMultiblockController().writeToDisk(nbt);
         }
         return nbt;
     }
@@ -31,10 +31,10 @@ public abstract class MultiblockInventoryTileEntity<MB extends MultiblockCraftin
     @Override
     @SideOnly(Side.CLIENT)
     public void handleUpdateTag(NBTTagCompound tag) {
-        if(this.isConnected() && this.isMultiblockSaveDelegate()) {
-            this.getMultiblockController().onAttachedPartWithMultiblockData(this, tag);
+        if(isConnected() && isMultiblockSaveDelegate()) {
+            getMultiblockController().onAttachedPartWithMultiblockData(this, tag);
         }
-        this.readFromNBT(tag);
+        readFromNBT(tag);
     }
 
     // Delegate IHasInventory/IMachine methods to those of our controller
@@ -42,7 +42,7 @@ public abstract class MultiblockInventoryTileEntity<MB extends MultiblockCraftin
     @Override
     public InventoryCraftingMachine getInventory() {
         // FIX This causes (harmless-ish) NPEs on world load
-        return this.getMultiblockController().getInventory();
+        return getMultiblockController().getInventory();
     }
 
     @Override
@@ -52,7 +52,7 @@ public abstract class MultiblockInventoryTileEntity<MB extends MultiblockCraftin
 
     @Override
     public void markMachineDirty() {
-        this.getMultiblockController().markMachineDirty();
+        getMultiblockController().markMachineDirty();
     }
 
     @Override
@@ -67,16 +67,16 @@ public abstract class MultiblockInventoryTileEntity<MB extends MultiblockCraftin
 
     @Override
     public MultiblockMachineType getMachineType() {
-        return this.getMultiblockController().getMachineType();
+        return getMultiblockController().getMachineType();
     }
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return this.getMultiblockController().getInventory().hasCapability(capability, facing);
+        return getMultiblockController().getInventory().hasCapability(capability, facing);
     }
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        return this.getMultiblockController().getInventory().getCapability(capability, facing);
+        return getMultiblockController().getInventory().getCapability(capability, facing);
     }
 }

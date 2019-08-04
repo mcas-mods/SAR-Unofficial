@@ -9,18 +9,18 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities
 
 public class BlockBoilerLiquidFirebox extends BlockMultiblockBase<TileEntityBoilerLiquidFirebox> {
 
-	public BlockBoilerLiquidFirebox(Material material, String name) {
-		super(material, name);
-	}
+    public BlockBoilerLiquidFirebox(Material material, String name) {
+        super(material, name);
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityBoilerLiquidFirebox.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityBoilerLiquidFirebox.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityBoilerLiquidFirebox();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityBoilerLiquidFirebox();
+    }
 
 }

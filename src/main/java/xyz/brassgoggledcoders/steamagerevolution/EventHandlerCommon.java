@@ -46,8 +46,7 @@ public class EventHandlerCommon {
     // Acidic fluids deal extra damage to armour
     @SubscribeEvent
     public static void onLivingHurt(LivingDamageEvent event) {
-        if(event.getSource() == SARBlocks.damageSourceAcid
-                || event.getSource() == SARBlocks.damageSourceGas) {
+        if(event.getSource() == SARBlocks.damageSourceAcid || event.getSource() == SARBlocks.damageSourceGas) {
             EntityLivingBase living = event.getEntityLiving();
             living.getArmorInventoryList()
                     .forEach(stack -> stack.damageItem(living.getEntityWorld().rand.nextInt(5), living));

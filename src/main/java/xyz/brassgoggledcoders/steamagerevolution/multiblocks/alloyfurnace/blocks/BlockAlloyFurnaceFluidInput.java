@@ -9,18 +9,18 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.tileen
 
 public class BlockAlloyFurnaceFluidInput extends BlockMultiblockBase<TileEntityAlloyFurnaceFluidInput> {
 
-	public BlockAlloyFurnaceFluidInput(Material material, String name) {
-		super(material, name);
-	}
+    public BlockAlloyFurnaceFluidInput(Material material, String name) {
+        super(material, name);
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityAlloyFurnaceFluidInput.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityAlloyFurnaceFluidInput.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityAlloyFurnaceFluidInput();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityAlloyFurnaceFluidInput();
+    }
 
 }

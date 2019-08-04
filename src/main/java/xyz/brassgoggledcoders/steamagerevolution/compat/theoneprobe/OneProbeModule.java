@@ -14,21 +14,21 @@ import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 @Module(value = SteamAgeRevolution.MODID)
 public class OneProbeModule extends ModuleBase {
 
-	@Override
-	public String getName() {
-		return "TheOneProbe Support";
-	}
+    @Override
+    public String getName() {
+        return "TheOneProbe Support";
+    }
 
-	@Override
-	public List<IDependency> getDependencies(List<IDependency> dependencies) {
-		dependencies.add(new ModDependency("theoneprobe"));
-		return dependencies;
-	}
+    @Override
+    public List<IDependency> getDependencies(List<IDependency> dependencies) {
+        dependencies.add(new ModDependency("theoneprobe"));
+        return dependencies;
+    }
 
-	@Override
-	public void preInit(FMLPreInitializationEvent event) {
-		FMLInterModComms.sendFunctionMessage("theoneprobe", "getTheOneProbe",
-				"xyz.brassgoggledcoders.steamagerevolution.compat.theoneprobe.GetTheOneProbe");
-	}
+    @Override
+    public void preInit(FMLPreInitializationEvent event) {
+        FMLInterModComms.sendFunctionMessage("theoneprobe", "getTheOneProbe",
+                "xyz.brassgoggledcoders.steamagerevolution.compat.theoneprobe.GetTheOneProbe");
+    }
 
 }

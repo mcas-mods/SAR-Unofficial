@@ -7,13 +7,13 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.ControllerG
 
 public abstract class TileEntityGrinderPart extends MultiblockInventoryTileEntity<ControllerGrinder> {
 
-	@Override
-	public Class<ControllerGrinder> getMultiblockControllerType() {
-		return ControllerGrinder.class;
-	}
+    @Override
+    public Class<ControllerGrinder> getMultiblockControllerType() {
+        return ControllerGrinder.class;
+    }
 
-	@Override
-	public MultiblockControllerBase createNewMultiblock() {
-		return new ControllerGrinder(getWorld());
-	}
+    @Override
+    public MultiblockControllerBase createNewMultiblock() {
+        return new ControllerGrinder(getWorld());
+    }
 }

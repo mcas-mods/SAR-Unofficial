@@ -22,79 +22,79 @@ import xyz.brassgoggledcoders.steamagerevolution.tileentities.TileEntitySteamVen
 
 public class BlockSteamVent extends BlockTEBase<TileEntitySteamVent> {
 
-	public static final PropertyDirection FACING = PropertyDirection.create("facing");
+    public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
-	public BlockSteamVent(Material material, String name) {
-		super(material, name);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-	}
+    public BlockSteamVent(Material material, String name) {
+        super(material, name);
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+    }
 
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		EnumFacing enumfacing = EnumFacing.byIndex(meta);
-		return getDefaultState().withProperty(FACING, enumfacing);
-	}
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        EnumFacing enumfacing = EnumFacing.byIndex(meta);
+        return getDefaultState().withProperty(FACING, enumfacing);
+    }
 
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(FACING).getIndex();
-	}
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(FACING).getIndex();
+    }
 
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] { FACING });
-	}
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[] { FACING });
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntitySteamVent.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntitySteamVent.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntitySteamVent();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntitySteamVent();
+    }
 
-	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (!playerIn.getHeldItem(hand).isEmpty()
-				&& playerIn.getHeldItem(hand).hasCapability(Capabilities.TOOL, facing)) {
-			worldIn.setBlockState(pos, worldIn.getBlockState(pos).cycleProperty(FACING));
-			return true;
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+            EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if(!playerIn.getHeldItem(hand).isEmpty()
+                && playerIn.getHeldItem(hand).hasCapability(Capabilities.TOOL, facing)) {
+            worldIn.setBlockState(pos, worldIn.getBlockState(pos).cycleProperty(FACING));
+            return true;
 
-		}
-		return false;
-	}
+        }
+        return false;
+    }
 
-	@Override
-	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-		if (!worldIn.isRemote) {
-			if (worldIn.isBlockPowered(pos)) {
-				action(worldIn, pos);
-			}
-		}
-	}
+    @Override
+    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+        if(!worldIn.isRemote) {
+            if(worldIn.isBlockPowered(pos)) {
+                action(worldIn, pos);
+            }
+        }
+    }
 
-	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-		if (!worldIn.isRemote) {
-			if (worldIn.isBlockPowered(pos)) {
-				action(worldIn, pos);
-			}
-		}
-	}
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        if(!worldIn.isRemote) {
+            if(worldIn.isBlockPowered(pos)) {
+                action(worldIn, pos);
+            }
+        }
+    }
 
-	public void action(World world, BlockPos pos) {
-		TileEntitySteamVent tile = getTileEntity(world, pos).get();
-		if (tile.tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
-			EnumFacing f = world.getBlockState(pos).getValue(BlockSteamVent.FACING);
-			for (EntityLivingBase e : world.getEntitiesWithinAABB(EntityLivingBase.class,
-					new AxisAlignedBB(pos.offset(f)).grow(3F))) {
-				e.attackEntityFrom(DamageSource.IN_FIRE, 3F);
-			}
-			tile.tank.drain(Fluid.BUCKET_VOLUME, true);
-			SteamAgeRevolution.proxy.spawnSteamJet(pos, f);
-		}
-	}
+    public void action(World world, BlockPos pos) {
+        TileEntitySteamVent tile = getTileEntity(world, pos).get();
+        if(tile.tank.getFluidAmount() >= Fluid.BUCKET_VOLUME) {
+            EnumFacing f = world.getBlockState(pos).getValue(BlockSteamVent.FACING);
+            for(EntityLivingBase e : world.getEntitiesWithinAABB(EntityLivingBase.class,
+                    new AxisAlignedBB(pos.offset(f)).grow(3F))) {
+                e.attackEntityFrom(DamageSource.IN_FIRE, 3F);
+            }
+            tile.tank.drain(Fluid.BUCKET_VOLUME, true);
+            SteamAgeRevolution.proxy.spawnSteamJet(pos, f);
+        }
+    }
 }

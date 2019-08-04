@@ -18,8 +18,8 @@ public class TileEntityAlloyFurnaceHeatInput extends TileEntityAlloyFurnacePart 
     @Override
     @Nonnull
     public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-        if(this.isConnected()) {
-            return this.getInventory().getCapability(capability, facing);
+        if(isConnected()) {
+            return getInventory().getCapability(capability, facing);
         }
         return super.getCapability(capability, facing);
     }

@@ -10,32 +10,32 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.Inventor
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.RecipeRegistry;
 
 public class HandlerSetRecipe implements IMessageHandler<PacketSetRecipe, IMessage> {
-	@Override
-	public IMessage onMessage(PacketSetRecipe message, MessageContext ctx) {
-		Minecraft minecraft = Minecraft.getMinecraft();
-		final WorldClient worldClient = minecraft.world;
-		minecraft.addScheduledTask(new Runnable() {
-			@Override
-			public void run() {
-				processMessage(worldClient, message);
-			}
-		});
-		return null;
-	}
+    @Override
+    public IMessage onMessage(PacketSetRecipe message, MessageContext ctx) {
+        Minecraft minecraft = Minecraft.getMinecraft();
+        final WorldClient worldClient = minecraft.world;
+        minecraft.addScheduledTask(new Runnable() {
+            @Override
+            public void run() {
+                processMessage(worldClient, message);
+            }
+        });
+        return null;
+    }
 
-	private void processMessage(WorldClient worldClient, PacketSetRecipe message) {
-		TileEntity te = worldClient.getTileEntity(message.pos);
-		if(te instanceof IHasInventory) {
-			InventoryBasic inventory = ((IHasInventory<?>) te).getInventory();
-			if(inventory instanceof InventoryCraftingMachine) {
-				InventoryCraftingMachine rInventory = (InventoryCraftingMachine) inventory;
-				if(message.recipeID == -1) {
-					rInventory.setCurrentRecipe(null);
-				}
-				else {
-					rInventory.setCurrentRecipe(RecipeRegistry.getRecipeFromNetworkID(message.recipeID));
-				}
-			}
-		}
-	}
+    private void processMessage(WorldClient worldClient, PacketSetRecipe message) {
+        TileEntity te = worldClient.getTileEntity(message.pos);
+        if(te instanceof IHasInventory) {
+            InventoryBasic inventory = ((IHasInventory<?>) te).getInventory();
+            if(inventory instanceof InventoryCraftingMachine) {
+                InventoryCraftingMachine rInventory = (InventoryCraftingMachine) inventory;
+                if(message.recipeID == -1) {
+                    rInventory.setCurrentRecipe(null);
+                }
+                else {
+                    rInventory.setCurrentRecipe(RecipeRegistry.getRecipeFromNetworkID(message.recipeID));
+                }
+            }
+        }
+    }
 }

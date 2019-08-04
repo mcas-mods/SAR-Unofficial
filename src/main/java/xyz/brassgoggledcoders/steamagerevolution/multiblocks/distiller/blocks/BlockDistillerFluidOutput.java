@@ -9,17 +9,17 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller.tileentit
 
 public class BlockDistillerFluidOutput extends BlockMultiblockBase<TileEntityDistillerFluidOutput> {
 
-	public BlockDistillerFluidOutput(Material material, String name) {
-		super(material, name);
-	}
+    public BlockDistillerFluidOutput(Material material, String name) {
+        super(material, name);
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityDistillerFluidOutput.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityDistillerFluidOutput.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityDistillerFluidOutput();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityDistillerFluidOutput();
+    }
 }

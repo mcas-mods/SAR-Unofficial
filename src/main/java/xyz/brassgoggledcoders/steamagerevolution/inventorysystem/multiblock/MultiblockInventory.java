@@ -57,6 +57,6 @@ public abstract class MultiblockInventory<INV extends InventoryBasic> extends SA
 
     @Override
     public void markMachineDirty() {
-        this.markReferenceCoordDirty();
+        markReferenceCoordDirty();
     }
 }

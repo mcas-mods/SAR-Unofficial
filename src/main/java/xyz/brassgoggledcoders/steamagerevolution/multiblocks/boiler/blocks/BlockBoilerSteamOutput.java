@@ -10,18 +10,18 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities
 
 public class BlockBoilerSteamOutput extends BlockGUIBase<TileEntityBoilerSteamOutput> {
 
-	public BlockBoilerSteamOutput(Material material, String name) {
-		super(material, name);
-	}
+    public BlockBoilerSteamOutput(Material material, String name) {
+        super(material, name);
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityBoilerSteamOutput.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityBoilerSteamOutput.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityBoilerSteamOutput();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityBoilerSteamOutput();
+    }
 
 }

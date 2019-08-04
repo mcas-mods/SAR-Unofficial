@@ -9,17 +9,17 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.furnace.tileentitie
 
 public class BlockFurnaceItemInput extends BlockMultiblockBase<TileEntityFurnaceItemInput> {
 
-	public BlockFurnaceItemInput(Material material, String name) {
-		super(material, name);
-	}
+    public BlockFurnaceItemInput(Material material, String name) {
+        super(material, name);
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityFurnaceItemInput.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityFurnaceItemInput.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityFurnaceItemInput();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityFurnaceItemInput();
+    }
 }

@@ -29,8 +29,8 @@ public class InventoryPieceProgressBar extends InventoryPiece<InventoryCraftingM
             gui.mc.renderEngine.bindTexture(GUIInventory.guiTexture);
             int progress = enclosingInv.getCurrentTicks();
             int total = enclosingInv.getCurrentRecipe().getTicksPerOperation();
-            int progressScaled = progress != 0 && total != 0 ? progress * this.getGUIElement().width / total : 0;
-            gui.drawTexturedModalRect(gui.guiLeft + this.getX(), gui.guiTop + this.getY(), 22, 181, progressScaled, 16);
+            int progressScaled = progress != 0 && total != 0 ? progress * getGUIElement().width / total : 0;
+            gui.drawTexturedModalRect(gui.guiLeft + getX(), gui.guiTop + getY(), 22, 181, progressScaled, 16);
         }
     }
 
@@ -62,7 +62,7 @@ public class InventoryPieceProgressBar extends InventoryPiece<InventoryCraftingM
     public void mouseClickedCallback(GUIInventory inventory, int mouseButton) {
         if(Loader.isModLoaded("jei") && SARJEIPlugin.recipesGui != null) {
             SARJEIPlugin.recipesGui.showCategories(Lists.newArrayList(
-                    SteamAgeRevolution.MODID + ":" + this.enclosingInv.enclosingMachine.getMachineType().getUID()));
+                    SteamAgeRevolution.MODID + ":" + enclosingInv.enclosingMachine.getMachineType().getUID()));
         }
     }
 }

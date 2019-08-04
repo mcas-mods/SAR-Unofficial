@@ -9,17 +9,17 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.tileentitie
 
 public class BlockGrinderFrame extends BlockMultiblockBase<TileEntityGrinderFrame> {
 
-	public BlockGrinderFrame() {
-		super(Material.IRON, "grinder_frame");
-	}
+    public BlockGrinderFrame() {
+        super(Material.IRON, "grinder_frame");
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityGrinderFrame.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityGrinderFrame.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityGrinderFrame();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityGrinderFrame();
+    }
 }

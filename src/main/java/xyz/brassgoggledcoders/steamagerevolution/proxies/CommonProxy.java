@@ -7,31 +7,31 @@ import net.minecraftforge.fml.common.event.*;
 
 public class CommonProxy {
 
-	public void preInit(FMLPreInitializationEvent event) {
+    public void preInit(FMLPreInitializationEvent event) {
 
-	}
+    }
 
-	public void init(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event) {
 
-	}
+    }
 
-	public void postInit(FMLPostInitializationEvent event) {
+    public void postInit(FMLPostInitializationEvent event) {
 
-	}
+    }
 
-	public void registerModels() {
-	}
+    public void registerModels() {
+    }
 
-	public void spawnSmoke(BlockPos at) {
-	}
+    public void spawnSmoke(BlockPos at) {
+    }
 
-	public void spawnSteamJet(BlockPos at, EnumFacing f) {
-	}
+    public void spawnSteamJet(BlockPos at, EnumFacing f) {
+    }
 
-	public void spawnFX(EnumParticleTypes type, BlockPos pos) {
-	}
+    public void spawnFX(EnumParticleTypes type, BlockPos pos) {
+    }
 
-	public void spawnMultiblockAssemblyFX(BlockPos min, BlockPos max) {
-	}
+    public void spawnMultiblockAssemblyFX(BlockPos min, BlockPos max) {
+    }
 
 }

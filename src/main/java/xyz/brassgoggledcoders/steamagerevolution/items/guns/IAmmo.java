@@ -5,14 +5,14 @@ import javax.annotation.Nullable;
 import net.minecraft.item.Item;
 
 public interface IAmmo {
-	public AmmoType getAmmoType();
+    public AmmoType getAmmoType();
 
-	@Nullable
-	public Item getAuxAmmoItem();
+    @Nullable
+    public Item getAuxAmmoItem();
 
-	public int getBaseDamage();
+    public int getBaseDamage();
 
-	public enum AmmoType {
-		BALL, CARTRIDGE, JACKETED
-	}
+    public enum AmmoType {
+        BALL, CARTRIDGE, JACKETED
+    }
 }

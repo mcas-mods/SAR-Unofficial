@@ -5,23 +5,23 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.Mult
 
 public abstract class MultiblockCraftingMachine<I extends InventoryCraftingMachine> extends MultiblockInventory<I> {
 
-	protected MultiblockCraftingMachine(World world) {
-		super(world);
-	}
+    protected MultiblockCraftingMachine(World world) {
+        super(world);
+    }
 
-	@Override
-	protected boolean updateServer() {
-		onTick();
-		return this.getInventory().updateServer();
-	}
+    @Override
+    protected boolean updateServer() {
+        onTick();
+        return getInventory().updateServer();
+    }
 
-	@Override
-	protected void updateClient() {
-		this.getInventory().updateClient();
-	}
+    @Override
+    protected void updateClient() {
+        getInventory().updateClient();
+    }
 
-	protected void onTick() {
-		// NO-OP
-	}
+    protected void onTick() {
+        // NO-OP
+    }
 
 }

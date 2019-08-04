@@ -9,18 +9,18 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat.tileentities.Ti
 
 public class BlockVatFluidInput extends BlockMultiblockBase<TileEntityVatFluidInput> {
 
-	public BlockVatFluidInput(Material material, String name) {
-		super(material, name);
-	}
+    public BlockVatFluidInput(Material material, String name) {
+        super(material, name);
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityVatFluidInput.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityVatFluidInput.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityVatFluidInput();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityVatFluidInput();
+    }
 
 }

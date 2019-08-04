@@ -6,11 +6,11 @@ import net.minecraft.world.World;
 
 public interface ILens {
 
-	public int getColor();
+    public int getColor();
 
-	public String getColorName();
+    public String getColorName();
 
-	public void onArmorTick(World world, EntityPlayer player, ItemStack stack);
+    public void onArmorTick(World world, EntityPlayer player, ItemStack stack);
 
-	public String getEffect();
+    public String getEffect();
 }

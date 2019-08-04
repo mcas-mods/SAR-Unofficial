@@ -7,14 +7,14 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.Contro
 
 public abstract class TileEntityAlloyFurnacePart extends MultiblockInventoryTileEntity<ControllerAlloyFurnace> {
 
-	@Override
-	public Class<ControllerAlloyFurnace> getMultiblockControllerType() {
-		return ControllerAlloyFurnace.class;
-	}
+    @Override
+    public Class<ControllerAlloyFurnace> getMultiblockControllerType() {
+        return ControllerAlloyFurnace.class;
+    }
 
-	@Override
-	public MultiblockControllerBase createNewMultiblock() {
-		return new ControllerAlloyFurnace(getWorld());
-	}
+    @Override
+    public MultiblockControllerBase createNewMultiblock() {
+        return new ControllerAlloyFurnace(getWorld());
+    }
 
 }

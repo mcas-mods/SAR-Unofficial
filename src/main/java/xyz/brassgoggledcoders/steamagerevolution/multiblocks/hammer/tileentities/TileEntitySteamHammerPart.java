@@ -7,13 +7,13 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.ControllerSt
 
 public class TileEntitySteamHammerPart extends MultiblockInventoryTileEntity<ControllerSteamHammer> {
 
-	@Override
-	public Class<? extends MultiblockControllerBase> getMultiblockControllerType() {
-		return ControllerSteamHammer.class;
-	}
+    @Override
+    public Class<? extends MultiblockControllerBase> getMultiblockControllerType() {
+        return ControllerSteamHammer.class;
+    }
 
-	@Override
-	public MultiblockControllerBase createNewMultiblock() {
-		return new ControllerSteamHammer(getWorld());
-	}
+    @Override
+    public MultiblockControllerBase createNewMultiblock() {
+        return new ControllerSteamHammer(getWorld());
+    }
 }

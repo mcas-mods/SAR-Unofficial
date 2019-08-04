@@ -9,17 +9,17 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder.tileentitie
 
 public class BlockGrinderOutput extends BlockMultiblockBase<TileEntityGrinderOutput> {
 
-	public BlockGrinderOutput() {
-		super(Material.IRON, "grinder_output");
-	}
+    public BlockGrinderOutput() {
+        super(Material.IRON, "grinder_output");
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityGrinderOutput.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityGrinderOutput.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityGrinderOutput();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityGrinderOutput();
+    }
 }

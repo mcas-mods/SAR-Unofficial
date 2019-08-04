@@ -31,14 +31,14 @@ public class EntityMinecartCarrier extends EntityMinecartInventory<InventoryBasi
     public EntityMinecartCarrier(World world) {
         super(world);
         Pair<int[], int[]> positions = MiningUtils.getGUIPositionGrid(53, 31, 4, 2);
-        this.setInventory(new InventoryBuilder<InventoryBasic>(new InventoryBasic(this)).addPiece("inventory",
+        setInventory(new InventoryBuilder<InventoryBasic>(new InventoryBasic(this)).addPiece("inventory",
                 new InventoryPieceItemHandler(new HandlerForceStack(8), positions.getRight(), positions.getLeft()))
                 .build());
     }
 
     @Override
     protected void entityInit() {
-        this.dataManager.register(CONTENTS, ItemStack.EMPTY);
+        dataManager.register(CONTENTS, ItemStack.EMPTY);
         super.entityInit();
     }
 
@@ -60,10 +60,10 @@ public class EntityMinecartCarrier extends EntityMinecartInventory<InventoryBasi
 
     @Override
     public void markDirty() {
-        for(int i = 0; i < this.getInventory().getItemHandlers().get(0).getSlots(); i++) {
-            ItemStack stack = this.getInventory().getItemHandlers().get(0).getStackInSlot(i);
+        for(int i = 0; i < getInventory().getItemHandlers().get(0).getSlots(); i++) {
+            ItemStack stack = getInventory().getItemHandlers().get(0).getStackInSlot(i);
             if(!stack.isEmpty()) {
-                this.getDataManager().set(CONTENTS, stack);
+                getDataManager().set(CONTENTS, stack);
                 break;
             }
         }

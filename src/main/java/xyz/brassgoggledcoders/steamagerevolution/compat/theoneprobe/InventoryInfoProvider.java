@@ -12,25 +12,25 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.Inventor
 
 public class InventoryInfoProvider implements IProbeInfoProvider {
 
-	@Override
-	public String getID() {
-		return SteamAgeRevolution.MODID + ":inventorysystem";
-	}
+    @Override
+    public String getID() {
+        return SteamAgeRevolution.MODID + ":inventorysystem";
+    }
 
-	@Override
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world,
-			IBlockState blockState, IProbeHitData data) {
-		TileEntity te = world.getTileEntity(data.getPos());
-		if(te instanceof IHasInventory) {
-			IHasInventory<?> hasInventory = (IHasInventory<?>) te;
-			InventoryBasic inventory = hasInventory.getInventory();
-			inventory.getFluidHandlers().forEach(tank -> probeInfo.horizontal()
-					.text(tank.getEnclosingIPiece().getName()).progress(tank.getFluidAmount(), tank.getCapacity()));
-			if(inventory instanceof InventoryCraftingMachine) {
-				InventoryCraftingMachine recipeInventory = (InventoryCraftingMachine) inventory;
-				probeInfo.horizontal().text("Progress: ").progress(recipeInventory.getCurrentTicks(),
-						recipeInventory.getCurrentRecipe().getTicksPerOperation());
-			}
-		}
-	}
+    @Override
+    public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world,
+            IBlockState blockState, IProbeHitData data) {
+        TileEntity te = world.getTileEntity(data.getPos());
+        if(te instanceof IHasInventory) {
+            IHasInventory<?> hasInventory = (IHasInventory<?>) te;
+            InventoryBasic inventory = hasInventory.getInventory();
+            inventory.getFluidHandlers().forEach(tank -> probeInfo.horizontal()
+                    .text(tank.getEnclosingIPiece().getName()).progress(tank.getFluidAmount(), tank.getCapacity()));
+            if(inventory instanceof InventoryCraftingMachine) {
+                InventoryCraftingMachine recipeInventory = (InventoryCraftingMachine) inventory;
+                probeInfo.horizontal().text("Progress: ").progress(recipeInventory.getCurrentTicks(),
+                        recipeInventory.getCurrentRecipe().getTicksPerOperation());
+            }
+        }
+    }
 }

@@ -36,8 +36,7 @@ public class SARJEIPlugin implements IModPlugin {
 
     @Override
     public void register(IModRegistry registry) {
-        MachineType.machinesList
-                .forEach((uid, instance) -> add(registry, instance.getUID(), instance.getCatalyst()));
+        MachineType.machinesList.forEach((uid, instance) -> add(registry, instance.getUID(), instance.getCatalyst()));
     }
 
     @Override

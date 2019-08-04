@@ -7,13 +7,13 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.crucible.Controller
 
 public abstract class TileEntityCruciblePart extends MultiblockInventoryTileEntity<ControllerCrucible> {
 
-	@Override
-	public Class<ControllerCrucible> getMultiblockControllerType() {
-		return ControllerCrucible.class;
-	}
+    @Override
+    public Class<ControllerCrucible> getMultiblockControllerType() {
+        return ControllerCrucible.class;
+    }
 
-	@Override
-	public MultiblockControllerBase createNewMultiblock() {
-		return new ControllerCrucible(getWorld());
-	}
+    @Override
+    public MultiblockControllerBase createNewMultiblock() {
+        return new ControllerCrucible(getWorld());
+    }
 }

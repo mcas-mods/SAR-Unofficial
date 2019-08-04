@@ -20,7 +20,7 @@ public class TileEntityCrucibleHeatInput extends TileEntityCruciblePart {
     @Nonnull
     public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
         if(capability == SARCaps.HEATABLE) {
-            return this.getInventory().getCapability(capability, facing);
+            return getInventory().getCapability(capability, facing);
         }
         return super.getCapability(capability, facing);
     }

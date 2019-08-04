@@ -96,9 +96,9 @@ public class ControllerSteamHammer extends MultiblockCraftingMachine<InventoryCr
     @Override
     protected void onTick() {
         for(EntityItem item : WORLD.getEntitiesWithinAABB(EntityItem.class, interior)) {
-            if(ItemHandlerHelper.insertItem(this.getInventory().getHandler("itemInput", ItemStackHandlerSync.class),
+            if(ItemHandlerHelper.insertItem(getInventory().getHandler("itemInput", ItemStackHandlerSync.class),
                     item.getItem(), true).isEmpty()) {
-                ItemHandlerHelper.insertItem(this.getInventory().getHandler("itemInput", ItemStackHandlerSync.class),
+                ItemHandlerHelper.insertItem(getInventory().getHandler("itemInput", ItemStackHandlerSync.class),
                         item.getItem(), false);
                 item.setDead();
             }

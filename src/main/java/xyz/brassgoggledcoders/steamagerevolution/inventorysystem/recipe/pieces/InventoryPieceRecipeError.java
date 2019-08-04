@@ -15,13 +15,13 @@ public class InventoryPieceRecipeError extends InventoryPiece<InventoryCraftingM
 
     @Override
     public boolean shouldRender() {
-        return !this.enclosingInv.getRecipeError().equals(RecipeError.NONE);
+        return !enclosingInv.getRecipeError().equals(RecipeError.NONE);
     }
 
     @Override
     public List<String> getTooltip(List<String> tips) {
-        if(this.enclosingInv.getRecipeError() != null) {
-            tips.add(TextFormatting.RED.toString() + this.enclosingInv.getRecipeError().getLocalized());
+        if(enclosingInv.getRecipeError() != null) {
+            tips.add(TextFormatting.RED.toString() + enclosingInv.getRecipeError().getLocalized());
         }
         return tips;
     }

@@ -10,13 +10,13 @@ import net.minecraft.tileentity.TileEntityFurnace;
 
 public class ItemBlockCharcoal<T extends Block & IHasModel> extends ItemBlockModel<T> {
 
-	public ItemBlockCharcoal(T block) {
-		super(block);
-	}
+    public ItemBlockCharcoal(T block) {
+        super(block);
+    }
 
-	@Override
-	public int getItemBurnTime(ItemStack stack) {
-		return TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL)) * 9;
-	}
+    @Override
+    public int getItemBurnTime(ItemStack stack) {
+        return TileEntityFurnace.getItemBurnTime(new ItemStack(Items.COAL)) * 9;
+    }
 
 }

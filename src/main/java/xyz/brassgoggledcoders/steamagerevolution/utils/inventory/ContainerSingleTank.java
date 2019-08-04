@@ -7,14 +7,14 @@ import net.minecraft.tileentity.TileEntity;
 
 @Deprecated
 public class ContainerSingleTank extends ContainerBase {
-	public ContainerSingleTank(EntityPlayer player, TileEntity tile) {
-		// TODO Add fluid interaction slots
-		createPlayerSlots(player.inventory);
-	}
+    public ContainerSingleTank(EntityPlayer player, TileEntity tile) {
+        // TODO Add fluid interaction slots
+        createPlayerSlots(player.inventory);
+    }
 
-	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) {
-		return true;
-	}
+    @Override
+    public boolean canInteractWith(EntityPlayer playerIn) {
+        return true;
+    }
 
 }

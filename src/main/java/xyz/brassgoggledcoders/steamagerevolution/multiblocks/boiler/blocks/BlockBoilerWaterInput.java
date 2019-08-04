@@ -9,18 +9,18 @@ import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities
 
 public class BlockBoilerWaterInput extends BlockMultiblockBase<TileEntityBoilerWaterInput> {
 
-	public BlockBoilerWaterInput(Material material, String name) {
-		super(material, name);
-	}
+    public BlockBoilerWaterInput(Material material, String name) {
+        super(material, name);
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityBoilerWaterInput.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityBoilerWaterInput.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityBoilerWaterInput();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityBoilerWaterInput();
+    }
 
 }

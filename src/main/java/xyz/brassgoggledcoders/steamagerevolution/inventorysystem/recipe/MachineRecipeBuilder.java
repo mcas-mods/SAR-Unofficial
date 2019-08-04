@@ -78,7 +78,7 @@ public class MachineRecipeBuilder {
     }
 
     public MachineRecipeBuilder setTemperatureThreshold(int threshold) {
-        this.temperatureThreshold = threshold;
+        temperatureThreshold = threshold;
         return this;
     }
 

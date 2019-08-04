@@ -23,7 +23,7 @@ import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
 import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.MultiblockMachineType;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities.TileEntityBoilerGauge;
 
-//TODO Implement a Railcraft-style mechanic where if a hot boiler runs out of water and then water is re-added without cooling down first...boom. 
+//TODO Implement a Railcraft-style mechanic where if a hot boiler runs out of water and then water is re-added without cooling down first...boom.
 public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatable> {
     public static final String uid = "boiler";
 
@@ -41,7 +41,7 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatabl
 
     public ControllerBoiler(World world) {
         super(world);
-        this.setInventory(new InventoryBuilder<>(new InventoryHeatable(this, 100))
+        setInventory(new InventoryBuilder<>(new InventoryHeatable(this, 100))
                 .addPiece("solidFuel",
                         new InventoryPieceItemHandler(IOType.POWER, new ItemStackHandlerFuel(1), new int[] { 10 },
                                 new int[] { 50 }))
@@ -62,11 +62,11 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatabl
     protected boolean updateServer() {
         // Temp
         SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-                new PacketSetBurnTime(this.getMachinePos(), this.currentBurnTime), this.getMachinePos(),
-                this.getMachineWorld().provider.getDimension());
+                new PacketSetBurnTime(getMachinePos(), currentBurnTime), getMachinePos(),
+                getMachineWorld().provider.getDimension());
         // Stage 1 - Burn fuel
         if(currentBurnTime == 0) {
-            IItemHandler solidFuelHandler = this.getInventory().getHandler("solidFuel", ItemStackHandlerSync.class);
+            IItemHandler solidFuelHandler = getInventory().getHandler("solidFuel", ItemStackHandlerSync.class);
             for(int i = 0; i < solidFuelHandler.getSlots(); i++) {
                 ItemStack fuel = solidFuelHandler.getStackInSlot(i);
                 if(!fuel.isEmpty() && TileEntityFurnace.getItemBurnTime(fuel) != 0) {
@@ -78,7 +78,7 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatabl
             // TODO Reimplement liquid fuel support
             // If we have run out of fuel to maintain temperature, rapidly cool down
             if(currentBurnTime <= 0) {
-                this.getInventory().getCapability(SARCaps.HEATABLE, null).heat(-5);
+                getInventory().getCapability(SARCaps.HEATABLE, null).heat(-5);
             }
         }
         // If we're burning, we can attempt to heat
@@ -86,7 +86,7 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatabl
             currentBurnTime--;
             // Heat 'er up
             // At full heat, we can begin to convert water to steam
-            if(this.getInventory().getCapability(SARCaps.HEATABLE, null).heat(1)) {
+            if(getInventory().getCapability(SARCaps.HEATABLE, null).heat(1)) {
                 FluidTankSingleSync steamTank = getInventory().getHandler("steamTank", FluidTankSingleSync.class);
                 FluidTankSingleSync waterTank = getInventory().getHandler("waterTank", FluidTankSingleSync.class);
                 if(waterTank.getFluidAmount() >= fluidConversionPerTick) {

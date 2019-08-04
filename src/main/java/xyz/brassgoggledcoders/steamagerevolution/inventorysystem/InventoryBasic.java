@@ -31,7 +31,7 @@ public class InventoryBasic implements ICapabilitySerializable<NBTTagCompound> {
 
     // You MUST use the builder...
     public InventoryBasic(IHasInventory parent) {
-        this.enclosingMachine = parent;
+        enclosingMachine = parent;
     }
 
     @Override
@@ -72,8 +72,8 @@ public class InventoryBasic implements ICapabilitySerializable<NBTTagCompound> {
     // TODO these lists should include things that extend the passed in class
     @SuppressWarnings("unchecked")
     public <H extends INBTSerializable<NBTTagCompound>> H getHandler(String name, Class<H> handlerType) {
-        if(this.inventoryPieces.containsKey(name)) {
-            return ((InventoryPieceHandler<H>) this.inventoryPieces.get(name)).getHandler();
+        if(inventoryPieces.containsKey(name)) {
+            return ((InventoryPieceHandler<H>) inventoryPieces.get(name)).getHandler();
         }
         else {
             return null;

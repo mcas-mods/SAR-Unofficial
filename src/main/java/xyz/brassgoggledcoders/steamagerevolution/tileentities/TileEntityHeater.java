@@ -26,20 +26,18 @@ public class TileEntityHeater extends TileEntityCraftingMachine<InventoryHeatabl
 
     @Override
     public void update() {
-        if(!this.getWorld().isRemote) {
-            SteamAgeRevolution.instance.getPacketHandler()
-                    .sendToAllAround(
-                            new PacketSetBurnTime(this.getMachinePos(),
-                                    (int) this.getInventory().getCapability(SARCaps.HEATABLE, null)
-                                            .getCurrentTemperature()),
-                            this.getMachinePos(), this.getMachineWorld().provider.getDimension());
-            if(this.getInventory().getFluidHandlers().get(0).getFluidAmount() > 0) {
-                this.getInventory().internal.setCurrentTemperature(1000);
+        if(!getWorld().isRemote) {
+            SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
+                    new PacketSetBurnTime(getMachinePos(),
+                            getInventory().getCapability(SARCaps.HEATABLE, null).getCurrentTemperature()),
+                    getMachinePos(), getMachineWorld().provider.getDimension());
+            if(getInventory().getFluidHandlers().get(0).getFluidAmount() > 0) {
+                getInventory().internal.setCurrentTemperature(1000);
             }
             for(EnumFacing facing : EnumFacing.VALUES) {
-                TileEntity te = this.getWorld().getTileEntity(this.getPos().offset(facing));
+                TileEntity te = getWorld().getTileEntity(getPos().offset(facing));
                 if(te != null && te.hasCapability(SARCaps.HEATABLE, facing)) {
-                    this.getInventory().internal.heat(-10);
+                    getInventory().internal.heat(-10);
                     te.getCapability(SARCaps.HEATABLE, facing).heat(10);
                 }
             }
@@ -55,11 +53,11 @@ public class TileEntityHeater extends TileEntityCraftingMachine<InventoryHeatabl
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if(capability == SARCaps.HEATABLE) {
-            return this.getInventory().getCapability(capability, facing);
+            return getInventory().getCapability(capability, facing);
         }
         else if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
             return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
-                    .cast(this.getInventory().getHandler("steamTank", FluidTankSync.class));
+                    .cast(getInventory().getHandler("steamTank", FluidTankSync.class));
         }
         return super.getCapability(capability, facing);
     }

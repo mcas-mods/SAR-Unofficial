@@ -25,7 +25,7 @@ public abstract class TileEntityBoilerPart extends MultiblockInventoryTileEntity
     public LinkedHashMap<String, String> getDebugStrings(LinkedHashMap<String, String> debugStrings) {
         // debugStrings.put("Temperature", "" +
         // this.getMultiblockController().getInventory().getCurrentTemperature());
-        debugStrings.put("Burn Time", "" + this.getMultiblockController().currentBurnTime);
+        debugStrings.put("Burn Time", "" + getMultiblockController().currentBurnTime);
         return debugStrings;
     }
 }

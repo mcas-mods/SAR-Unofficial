@@ -32,13 +32,13 @@ public abstract class InventoryPieceHandler<H extends INBTSerializable<NBTTagCom
     @Override
     public NBTTagCompound serializeNBT() {
         NBTTagCompound tag = this.getHandler().serializeNBT();
-        tag.setString("name", this.getName());
+        tag.setString("name", getName());
         return tag;
     }
 
     @Override
     public void deserializeNBT(NBTTagCompound nbt) {
-        this.name = nbt.getString("name");
+        name = nbt.getString("name");
         this.getHandler().deserializeNBT(nbt);
     }
 }

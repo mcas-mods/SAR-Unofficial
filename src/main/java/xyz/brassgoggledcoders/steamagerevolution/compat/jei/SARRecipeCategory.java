@@ -26,7 +26,7 @@ public class SARRecipeCategory implements IRecipeCategory<MachineRecipe> {
         this.machine = machine;
         IDrawableStatic arrowDrawable = helper.createDrawable(
                 new ResourceLocation(SteamAgeRevolution.MODID, "textures/gui/inventory.png"), 176, 83, 24, 17);
-        this.arrow = helper.createAnimatedDrawable(arrowDrawable, 20, IDrawableAnimated.StartDirection.LEFT, false);
+        arrow = helper.createAnimatedDrawable(arrowDrawable, 20, IDrawableAnimated.StartDirection.LEFT, false);
     }
 
     public static void setGuiHelper(IGuiHelper helper) {
@@ -57,7 +57,7 @@ public class SARRecipeCategory implements IRecipeCategory<MachineRecipe> {
     @Override
     public void drawExtras(Minecraft minecraft) {
         if(machine instanceof IHasInventory) {
-            IHasInventory<?> inventory = (IHasInventory<?>) machine;
+            IHasInventory<?> inventory = machine;
             inventory
                     .getInventory().inventoryPieces
                             .forEach(

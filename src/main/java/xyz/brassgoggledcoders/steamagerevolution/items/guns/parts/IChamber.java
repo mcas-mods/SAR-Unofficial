@@ -3,11 +3,11 @@ package xyz.brassgoggledcoders.steamagerevolution.items.guns.parts;
 import xyz.brassgoggledcoders.steamagerevolution.items.guns.IAmmo.AmmoType;
 
 public interface IChamber extends IGunPart {
-	public AmmoType getAcceptedType();
+    public AmmoType getAcceptedType();
 
-	@Override
-	default GunPartType getPartType() {
-		return GunPartType.CHAMBER;
-	}
+    @Override
+    default GunPartType getPartType() {
+        return GunPartType.CHAMBER;
+    }
 
 }

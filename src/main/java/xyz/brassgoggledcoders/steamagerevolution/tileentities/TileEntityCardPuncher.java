@@ -17,43 +17,43 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class TileEntityCardPuncher extends TileEntityInventoryBase implements IHasGui {
 
-	public TileEntityCardPuncher() {
-		super(19);
-	}
+    public TileEntityCardPuncher() {
+        super(19);
+    }
 
-	@Override
-	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new GuiCardPuncher((TileEntityCardPuncher) world.getTileEntity(blockPos), entityPlayer);
-	}
+    @Override
+    public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+        return new GuiCardPuncher((TileEntityCardPuncher) world.getTileEntity(blockPos), entityPlayer);
+    }
 
-	@Override
-	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-		return new ContainerCardPuncher((TileEntityCardPuncher) world.getTileEntity(blockPos), entityPlayer);
-	}
+    @Override
+    public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+        return new ContainerCardPuncher((TileEntityCardPuncher) world.getTileEntity(blockPos), entityPlayer);
+    }
 
-	public void doPunch() {
-		ItemStackHandler inventory = CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-				.cast(this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null));
-		ItemStack cardIn = inventory.getStackInSlot(0);
-		ItemStack cardOut = inventory.getStackInSlot(1);
-		ItemStack dye = inventory.getStackInSlot(2);
-		if (!cardIn.isEmpty() && cardOut.isEmpty()) {
-			NBTTagCompound tag = new NBTTagCompound();
-			if (dye.getItem() instanceof ItemDye) {
-				tag.setInteger("dye", dye.getMetadata());
-			}
-			// TODO This is funky - in a bad way
-			NonNullList<ItemStack> tempStacks = NonNullList.create();
-			for (int i = 3; i < 13; i++) {
-				tempStacks.add(inventory.getStackInSlot(i));
-			}
-			ItemStackHandler tempHandler = new ItemStackHandler(tempStacks);
-			tag.setTag("inventory", tempHandler.serializeNBT());
+    public void doPunch() {
+        ItemStackHandler inventory = CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+                .cast(this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null));
+        ItemStack cardIn = inventory.getStackInSlot(0);
+        ItemStack cardOut = inventory.getStackInSlot(1);
+        ItemStack dye = inventory.getStackInSlot(2);
+        if(!cardIn.isEmpty() && cardOut.isEmpty()) {
+            NBTTagCompound tag = new NBTTagCompound();
+            if(dye.getItem() instanceof ItemDye) {
+                tag.setInteger("dye", dye.getMetadata());
+            }
+            // TODO This is funky - in a bad way
+            NonNullList<ItemStack> tempStacks = NonNullList.create();
+            for(int i = 3; i < 13; i++) {
+                tempStacks.add(inventory.getStackInSlot(i));
+            }
+            ItemStackHandler tempHandler = new ItemStackHandler(tempStacks);
+            tag.setTag("inventory", tempHandler.serializeNBT());
 
-			cardIn.setTagCompound(tag);
-			inventory.insertItem(1, inventory.extractItem(0, 1, false), false);
-			markDirty();
-		}
-	}
+            cardIn.setTagCompound(tag);
+            inventory.insertItem(1, inventory.extractItem(0, 1, false), false);
+            markDirty();
+        }
+    }
 
 }

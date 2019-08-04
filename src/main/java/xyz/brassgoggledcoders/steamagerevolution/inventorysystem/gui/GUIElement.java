@@ -7,7 +7,7 @@ public final class GUIElement {
     public GUIElement(int textureX, int textureY, int xSize, int ySize) {
         this.textureX = textureX;
         this.textureY = textureY;
-        this.width = xSize;
-        this.height = ySize;
+        width = xSize;
+        height = ySize;
     }
 }

@@ -30,7 +30,7 @@ public class GUIInventory extends GuiContainer {
             ContainerBase containerInstance) {
         super(containerInstance);
         this.holder = holder;
-        this.playerInventory = player.inventory;
+        playerInventory = player.inventory;
     }
 
     @Override
@@ -41,8 +41,8 @@ public class GUIInventory extends GuiContainer {
         for(InventoryPiece<?> piece : holder.getInventory().getInventoryPieces()) {
             GUIElement element = piece.getGUIElement();
             // TODO Don't just pass a fresh list in each time.
-            if(!piece.getTooltip(Lists.newArrayList()).isEmpty() && this.isPointInRegion(piece.getX(), piece.getY(),
-                    element.width, element.height, mouseX, mouseY)) {
+            if(!piece.getTooltip(Lists.newArrayList()).isEmpty()
+                    && isPointInRegion(piece.getX(), piece.getY(), element.width, element.height, mouseX, mouseY)) {
                 this.drawHoveringText(piece.getTooltip(Lists.newArrayList()), mouseX, mouseY);
             }
             piece.drawScreenCallback(this, mouseX, mouseY, partialTicks);
@@ -51,9 +51,8 @@ public class GUIInventory extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        this.fontRenderer.drawString(this.holder.getMachineType().getLocalizedName(), 8, 6, 4210752);
-        this.fontRenderer.drawString(playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2,
-                4210752);
+        fontRenderer.drawString(holder.getMachineType().getLocalizedName(), 8, 6, 4210752);
+        fontRenderer.drawString(playerInventory.getDisplayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
     }
 
@@ -70,15 +69,14 @@ public class GUIInventory extends GuiContainer {
                 if(piece instanceof InventoryPieceItemHandler) {
                     InventoryPieceItemHandler pieceH = (InventoryPieceItemHandler) piece;
                     for(int slot = 0; slot < pieceH.getHandler().getSlots(); slot++) {
-                        this.drawTexturedModalRect(
-                                this.getGuiLeft() + pieceH.getSlotPositionX(slot) + pieceH.getOffset(),
-                                this.getGuiTop() + pieceH.getSlotPositionY(slot) + pieceH.getOffset(), element.textureX,
+                        this.drawTexturedModalRect(getGuiLeft() + pieceH.getSlotPositionX(slot) + pieceH.getOffset(),
+                                getGuiTop() + pieceH.getSlotPositionY(slot) + pieceH.getOffset(), element.textureX,
                                 element.textureY, element.width, element.height);
                     }
                 }
                 else {
-                    this.drawTexturedModalRect(this.getGuiLeft() + piece.getX() + piece.getOffset(),
-                            this.getGuiTop() + piece.getY() + piece.getOffset(), element.textureX, element.textureY,
+                    this.drawTexturedModalRect(getGuiLeft() + piece.getX() + piece.getOffset(),
+                            getGuiTop() + piece.getY() + piece.getOffset(), element.textureX, element.textureY,
                             element.width, element.height);
                 }
             }
@@ -90,7 +88,7 @@ public class GUIInventory extends GuiContainer {
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         for(InventoryPiece<?> piece : holder.getInventory().getInventoryPieces()) {
             GUIElement element = piece.getGUIElement();
-            if(this.isPointInRegion(piece.getX(), piece.getY(), element.width, element.height, mouseX, mouseY)) {
+            if(isPointInRegion(piece.getX(), piece.getY(), element.width, element.height, mouseX, mouseY)) {
                 piece.mouseClickedCallback(this, mouseButton);
             }
         }
