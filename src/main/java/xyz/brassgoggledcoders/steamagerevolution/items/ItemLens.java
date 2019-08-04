@@ -19,7 +19,7 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.SARItems;
 import xyz.brassgoggledcoders.steamagerevolution.api.ILens;
 import xyz.brassgoggledcoders.steamagerevolution.api.VanillaLens;
 
@@ -35,7 +35,7 @@ public class ItemLens extends ItemBase implements IHasSubItems {
     private void registerVanillaLenses() {
         for(int i = 0; i < 16; ++i) {
             if(i == EnumDyeColor.GREEN.getMetadata()) {
-                SteamAgeRevolution.lenseTypes.add(new VanillaLens(i) {
+                SARItems.lenseTypes.add(new VanillaLens(i) {
                     // TODO Switch to a brightness increaser instead of a potion effect
                     @Override
                     public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
@@ -51,7 +51,7 @@ public class ItemLens extends ItemBase implements IHasSubItems {
                 });
             }
             else if(i == EnumDyeColor.CYAN.getMetadata()) {
-                SteamAgeRevolution.lenseTypes.add(new VanillaLens(i) {
+                SARItems.lenseTypes.add(new VanillaLens(i) {
                     @Override
                     public String getEffect() {
                         return "Lessens the goggle overlay";
@@ -59,7 +59,7 @@ public class ItemLens extends ItemBase implements IHasSubItems {
                 });
             }
             else if(i == EnumDyeColor.SILVER.getMetadata()) {
-                SteamAgeRevolution.lenseTypes.add(new VanillaLens(i) {
+                SARItems.lenseTypes.add(new VanillaLens(i) {
                     @Override
                     public String getEffect() {
                         return "Makes the goggles act as a OneProbe probe";
@@ -67,7 +67,7 @@ public class ItemLens extends ItemBase implements IHasSubItems {
                 });
             }
             else if(i == EnumDyeColor.WHITE.getMetadata()) {
-                SteamAgeRevolution.lenseTypes.add(new VanillaLens(i) {
+                SARItems.lenseTypes.add(new VanillaLens(i) {
                     @Override
                     public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
                         // TODO Switch to cancelling an event
@@ -81,7 +81,7 @@ public class ItemLens extends ItemBase implements IHasSubItems {
                 });
             }
             else if(i == EnumDyeColor.LIGHT_BLUE.getMetadata()) {
-                SteamAgeRevolution.lenseTypes.add(new VanillaLens(i) {
+                SARItems.lenseTypes.add(new VanillaLens(i) {
                     @Override
                     public String getEffect() {
                         return "Removes water fog";
@@ -89,7 +89,7 @@ public class ItemLens extends ItemBase implements IHasSubItems {
                 });
             }
             else if(i == EnumDyeColor.ORANGE.getMetadata()) {
-                SteamAgeRevolution.lenseTypes.add(new VanillaLens(i) {
+                SARItems.lenseTypes.add(new VanillaLens(i) {
                     @Override
                     public String getEffect() {
                         return "Removes lava fog";
@@ -97,7 +97,7 @@ public class ItemLens extends ItemBase implements IHasSubItems {
                 });
             }
             else if(i == EnumDyeColor.BLACK.getMetadata()) {
-                SteamAgeRevolution.lenseTypes.add(new VanillaLens(i) {
+                SARItems.lenseTypes.add(new VanillaLens(i) {
                     @Override
                     public String getEffect() {
                         return "Removes world fog";
@@ -105,7 +105,7 @@ public class ItemLens extends ItemBase implements IHasSubItems {
                 });
             }
             else if(i == EnumDyeColor.PURPLE.getMetadata()) {
-                SteamAgeRevolution.lenseTypes.add(new VanillaLens(i) {
+                SARItems.lenseTypes.add(new VanillaLens(i) {
                     @Override
                     public String getEffect() {
                         return "Makes the goggles act as Goggles of Revealing";
@@ -113,7 +113,7 @@ public class ItemLens extends ItemBase implements IHasSubItems {
                 });
             }
             else {
-                SteamAgeRevolution.lenseTypes.add(new VanillaLens(i));
+                SARItems.lenseTypes.add(new VanillaLens(i));
             }
         }
     }
@@ -129,7 +129,7 @@ public class ItemLens extends ItemBase implements IHasSubItems {
         // TODO This is likely a fragile way of storing, but it feels unnecessary to use
         // a hashmap
         int i = 0;
-        for(ILens lens : SteamAgeRevolution.lenseTypes) {
+        for(ILens lens : SARItems.lenseTypes) {
             itemStacks.add(new ItemStack(this, 1, i++));
         }
         return itemStacks;
@@ -139,14 +139,14 @@ public class ItemLens extends ItemBase implements IHasSubItems {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
         tooltip.add("Effect:");
-        tooltip.add(SteamAgeRevolution.lenseTypes.get(stack.getMetadata()).getEffect());
+        tooltip.add(SARItems.lenseTypes.get(stack.getMetadata()).getEffect());
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         return WordUtils.capitalize(
-                I18n.translateToLocal(SteamAgeRevolution.lenseTypes.get(stack.getMetadata()).getColorName())) + " "
+                I18n.translateToLocal(SARItems.lenseTypes.get(stack.getMetadata()).getColorName())) + " "
                 + super.getItemStackDisplayName(stack);
     }
 }

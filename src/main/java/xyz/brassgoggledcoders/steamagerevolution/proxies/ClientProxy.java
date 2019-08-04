@@ -17,8 +17,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.*;
 import xyz.brassgoggledcoders.steamagerevolution.client.ResourceListener;
 import xyz.brassgoggledcoders.steamagerevolution.entities.EntityMinecartCarrier;
 import xyz.brassgoggledcoders.steamagerevolution.entities.EntityMinecartDrilling;
@@ -140,7 +139,7 @@ public class ClientProxy extends CommonProxy {
             @Override
             public int colorMultiplier(ItemStack stack, int tintIndex) {
                 if(tintIndex == 1) {
-                    return SteamAgeRevolution.lenseTypes.get(stack.getMetadata()).getColor();
+                    return SARItems.lenseTypes.get(stack.getMetadata()).getColor();
                 }
                 return -1;
             }

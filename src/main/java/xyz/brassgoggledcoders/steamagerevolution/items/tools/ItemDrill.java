@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.SARItems;
 import xyz.brassgoggledcoders.steamagerevolution.utils.IAreaBreakingTool;
 import xyz.brassgoggledcoders.steamagerevolution.utils.TinkersUtils;
 
@@ -32,7 +32,7 @@ public class ItemDrill extends ItemToolBase implements IAreaBreakingTool {
         World world = player.getEntityWorld();
 
         // TODO Move this to earlier
-        if(SteamAgeRevolution.KNOWN_ORES.contains(world.getBlockState(pos).getBlock())) {
+        if(SARItems.KNOWN_ORES.contains(world.getBlockState(pos).getBlock())) {
             return true;
         }
 

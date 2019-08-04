@@ -26,7 +26,7 @@ public class EventHandlerCommon {
             }
         }
         if(event.getName().contains("ore")) {
-            SteamAgeRevolution.KNOWN_ORES.add(Block.getBlockFromItem(event.getOre().getItem()));
+            SARItems.KNOWN_ORES.add(Block.getBlockFromItem(event.getOre().getItem()));
         }
     }
 

@@ -26,7 +26,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.SARItems;
 
 public class ItemSteamSword extends ItemSword implements IHasModel, IModAware {
 
@@ -37,7 +37,7 @@ public class ItemSteamSword extends ItemSword implements IHasModel, IModAware {
     private IBaseMod mod;
 
     public ItemSteamSword(String name, int capacity) {
-        super(SteamAgeRevolution.STEAM);
+        super(SARItems.STEAM);
         setTranslationKey(name);
         this.capacity = capacity;
         this.name = name;

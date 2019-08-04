@@ -25,7 +25,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.SARItems;
 
 public class ItemSteamAxe extends ItemAxe implements IHasModel, IModAware {
 
@@ -36,7 +36,7 @@ public class ItemSteamAxe extends ItemAxe implements IHasModel, IModAware {
     private IBaseMod mod;
 
     public ItemSteamAxe(String name, int capacity) {
-        super(SteamAgeRevolution.STEAM, SteamAgeRevolution.STEAM.getAttackDamage(), -3.0F);
+        super(SARItems.STEAM, SARItems.STEAM.getAttackDamage(), -3.0F);
         setTranslationKey(name);
         this.capacity = capacity;
         this.name = name;

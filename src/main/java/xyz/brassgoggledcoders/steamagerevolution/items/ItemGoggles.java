@@ -31,6 +31,7 @@ import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.items.IGoggles;
+import xyz.brassgoggledcoders.steamagerevolution.SARItems;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 
 @Optional.Interface(iface = "thaumcraft.api.items.IGoggles", modid = "thaumcraft")
@@ -42,7 +43,7 @@ public class ItemGoggles extends ItemArmorBase implements IGoggles {
             "textures/misc/goggles_2.png");
 
     public ItemGoggles() {
-        super(SteamAgeRevolution.GOGGLES, EntityEquipmentSlot.HEAD, "goggles");
+        super(SARItems.GOGGLES, EntityEquipmentSlot.HEAD, "goggles");
         setMaxStackSize(1);
     }
 
@@ -54,11 +55,11 @@ public class ItemGoggles extends ItemArmorBase implements IGoggles {
         if(!stack.hasTagCompound()) {
             return;
         }
-        for(int i = 0; i < SteamAgeRevolution.lenseTypes.size(); i++) {
+        for(int i = 0; i < SARItems.lenseTypes.size(); i++) {
             if(stack.getTagCompound().getBoolean("lens" + i)) {
                 // TODO tooltip text colours
                 tooltip.add(WordUtils
-                        .capitalize(I18n.translateToLocal(SteamAgeRevolution.lenseTypes.get(i).getColorName())));
+                        .capitalize(I18n.translateToLocal(SARItems.lenseTypes.get(i).getColorName())));
             }
         }
     }
@@ -76,9 +77,9 @@ public class ItemGoggles extends ItemArmorBase implements IGoggles {
             stack.setTagCompound(new NBTTagCompound());
         }
 
-        for(int i = 0; i < SteamAgeRevolution.lenseTypes.size(); i++) {
+        for(int i = 0; i < SARItems.lenseTypes.size(); i++) {
             if(stack.getTagCompound().getBoolean("lens" + i)) {
-                SteamAgeRevolution.lenseTypes.get(i).onArmorTick(world, player, stack);
+                SARItems.lenseTypes.get(i).onArmorTick(world, player, stack);
             }
         }
     }
@@ -109,7 +110,7 @@ public class ItemGoggles extends ItemArmorBase implements IGoggles {
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glDisable(GL11.GL_ALPHA_TEST);
-        for(int len = 0; len < SteamAgeRevolution.lenseTypes.size(); len++) {
+        for(int len = 0; len < SARItems.lenseTypes.size(); len++) {
             if(stack.getTagCompound().getBoolean("lens" + EnumDyeColor.CYAN.getMetadata())) {
                 FMLClientHandler.instance().getClient().renderEngine.bindTexture(overlay2);
                 break;
