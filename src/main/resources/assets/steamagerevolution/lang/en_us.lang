@@ -137,6 +137,22 @@ steamagerevolution.multiblock.validation.alloyforgeinterior=Interior of the allo
 steamagerevolution.multiblock.validation.distiller_radiator=Bottom layer of the Distiller must be composed entirely of radiator blocks
 steamagerevolution.multiblock.validation.distiller_hotplate=Second-from-bottom layer of the Distiller must be composed entirely of hotplate blocks
 
+#Machines
+steamagerevolution.machine.alloy_furnace=Alloy Furnace
+steamagerevolution.machine.boiler=Boiler
+steamagerevolution.machine.crucible=Crucible
+steamagerevolution.machine.distiller=Distiller
+steamagerevolution.machine.grinder=Grinder
+steamagerevolution.machine.steam_furnace=Steam Furnace
+steamagerevolution.machine.steam_hammer=Steam Hammer
+steamagerevolution.machine.steelworks=Steelworks
+steamagerevolution.machine.tank=Tank
+steamagerevolution.machine.vat=Vat
+steamagerevolution.machine.casting_bench=Casting Bench
+steamagerevolution.machine.fume_collector=Fume Collector
+steamagerevolution.machine.fluid_io=Fluid IO
+steamagerevolution.machine.fluid_hopper=Fluid Hopper
+
 #Other
 fluid.steam=Steam
 fluid.sulphur_dioxide=Sulphur Dioxide
@@ -149,3 +165,12 @@ death.attack.gas=%1$s's lungs dissolved.
 death.attack.acid=%1$s became a part of the solution.
 death.attack.bullet=%1$s took a bullet to the knee.
 death.attack.grinder=%1$s got left in the dust.
+
+info.ticks=ticks
+info.seconds=seconds
+info.tempunit=°F
+
+sar.recipeerror.norecipe=No recipe
+
+sar.recipeerror.insufficientsteam=Insufficient Steam
+sar.recipeerror.outputspace=Not enough space in outputs

@@ -3,12 +3,12 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.steelworks.tileent
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+import com.teamacronymcoders.base.multiblocksystem.validation.IMultiblockValidator;
 
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockInventoryWrapper;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockStackHandlerWrapper;
 
 public class TileEntitySteelworksCarbonInput extends TileEntitySteelworksPart {
 	@Override
@@ -19,8 +19,9 @@ public class TileEntitySteelworksCarbonInput extends TileEntitySteelworksPart {
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new MultiblockInventoryWrapper(this, false));
+		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+					.cast(new MultiblockStackHandlerWrapper(this, "itemInput"));
 		}
 		return super.getCapability(capability, facing);
 	}

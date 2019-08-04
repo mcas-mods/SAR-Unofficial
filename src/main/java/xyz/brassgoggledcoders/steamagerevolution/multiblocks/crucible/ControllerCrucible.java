@@ -1,89 +1,79 @@
 package xyz.brassgoggledcoders.steamagerevolution.multiblocks.crucible;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.MultiFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
+import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.FluidTankSync;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.ItemStackHandlerSync;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.pieces.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.pieces.InventoryPieceTemperatureGauge;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.MultiblockMachineType;
+import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 
-public class ControllerCrucible extends SARMultiblockInventory<InventoryRecipeMachine> {
+public class ControllerCrucible extends MultiblockCraftingMachine<InventoryHeatable> {
 
-	BlockPos minimumInteriorPos;
-	BlockPos maximumInteriorPos;
+    public static final String uid = "crucible";
+    BlockPos minimumInteriorPos;
+    BlockPos maximumInteriorPos;
 
-	public ControllerCrucible(World world) {
-		super(world);
-		setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 53, 34), null,
-				null, new InventoryPieceFluid(new MultiFluidTank(Fluid.BUCKET_VOLUME, this, 1), 105, 11),
-				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME, "steam", this), 17, 11))
-						.setProgressBar(new InventoryPieceProgressBar(76, 33)));
-	}
+    public ControllerCrucible(World world) {
+        super(world);
+        setInventory(new InventoryBuilder<>(new InventoryHeatable(this, 1000))
+                .addPiece("itemInput",
+                        new InventoryPieceItemHandler(IOType.INPUT, new ItemStackHandlerSync(1), new int[] { 53 },
+                                new int[] { 34 }))
+                .addPiece("fluidOutput",
+                        new InventoryPieceFluidTank(IOType.OUTPUT, new FluidTankSync(RecipeUtil.VALUE_BLOCK * 4), 11,
+                                105))
+                .addPiece("temp", new InventoryPieceTemperatureGauge(10, 5))
+                .addPiece("progress", new InventoryPieceProgressBar(76, 33)).build());
+    }
 
-	// FIXME Caching
-	@Override
-	protected void onMachineAssembled() {
-		Pair<BlockPos, BlockPos> interiorPositions = com.teamacronymcoders.base.util.PositionUtils
-				.shrinkPositionCubeBy(getMinimumCoord(), getMaximumCoord(), 1);
-		minimumInteriorPos = interiorPositions.getLeft();
-		maximumInteriorPos = interiorPositions.getRight();
+    @Override
+    protected int getMinimumNumberOfBlocksForAssembledMachine() {
+        return 17;
+    }
 
-		int blocksInside = 0;
-		// TODO Expensive for loop just to increment an integer
-		for (BlockPos pos : BlockPos.getAllInBoxMutable(minimumInteriorPos, maximumInteriorPos)) {
-			blocksInside++;
-		}
-		// Size internal tank accordingly
-		MultiFluidTank newTank = new MultiFluidTank(blocksInside * Fluid.BUCKET_VOLUME, this, 1);
-		if (inventory.getOutputTank().fluids != null) {
-			newTank.fluids.addAll(inventory.getOutputTank().fluids);
-		}
-		inventory.setFluidOutput(newTank);
-		super.onMachineAssembled();
-	}
+    @Override
+    public int getMinimumXSize() {
+        return 3;
+    }
 
-	@Override
-	protected int getMinimumNumberOfBlocksForAssembledMachine() {
-		return 17;
-	}
+    @Override
+    public int getMinimumZSize() {
+        return 3;
+    }
 
-	@Override
-	public int getMinimumXSize() {
-		return 3;
-	}
+    @Override
+    public int getMinimumYSize() {
+        return 3;
+    }
 
-	@Override
-	public int getMinimumZSize() {
-		return 3;
-	}
+    @Override
+    public int getMaximumXSize() {
+        return 5;
+    }
 
-	@Override
-	public int getMinimumYSize() {
-		return 3;
-	}
+    @Override
+    public int getMaximumZSize() {
+        return 5;
+    }
 
-	@Override
-	public int getMaximumXSize() {
-		return 5;
-	}
+    @Override
+    public int getMaximumYSize() {
+        return 5;
+    }
 
-	@Override
-	public int getMaximumZSize() {
-		return 5;
-	}
-
-	@Override
-	public int getMaximumYSize() {
-		return 5;
-	}
-
-	@Override
-	public String getName() {
-		return "Crucible";
-	}
+    @Override
+    public MultiblockMachineType getMachineType() {
+        if(!MachineType.machinesList.containsKey(uid)) {
+            MachineType.machinesList.put(uid, new MultiblockMachineType(uid, SARObjectHolder.crucible_casing));
+        }
+        return (MultiblockMachineType) MachineType.machinesList.get(uid);
+    }
 }

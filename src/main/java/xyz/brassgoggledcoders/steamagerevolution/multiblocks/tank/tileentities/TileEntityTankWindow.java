@@ -1,6 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.multiblocks.tank.tileentities;
 
-import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+import com.teamacronymcoders.base.multiblocksystem.validation.IMultiblockValidator;
 
 public class TileEntityTankWindow extends TileEntityTankPart {
 

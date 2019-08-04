@@ -21,7 +21,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.ILens;
-import xyz.brassgoggledcoders.steamagerevolution.api.ILens.VanillaLens;
+import xyz.brassgoggledcoders.steamagerevolution.api.VanillaLens;
 
 public class ItemLens extends ItemBase implements IHasSubItems {
 

@@ -4,7 +4,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.teamacronymcoders.base.guisystem.IHasGui;
-import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+import com.teamacronymcoders.base.multiblocksystem.validation.IMultiblockValidator;
 
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,9 +14,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockStackHandlerWrapper;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerSimpleSlots;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiSimpleSlots;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockInventoryWrapper;
 
 public class TileEntitySteamHammerHammer extends TileEntitySteamHammerPart implements IHasGui {
 	@Override
@@ -32,8 +32,9 @@ public class TileEntitySteamHammerHammer extends TileEntitySteamHammerPart imple
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new MultiblockInventoryWrapper(this, true));
+		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+					.cast(new MultiblockStackHandlerWrapper(this, "itemOutput"));
 		}
 		return super.getCapability(capability, facing);
 	}

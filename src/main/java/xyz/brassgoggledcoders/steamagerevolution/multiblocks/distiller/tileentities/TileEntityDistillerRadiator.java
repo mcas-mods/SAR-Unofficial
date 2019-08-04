@@ -3,12 +3,12 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.distiller.tileenti
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+import com.teamacronymcoders.base.multiblocksystem.validation.IMultiblockValidator;
 
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockSteamWrapper;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockSteamWrapper;
 
 public class TileEntityDistillerRadiator extends TileEntityDistillerPart {
 	@Override

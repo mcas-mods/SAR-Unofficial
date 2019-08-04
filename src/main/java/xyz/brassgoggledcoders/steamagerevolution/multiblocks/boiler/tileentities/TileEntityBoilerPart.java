@@ -1,25 +1,31 @@
 package xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities;
 
-import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+import java.util.LinkedHashMap;
 
+import com.teamacronymcoders.base.api.IDebuggable;
+import com.teamacronymcoders.base.multiblocksystem.MultiblockControllerBase;
+
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockInventoryTileEntity;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.ControllerBoiler;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileInventory;
 
-public abstract class TileEntityBoilerPart extends SARMultiblockTileInventory<ControllerBoiler> {
+public abstract class TileEntityBoilerPart extends MultiblockInventoryTileEntity<ControllerBoiler>
+        implements IDebuggable {
 
-	@Override
-	public Class<? extends MultiblockControllerBase> getMultiblockControllerType() {
-		return ControllerBoiler.class;
-	}
+    @Override
+    public Class<ControllerBoiler> getMultiblockControllerType() {
+        return ControllerBoiler.class;
+    }
 
-	@Override
-	public MultiblockControllerBase createNewMultiblock() {
-		return new ControllerBoiler(getWorld());
-	}
+    @Override
+    public MultiblockControllerBase createNewMultiblock() {
+        return new ControllerBoiler(getWorld());
+    }
 
-	@Override
-	public ISARMultiblock getControllerInfo() {
-		return new ControllerBoiler(null);
-	}
+    @Override
+    public LinkedHashMap<String, String> getDebugStrings(LinkedHashMap<String, String> debugStrings) {
+        // debugStrings.put("Temperature", "" +
+        // this.getMultiblockController().getInventory().getCurrentTemperature());
+        debugStrings.put("Burn Time", "" + this.getMultiblockController().currentBurnTime);
+        return debugStrings;
+    }
 }

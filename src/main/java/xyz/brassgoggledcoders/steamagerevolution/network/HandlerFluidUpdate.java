@@ -1,16 +1,16 @@
 package xyz.brassgoggledcoders.steamagerevolution.network;
 
-import com.teamacronymcoders.base.multiblock.MultiblockTileEntityBase;
+import com.teamacronymcoders.base.multiblocksystem.MultiblockTileEntityBase;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 
 public class HandlerFluidUpdate implements IMessageHandler<PacketFluidUpdate, IMessage> {
 	public HandlerFluidUpdate() {
-
 	}
 
 	@Override
@@ -27,13 +27,15 @@ public class HandlerFluidUpdate implements IMessageHandler<PacketFluidUpdate, IM
 	}
 
 	private void processMessage(WorldClient worldClient, PacketFluidUpdate message) {
+		SteamAgeRevolution.instance.getLogger().devInfo("Fluid update received");
 		TileEntity te = worldClient.getTileEntity(message.pos);
-		if (te instanceof IMachineHasInventory) {
-			IMachineHasInventory tile = (IMachineHasInventory) te;
+		if(te instanceof IHasInventory) {
+			IHasInventory<?> tile = (IHasInventory<?>) te;
 			tile.getInventory().updateFluid(message);
-		} else {
+		}
+		else {
 			MultiblockTileEntityBase<?> tile = (MultiblockTileEntityBase<?>) te;
-			IMachineHasInventory controller = (IMachineHasInventory) tile.getMultiblockController();
+			IHasInventory<?> controller = (IHasInventory<?>) tile.getMultiblockController();
 			controller.getInventory().updateFluid(message);
 		}
 	}

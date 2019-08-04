@@ -16,6 +16,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.oredict.OreDictionary;
 import xyz.brassgoggledcoders.steamagerevolution.SARRecipes;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.materials.ModuleMaterials;
 
 @ObjectHolder(SteamAgeRevolution.MODID)
 public class RecipesOreToDust extends net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe>
@@ -37,7 +38,7 @@ public class RecipesOreToDust extends net.minecraftforge.registries.IForgeRegist
 					continue;
 				}
 				// TODO
-				for(String metal : SteamAgeRevolution.knownMetalTypes) {
+				for(String metal : ModuleMaterials.knownMetalTypes) {
 					if(OreDictionary.containsMatch(false, OreDictionary.getOres("ore" + metal, false), itemstack)) {
 						hasOre = true;
 					}

@@ -1,46 +1,53 @@
 package xyz.brassgoggledcoders.steamagerevolution.multiblocks.grinder;
 
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
+import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBuilder;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.pieces.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.MultiblockMachineType;
 
-public class ControllerGrinder extends SARMultiblockInventory<InventoryRecipeMachine> {
+public class ControllerGrinder extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
-	protected ControllerGrinder(World world) {
-		super(world);
-		this.setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 58, 32),
-				null, new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 121, 32), null,
-				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 10, 9))
-						.setProgressBar(new InventoryPieceProgressBar(87, 33)));
-	}
+    public static final String uid = "grinder";
 
-	@Override
-	public String getName() {
-		return "Grinder";
-	}
+    public ControllerGrinder(World world) {
+        super(world);
+        this.setInventory(new InventoryBuilder<>(new InventoryCraftingMachine(this))
+                .addPiece("itemInput", new InventoryPieceItemHandler(IOType.INPUT, 58, 32))
+                .addPiece("itemOutput", new InventoryPieceItemHandler(IOType.OUTPUT, 121, 32)).addSteamTank(10, 20)
+                .addPiece("progress", new InventoryPieceProgressBar(87, 33)).build());
+    }
 
-	@Override
-	protected int getMinimumNumberOfBlocksForAssembledMachine() {
-		return 26;
-	}
+    @Override
+    public MultiblockMachineType getMachineType() {
+        if(!MachineType.machinesList.containsKey(uid)) {
+            MachineType.machinesList.put(uid, new MultiblockMachineType(uid, SARObjectHolder.grinder_frame));
+        }
+        return (MultiblockMachineType) MachineType.machinesList.get(uid);
+    }
 
-	@Override
-	public int getMaximumXSize() {
-		return 3;
-	}
+    @Override
+    protected int getMinimumNumberOfBlocksForAssembledMachine() {
+        return 26;
+    }
 
-	@Override
-	public int getMaximumZSize() {
-		return 3;
-	}
+    @Override
+    public int getMaximumXSize() {
+        return 3;
+    }
 
-	@Override
-	public int getMaximumYSize() {
-		return 3;
-	}
+    @Override
+    public int getMaximumZSize() {
+        return 3;
+    }
 
+    @Override
+    public int getMaximumYSize() {
+        return 3;
+    }
 }

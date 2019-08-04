@@ -4,7 +4,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.teamacronymcoders.base.guisystem.IHasGui;
-import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+import com.teamacronymcoders.base.multiblocksystem.validation.IMultiblockValidator;
 
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,9 +17,9 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockStackHandlerWrapper;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerSimpleSlots;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.GuiSimpleSlots;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.MultiblockInventoryWrapper;
 
 public class TileEntitySteamHammerAnvil extends TileEntitySteamHammerPart implements IHasGui {
 	@Override
@@ -35,8 +35,9 @@ public class TileEntitySteamHammerAnvil extends TileEntitySteamHammerPart implem
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(new MultiblockInventoryWrapper(this, false));
+		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+					.cast(new MultiblockStackHandlerWrapper(this, "itemInput"));
 		}
 		return super.getCapability(capability, facing);
 	}
@@ -44,10 +45,11 @@ public class TileEntitySteamHammerAnvil extends TileEntitySteamHammerPart implem
 	@SideOnly(Side.CLIENT)
 	@Override
 	public net.minecraft.util.math.AxisAlignedBB getRenderBoundingBox() {
-		if (isConnected()) {
+		if(isConnected()) {
 			return new AxisAlignedBB(getMultiblockController().getMinimumCoord(),
 					getMultiblockController().getMaximumCoord());
-		} else {
+		}
+		else {
 			return super.getRenderBoundingBox();
 		}
 	}

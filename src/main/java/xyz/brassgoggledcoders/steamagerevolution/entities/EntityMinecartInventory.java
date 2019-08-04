@@ -18,12 +18,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IMachineHasInventory;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 
-public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> extends EntityMinecartBase
-		implements IHasGui, IMachineHasInventory<I>, IInventory {
+public abstract class EntityMinecartInventory<I extends InventoryBasic> extends EntityMinecartBase
+		implements IHasGui, IHasInventory<I>, IInventory {
 
 	I inventory;
 
@@ -42,7 +41,7 @@ public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> 
 		super.writeEntityToNBT(compound);
 		compound.setTag("inventory", this.inventory.serializeNBT());
 	}
-	
+
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
 		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
@@ -51,8 +50,8 @@ public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> 
 	@Override
 	@Nonnull
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(this.getInventory().getInputHandler());
+		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(this.getInventory().getItemHandlers().get(0));
 		}
 		return super.getCapability(capability, facing);
 	}
@@ -74,36 +73,6 @@ public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> 
 	}
 
 	@Override
-	public SARMachineRecipe getCurrentRecipe() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setCurrentRecipe(SARMachineRecipe recipe) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int getCurrentProgress() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getCurrentMaxTicks() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setCurrentTicks(int ticks) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public I getInventory() {
 		return inventory;
 	}
@@ -112,42 +81,42 @@ public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> 
 	public void setInventory(I inventory) {
 		this.inventory = inventory;
 	}
-	
+
 	@Override
 	public int getSizeInventory() {
-		return this.getInventory().getInputHandler().getSlots();
+		return this.getInventory().getItemHandlers().get(0).getSlots();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		//TODO
+		// TODO
 		return false;
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int index) {
-		ItemStack stack = this.getInventory().getInputHandler().getStackInSlot(index);
+		ItemStack stack = this.getInventory().getItemHandlers().get(0).getStackInSlot(index);
 		return stack;
 	}
 
 	@Override
 	public ItemStack decrStackSize(int index, int count) {
-		this.markDirty();
-		return this.getInventory().getInputHandler().extractItem(index, count, false);
+		this.markMachineDirty();
+		return this.getInventory().getItemHandlers().get(0).extractItem(index, count, false);
 	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
-		ItemStack stack = this.getInventory().getInputHandler().getStackInSlot(index);
-		this.getInventory().getInputHandler().setStackInSlot(index, ItemStack.EMPTY);
-		this.markDirty();
+		ItemStack stack = this.getInventory().getItemHandlers().get(0).getStackInSlot(index);
+		this.getInventory().getItemHandlers().get(0).setStackInSlot(index, ItemStack.EMPTY);
+		this.markMachineDirty();
 		return stack;
 	}
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
-		this.markDirty();
-		this.getInventory().getInputHandler().setStackInSlot(index, stack);
+		this.markMachineDirty();
+		this.getInventory().getItemHandlers().get(0).setStackInSlot(index, stack);
 	}
 
 	@Override
@@ -165,14 +134,16 @@ public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> 
 	}
 
 	@Override
-	public void openInventory(EntityPlayer player) {}
+	public void openInventory(EntityPlayer player) {
+	}
 
 	@Override
-	public void closeInventory(EntityPlayer player) {}
+	public void closeInventory(EntityPlayer player) {
+	}
 
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		return this.getInventory().getInputHandler().isItemValid(index, stack);
+		return this.getInventory().getItemHandlers().get(0).isItemValid(index, stack);
 	}
 
 	@Override
@@ -182,7 +153,7 @@ public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> 
 
 	@Override
 	public void setField(int id, int value) {
-		
+
 	}
 
 	@Override
@@ -191,5 +162,11 @@ public abstract class EntityMinecartInventory<I extends InventoryRecipeMachine> 
 	}
 
 	@Override
-	public void clear() {}
+	public void clear() {
+	}
+
+	@Override
+	public void markMachineDirty() {
+		this.markDirty();
+	}
 }

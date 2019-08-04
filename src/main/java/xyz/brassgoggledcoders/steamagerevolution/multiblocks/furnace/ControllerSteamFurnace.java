@@ -1,59 +1,73 @@
 package xyz.brassgoggledcoders.steamagerevolution.multiblocks.furnace;
 
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import xyz.brassgoggledcoders.steamagerevolution.utils.fluids.FluidTankSingleSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryPiece.*;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.InventoryRecipeMachine;
-import xyz.brassgoggledcoders.steamagerevolution.utils.items.ItemStackHandlerSmart;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockInventory;
+import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBuilder;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.ItemStackHandlerSync;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.pieces.InventoryPieceProgressBar;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.MultiblockMachineType;
 
-public class ControllerSteamFurnace extends SARMultiblockInventory<InventoryRecipeMachine> {
+public class ControllerSteamFurnace extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
-	public ControllerSteamFurnace(World world) {
-		super(world);
-		setInventory(new InventoryRecipeMachine(new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 48, 33), null,
-				new InventoryPieceItem(new ItemStackHandlerSmart(1, this), 108, 33), null,
-				new InventoryPieceFluid(new FluidTankSingleSmart(Fluid.BUCKET_VOLUME * 16, "steam", this), 13, 9)).setProgressBar(new InventoryPieceProgressBar(72, 33)));
-	}
+    public static final String uid = "steam_furnace";
 
-	@Override
-	protected int getMinimumNumberOfBlocksForAssembledMachine() {
-		return 26;
-	}
+    public ControllerSteamFurnace(World world) {
+        super(world);
+        setInventory(new InventoryBuilder<>(new InventoryCraftingMachine(this))
+                .addPiece("input",
+                        new InventoryPieceItemHandler(IOType.INPUT, new ItemStackHandlerSync(1), new int[] { 48 },
+                                new int[] { 33 }))
+                .addPiece("output",
+                        new InventoryPieceItemHandler(IOType.OUTPUT, new ItemStackHandlerSync(1), new int[] { 108 },
+                                new int[] { 33 }))
+                .addSteamTank(13, 9).addPiece("progress", new InventoryPieceProgressBar(72, 33)).build());
+    }
 
-	@Override
-	public int getMinimumXSize() {
-		return 3;
-	}
+    @Override
+    protected int getMinimumNumberOfBlocksForAssembledMachine() {
+        return 26;
+    }
 
-	@Override
-	public int getMinimumZSize() {
-		return 3;
-	}
+    @Override
+    public int getMinimumXSize() {
+        return 3;
+    }
 
-	@Override
-	public int getMinimumYSize() {
-		return 3;
-	}
+    @Override
+    public int getMinimumZSize() {
+        return 3;
+    }
 
-	@Override
-	public int getMaximumXSize() {
-		return 6;
-	}
+    @Override
+    public int getMinimumYSize() {
+        return 3;
+    }
 
-	@Override
-	public int getMaximumZSize() {
-		return 6;
-	}
+    @Override
+    public int getMaximumXSize() {
+        return 6;
+    }
 
-	@Override
-	public int getMaximumYSize() {
-		return 6;
-	}
+    @Override
+    public int getMaximumZSize() {
+        return 6;
+    }
 
-	@Override
-	public String getName() {
-		return "Steam Furnace";
-	}
+    @Override
+    public int getMaximumYSize() {
+        return 6;
+    }
+
+    @Override
+    public MultiblockMachineType getMachineType() {
+        if(!MachineType.machinesList.containsKey(uid)) {
+            MachineType.machinesList.put(uid, new MultiblockMachineType(uid, SARObjectHolder.furnace_casing));
+        }
+        return (MultiblockMachineType) MachineType.machinesList.get(uid);
+    }
 }

@@ -1,6 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.multiblocks.alloyfurnace.tileentities;
 
-import com.teamacronymcoders.base.multiblock.validation.IMultiblockValidator;
+import com.teamacronymcoders.base.multiblocksystem.validation.IMultiblockValidator;
 
 public class TileEntityAlloyFurnaceFrame extends TileEntityAlloyFurnacePart {
 

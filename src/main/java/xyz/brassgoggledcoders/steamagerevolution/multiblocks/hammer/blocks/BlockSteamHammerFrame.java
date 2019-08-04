@@ -1,6 +1,6 @@
 package xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.blocks;
 
-import com.teamacronymcoders.base.multiblock.rectangular.PartPosition;
+import com.teamacronymcoders.base.multiblocksystem.rectangular.PartPosition;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
@@ -11,8 +11,8 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.BlockMultiblockBase;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.tileentities.TileEntitySteamHammerFrame;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.BlockMultiblockBase;
 
 public class BlockSteamHammerFrame extends BlockMultiblockBase<TileEntitySteamHammerFrame> {
 

@@ -2,16 +2,15 @@ package xyz.brassgoggledcoders.steamagerevolution.multiblocks.tank.tileentities;
 
 import javax.annotation.Nonnull;
 
-import com.teamacronymcoders.base.multiblock.MultiblockControllerBase;
+import com.teamacronymcoders.base.multiblocksystem.MultiblockControllerBase;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.SARMultiblockTileBase;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.tank.ControllerTank;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.ISARMultiblock;
-import xyz.brassgoggledcoders.steamagerevolution.utils.multiblock.SARMultiblockTileBase;
 
 public abstract class TileEntityTankPart extends SARMultiblockTileBase<ControllerTank> {
 
@@ -25,15 +24,11 @@ public abstract class TileEntityTankPart extends SARMultiblockTileBase<Controlle
 		return new ControllerTank(getWorld());
 	}
 
-	@Override
-	public ISARMultiblock getControllerInfo() {
-		return new ControllerTank(null);
-	}
-
+	// TODO
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
-		if (isConnected()) {
+		if(isConnected()) {
 			ControllerTank controller = getMultiblockController();
 			nbttagcompound.setTag("tank", controller.tank.writeToNBT(new NBTTagCompound()));
 		}
@@ -44,7 +39,7 @@ public abstract class TileEntityTankPart extends SARMultiblockTileBase<Controlle
 	@Override
 	public NBTTagCompound getUpdateTag() {
 		NBTTagCompound nbt = super.writeToNBT(new NBTTagCompound());
-		if (isConnected()) {
+		if(isConnected()) {
 			ControllerTank controller = getMultiblockController();
 			nbt.setTag("tank", controller.tank.writeToNBT(new NBTTagCompound()));
 		}
@@ -54,7 +49,7 @@ public abstract class TileEntityTankPart extends SARMultiblockTileBase<Controlle
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-		if (isConnected()) {
+		if(isConnected()) {
 			ControllerTank controller = getMultiblockController();
 			controller.tank.readFromNBT(pkt.getNbtCompound().getCompoundTag("tank"));
 		}

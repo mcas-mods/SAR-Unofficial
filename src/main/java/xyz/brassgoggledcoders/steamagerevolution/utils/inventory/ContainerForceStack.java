@@ -4,23 +4,22 @@ import com.teamacronymcoders.base.containers.ContainerBase;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 
 public class ContainerForceStack extends ContainerBase {
-	public ContainerForceStack(EntityPlayer player, IMachineHasInventory holder) {
-		if (holder.getInventory().itemInput != null) {
-			for (int i = 0; i < holder.getInventory().itemInput.getHandler().getSlots(); i++) {
-				addSlotToContainer(new SlotForceStack(holder.getInventory().itemInput.getHandler(), i,
-						holder.getInventory().itemInput.getX(i), holder.getInventory().itemInput.getY(i)));
-			}
-		}
-		if (holder.getInventory().itemOutput != null) {
-			for (int i = 0; i < holder.getInventory().itemOutput.getHandler().getSlots(); i++) {
-				addSlotToContainer(new SlotForceStack(holder.getInventory().itemOutput.getHandler(), i,
-						holder.getInventory().itemOutput.getX(i), holder.getInventory().itemOutput.getY(i)));
+	public ContainerForceStack(EntityPlayer player, IHasInventory<?> holder) {
+		if(!holder.getInventory().getItemHandlers().isEmpty()) {
+			for(InventoryPieceItemHandler iPiece : holder.getInventory()
+					.getInventoryPiecesOfType(InventoryPieceItemHandler.class)) {
+				for(int slotIndex = 0; slotIndex < iPiece.getHandler().getSlots(); slotIndex++) {
+					addSlotToContainer(new SlotForceStack(iPiece.getHandler(), slotIndex,
+							iPiece.getSlotPositionX(slotIndex), iPiece.getSlotPositionY(slotIndex)));
+				}
 			}
 		}
 		createPlayerSlots(player.inventory);
-		//Make sure the changes made in HandlerForceStack are sent to the client
+		// Make sure the changes made in HandlerForceStack are sent to the client
 		this.detectAndSendChanges();
 	}
 
@@ -28,12 +27,11 @@ public class ContainerForceStack extends ContainerBase {
 	public boolean canInteractWith(EntityPlayer playerIn) {
 		return true;
 	}
-	
-	//TODO
+
+	// TODO
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
-    {
-        return ItemStack.EMPTY;
-    }
+	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
+		return ItemStack.EMPTY;
+	}
 
 }

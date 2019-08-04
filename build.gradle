@@ -85,7 +85,7 @@ dependencies {
     deobfCompile "slimeknights.mantle:Mantle:${mantle_version}"
     deobfCompile "team.chisel.ctm:CTM:${ctm_version}"
     deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.+"
-    compile "vazkii.patchouli:Patchouli:${patchouli_version}"
+    compile "vazkii.patchouli:Patchouli:${patchouli_version}.+"
     deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${top_version}"
     deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA26"
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"

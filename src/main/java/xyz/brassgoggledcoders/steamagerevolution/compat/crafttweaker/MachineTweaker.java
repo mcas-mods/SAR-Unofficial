@@ -15,9 +15,7 @@ import crafttweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.recipes.RecipeRegistry;
-import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe;
-import xyz.brassgoggledcoders.steamagerevolution.recipes.SARMachineRecipe.MachineRecipeBuilder;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.*;
 
 public class MachineTweaker {
 
@@ -58,7 +56,7 @@ public class MachineTweaker {
 				fluidOutputsStack[i] = CTHelper.toFluidStack(fluidOutputs[i]);
 			}
 		}
-		SARMachineRecipe r = new MachineRecipeBuilder(machine).setItemInputs(itemInputsObj)
+		MachineRecipe r = new MachineRecipeBuilder(machine).setItemInputs(itemInputsObj)
 				.setFluidInputs(fluidInputsStack).setItemOutputs(itemOutputsStack).setFluidOutputs(fluidOutputsStack)
 				.setCraftTime(timeToCraft).setSteamCost(steamCost).build();
 		CraftTweakerAPI.apply(new Add(machine, r));
@@ -70,9 +68,9 @@ public class MachineTweaker {
 
 	protected static class Add implements IAction {
 		private final String crafter;
-		private final SARMachineRecipe recipe;
+		private final MachineRecipe recipe;
 
-		public Add(String crafter, SARMachineRecipe recipe) {
+		public Add(String crafter, MachineRecipe recipe) {
 			this.crafter = crafter;
 			this.recipe = recipe;
 		}
@@ -102,8 +100,8 @@ public class MachineTweaker {
 
 		@Override
 		public void apply() {
-			ArrayList<SARMachineRecipe> recipeList = RecipeRegistry.getRecipesForMachine(crafter);
-			for (SARMachineRecipe r : recipeList) {
+			ArrayList<MachineRecipe> recipeList = RecipeRegistry.getRecipesForMachine(crafter);
+			for (MachineRecipe r : recipeList) {
 				boolean itemOutputMatches = false;
 				boolean fluidOutputMatches = false;
 				// TODO Make this match more flexibly

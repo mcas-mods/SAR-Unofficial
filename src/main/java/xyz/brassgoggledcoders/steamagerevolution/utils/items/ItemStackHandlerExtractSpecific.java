@@ -3,11 +3,9 @@ package xyz.brassgoggledcoders.steamagerevolution.utils.items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreDictionary;
-import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.IOTYPE;
 
+@Deprecated // FIXME Got to be a better way!
 public class ItemStackHandlerExtractSpecific extends ItemStackHandler {
-
-	IOTYPE type = IOTYPE.UNDEFINED;
 
 	public ItemStackHandlerExtractSpecific(int i) {
 		super(i);
@@ -28,9 +26,4 @@ public class ItemStackHandlerExtractSpecific extends ItemStackHandler {
 		}
 		return false;
 	}
-
-	public void setType(IOTYPE input) {
-		this.type = input;
-	}
-
 }

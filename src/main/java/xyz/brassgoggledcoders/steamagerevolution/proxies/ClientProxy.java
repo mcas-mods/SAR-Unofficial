@@ -7,9 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -26,22 +24,16 @@ import xyz.brassgoggledcoders.steamagerevolution.entities.EntityMinecartCarrier;
 import xyz.brassgoggledcoders.steamagerevolution.entities.EntityMinecartDrilling;
 import xyz.brassgoggledcoders.steamagerevolution.entities.render.RenderMinecartCarrier;
 import xyz.brassgoggledcoders.steamagerevolution.entities.render.RenderMinecartDrilling;
-import xyz.brassgoggledcoders.steamagerevolution.multiblock.vat.MultiblockVatTankRenderer;
-import xyz.brassgoggledcoders.steamagerevolution.multiblock.vat.tileentities.TileEntityVatFrame;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.renderers.MultiblockBoilerRenderer;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.tileentities.TileEntityBoilerCasing;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.tileentities.TileEntitySteamHammerAnvil;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.hammer.tileentities.TileEntitySteamHammerAnvilRenderer;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.tank.MultiblockTankRenderer;
 import xyz.brassgoggledcoders.steamagerevolution.multiblocks.tank.tileentities.TileEntityTankCasing;
-import xyz.brassgoggledcoders.steamagerevolution.tileentities.TileEntityCastingBench;
-import xyz.brassgoggledcoders.steamagerevolution.tileentities.TileEntityFluidHopper;
-import xyz.brassgoggledcoders.steamagerevolution.tileentities.TileEntityFluidIO;
-import xyz.brassgoggledcoders.steamagerevolution.tileentities.TileEntityTrunk;
-import xyz.brassgoggledcoders.steamagerevolution.tileentities.renderers.TileEntityCastingBenchRenderer;
-import xyz.brassgoggledcoders.steamagerevolution.tileentities.renderers.TileEntityFluidHopperRenderer;
-import xyz.brassgoggledcoders.steamagerevolution.tileentities.renderers.TileEntityFluidIORenderer;
-import xyz.brassgoggledcoders.steamagerevolution.tileentities.renderers.TileEntityTrunkRenderer;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat.MultiblockVatTankRenderer;
+import xyz.brassgoggledcoders.steamagerevolution.multiblocks.vat.tileentities.TileEntityVatFrame;
+import xyz.brassgoggledcoders.steamagerevolution.tileentities.*;
+import xyz.brassgoggledcoders.steamagerevolution.tileentities.renderers.*;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
