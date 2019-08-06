@@ -8,7 +8,12 @@ import com.teamacronymcoders.base.multiblocksystem.validation.IMultiblockValidat
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryPiece;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.ItemStackHandlerFiltered.ItemStackHandlerFuel;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockStackHandlerWrapper;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 
 public class TileEntityBoilerSolidFirebox extends TileEntityBoilerPart {
     @Override
@@ -28,5 +33,13 @@ public class TileEntityBoilerSolidFirebox extends TileEntityBoilerPart {
     @Override
     public boolean isGoodForBottom(IMultiblockValidator validatorCallback) {
         return true;
+    }
+
+    @Override
+    public InventoryPiece<InventoryCraftingMachine> getAssociatedInventoryPiece() {
+        InventoryPiece piece = new InventoryPieceItemHandler(IOType.POWER, new ItemStackHandlerFuel(1),
+                new int[] { 10 }, new int[] { 50 });
+        piece.setName("solidFuel");
+        return piece;
     }
 }

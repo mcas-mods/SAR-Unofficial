@@ -8,7 +8,7 @@ import com.teamacronymcoders.base.multiblocksystem.validation.IMultiblockValidat
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockTankWrapper;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock.MultiblockMultiTankWrapper;
 
 public class TileEntityVatFluidInput extends TileEntityVatPart {
     @Override
@@ -20,8 +20,8 @@ public class TileEntityVatFluidInput extends TileEntityVatPart {
     @Nonnull
     public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
         if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            // TODO
-            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(new MultiblockTankWrapper(this, "tank1"));
+            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
+                    .cast(new MultiblockMultiTankWrapper(this, "inputTank"));
         }
         return super.getCapability(capability, facing);
     }

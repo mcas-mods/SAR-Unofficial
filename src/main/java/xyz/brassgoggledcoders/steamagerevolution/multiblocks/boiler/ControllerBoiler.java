@@ -13,10 +13,9 @@ import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.IItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.*;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.ItemStackHandlerFiltered.ItemStackHandlerFuel;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.FluidTankSingleSync;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.ItemStackHandlerSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.pieces.InventoryPieceTemperatureGauge;
 import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
@@ -42,14 +41,9 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatabl
     public ControllerBoiler(World world) {
         super(world);
         setInventory(new InventoryBuilder<>(new InventoryHeatable(this, 100))
-                .addPiece("solidFuel",
-                        new InventoryPieceItemHandler(IOType.POWER, new ItemStackHandlerFuel(1), new int[] { 10 },
-                                new int[] { 50 }))
                 .addPiece("waterTank",
                         new InventoryPieceFluidTank(IOType.INPUT,
                                 new FluidTankSingleSync(Fluid.BUCKET_VOLUME * 16, "water"), 50, 9))
-                .addPiece("liquidFuel",
-                        new InventoryPieceFluidTank(IOType.INPUT, new FluidTankSync(Fluid.BUCKET_VOLUME * 16), 50, 9))
                 .addPiece("steamTank",
                         new InventoryPieceFluidTank(IOType.INPUT,
                                 new FluidTankSingleSync(Fluid.BUCKET_VOLUME * 4, "steam"), 142, 9))

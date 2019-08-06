@@ -1,6 +1,7 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.multiblock;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -10,6 +11,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryPiece;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.MultiblockMachineType;
@@ -78,5 +80,10 @@ public abstract class MultiblockInventoryTileEntity<MB extends MultiblockCraftin
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         return getMultiblockController().getInventory().getCapability(capability, facing);
+    }
+
+    @Nullable
+    public InventoryPiece<InventoryCraftingMachine> getAssociatedInventoryPiece() {
+        return null;
     }
 }

@@ -306,4 +306,11 @@ public class InventoryCraftingMachine extends InventoryBasic {
     public RecipeError getRecipeError() {
         return currrentError;
     }
+
+    public void addNewPiece(InventoryPiece<InventoryCraftingMachine> piece) {
+        this.inventoryPieces.put(piece.getName(), piece);
+        piece.setParent(this);
+        // Recreate
+        this.createSublists();
+    }
 }

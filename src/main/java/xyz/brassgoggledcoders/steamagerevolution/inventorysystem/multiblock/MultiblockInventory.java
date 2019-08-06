@@ -25,6 +25,16 @@ public abstract class MultiblockInventory<INV extends InventoryBasic> extends SA
     }
 
     @Override
+    protected void onBlockAdded(IMultiblockPart newPart) {
+        if(newPart instanceof MultiblockInventoryTileEntity) {
+            MultiblockInventoryTileEntity<?> te = (MultiblockInventoryTileEntity<?>) newPart;
+            if(te.getAssociatedInventoryPiece() != null) {
+                te.getInventory().addNewPiece(te.getAssociatedInventoryPiece());
+            }
+        }
+    }
+
+    @Override
     public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
         inventory.deserializeNBT(data.getCompoundTag("inventory"));
     }

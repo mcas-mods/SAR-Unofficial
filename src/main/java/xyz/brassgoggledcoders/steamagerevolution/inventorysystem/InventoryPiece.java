@@ -30,13 +30,13 @@ public abstract class InventoryPiece<INV extends InventoryBasic> {
     }
 
     // Set by the InventoryBuilder
-    InventoryPiece<INV> setParent(INV amBuilding) {
+    public InventoryPiece<INV> setParent(INV amBuilding) {
         this.enclosingInv = amBuilding;
         return this;
     }
 
     // Set by the InventoryBuilder
-    InventoryPiece<INV> setName(String name) {
+    public InventoryPiece<INV> setName(String name) {
         this.name = name;
         return this;
     }

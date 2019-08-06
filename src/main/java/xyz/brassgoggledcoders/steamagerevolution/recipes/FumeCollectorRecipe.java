@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.annotation.Nonnull;
 
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -48,8 +49,8 @@ public class FumeCollectorRecipe implements IRecipeWrapper {
     @Optional.Method(modid = "jei")
     @Override
     public void getIngredients(IIngredients ingredients) {
-        ingredients.setInput(ItemStack.class, fuel);
-        ingredients.setOutput(FluidStack.class, output);
+        ingredients.setInput(VanillaTypes.ITEM, fuel);
+        ingredients.setOutput(VanillaTypes.FLUID, output);
     }
 
     @Override

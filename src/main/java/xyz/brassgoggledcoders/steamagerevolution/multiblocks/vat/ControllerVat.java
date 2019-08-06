@@ -14,16 +14,17 @@ import net.minecraftforge.fluids.*;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
+import xyz.brassgoggledcoders.steamagerevolution.SARRecipes;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IOType;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBuilder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.FluidTankSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.ItemStackHandlerSync;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
 import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.MultiblockMachineType;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.MultiFluidHandler;
 
 public class ControllerVat extends MultiblockCraftingMachine<InventoryCraftingMachine> {
 
@@ -40,10 +41,12 @@ public class ControllerVat extends MultiblockCraftingMachine<InventoryCraftingMa
                 .addPiece("input",
                         new InventoryPieceItemHandler(IOType.INPUT, new ItemStackHandlerSync(3),
                                 new int[] { 88, 88, 88 }, new int[] { 11, 32, 53 }))
-                // FIXME
-                .addPiece("tank1", new InventoryPieceFluidTank(IOType.INPUT, inputCapacity, 12, 9))
-                .addPiece("tank2", new InventoryPieceFluidTank(IOType.INPUT, inputCapacity, 37, 9))
-                .addPiece("tank3", new InventoryPieceFluidTank(IOType.INPUT, inputCapacity, 62, 9))
+                .addPiece("inputTank",
+                        new InventoryPieceMultiFluidTank(IOType.INPUT,
+                                new MultiFluidHandler(new FluidTankSync(SARRecipes.standardFluidCapacity),
+                                        new FluidTankSync(SARRecipes.standardFluidCapacity),
+                                        new FluidTankSync(SARRecipes.standardFluidCapacity)),
+                                new int[] { 12, 37, 62 }, new int[] { 9, 9, 9 }))
                 .addPiece("outputTank", new InventoryPieceFluidTank(IOType.OUTPUT, outputCapacity, 143, 9)).build());
     }
 
