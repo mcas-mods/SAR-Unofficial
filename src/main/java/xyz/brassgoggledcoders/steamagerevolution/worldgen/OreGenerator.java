@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.google.common.collect.Lists;
-import com.teamacronymcoders.base.registrysystem.config.ConfigRegistry;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -41,15 +40,12 @@ public class OreGenerator implements IWorldGenerator {
     // The actual generation method.
     private void generateSurface(World world, Random rand, int chunkX, int chunkZ) {
         for(OreEntry entry : oresToGenerate) {
-            if(SteamAgeRevolution.instance.getRegistry(ConfigRegistry.class, "CONFIG")
-                    .getBoolean("do" + entry.config + "OreGen", true)) {
-                for(int k = 0; k < entry.rarity; k++) {
-                    int startX = chunkX + rand.nextInt(16);
-                    int startZ = chunkZ + rand.nextInt(16);
-                    int startY = rand.nextInt(entry.maxY);
-                    BlockPos startPos = new BlockPos(startX, startY, startZ);
-                    new WorldGenMinable(entry.ore, entry.veinSize).generate(world, rand, startPos);
-                }
+            for(int k = 0; k < entry.rarity; k++) {
+                int startX = chunkX + rand.nextInt(16);
+                int startZ = chunkZ + rand.nextInt(16);
+                int startY = rand.nextInt(entry.maxY);
+                BlockPos startPos = new BlockPos(startX, startY, startZ);
+                new WorldGenMinable(entry.ore, entry.veinSize).generate(world, rand, startPos);
             }
         }
         for(String entry : heavyOresToGenerate) {
