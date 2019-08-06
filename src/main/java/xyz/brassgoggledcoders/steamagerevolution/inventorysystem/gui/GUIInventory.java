@@ -14,6 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceMultiFluidTank;
 
 @SideOnly(Side.CLIENT)
 public class GUIInventory extends GuiContainer {
@@ -41,6 +42,7 @@ public class GUIInventory extends GuiContainer {
         for(InventoryPiece<?> piece : holder.getInventory().getInventoryPieces()) {
             GUIElement element = piece.getGUIElement();
             // TODO Don't just pass a fresh list in each time.
+            // TODO Add mouse params to getTooltip
             if(!piece.getTooltip(Lists.newArrayList()).isEmpty()
                     && isPointInRegion(piece.getX(), piece.getY(), element.width, element.height, mouseX, mouseY)) {
                 this.drawHoveringText(piece.getTooltip(Lists.newArrayList()), mouseX, mouseY);
@@ -66,11 +68,20 @@ public class GUIInventory extends GuiContainer {
         for(InventoryPiece<?> piece : holder.getInventory().getInventoryPieces()) {
             GUIElement element = piece.getGUIElement();
             if(piece.shouldRender()) {
+                // TODO Generic handling for multi textured peices
                 if(piece instanceof InventoryPieceItemHandler) {
                     InventoryPieceItemHandler pieceH = (InventoryPieceItemHandler) piece;
                     for(int slot = 0; slot < pieceH.getHandler().getSlots(); slot++) {
                         this.drawTexturedModalRect(getGuiLeft() + pieceH.getSlotPositionX(slot) + pieceH.getOffset(),
                                 getGuiTop() + pieceH.getSlotPositionY(slot) + pieceH.getOffset(), element.textureX,
+                                element.textureY, element.width, element.height);
+                    }
+                }
+                else if(piece instanceof InventoryPieceMultiFluidTank) {
+                    InventoryPieceMultiFluidTank pieceH = (InventoryPieceMultiFluidTank) piece;
+                    for(int slot = 0; slot < pieceH.getHandler().containedTanks.length; slot++) {
+                        this.drawTexturedModalRect(getGuiLeft() + pieceH.tankXs[slot] + pieceH.getOffset(),
+                                getGuiTop() + pieceH.tankYs[slot] + pieceH.getOffset(), element.textureX,
                                 element.textureY, element.width, element.height);
                     }
                 }

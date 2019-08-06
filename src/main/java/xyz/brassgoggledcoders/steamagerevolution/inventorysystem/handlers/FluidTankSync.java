@@ -4,13 +4,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
-import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceHandler;
 import xyz.brassgoggledcoders.steamagerevolution.network.PacketFluidUpdate;
 
 public class FluidTankSync extends FluidTank implements INBTSerializable<NBTTagCompound> {
 
-    private InventoryPieceFluidTank enclosingIPiece;
+    private InventoryPieceHandler<? extends IFluidHandler> enclosingIPiece;
 
     public FluidTankSync(int capacity) {
         super(capacity);
@@ -40,7 +41,7 @@ public class FluidTankSync extends FluidTank implements INBTSerializable<NBTTagC
     }
 
     // Set from the InventoryPiece constructor
-    public void setEnclosing(InventoryPieceFluidTank inventoryPieceFluidTank) {
+    public void setEnclosing(InventoryPieceHandler<? extends IFluidHandler> inventoryPieceFluidTank) {
         enclosingIPiece = inventoryPieceFluidTank;
         if(getEnclosingIPiece().enclosingInv != null
                 && getEnclosingIPiece().enclosingInv.enclosingMachine instanceof TileEntity) {
@@ -48,7 +49,7 @@ public class FluidTankSync extends FluidTank implements INBTSerializable<NBTTagC
         }
     }
 
-    public InventoryPieceFluidTank getEnclosingIPiece() {
+    public InventoryPieceHandler<? extends IFluidHandler> getEnclosingIPiece() {
         return enclosingIPiece;
     }
 }

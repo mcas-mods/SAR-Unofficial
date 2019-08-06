@@ -6,35 +6,33 @@ import com.teamacronymcoders.base.multiblocksystem.validation.ValidationError;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
+import xyz.brassgoggledcoders.steamagerevolution.SARRecipes;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.*;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.FluidTankSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceFluidTank;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceMultiFluidTank;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.MultiblockCraftingMachine;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.pieces.InventoryPieceTemperatureGauge;
 import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
 import xyz.brassgoggledcoders.steamagerevolution.machinesystem.multiblock.MultiblockMachineType;
-import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
+import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.MultiFluidHandler;
 
 public class ControllerAlloyFurnace extends MultiblockCraftingMachine<InventoryHeatable> {
 
     public static final String uid = "alloy_furnace";
-    public static int inputCapacity = RecipeUtil.VALUE_BLOCK * 8;
-    public static int outputCapacity = Fluid.BUCKET_VOLUME * 8;
 
     public ControllerAlloyFurnace(World world) {
         super(world);
-        // FIXME Need to reimplement MultiFluidHandler in order to expose both tanks
-        // with a single wrapper
         setInventory(new InventoryBuilder<>(new InventoryHeatable(this, 500))
-                .addPiece("tankOne",
-                        new InventoryPieceFluidTank(IOType.INPUT, new FluidTankSync(inputCapacity), 22, 11))
-                .addPiece("tankTwo",
-                        new InventoryPieceFluidTank(IOType.INPUT, new FluidTankSync(inputCapacity), 78, 11))
+                .addPiece("input",
+                        new InventoryPieceMultiFluidTank(IOType.INPUT,
+                                new MultiFluidHandler(new FluidTankSync(SARRecipes.standardMoltenCapacity),
+                                        new FluidTankSync(SARRecipes.standardMoltenCapacity)),
+                                new int[] { 22, 78 }, new int[] { 11, 11 }))
                 .addPiece("heat", new InventoryPieceTemperatureGauge(10, 10))
-                .addPiece("output",
-                        new InventoryPieceFluidTank(IOType.OUTPUT, new FluidTankSync(outputCapacity), 134, 17))
+                .addPiece("output", new InventoryPieceFluidTank(IOType.OUTPUT,
+                        new FluidTankSync(SARRecipes.standardMoltenCapacity * 2), 134, 17))
                 .build());
     }
 

@@ -40,6 +40,9 @@ import xyz.brassgoggledcoders.steamagerevolution.utils.recipe.RecipeUtil;
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class SARRecipes {
 
+    public static int standardMoltenCapacity = RecipeUtil.VALUE_BLOCK * 8;
+    public static int standardFluidCapacity = Fluid.BUCKET_VOLUME * 16;
+
     @SuppressWarnings("unchecked")
     @SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
