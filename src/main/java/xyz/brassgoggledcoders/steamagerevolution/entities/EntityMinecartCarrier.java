@@ -18,7 +18,6 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBuilde
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GUIInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.InventoryPieceItemHandler;
 import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
-import xyz.brassgoggledcoders.steamagerevolution.utils.MiningUtils;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.ContainerForceStack;
 import xyz.brassgoggledcoders.steamagerevolution.utils.inventory.HandlerForceStack;
 
@@ -30,7 +29,7 @@ public class EntityMinecartCarrier extends EntityMinecartInventory<InventoryBasi
 
     public EntityMinecartCarrier(World world) {
         super(world);
-        Pair<int[], int[]> positions = MiningUtils.getGUIPositionGrid(53, 31, 4, 2);
+        Pair<int[], int[]> positions = GUIInventory.getGUIPositionGrid(53, 31, 4, 2);
         setInventory(new InventoryBuilder<InventoryBasic>(new InventoryBasic(this)).addPiece("inventory",
                 new InventoryPieceItemHandler(new HandlerForceStack(8), positions.getRight(), positions.getLeft()))
                 .build());

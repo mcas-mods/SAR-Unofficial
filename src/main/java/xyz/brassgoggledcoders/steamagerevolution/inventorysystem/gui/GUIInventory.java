@@ -2,6 +2,8 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui;
 
 import java.io.IOException;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.base.containers.ContainerBase;
 
@@ -116,5 +118,19 @@ public class GUIInventory extends GuiContainer {
     @Override
     public void drawGradientRect(int left, int top, int right, int bottom, int startColor, int endColor) {
         super.drawGradientRect(left, top, right, bottom, startColor, endColor);
+    }
+
+    // This took me a surprisngly long time. To be fair, I did get a U in Math.
+    // And apparently English too...
+    public static Pair<int[], int[]> getGUIPositionGrid(int xStart, int yStart, int xSize, int ySize) {
+        int[] xPositions = new int[xSize * ySize];
+        int[] yPositions = new int[xSize * ySize];
+        for(int vertical = 0; vertical < ySize; ++vertical) {
+            for(int horizontal = 0; horizontal < xSize; ++horizontal) {
+                xPositions[horizontal + (vertical * xSize)] = xStart + (horizontal * 18);
+                yPositions[horizontal + (vertical * xSize)] = yStart + (vertical * 18);
+            }
+        }
+        return Pair.of(xPositions, yPositions);
     }
 }

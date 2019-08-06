@@ -13,8 +13,8 @@ import xyz.brassgoggledcoders.steamagerevolution.api.Heatable;
 import xyz.brassgoggledcoders.steamagerevolution.api.IHeatable;
 import xyz.brassgoggledcoders.steamagerevolution.api.fume.FurnaceCapabilityProvider;
 import xyz.brassgoggledcoders.steamagerevolution.api.fume.IFumeProducer;
-import xyz.brassgoggledcoders.steamagerevolution.utils.NOPStorage;
-import xyz.brassgoggledcoders.steamagerevolution.utils.NullFactory;
+import xyz.brassgoggledcoders.steamagerevolution.utils.capability.NOPStorage;
+import xyz.brassgoggledcoders.steamagerevolution.utils.capability.NullFactory;
 
 @EventBusSubscriber(modid = SteamAgeRevolution.MODID)
 public class SARCaps {

@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 import xyz.brassgoggledcoders.steamagerevolution.SARObjectHolder;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.items.itemblocks.ItemBlockHeavyOre;
-import xyz.brassgoggledcoders.steamagerevolution.utils.MiningUtils;
+import xyz.brassgoggledcoders.steamagerevolution.worldgen.OreGenerator;
 
 public class BlockHeavyOreIndicator extends BlockBase
         implements IHasGeneratedModel, IHasBlockStateMapper, IHasBlockColor {
@@ -56,7 +56,7 @@ public class BlockHeavyOreIndicator extends BlockBase
             if(facing.equals(EnumFacing.UP) || facing.equals(EnumFacing.DOWN)) {
                 facing = EnumFacing.byHorizontalIndex(worldIn.rand.nextInt(3));
             }
-            MiningUtils.generateOreSeam(worldIn, pos, facing.getOpposite(), 10 + worldIn.rand.nextInt(10),
+            OreGenerator.generateOreSeam(worldIn, pos, facing.getOpposite(), 10 + worldIn.rand.nextInt(10),
                     4 + worldIn.rand.nextInt(2), 3 + worldIn.rand.nextInt(3));
             return true;
         }

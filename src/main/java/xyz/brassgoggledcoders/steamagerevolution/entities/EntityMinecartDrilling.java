@@ -43,7 +43,7 @@ public class EntityMinecartDrilling extends EntityMinecartInventory<InventoryBas
 
     public EntityMinecartDrilling(World world) {
         super(world);
-        Pair<int[], int[]> posi = MiningUtils.getGUIPositionGrid(62, 31, 3, 1);
+        Pair<int[], int[]> posi = GUIInventory.getGUIPositionGrid(62, 31, 3, 1);
         setInventory(new InventoryBuilder<>(new InventoryBasic(this))
                 .addPiece("inventory",
                         new InventoryPieceItemHandler(new HandlerForceStack(3), posi.getLeft(), posi.getRight()))
