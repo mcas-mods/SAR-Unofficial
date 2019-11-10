@@ -2,6 +2,8 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 
 import java.util.List;
 
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.INBTSerializable;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GUIElement;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.GUIInventory;
 

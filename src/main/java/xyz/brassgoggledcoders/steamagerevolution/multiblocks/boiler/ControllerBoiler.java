@@ -61,13 +61,15 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatabl
         // Stage 1 - Burn fuel
         if(currentBurnTime == 0) {
             IItemHandler solidFuelHandler = getInventory().getHandler("solidFuel", ItemStackHandlerSync.class);
-            for(int i = 0; i < solidFuelHandler.getSlots(); i++) {
-                ItemStack fuel = solidFuelHandler.getStackInSlot(i);
-                if(!fuel.isEmpty() && TileEntityFurnace.getItemBurnTime(fuel) != 0) {
-                    currentBurnTime = (int) Math.floor(TileEntityFurnace.getItemBurnTime(fuel) / fuelDivisor);
-                    fuel.shrink(1);
-                    return true;
-                }
+            if(solidFuelHandler != null) {
+	            for(int i = 0; i < solidFuelHandler.getSlots(); i++) {
+	                ItemStack fuel = solidFuelHandler.getStackInSlot(i);
+	                if(!fuel.isEmpty() && TileEntityFurnace.getItemBurnTime(fuel) != 0) {
+	                    currentBurnTime = (int) Math.floor(TileEntityFurnace.getItemBurnTime(fuel) / fuelDivisor);
+	                    fuel.shrink(1);
+	                    return true;
+	                }
+	            }
             }
             // TODO Reimplement liquid fuel support
             // If we have run out of fuel to maintain temperature, rapidly cool down
@@ -132,6 +134,7 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatabl
         if(newPart instanceof TileEntityBoilerGauge) {
             hasWindow = true;
         }
+        super.onBlockAdded(newPart);
     }
 
     @Override
@@ -139,6 +142,7 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatabl
         if(oldPart instanceof TileEntityBoilerGauge && hasWindow == true) {
             hasWindow = connectedParts.stream().noneMatch(part -> part instanceof TileEntityBoilerGauge);
         }
+        super.onBlockRemoved(oldPart);
     }
 
     @Override

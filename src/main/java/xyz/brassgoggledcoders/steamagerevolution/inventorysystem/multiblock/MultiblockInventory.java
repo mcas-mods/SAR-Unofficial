@@ -10,6 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBasic;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.gui.ContainerInventory;
@@ -28,7 +29,9 @@ public abstract class MultiblockInventory<INV extends InventoryBasic> extends SA
     protected void onBlockAdded(IMultiblockPart newPart) {
         if(newPart instanceof MultiblockInventoryTileEntity) {
             MultiblockInventoryTileEntity<?> te = (MultiblockInventoryTileEntity<?>) newPart;
+            //SteamAgeRevolution.instance.getLogger().devInfo(te.getBlockType().getLocalizedName());
             if(te.getAssociatedInventoryPiece() != null) {
+            	SteamAgeRevolution.instance.getLogger().devInfo(te.getAssociatedInventoryPiece().toString());
                 te.getInventory().addNewPiece(te.getAssociatedInventoryPiece());
             }
         }
