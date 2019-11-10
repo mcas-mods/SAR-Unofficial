@@ -54,6 +54,7 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatabl
     // TODO Client interpolation of burn time and temp
     @Override
     protected boolean updateServer() {
+    	super.updateServer();
         // Temp
         SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
                 new PacketSetBurnTime(getMachinePos(), currentBurnTime), getMachinePos(),
@@ -82,7 +83,8 @@ public class ControllerBoiler extends MultiblockCraftingMachine<InventoryHeatabl
             currentBurnTime--;
             // Heat 'er up
             // At full heat, we can begin to convert water to steam
-            if(getInventory().getCapability(SARCaps.HEATABLE, null).heat(1)) {
+            getInventory().getCapability(SARCaps.HEATABLE, null).heat(1);
+            if(getInventory().getCapability(SARCaps.HEATABLE, null).getCurrentTemperature() >= 100) {
                 FluidTankSingleSync steamTank = getInventory().getHandler("steamTank", FluidTankSingleSync.class);
                 FluidTankSingleSync waterTank = getInventory().getHandler("waterTank", FluidTankSingleSync.class);
                 if(waterTank.getFluidAmount() >= fluidConversionPerTick) {

@@ -9,7 +9,7 @@ import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.Inventor
 public class InventoryPieceBurnTime extends InventoryPiece<InventoryCraftingMachine> {
 
     public InventoryPieceBurnTime(int xPos, int yPos) {
-        super(xPos, yPos, 94, 166, 13, 13, 0);
+        super(xPos, yPos, 94, 166, 13, 13, -2);
     }
 
     @Override
@@ -18,8 +18,8 @@ public class InventoryPieceBurnTime extends InventoryPiece<InventoryCraftingMach
             ControllerBoiler boiler = (ControllerBoiler) enclosingInv.enclosingMachine;
             if(boiler.currentBurnTime > 0) {
                 int scaled = Math.min(13, boiler.currentBurnTime * getGUIElement().height / 200);
-                gui.drawTexturedModalRect(gui.guiLeft + getX(), gui.guiTop + getY() + (getGUIElement().height - scaled),
-                        92, 179, 14, scaled);
+                gui.drawTexturedModalRect(gui.getGuiLeft() + getX() + this.getOffset(), gui.getGuiTop() + getY() + this.getOffset() + (getGUIElement().height - scaled),
+                        94, 179, 14, scaled);
             }
         }
         super.backgroundLayerCallback(gui, partialTicks, mouseX, mouseY);

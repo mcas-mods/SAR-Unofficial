@@ -1,11 +1,17 @@
 package xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network;
 
+import com.teamacronymcoders.base.multiblocksystem.MultiblockTileEntityBase;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.fml.common.network.simpleimpl.*;
+import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import xyz.brassgoggledcoders.steamagerevolution.SARCaps;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.IHasInventory;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryHeatable;
 
 public class HandlerSetTemperature implements IMessageHandler<PacketSetTemperature, IMessage> {
     @Override
@@ -23,10 +29,17 @@ public class HandlerSetTemperature implements IMessageHandler<PacketSetTemperatu
 
     private void processMessage(WorldClient worldClient, PacketSetTemperature message) {
         TileEntity te = worldClient.getTileEntity(message.pos);
-        if(te instanceof IHasInventory<?>
-                && ((IHasInventory<?>) te).getInventory().hasCapability(SARCaps.HEATABLE, null)) {
-            ((IHasInventory<?>) te).getInventory().getCapability(SARCaps.HEATABLE, null)
-                    .setCurrentTemperature(message.temp);
+        IHasInventory<?> inventoryHolder;
+        if(te instanceof IHasInventory) {
+            inventoryHolder = (IHasInventory<?>) te;
+        }
+        else {
+            MultiblockTileEntityBase<?> tile = (MultiblockTileEntityBase<?>) te;
+            inventoryHolder = (IHasInventory<?>) tile.getMultiblockController();
+        }
+        
+        if(inventoryHolder != null && inventoryHolder.getInventory().hasCapability(SARCaps.HEATABLE, null)) {
+        	((InventoryHeatable)inventoryHolder.getInventory()).getCapability(SARCaps.HEATABLE, null).setCurrentTemperature(message.value);
         }
     }
 }

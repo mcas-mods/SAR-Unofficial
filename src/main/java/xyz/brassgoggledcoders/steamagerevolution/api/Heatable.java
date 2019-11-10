@@ -47,8 +47,8 @@ public class Heatable implements IHeatable {
     @Override
     public void setCurrentTemperature(int currentTemperature) {
         temperature = currentTemperature;
-        if(currentTemperature < 0) {
-            temperature = 0;
+        if(currentTemperature < getMinimumTemperature()) {
+            temperature = getMinimumTemperature();
         }
     }
 

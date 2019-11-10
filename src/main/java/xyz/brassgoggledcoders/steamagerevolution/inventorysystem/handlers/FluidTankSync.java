@@ -20,7 +20,7 @@ public class FluidTankSync extends FluidTank implements INBTSerializable<NBTTagC
     @Override
     public void onContentsChanged() {
         if(!getEnclosingIPiece().enclosingInv.enclosingMachine.getMachineWorld().isRemote) {
-            SteamAgeRevolution.instance.getLogger().devInfo("Fluid update sent");
+           // SteamAgeRevolution.instance.getLogger().devInfo("Fluid update sent");
             SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
                     new PacketFluidUpdate(getEnclosingIPiece().enclosingInv.enclosingMachine.getMachinePos(),
                             getFluid(), getEnclosingIPiece().getName()),

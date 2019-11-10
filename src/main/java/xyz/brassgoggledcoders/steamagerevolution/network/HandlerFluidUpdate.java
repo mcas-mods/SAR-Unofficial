@@ -27,7 +27,7 @@ public class HandlerFluidUpdate implements IMessageHandler<PacketFluidUpdate, IM
     }
 
     private void processMessage(WorldClient worldClient, PacketFluidUpdate message) {
-        SteamAgeRevolution.instance.getLogger().devInfo("Fluid update received");
+        //SteamAgeRevolution.instance.getLogger().devInfo("Fluid update received");
         TileEntity te = worldClient.getTileEntity(message.pos);
         if(te instanceof IHasInventory) {
             IHasInventory<?> tile = (IHasInventory<?>) te;

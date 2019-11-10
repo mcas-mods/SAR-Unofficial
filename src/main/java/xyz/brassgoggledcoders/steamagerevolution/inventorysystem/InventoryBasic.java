@@ -12,6 +12,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.items.ItemStackHandler;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.FluidTankSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.pieces.*;
@@ -50,9 +51,10 @@ public class InventoryBasic implements ICapabilitySerializable<NBTTagCompound> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void deserializeNBT(NBTTagCompound tag) {
-		for(NBTBase base : tag.getTagList("pieces", 10)) {
+		for(NBTBase base : tag.getTagList("pieces", 10)) {		
 			NBTTagCompound ctag = (NBTTagCompound) base;
 			String name = ctag.getString("name");
+			FMLLog.warning(name);
 			if(this.inventoryPieces.get(name) != null) {
 				((INBTSerializable) this.inventoryPieces.get(name)).deserializeNBT(ctag);
 			}

@@ -3,12 +3,13 @@ package xyz.brassgoggledcoders.steamagerevolution.inventorysystem;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.steamagerevolution.SARCaps;
 import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
 import xyz.brassgoggledcoders.steamagerevolution.api.Heatable;
 import xyz.brassgoggledcoders.steamagerevolution.api.IHeatable;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.network.PacketSetTemperature;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.InventoryCraftingMachine;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.PacketSetBurnTime;
 
 public class InventoryHeatable extends InventoryCraftingMachine {
     public IHeatable internal;
@@ -20,9 +21,9 @@ public class InventoryHeatable extends InventoryCraftingMachine {
 
     @Override
     public boolean updateServer() {
-        // TODO
+    	//FMLLog.warning("" + getCapability(SARCaps.HEATABLE, null).getCurrentTemperature());
         SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-                new PacketSetBurnTime(enclosingMachine.getMachinePos(),
+                new PacketSetTemperature(enclosingMachine.getMachinePos(),
                         getCapability(SARCaps.HEATABLE, null).getCurrentTemperature()),
                 enclosingMachine.getMachinePos(), enclosingMachine.getMachineWorld().provider.getDimension());
         return super.updateServer();

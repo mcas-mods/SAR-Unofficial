@@ -104,6 +104,7 @@ public class SteamAgeRevolution extends BaseModFoundation<SteamAgeRevolution> {
                 PacketSetTemperature.class, Side.CLIENT);
         SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerSetBurnTime.class, PacketSetBurnTime.class,
                 Side.CLIENT);
+        SteamAgeRevolution.instance.getPacketHandler().registerPacket(HandlerSetTemperature.class, PacketSetTemperature.class, Side.CLIENT);
         SARCaps.register();
         ModuleMaterials.knownMetalTypes.add("Iron");
         ModuleMaterials.knownMetalTypes.add("Gold");
