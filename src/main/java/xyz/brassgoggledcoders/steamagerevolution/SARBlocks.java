@@ -56,7 +56,7 @@ public class SARBlocks {
         blockRegistry.register(new BlockAlloyFurnaceFrame(Material.ROCK, "alloy_furnace_frame"));
         blockRegistry.register(new BlockAlloyFurnaceFluidInput(Material.ROCK, "alloy_furnace_fluid_input"));
         blockRegistry.register(new BlockAlloyFurnaceFluidOutput(Material.ROCK, "alloy_furnace_fluid_output"));
-        blockRegistry.register(new BlockAlloyFurnaceHeatInput(Material.ROCK, "alloy_furnace_heat_input"));
+        blockRegistry.register(new BlockAlloyFurnaceHeatInput(Material.ROCK, "alloy_furnace_steam_input"));
 
         blockRegistry.register(new BlockSteelworksFrame(Material.ROCK, "steelworks_frame"));
         blockRegistry.register(new BlockSteelworksIronInput(Material.ROCK, "steelworks_iron_input"));
@@ -96,7 +96,7 @@ public class SARBlocks {
         blockRegistry.register(new BlockTankValve(Material.IRON, "tank_valve"));
         blockRegistry.register(new BlockTankWindow(Material.GLASS, "tank_window"));
 
-        blockRegistry.register(new BlockHeater());
+        //blockRegistry.register(new BlockHeater());
     }
 
     private static void registerFluids(BlockRegistry blockRegistry) {

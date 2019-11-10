@@ -118,6 +118,8 @@ tile.steamagerevolution.grinder_frame.name=Grinder Frame
 tile.steamagerevolution.grinder_input.name=Grinder Blades
 tile.steamagerevolution.grinder_output.name=Grinder Output
 
+tile.steamagerevolution.heater.name=Heater
+
 #Entities
 entity.entitydeadinventor.name=Dead Inventor
 entity.entityminecartdrilling.name=Seam Miner Cart
@@ -152,6 +154,7 @@ steamagerevolution.machine.casting_bench=Casting Bench
 steamagerevolution.machine.fume_collector=Fume Collector
 steamagerevolution.machine.fluid_io=Fluid IO
 steamagerevolution.machine.fluid_hopper=Fluid Hopper
+steamagerevolution.machine.heater=Heater
 
 #Other
 fluid.steam=Steam

@@ -43,8 +43,10 @@ public abstract class MultiblockInventoryTileEntity<MB extends MultiblockCraftin
 
     @Override
     public InventoryCraftingMachine getInventory() {
-        // FIX This causes (harmless-ish) NPEs on world load
-        return getMultiblockController().getInventory();
+    	if(this.getWorld().isBlockLoaded(this.getMachinePos())) {
+    		return getMultiblockController().getInventory();
+    	}
+    	return new InventoryCraftingMachine(this);
     }
 
     @Override

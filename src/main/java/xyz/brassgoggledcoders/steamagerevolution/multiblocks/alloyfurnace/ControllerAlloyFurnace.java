@@ -29,8 +29,7 @@ public class ControllerAlloyFurnace extends MultiblockCraftingMachine<InventoryH
                         new InventoryPieceMultiFluidTank(IOType.INPUT,
                                 new MultiFluidHandler(new FluidTankSync(SARRecipes.standardMoltenCapacity),
                                         new FluidTankSync(SARRecipes.standardMoltenCapacity)),
-                                new int[] { 22, 78 }, new int[] { 11, 11 }))
-                .addPiece("heat", new InventoryPieceTemperatureGauge(10, 10))
+                                new int[] { 22, 78 }, new int[] { 11, 11 })).addSteamTank(10, 10)
                 .addPiece("output", new InventoryPieceFluidTank(IOType.OUTPUT,
                         new FluidTankSync(SARRecipes.standardMoltenCapacity * 2), 134, 17))
                 .build());

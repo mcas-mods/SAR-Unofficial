@@ -54,7 +54,6 @@ public class InventoryBasic implements ICapabilitySerializable<NBTTagCompound> {
 		for(NBTBase base : tag.getTagList("pieces", 10)) {		
 			NBTTagCompound ctag = (NBTTagCompound) base;
 			String name = ctag.getString("name");
-			FMLLog.warning(name);
 			if(this.inventoryPieces.get(name) != null) {
 				((INBTSerializable) this.inventoryPieces.get(name)).deserializeNBT(ctag);
 			}

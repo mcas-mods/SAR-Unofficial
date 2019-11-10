@@ -4,35 +4,37 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fml.common.FMLLog;
 import xyz.brassgoggledcoders.steamagerevolution.SARCaps;
-import xyz.brassgoggledcoders.steamagerevolution.SteamAgeRevolution;
+import xyz.brassgoggledcoders.steamagerevolution.api.IHeatable;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryBuilder;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.InventoryHeatable;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.handlers.FluidTankSync;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.TileEntityCraftingMachine;
+import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.pieces.InventoryPieceProgressBar;
 import xyz.brassgoggledcoders.steamagerevolution.inventorysystem.recipe.pieces.InventoryPieceTemperatureGauge;
 import xyz.brassgoggledcoders.steamagerevolution.machinesystem.MachineType;
-import xyz.brassgoggledcoders.steamagerevolution.multiblocks.boiler.PacketSetBurnTime;
 
 public class TileEntityHeater extends TileEntityCraftingMachine<InventoryHeatable> implements ITickable {
 
     public static final String uid = "heater";
 
     public TileEntityHeater() {
-        setInventory(new InventoryBuilder<>(new InventoryHeatable(this, 1000)).addSteamTank(10, 30)
-                .addPiece("temp", new InventoryPieceTemperatureGauge(10, 50)).build());
+        setInventory(new InventoryBuilder<>(new InventoryHeatable(this, 100)).addSteamTank(30, 18)
+                .addPiece("temp", new InventoryPieceTemperatureGauge(100, 20)).addPiece("bar", new InventoryPieceProgressBar(60, 30)).build());
     }
 
     @Override
     public void update() {
+    	super.update();
         if(!getWorld().isRemote) {
-            SteamAgeRevolution.instance.getPacketHandler().sendToAllAround(
-                    new PacketSetBurnTime(getMachinePos(),
-                            getInventory().getCapability(SARCaps.HEATABLE, null).getCurrentTemperature()),
-                    getMachinePos(), getMachineWorld().provider.getDimension());
-            if(getInventory().getFluidHandlers().get(0).getFluidAmount() > 0) {
-                getInventory().internal.setCurrentTemperature(1000);
+            FluidTankSync tank = getInventory().getFluidHandlers().get(0);
+            IHeatable heatable = this.getInventory().getCapability(SARCaps.HEATABLE, null);
+			if(tank.getFluidAmount() > Fluid.BUCKET_VOLUME / 100 && heatable.getCurrentTemperature() < heatable.getMaximumTemperature()) {
+                tank.drain(Fluid.BUCKET_VOLUME / 100, true);
+                heatable.heat(1);
             }
             for(EnumFacing facing : EnumFacing.VALUES) {
                 TileEntity te = getWorld().getTileEntity(getPos().offset(facing));
