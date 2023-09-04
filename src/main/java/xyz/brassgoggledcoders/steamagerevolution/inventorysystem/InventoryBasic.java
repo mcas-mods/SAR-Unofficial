@@ -105,7 +105,7 @@ public class InventoryBasic implements ICapabilitySerializable<NBTTagCompound> {
 		if (!pieceLists.containsKey(type)) {
 			return new ArrayList<>();
 		}
-		return new ArrayList<>(pieceLists.get(type).values());
+		return new ArrayList(pieceLists.get(type).values());
 	}
 
 	@Override
